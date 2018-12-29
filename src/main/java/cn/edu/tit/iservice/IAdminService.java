@@ -2,7 +2,7 @@ package cn.edu.tit.iservice;
 
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface IAdminService {
 	
 	/**
