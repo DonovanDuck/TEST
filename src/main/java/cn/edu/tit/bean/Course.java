@@ -10,6 +10,7 @@ public class Course {
 	private Integer courseCategory; // 课程分类
 	private String publisherId; //发布者id
 	private String faceImg; // 课程图标
+	
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -40,6 +41,7 @@ public class Course {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
+
 	public String getFaceImg() {
 		return faceImg;
 	}
@@ -60,9 +62,11 @@ public class Course {
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
 				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", faceImg=" + faceImg + "]";
+
 	}
 	
 
+	
 	
 	
 }

@@ -8,33 +8,21 @@ import java.util.List;
 
 public class VirtualClass {
 
-	private Integer virtualClassNum; // 班级号
+	private String virtualClassNum; // 班级号
 	private String virtualClassName; // 班级名称
 	private String creatorId; // 创建者id
 	private Timestamp createTime; // 创建时间
-	private String virtualClassDetail; // 简介
+
+	private String virtualClassDetail; // 班级简介
+	private Integer courseId; // 课程id
+	private String faceImg; // 课程图标
 	private List<RealClass> realClassList; // 包含自然班级集合
-	private String faceImg;
-	private Integer courseId;
 	
-	
-	public Integer getCourseId() {
-		return courseId;
-	}
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
-	public String getFaceImg() {
-		return faceImg;
-	}
-	public void setFaceImg(String faceImg) {
-		this.faceImg = faceImg;
-	}
 	// setter - getter
-	public int getVirtualClassNum() {
+	public String getVirtualClassNum() {
 		return virtualClassNum;
 	}
-	public void setVirtualClassNum(int virtualClassNum) {
+	public void setVirtualClassNum(String virtualClassNum) {
 		this.virtualClassNum = virtualClassNum;
 	}
 	public String getVirtualClassName() {
@@ -61,12 +49,44 @@ public class VirtualClass {
 	public void setVirtualClassDetail(String virtualClassDetail) {
 		this.virtualClassDetail = virtualClassDetail;
 	}
+	public Integer getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+	public String getFaceImg() {
+		return faceImg;
+	}
+	public void setFaceImg(String faceImg) {
+		this.faceImg = faceImg;
+	}
 	public List<RealClass> getRealClassList() {
 		return realClassList;
 	}
 	public void setRealClassList(List<RealClass> realClassList) {
 		this.realClassList = realClassList;
 	}
+	@Override
+	public String toString() {
+		return "VirtualClass [virtualClassNum=" + virtualClassNum + ", virtualClassName=" + virtualClassName
+				+ ", creatorId=" + creatorId + ", createTime=" + createTime + ", virtualClassDetail="
+				+ virtualClassDetail + ", courseId=" + courseId + ", faceImg=" + faceImg + ", realClassList="
+				+ realClassList + "]";
+	}
+	public VirtualClass(String virtualClassNum, String virtualClassName, String creatorId, Timestamp createTime,
+			String virtualClassDetail, Integer courseId, String faceImg, List<RealClass> realClassList) {
+		super();
+		this.virtualClassNum = virtualClassNum;
+		this.virtualClassName = virtualClassName;
+		this.creatorId = creatorId;
+		this.createTime = createTime;
+		this.virtualClassDetail = virtualClassDetail;
+		this.courseId = courseId;
+		this.faceImg = faceImg;
+		this.realClassList = realClassList;
+	}
+	
 	
 	
 }
