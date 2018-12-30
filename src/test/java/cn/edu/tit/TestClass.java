@@ -1,5 +1,6 @@
 package cn.edu.tit;
 
+
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,10 +8,12 @@ import java.util.List;
 import javax.annotation.Resource;
 
 import org.apache.log4j.Logger;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+
 
 import cn.edu.tit.common.Common;
 import cn.edu.tit.idao.IResourceDao;

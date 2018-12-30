@@ -8,11 +8,11 @@ public class Student {
 	private String studentName; // 学生姓名
 	private String studentGender; // 学生性别
 	private String studentPassword; // 学生性别
-	private String classNum; // 所属班级
+	private String classNum; // 班级
 	private String professional; // 专业
 	private String telephone; // 电话
 	private String email; // 电子邮件
-	private File faceImg; //学生头像
+	private String faceImg; //学生头像
 	
 	// setter - getter
 	public String getStudentId() {
@@ -63,10 +63,10 @@ public class Student {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public File getFaceImg() {
+	public String getFaceImg() {
 		return faceImg;
 	}
-	public void setFaceImg(File faceImg) {
+	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
 	
