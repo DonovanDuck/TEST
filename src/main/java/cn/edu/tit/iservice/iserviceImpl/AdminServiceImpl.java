@@ -30,10 +30,7 @@ public class AdminServiceImpl implements AdminService {
         int insertResult = 0;
 		String insertMsg = "";
 		try {
-			adminList = readExcel.getExcelInfo(file);
-			//至此已经将excel中的数据转换到list里面了,接下来就可以操作list,可以进行保存到数据库,或者其他操作,
-			//和你具体业务有关,这里不做具体的示范
-			//数据库插入		
+			adminList = readExcel.getExcelInfo(file);	
 			for(Admin s :adminList) {
 				iAdminDao.addAdmin(s);
 				insertResult++;
