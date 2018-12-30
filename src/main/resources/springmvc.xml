@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
-	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:jdbc="http://www.springframework.org/schema/jdbc"
-	xmlns:jee="http://www.springframework.org/schema/jee" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -23,9 +26,9 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 
 	<!-- 使用组件扫描的方式可以一次扫描多个Controller -->
-	<context:component-scan base-package="cn.edu.tit.controller"/>
-	
-	<mvc:annotation-driven/>
+	<context:component-scan
+		base-package="cn.edu.tit.controller" />
+	<mvc:annotation-driven />
 
 	<!-- 配置视图解析器 -->
 	<bean
@@ -35,7 +38,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 		<property name="suffix" value=".jsp"></property>
 	</bean>
 
-	
+
 
 
 	<!-- 自定义参数类型绑定 --><!-- @DateTimeFormat && @NumberFormat 进行类型转换 -->
@@ -55,9 +58,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<mvc:resources mapping="/imgdata/**" location="/imgdata/" />
 
 	<!-- 定义拦截器 -->
-	<!-- <mvc:interceptors>
-
-	</mvc:interceptors> -->
+	<!-- <mvc:interceptors> </mvc:interceptors> -->
 
 	<!--配置上传文件数据解析器 -->
 	<bean id="multipartResolver"
@@ -65,25 +66,21 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 		<property name="maxUploadSize">
 			<value>9242880</value>
 		</property>
+		<property name="maxInMemorySize">
+			 <value>40960</value>
+		</property>
 	</bean>
 
 	<!-- 定义全局异常处理器 -->
 	<!-- 只有一个全局异常处理器起作用 -->
 	<!-- springmvc提供的简单异常处理器 -->
-	<!-- <bean
-		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
-		定义默认的异常处理页面
-		<property name="defaultErrorView" value="/WEB-INF/jsp/error.jsp" />
-		定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception
-		<property name="exceptionAttribute" value="ex" />
-		定义需要特殊处理的异常，这是重要点
-		<property name="exceptionMappings">
-			<props>
-				<prop key="ssm.exception.CustomException">/WEB-INF/jsp/custom_error.jsp</prop>
-			</props>
-			还可以定义其他的自定义异常
-		</property>
-	</bean> -->
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+		定义默认的异常处理页面 <property name="defaultErrorView" value="/WEB-INF/jsp/error.jsp" 
+		/> 定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception <property name="exceptionAttribute" 
+		value="ex" /> 定义需要特殊处理的异常，这是重要点 <property name="exceptionMappings"> <props> 
+		<prop key="ssm.exception.CustomException">/WEB-INF/jsp/custom_error.jsp</prop> 
+		</props> 还可以定义其他的自定义异常 </property> </bean> -->
 	<!-- <bean id="exceptionResolver" class="exception.OverallExceptionResolver"></bean> -->
 
+	
 </beans>
