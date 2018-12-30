@@ -3,6 +3,14 @@
  */
 package cn.edu.tit.common;
 
-public class Common {
+import java.util.UUID;
 
+import org.springframework.stereotype.Component;
+
+@Component
+public class Common {
+	
+	public static String uuid() {
+		return UUID.randomUUID().toString().replace("-", "").toUpperCase();
+	}
 }

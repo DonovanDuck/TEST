@@ -9,7 +9,7 @@ public class Course {
 	private String courseDetail; // 课程描述
 	private String courseCategory; // 课程分类
 	private String publisherId; //发布者id
-	private File courseImg; // 课程图标
+	private File faceImg; // 课程图标
 	
 	// setter - getter
 	public String getCourseId() {
@@ -42,12 +42,13 @@ public class Course {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
-	public File getCourseImg() {
-		return courseImg;
+	public File getFaceImg() {
+		return faceImg;
 	}
-	public void setCourseImg(File courseImg) {
-		this.courseImg = courseImg;
+	public void setFaceImg(File faceImg) {
+		this.faceImg = faceImg;
 	}
+	
 	
 	
 }

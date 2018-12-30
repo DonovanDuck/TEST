@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tit.idao.IResourceDao">
+	<!-- 结果集映射 -->
+	<!-- <resultMap type="cn.edu.tit.course.bean.Course" id="course">
+		<id column="course_id" property="course_id" />
+		<result column="course_name" property="course_name" />
+		<result column="course_flag" property="course_flag" />
+		<result column="course_notes" property="course_notes" />
+		<result column="college" property="college" />
+		<result column="course_img" property="course_img" />
+		<result column="course_lable" property="course_lable" />
+		<result column="schoolTerm" property="schoolTerm" />
+		<result column="application_pro" property="application_pro" />
+		<result column="create_user" property="create_user" />
+		<result column="create_time" property="create_time" />
+		<result column="update_user" property="update_user" />
+		<result column="update_time" property="update_time" />
+	</resultMap> -->
+	
+	<insert id = "addResourceToLib" parameterType="java.util.List">
+		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, category_id, resource_path) values
+		<foreach collection="list" item="item" index="index"  separator="," >
+		(#{item.resourceId}, #{item.resourceName}, #{item.resourceDetail}, #{item.publishTime}, #{item.publisherId}, #{item.catetoryId}, #{item.resourcePath})
+		</foreach>
+	</insert>
+	
+</mapper>

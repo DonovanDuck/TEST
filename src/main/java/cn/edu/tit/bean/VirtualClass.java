@@ -8,11 +8,13 @@ import java.util.List;
 
 public class VirtualClass {
 
-	private int virtualClassNum; // 班级号
+	private Integer virtualClassNum; // 班级号
 	private String virtualClassName; // 班级名称
 	private String creatorId; // 创建者id
 	private Timestamp createTime; // 创建时间
 	private String virtualClassDetail; // 班级简介
+	private Integer courseId; // 课程id
+	private String faceImg; // 课程图标
 	private List<RealClass> realClassList; // 包含自然班级集合
 	
 	// setter - getter
@@ -51,6 +53,21 @@ public class VirtualClass {
 	}
 	public void setRealClassList(List<RealClass> realClassList) {
 		this.realClassList = realClassList;
+	}
+	public Integer getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+	public String getFaceImg() {
+		return faceImg;
+	}
+	public void setFaceImg(String faceImg) {
+		this.faceImg = faceImg;
+	}
+	public void setVirtualClassNum(Integer virtualClassNum) {
+		this.virtualClassNum = virtualClassNum;
 	}
 	
 	
