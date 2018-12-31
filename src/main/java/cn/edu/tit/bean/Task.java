@@ -14,8 +14,8 @@ public class Task {
 	private Timestamp publishTime; // 发布时间
 	private Timestamp taskEndTime; //任务结束时间 
 	private String publisherId; // 发布人id
-	private int courseId; // 对应课程id
-	private int status; //对应任务状态 （0：开始任务  1：结束任务）
+	private Integer courseId; // 对应课程id
+	private Integer status; //对应任务状态 （0：开始任务  1：结束任务）
 	private List<Accessory> accessoryList; // 任务对应附件
 	
 	// setter - getter
