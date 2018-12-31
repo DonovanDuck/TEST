@@ -7,12 +7,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Admin;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.common.ReadExcel;
 import cn.edu.tit.idao.IAdminDao;
-import cn.edu.tit.iservice.AdminService;
+import cn.edu.tit.iservice.IAdminService;
 
 @Service
-public class AdminServiceImpl implements AdminService {
+public class AdminServiceImpl implements IAdminService {
 
 	/**
 	 * 申明Dao层
@@ -22,7 +23,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	
 	@Override
-	public String readExcelFile(MultipartFile file) {
+	public String addUserInfo(MultipartFile file) {
 		//创建处理EXCEL的类
         ReadExcel readExcel=new ReadExcel();
         //解析excel，获取上传的事件单
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 		try {
 			adminList = readExcel.getExcelInfo(file);	
 			for(Admin s :adminList) {
-				iAdminDao.addAdmin(s);
+				//iAdminDao.addAdmin(s);
 				insertResult++;
 				System.out.println(s.toString());
 			}
@@ -53,10 +54,12 @@ public class AdminServiceImpl implements AdminService {
 		return insertMsg;
 	}
 
+	/**
+	 * 管理员初始化分类（系部）信息
+	 * */
 	@Override
-	public void setCategory() {
-		// TODO Auto-generated method stub
-
+	public void initializeCategory(List<Category> categories) {
+		iAdminDao.initializeCategory(categories);
 	}
 
 	@Override
@@ -69,14 +72,13 @@ public class AdminServiceImpl implements AdminService {
 	 * 添加管理员信息
 	 * */
 	@Override
-	public void addAdmin(Admin admin) {
+	public void addAdmin(List<Admin> admin) {
 		iAdminDao.addAdmin(admin);
 	}
 
+	
 	@Override
-	public void addUserInfo() {
-		// TODO Auto-generated method stub
-
+	public List<Admin> readAdmin() {
+		return iAdminDao.readAdmin();
 	}
-
 }

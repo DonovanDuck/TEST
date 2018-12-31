@@ -8,16 +8,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<title>批量导入客户</title>
+<title>测试页面</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <body>
-	<div id="hidden_file_div">
+<!-- 测试EXCEL 部分代码 -->
+   <!-- <div id="hidden_file_div">
 		<form id="form_excel" name="form_excel" 
 		action="${pageContext.request.contextPath}/admin/DoExcel" method="post" enctype="multipart/form-data">
 			<input type="file" id="file_excel" name="file_excel" />
 		    <input type="submit" />
 		</form>
 		<input type="text" name="filename" id="filename" />
+	</div> -->
+	<div>
+		<form id="form_excel" name="form_excel" 
+		action="${pageContext.request.contextPath}/admin/DoExcel" method="post" enctype="multipart/form-data">
+			<input type="file" id="file_excel" name="file_excel" />
+		    <input type="submit" />
+		</form>
 	</div>
+	
 </body>
 </html>
