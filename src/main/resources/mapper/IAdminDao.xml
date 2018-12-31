@@ -3,10 +3,6 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.IAdminDao">
 
-	<!--增加管理员信息 <insert id="addAdmin" parameterType="cn.edu.tit.bean.Admin"> 
-		insert into admin(adminId,adminUsername,adminPassword) values (#{adminId},#{adminUsername},#{adminPassword}); 
-		</insert> -->
-
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
 		<result column="teacher_password" property="adminPassword" />
@@ -43,12 +39,13 @@
 	</insert>
 
 	<!-- 管理员修改系部信息 -->
-	<update id="modifyCategory" parameterType="java.util.List">
-		<foreach item="categories" collection="list" separator=";">	
+	<update id="modifyCategory">
 			update category set
-            category_name = #{categories.categoryName},
-            category_detail = #{categories.categoryDetail}
-            where category_id = #{categories.categoryId} 
-		</foreach>
+			category_name =
+			#{categoryName},
+			category_detail =
+			#{categoryDetail}
+			where category_id =
+			#{categoryId}
 	</update>
 </mapper>

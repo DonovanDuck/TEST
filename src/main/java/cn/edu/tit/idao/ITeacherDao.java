@@ -10,19 +10,24 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.VirtualClass;
 
 @Component
 public interface ITeacherDao {
-	
-	public void createCourse(Course course);
-	public void deleteCourse(Integer courseId);
-	public void createVirtualClass(VirtualClass virtualClass);
-	public void updateCourse(Course course);
-	public List<Course> courseList(String publisherId);
-	public List<Student> studentList(String classNum);
-	public Student searchStudent(String studentId);
-	public List<String> searchRealClassNum(String virtualClassNum);
-	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNUm);
 
+	public void createCourse(Course course);	//创建课程模块
+	public void deleteCourse(Integer courseId);	//删除课程模块
+	public void createVirtualClass(VirtualClass virtualClass);		//创建虚拟班级模块
+	public void updateCourse(Course course);	//修改课程模块
+	public List<Course> courseList(String publisherId);		//课程列表模块
+	public List<Student> studentList(String classNum);		//学生列表模块
+	public Student searchStudent(String studentId);		//查看学生信息模块
+	public List<String> searchRealClassNum(String virtualClassNum);		//查询虚拟班级对应的自然班列表模块
+	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNUm);	//创建虚拟班和自然班映射模块
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * */
+	public void addTeacherInfo(Teacher teacher);
 }

@@ -16,13 +16,13 @@ import cn.edu.tit.iservice.IAdminService;
 @RunWith(SpringJUnit4ClassRunner.class) // 表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 public class AdminTest {
-	private static Logger logger = Logger.getLogger(AdminTest.class);
-
-	@Resource
-	private IAdminService iadminService;
-
-	List<Admin> admin = new ArrayList<Admin>();
-	List<Category> categories = new ArrayList<Category>();
+//	private static Logger logger = Logger.getLogger(AdminTest.class);
+//
+//	@Resource
+//	private IAdminService iadminService;
+//
+//	List<Admin> admin = new ArrayList<Admin>();
+//	List<Category> categories = new ArrayList<Category>();
 
 	@Test
 	public void Test() {
@@ -44,11 +44,11 @@ public class AdminTest {
 		/**
 		 * 测试管理员管理系部功能
 		 * */
-		Category category = new Category("1520561","计算程系","这是一个的系部");
-		Category category2 = new Category("152051","法系","这是一个案的系部");
-		categories.add(category2);
-		categories.add(category);
-		iadminService.modifyCategory(categories);		
+//		Category category = new Category("1520561","计算程222222222系","这是一个的系部");
+//		Category category2 = new Category("152051","法22222222系","这是一个案的系部");
+//		categories.add(category);
+//		categories.add(category2);
+//		iadminService.modifyCategory(categories);		
 	}
 }
 
