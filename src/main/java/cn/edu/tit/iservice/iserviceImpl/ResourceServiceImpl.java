@@ -30,7 +30,9 @@ public class ResourceServiceImpl implements IResourceService {
 	@Override
 	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
 		// TODO Auto-generated method stub
-		
+		for(Resource resource : resourceList){
+			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
+		}
 	}
 
 	@Override

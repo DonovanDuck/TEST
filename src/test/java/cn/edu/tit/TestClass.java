@@ -49,6 +49,6 @@ public class TestClass {
 	
 	@Test
 	public void pubResourceToClass(){
-		resourceDao.bandResourceAndClass("2647A6A9E4BB4FB6A885EFE04FCB60D9", "12345");
+		resourceDao.bandResourceAndClass("432811798460453484200E908AAA976F", "12345");
 	}
 }
