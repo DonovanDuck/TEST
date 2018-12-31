@@ -25,19 +25,14 @@ public class AdminController {
 		
 		//@ResponseBody
 		@RequestMapping(value="DoExcel",method= {RequestMethod.POST})
-		public ModelAndView DoExcel(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {
-			System.out.println("成功访问至-----------Controller 层");
-					
+		public ModelAndView DoExcel(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
 			ModelAndView mv = new ModelAndView();
 			String readResult =null;
 			try {
 				readResult = adminService.readExcelFile(file);
-				System.out.println("canshu :"+readResult);
 			} catch (Exception e) {
 				e.printStackTrace();
-				System.out.println("upload falure");
 			}
-			System.out.println("插入结果="+readResult);
 			mv.addObject("readResult", readResult);
 			mv.setViewName("/success");
 	        return mv;
