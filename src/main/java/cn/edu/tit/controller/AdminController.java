@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.edu.tit.iservice.AdminService;
+import cn.edu.tit.iservice.IAdminService;
 
 @RequestMapping("/admin")
 @Controller
@@ -21,7 +21,7 @@ public class AdminController {
 		 * 添加管理员的方法  excel 相关的操作   能够将数据插入到数据库 
 		 * */
 		@Autowired
-		private AdminService adminService;
+		private IAdminService adminService;
 		
 		//@ResponseBody
 		@RequestMapping(value="DoExcel",method= {RequestMethod.POST})
@@ -29,7 +29,7 @@ public class AdminController {
 			ModelAndView mv = new ModelAndView();
 			String readResult =null;
 			try {
-				readResult = adminService.readExcelFile(file);
+				readResult = adminService.addUserInfo(file);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
