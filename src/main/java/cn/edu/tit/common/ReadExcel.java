@@ -10,6 +10,7 @@ import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.util.NumberToTextConverter;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Admin;
@@ -108,7 +109,7 @@ public class ReadExcel {
 		}
 		List<Admin> adminList = new ArrayList<Admin>();
 		// 循环Excel行数
-		for (int r = 1; r < totalRows; r++) {
+		for (int r = 0; r < totalRows; r++) {
 			Row row = sheet.getRow(r);
 			if (row == null) {
 				continue;
@@ -116,36 +117,25 @@ public class ReadExcel {
 			Admin admin = new Admin();
 			// 循环Excel的列
 			for (int c = 0; c < this.totalCells; c++) {
-				Cell cell = row.getCell(c);	
-				
-				
+				Cell cell = row.getCell(c);
 				if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
 					try {
-						System.out.println("我是数字******************");
 						admin.setAdminPassword(getValue(cell));
-						System.out.println("设置密码******************");
 					} catch (NumberFormatException e) {
 						e.printStackTrace();
 						System.out.println("error");
 					}
-				} 
-				
-				
-				if(cell.getCellType() == HSSFCell.CELL_TYPE_STRING)
-				{
+				}
+				if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
 					try {
-						System.out.println("我是字符串----------------------");
 						admin.setAdminUsername(getValue(cell));
-						System.out.println("用户名******************");
 					} catch (Exception e) {
 						e.printStackTrace();
 						System.out.println("error");
 					}
-				
-				}
-				adminList.add(admin);
+				}		
 			}
-
+			adminList.add(admin);
 		}
 		return adminList;
 	}
@@ -155,19 +145,13 @@ public class ReadExcel {
 	 */
 	private String getValue(Cell cell) {
 		if (cell.getCellType() == cell.CELL_TYPE_BOOLEAN) {
-			// 返回布尔类型的值
 			return String.valueOf(cell.getBooleanCellValue());
 		}
 		if (cell.getCellType() == cell.CELL_TYPE_NUMERIC) {
-			// 返回数值类型的值
-			System.out.println("获取到的--数字--信息为" + String.valueOf(cell.getNumericCellValue()));
-			// 设置每列的类型为String,防止数值记录为 科学计数法
-			cell.setCellType(1);
-			return String.valueOf(cell.getStringCellValue());
+			// 利用NumberToTextConverter.toText将返回的科学技术法变为文本
+			return NumberToTextConverter.toText(cell.getNumericCellValue());
 		}
 		if (cell.getCellType() == cell.CELL_TYPE_STRING) {
-			// 返回字符串类型的值
-			System.out.println("获取到的--字符串--信息为" + String.valueOf(cell.getStringCellValue()));
 			return String.valueOf(cell.getStringCellValue());
 		}
 		return String.valueOf(cell.getStringCellValue());
@@ -196,21 +180,4 @@ public class ReadExcel {
 	public static boolean isExcel2007(String filePath) {
 		return filePath.matches("^.+\\.(?i)(xlsx)$");
 	}
-
-	/**
-	 * 版本1.0代
-	 */
-//
-//	try {
-//		if (null != cell) {
-//			if (c == 0) {
-//				admin.setAdminUsername(getValue(cell));// 得到行中第一个值
-//			} else if (c == 1) {
-//				admin.setAdminPassword(getValue(cell));// 得到行中第二个值
-//			}
-//		}
-//	} catch (Exception e) {
-//		e.printStackTrace();
-//		System.out.println("文件第"+c+"列读取错误");
-//	}
 }

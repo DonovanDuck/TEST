@@ -8,7 +8,7 @@ import java.util.List;
 
 public class Task {
 
-	private int taskId; // 任务id
+	private String taskId; // 任务id
 	private String taskTitle; // 任务标题
 	private String taskDetail; //任务描述
 	private Timestamp publishTime; // 发布时间
@@ -19,14 +19,15 @@ public class Task {
 	private List<Accessory> accessoryList; // 任务对应附件
 	
 	// setter - getter
-	public int getTaskId() {
-		return taskId;
-	}
-	public void setTaskId(int taskId) {
-		this.taskId = taskId;
-	}
+	
 	public String getTaskTitle() {
 		return taskTitle;
+	}
+	public String getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
 	}
 	public void setTaskTitle(String taskTitle) {
 		this.taskTitle = taskTitle;
