@@ -61,7 +61,7 @@ public class Resource {
 		this.catetoryId = catetoryId;
 	}
 	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, String resourcePath, Integer catetoryId) {
+			String publisherId, Integer catetoryId, String resourcePath) {
 		super();
 		this.resourceId = resourceId;
 		this.resourceName = resourceName;
