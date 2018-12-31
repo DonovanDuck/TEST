@@ -2,6 +2,8 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
+
+	<!-- 增加教师信息 -->
 	<insert id="addTeacherInfo"
 		parameterType="cn.edu.tit.bean.Teacher">
 		INSERT INTOteacher(

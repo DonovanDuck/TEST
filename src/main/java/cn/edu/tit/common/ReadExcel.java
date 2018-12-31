@@ -47,7 +47,6 @@ public class ReadExcel {
 	 */
 	public List<Teacher> getExcelInfo(MultipartFile mFile) {
 		String fileName = mFile.getOriginalFilename();// 获取文件名
-		System.out.println("文件名" + fileName);
 		List<Teacher> teacherList = null;
 		try {
 			if (!validateExcel(fileName)) {// 验证文件名是否合格
@@ -66,10 +65,8 @@ public class ReadExcel {
 
 	/**
 	 * 根据excel里面的内容读取信息
-	 * 
-	 * @param is          输入流
+	 * @param is    输入流
 	 * @param isExcel2003 excel是2003还是2007版本
-	 * @return
 	 * @throws IOException
 	 */
 	public List<Teacher> createExcel(InputStream is, boolean isExcel2003) {
@@ -166,25 +163,23 @@ public class ReadExcel {
 
 	/**
 	 * 验证EXCEL文件
-	 * 
-	 * @param filePath
-	 * @return
 	 */
-	public boolean validateExcel(String filePath) {
-		if (filePath == null || !(isExcel2003(filePath) || isExcel2007(filePath))) {
+	public boolean validateExcel(String fileName) {
+		//文件名为空、不是2003、不是2007
+		if (fileName == null || !(isExcel2003(fileName) || isExcel2007(fileName))) {
 			errorMsg = "文件名不是excel格式";
 			return false;
 		}
 		return true;
 	}
 
-	// @描述：是否是2003的excel，返回true是2003
-	public static boolean isExcel2003(String filePath) {
-		return filePath.matches("^.+\\.(?i)(xls)$");
+	//是否是2003的excel，返回true是2003
+	public static boolean isExcel2003(String fileName) {
+		return fileName.matches("^.+\\.(?i)(xls)$");
 	}
 
-	// @描述：是否是2007的excel，返回true是2007
-	public static boolean isExcel2007(String filePath) {
-		return filePath.matches("^.+\\.(?i)(xlsx)$");
+	//是否是2007的excel，返回true是2007
+	public static boolean isExcel2007(String fileName) {
+		return fileName.matches("^.+\\.(?i)(xlsx)$");
 	}
 }
