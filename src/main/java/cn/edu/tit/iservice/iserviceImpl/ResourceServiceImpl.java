@@ -18,7 +18,7 @@ public class ResourceServiceImpl implements IResourceService {
 	@Override
 	public void upLoadResource(List<Resource> resourceList) {
 		//调用dao层方法
-		
+		resourceDao.addResourceToLib(resourceList);
 	}
 
 	@Override

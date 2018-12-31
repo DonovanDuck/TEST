@@ -3,6 +3,7 @@ package cn.edu.tit.iservice;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Service;
 
 import cn.edu.tit.bean.Course;
@@ -20,5 +21,7 @@ public interface ITeacherService {
 	public List<Student> studentList(String classNum);
 	public Student searchStudent(String studentId);
 	public List<String> searchRealClassNum(String virtualClassNum);
+	public void mapVirtualRealClass(String realClassNum,String virtualClassNUm);
+
 
 }

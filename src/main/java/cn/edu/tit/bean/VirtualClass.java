@@ -12,7 +12,6 @@ public class VirtualClass {
 	private String virtualClassName; // 班级名称
 	private String creatorId; // 创建者id
 	private Timestamp createTime; // 创建时间
-
 	private String virtualClassDetail; // 班级简介
 	private Integer courseId; // 课程id
 	private String faceImg; // 课程图标

@@ -3,6 +3,7 @@ package cn.edu.tit.idao;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,5 +23,6 @@ public interface ITeacherDao {
 	public List<Student> studentList(String classNum);
 	public Student searchStudent(String studentId);
 	public List<String> searchRealClassNum(String virtualClassNum);
+	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNUm);
 
 }

@@ -14,4 +14,10 @@ public interface IResourceDao {
 	 */
 	public void addResourceToLib(List<Resource> resourceList);
 	
+	/**
+	 * 通过分类id从资源库查找同类资源
+	 * @param categoryId
+	 * @return
+	 */
+	public List<Resource> searchResourceByCategory(Integer categoryId);
 }
