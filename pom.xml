@@ -26,6 +26,7 @@
         <commons-io.version>2.5</commons-io.version>
         <commons-codec.version>1.10</commons-codec.version>
         <aspectjweaver.version>1.8.10</aspectjweaver.version>
+        <commons-beanutils.version>1.8.3</commons-beanutils.version>
     </properties>
  
         <dependencies>
@@ -36,6 +37,12 @@
                 <version>${junit.version}</version>
                 
             </dependency>
+            
+            <dependency>
+				<groupId>commons-beanutils</groupId>
+				<artifactId>commons-beanutils</artifactId>
+				<version>${commons-beanutils.version}</version>
+			</dependency>
 
             <!-- spring包 core、web、oxm、tx、jdbc、webmvc、aop、context、test -->
             <dependency>
