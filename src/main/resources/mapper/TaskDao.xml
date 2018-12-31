@@ -12,7 +12,7 @@
 		<result column="task_end_time" property="taskEndTime" />
 		<result column="status" property="status" />
 	</resultMap>
-	<insert id="createCourse" parameterType="cn.edu.tit.bean.Task" >
+	<insert id="createTask" parameterType="cn.edu.tit.bean.Task" >
 	    insert into task ( task_id, task_title, task_detail,publish_time,publisher_id,task_end_time,status) values (
 	    	#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime}, #{publisherId},#{taskEndTime},#{status});
 	    
@@ -47,97 +47,33 @@
 	    		(#{accessory.accessoryName},#{accessory.accessoryPath},#{accessory.accessoryTime},#{accessory.taskId},0)
 	    	</foreach>
 	</insert>
+	<select id="searchTaskId" parameterType="java.lang.String" resultType="java.lang.String">
+		select * from class_task where virtual_class_num = #{virtualClassNum} ;
+	</select>
 	
+	<select id="TaskList" parameterType="java.util.List"  resultMap="taskMap">
+		select * from task where task_id in
+		<foreach collection="list" item="taskId"  open="(" separator="," close=")" index="index" >
+			#{taskId}
+		</foreach>
+	</select>
+	<select id="searchTask" parameterType="java.lang.String" resultMap="taskMap">
+		select * from task where task_id = #{taskId};
+	</select>
 	
-	 <resultMap type="cn.edu.tit.bean.Course" id="courseMap">
-		<id column="course_id" property="courseId"/>
-		<result column="course_name" property="courseName" />
-		<result column="course_detail" property="courseDetail"/>
-		<result column="course_category" property="courseCategory" />
-		<result column="publisher_id" property="publisherId" />
-		<result column="face_img" property="faceImg" />
+	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessory">
+		<id column="pub_accessroy_id" property="accessoryId"/>
+		<result column="pub_accessory_name" property="accessoryName" />
+		<result column="pub_accessory_path" property="accessoryPath"/>
+		<result column="pub_accessory_time" property="accessoryTime" />
+		<result column="task_id" property="taskId" />
+		
 	</resultMap>
-
-	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course" >
-	    insert into course ( course_name, course_detail, course_category,publisher_id,face_img) values (
-	    	#{courseName}, #{courseDetail}, #{courseCategory}, #{publisherId}, #{faceImg}
-	    );
-	</insert>
-	<delete id="deleteCourse" parameterType="int">
-  		delete from course where course_id = #{courseId}
-	</delete>
-	<select id="courseList" parameterType ="java.lang.String" resultMap="courseMap">
-		select * from course where publisher_id = #{ememployeeNum};
-	</select>
 	
-	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course" >
-  		update course set
-    	course_name = #{courseName},
-    	course_detail = #{courseDetail},
-    	course_category = #{courseCategory},
-    	face_img = #{faceImg}
-  		where course_id = #{courseId}
-	</update>
-	
-	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
-		<id column="student_id" property="studentId" />
-		<result column="student_name" property="studentName" />
-		<result column="student_gender" property="studentGender"/>
-		<result column="student_password" property="studentPassword" />
-		<result column="class" property="classNum" />
-		<result column="professional" property="professional" />
-		<result column="telephone" property="telephone" />
-		<result column="email" property="email" />
-		<result column="face_img" property="faceImg" />
-		
-		</resultMap>
-	
-	<select id="studentList" parameterType="java.lang.String"  resultMap="studentMap">
-		select * from student where student_id = #{studentId};
+	<select id="searchAccessory" parameterType="java.lang.String" resultMap="accessoryMap">
+		select * from pub_accessory where task_id = #{taskId};
 	</select>
 	
 	
-	<select id="searchRealClassNum" parameterType="java.lang.String" resultType="java.lang.String" >
-		select * from real_virtual_class where virtual_class_num = #{virtualClassNum};
-	</select>
-	
-	
-	
-	<resultMap type="cn.edu.tit.bean.VirtualClass" id="virtualClassMap">
-		<id column="virtual_class_num" property="virtualClassNum" />
-		<result column="virtual_class_name" property="virtualClassName"/>
-		<result column="creator_id" property="creatorId" />
-		<result column="create_time" property="createTime" />
-		<result column="virtual_class_detail" property="virtualClassDetail" />
-		</resultMap>
-	<insert id="createVirtualClass" parameterType="cn.edu.tit.bean.VirtualClass" >
-	    insert into virtual_class ( virtual_class_num,virtual_class_name, creator_id, create_time,virtual_class_detail,face_img,course_id) values (
-	    #{virtualClassNum},	#{virtualClassName}, #{creatorId}, #{createTime}, #{virtualClassDetail},#{faceImg},#{courseId}
-	    );
-	</insert>
-	<insert id="mapVirtualRealClass"  >
-	    insert into real_virtual_class (real_class_num, virtual_class_num) values (
-	    	#{realClassNum}, #{virtualClassNum}
-	    );
-	</insert>
-	
-			
-		
-		
-		
-	<!--  <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="funkyNumber" property="funkyNumber"/>
-		<result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
-	</resultMap>
-	<select id="getUser2" resultMap="usermap2">
-		select * from users2
-	</select>
-	<insert id="insert2">
-	    insert into users2 (id, name, funkyNumber, roundingMode) values (
-	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
-	    )
-	</insert> -->
-
+	 
 </mapper>

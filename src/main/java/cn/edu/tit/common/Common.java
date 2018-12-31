@@ -82,7 +82,7 @@ public class Common {
 						File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
 						File savedFile = new File(path, fullFile.getName()); // 为文件设置存储路径
 						fi.write(savedFile); // 存储文件
-						returnFileList.add(fullFile); // 保存要返回的文件集合
+						returnFileList.add(savedFile); // 保存要返回的文件集合
 					}
 				} else {
 					formdata.put(fi.getFieldName(), fi.getString("UTF-8")); // 普通表单字段封装在map里，通过它转换为所需的类

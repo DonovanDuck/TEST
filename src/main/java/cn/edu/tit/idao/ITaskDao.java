@@ -22,6 +22,12 @@ public interface ITaskDao {
 	public void deleteTask(String taskId);	//删除任务
 	public void mapClassTask(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);	//把任务映射到班级任务表中
 	public void addAccessory(List<Accessory> accessoris);	//添加附件
+	public List<String> searchTaskId(String virtualClassNum);//查找班级对应的taskid号
+	public List<Task> TaskList(List<String> taskIds);	//显示所有任务列表
+	public Task searchTask(String taskId);	//查看单个任务详情
+	public Accessory searchAccessory(String taskId);	//查询任务附件
+	
+	
 	
 
 }
