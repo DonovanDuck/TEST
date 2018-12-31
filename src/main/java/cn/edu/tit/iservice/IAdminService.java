@@ -18,7 +18,7 @@ public interface IAdminService {
 	/**
 	 * 管理员修改分类（系部）信息
 	 */
-	public void modifyCategory();
+	public void modifyCategory(List<Category> categories);
 	
 	/**
 	 * 超级管理员添加管理员
@@ -26,9 +26,9 @@ public interface IAdminService {
 	public void addAdmin(List<Admin> admin);
 	
 	/**
-	 * 超级管理员读取所有用户
+	 * 超级管理员读取教师信息，设定为管理员
 	 */
-	public List<Admin> readAdmin();
+	public List<Admin> readTeacherInfo();
 		
 	/**
 	 * 管理员导入用户（教师或学生）信息

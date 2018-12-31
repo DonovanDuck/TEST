@@ -23,7 +23,6 @@ public class AdminController {
 		@Autowired
 		private IAdminService adminService;
 		
-		//@ResponseBody
 		@RequestMapping(value="DoExcel",method= {RequestMethod.POST})
 		public ModelAndView DoExcel(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
 			ModelAndView mv = new ModelAndView();

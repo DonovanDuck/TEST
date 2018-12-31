@@ -14,7 +14,7 @@
 	</resultMap>
 
 	<!--读取教师信息，只查询三列数据 -->
-	<select id="readAdmin" resultMap="adminMap">
+	<select id="readTeacherInfo" resultMap="adminMap">
 		select
 		employee_num,teacher_password,teacher_name from teacher;
 	</select>
@@ -32,12 +32,23 @@
 		<result column="category_name" property="categoryName" />
 		<result column="category_detail" property="categoryDetail" />
 	</resultMap>
-	
-	<!-- 初始化系部信息 -->
+
+	<!-- 管理员初始化系部信息 -->
 	<insert id="initializeCategory">
-		insert into category (category_id,category_name,category_detail) values
+		insert into category (category_id,category_name,category_detail)
+		values
 		<foreach item="categories" collection="list" separator=",">
 			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail})
 		</foreach>
 	</insert>
+
+	<!-- 管理员修改系部信息 -->
+	<update id="modifyCategory" parameterType="java.util.List">
+		<foreach item="categories" collection="list" separator=";">	
+			update category set
+            category_name = #{categories.categoryName},
+            category_detail = #{categories.categoryDetail}
+            where category_id = #{categories.categoryId} 
+		</foreach>
+	</update>
 </mapper>

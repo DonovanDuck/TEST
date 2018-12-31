@@ -62,10 +62,12 @@ public class AdminServiceImpl implements IAdminService {
 		iAdminDao.initializeCategory(categories);
 	}
 
+	/**
+	 * 修改系部信息
+	 * */
 	@Override
-	public void modifyCategory() {
-		// TODO Auto-generated method stub
-
+	public void modifyCategory(List<Category> categories) {
+		iAdminDao.modifyCategory(categories);
 	}
 
 	/**
@@ -76,9 +78,11 @@ public class AdminServiceImpl implements IAdminService {
 		iAdminDao.addAdmin(admin);
 	}
 
-	
+	/**
+	 * 读取管理员
+	 * */
 	@Override
-	public List<Admin> readAdmin() {
-		return iAdminDao.readAdmin();
+	public List<Admin> readTeacherInfo() {
+		return iAdminDao.readTeacherInfo();
 	}
 }
