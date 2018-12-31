@@ -46,4 +46,9 @@ public class TestClass {
 			System.out.println(r.getResourceId());
 		}
 	}
+	
+	@Test
+	public void pubResourceToClass(){
+		resourceDao.bandResourceAndClass("2647A6A9E4BB4FB6A885EFE04FCB60D9", "12345");
+	}
 }

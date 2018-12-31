@@ -26,4 +26,8 @@
 		select * from resource where category_id = #{categoryId};
 	</select>
 	
+	<insert id="bandResourceAndClass" parameterType="java.lang.String">
+		insert into class_resource(virtual_class_num, resource_id) values (#{virtualClassNum}, #{resourceId});
+	</insert>
+	
 </mapper>

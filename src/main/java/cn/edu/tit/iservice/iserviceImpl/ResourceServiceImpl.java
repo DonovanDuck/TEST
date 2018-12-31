@@ -23,14 +23,14 @@ public class ResourceServiceImpl implements IResourceService {
 
 	@Override
 	public List<Resource> showResourceByCategory(Integer categoryId) {
-		// TODO Auto-generated method stub
-		return null;
+		// 调用dao层方法
+		return resourceDao.searchResourceByCategory(categoryId);
 	}
 
 	@Override
-	public void pubResourceToClass(List<Resource> resourceList) {
+	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override

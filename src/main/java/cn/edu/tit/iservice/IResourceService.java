@@ -22,7 +22,7 @@ public interface IResourceService {
 	 * 发布资源到班级
 	 * @param resourceList
 	 */
-	public void pubResourceToClass(List<Resource> resourceList);
+	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum);
 	
 	/**
 	 * 上传资源到资源库
