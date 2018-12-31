@@ -62,8 +62,7 @@ public class TeacherTest {
 	  
 	  teacherService.mapVirtualRealClass("1520561", "uuid");
 	  teacherService.mapVirtualRealClass("1520562", "uuid");
-	  
-	  
+
   }
   @Test
   public void updateCourse() {
