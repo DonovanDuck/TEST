@@ -1,5 +1,7 @@
 package cn.edu.tit;
 
+import java.awt.image.DataBufferFloat;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -53,7 +55,13 @@ public class TeacherTest {
   }
   @Test
   public void createVirtualClass() {
+	
+	  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+	  VirtualClass virtualClass = new VirtualClass("uuid", "华丽互杀", "17693280903", timestamp, "yuhbnjimkonhgvftvgybhnj", 3, "/home/src", null);
+	  teacherService.createVirtualClass(virtualClass);
 	  
+	  teacherService.mapVirtualRealClass("1520561", "uuid");
+	  teacherService.mapVirtualRealClass("1520562", "uuid");
 	  
 	  
   }
@@ -78,7 +86,12 @@ public class TeacherTest {
   @Test 
   public void studentList() {
 	  
-
+	  List<String> realClasses= teacherService.searchRealClassNum("");
+	  List<Student> students = new ArrayList<Student>();
+	  
+	  for (String classNum : realClasses) {
+		  students.addAll(teacherService.studentList(classNum));
+	}
   }
   @Test
   public void searchStudent() {

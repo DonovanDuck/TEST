@@ -4,27 +4,26 @@
 
 <mapper namespace="cn.edu.tit.idao.IResourceDao">
 	<!-- 结果集映射 -->
-	<!-- <resultMap type="cn.edu.tit.course.bean.Course" id="course">
-		<id column="course_id" property="course_id" />
-		<result column="course_name" property="course_name" />
-		<result column="course_flag" property="course_flag" />
-		<result column="course_notes" property="course_notes" />
-		<result column="college" property="college" />
-		<result column="course_img" property="course_img" />
-		<result column="course_lable" property="course_lable" />
-		<result column="schoolTerm" property="schoolTerm" />
-		<result column="application_pro" property="application_pro" />
-		<result column="create_user" property="create_user" />
-		<result column="create_time" property="create_time" />
-		<result column="update_user" property="update_user" />
-		<result column="update_time" property="update_time" />
-	</resultMap> -->
-	
+	<resultMap type="cn.edu.tit.bean.Resource" id="resource">
+		<id column="resource_id" property="resourceId" />
+		<result column="resource_name" property="resourceName" />
+		<result column="resource_detail" property="resourceDetail" />
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="category_id" property="catetoryId" />
+		<result column="resource_path" property="resourcePath" />
+	</resultMap> 
+	<!-- 添加资源到资源库 -->
 	<insert id = "addResourceToLib" parameterType="java.util.List">
 		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, category_id, resource_path) values
 		<foreach collection="list" item="item" index="index"  separator="," >
 		(#{item.resourceId}, #{item.resourceName}, #{item.resourceDetail}, #{item.publishTime}, #{item.publisherId}, #{item.catetoryId}, #{item.resourcePath})
 		</foreach>
 	</insert>
+	
+	<!-- 从资源库查同类资源 -->	
+	<select id="searchResourceByCategory" parameterType="java.lang.Integer" resultMap="resource">
+		select * from resource where category_id = #{categoryId};
+	</select>
 	
 </mapper>
