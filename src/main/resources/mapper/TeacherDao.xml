@@ -65,8 +65,13 @@
 		<result column="virtual_class_detail" property="virtualClassDetail" />
 		</resultMap>
 	<insert id="createVirtualClass" parameterType="cn.edu.tit.bean.VirtualClass" >
-	    insert into virtual_class ( virtual_class_name, creator_id, create_time,virtual_class_detail,face_img,course_id) values (
-	    	#{virtualClassName}, #{creatorId}, #{createTime}, #{virtualClassDetail},#{faceImg},#{courseId}}
+	    insert into virtual_class ( virtual_class_num,virtual_class_name, creator_id, create_time,virtual_class_detail,face_img,course_id) values (
+	    #{virtualClassNum},	#{virtualClassName}, #{creatorId}, #{createTime}, #{virtualClassDetail},#{faceImg},#{courseId}
+	    );
+	</insert>
+	<insert id="mapVirtualRealClass"  >
+	    insert into real_virtual_class (real_class_num, virtual_class_num) values (
+	    	#{realClassNum}, #{virtualClassNum}
 	    );
 	</insert>
 	
