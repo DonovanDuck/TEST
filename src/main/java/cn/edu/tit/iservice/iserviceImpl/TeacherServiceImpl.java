@@ -63,6 +63,12 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.searchRealClassNum(virtualClassNum);
 	}
+	@Override
+	public void mapVirtualRealClass(String realClassNum, String virtualClassNUm) {
+		// TODO Auto-generated method stub
+		teacherDao.mapVirtualRealClass(realClassNum, virtualClassNUm);
+		
+	}
 	
 
 }
