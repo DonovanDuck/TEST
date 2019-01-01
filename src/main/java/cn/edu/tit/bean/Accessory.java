@@ -12,7 +12,7 @@ public class Accessory {
 	private String accessoryName; // 附件
 	private String accessoryPath; // 附件存放路径
 	private String accessoryTime; //附件发布 or 提交时间
-	private int taskId; // 对应任务id
+	private String taskId; // 对应任务id
 	private File accessory; //附件内容
 	
 	// setter - getter
@@ -40,10 +40,10 @@ public class Accessory {
 	public void setAccessoryTime(String accessoryTime) {
 		this.accessoryTime = accessoryTime;
 	}
-	public int getTaskId() {
+	public String getTaskId() {
 		return taskId;
 	}
-	public void setTaskId(int taskId) {
+	public void setTaskId(String taskId) {
 		this.taskId = taskId;
 	}
 	public File getAccessory() {

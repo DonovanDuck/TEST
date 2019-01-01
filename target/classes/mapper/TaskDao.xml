@@ -1,0 +1,78 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tit.idao.ITaskDao">
+<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
+		<id column="task_id" property="taskId"/>
+		<result column="task_title" property="taskTitle" />
+		<result column="task_detail" property="taskDetail"/>
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="task_end_time" property="taskEndTime" />
+		<result column="status" property="status" />
+	</resultMap>
+	<insert id="createTask" parameterType="cn.edu.tit.bean.Task" >
+	    insert into task ( task_id, task_title, task_detail,publish_time,publisher_id,task_end_time,status) values (
+	    	#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime}, #{publisherId},#{taskEndTime},#{status});
+	    
+	</insert>
+	<insert id="mapClassTask" >
+	    insert into task ( virtual_class_num, task_id) values (
+	    	#{virtualClassNum}, #{taskId});
+	    
+	</insert>
+	<update id="stopTaskByEndTime" parameterType="java.lang.String" >
+  		update task set
+    	status = 1
+  		where task_id = #{taskId}
+	</update>
+	<update id="restartTask" parameterType="java.lang.String" >
+  		update task set
+    	status = 0
+  		where task_id = #{taskId}
+	</update>
+	<update id="restartTaskSetEndTime">
+  		update task set
+    	status = 0,
+    	task_end_time = #{taskEndTime}
+  		where task_id = #{taskId}
+	</update>
+	<delete id="deleteTask" parameterType="java.lang.String">
+  		delete from task where task_id = #{taskId}
+	</delete>
+	<insert id="addAccessory" parameterType="java.util.List">
+		insert into pub_accessory (  pub_accessory_name,pub_accessory_path,pub_accessory_time,task_id,delete_flag) values 
+	    	<foreach collection="list" item = "accessory" index="index" separator=",">
+	    		(#{accessory.accessoryName},#{accessory.accessoryPath},#{accessory.accessoryTime},#{accessory.taskId},0)
+	    	</foreach>
+	</insert>
+	
+	<select id="searchTaskId" parameterType="java.lang.String" resultType="java.lang.String">
+		select * from class_task where virtual_class_num = #{virtualClassNum} ;
+	</select>
+	
+	<select id="TaskList" parameterType="java.util.List"  resultMap="taskMap">
+		select * from task where task_id in
+		<foreach collection="list" item="taskId"  open="(" separator="," close=")" index="index" >
+			#{taskId}
+		</foreach>
+	</select>
+	<select id="searchTask" parameterType="java.lang.String" resultMap="taskMap">
+		select * from task where task_id = #{taskId};
+	</select>
+	
+	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessory">
+		<id column="pub_accessroy_id" property="accessoryId"/>
+		<result column="pub_accessory_name" property="accessoryName" />
+		<result column="pub_accessory_path" property="accessoryPath"/>
+		<result column="pub_accessory_time" property="accessoryTime" />
+		<result column="task_id" property="taskId" />
+		
+	</resultMap>
+	
+	<select id="searchAccessory" parameterType="java.lang.String" resultMap="accessoryMap">
+		select * from pub_accessory where task_id = #{taskId};
+	</select>
+
+</mapper>
