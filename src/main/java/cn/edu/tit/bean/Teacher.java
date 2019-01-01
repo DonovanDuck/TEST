@@ -2,17 +2,28 @@ package cn.edu.tit.bean;
 
 import java.io.File;
 
+import cn.edu.tit.common.MyAnnotation;
+
 public class Teacher {
 
-	private String ememployeeNum; // 教师工号
-	private String teacherName; // 教师名
-	private String teacherPassword; // 教师密码
-	private String teacherGender; // 教师性别
-	private String educationBackground; // 学历
-	private String professionalTitles; // 职称
-	private String telephone; // 电话
-	private String email; // 电子邮箱
-	private File faceImg; // 教师头像
+	@MyAnnotation(columnIndex=0,columnName="教师工号")
+	private String ememployeeNum; 
+	@MyAnnotation(columnIndex=0,columnName="教师名")
+	private String teacherName; 
+	@MyAnnotation(columnIndex=0,columnName="教师密码")
+	private String teacherPassword; 
+	@MyAnnotation(columnIndex=0,columnName="教师性别")
+	private String teacherGender; 
+	@MyAnnotation(columnIndex=0,columnName="学历")
+	private String educationBackground; 
+	@MyAnnotation(columnIndex=0,columnName="职称")
+	private String professionalTitles; 
+	@MyAnnotation(columnIndex=0,columnName="电话")
+	private String telephone; 
+	@MyAnnotation(columnIndex=0,columnName="电子邮箱")
+	private String email;
+	@MyAnnotation(columnIndex=0,columnName="教师头像")
+	private File faceImg;
 	
 	// setter - getter
 	public String getEmemployeeNum() {
