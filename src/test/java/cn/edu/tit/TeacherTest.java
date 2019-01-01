@@ -57,11 +57,11 @@ public class TeacherTest {
   public void createVirtualClass() {
 	
 	  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-	  VirtualClass virtualClass = new VirtualClass("uuid", "华丽互杀", "17693280903", timestamp, "yuhbnjimkonhgvftvgybhnj", 3, "/home/src", null);
-	  teacherService.createVirtualClass(virtualClass);
-	  
-	  teacherService.mapVirtualRealClass("1520561", "uuid");
-	  teacherService.mapVirtualRealClass("1520562", "uuid");
+//	  VirtualClass virtualClass = new VirtualClass("uuid", "华丽互杀", "17693280903", timestamp, "yuhbnjimkonhgvftvgybhnj", 3, "/home/src", null);
+//	  teacherService.createVirtualClass(virtualClass);
+//	  
+//	  teacherService.mapVirtualRealClass("1520561", "uuid");
+//	  teacherService.mapVirtualRealClass("1520562", "uuid");
 
   }
   @Test

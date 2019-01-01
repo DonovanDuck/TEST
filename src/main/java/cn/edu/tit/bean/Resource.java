@@ -15,7 +15,7 @@ public class Resource {
 	private String publisherId; // 发布者id
 	private String resourceType; // 资源类型
 	private String resourcePath; // 资源存储路径
-	private String catetoryId; // 资源所属分类
+	private Integer courseId;// 资源所属分类
 	
 	// setter - getter
 	public String getResourceId() {
@@ -54,26 +54,27 @@ public class Resource {
 	public void setResourcePath(String resourcePath) {
 		this.resourcePath = resourcePath;
 	}
-	public String getCatetoryId() {
-		return catetoryId;
-	}
-	public void setCatetoryId(String catetoryId) {
-		this.catetoryId = catetoryId;
-	}
+	
 	public String getResourceType() {
 		return resourceType;
 	}
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
 	}
+	public Integer getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
 	@Override
 	public String toString() {
 		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
 				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceType="
-				+ resourceType + ", resourcePath=" + resourcePath + ", catetoryId=" + catetoryId + "]";
+				+ resourceType + ", resourcePath=" + resourcePath + ", courseId=" + courseId + "]";
 	}
 	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, String resourceType, String resourcePath, String catetoryId) {
+			String publisherId, String resourceType, String resourcePath, Integer courseId) {
 		super();
 		this.resourceId = resourceId;
 		this.resourceName = resourceName;
@@ -82,8 +83,7 @@ public class Resource {
 		this.publisherId = publisherId;
 		this.resourceType = resourceType;
 		this.resourcePath = resourcePath;
-		this.catetoryId = catetoryId;
+		this.courseId = courseId;
 	}
-	
 	
 }
