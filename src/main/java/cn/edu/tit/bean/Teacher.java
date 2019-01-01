@@ -6,6 +6,7 @@ public class Teacher {
 
 	private String ememployeeNum; // 教师工号
 	private String teacherName; // 教师名
+	private String teacherNickName; // 教师昵称
 	private String teacherPassword; // 教师密码
 	private String teacherGender; // 教师性别
 	private String educationBackground; // 学历
@@ -67,6 +68,34 @@ public class Teacher {
 		return faceImg;
 	}
 	public void setFaceImg(File faceImg) {
+		this.faceImg = faceImg;
+	}
+	public String getTeacherNickName() {
+		return teacherNickName;
+	}
+	public void setTeacherNickName(String teacherNickName) {
+		this.teacherNickName = teacherNickName;
+	}
+	@Override
+	public String toString() {
+		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherNickName="
+				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
+				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
+				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
+	}
+	public Teacher(String ememployeeNum, String teacherName, String teacherNickName, String teacherPassword,
+			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
+			File faceImg) {
+		super();
+		this.ememployeeNum = ememployeeNum;
+		this.teacherName = teacherName;
+		this.teacherNickName = teacherNickName;
+		this.teacherPassword = teacherPassword;
+		this.teacherGender = teacherGender;
+		this.educationBackground = educationBackground;
+		this.professionalTitles = professionalTitles;
+		this.telephone = telephone;
+		this.email = email;
 		this.faceImg = faceImg;
 	}
 	
