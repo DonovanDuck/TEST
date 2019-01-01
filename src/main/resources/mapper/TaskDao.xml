@@ -48,7 +48,31 @@
 	    	</foreach>
 	</insert>
 	
+	<select id="searchTaskId" parameterType="java.lang.String" resultType="java.lang.String">
+		select * from class_task where virtual_class_num = #{virtualClassNum} ;
+	</select>
 	
+	<select id="TaskList" parameterType="java.util.List"  resultMap="taskMap">
+		select * from task where task_id in
+		<foreach collection="list" item="taskId"  open="(" separator="," close=")" index="index" >
+			#{taskId}
+		</foreach>
+	</select>
+	<select id="searchTask" parameterType="java.lang.String" resultMap="taskMap">
+		select * from task where task_id = #{taskId};
+	</select>
 	
+	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessory">
+		<id column="pub_accessroy_id" property="accessoryId"/>
+		<result column="pub_accessory_name" property="accessoryName" />
+		<result column="pub_accessory_path" property="accessoryPath"/>
+		<result column="pub_accessory_time" property="accessoryTime" />
+		<result column="task_id" property="taskId" />
+		
+	</resultMap>
+	
+	<select id="searchAccessory" parameterType="java.lang.String" resultMap="accessoryMap">
+		select * from pub_accessory where task_id = #{taskId};
+	</select>
 
 </mapper>
