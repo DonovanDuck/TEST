@@ -1,12 +1,13 @@
 package cn.edu.tit.bean;
 
-import java.io.File;
 
 public class Student {
 
 	private String studentId; // 学生学号
 	private String studentName; // 学生姓名
+
 	private String studentNickName; // 学生昵称
+
 	private String studentGender; // 学生性别
 	private String studentPassword; // 学生密码
 	private String classNum; // 班级
@@ -70,6 +71,7 @@ public class Student {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
+
 	public String getStudentNickName() {
 		return studentNickName;
 	}
@@ -90,6 +92,7 @@ public class Student {
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.studentNickName = studentNickName;
+
 		this.studentGender = studentGender;
 		this.studentPassword = studentPassword;
 		this.classNum = classNum;
@@ -98,5 +101,6 @@ public class Student {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
+
 	
 }

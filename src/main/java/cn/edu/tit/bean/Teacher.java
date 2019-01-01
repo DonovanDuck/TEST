@@ -6,14 +6,16 @@ public class Teacher {
 
 	private String ememployeeNum; // 教师工号
 	private String teacherName; // 教师名
+
 	private String teacherNickName; // 教师昵称
+
 	private String teacherPassword; // 教师密码
 	private String teacherGender; // 教师性别
 	private String educationBackground; // 学历
 	private String professionalTitles; // 职称
 	private String telephone; // 电话
 	private String email; // 电子邮箱
-	private File faceImg; // 教师头像
+	private String faceImg; // 教师头像
 	
 	// setter - getter
 	public String getEmemployeeNum() {
@@ -64,18 +66,21 @@ public class Teacher {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public File getFaceImg() {
-		return faceImg;
-	}
-	public void setFaceImg(File faceImg) {
-		this.faceImg = faceImg;
-	}
 	public String getTeacherNickName() {
 		return teacherNickName;
 	}
 	public void setTeacherNickName(String teacherNickName) {
 		this.teacherNickName = teacherNickName;
 	}
+	public String getFaceImg() {
+		return faceImg;
+	}
+	public void setFaceImg(String faceImg) {
+		this.faceImg = faceImg;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherNickName="
@@ -85,7 +90,9 @@ public class Teacher {
 	}
 	public Teacher(String ememployeeNum, String teacherName, String teacherNickName, String teacherPassword,
 			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
-			File faceImg) {
+
+			String faceImg) {
+
 		super();
 		this.ememployeeNum = ememployeeNum;
 		this.teacherName = teacherName;
@@ -98,6 +105,7 @@ public class Teacher {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
+
 	
 	
 }
