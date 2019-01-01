@@ -7,7 +7,7 @@ public class Student {
 	private String studentId; // 学生学号
 	private String studentName; // 学生姓名
 	private String studentGender; // 学生性别
-	private String studentPassword; // 学生性别
+	private String studentPassword; // 学生密码
 	private String classNum; // 班级
 	private String professional; // 专业
 	private String telephone; // 电话

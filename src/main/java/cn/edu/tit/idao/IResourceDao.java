@@ -28,4 +28,19 @@ public interface IResourceDao {
 	 * @param virtualClassNum
 	 */
 	public void bandResourceAndClass(@Param("resourceId")String resourceId, @Param("virtualClassNum")String virtualClassNum);
+	
+	/**
+	 * 通过虚拟班级号查询对应的发布的资源id
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public List<String> searchResourceIdByClass(String virtualClassNum);
+	
+	/**
+	 * 通过资源id查询相关资源
+	 * @param reosurceId
+	 * @return
+	 */
+	public Resource searchResourceById(String resourceId);
+	
 }
