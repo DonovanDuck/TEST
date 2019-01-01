@@ -30,14 +30,15 @@ public class TestClass {
 	@Test
 	public void addResourceToLib(){
 		
-		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
-		cn.edu.tit.bean.Resource r1 = new cn.edu.tit.bean.Resource(common.uuid(), "resourse1", "r1", publishTime, "1", "1", "D:/");
-		cn.edu.tit.bean.Resource r2 = new cn.edu.tit.bean.Resource(common.uuid(), "resourse2", "r2", publishTime, "1", "1", "D:/");
+		/*Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+		cn.edu.tit.bean.Resource r1 = new cn.edu.tit.bean.Resource(common.uuid(), "resourse1", "r1", publishTime, "1", 1, "", "1")
+				new cn.edu.tit.bean.Resource(common.uuid(), "resourse1", "r1", publishTime, "1",1, "1", "D:/",1);
+		cn.edu.tit.bean.Resource r2 = new cn.edu.tit.bean.Resource(common.uuid(), "resourse2", "r2", publishTime, "1",1, "1", "D:/",1);
 		List<cn.edu.tit.bean.Resource> resourceList = new ArrayList<>();
 		System.out.println(publishTime);
 		resourceList.add(r1);
 		resourceList.add(r2);
-		resourceDao.addResourceToLib(resourceList);
+		resourceDao.addResourceToLib(resourceList);*/
 	}
 	@Test
 	public void searchResourceList(){
