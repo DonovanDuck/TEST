@@ -15,6 +15,7 @@ public class VirtualClass {
 	private String virtualClassDetail; // 班级简介
 	private Integer courseId; // 课程id
 	private String faceImg; // 课程图标
+	private String term; // 班级学期信息
 	private List<RealClass> realClassList; // 包含自然班级集合
 	
 	// setter - getter
@@ -66,15 +67,21 @@ public class VirtualClass {
 	public void setRealClassList(List<RealClass> realClassList) {
 		this.realClassList = realClassList;
 	}
+	public String getTerm() {
+		return term;
+	}
+	public void setTerm(String term) {
+		this.term = term;
+	}
 	@Override
 	public String toString() {
 		return "VirtualClass [virtualClassNum=" + virtualClassNum + ", virtualClassName=" + virtualClassName
 				+ ", creatorId=" + creatorId + ", createTime=" + createTime + ", virtualClassDetail="
-				+ virtualClassDetail + ", courseId=" + courseId + ", faceImg=" + faceImg + ", realClassList="
-				+ realClassList + "]";
+				+ virtualClassDetail + ", courseId=" + courseId + ", faceImg=" + faceImg + ", term=" + term
+				+ ", realClassList=" + realClassList + "]";
 	}
 	public VirtualClass(String virtualClassNum, String virtualClassName, String creatorId, Timestamp createTime,
-			String virtualClassDetail, Integer courseId, String faceImg, List<RealClass> realClassList) {
+			String virtualClassDetail, Integer courseId, String faceImg, String term, List<RealClass> realClassList) {
 		super();
 		this.virtualClassNum = virtualClassNum;
 		this.virtualClassName = virtualClassName;
@@ -83,9 +90,8 @@ public class VirtualClass {
 		this.virtualClassDetail = virtualClassDetail;
 		this.courseId = courseId;
 		this.faceImg = faceImg;
+		this.term = term;
 		this.realClassList = realClassList;
 	}
-	
-	
 	
 }

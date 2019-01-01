@@ -6,6 +6,7 @@ public class Student {
 
 	private String studentId; // 学生学号
 	private String studentName; // 学生姓名
+	private String nickname; // 昵称
 	private String studentGender; // 学生性别
 	private String studentPassword; // 学生密码
 	private String classNum; // 班级
@@ -69,5 +70,33 @@ public class Student {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
+	public String getNickname() {
+		return nickname;
+	}
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", nickname=" + nickname
+				+ ", studentGender=" + studentGender + ", studentPassword=" + studentPassword + ", classNum=" + classNum
+				+ ", professional=" + professional + ", telephone=" + telephone + ", email=" + email + ", faceImg="
+				+ faceImg + "]";
+	}
+	public Student(String studentId, String studentName, String nickname, String studentGender, String studentPassword,
+			String classNum, String professional, String telephone, String email, String faceImg) {
+		super();
+		this.studentId = studentId;
+		this.studentName = studentName;
+		this.nickname = nickname;
+		this.studentGender = studentGender;
+		this.studentPassword = studentPassword;
+		this.classNum = classNum;
+		this.professional = professional;
+		this.telephone = telephone;
+		this.email = email;
+		this.faceImg = faceImg;
+	}
+	
 	
 }
