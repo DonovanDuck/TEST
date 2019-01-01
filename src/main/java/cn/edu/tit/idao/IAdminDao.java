@@ -9,18 +9,27 @@ import cn.edu.tit.bean.Category;
 public interface IAdminDao {
 
 	/**
+	 *  @author LiMing
 	 * 添加管理员
 	 * */
 	void addAdmin(List<Admin> admin);	
 
 	/**
-	 * 添加管理员
+	 * @author LiMing
+	 * 读取教师信息
 	 * */
-	List<Admin> readAdmin();
+	List<Admin> readTeacherInfo();
 	
 	/**
+	 * @author LiMing
 	 * 管理员初始化分类（系部）信息
 	 * */
 	public void initializeCategory(List<Category> categories);
 
+	/**
+	 * @author LiMing
+	 * 管理员修改分类（系部）信息
+	 */
+	public void modifyCategory(Category categories);
+	
 }
