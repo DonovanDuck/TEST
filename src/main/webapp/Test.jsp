@@ -22,7 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div> -->
 	<div>
 		<form id="form_excel" name="form_excel" 
-		action="${pageContext.request.contextPath}/admin/DoExcel" method="post" enctype="multipart/form-data">
+		action="${pageContext.request.contextPath}/admin/AddTeacher" method="post" enctype="multipart/form-data">
 			<input type="file" id="file_excel" name="file_excel" />
 		    <input type="submit" />
 		</form>

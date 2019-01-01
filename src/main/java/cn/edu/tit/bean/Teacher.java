@@ -2,28 +2,17 @@ package cn.edu.tit.bean;
 
 import java.io.File;
 
-import cn.edu.tit.common.MyAnnotation;
-
 public class Teacher {
 
-	@MyAnnotation(columnIndex=0,columnName="教师工号")
-	private String ememployeeNum; 
-	@MyAnnotation(columnIndex=0,columnName="教师名")
-	private String teacherName; 
-	@MyAnnotation(columnIndex=0,columnName="教师密码")
-	private String teacherPassword; 
-	@MyAnnotation(columnIndex=0,columnName="教师性别")
-	private String teacherGender; 
-	@MyAnnotation(columnIndex=0,columnName="学历")
-	private String educationBackground; 
-	@MyAnnotation(columnIndex=0,columnName="职称")
-	private String professionalTitles; 
-	@MyAnnotation(columnIndex=0,columnName="电话")
-	private String telephone; 
-	@MyAnnotation(columnIndex=0,columnName="电子邮箱")
-	private String email;
-	@MyAnnotation(columnIndex=0,columnName="教师头像")
-	private File faceImg;
+	private String ememployeeNum; // 教师工号
+	private String teacherName; // 教师名
+	private String teacherPassword; // 教师密码
+	private String teacherGender; // 教师性别
+	private String educationBackground; // 学历
+	private String professionalTitles; // 职称
+	private String telephone; // 电话
+	private String email; // 电子邮箱
+	private File faceImg; // 教师头像
 	
 	// setter - getter
 	public String getEmemployeeNum() {
@@ -79,6 +68,30 @@ public class Teacher {
 	}
 	public void setFaceImg(File faceImg) {
 		this.faceImg = faceImg;
+	}
+	@Override
+	public String toString() {
+		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherPassword="
+				+ teacherPassword + ", teacherGender=" + teacherGender + ", educationBackground=" + educationBackground
+				+ ", professionalTitles=" + professionalTitles + ", telephone=" + telephone + ", email=" + email
+				+ ", faceImg=" + faceImg + "]";
+	}
+	public Teacher(String ememployeeNum, String teacherName, String teacherPassword, String teacherGender,
+			String educationBackground, String professionalTitles, String telephone, String email, File faceImg) {
+		super();
+		this.ememployeeNum = ememployeeNum;
+		this.teacherName = teacherName;
+		this.teacherPassword = teacherPassword;
+		this.teacherGender = teacherGender;
+		this.educationBackground = educationBackground;
+		this.professionalTitles = professionalTitles;
+		this.telephone = telephone;
+		this.email = email;
+		this.faceImg = faceImg;
+	}
+	public Teacher() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

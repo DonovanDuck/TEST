@@ -2,6 +2,29 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.IAdminDao">
+	<!-- 增加教师信息 -->
+	<insert id="addTeacherInfo">
+		INSERT INTO teacher(
+		employee_num,
+		teacher_name,
+		teacher_password,
+		teacher_gender,
+		education_background,
+		professional_titles,
+		telephone,
+		email)
+		VALUES
+		<foreach item="teacher" collection="list" separator=",">
+			(#{teacher.ememployeeNum},
+			#{teacher.teacherName},
+			#{teacher.teacherPassword},
+			#{teacher.teacherGender},
+			#{teacher.educationBackground},
+			#{teacher.professionalTitles},
+			#{teacher.telephone},
+			#{teacher.email})
+		</foreach>
+	</insert>
 
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
@@ -40,12 +63,12 @@
 
 	<!-- 管理员修改系部信息 -->
 	<update id="modifyCategory">
-			update category set
-			category_name =
-			#{categoryName},
-			category_detail =
-			#{categoryDetail}
-			where category_id =
-			#{categoryId}
+		update category set
+		category_name =
+		#{categoryName},
+		category_detail =
+		#{categoryDetail}
+		where category_id =
+		#{categoryId}
 	</update>
 </mapper>

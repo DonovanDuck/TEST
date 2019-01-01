@@ -15,8 +15,11 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Teacher;
-
-public class ReadExcel {
+/**
+ * 读取教师EXCEL表
+ * @author Liming
+ * */
+public class ReadTeacherExcel {
 	// 总行数
 	private int totalRows = 0;
 	// 总条数
@@ -24,7 +27,7 @@ public class ReadExcel {
 	// 错误信息接收器
 	private String errorMsg;
 	// 构造方法
-	public ReadExcel() {
+	public ReadTeacherExcel() {
 	}
 	// 获取总行数
 	public int getTotalRows() {
@@ -49,10 +52,12 @@ public class ReadExcel {
 		String fileName = mFile.getOriginalFilename();// 获取文件名
 		List<Teacher> teacherList = null;
 		try {
-			if (!validateExcel(fileName)) {// 验证文件名是否合格
+			// 验证文件名是否合格
+			if (!validateExcel(fileName)) {
 				return null;
 			}
-			boolean isExcel2003 = true;// 根据文件名判断文件是2003版本还是2007版本
+			// 根据文件名判断文件是2003版本还是2007版本
+			boolean isExcel2003 = true;
 			if (isExcel2007(fileName)) {
 				isExcel2003 = false;
 			}
@@ -108,6 +113,9 @@ public class ReadExcel {
 		 * 此处方法为循环处理
 		 * 第一层循环为循环行
 		 * 第二层循环为循环列
+		 * 
+		 * 此处对EXCEL表的格式限制为：第一行第一列开始为数据，并且列次递增数据分别为
+		 * 工号、教师名、教师密码、教师性别、教育背景、教师职称、教师电话、电子邮箱
 		 * */
 		// 循环Excel行数
 		for (int r = 0; r < totalRows; r++) {
@@ -116,27 +124,41 @@ public class ReadExcel {
 				continue;
 			}				
 			Teacher teacher = new Teacher();
-			// 循环Excel的列
-			//			for (int c = 0; c < this.totalCells; c++) {
-			//				Cell cell = row.getCell(c);
-			//				if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
-			//					try {
-			//						admin.setAdminPassword(getValue(cell));
-			//					} catch (NumberFormatException e) {
-			//						e.printStackTrace();
-			//						System.out.println("error");
-			//					}
-			//				}
-			//				if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
-			//					try {
-			//						admin.setAdminUsername(getValue(cell));
-			//					} catch (Exception e) {
-			//						e.printStackTrace();
-			//						System.out.println("error");
-			//					}
-			//				}		
-			//			}
-
+			//循环Excel的列
+			for (int c = 0; c < this.totalCells; c++) {
+				Cell cell = row.getCell(c);
+				switch (c) {
+				case 0:
+					teacher.setEmemployeeNum(getValue(cell));//设置工号
+					break;
+				case 1:
+					teacher.setTeacherName(getValue(cell));//设置教师名
+					break;
+				case 2:
+					teacher.setTeacherPassword(getValue(cell));//设置教师密码
+					break;
+				case 3:
+					teacher.setTeacherGender(getValue(cell));//设置教师性别
+					break;	
+				case 4:
+					teacher.setEducationBackground(getValue(cell));//设置教育背景
+					break;
+				case 5:
+					teacher.setProfessionalTitles(getValue(cell));//设置教师职称
+					break;
+				case 6:
+					teacher.setTelephone(getValue(cell));//设置教师电话
+					break;
+				case 7:
+					teacher.setEmail(getValue(cell));//设置教师电子邮箱
+					break;
+				case 8:
+					teacher.setFaceImg(null);
+					break;
+				default:
+					break;
+				}
+			}
 			teacherList.add(teacher);
 		}
 		return teacherList;
@@ -144,8 +166,8 @@ public class ReadExcel {
 
 	/**
 	 * 获取单元格信息
-	 * 针对不同类型不同返回
-	 * 此处将NUMBER类型数据返回为文本
+	 * 数据库存储的均为VARCHAR类型数据
+	 * 将所有数据返回均设定为String类型数据
 	 */
 	private String getValue(Cell cell) {
 		if (cell.getCellType() == cell.CELL_TYPE_BOOLEAN) {
@@ -181,5 +203,4 @@ public class ReadExcel {
 	//是否是2007的excel，返回true是2007
 	public static boolean isExcel2007(String fileName) {
 		return fileName.matches("^.+\\.(?i)(xlsx)$");
-	}
-}
+	} } 

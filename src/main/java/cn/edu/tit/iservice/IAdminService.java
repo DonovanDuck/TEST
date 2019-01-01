@@ -33,4 +33,10 @@ public interface IAdminService {
 	 * 超级管理员读取教师信息，设定为管理员
 	 */
 	public List<Admin> readTeacherInfo();
+
+	/**
+	 * @author LiMing
+	 * 添加教师信息,通过Excel表导入
+	 */
+	public String addTeacherInfo(MultipartFile file);
 }

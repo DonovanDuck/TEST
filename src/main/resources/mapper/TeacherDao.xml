@@ -2,30 +2,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-
-	<!-- 增加教师信息 -->
-	<insert id="addTeacherInfo"
-		parameterType="cn.edu.tit.bean.Teacher">
-		INSERT INTOteacher(
-		employee_num,
-		teacher_name,
-		teacher_password,
-		teacher_gender,
-		education_background,
-		professional_titles,
-		telephone,email,
-		face_img)
-		VALUES(
-		#{employee_num},
-		#{teacher_name},
-		#{teacher_password},
-		#{teacher_gender},
-		#{education_background},
-		#{professional_titles},
-		#{telephone},#{email},
-		#{face_img});
-	</insert>
-
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
