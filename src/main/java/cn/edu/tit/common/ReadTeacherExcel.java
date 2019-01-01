@@ -123,6 +123,7 @@ public class ReadTeacherExcel {
 			if (row == null) {
 				continue;
 			}				
+<<<<<<< HEAD:src/main/java/cn/edu/tit/common/ReadTeacherExcel.java
 			Teacher teacher = new Teacher();
 			//循环Excel的列
 			for (int c = 0; c < this.totalCells; c++) {
@@ -160,6 +161,31 @@ public class ReadTeacherExcel {
 				}
 			}
 			teacherList.add(teacher);
+=======
+//			Teacher teacher = new Teacher();
+			// 循环Excel的列
+			//			for (int c = 0; c < this.totalCells; c++) {
+			//				Cell cell = row.getCell(c);
+			//				if (cell.getCellType() == HSSFCell.CELL_TYPE_NUMERIC) {
+			//					try {
+			//						admin.setAdminPassword(getValue(cell));
+			//					} catch (NumberFormatException e) {
+			//						e.printStackTrace();
+			//						System.out.println("error");
+			//					}
+			//				}
+			//				if (cell.getCellType() == HSSFCell.CELL_TYPE_STRING) {
+			//					try {
+			//						admin.setAdminUsername(getValue(cell));
+			//					} catch (Exception e) {
+			//						e.printStackTrace();
+			//						System.out.println("error");
+			//					}
+			//				}		
+			//			}
+
+//			teacherList.add(teacher);
+>>>>>>> b51899a965c1bcdd6fd48b36ee50e03caba6fa61:src/main/java/cn/edu/tit/common/ReadExcel.java
 		}
 		return teacherList;
 	}
