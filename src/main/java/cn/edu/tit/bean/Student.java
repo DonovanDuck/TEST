@@ -1,12 +1,11 @@
 package cn.edu.tit.bean;
 
-import java.io.File;
 
 public class Student {
 
 	private String studentId; // 学生学号
 	private String studentName; // 学生姓名
-	private String nickname; // 昵称
+	private String nickName; // 昵称
 	private String studentGender; // 学生性别
 	private String studentPassword; // 学生密码
 	private String classNum; // 班级
@@ -71,24 +70,24 @@ public class Student {
 		this.faceImg = faceImg;
 	}
 	public String getNickname() {
-		return nickname;
+		return nickName;
 	}
-	public void setNickname(String nickname) {
-		this.nickname = nickname;
+	public void setNickname(String nickName) {
+		this.nickName = nickName;
 	}
 	@Override
 	public String toString() {
-		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", nickname=" + nickname
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", nickName=" + nickName
 				+ ", studentGender=" + studentGender + ", studentPassword=" + studentPassword + ", classNum=" + classNum
 				+ ", professional=" + professional + ", telephone=" + telephone + ", email=" + email + ", faceImg="
 				+ faceImg + "]";
 	}
-	public Student(String studentId, String studentName, String nickname, String studentGender, String studentPassword,
+	public Student(String studentId, String studentName, String nickName, String studentGender, String studentPassword,
 			String classNum, String professional, String telephone, String email, String faceImg) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
-		this.nickname = nickname;
+		this.nickName = nickName;
 		this.studentGender = studentGender;
 		this.studentPassword = studentPassword;
 		this.classNum = classNum;

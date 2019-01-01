@@ -14,7 +14,7 @@ public class VirtualClass {
 	private Timestamp createTime; // 创建时间
 	private String virtualClassDetail; // 班级简介
 	private Integer courseId; // 课程id
-	private String faceImg; // 课程图标
+	private String faceImg; // 班级图标
 	private String term; // 班级学期信息
 	private List<RealClass> realClassList; // 包含自然班级集合
 	
