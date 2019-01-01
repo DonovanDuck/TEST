@@ -25,9 +25,19 @@
 	<select id="searchResourceByCategory" parameterType="java.lang.Integer" resultMap="resource">
 		select * from resource where category_id = #{categoryId};
 	</select>
-	
+	<!-- 绑定资源和班级 -->
 	<insert id="bandResourceAndClass" parameterType="java.lang.String">
 		insert into class_resource(virtual_class_num, resource_id) values (#{virtualClassNum}, #{resourceId});
 	</insert>
+	
+	<!-- 通过id查询资源 -->
+	<select id="searchResourceById" parameterType="String" resultMap="resource">
+		select * from resource where resource_id = #{resourceId};
+	</select>
+	
+	<!-- 通过虚拟班级号查询相关联的资源id -->
+	<select id="searchResourceIdByClass" parameterType="String" resultType="String">
+		select resource_id from class_resource where virtual_class_num = #{virtualClassNum};
+	</select>
 	
 </mapper>

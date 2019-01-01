@@ -19,43 +19,68 @@ public class TaskServiceImpl implements ITaskService{
 	@Override
 	public void createTask(Task task) {
 		// TODO Auto-generated method stub
+		taskDao.createTask(task);
 		
 	}
 
 	@Override
 	public void stopTask(String taskId) {
 		// TODO Auto-generated method stub
-		
+		taskDao.stopTask(taskId);
 	}
 
 	@Override
 	public void restartTask(String taskId) {
 		// TODO Auto-generated method stub
-		
+		taskDao.restartTask(taskId);
 	}
 
 	@Override
 	public void restartTaskSetEndTime(String taskId, Timestamp taskEndTime) {
 		// TODO Auto-generated method stub
-		
+		taskDao.restartTaskSetEndTime(taskId, taskEndTime);
 	}
 
 	@Override
 	public void deleteTask(String taskId) {
 		// TODO Auto-generated method stub
-		
+		taskDao.deleteTask(taskId);
 	}
 
 	@Override
 	public void mapClassTask(String virtualClassNum, String taskId) {
 		// TODO Auto-generated method stub
-		
+		taskDao.deleteTask(taskId);
 	}
 
 	@Override
 	public void addAccessory(List<Accessory> accessoris) {
 		// TODO Auto-generated method stub
-		
+		taskDao.addAccessory(accessoris);
+	}
+
+	@Override
+	public List<String> searchTaskId(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return taskDao.searchTaskId(virtualClassNum);
+	}
+
+	@Override
+	public List<Task> TaskList(List<String> taskIds) {
+		// TODO Auto-generated method stub
+		return taskDao.TaskList(taskIds);
+	}
+
+	@Override
+	public Task searchTask(String taskId) {
+		// TODO Auto-generated method stub
+		return taskDao.searchTask(taskId);
+	}
+
+	@Override
+	public Accessory searchAccessory(String taskId) {
+		// TODO Auto-generated method stub
+		return taskDao.searchAccessory(taskId);
 	}
 
 }

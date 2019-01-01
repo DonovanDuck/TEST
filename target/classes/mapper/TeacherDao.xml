@@ -1,97 +1,134 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-	 <resultMap type="cn.edu.tit.bean.Course" id="courseMap">
-		<id column="course_id" property="courseId"/>
+
+	<!-- 增加教师信息 -->
+	<insert id="addTeacherInfo"
+		parameterType="cn.edu.tit.bean.Teacher">
+		INSERT INTOteacher(
+		employee_num,
+		teacher_name,
+		teacher_password,
+		teacher_gender,
+		education_background,
+		professional_titles,
+		telephone,email,
+		face_img)
+		VALUES(
+		#{employee_num},
+		#{teacher_name},
+		#{teacher_password},
+		#{teacher_gender},
+		#{education_background},
+		#{professional_titles},
+		#{telephone},#{email},
+		#{face_img});
+	</insert>
+
+	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
+		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
-		<result column="course_detail" property="courseDetail"/>
+		<result column="course_detail" property="courseDetail" />
 		<result column="course_category" property="courseCategory" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="face_img" property="faceImg" />
 	</resultMap>
 
-	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course" >
-	    insert into course ( course_name, course_detail, course_category,publisher_id,face_img) values (
-	    	#{courseName}, #{courseDetail}, #{courseCategory}, #{publisherId}, #{faceImg}
-	    );
+	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course">
+		insert into course (
+		course_name, course_detail,
+		course_category,publisher_id,face_img)
+		values (
+		#{courseName}, #{courseDetail}, #{courseCategory},
+		#{publisherId}, #{faceImg}
+		);
 	</insert>
 	<delete id="deleteCourse" parameterType="int">
-  		delete from course where course_id = #{courseId}
+		delete from course where
+		course_id = #{courseId}
 	</delete>
-	<select id="courseList" parameterType ="java.lang.String" resultMap="courseMap">
+	<select id="courseList" parameterType="java.lang.String"
+		resultMap="courseMap">
 		select * from course where publisher_id = #{ememployeeNum};
 	</select>
-	
-	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course" >
-  		update course set
-    	course_name = #{courseName},
-    	course_detail = #{courseDetail},
-    	course_category = #{courseCategory},
-    	face_img = #{faceImg}
-  		where course_id = #{courseId}
+
+	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
+		update course set
+		course_name = #{courseName},
+		course_detail = #{courseDetail},
+		course_category = #{courseCategory},
+		face_img = #{faceImg}
+		where
+		course_id = #{courseId}
 	</update>
-	
-	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+
+	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
-		<result column="student_gender" property="studentGender"/>
+		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
 		<result column="class" property="classNum" />
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
-		
-		</resultMap>
-	
-	<select id="studentList" parameterType="java.lang.String"  resultMap="studentMap">
+
+	</resultMap>
+
+	<select id="studentList" parameterType="java.lang.String"
+		resultMap="studentMap">
 		select * from student where student_id = #{studentId};
 	</select>
-	
-	
-	<select id="searchRealClassNum" parameterType="java.lang.String" resultType="java.lang.String" >
-		select * from real_virtual_class where virtual_class_num = #{virtualClassNum};
+
+
+	<select id="searchRealClassNum" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select * from real_virtual_class where
+		virtual_class_num =
+		#{virtualClassNum};
 	</select>
-	
-	
-	
-	<resultMap type="cn.edu.tit.bean.VirtualClass" id="virtualClassMap">
+
+
+
+	<resultMap type="cn.edu.tit.bean.VirtualClass"
+		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
-		<result column="virtual_class_name" property="virtualClassName"/>
+		<result column="virtual_class_name" property="virtualClassName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
-		<result column="virtual_class_detail" property="virtualClassDetail" />
-		</resultMap>
-	<insert id="createVirtualClass" parameterType="cn.edu.tit.bean.VirtualClass" >
-	    insert into virtual_class ( virtual_class_num,virtual_class_name, creator_id, create_time,virtual_class_detail,face_img,course_id) values (
-	    #{virtualClassNum},	#{virtualClassName}, #{creatorId}, #{createTime}, #{virtualClassDetail},#{faceImg},#{courseId}
-	    );
-	</insert>
-	<insert id="mapVirtualRealClass"  >
-	    insert into real_virtual_class (real_class_num, virtual_class_num) values (
-	    	#{realClassNum}, #{virtualClassNum}
-	    );
-	</insert>
-	
-			
-		
-		
-		
-	<!--  <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="funkyNumber" property="funkyNumber"/>
-		<result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+		<result column="virtual_class_detail"
+			property="virtualClassDetail" />
 	</resultMap>
-	<select id="getUser2" resultMap="usermap2">
-		select * from users2
-	</select>
-	<insert id="insert2">
-	    insert into users2 (id, name, funkyNumber, roundingMode) values (
-	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
-	    )
-	</insert> -->
+	<insert id="createVirtualClass"
+		parameterType="cn.edu.tit.bean.VirtualClass">
+		insert into virtual_class (
+		virtual_class_num,virtual_class_name,
+		creator_id,
+		create_time,virtual_class_detail,face_img,course_id)
+		values (
+		#{virtualClassNum}, #{virtualClassName}, #{creatorId}, #{createTime},
+		#{virtualClassDetail},#{faceImg},#{courseId}
+		);
+	</insert>
+	<insert id="mapVirtualRealClass">
+		insert into real_virtual_class (real_class_num,
+		virtual_class_num) values (
+		#{realClassNum}, #{virtualClassNum}
+		);
+	</insert>
+
+
+
+
+
+	<!-- <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2"> 
+		<id column="id" property="id"/> <result column="name" property="name"/> <result 
+		column="funkyNumber" property="funkyNumber"/> <result column="roundingMode" 
+		property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/> 
+		</resultMap> <select id="getUser2" resultMap="usermap2"> select * from users2 
+		</select> <insert id="insert2"> insert into users2 (id, name, funkyNumber, 
+		roundingMode) values ( #{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler} 
+		) </insert> -->
 
 </mapper>
