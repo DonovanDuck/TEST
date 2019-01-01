@@ -12,7 +12,7 @@
 		<result column="task_end_time" property="taskEndTime" />
 		<result column="status" property="status" />
 	</resultMap>
-	<insert id="createCourse" parameterType="cn.edu.tit.bean.Task" >
+	<insert id="createTask" parameterType="cn.edu.tit.bean.Task" >
 	    insert into task ( task_id, task_title, task_detail,publish_time,publisher_id,task_end_time,status) values (
 	    	#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime}, #{publisherId},#{taskEndTime},#{status});
 	    

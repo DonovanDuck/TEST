@@ -24,17 +24,19 @@ public interface IResourceService {
 	 */
 	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum);
 	
-	/**
-	 * 上传资源到资源库
-	 * @param resourceList
-	 */
-	public void pubReasourceToLib(List<Resource> resourceList);
 	
 	/**
 	 * 显示本班资源
 	 * @param courseId
 	 * @return
 	 */
-	public List<Resource> showResourceByClass(Integer courseId);
+	public List<Resource> showResourceByClass(String virtualClassNum);
+	
+	/**
+	 * 同步班级和资源库的资源
+	 * 即发布本地资源到班级的同时更新资源库
+	 * @param resourceList
+	 */
+	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum); 
 	
 }
