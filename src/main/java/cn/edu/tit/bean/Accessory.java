@@ -40,16 +40,35 @@ public class Accessory {
 	public void setAccessoryTime(String accessoryTime) {
 		this.accessoryTime = accessoryTime;
 	}
+
+	
+	public File getAccessory() {
+		return accessory;
+	}
+	public void setAccessory(File accessory) {
+		this.accessory = accessory;
+	}
+
 	public String getTaskId() {
 		return taskId;
 	}
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
 	}
-	public File getAccessory() {
-		return accessory;
+	@Override
+	public String toString() {
+		return "Accessory [accessoryId=" + accessoryId + ", accessoryName=" + accessoryName + ", accessoryPath="
+				+ accessoryPath + ", accessoryTime=" + accessoryTime + ", taskId=" + taskId + ", accessory=" + accessory
+				+ "]";
 	}
-	public void setAccessory(File accessory) {
+	public Accessory(int accessoryId, String accessoryName, String accessoryPath, String accessoryTime, String taskId,
+			File accessory) {
+		super();
+		this.accessoryId = accessoryId;
+		this.accessoryName = accessoryName;
+		this.accessoryPath = accessoryPath;
+		this.accessoryTime = accessoryTime;
+		this.taskId = taskId;
 		this.accessory = accessory;
 	}
 	
