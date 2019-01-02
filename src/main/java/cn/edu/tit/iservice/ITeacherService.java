@@ -19,14 +19,14 @@ public interface ITeacherService {
 	 * @context 创建课程模块
 	 * @Param1(课程对象)
 	 */
-	//public void createCourse(Course course);	//创建课程模块
+	public void createCourse(Course course);	//创建课程模块
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#deleteCourse(java.lang.Integer)
 	 * @context 删除课程模块
 	 * @Param1(课程ID)
 	 */
-	//public void deleteCourse(Integer courseId);	//删除课程模块
+	public void deleteCourse(Integer courseId);	//删除课程模块
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createVirtualClass(cn.edu.tit.bean.VirtualClass)
@@ -40,14 +40,14 @@ public interface ITeacherService {
 	 * @context 修改班级信息
 	 * @Param1(课程对象)
 	 */
-	//public void updateCourse(Course course);	//修改课程模块
+	public void updateCourse(Course course);	//修改课程模块
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#courseList(java.lang.String)
 	 * @context 查询发布者对应的课程id列表
 	 * @Param1(发布者ID)
 	 */
-	public List<Integer> courseIdList(String employeeNum);		//课程id列表模块
+	public List<Integer> courseIdList(String employeeNum,Integer manager);		//课程id列表模块
 	/**
 	 * @author wenli
 	 * @param courseIds
@@ -178,5 +178,11 @@ public interface ITeacherService {
 	 */
 	public void UpdateTeacher(Teacher teacher);	//查询任务附件
 	
+	
+	public void addOtherToMyCourse(String employeeNum);	//拉取别人加入自己课程
+	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId);	//判断是否允许加入其他人到自己课程
+	public Teacher teacherLoginByEmployeeNum(String employeeNum);	//通过职工号登录教师
+	public Teacher teacherLoginByTelephone(String telephone);	//通过手机号登录教师
+	public Teacher teacherLoginByEmail(String email);	//通过邮件登录教师
 
 }
