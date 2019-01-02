@@ -25,12 +25,7 @@ public class Student {
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
-	public String getStudentNickName() {
-		return studentNickName;
-	}
-	public void setStudentNickName(String studentNickName) {
-		this.studentNickName = studentNickName;
-	}
+
 	public String getStudentGender() {
 		return studentGender;
 	}
@@ -73,6 +68,19 @@ public class Student {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
+	public String getStudentNickName() {
+		return studentNickName;
+	}
+	public void setStudentNickName(String studentNickName) {
+		this.studentNickName = studentNickName;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
+				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
+				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
+				+ email + ", faceImg=" + faceImg + "]";
+	}
 	public Student(String studentId, String studentName, String studentNickName, String studentGender,
 			String studentPassword, String classNum, String professional, String telephone, String email,
 			String faceImg) {
@@ -91,13 +99,6 @@ public class Student {
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
-	}
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
-				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
-				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
-				+ email + ", faceImg=" + faceImg + "]";
 	}
 
 }

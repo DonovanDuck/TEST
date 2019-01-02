@@ -140,7 +140,7 @@ public class ReadTeacherExcel {
 				}
 				switch (c) {
 				case 0:
-					teacher.setEmemployeeNum(getValue(cell));//设置工号
+					teacher.setEmployeeNum(getValue(cell));//设置工号
 					break;
 				case 1:
 					teacher.setTeacherName(getValue(cell));//设置教师名
@@ -173,7 +173,7 @@ public class ReadTeacherExcel {
 					break;
 				}
 			}
-			if(teacher.getEmemployeeNum()!=null)
+			if(teacher.getEmployeeNum()!=null)
 			{
 				teacherList.add(teacher);
 			}

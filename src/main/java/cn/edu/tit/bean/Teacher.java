@@ -4,9 +4,9 @@ import java.io.File;
 
 public class Teacher {
 
-	private String ememployeeNum; // 教师工号
+	private String employeeNum; // 教师工号
 	private String teacherName; // 教师名
-	private String teacherNickName; // 
+	private String teacherNickName; // 教师昵称
 	private String teacherPassword; // 教师密码
 	private String teacherGender; // 教师性别
 	private String educationBackground; // 学历
@@ -15,12 +15,13 @@ public class Teacher {
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
 	
-	
-	public String getEmemployeeNum() {
-		return ememployeeNum;
+
+	// setter - getter
+	public String getEmployeeNum() {
+		return employeeNum;
 	}
-	public void setEmemployeeNum(String ememployeeNum) {
-		this.ememployeeNum = ememployeeNum;
+	public void setEmployeeNum(String employeeNum) {
+		this.employeeNum = employeeNum;
 	}
 	public String getTeacherName() {
 		return teacherName;
@@ -76,15 +77,21 @@ public class Teacher {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-	public Teacher() {
-		super();
-		// TODO Auto-generated constructor stub
+
+	@Override
+	public String toString() {
+		return "Teacher [employeeNum=" + employeeNum + ", teacherName=" + teacherName + ", teacherNickName="
+				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
+				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
+				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
 	}
 	public Teacher(String ememployeeNum, String teacherName, String teacherNickName, String teacherPassword,
 			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
+
 			String faceImg) {
+
 		super();
-		this.ememployeeNum = ememployeeNum;
+		this.employeeNum = employeeNum;
 		this.teacherName = teacherName;
 		this.teacherNickName = teacherNickName;
 		this.teacherPassword = teacherPassword;
@@ -95,12 +102,10 @@ public class Teacher {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
-	@Override
-	public String toString() {
-		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherNickName="
-				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
-				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
-				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
+	public Teacher() {
+		super();
 	}
 	
+	
+
 }
