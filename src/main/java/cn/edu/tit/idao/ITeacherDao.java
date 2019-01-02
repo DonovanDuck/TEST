@@ -46,4 +46,9 @@ public interface ITeacherDao {
 	public Task searchTask(String taskId);	//查看单个任务详情
 	public Accessory searchAccessory(String taskId);	//查询任务附件
 	public void createSignInPoint(@Param("taskId")String taskId,@Param("signPoint")String signPoint);	//wei实现
+
+	/**
+	 * 更新教师模块
+	 * */
+	public void UpdateTeacher(Teacher teacher);
 }

@@ -29,5 +29,10 @@ public interface IStudentDao {
 	public List<String> searchRealClassNum(String virtualClassNum);		//查询虚拟班级对应的自然班列表模块
 	public Student searchStudent(String studentId);		//查看学生信息模块
 	
+	/**
+	 * @author LiMing
+	 * 更新学生操作
+	 * */
+	public void UpdateStudent(Student student);
 	
 }
