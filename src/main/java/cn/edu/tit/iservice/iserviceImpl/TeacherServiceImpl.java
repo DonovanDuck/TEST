@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
 
@@ -8,9 +9,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadExcel;
@@ -32,10 +35,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 创建课程模块
 	 * @Param1(课程对象)
 	 */
-	@Override
-	public void createCourse(Course course) {
-		teacherDao.createCourse(course);
-	}
+//	@Override
+//	public void createCourse(Course course) {
+//		teacherDao.createCourse(course);
+//	}
 
 	/**
 	 * @author wenli
@@ -43,11 +46,11 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 删除课程模块
 	 * @Param1(课程ID)
 	 */
-	@Override
-	public void deleteCourse(Integer courseId) {
-		// TODO Auto-generated method stub
-		teacherDao.deleteCourse(courseId);
-	}
+//	@Override
+//	public void deleteCourse(Integer courseId) {
+//		// TODO Auto-generated method stub
+//		teacherDao.deleteCourse(courseId);
+//	}
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createVirtualClass(cn.edu.tit.bean.VirtualClass)
@@ -66,11 +69,11 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 修改班级信息
 	 * @Param1(课程对象)
 	 */
-	@Override
-	public void updateCourse(Course course) {
-		// TODO Auto-generated method stub
-		teacherDao.updateCourse(course);
-	}
+//	@Override
+//	public void updateCourse(Course course) {
+//		// TODO Auto-generated method stub
+//		teacherDao.updateCourse(course);
+//	}
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#studentList(java.lang.String)
@@ -78,7 +81,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(自然班级班号)
 	 */
 	@Override
-	public List<Student> studentList(String classNum) {
+	public List<Student> studentList(List<String> classNum) {
 		// TODO Auto-generated method stub	
 		return teacherDao.studentList(classNum);
 	}
@@ -100,9 +103,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(发布者ID)
 	 */
 	@Override
-	public List<Course> courseList(String publisherId) {
+	public List<Integer> courseIdList(String employeeNum) {
 		// TODO Auto-generated method stub
-		return teacherDao.courseList(publisherId);
+		return teacherDao.courseIdList(employeeNum);
+	}
+	
+	@Override
+	public List<Course> courseList(List<Integer> courseIds) {
+		// TODO Auto-generated method stub
+		return teacherDao.courseList(courseIds);
 	}
 	/**
 	 * @author wenli
@@ -129,40 +138,77 @@ public class TeacherServiceImpl implements ITeacherService{
 
 	}
 
-	/**
-	 * @author LiMing
-	 * 导入教师信息
-	 * */
-	public String addTeacherInfo(MultipartFile file) {
-		//创建处理EXCEL的类
-		ReadExcel readExcel=new ReadExcel();
-		//解析excel，获取上传的事件单
-		List<Teacher> teacherList = null;
-		int insertResult = 0;//记录插入数
-		String insertMsg = "";
-		try {
-			teacherList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Teacher对象的teacherList集合
-			for(Teacher s :teacherList) {
-				teacherDao.addTeacherInfo(s);	//调用函数，完成写入数据库操作
-				insertResult++;
-				System.out.println(s.toString());  //输出每条插入的数据
-			}
-			if(insertResult ==0) {
-				insertMsg = "载入数据库失败";
-			}else if(insertResult == teacherList.size()){
-				insertMsg = "全部载入数据库";
-			}else {
-				insertMsg = "部分载入数据库";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("接受excel表格中的数据失败！");
-		}
-		for(Teacher s : teacherList) {
-			System.out.println("打印excel中的数据"+s.toString());
-		}
-		return insertMsg;
+
+	@Override
+	public void createTask(Task task) {
+		// TODO Auto-generated method stub
+		teacherDao.createTask(task);
 	}
+
+	@Override
+	public void stopTask(String taskId) {
+		// TODO Auto-generated method stub
+		teacherDao.stopTask(taskId);
+	}
+
+	@Override
+	public void restartTask(String taskId) {
+		// TODO Auto-generated method stub
+		teacherDao.restartTask(taskId);
+	}
+
+	@Override
+	public void restartTaskSetEndTime(String taskId, Timestamp taskEndTime) {
+		// TODO Auto-generated method stub
+		teacherDao.restartTaskSetEndTime(taskId, taskEndTime);
+	}
+
+	@Override
+	public void deleteTask(String taskId) {
+		// TODO Auto-generated method stub
+		teacherDao.deleteTask(taskId);
+	}
+
+	@Override
+	public void mapClassTask(String virtualClassNum, String taskId) {
+		// TODO Auto-generated method stub
+		teacherDao.mapClassTask(virtualClassNum, taskId);
+	}
+
+	@Override
+	public void addAccessory(List<Accessory> accessoris) {
+		// TODO Auto-generated method stub
+		teacherDao.addAccessory(accessoris);
+		
+	}
+
+	@Override
+	public List<String> searchTaskId(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.searchTaskId(virtualClassNum);
+	}
+
+	@Override
+	public List<Task> TaskList(List<String> taskIds) {
+		// TODO Auto-generated method stub
+		return teacherDao.TaskList(taskIds);
+	}
+
+	@Override
+	public Task searchTask(String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.searchTask(taskId);
+	}
+
+	@Override
+	public Accessory searchAccessory(String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.searchAccessory(taskId);
+	}
+	
+
+	
+	
 
 
 }

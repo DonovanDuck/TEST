@@ -49,7 +49,7 @@ public class TeacherTest {
   public void createCourse() {
 	  Course course = new Course(null, "妹妹", "菲菲胡哨", 9, "17693280903", "home/wenli/program");
 	  
-	  teacherService.createCourse(course);
+	  //teacherService.createCourse(course);
 	  //teacherService.createCourse(course);
 	
   }
@@ -68,7 +68,7 @@ public class TeacherTest {
   public void updateCourse() {
 	  
 	  Course course = new Course(9, "语文", "奇迹星桥胡哨", 6, "17693280903", "home/wenli/program");
-	  teacherService.updateCourse(course);
+	//  teacherService.updateCourse(course);
   }
   @Test
   public void courseList() {
@@ -76,11 +76,11 @@ public class TeacherTest {
 	  a.add("刘音");
 	  a.add("李明");
 	  System.out.println(a);
-	  List<Course> c = teacherService.courseList("17693280903");
+	//  List<Course> c = teacherService.courseList("17693280903");
 			  
-	  for(Course course : c ) {
-		  System.out.println(course.getCourseId());
-	  }
+//	  for(Course course : c ) {
+//		  System.out.println(course.getCourseId());
+//	  }
   }
   @Test 
   public void studentList() {
@@ -89,7 +89,7 @@ public class TeacherTest {
 	  List<Student> students = new ArrayList<Student>();
 	  
 	  for (String classNum : realClasses) {
-		  students.addAll(teacherService.studentList(classNum));
+		  //students.addAll(teacherService.studentList(classNum));
 	}
   }
   @Test
