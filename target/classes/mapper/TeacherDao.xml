@@ -2,10 +2,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-<<<<<<< HEAD
-=======
-
->>>>>>> 1d96e40db275884ff6e884d37badc29efbeea158
 
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
@@ -59,15 +55,9 @@
 		delete from course where
 		course_id = #{courseId}
 	</delete>
-<<<<<<< HEAD
-	<select id="courseIdList" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
-		select * from teacher_course where employee_num =
-		#{ememployeeNum};
-=======
+
 	<select id="courseIdList" resultType="java.lang.Integer">
 		select * from teacher_course where employee_num = #{ememployeeNum} and manager = #{manager};
->>>>>>> 1d96e40db275884ff6e884d37badc29efbeea158
 	</select>
 	<select id="courseList" parameterType="java.util.List"
 		resultMap="courseMap">
