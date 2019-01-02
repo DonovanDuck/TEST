@@ -35,6 +35,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 创建课程模块
 	 * @Param1(课程对象)
 	 */
+
 	@Override
 	public void createCourse(Course course) {
 		teacherDao.createCourse(course);
@@ -206,7 +207,12 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.searchAccessory(taskId);
 	}
-
+	@Override
+	public void createSignIn(Integer courseId) {
+		// TODO Auto-generated method stub
+		int signPoint = teacherDao.getSignPoint(); // 获取签到积分
+		// 
+	}
 	@Override
 	public void addOtherToMyCourse(String employeeNum) {
 		// TODO Auto-generated method stub
@@ -237,9 +243,13 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.teacherLoginByEmail(email);
 	}
 	
-
-	
-	
-
+	/**
+	 * @author LiMing
+	 * @param 教师对象
+	 * */
+	@Override
+	public void UpdateTeacher(Teacher teacher) {
+		teacherDao.UpdateTeacher(teacher);
+	}
 
 }

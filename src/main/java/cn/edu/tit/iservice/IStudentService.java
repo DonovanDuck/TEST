@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice;
 
+import cn.edu.tit.bean.Student;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
@@ -29,5 +30,11 @@ public interface IStudentService {
 	public List<String> searchRealClassNum(String virtualClassNum);		//查询虚拟班级对应的自然班列表模块
 	public Student searchStudent(String studentId);		//查看学生信息模块
 	public List<Student> studentList(List<String> classNum);	//查询班级学生列表
-
+	
+	/**
+	 * @author LiMing
+	 * 更新学生信息
+	 * */
+	public void UpdateStudent(Student student);
+	
 }

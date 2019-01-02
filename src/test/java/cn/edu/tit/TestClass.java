@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.tit.common.Common;
 import cn.edu.tit.idao.IResourceDao;
+import cn.edu.tit.idao.ITeacherDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"}) 
@@ -26,6 +27,8 @@ public class TestClass {
 	private IResourceDao resourceDao;
 	@Resource
 	private Common common;
+	@Resource
+	private ITeacherDao teacherDao;
 	
 	@Test
 	public void addResourceToLib(){
@@ -65,5 +68,10 @@ public class TestClass {
 	public void searchResourceById(){
 		cn.edu.tit.bean.Resource resource = resourceDao.searchResourceById("F57A64F45C4C4F0DBE38E27302B7349C");
 		System.out.println(resource.getPublisherId());
+	}
+	
+	@Test
+	public void getSignPoint(){
+		System.out.println(teacherDao.getSignPoint());
 	}
 }

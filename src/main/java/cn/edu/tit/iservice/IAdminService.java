@@ -6,6 +6,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
 
 
 public interface IAdminService {
@@ -45,4 +46,17 @@ public interface IAdminService {
 	 * 添加学生信息,通过Excel表导入
 	 */
 	public String addStudentInfo(MultipartFile file);
+	
+	/**
+	 * @author LiMing
+	 * 添加学生信息,通过Excel表导入
+	 */
+	public void addCourseKinds(List<Course> course);
+	
+	/**
+	 * @author LiMing
+	 * 删除管理员
+	 */
+	public void deleteAdmin(List<Admin> adminList);
+	
 }

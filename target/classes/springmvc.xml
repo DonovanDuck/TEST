@@ -67,7 +67,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 			<value>9242880</value>
 		</property>
 		<property name="maxInMemorySize">
-			 <value>40960</value>
+			<value>-1</value>
 		</property>
 	</bean>
 
@@ -82,5 +82,5 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 		</props> 还可以定义其他的自定义异常 </property> </bean> -->
 	<!-- <bean id="exceptionResolver" class="exception.OverallExceptionResolver"></bean> -->
 
-	
+
 </beans>
