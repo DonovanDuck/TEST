@@ -13,7 +13,7 @@ import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.VirtualClass;
-import cn.edu.tit.common.ReadExcel;
+import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.ITeacherService;
 
@@ -129,40 +129,7 @@ public class TeacherServiceImpl implements ITeacherService{
 
 	}
 
-	/**
-	 * @author LiMing
-	 * 导入教师信息
-	 * */
-	public String addTeacherInfo(MultipartFile file) {
-		//创建处理EXCEL的类
-		ReadExcel readExcel=new ReadExcel();
-		//解析excel，获取上传的事件单
-		List<Teacher> teacherList = null;
-		int insertResult = 0;//记录插入数
-		String insertMsg = "";
-		try {
-			teacherList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Teacher对象的teacherList集合
-			for(Teacher s :teacherList) {
-				teacherDao.addTeacherInfo(s);	//调用函数，完成写入数据库操作
-				insertResult++;
-				System.out.println(s.toString());  //输出每条插入的数据
-			}
-			if(insertResult ==0) {
-				insertMsg = "载入数据库失败";
-			}else if(insertResult == teacherList.size()){
-				insertMsg = "全部载入数据库";
-			}else {
-				insertMsg = "部分载入数据库";
-			}
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.err.println("接受excel表格中的数据失败！");
-		}
-		for(Teacher s : teacherList) {
-			System.out.println("打印excel中的数据"+s.toString());
-		}
-		return insertMsg;
-	}
+
 
 
 }

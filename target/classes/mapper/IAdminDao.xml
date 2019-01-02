@@ -2,7 +2,67 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.IAdminDao">
+	<!-- 增加教师信息 -->
+	<insert id="addTeacherInfo"
+		parameterType="cn.edu.tit.bean.Teacher">
+		INSERT ignore INTO teacher
+		(employee_num,
+		teacher_name,
+		teacher_password,
+		teacher_gender,
+		education_background,
+		professional_titles,
+		telephone,
+		email,
+		face_img,
+		teacher_nickname)
+		values
+		<foreach item="teacher" collection="list" separator=",">
+			(
+			#{teacher.ememployeeNum,jdbcType=VARCHAR},
+			#{teacher.teacherName,jdbcType=VARCHAR},
+			#{teacher.teacherPassword,jdbcType=VARCHAR},
+			#{teacher.teacherGender,jdbcType=VARCHAR},
+			#{teacher.educationBackground,jdbcType=VARCHAR},
+			#{teacher.professionalTitles,jdbcType=VARCHAR},
+			#{teacher.telephone,jdbcType=VARCHAR},
+			#{teacher.email,jdbcType=VARCHAR},
+			#{teacher.faceImg,jdbcType=VARCHAR},
+			#{teacher.teacherNickName,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
 
+	<!-- 增加学生信息 -->
+	<insert id="addStudentInfo"
+		parameterType="cn.edu.tit.bean.Student">
+		INSERT ignore INTO student
+		(student_id,
+		student_name,
+		student_gender,
+		student_password,
+		class_num,
+		professional,
+		telephone,
+		email,
+		face_img,
+		student_nickname)
+		VALUES
+		<foreach item="student" collection="list" separator=",">
+			(
+			#{student.studentId,jdbcType=VARCHAR},
+			#{student.studentName,jdbcType=VARCHAR},
+			#{student.studentGender,jdbcType=VARCHAR},
+			#{student.studentPassword,jdbcType=VARCHAR},
+			#{student.classNum,jdbcType=VARCHAR},
+			#{student.professional,jdbcType=VARCHAR},
+			#{student.telephone,jdbcType=VARCHAR},
+			#{student.email,jdbcType=VARCHAR},
+			#{student.faceImg,jdbcType=VARCHAR},
+			#{student.studentNickName,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
 		<result column="teacher_password" property="adminPassword" />
@@ -40,12 +100,12 @@
 
 	<!-- 管理员修改系部信息 -->
 	<update id="modifyCategory">
-			update category set
-			category_name =
-			#{categoryName},
-			category_detail =
-			#{categoryDetail}
-			where category_id =
-			#{categoryId}
+		update category set
+		category_name =
+		#{categoryName},
+		category_detail =
+		#{categoryDetail}
+		where category_id =
+		#{categoryId}
 	</update>
 </mapper>

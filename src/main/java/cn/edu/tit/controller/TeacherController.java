@@ -29,23 +29,5 @@ public class TeacherController {
 	public String createCourse(HttpRequest request) {
 		return "";
 	}
-	
-	/**
-	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
-	 * 使用spring的MultipartFile上传文件
-	 * */
-	@RequestMapping(value="DoExcel",method= {RequestMethod.POST})
-	public ModelAndView DoExcel(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
-		ModelAndView mv = new ModelAndView();
-		String readResult =null;
-		try {
-			//调用ITeacherService 下的方法，完成增加教师
-			readResult = teacherService.addTeacherInfo(file);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mv.addObject("readResult", readResult);//返回信息
-		mv.setViewName("/success");//设置返回页面
-        return mv;
-	}
+
 }
