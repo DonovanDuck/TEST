@@ -151,4 +151,12 @@ public class AdminServiceImpl implements IAdminService {
 	public void deleteAdmin(List<Admin> adminList) {
 		iAdminDao.deleteAdmin(adminList);
 	}
+
+	/* (non-Javadoc)
+	 * @see cn.edu.tit.iservice.IAdminService#loginAdmin(java.lang.String)
+	 */
+	@Override
+	public Admin loginAdmin(String adminName) {
+		return iAdminDao.loginAdmin(adminName);
+	}
 }

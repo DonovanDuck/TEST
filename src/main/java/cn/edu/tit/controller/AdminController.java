@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.tit.bean.Admin;
 import cn.edu.tit.iservice.IAdminService;
 
 @RequestMapping("/admin")
@@ -48,5 +49,33 @@ public class AdminController {
 		mv.addObject("readResult", readResult);//返回信息
 		mv.setViewName("/success");//设置返回页面
         return mv;
+	}
+	
+	/**
+	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
+	 * 使用spring的MultipartFile上传文件
+	 * */
+	@RequestMapping(value="LoginAdmin",method= {RequestMethod.POST})
+	public ModelAndView LoginStudent(@RequestParam(value="adminUsername") String adminUsername,@RequestParam(value="adminPassword") String adminPassword) {			
+		ModelAndView mv = new ModelAndView();
+		Admin admin = null;
+		String readResult =null;
+		try {
+			admin = iAdminService.loginAdmin(adminUsername);
+			if(adminPassword.equals(admin.getAdminPassword()))
+			{
+				mv.addObject("readResult", readResult);//返回信息
+				mv.setViewName("/jsp/AdminJsp/index");//设置返回页面
+			}
+			else {
+				mv.addObject("readResult", readResult);//返回信息
+				mv.setViewName("/jsp/AdminJsp/adminLogin");//设置返回页面
+			}
+		} catch (Exception e) {
+			mv.addObject("readResult", readResult);//返回信息
+			mv.setViewName("/jsp/AdminJsp/adminLogin");//设置返回页面
+			e.printStackTrace();
+		}
+		return mv;
 	}
 }

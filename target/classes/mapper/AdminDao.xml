@@ -136,4 +136,15 @@
 		</foreach>
 		;
 	</delete>
+
+	<resultMap type="cn.edu.tit.bean.Admin" id="admin">
+		<id column="adminId" property="adminId" />
+		<result column="adminUsername" property="adminUsername" />
+		<result column="adminPassword" property="adminPassword" />
+	</resultMap>
+
+	<!--读取教师信息，只查询三列数据 -->
+	<select id="loginAdmin" resultMap="admin">
+		select * from admin where adminUsername = #{adminUsername};
+	</select>
 </mapper>

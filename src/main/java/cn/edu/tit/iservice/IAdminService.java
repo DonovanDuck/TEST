@@ -59,4 +59,10 @@ public interface IAdminService {
 	 */
 	public void deleteAdmin(List<Admin> adminList);
 	
+	/**
+	 * @author LiMing
+	 * 登陆管理员
+	 */
+	public Admin loginAdmin(String adminName);
+	
 }

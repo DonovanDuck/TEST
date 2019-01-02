@@ -19,9 +19,9 @@ import cn.edu.tit.iservice.IAdminService;
 public class AdminTest {
 	private static Logger logger = Logger.getLogger(AdminTest.class);
 
-	//	@Resource
-	//	private IAdminService iadminService;
-	//
+	@Resource
+	private IAdminService iadminService;
+
 	//	List<Admin> adminList = new ArrayList<Admin>();
 	//	List<Admin> array = new ArrayList<Admin>();
 	//	List<Category> categories = new ArrayList<Category>();
@@ -61,6 +61,12 @@ public class AdminTest {
 		//		Admin admin = new Admin(10, "刘申全","011002");
 		//			adminList.add(admin);				
 		//		iadminService.deleteAdmin(adminList);	
+
+		/**
+		 * 测试管理员登陆
+		 * */
+		//		Admin admin = iadminService.loginAdmin("吴原生");
+		//		System.out.println(admin.toString());
 	}
 }
 
