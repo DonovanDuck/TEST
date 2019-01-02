@@ -37,7 +37,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	 */
 //	@Override
 //	public void createCourse(Course course) {
-//		teacherDao.createCourse(course);
+//		teachstuberDao.createCourse(course);
 //	}
 
 	/**
@@ -213,9 +213,13 @@ public class TeacherServiceImpl implements ITeacherService{
 		// 
 	}
 	
-
-	
-	
-
+	/**
+	 * @author LiMing
+	 * @param 教师对象
+	 * */
+	@Override
+	public void UpdateTeacher(Teacher teacher) {
+		teacherDao.UpdateTeacher(teacher);
+	}
 
 }

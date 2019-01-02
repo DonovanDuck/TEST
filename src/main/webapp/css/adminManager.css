@@ -1,0 +1,184 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+header {
+	height: 20%;
+	background: lightblue;
+}
+
+h1 {
+	text-align: center;
+}
+.menu{
+	height: 600px;
+	background: lightcyan;
+	width: 20%;
+}
+.menu ul{
+	padding-top: 30%;
+}
+.menu ul li{
+	width: 70%;
+	height: 50px;
+	line-height: 50px;
+	font-size: 20px;
+	background: lightpink;
+	text-align: center;
+	border-radius: 6px;
+	margin-bottom: 10%;
+	margin-left: 15%;
+}
+.menu ul li:hover{
+	cursor: pointer;
+}
+.content{
+	background: plum;
+	width: 80%;
+	margin-top: -600px;
+	margin-left: 20%;
+	height: 600px;
+}
+.importInformation button{
+	border-radius: 6px;
+	margin-top: 3%;
+	margin-left: 5%;
+	outline: none;
+	border: none;
+	height: 30px;
+	width: 10%;
+	margin-bottom: 5%;
+}
+.importInformation button:hover{
+	cursor: pointer;
+}
+.importInformation table{
+	border: 1px solid black;
+	border-collapse: collapse;
+	margin-bottom: 5%;
+	margin-left: 5%;
+}
+.importInformation table td{
+	border: 1px solid black;
+	text-align: center;
+	width: 13%;
+	height: 30px;
+}
+.importInformation span{
+	margin-left: 5%;
+}
+.departInformation{
+	display: none;
+}
+.departInformation button{
+	border-radius: 6px;
+	margin-top: 3%;
+	margin-left: 5%;
+	outline: none;
+	border: none;
+	height: 30px;
+	width: 10%;
+	margin-bottom: 5%;
+}
+.departInformation button:hover{
+	cursor: pointer;
+}
+.departInformation table{
+	border-collapse: collapse;
+	border: 1px solid black;
+	margin-left: 20%;
+}
+.departInformation table td{
+	border: 1px solid black;
+	width: 13%;
+	text-align: center;
+}
+.departInformation table button{
+	width: 80%;
+}
+.setClass{
+	display: none;
+}
+.setClass button{
+	border-radius: 6px;
+	margin-top: 3%;
+	margin-left: 5%;
+	outline: none;
+	border: none;
+	height: 30px;
+	width: 10%;
+	margin-bottom: 5%;
+}
+.setClass button:hover{
+	cursor: pointer;
+}
+.setClass table{
+	border-collapse: collapse;
+	border: 1px solid black;
+	margin-left: 10%;
+}
+.setClass table td{
+	border: 1px solid black;
+	width: 8%;
+	text-align: center;
+}
+.setClass table button{
+	width: 80%;
+}
+.add{
+	display: none;
+}
+.add button{
+	border-radius: 6px;
+	margin-top: 3%;
+	margin-left: 5%;
+	outline: none;
+	border: none;
+	height: 30px;
+	width: 10%;
+	margin-bottom: 5%;
+}
+.add button:hover{
+	cursor: pointer;
+}
+.add table{
+	border-collapse: collapse;
+	border: 1px solid black;
+	margin-left: 20%;
+}
+.add table td{
+	border: 1px solid black;
+	width: 8%;
+	text-align: center;
+}
+.add table button{
+	width: 80%;
+}
+.score{
+	display: none;
+}
+
+
+
+footer {
+	height: 15%;
+	background: lightblue;
+}

@@ -10,6 +10,7 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
+import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.VirtualClass;
 public interface ITeacherService {
 	/**
@@ -170,5 +171,12 @@ public interface ITeacherService {
 	 * @param courseId
 	 */
 	public void createSignIn(Integer courseId);
+	
+	/**
+	 * @author LiMing
+	 * @param 教师对象，用作更新教师信息
+	 */
+	public void UpdateTeacher(Teacher teacher);	//查询任务附件
+	
 
 }

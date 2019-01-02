@@ -3,29 +3,35 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
 
-
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
-		<id column="employee_num" property="employeeNum"/>
-		<result column="teacher_name" property="teacherName"/>
-		<result column="teacher_passwoed" property="teacherPassword"/>
-		<result column="teacher_gender" property="teacherGender"/>
-		<result column="education_background" property="educationBackground"/>
-		<result column="teacher_nickname" property="teacherNickName"/>
-		<result column="professional_titles" property="professionalTitles"/>
-		<result column="telephone" property="telephone"/>
-		<result column="email" property="email"/>
-		<result column="face_img" property="faceImg"/>
+		<id column="employee_num" property="employeeNum" />
+		<result column="teacher_name" property="teacherName" />
+		<result column="teacher_passwoed" property="teacherPassword" />
+		<result column="teacher_gender" property="teacherGender" />
+		<result column="education_background"
+			property="educationBackground" />
+		<result column="teacher_nickname" property="teacherNickName" />
+		<result column="professional_titles"
+			property="professionalTitles" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
 	</resultMap>
-	<select id="teacherLoginByEmployeeNum" parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where employee_num = #{ememployeeNum};
+	<select id="teacherLoginByEmployeeNum"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where
+		employee_num = #{ememployeeNum};
 	</select>
-	<select id="teacherLoginByTelephone" parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where telephone = #{telephone};
+	<select id="teacherLoginByTelephone"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where
+		telephone = #{telephone};
 	</select>
-	<select id="teacherLoginByEmail" parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where email = #{email};
+	<select id="teacherLoginByEmail"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where
+		email = #{email};
 	</select>
-	
 
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
@@ -51,11 +57,14 @@
 	</delete>
 	<select id="courseIdList" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
-		select * from teacher_course where employee_num = #{ememployeeNum};
+		select * from teacher_course where employee_num =
+		#{ememployeeNum};
 	</select>
-	<select id="courseList" parameterType="java.util.List"  resultMap="courseMap">
+	<select id="courseList" parameterType="java.util.List"
+		resultMap="courseMap">
 		select * from course where course_id in
-		<foreach collection="list" item="courseId"  open="(" separator="," close=")" index="index" >
+		<foreach collection="list" item="courseId" open="("
+			separator="," close=")" index="index">
 			#{courseId}
 		</foreach>
 	</select>
@@ -73,23 +82,25 @@
 	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
-		<result column="student_nickname" property="studentNickName"/>
+		<result column="student_nickname" property="studentNickName" />
 		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
-		<result column="class" property="classNum" />
+		<result column="class_num" property="classNum" />
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 	</resultMap>
 
-	<select id="studentList" parameterType="java.util.List"  resultMap="studentMap">
+	<select id="studentList" parameterType="java.util.List"
+		resultMap="studentMap">
 		select * from student where class_num in
-		<foreach collection="list" item="classNum"  open="(" separator="," close=")" index="index" >
+		<foreach collection="list" item="classNum" open="("
+			separator="," close=")" index="index">
 			#{classNum}
 		</foreach>
 	</select>
-	
+
 	<select id="searchStudent" parameterType="java.lang.String"
 		resultMap="studentMap">
 		select * from student where
@@ -138,74 +149,89 @@
 
 
 	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
-		<id column="task_id" property="taskId"/>
+		<id column="task_id" property="taskId" />
 		<result column="task_title" property="taskTitle" />
-		<result column="task_detail" property="taskDetail"/>
+		<result column="task_detail" property="taskDetail" />
 		<result column="publish_time" property="publishTime" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="task_end_time" property="taskEndTime" />
 		<result column="status" property="status" />
 	</resultMap>
-	<insert id="createTask" parameterType="cn.edu.tit.bean.Task" >
-	    insert into task ( task_id, task_title, task_detail,publish_time,publisher_id,task_end_time,status) values (
-	    	#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime}, #{publisherId},#{taskEndTime},#{status});
-	    
+	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
+		insert into task (
+		task_id, task_title,
+		task_detail,publish_time,publisher_id,task_end_time,status) values (
+		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
+		#{publisherId},#{taskEndTime},#{status});
+
 	</insert>
-	<insert id="mapClassTask" >
-	    insert into task ( virtual_class_num, task_id) values (
-	    	#{virtualClassNum}, #{taskId});
-	    
+	<insert id="mapClassTask">
+		insert into task ( virtual_class_num, task_id) values
+		(
+		#{virtualClassNum}, #{taskId});
+
 	</insert>
-	<update id="stopTaskByEndTime" parameterType="java.lang.String" >
-  		update task set
-    	status = 1
-  		where task_id = #{taskId}
+	<update id="stopTaskByEndTime" parameterType="java.lang.String">
+		update task set
+		status = 1
+		where task_id = #{taskId}
 	</update>
-	<update id="restartTask" parameterType="java.lang.String" >
-  		update task set
-    	status = 0
-  		where task_id = #{taskId}
+	<update id="restartTask" parameterType="java.lang.String">
+		update task set
+		status = 0
+		where task_id = #{taskId}
 	</update>
 	<update id="restartTaskSetEndTime">
-  		update task set
-    	status = 0,
-    	task_end_time = #{taskEndTime}
-  		where task_id = #{taskId}
+		update task set
+		status = 0,
+		task_end_time =
+		#{taskEndTime}
+		where task_id = #{taskId}
 	</update>
 	<delete id="deleteTask" parameterType="java.lang.String">
-  		delete from task where task_id = #{taskId}
+		delete from task where
+		task_id = #{taskId}
 	</delete>
 	<insert id="addAccessory" parameterType="java.util.List">
-		insert into pub_accessory (  pub_accessory_name,pub_accessory_path,pub_accessory_time,task_id,delete_flag) values 
-	    	<foreach collection="list" item = "accessory" index="index" separator=",">
-	    		(#{accessory.accessoryName},#{accessory.accessoryPath},#{accessory.accessoryTime},#{accessory.taskId},0)
-	    	</foreach>
+		insert into pub_accessory (
+		pub_accessory_name,pub_accessory_path,pub_accessory_time,task_id,delete_flag)
+		values
+		<foreach collection="list" item="accessory" index="index"
+			separator=",">
+			(#{accessory.accessoryName},#{accessory.accessoryPath},#{accessory.accessoryTime},#{accessory.taskId},0)
+		</foreach>
 	</insert>
-	
-	<select id="searchTaskId" parameterType="java.lang.String" resultType="java.lang.String">
-		select * from class_task where virtual_class_num = #{virtualClassNum} ;
+
+	<select id="searchTaskId" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select * from class_task where virtual_class_num =
+		#{virtualClassNum} ;
 	</select>
-	
-	<select id="TaskList" parameterType="java.util.List"  resultMap="taskMap">
+
+	<select id="TaskList" parameterType="java.util.List"
+		resultMap="taskMap">
 		select * from task where task_id in
-		<foreach collection="list" item="taskId"  open="(" separator="," close=")" index="index" >
+		<foreach collection="list" item="taskId" open="("
+			separator="," close=")" index="index">
 			#{taskId}
 		</foreach>
 	</select>
-	<select id="searchTask" parameterType="java.lang.String" resultMap="taskMap">
+	<select id="searchTask" parameterType="java.lang.String"
+		resultMap="taskMap">
 		select * from task where task_id = #{taskId};
 	</select>
-	
-	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
-		<id column="pub_accessroy_id" property="accessoryId"/>
+
+
+	<resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
+		<id column="pub_accessroy_id" property="accessoryId" />
 		<result column="pub_accessory_name" property="accessoryName" />
-		<result column="pub_accessory_path" property="accessoryPath"/>
+		<result column="pub_accessory_path" property="accessoryPath" />
 		<result column="pub_accessory_time" property="accessoryTime" />
 		<result column="task_id" property="taskId" />
-		
 	</resultMap>
-	
-	<select id="searchAccessory" parameterType="java.lang.String" resultMap="accessoryMap">
+
+	<select id="searchAccessory" parameterType="java.lang.String"
+		resultMap="accessoryMap">
 		select * from pub_accessory where task_id = #{taskId};
 	</select>
 	
@@ -213,4 +239,20 @@
 		select point_value from point where task_category = "signIn";
 	</select>
 
+	<!-- 更新教师模块 -->
+	<update id="UpdateTeacher" parameterType="cn.edu.tit.bean.Teacher">
+		UPDATE teacher
+		<set>
+			<if test="teacherName != null">teacher_name = #{teacherName},</if>
+			<if test="teacherPassword != null">teacher_password = #{teacherPassword},</if>
+			<if test="teacherGender != null">teacher_gender =#{teacherGender},</if>
+			<if test="educationBackground != null">education_background = #{educationBackground},</if>
+			<if test="professionalTitles != null">professional_titles = #{professionalTitles},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="faceImg != null">face_img = #{faceImg},</if>
+			<if test="teacherNickName != null">teacher_nickname = #{teacherNickName}</if>
+		</set>
+		WHERE employee_num = #{employeeNum}
+	</update>
 </mapper>
