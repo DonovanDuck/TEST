@@ -11,8 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>测试页面</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <body>
-<!-- 测试EXCEL 部分代码 -->
-   <!-- <div id="hidden_file_div">
+	<!-- 测试EXCEL 部分代码 -->
+	<!-- <div id="hidden_file_div">
 		<form id="form_excel" name="form_excel" 
 		action="${pageContext.request.contextPath}/admin/DoExcel" method="post" enctype="multipart/form-data">
 			<input type="file" id="file_excel" name="file_excel" />
@@ -21,12 +21,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<input type="text" name="filename" id="filename" />
 	</div> -->
 	<div>
-		<form id="form_excel" name="form_excel" 
-		action="${pageContext.request.contextPath}/admin/AddTeacher" method="post" enctype="multipart/form-data">
-			<input type="file" id="file_excel" name="file_excel" />
-		    <input type="submit" />
+		<form id="form_excel" name="form_excel"
+			action="${pageContext.request.contextPath}/admin/AddTeacher"
+			method="post" enctype="multipart/form-data">
+			<input type="file" id="file_excel" name="file_excel" /> <input
+				type="submit" />
+		</form>
+
+		<form id="form_excel" name="form_excel"
+			action="${pageContext.request.contextPath}/admin/AddStudent"
+			method="post" enctype="multipart/form-data">
+			<input type="file" id="file_excel" name="file_excel" /> <input
+				type="submit" />
 		</form>
 	</div>
-	
+
 </body>
 </html>

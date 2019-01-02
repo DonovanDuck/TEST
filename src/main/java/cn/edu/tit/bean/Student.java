@@ -5,11 +5,7 @@ public class Student {
 
 	private String studentId; // 学生学号
 	private String studentName; // 学生姓名
-<<<<<<< HEAD
 	private String studentNickName; // 学生昵称
-=======
-	private String nickName; // 昵称
->>>>>>> b51899a965c1bcdd6fd48b36ee50e03caba6fa61
 	private String studentGender; // 学生性别
 	private String studentPassword; // 学生密码
 	private String classNum; // 班级
@@ -17,8 +13,6 @@ public class Student {
 	private String telephone; // 电话
 	private String email; // 电子邮件
 	private String faceImg; //学生头像
-	
-	// setter - getter
 	public String getStudentId() {
 		return studentId;
 	}
@@ -30,6 +24,12 @@ public class Student {
 	}
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
+	}
+	public String getStudentNickName() {
+		return studentNickName;
+	}
+	public void setStudentNickName(String studentNickName) {
+		this.studentNickName = studentNickName;
 	}
 	public String getStudentGender() {
 		return studentGender;
@@ -73,20 +73,6 @@ public class Student {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-<<<<<<< HEAD
-	public String getStudentNickName() {
-		return studentNickName;
-	}
-	public void setStudentNickName(String studentNickName) {
-		this.studentNickName = studentNickName;
-	}
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
-				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
-				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
-				+ email + ", faceImg=" + faceImg + "]";
-	}
 	public Student(String studentId, String studentName, String studentNickName, String studentGender,
 			String studentPassword, String classNum, String professional, String telephone, String email,
 			String faceImg) {
@@ -94,27 +80,6 @@ public class Student {
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.studentNickName = studentNickName;
-=======
-	public String getNickname() {
-		return nickName;
-	}
-	public void setNickname(String nickName) {
-		this.nickName = nickName;
-	}
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", nickName=" + nickName
-				+ ", studentGender=" + studentGender + ", studentPassword=" + studentPassword + ", classNum=" + classNum
-				+ ", professional=" + professional + ", telephone=" + telephone + ", email=" + email + ", faceImg="
-				+ faceImg + "]";
-	}
-	public Student(String studentId, String studentName, String nickName, String studentGender, String studentPassword,
-			String classNum, String professional, String telephone, String email, String faceImg) {
-		super();
-		this.studentId = studentId;
-		this.studentName = studentName;
-		this.nickName = nickName;
->>>>>>> b51899a965c1bcdd6fd48b36ee50e03caba6fa61
 		this.studentGender = studentGender;
 		this.studentPassword = studentPassword;
 		this.classNum = classNum;
@@ -123,9 +88,16 @@ public class Student {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
-<<<<<<< HEAD
-=======
-	
->>>>>>> b51899a965c1bcdd6fd48b36ee50e03caba6fa61
-	
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
+				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
+				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
+				+ email + ", faceImg=" + faceImg + "]";
+	}
+
 }

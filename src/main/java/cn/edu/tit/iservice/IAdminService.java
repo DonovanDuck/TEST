@@ -39,4 +39,10 @@ public interface IAdminService {
 	 * 添加教师信息,通过Excel表导入
 	 */
 	public String addTeacherInfo(MultipartFile file);
+	
+	/**
+	 * @author LiMing
+	 * 添加学生信息,通过Excel表导入
+	 */
+	public String addStudentInfo(MultipartFile file);
 }

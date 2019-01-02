@@ -15,7 +15,7 @@ public class Teacher {
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
 	
-	// setter - getter
+	
 	public String getEmemployeeNum() {
 		return ememployeeNum;
 	}
@@ -27,6 +27,12 @@ public class Teacher {
 	}
 	public void setTeacherName(String teacherName) {
 		this.teacherName = teacherName;
+	}
+	public String getTeacherNickName() {
+		return teacherNickName;
+	}
+	public void setTeacherNickName(String teacherNickName) {
+		this.teacherNickName = teacherNickName;
 	}
 	public String getTeacherPassword() {
 		return teacherPassword;
@@ -64,36 +70,15 @@ public class Teacher {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTeacherNickName() {
-		return teacherNickName;
-	}
-	public void setTeacherNickName(String teacherNickName) {
-		this.teacherNickName = teacherNickName;
-	}
 	public String getFaceImg() {
 		return faceImg;
 	}
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-	@Override
-	public String toString() {
-<<<<<<< HEAD
-		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherPassword="
-				+ teacherPassword + ", teacherGender=" + teacherGender + ", educationBackground=" + educationBackground
-				+ ", professionalTitles=" + professionalTitles + ", telephone=" + telephone + ", email=" + email
-				+ ", faceImg=" + faceImg + "]";
-	}
-	public Teacher(String ememployeeNum, String teacherName, String teacherPassword, String teacherGender,
-			String educationBackground, String professionalTitles, String telephone, String email, File faceImg) {
+	public Teacher() {
 		super();
-		this.ememployeeNum = ememployeeNum;
-		this.teacherName = teacherName;
-=======
-		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherNickName="
-				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
-				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
-				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
+		// TODO Auto-generated constructor stub
 	}
 	public Teacher(String ememployeeNum, String teacherName, String teacherNickName, String teacherPassword,
 			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
@@ -102,7 +87,6 @@ public class Teacher {
 		this.ememployeeNum = ememployeeNum;
 		this.teacherName = teacherName;
 		this.teacherNickName = teacherNickName;
->>>>>>> b51899a965c1bcdd6fd48b36ee50e03caba6fa61
 		this.teacherPassword = teacherPassword;
 		this.teacherGender = teacherGender;
 		this.educationBackground = educationBackground;
@@ -111,14 +95,12 @@ public class Teacher {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
-<<<<<<< HEAD
-	public Teacher() {
-		super();
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "Teacher [ememployeeNum=" + ememployeeNum + ", teacherName=" + teacherName + ", teacherNickName="
+				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
+				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
+				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
 	}
-=======
-	
->>>>>>> b51899a965c1bcdd6fd48b36ee50e03caba6fa61
-	
 	
 }

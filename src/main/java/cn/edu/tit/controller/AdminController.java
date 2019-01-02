@@ -22,12 +22,26 @@ public class AdminController {
 	 * 使用spring的MultipartFile上传文件
 	 * */
 	@RequestMapping(value="AddTeacher",method= {RequestMethod.POST})
-	public ModelAndView DoExcel(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
+	public ModelAndView DoExcelTeacher(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		try {
 			//调用ITeacherService 下的方法，完成增加教师
 			readResult = iAdminService.addTeacherInfo(file);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("readResult", readResult);//返回信息
+		mv.setViewName("/success");//设置返回页面
+        return mv;
+	}
+	@RequestMapping(value="AddStudent",method= {RequestMethod.POST})
+	public ModelAndView DoExcelStudent(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
+		ModelAndView mv = new ModelAndView();
+		String readResult =null;
+		try {
+			//调用ITeacherService 下的方法，完成增加教师
+			readResult = iAdminService.addStudentInfo(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
