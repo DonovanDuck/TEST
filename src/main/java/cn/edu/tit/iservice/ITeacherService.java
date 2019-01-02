@@ -70,11 +70,6 @@ public interface ITeacherService {
 	 * @Param2(虚拟班班号)
 	 */
 	public void mapVirtualRealClass(String realClassNum,String virtualClassNUm);	//创建虚拟班和自然班映射模块
-
-	/**
-	 * @author LiMing
-	 * 添加教师信息,通过Excel表导入
-	 */
-	public String addTeacherInfo(MultipartFile file);	//创建虚拟班和自然班映射模块
+	
 
 }
