@@ -19,7 +19,7 @@
 		values
 		<foreach item="teacher" collection="list" separator=",">
 			(
-			#{teacher.ememployeeNum,jdbcType=VARCHAR},
+			#{teacher.employeeNum,jdbcType=VARCHAR},
 			#{teacher.teacherName,jdbcType=VARCHAR},
 			#{teacher.teacherPassword,jdbcType=VARCHAR},
 			#{teacher.teacherGender,jdbcType=VARCHAR},
@@ -108,4 +108,32 @@
 		where category_id =
 		#{categoryId}
 	</update>
+
+	<!-- 增加课程类别信息 -->
+	<insert id="addCourseKinds">
+		INSERT INTO course
+		(course_id,
+		course_name,
+		course_detail,
+		course_category,
+		publisher_id,
+		face_img)
+		VALUES
+		<foreach item="courseList" collection="list" separator=",">
+			(#{courseList.courseId,jdbcType=VARCHAR},
+			#{courseList.courseName,jdbcType=VARCHAR},
+			#{courseList.courseDetail,jdbcType=VARCHAR},
+			#{courseList.courseCategory,jdbcType=VARCHAR},
+			#{courseList.publisherId,jdbcType=VARCHAR},
+			#{courseList.faceImg,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+	<delete id="deleteAdmin">
+		DELETE FROM admin
+		<foreach item="adminList" collection="list" separator=",">
+			where
+			adminId = #{adminList.adminId}
+		</foreach>
+		;
+	</delete>
 </mapper>

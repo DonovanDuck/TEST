@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.ReadStudentExcel;
@@ -130,5 +131,24 @@ public class AdminServiceImpl implements IAdminService {
 			System.out.println("打印excel中的数据"+s.toString());
 		}
 		return insertMsg;
+	}
+
+
+	/**
+	 * @author LiMing
+	 * 增加课程信息
+	 * */
+	@Override
+	public void addCourseKinds(List<Course> courseList) {
+		iAdminDao.addCourseKinds(courseList);
+	}
+
+	/**
+	 * @author LiMing
+	 * 删除管理员
+	 * */
+	@Override
+	public void deleteAdmin(List<Admin> adminList) {
+		iAdminDao.deleteAdmin(adminList);
 	}
 }

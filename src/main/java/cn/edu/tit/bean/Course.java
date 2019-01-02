@@ -8,9 +8,8 @@ public class Course {
 	private String courseName; // 课程名
 	private String courseDetail; // 课程描述
 	private Integer courseCategory; // 课程分类
-	private String publisherId; //发布者id
+	private String publisherId; //发布者id 
 	private String faceImg; // 课程图标
-	
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -62,11 +61,5 @@ public class Course {
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
 				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", faceImg=" + faceImg + "]";
-
 	}
-	
-
-	
-	
-	
 }
