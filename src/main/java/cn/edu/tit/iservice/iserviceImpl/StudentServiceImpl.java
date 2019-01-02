@@ -27,5 +27,14 @@ public class StudentServiceImpl implements IStudentService{
 	public void UpdateStudent(Student student) {
 		iStudentDao.UpdateStudent(student);
 	}
+	
+	/**
+	 * @author LiMing
+	 * 通过学号登录学生
+	 * */
+	@Override
+	public Student studentLoginByEmployeeNum(String employeeNum) {
+		return iStudentDao.studentLoginByEmployeeNum(employeeNum);
+	}
 
 }
