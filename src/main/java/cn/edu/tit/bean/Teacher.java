@@ -85,7 +85,7 @@ public class Teacher {
 				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
 				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
 	}
-	public Teacher(String ememployeeNum, String teacherName, String teacherNickName, String teacherPassword,
+	public Teacher(String employeeNum, String teacherName, String teacherNickName, String teacherPassword,
 			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
 
 			String faceImg) {

@@ -33,6 +33,15 @@ public interface ITeacherDao {
 	public Teacher teacherLoginByEmployeeNum(String employeeNum);	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone);	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email);	//通过邮件登录教师
+
+	public void createSignIn(@Param("taskId")String taskId,@Param("signPoint")String signPoint);	//wei实现
+	public Integer getSignPoint(); // 获取签到的信息
+
+
+	/**
+	 * 更新教师模块
+	 * */
+	public void UpdateTeacher(Teacher teacher);
 	public void createTask(Task task);	//创建任务1
 	public void stopTask(String taskId);	//截止任务1
 	public void restartTask(String taskId);	//重新启动任务，任务未过期1

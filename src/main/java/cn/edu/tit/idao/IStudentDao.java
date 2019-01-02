@@ -34,5 +34,10 @@ public interface IStudentDao {
 	public List<Student> studentList(List<String> classNum);	//查询班级学生列表
 	
 	
+	/**
+	 * @author LiMing
+	 * 更新学生操作
+	 * */
+	public void UpdateStudent(Student student);
 	
 }

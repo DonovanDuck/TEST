@@ -166,6 +166,18 @@ public interface ITeacherService {
 	 * 查询任务附件
 	 */
 	public Accessory searchAccessory(String taskId);	//查询任务附件
+	/**
+	 * 开启签到
+	 * @param courseId
+	 */
+	public void createSignIn(Integer courseId);
+	
+	/**
+	 * @author LiMing
+	 * @param 教师对象，用作更新教师信息
+	 */
+	public void UpdateTeacher(Teacher teacher);	//查询任务附件
+	
 	
 	public void addOtherToMyCourse(String employeeNum);	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId);	//判断是否允许加入其他人到自己课程
