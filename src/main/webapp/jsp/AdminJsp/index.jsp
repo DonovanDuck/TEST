@@ -5,8 +5,8 @@
 <head>
 <meta charset="utf-8" />
 <title>管理员界面</title>
-<link rel="stylesheet" href="css/manager.css" />
-<script src="js/manager.js"></script>
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/manager.css" />
+<script src="${pageContext.request.contextPath}/js/manager.js"></script>
 <script src="http://libs.baidu.com/jquery/2.0.0/jquery.js"></script>
 </head>
 <body>

@@ -1,10 +1,14 @@
+=\=\=\=\=\=\=
+<<<<<<<=HEAD
+>>>>>>>=0914967081c6ab88d322468ca3a805ffa37e3361
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources/jdbc.properties=UTF-8
 encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/main/resources/mapper/AdminDao.xml=UTF-8
-encoding//src/main/webapp/html/user_login.html=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/add.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/setClass.jsp=UTF-8
+encoding//src/main/webapp/jsp/course.jsp=UTF-8
+encoding//src/main/webapp/jsp/user_login.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8

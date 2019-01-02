@@ -33,7 +33,6 @@
 		email = #{email};
 	</select>
 
-
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
@@ -56,10 +55,9 @@
 		delete from course where
 		course_id = #{courseId}
 	</delete>
-	<select id="courseIdList" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
-		select * from teacher_course where employee_num =
-		#{ememployeeNum};
+
+	<select id="courseIdList" resultType="java.lang.Integer">
+		select * from teacher_course where employee_num = #{ememployeeNum} and manager = #{manager};
 	</select>
 	<select id="courseList" parameterType="java.util.List"
 		resultMap="courseMap">
@@ -68,6 +66,9 @@
 			separator="," close=")" index="index">
 			#{courseId}
 		</foreach>
+	</select>
+	<select id="permissionAddOthers" resultType="java.lang.Integer">
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId};
 	</select>
 
 	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
@@ -80,7 +81,7 @@
 		course_id = #{courseId}
 	</update>
 
-	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
 		<result column="student_nickname" property="studentNickName" />
@@ -222,6 +223,7 @@
 		select * from task where task_id = #{taskId};
 	</select>
 
+
 	<resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
 		<id column="pub_accessroy_id" property="accessoryId" />
 		<result column="pub_accessory_name" property="accessoryName" />
@@ -233,6 +235,10 @@
 	<select id="searchAccessory" parameterType="java.lang.String"
 		resultMap="accessoryMap">
 		select * from pub_accessory where task_id = #{taskId};
+	</select>
+	
+	<select id="getSignPoint" parameterType="java.lang.String" resultType="int">
+		select point_value from point where task_category = "signIn";
 	</select>
 
 	<!-- 更新教师模块 -->
