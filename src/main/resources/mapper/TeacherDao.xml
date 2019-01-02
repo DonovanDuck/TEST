@@ -2,8 +2,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-<<<<<<< HEAD
-=======
+
 
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum"/>
@@ -28,7 +27,6 @@
 	</select>
 	
 
->>>>>>> 09b2fe90ee20fc8d114ab8c240f29956cecc1d11
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
@@ -51,15 +49,17 @@
 		delete from course where
 		course_id = #{courseId}
 	</delete>
-	<select id="courseIdList" parameterType="java.lang.String"
-		resultType="java.lang.Integer">
-		select * from teacher_course where employee_num = #{ememployeeNum};
+	<select id="courseIdList" resultType="java.lang.Integer">
+		select * from teacher_course where employee_num = #{ememployeeNum} and manager = #{manager};
 	</select>
 	<select id="courseList" parameterType="java.util.List"  resultMap="courseMap">
 		select * from course where course_id in
 		<foreach collection="list" item="courseId"  open="(" separator="," close=")" index="index" >
 			#{courseId}
 		</foreach>
+	</select>
+	<select id="permissionAddOthers" resultType="java.lang.Integer">
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId};
 	</select>
 
 	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
@@ -93,7 +93,7 @@
 	</select>
 	
 	<select id="searchStudent" parameterType="java.lang.String"
-		resultType="studentMap">
+		resultMap="studentMap">
 		select * from student where
 		student_id =
 		#{studentId};
