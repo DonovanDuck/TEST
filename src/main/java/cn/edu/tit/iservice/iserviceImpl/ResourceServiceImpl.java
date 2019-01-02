@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import cn.edu.tit.bean.Chapter;
 import cn.edu.tit.bean.Resource;
 import cn.edu.tit.idao.IResourceDao;
 import cn.edu.tit.iservice.IResourceService;
@@ -23,9 +24,9 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public List<Resource> showResourceByCategory(Integer categoryId) {
+	public List<Resource> showResourceByCourse(Integer courseId) {
 		// 调用dao层方法
-		return resourceDao.searchResourceByCategory(categoryId);
+		return resourceDao.searchResourceByCourse(courseId);
 	}
 
 	@Override
@@ -52,6 +53,12 @@ public class ResourceServiceImpl implements IResourceService {
 	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum) {
 		upLoadResource(resourceList); // 更新资源库
 		pubResourceToClass(resourceList, virtualClassNum); // 遍历资源id，发布到班级
+	}
+
+	@Override
+	public List<Chapter> searchChapter() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

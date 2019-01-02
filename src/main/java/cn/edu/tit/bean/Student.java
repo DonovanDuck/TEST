@@ -5,9 +5,7 @@ public class Student {
 
 	private String studentId; // 学生学号
 	private String studentName; // 学生姓名
-
 	private String studentNickName; // 学生昵称
-
 	private String studentGender; // 学生性别
 	private String studentPassword; // 学生密码
 	private String classNum; // 班级
@@ -15,8 +13,6 @@ public class Student {
 	private String telephone; // 电话
 	private String email; // 电子邮件
 	private String faceImg; //学生头像
-	
-	// setter - getter
 	public String getStudentId() {
 		return studentId;
 	}
@@ -29,6 +25,7 @@ public class Student {
 	public void setStudentName(String studentName) {
 		this.studentName = studentName;
 	}
+
 	public String getStudentGender() {
 		return studentGender;
 	}
@@ -71,7 +68,6 @@ public class Student {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-
 	public String getStudentNickName() {
 		return studentNickName;
 	}
@@ -92,7 +88,6 @@ public class Student {
 		this.studentId = studentId;
 		this.studentName = studentName;
 		this.studentNickName = studentNickName;
-
 		this.studentGender = studentGender;
 		this.studentPassword = studentPassword;
 		this.classNum = classNum;
@@ -101,6 +96,9 @@ public class Student {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-	
 }

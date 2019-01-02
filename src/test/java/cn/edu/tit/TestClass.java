@@ -40,14 +40,14 @@ public class TestClass {
 		resourceList.add(r2);
 		resourceDao.addResourceToLib(resourceList);*/
 	}
-	@Test
-	public void searchResourceList(){
-		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
-		for(cn.edu.tit.bean.Resource r : resourceList){
-			System.out.println(r.getResourceId());
-		}
-	}
-	
+//	@Test
+//	public void searchResourceList(){
+//		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
+//		for(cn.edu.tit.bean.Resource r : resourceList){
+//			System.out.println(r.getResourceId());
+//		}
+//	}
+//	
 	@Test
 	public void pubResourceToClass(){
 		resourceDao.bandResourceAndClass("432811798460453484200E908AAA976F", "12345");

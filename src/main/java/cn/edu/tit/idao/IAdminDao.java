@@ -4,6 +4,8 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
 
 @Component
 public interface IAdminDao {
@@ -32,4 +34,15 @@ public interface IAdminDao {
 	 */
 	public void modifyCategory(Category categories);
 	
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * */
+	public void addTeacherInfo(List<Teacher> teacher);
+	
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * */
+	public void addStudentInfo(List<Student> student);
 }

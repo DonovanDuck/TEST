@@ -16,7 +16,7 @@ import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.VirtualClass;
-import cn.edu.tit.common.ReadExcel;
+import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.ITeacherService;
 
@@ -137,6 +137,7 @@ public class TeacherServiceImpl implements ITeacherService{
 		teacherDao.mapVirtualRealClass(realClassNum, virtualClassNUm);
 
 	}
+
 
 
 	@Override

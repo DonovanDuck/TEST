@@ -15,6 +15,7 @@ public class Teacher {
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
 	
+
 	// setter - getter
 	public String getEmployeeNum() {
 		return employeeNum;
@@ -27,6 +28,12 @@ public class Teacher {
 	}
 	public void setTeacherName(String teacherName) {
 		this.teacherName = teacherName;
+	}
+	public String getTeacherNickName() {
+		return teacherNickName;
+	}
+	public void setTeacherNickName(String teacherNickName) {
+		this.teacherNickName = teacherNickName;
 	}
 	public String getTeacherPassword() {
 		return teacherPassword;
@@ -64,20 +71,12 @@ public class Teacher {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getTeacherNickName() {
-		return teacherNickName;
-	}
-	public void setTeacherNickName(String teacherNickName) {
-		this.teacherNickName = teacherNickName;
-	}
 	public String getFaceImg() {
 		return faceImg;
 	}
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-
-
 
 	@Override
 	public String toString() {
@@ -103,7 +102,10 @@ public class Teacher {
 		this.email = email;
 		this.faceImg = faceImg;
 	}
+	public Teacher() {
+		super();
+	}
+	
+	
 
-	
-	
 }
