@@ -15,6 +15,7 @@ public class Task {
 	private Timestamp taskEndTime; //任务结束时间 
 	private String publisherId; // 发布人id
 	private Integer courseId; // 对应课程id
+	private String chapter; // 任务所属目录
 	private String taskType; // 任务类型
 	private Integer status; //对应任务状态 （0：开始任务  1：结束任务）
 	private Integer taskPoint; //任务对应的积分
@@ -94,14 +95,23 @@ public class Task {
 	public void setTaskType(String taskType) {
 		this.taskType = taskType;
 	}
+	
+	public String getChapter() {
+		return chapter;
+	}
+	public void setChapter(String chapter) {
+		this.chapter = chapter;
+	}
 	@Override
 	public String toString() {
 		return "Task [taskId=" + taskId + ", taskTitle=" + taskTitle + ", taskDetail=" + taskDetail + ", publishTime="
 				+ publishTime + ", taskEndTime=" + taskEndTime + ", publisherId=" + publisherId + ", courseId="
-				+ courseId + ", taskType=" + taskType + ", status=" + status + ", taskPoint=" + taskPoint + "]";
+				+ courseId + ", chapter=" + chapter + ", taskType=" + taskType + ", status=" + status + ", taskPoint="
+				+ taskPoint + ", accessoryList=" + accessoryList + "]";
 	}
 	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
-			String publisherId, Integer courseId, String taskType, Integer status, Integer taskPoint) {
+			String publisherId, Integer courseId, String chapter, String taskType, Integer status, Integer taskPoint,
+			List<Accessory> accessoryList) {
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
@@ -110,10 +120,11 @@ public class Task {
 		this.taskEndTime = taskEndTime;
 		this.publisherId = publisherId;
 		this.courseId = courseId;
+		this.chapter = chapter;
 		this.taskType = taskType;
 		this.status = status;
 		this.taskPoint = taskPoint;
+		this.accessoryList = accessoryList;
 	}
-	
 	
 }

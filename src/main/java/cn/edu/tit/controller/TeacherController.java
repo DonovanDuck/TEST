@@ -40,7 +40,7 @@ public class TeacherController {
 		String readResult =null;
 		try {
 			//调用ITeacherService 下的方法，完成增加教师
-			readResult = teacherService.addTeacherInfo(file);
+			//readResult = teacherService.addTeacherInfo(file);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

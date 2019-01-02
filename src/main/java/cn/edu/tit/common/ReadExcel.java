@@ -115,7 +115,10 @@ public class ReadExcel {
 			if (row == null) {
 				continue;
 			}				
+
+
 //			Teacher teacher = new Teacher();
+
 			// 循环Excel的列
 			//			for (int c = 0; c < this.totalCells; c++) {
 			//				Cell cell = row.getCell(c);
@@ -137,7 +140,9 @@ public class ReadExcel {
 			//				}		
 			//			}
 
+
 //			teacherList.add(teacher);
+
 		}
 		return teacherList;
 	}
