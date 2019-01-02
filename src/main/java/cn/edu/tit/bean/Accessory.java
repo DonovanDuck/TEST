@@ -40,6 +40,7 @@ public class Accessory {
 	public void setAccessoryTime(String accessoryTime) {
 		this.accessoryTime = accessoryTime;
 	}
+
 	
 	public File getAccessory() {
 		return accessory;
@@ -47,6 +48,7 @@ public class Accessory {
 	public void setAccessory(File accessory) {
 		this.accessory = accessory;
 	}
+
 	public String getTaskId() {
 		return taskId;
 	}

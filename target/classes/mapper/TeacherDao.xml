@@ -2,6 +2,33 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
+<<<<<<< HEAD
+=======
+
+	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
+		<id column="employee_num" property="employeeNum"/>
+		<result column="teacher_name" property="teacherName"/>
+		<result column="teacher_passwoed" property="teacherPassword"/>
+		<result column="teacher_gender" property="teacherGender"/>
+		<result column="education_background" property="educationBackground"/>
+		<result column="teacher_nickname" property="teacherNickName"/>
+		<result column="professional_titles" property="professionalTitles"/>
+		<result column="telephone" property="telephone"/>
+		<result column="email" property="email"/>
+		<result column="face_img" property="faceImg"/>
+	</resultMap>
+	<select id="teacherLoginByEmployeeNum" parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where employee_num = #{ememployeeNum};
+	</select>
+	<select id="teacherLoginByTelephone" parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where telephone = #{telephone};
+	</select>
+	<select id="teacherLoginByEmail" parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where email = #{email};
+	</select>
+	
+
+>>>>>>> 09b2fe90ee20fc8d114ab8c240f29956cecc1d11
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
@@ -24,9 +51,15 @@
 		delete from course where
 		course_id = #{courseId}
 	</delete>
-	<select id="courseList" parameterType="java.lang.String"
-		resultMap="courseMap">
-		select * from course where publisher_id = #{ememployeeNum};
+	<select id="courseIdList" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select * from teacher_course where employee_num = #{ememployeeNum};
+	</select>
+	<select id="courseList" parameterType="java.util.List"  resultMap="courseMap">
+		select * from course where course_id in
+		<foreach collection="list" item="courseId"  open="(" separator="," close=")" index="index" >
+			#{courseId}
+		</foreach>
 	</select>
 
 	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
@@ -42,6 +75,7 @@
 	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
+		<result column="student_nickname" property="studentNickName"/>
 		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
 		<result column="class" property="classNum" />
@@ -49,14 +83,21 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
-
 	</resultMap>
 
-	<select id="studentList" parameterType="java.lang.String"
-		resultMap="studentMap">
-		select * from student where student_id = #{studentId};
+	<select id="studentList" parameterType="java.util.List"  resultMap="studentMap">
+		select * from student where class_num in
+		<foreach collection="list" item="classNum"  open="(" separator="," close=")" index="index" >
+			#{classNum}
+		</foreach>
 	</select>
-
+	
+	<select id="searchStudent" parameterType="java.lang.String"
+		resultType="studentMap">
+		select * from student where
+		student_id =
+		#{studentId};
+	</select>
 
 	<select id="searchRealClassNum" parameterType="java.lang.String"
 		resultType="java.lang.String">
@@ -98,13 +139,76 @@
 
 
 
-	<!-- <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2"> 
-		<id column="id" property="id"/> <result column="name" property="name"/> <result 
-		column="funkyNumber" property="funkyNumber"/> <result column="roundingMode" 
-		property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/> 
-		</resultMap> <select id="getUser2" resultMap="usermap2"> select * from users2 
-		</select> <insert id="insert2"> insert into users2 (id, name, funkyNumber, 
-		roundingMode) values ( #{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler} 
-		) </insert> -->
+	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
+		<id column="task_id" property="taskId"/>
+		<result column="task_title" property="taskTitle" />
+		<result column="task_detail" property="taskDetail"/>
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="task_end_time" property="taskEndTime" />
+		<result column="status" property="status" />
+	</resultMap>
+	<insert id="createTask" parameterType="cn.edu.tit.bean.Task" >
+	    insert into task ( task_id, task_title, task_detail,publish_time,publisher_id,task_end_time,status) values (
+	    	#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime}, #{publisherId},#{taskEndTime},#{status});
+	    
+	</insert>
+	<insert id="mapClassTask" >
+	    insert into task ( virtual_class_num, task_id) values (
+	    	#{virtualClassNum}, #{taskId});
+	    
+	</insert>
+	<update id="stopTaskByEndTime" parameterType="java.lang.String" >
+  		update task set
+    	status = 1
+  		where task_id = #{taskId}
+	</update>
+	<update id="restartTask" parameterType="java.lang.String" >
+  		update task set
+    	status = 0
+  		where task_id = #{taskId}
+	</update>
+	<update id="restartTaskSetEndTime">
+  		update task set
+    	status = 0,
+    	task_end_time = #{taskEndTime}
+  		where task_id = #{taskId}
+	</update>
+	<delete id="deleteTask" parameterType="java.lang.String">
+  		delete from task where task_id = #{taskId}
+	</delete>
+	<insert id="addAccessory" parameterType="java.util.List">
+		insert into pub_accessory (  pub_accessory_name,pub_accessory_path,pub_accessory_time,task_id,delete_flag) values 
+	    	<foreach collection="list" item = "accessory" index="index" separator=",">
+	    		(#{accessory.accessoryName},#{accessory.accessoryPath},#{accessory.accessoryTime},#{accessory.taskId},0)
+	    	</foreach>
+	</insert>
+	
+	<select id="searchTaskId" parameterType="java.lang.String" resultType="java.lang.String">
+		select * from class_task where virtual_class_num = #{virtualClassNum} ;
+	</select>
+	
+	<select id="TaskList" parameterType="java.util.List"  resultMap="taskMap">
+		select * from task where task_id in
+		<foreach collection="list" item="taskId"  open="(" separator="," close=")" index="index" >
+			#{taskId}
+		</foreach>
+	</select>
+	<select id="searchTask" parameterType="java.lang.String" resultMap="taskMap">
+		select * from task where task_id = #{taskId};
+	</select>
+	
+	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessory">
+		<id column="pub_accessroy_id" property="accessoryId"/>
+		<result column="pub_accessory_name" property="accessoryName" />
+		<result column="pub_accessory_path" property="accessoryPath"/>
+		<result column="pub_accessory_time" property="accessoryTime" />
+		<result column="task_id" property="taskId" />
+		
+	</resultMap>
+	
+	<select id="searchAccessory" parameterType="java.lang.String" resultMap="accessoryMap">
+		select * from pub_accessory where task_id = #{taskId};
+	</select>
 
 </mapper>
