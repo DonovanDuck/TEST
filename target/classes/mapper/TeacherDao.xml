@@ -2,8 +2,7 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-<<<<<<< HEAD
-=======
+
 
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum"/>
@@ -28,7 +27,6 @@
 	</select>
 	
 
->>>>>>> 09b2fe90ee20fc8d114ab8c240f29956cecc1d11
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
@@ -72,7 +70,7 @@
 		course_id = #{courseId}
 	</update>
 
-	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
 		<result column="student_nickname" property="studentNickName"/>
@@ -93,7 +91,7 @@
 	</select>
 	
 	<select id="searchStudent" parameterType="java.lang.String"
-		resultType="studentMap">
+		resultMap="studentMap">
 		select * from student where
 		student_id =
 		#{studentId};
@@ -198,7 +196,7 @@
 		select * from task where task_id = #{taskId};
 	</select>
 	
-	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessory">
+	 <resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
 		<id column="pub_accessroy_id" property="accessoryId"/>
 		<result column="pub_accessory_name" property="accessoryName" />
 		<result column="pub_accessory_path" property="accessoryPath"/>
@@ -209,6 +207,10 @@
 	
 	<select id="searchAccessory" parameterType="java.lang.String" resultMap="accessoryMap">
 		select * from pub_accessory where task_id = #{taskId};
+	</select>
+	
+	<select id="getSignPoint" parameterType="java.lang.String" resultType="int">
+		select point_value from point where task_category = "signIn";
 	</select>
 
 </mapper>

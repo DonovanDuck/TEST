@@ -165,5 +165,10 @@ public interface ITeacherService {
 	 * 查询任务附件
 	 */
 	public Accessory searchAccessory(String taskId);	//查询任务附件
+	/**
+	 * 开启签到
+	 * @param courseId
+	 */
+	public void createSignIn(Integer courseId);
 
 }

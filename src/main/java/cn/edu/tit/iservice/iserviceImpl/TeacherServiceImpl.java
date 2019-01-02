@@ -206,6 +206,12 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.searchAccessory(taskId);
 	}
+	@Override
+	public void createSignIn(Integer courseId) {
+		// TODO Auto-generated method stub
+		int signPoint = teacherDao.getSignPoint(); // 获取签到积分
+		// 
+	}
 	
 
 	

@@ -45,5 +45,6 @@ public interface ITeacherDao {
 	public List<Task> TaskList(List<String> taskIds);	//显示所有任务列表
 	public Task searchTask(String taskId);	//查看单个任务详情
 	public Accessory searchAccessory(String taskId);	//查询任务附件
-	public void createSignInPoint(@Param("taskId")String taskId,@Param("signPoint")String signPoint);	//wei实现
+	public void createSignIn(@Param("taskId")String taskId,@Param("signPoint")String signPoint);	//wei实现
+	public Integer getSignPoint(); // 获取签到的信息
 }
