@@ -17,8 +17,8 @@
 	
 	<resultMap type="cn.edu.tit.bean.Chapter" id="resourceChapter">
 		<id column="resource_chapter_id" property="chapterId" />
-		<result column="resource_chapter_name" property="chapterName">
-		<result column="superior_chapter" property="superiorChapter">
+		<result column="resource_chapter_name" property="chapterName"/>
+		<result column="superior_chapter" property="superiorChapter"/>
 	</resultMap>
 	<!-- 添加资源到资源库 -->
 	<insert id = "addResourceToLib" parameterType="java.util.List">

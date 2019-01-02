@@ -35,10 +35,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 创建课程模块
 	 * @Param1(课程对象)
 	 */
-//	@Override
-//	public void createCourse(Course course) {
-//		teacherDao.createCourse(course);
-//	}
+	@Override
+	public void createCourse(Course course) {
+		teacherDao.createCourse(course);
+	}
 
 	/**
 	 * @author wenli
@@ -46,11 +46,11 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 删除课程模块
 	 * @Param1(课程ID)
 	 */
-//	@Override
-//	public void deleteCourse(Integer courseId) {
-//		// TODO Auto-generated method stub
-//		teacherDao.deleteCourse(courseId);
-//	}
+	@Override
+	public void deleteCourse(Integer courseId) {
+		// TODO Auto-generated method stub
+		teacherDao.deleteCourse(courseId);
+	}
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createVirtualClass(cn.edu.tit.bean.VirtualClass)
@@ -69,11 +69,11 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @context 修改班级信息
 	 * @Param1(课程对象)
 	 */
-//	@Override
-//	public void updateCourse(Course course) {
-//		// TODO Auto-generated method stub
-//		teacherDao.updateCourse(course);
-//	}
+	@Override
+	public void updateCourse(Course course) {
+		// TODO Auto-generated method stub
+		teacherDao.updateCourse(course);
+	}
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#studentList(java.lang.String)
@@ -103,9 +103,9 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(发布者ID)
 	 */
 	@Override
-	public List<Integer> courseIdList(String employeeNum) {
+	public List<Integer> courseIdList(String employeeNum,Integer manager) {
 		// TODO Auto-generated method stub
-		return teacherDao.courseIdList(employeeNum);
+		return teacherDao.courseIdList(employeeNum,manager);
 	}
 	
 	@Override
@@ -205,6 +205,36 @@ public class TeacherServiceImpl implements ITeacherService{
 	public Accessory searchAccessory(String taskId) {
 		// TODO Auto-generated method stub
 		return teacherDao.searchAccessory(taskId);
+	}
+
+	@Override
+	public void addOtherToMyCourse(String employeeNum) {
+		// TODO Auto-generated method stub
+		teacherDao.addOtherToMyCourse(employeeNum);
+	}
+
+	@Override
+	public Integer permissionAddOthers(String employeeNum, Integer courseId) {
+		// TODO Auto-generated method stub
+		return teacherDao.permissionAddOthers(employeeNum, courseId);
+	}
+
+	@Override
+	public Teacher teacherLoginByEmployeeNum(String employeeNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.teacherLoginByEmployeeNum(employeeNum);
+	}
+
+	@Override
+	public Teacher teacherLoginByTelephone(String telephone) {
+		// TODO Auto-generated method stub
+		return teacherDao.teacherLoginByTelephone(telephone);
+	}
+
+	@Override
+	public Teacher teacherLoginByEmail(String email) {
+		// TODO Auto-generated method stub
+		return teacherDao.teacherLoginByEmail(email);
 	}
 	
 
