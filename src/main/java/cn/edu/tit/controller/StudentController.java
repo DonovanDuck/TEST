@@ -40,7 +40,6 @@ public class StudentController {
 	@RequestMapping(value="LoginStudent",method= {RequestMethod.POST})
 	public ModelAndView LoginStudent(@RequestParam(value="studentId") String studentId,@RequestParam(value="studentPassword") String studentPassword) {			
 		ModelAndView mv = new ModelAndView();
-		System.out.println(studentId+"～～～～～～～～"+studentPassword+"!!!!!!!!!!!!!!");
 		String readResult =null;
 		try {
 			student = studentService.studentLoginByEmployeeNum(studentId);
