@@ -63,6 +63,21 @@
 			)
 		</foreach>
 	</insert>
+	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
+		<id column="employee_num" property="employeeNum" />
+		<result column="teacher_name" property="teacherName" />
+		<result column="teacher_passwoed" property="teacherPassword" />
+		<result column="teacher_gender" property="teacherGender" />
+		<result column="education_background"
+			property="educationBackground" />
+		<result column="teacher_nickname" property="teacherNickName" />
+		<result column="professional_titles"
+			property="professionalTitles" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+	</resultMap>
+
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
 		<result column="teacher_password" property="adminPassword" />
@@ -70,9 +85,25 @@
 	</resultMap>
 
 	<!--读取教师信息，只查询三列数据 -->
-	<select id="readTeacherInfo" resultMap="adminMap">
-		select
-		employee_num,teacher_password,teacher_name from teacher;
+	<select id="readTeacherInfo" resultMap="teacherMap">
+		select * from teacher;
+	</select>
+
+	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+		<id column="student_id" property="studentId" />
+		<result column="student_name" property="studentName" />
+		<result column="student_nickname" property="studentNickName" />
+		<result column="student_gender" property="studentGender" />
+		<result column="student_password" property="studentPassword" />
+		<result column="class_num" property="classNum" />
+		<result column="professional" property="professional" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+	</resultMap>
+	<!--读取学生信息，只查询三列数据 -->
+	<select id="readStudentInfo" resultMap="studentMap">
+		select * from student;
 	</select>
 
 	<!-- 增加管理员信息 -->
@@ -97,6 +128,11 @@
 			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail})
 		</foreach>
 	</insert>
+
+	<!--读取系部信息 -->
+	<select id="readCategoryInfo" resultMap="categoryMap">
+		select * from category;
+	</select>
 
 	<!-- 管理员修改系部信息 -->
 	<update id="modifyCategory">
@@ -128,6 +164,7 @@
 			#{courseList.faceImg,jdbcType=VARCHAR})
 		</foreach>
 	</insert>
+
 	<delete id="deleteAdmin">
 		DELETE FROM admin
 		<foreach item="adminList" collection="list" separator=",">
@@ -136,4 +173,22 @@
 		</foreach>
 		;
 	</delete>
+
+	<delete id="deleteStudent" parameterType="java.lang.String">
+		DELETE FROM student where student_id = student;
+	</delete>
+	
+	
+	<resultMap type="cn.edu.tit.bean.Admin" id="admin">
+		<id column="adminId" property="adminId" />
+		<result column="adminUsername" property="adminUsername" />
+		<result column="adminPassword" property="adminPassword" />
+	</resultMap>
+
+	<!--读取教师信息，只查询三列数据 -->
+	<select id="loginAdmin" resultMap="admin">
+		select * from admin where
+		adminUsername = #{adminUsername};
+	</select>
+
 </mapper>
