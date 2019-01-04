@@ -55,7 +55,7 @@ public class AdminServiceImpl implements IAdminService {
 	 * 读取老师信息，添加管理员
 	 * */
 	@Override
-	public List<Admin> readTeacherInfo() {
+	public List<Teacher> readTeacherInfo() {
 		return iAdminDao.readTeacherInfo();
 	}
 
@@ -145,10 +145,35 @@ public class AdminServiceImpl implements IAdminService {
 
 	/**
 	 * @author LiMing
-	 * 删除管理员
+	 * 删除教师员
 	 * */
 	@Override
 	public void deleteAdmin(List<Admin> adminList) {
 		iAdminDao.deleteAdmin(adminList);
+	}
+	
+	/**
+	 * @author LiMing
+	 * 删除学生员
+	 * */
+	@Override
+	public void deleteStudent(String student) {
+		iAdminDao.deleteStudent(student);
+	}
+
+	@Override
+	public Admin loginAdmin(String adminName) {
+		return iAdminDao.loginAdmin(adminName);
+	}
+
+
+	@Override
+	public List<Student> readStudentInfo() {
+		return iAdminDao.readStudentInfo();
+	}
+
+	@Override
+	public List<Category> readCategoryInfo() {
+		return iAdminDao.readCategoryInfo();
 	}
 }

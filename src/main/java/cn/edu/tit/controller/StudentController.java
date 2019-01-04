@@ -33,10 +33,7 @@ public class StudentController {
 	private IStudentService studentService;
 	Student student ;
 
-	/**
-	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
-	 * 使用spring的MultipartFile上传文件
-	 * */
+
 	@RequestMapping(value="LoginStudent",method= {RequestMethod.POST})
 	public ModelAndView LoginStudent(@RequestParam(value="studentId") String studentId,@RequestParam(value="studentPassword") String studentPassword) {			
 		ModelAndView mv = new ModelAndView();
