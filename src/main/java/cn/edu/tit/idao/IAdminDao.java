@@ -21,7 +21,7 @@ public interface IAdminDao {
 	 * @author LiMing
 	 * 读取教师信息
 	 * */
-	List<Admin> readTeacherInfo();
+	List<Teacher> readTeacherInfo();
 	
 	/**
 	 * @author LiMing
@@ -65,5 +65,22 @@ public interface IAdminDao {
 	 */
 	public Admin loginAdmin(String adminName);
 	
+	/**
+	 * @author LiMing
+	 * 超级管理员读取学生信息，设定为管理员
+	 */
+	public List<Student> readStudentInfo();
+	
+	/**
+	 * @author LiMing
+	 * 超级管理员读取系部信息
+	 */
+	public List<Category> readCategoryInfo();
+	
+	/**
+	 * @author LiMing
+	 * 删除学生员
+	 * */
+	public void deleteStudent(String student);
 	
 }

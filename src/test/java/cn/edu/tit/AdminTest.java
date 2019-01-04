@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Student;
 import cn.edu.tit.iservice.IAdminService;
 
 
@@ -67,6 +68,14 @@ public class AdminTest {
 		 * */
 		//		Admin admin = iadminService.loginAdmin("吴原生");
 		//		System.out.println(admin.toString());
+
+		/**
+		 * 测试查询学生信息登陆
+		 * */
+		//		List<Student> studentList = iadminService.readStudentInfo();
+		//		for (Student student : studentList) {
+		//			System.out.println(student.toString());
+		//		}
 	}
 }
 

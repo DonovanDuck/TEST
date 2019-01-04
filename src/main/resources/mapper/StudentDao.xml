@@ -60,7 +60,7 @@
 			property="virtualClassDetail" />
 	</resultMap>
 	<select id="studentVirtualClass" parameterType="java.util.List"
-		resultMap="virtualClassNum">
+		resultMap="virtualClassMap">
 		select * from virtual_class where virtual_class_num in
 		<foreach collection="list" item="virtualClassNum" open="("
 			separator="," close=")" index="index">
