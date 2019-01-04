@@ -93,7 +93,7 @@
 	<select id="searchRealClassNum" parameterType="java.lang.String"  resultType="java.lang.String">
 		select * from real_virtual_class where virtual_class_num = #{virtualClassNum}
 	</select>
-	<select id="searchStudent" parameterType="java.lang.String"  resultType="studentMap">
+	<select id="searchStudent" parameterType="java.lang.String"  resultMap="studentMap">
 		select * from student where student_id = #{studentId}
 	</select>
 	<select id="studentList" parameterType="java.util.List"  resultMap="studentMap">

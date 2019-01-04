@@ -12,14 +12,8 @@
       <input class="search" type="search" placeholder="请输入关键词"><button></button>
   <div class="banner">
       <div class="banner_t">
-          <%-- <span>按系别分：</span>
+          <span>按系别分：</span>
           <ul>
-          <c:forEach items="${ }" var>
-          	<li><button>${category }</button></li>
-          </c:forEach>
-              
-              
-              
               <li><button>电子工程系</button></li>
               <li><button>自动化系</button></li>
               <li><button>化学与化工系</button></li>
@@ -43,7 +37,7 @@
               <li><button>大三</button></li>
               <li><button>大四</button></li>
           </ul>
-      </div> --%>
+      </div> 
       <div class="banner_b">
           <span>课程：</span>
           <ul>
@@ -67,19 +61,19 @@
       <br><br>
       <div class="courses">
           <div class="course">
-              <img src="../images/tu1.jpg" alt="">
+              <img src="${pageContext.request.contextPath}/images/tu1.jpg" alt="">
               <p>概率论与数理统计</p>
           </div>
           <div class="course">
-              <img src="../images/tu2.png" alt="">
+              <img src="${pageContext.request.contextPath}/images/tu2.png" alt="">
               <p>数字图像处理</p>
           </div>
           <div class="course">
-              <img src="../images/tu3.png" alt="">
+              <img src="${pageContext.request.contextPath}/images/tu3.png" alt="">
               <p>面向对象分析与设计</p>
           </div>
           <div class="course">
-              <img src="../images/tu4.png" alt="">
+              <img src="${pageContext.request.contextPath}/images/tu4.png" alt="">
               <p>信息安全数学基础</p>
           </div>
           <div class="course">
