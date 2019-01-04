@@ -14,13 +14,13 @@
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 	</resultMap>
-	<select id="studentLoginByEmployeeNum" parameterType="java.lang.String" resultMap="teacherMap">
-		select * from student where employee_num = #{ememployeeNum};
+	<select id="studentLoginByEmployeeNum" parameterType="java.lang.String" resultMap="studentMap">
+		select * from student where employee_num = #{employeeNum};
 	</select>
-	<select id="studentLoginByTelephone" parameterType="java.lang.String" resultMap="teacherMap">
+	<select id="studentLoginByTelephone" parameterType="java.lang.String" resultMap="studentMap">
 		select * from student where telephone = #{telephone};
 	</select>
-	<select id="studentLoginByEmail" parameterType="java.lang.String" resultMap="teacherMap">
+	<select id="studentLoginByEmail" parameterType="java.lang.String" resultMap="studentMap">
 		select * from student where email = #{email};
 	</select>
 	
@@ -37,7 +37,7 @@
 		<result column="virtual_class_detail"
 			property="virtualClassDetail" />
 	</resultMap>
-	<select id="studentVirtualClass" parameterType="java.util.List"  resultMap="virtualClassNum">
+	<select id="studentVirtualClass" parameterType="java.util.List"  resultMap="virtualClassMap">
 		select * from virtual_class where virtual_class_num in
 		<foreach collection="list" item="virtualClassNum"  open="(" separator="," close=")" index="index" >
 			#{virtualClassNum}
@@ -93,7 +93,7 @@
 	<select id="searchRealClassNum" parameterType="java.lang.String"  resultType="java.lang.String">
 		select * from real_virtual_class where virtual_class_num = #{virtualClassNum}
 	</select>
-	<select id="searchStudent" parameterType="java.lang.String"  resultType="studentMap">
+	<select id="searchStudent" parameterType="java.lang.String"  resultMap="studentMap">
 		select * from student where student_id = #{studentId}
 	</select>
 	<select id="studentList" parameterType="java.util.List"  resultMap="studentMap">
