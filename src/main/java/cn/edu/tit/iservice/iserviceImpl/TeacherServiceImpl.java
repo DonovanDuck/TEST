@@ -252,4 +252,10 @@ public class TeacherServiceImpl implements ITeacherService{
 		teacherDao.UpdateTeacher(teacher);
 	}
 
+	@Override
+	public List<VirtualClass> virtualsForCourse(Integer courseId) {
+		// TODO Auto-generated method stub
+		return teacherDao.virtualsForCourse(courseId);
+	}
+
 }

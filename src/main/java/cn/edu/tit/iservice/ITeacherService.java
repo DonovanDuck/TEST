@@ -184,5 +184,6 @@ public interface ITeacherService {
 	public Teacher teacherLoginByEmployeeNum(String employeeNum);	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone);	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email);	//通过邮件登录教师
+	public List<VirtualClass> virtualsForCourse(Integer courseId );//根据课程查询虚拟班级
 
 }
