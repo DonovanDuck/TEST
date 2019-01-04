@@ -1,6 +1,7 @@
 package cn.edu.tit;
 
 import java.awt.image.DataBufferFloat;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +19,7 @@ import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.VirtualClass;
+import cn.edu.tit.common.Common;
 import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.ITeacherService;
 import cn.edu.tit.iservice.iserviceImpl.TeacherServiceImpl;
@@ -93,7 +95,32 @@ public class TeacherTest {
 			  //students.addAll(teacherService.studentList(classNum));
 		}
 	  }
+	  @Test
+	  public void MD5test() {
+		  
+		  String password=null;
+		  try {
+			System.out.println(Common.eccryptMD5("123456"));
+			
+//			for(int i=0;i<Common.eccryptSHA("123456").length;i++) {
+//				System.out.print(Common.eccryptMD5("123456")[i]);
+//			}
+			//-3110-365773-7089-85-6686-3287-1415-12062
+			//-3110-365773-7089-85-6686-3287-1415-12062
+			//-3110-365773-7089-85-6686-3287-1415-12062sha
+		} catch (NoSuchAlgorithmException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	  }
 
+	  @Test
+	  public void loginTest() {
+		  Teacher teacher = teacherDao.teacherLoginByEmployeeNum("123456");
+		  System.out.println(teacher.getEmployeeNum());
+		  System.out.println(teacher.getTeacherPassword());
+		  
+	  }
 //	@Resource
 //	ITeacherService iTeacherService;
 //	/**

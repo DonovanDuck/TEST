@@ -71,5 +71,10 @@ public class Accessory {
 		this.taskId = taskId;
 		this.accessory = accessory;
 	}
+	public Accessory() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }
