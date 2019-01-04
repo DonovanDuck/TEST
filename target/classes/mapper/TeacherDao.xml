@@ -6,7 +6,7 @@
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
-		<result column="teacher_passwoed" property="teacherPassword" />
+		<result column="teacher_password" property="teacherPassword" />
 		<result column="teacher_gender" property="teacherGender" />
 		<result column="education_background"
 			property="educationBackground" />
@@ -20,7 +20,7 @@
 	<select id="teacherLoginByEmployeeNum"
 		parameterType="java.lang.String" resultMap="teacherMap">
 		select * from teacher where
-		employee_num = #{ememployeeNum};
+		employee_num = #{employeeNum};
 	</select>
 	<select id="teacherLoginByTelephone"
 		parameterType="java.lang.String" resultMap="teacherMap">
@@ -57,18 +57,18 @@
 	</delete>
 
 	<select id="courseIdList" resultType="java.lang.Integer">
-		select * from teacher_course where employee_num = #{ememployeeNum} and manager = #{manager};
+		select course_id from teacher_course where employee_num = #{employeeNum} and manager = #{manager}
 	</select>
 	<select id="courseList" parameterType="java.util.List"
 		resultMap="courseMap">
 		select * from course where course_id in
-		<foreach collection="list" item="courseId" open="("
-			separator="," close=")" index="index">
+		<foreach collection="list" item="courseId" 
+			open="(" separator="," close=")" index="index">
 			#{courseId}
 		</foreach>
 	</select>
 	<select id="permissionAddOthers" resultType="java.lang.Integer">
-		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId};
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
 	</select>
 
 	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
@@ -107,7 +107,7 @@
 		resultMap="studentMap">
 		select * from student where
 		student_id =
-		#{studentId};
+		#{studentId}
 	</select>
 
 	<select id="searchRealClassNum" parameterType="java.lang.String"
@@ -139,11 +139,16 @@
 		#{virtualClassDetail},#{faceImg},#{courseId}
 		);
 	</insert>
+	<select id="virtualsForCourse" parameterType="java.lang.Integer" resultMap="virtualClassMap">
+		select * from virtual_class where
+		course_id =
+		#{courseId}
+	</select>
 	<insert id="mapVirtualRealClass">
 		insert into real_virtual_class (real_class_num,
 		virtual_class_num) values (
 		#{realClassNum}, #{virtualClassNum}
-		);
+		)
 	</insert>
 
 
@@ -158,19 +163,21 @@
 		<result column="publisher_id" property="publisherId" />
 		<result column="task_end_time" property="taskEndTime" />
 		<result column="status" property="status" />
+		<result column="task_category" property="taskType" />
+		<result column="task_chapter_id" property="chapter" />
 	</resultMap>
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status) values (
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category) values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status});
+		#{publisherId},#{taskEndTime},#{status},#{taskType})
 
 	</insert>
 	<insert id="mapClassTask">
-		insert into task ( virtual_class_num, task_id) values
+		insert into class_task ( virtual_class_num, task_id) values
 		(
-		#{virtualClassNum}, #{taskId});
+		#{virtualClassNum}, #{taskId})
 
 	</insert>
 	<update id="stopTaskByEndTime" parameterType="java.lang.String">

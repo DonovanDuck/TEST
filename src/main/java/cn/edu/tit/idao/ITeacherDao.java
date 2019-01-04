@@ -30,11 +30,10 @@ public interface ITeacherDao {
 	public Student searchStudent(String studentId);		//查看学生信息模块1
 	public List<String> searchRealClassNum(String virtualClassNum);		//查询虚拟班级对应的自然班列表模块1
 	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNUm);	//创建虚拟班和自然班映射模块1
-	
 	public Teacher teacherLoginByEmployeeNum(String employeeNum);	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone);	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email);	//通过邮件登录教师
-	
+	public List<VirtualClass> virtualsForCourse(Integer courseId );//根据课程查询虚拟班级1
 	public void createSignIn(@Param("taskId")String taskId,@Param("signPoint")String signPoint);	//wei实现
 	public Integer getSignPoint(); // 获取签到的信息
 

@@ -8,6 +8,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -25,7 +30,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Common {
+public  class  Common {
 
 	/**
 	 * 创建随机串
@@ -65,11 +70,11 @@ public class Common {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public Object[] fileFactory(HttpServletRequest request) {
+	public static Object[] fileFactory(HttpServletRequest request) {
 		try {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
-			String path = readProperties("/usr/faceImg");
+			String path = readProperties("path");
 			// 创建工厂
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
@@ -103,7 +108,7 @@ public class Common {
 	 * @param readKey 字段名
 	 * @return
 	 */
-	public String readProperties(String readKey){
+	public static String readProperties(String readKey){
 		try {
 			Properties properties = new Properties();
 		    // 使用ClassLoader加载properties配置文件生成对应的输入流
@@ -118,4 +123,62 @@ public class Common {
 			return null;
 		}
 	}
+	/**
+	 * @author wenli
+	 * @return
+	 * 时间戳转成string 类型
+	 * yyyy/MM/dd
+	 */
+	public static String TimestamptoString() {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());  
+        String tsStr = "";  
+        DateFormat sdf = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");  
+        try {  
+            tsStr = sdf.format(timestamp);  
+            System.out.println(tsStr);  
+        } catch (Exception e) {  
+            e.printStackTrace();  
+        }  
+		return tsStr;
+	}
+	/**
+	 * @author wenli
+	 * @param info
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * 密码加密，单向加密MD5算法
+	 */
+	public static String eccryptMD5(String info) throws NoSuchAlgorithmException{
+		//根据MD5算法生成MessageDigest对象
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		byte[] srcBytes = info.getBytes();
+		//使用srcBytes更新摘要
+		md5.update(srcBytes);
+		//完成哈希计算，得到result
+		byte[] resultBytes = md5.digest();
+		StringBuffer stringBuffer =new StringBuffer();
+		for (int i = 0; i < resultBytes.length; i++) {
+			stringBuffer.append(resultBytes[i]);
+		}
+		
+		return stringBuffer.toString();
+	}
+	/**
+	 * @author wenli
+	 * @param info
+	 * @return
+	 * @throws NoSuchAlgorithmException
+	 * sha加密算法
+	 */
+	public static byte[] eccryptSHA(String info) throws NoSuchAlgorithmException{
+		MessageDigest md5 = MessageDigest.getInstance("SHA");
+		byte[] srcBytes = info.getBytes();
+		//使用srcBytes更新摘要
+		md5.update(srcBytes);
+		//完成哈希计算，得到result
+		byte[] resultBytes = md5.digest();
+		return resultBytes;
+	}
+
+
 }

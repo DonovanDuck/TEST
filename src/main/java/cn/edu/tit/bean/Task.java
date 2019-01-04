@@ -14,23 +14,20 @@ public class Task {
 	private Timestamp publishTime; // 发布时间
 	private Timestamp taskEndTime; //任务结束时间 
 	private String publisherId; // 发布人id
-	private Integer courseId; // 对应课程id
+	private String virtualClassNum; // 对应课程id
 	private String chapter; // 任务所属目录
 	private String taskType; // 任务类型
 	private Integer status; //对应任务状态 （0：开始任务  1：结束任务）
 	private Integer taskPoint; //任务对应的积分
 	private List<Accessory> accessoryList; // 任务对应附件
-	
-	// setter - getter
-	
-	public String getTaskTitle() {
-		return taskTitle;
-	}
 	public String getTaskId() {
 		return taskId;
 	}
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
+	}
+	public String getTaskTitle() {
+		return taskTitle;
 	}
 	public void setTaskTitle(String taskTitle) {
 		this.taskTitle = taskTitle;
@@ -59,35 +56,17 @@ public class Task {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
-	public int getCourseId() {
-		return courseId;
+	public String getVirtualClassNum() {
+		return virtualClassNum;
 	}
-	public void setCourseId(int courseId) {
-		this.courseId = courseId;
+	public void setVirtualClassNum(String virtualClassNum) {
+		this.virtualClassNum = virtualClassNum;
 	}
-	public int getStatus() {
-		return status;
+	public String getChapter() {
+		return chapter;
 	}
-	public void setStatus(int status) {
-		this.status = status;
-	}
-	public List<Accessory> getAccessoryList() {
-		return accessoryList;
-	}
-	public void setAccessoryList(List<Accessory> accessoryList) {
-		this.accessoryList = accessoryList;
-	}
-	public Integer getTaskPoint() {
-		return taskPoint;
-	}
-	public void setTaskPoint(Integer taskPoint) {
-		this.taskPoint = taskPoint;
-	}
-	public void setCourseId(Integer courseId) {
-		this.courseId = courseId;
-	}
-	public void setStatus(Integer status) {
-		this.status = status;
+	public void setChapter(String chapter) {
+		this.chapter = chapter;
 	}
 	public String getTaskType() {
 		return taskType;
@@ -95,23 +74,27 @@ public class Task {
 	public void setTaskType(String taskType) {
 		this.taskType = taskType;
 	}
-	
-	public String getChapter() {
-		return chapter;
+	public Integer getStatus() {
+		return status;
 	}
-	public void setChapter(String chapter) {
-		this.chapter = chapter;
+	public void setStatus(Integer status) {
+		this.status = status;
 	}
-	@Override
-	public String toString() {
-		return "Task [taskId=" + taskId + ", taskTitle=" + taskTitle + ", taskDetail=" + taskDetail + ", publishTime="
-				+ publishTime + ", taskEndTime=" + taskEndTime + ", publisherId=" + publisherId + ", courseId="
-				+ courseId + ", chapter=" + chapter + ", taskType=" + taskType + ", status=" + status + ", taskPoint="
-				+ taskPoint + ", accessoryList=" + accessoryList + "]";
+	public Integer getTaskPoint() {
+		return taskPoint;
+	}
+	public void setTaskPoint(Integer taskPoint) {
+		this.taskPoint = taskPoint;
+	}
+	public List<Accessory> getAccessoryList() {
+		return accessoryList;
+	}
+	public void setAccessoryList(List<Accessory> accessoryList) {
+		this.accessoryList = accessoryList;
 	}
 	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
-			String publisherId, Integer courseId, String chapter, String taskType, Integer status, Integer taskPoint,
-			List<Accessory> accessoryList) {
+			String publisherId, String virtualClassNum, String chapter, String taskType, Integer status,
+			Integer taskPoint, List<Accessory> accessoryList) {
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
@@ -119,12 +102,18 @@ public class Task {
 		this.publishTime = publishTime;
 		this.taskEndTime = taskEndTime;
 		this.publisherId = publisherId;
-		this.courseId = courseId;
+		this.virtualClassNum = virtualClassNum;
 		this.chapter = chapter;
 		this.taskType = taskType;
 		this.status = status;
 		this.taskPoint = taskPoint;
 		this.accessoryList = accessoryList;
 	}
+	public Task() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	// setter - getter
 	
 }

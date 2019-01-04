@@ -93,5 +93,10 @@ public class VirtualClass {
 		this.term = term;
 		this.realClassList = realClassList;
 	}
+	public VirtualClass() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }

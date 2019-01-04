@@ -47,6 +47,12 @@ public class Course {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
+	
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	public Course(Integer courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
 			String faceImg) {
 		super();

@@ -59,8 +59,8 @@
 		<result column="virtual_class_detail"
 			property="virtualClassDetail" />
 	</resultMap>
-	<select id="studentVirtualClass" parameterType="java.util.List"
-		resultMap="virtualClassMap">
+
+	<select id="studentVirtualClass" parameterType="java.util.List"  resultMap="virtualClassMap">
 		select * from virtual_class where virtual_class_num in
 		<foreach collection="list" item="virtualClassNum" open="("
 			separator="," close=")" index="index">
@@ -125,8 +125,8 @@
 		select * from real_virtual_class where virtual_class_num =
 		#{virtualClassNum}
 	</select>
-	<select id="searchStudent" parameterType="java.lang.String"
-		resultMap="studentMap">
+
+	<select id="searchStudent" parameterType="java.lang.String"  resultMap="studentMap">
 		select * from student where student_id = #{studentId}
 	</select>
 	<select id="studentList" parameterType="java.util.List"
