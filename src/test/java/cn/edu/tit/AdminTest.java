@@ -23,9 +23,9 @@ public class AdminTest {
 	@Resource
 	private IAdminService iadminService;
 
-	//	List<Admin> adminList = new ArrayList<Admin>();
-	//	List<Admin> array = new ArrayList<Admin>();
-	//	List<Category> categories = new ArrayList<Category>();
+	List<Admin> adminList = new ArrayList<Admin>();
+	List<Admin> array = new ArrayList<Admin>();
+	List<Category> categories = new ArrayList<Category>();
 
 	@Test
 	public void Test() {
@@ -46,7 +46,7 @@ public class AdminTest {
 		//		Category category2 = new Category("152051","法22222222系","这是一个案的系部");
 		//		categories.add(category);
 		//		categories.add(category2);
-		//		iadminService.modifyCategory(categories);		
+		//		iadminService.addCategory(categories);
 
 		/**
 		 * 测试管理员添加课程类别
