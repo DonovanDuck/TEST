@@ -13,7 +13,7 @@ public interface IResourceService {
 	public void upLoadResource(List<Resource> resourceList);
 	
 	/**
-	 * 显示同类资源列表
+	 * 按资源类型显示同类资源列表
 	 * @param categoryId
 	 * @return
 	 */
@@ -23,7 +23,7 @@ public interface IResourceService {
 	 * 发布资源到班级
 	 * @param resourceList
 	 */
-	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum);
+	//public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum);
 	
 	
 	/**
@@ -31,19 +31,15 @@ public interface IResourceService {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Resource> showResourceByClass(String virtualClassNum);
+//	public List<Resource> showResourceByClass(String virtualClassNum);
 	
 	/**
 	 * 同步班级和资源库的资源
-	 * 即发布本地资源到班级的同时更新资源库
+	 * 即以本地文件作为附件发布到班级的同时更新资源库
 	 * @param resourceList
 	 */
-	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum); 
+	//public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum); 
 	
-	/**
-	 * 查询所有目录信息
-	 * @return
-	 */
-	public List<Chapter> searchChapter(); 
+
 	
 }

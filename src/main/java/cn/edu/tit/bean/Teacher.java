@@ -14,7 +14,7 @@ public class Teacher {
 	private String telephone; // 电话
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
-	
+	private String status; // 在职，离职
 
 	// setter - getter
 	public String getEmployeeNum() {

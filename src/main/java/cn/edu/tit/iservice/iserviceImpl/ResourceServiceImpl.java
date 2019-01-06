@@ -29,13 +29,13 @@ public class ResourceServiceImpl implements IResourceService {
 		return resourceDao.searchResourceByCourse(courseId);
 	}
 
-	@Override
-	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
-		// TODO Auto-generated method stub
-		for(Resource resource : resourceList){
-			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
-		}
-	}
+//	@Override
+//	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
+//		// TODO Auto-generated method stub
+//		for(Resource resource : resourceList){
+//			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
+//		}
+//	}
 
 
 	@Override
@@ -49,11 +49,11 @@ public class ResourceServiceImpl implements IResourceService {
 		return resourceList;
 	}
 
-	@Override
-	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum) {
-		upLoadResource(resourceList); // 更新资源库
-		pubResourceToClass(resourceList, virtualClassNum); // 遍历资源id，发布到班级
-	}
+//	@Override
+//	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum) {
+//		upLoadResource(resourceList); // 更新资源库
+//		pubResourceToClass(resourceList, virtualClassNum); // 遍历资源id，发布到班级
+//	}
 
 	@Override
 	public List<Chapter> searchChapter() {

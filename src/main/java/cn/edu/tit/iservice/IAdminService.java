@@ -51,7 +51,7 @@ public interface IAdminService {
 	
 	/**
 	 * @author LiMing
-	 * 添加学生信息,通过Excel表导入
+	 * 添加课程信息,通过Excel表导入
 	 */
 	public void addCourseKinds(List<Course> course);
 	

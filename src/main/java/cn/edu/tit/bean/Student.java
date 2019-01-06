@@ -13,6 +13,8 @@ public class Student {
 	private String telephone; // 电话
 	private String email; // 电子邮件
 	private String faceImg; //学生头像
+	private String status; // 留级，退学
+	private String student_note; // 学生留级前的学号
 	public String getStudentId() {
 		return studentId;
 	}
@@ -74,6 +76,19 @@ public class Student {
 	public void setStudentNickName(String studentNickName) {
 		this.studentNickName = studentNickName;
 	}
+	
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public String getStudent_note() {
+		return student_note;
+	}
+	public void setStudent_note(String student_note) {
+		this.student_note = student_note;
+	}
 	@Override
 	public String toString() {
 		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
@@ -81,9 +96,14 @@ public class Student {
 				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
 				+ email + ", faceImg=" + faceImg + "]";
 	}
+	
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Student(String studentId, String studentName, String studentNickName, String studentGender,
 			String studentPassword, String classNum, String professional, String telephone, String email,
-			String faceImg) {
+			String faceImg, String status, String student_note) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
@@ -95,10 +115,8 @@ public class Student {
 		this.telephone = telephone;
 		this.email = email;
 		this.faceImg = faceImg;
-	}
-	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
+		this.status = status;
+		this.student_note = student_note;
 	}
 
 }
