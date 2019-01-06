@@ -94,4 +94,19 @@ public interface IAdminService {
 	 */
 	public String updateStudentInfo(List<Student> studentList);
 
+	/**
+	 *@author LiMing
+	 * @return
+	 * 重置学生密码
+	 */
+	public String resetStudentPassword(String studentId);
+	
+	/**
+	 *@author LiMing
+	 * @return
+	 * 重置教师密码
+	 */
+	public String resetTeacherPassword(String employeeNum);
+
+
 }

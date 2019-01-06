@@ -88,6 +88,13 @@ public class AdminTest {
 		//		for (Student student : studentList) {
 		//			System.out.println(student.toString());
 		//		}
+
+		/**
+		 * 测试重置密码
+		 * */
+		//		String studentId = "152056101";
+		//		iadminService.resetStudentPassword(studentId);
+
 	}
 }
 

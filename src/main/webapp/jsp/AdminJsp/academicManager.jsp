@@ -45,18 +45,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--/. NAV TOP  -->
     <nav class="navbar-default navbar-side" role="navigation">
         <div class="sidebar-collapse">
-            <ul class="nav" id="main-menu">
+           <ul class="nav" id="main-menu">
                 <li class="text-left">
-                    <a href="teacherManager.html" class="waves-effect waves-dark" style="font-size:20px">教师信息管理</a>
+                    <a href="${pageContext.request.contextPath}/admin/readTeacherInfo" class="waves-effect waves-dark" style="font-size:20px">教师信息管理</a>
                 </li>
                 <li class="text-left">
-                    <a href="studentManager.html" class="waves-effect waves-dark" style="font-size:20px">学生信息管理</a>
+                    <a href="${pageContext.request.contextPath}/admin/readStudentInfo" class="waves-effect waves-dark" style="font-size:20px">学生信息管理</a>
                 </li>
                 <li class="text-left">
-                    <a href="categoryManager.html" class="waves-effect waves-dark" style="font-size:20px">分类信息管理</a>
+                    <a href="${pageContext.request.contextPath}/admin/readCategories" class="waves-effect waves-dark" style="font-size:20px">分类信息管理</a>
                 </li>
                 <li class="text-left">
-                    <a href="academicManager.html" class="waves-effect waves-dark" style="font-size:20px">学术委员会管理</a>
+                    <a href="#" class="waves-effect waves-dark" style="font-size:20px">学术委员会管理</a>
                 </li>
             </ul>
         </div>

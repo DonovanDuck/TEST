@@ -51,7 +51,7 @@ public class AdminController {
 	/**
 	 * 增加学生操作，处理EXCEL表
 	 * */
-	@RequestMapping(value="AddStudent",method= {RequestMethod.POST})
+	@RequestMapping(value="addStudent",method= {RequestMethod.POST})
 	public ModelAndView DoExcelStudent(@RequestParam(value="file_excel") MultipartFile file,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
@@ -97,6 +97,33 @@ public class AdminController {
 
 
 	/**
+	 * 重置学生密码
+	 * */
+	@RequestMapping(value="resetStudentPassword/{studentId}",method= {RequestMethod.GET})
+	public ModelAndView resetStudentPassword(@PathVariable String studentId) {			
+		ModelAndView mv = new ModelAndView();
+		String readResult =null;
+		readResult = iAdminService.resetStudentPassword(studentId);
+		mv.addObject("resetStudentPasswordMsg", readResult);//返回信息
+		mv = readStudentInfo();
+		return mv;
+	}
+	
+	
+	/**
+	 * 重置老师密码
+	 * */
+	@RequestMapping(value="resetTeacherPassword/{employeeNum}",method= {RequestMethod.GET})
+	public ModelAndView resetTeacherPassword(@PathVariable String employeeNum) {			
+		ModelAndView mv = new ModelAndView();
+		String readResult =null;
+		readResult = iAdminService.resetTeacherPassword(employeeNum);
+		mv.addObject("resetTeacherPasswordMsg", readResult);//返回信息
+		mv = readTeacherInfo();
+		return mv;
+	}
+	
+	/**
 	 * 增加系部信息
 	 * */
 	@RequestMapping(value="addCategories",method= {RequestMethod.POST})
@@ -120,6 +147,7 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
 		return mv;
 	}
+	
 	/**
 	 * 读取教师信息
 	 * */
@@ -128,9 +156,6 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		List<Teacher> readResult = new ArrayList<Teacher>();
 		readResult = iAdminService.readTeacherInfo();
-		for (Teacher teacher : readResult) {
-			teacher.toString();
-		}
 		mv.addObject("teacherList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
 		return mv;

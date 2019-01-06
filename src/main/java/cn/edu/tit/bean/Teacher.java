@@ -16,6 +16,10 @@ public class Teacher {
 	private String faceImg; // 教师头像
 	private String status;//教师状态
 	private String teacherCategory; //教师系部
+	
+	
+	
+	
 	public String getEmployeeNum() {
 		return employeeNum;
 	}

@@ -1,8 +1,9 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -46,16 +47,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
-					<li class="text-left"><a href="teacherManager.html"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readTeacherInfo"
 						class="waves-effect waves-dark" style="font-size: 20px">教师信息管理</a>
 					</li>
-					<li class="text-left"><a href="studentManager.html"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readStudentInfo"
 						class="waves-effect waves-dark" style="font-size: 20px">学生信息管理</a>
 					</li>
-					<li class="text-left"><a href="categoryManager.html"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readCategories"
 						class="waves-effect waves-dark" style="font-size: 20px">分类信息管理</a>
 					</li>
-					<li class="text-left"><a href="academicManager.html"
+					<li class="text-left"><a href="#"
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
 					</li>
 				</ul>
@@ -112,7 +116,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<!--教师系部-->
 												<td class="text-center">${teacher.status }</td>
 												<!--教师状态-->
-												<td class="text-center">${teacher.teacherPassword }</td>
+												<td class="text-center"><a
+													href="${pageContext.request.contextPath}/admin/resetTeacherPassword/${teacher.employeeNum }"
+													class="waves-effect waves-dark" style="font-size: 20px">
+														<button type="button" class="btn btn-default btn-lg"
+															style="padding-top: 4%;">
+															<small>重置</small>
+														</button>
+												</a></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-default btn-lg"
 														data-toggle="modal" data-target="#Edit"
