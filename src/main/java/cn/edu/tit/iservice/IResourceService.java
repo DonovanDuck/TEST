@@ -2,7 +2,6 @@ package cn.edu.tit.iservice;
 
 import java.util.List;
 
-import cn.edu.tit.bean.Chapter;
 import cn.edu.tit.bean.Resource;
 
 public interface IResourceService {
