@@ -86,7 +86,7 @@ public class TeacherTest {
 	//	  }
 	  }
 	  @Test 
-	  public void studentList() {
+	  public void studentList() throws Exception {
 		  
 		  List<String> realClasses= teacherService.searchRealClassNum("");
 		  List<Student> students = new ArrayList<Student>();
@@ -115,7 +115,7 @@ public class TeacherTest {
 	  }
 
 	  @Test
-	  public void loginTest() {
+	  public void loginTest() throws Exception {
 		  Teacher teacher = teacherDao.teacherLoginByEmployeeNum("123456");
 		  System.out.println(teacher.getEmployeeNum());
 		  System.out.println(teacher.getTeacherPassword());

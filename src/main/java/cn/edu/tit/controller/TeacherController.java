@@ -42,7 +42,7 @@ public class TeacherController {
 	@Autowired
 	private ITeacherService teacherService;
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
-	public ModelAndView teacherLogin( @RequestParam("teacherId")String teacherId,@RequestParam("teacherPassword")String password,HttpServletRequest request) {
+	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("sdfghjkjhgfdfghjkhgfds");
 		String readResult =null;
@@ -102,8 +102,14 @@ public class TeacherController {
 		task.setChapter((String) formdata.get("chapter"));
 		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
-		teacherService.createTask(task);
-		teacherService.mapClassTask(task.getVirtualClassNum(), taskId);
+		
+		try {
+			teacherService.createTask(task);
+			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (File file : files) {
 			Accessory accessory = new Accessory();
 			accessory.setAccessoryName(file.getName());
@@ -112,7 +118,12 @@ public class TeacherController {
 			accessory.setAccessoryTime(Common.TimestamptoString());
 			accessories.add(accessory);
 		}
-		teacherService.addAccessory(accessories);
+		try {
+			teacherService.addAccessory(accessories);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsp/Teacher/publishTask";
 		
 	}
@@ -147,17 +158,20 @@ public class TeacherController {
 		String readResult =null;
 		List<Integer> courseIdListforMe ;
 		List<Integer> courseIdListByOthers;
-		List<Course> courseListforMe ;
-		List<Course> courseListByOthers;
+		List<Course> courseListforMe = null ;
+		List<Course> courseListByOthers = null;
 		System.out.println(request.getSession().getAttribute("teacherId"));
-		courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
-		courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
-		System.out.println(courseIdListforMe.toString());
-		System.out.println(courseIdListByOthers.toString());
-		courseListforMe = teacherService.courseList(courseIdListforMe);
-		courseListByOthers = teacherService.courseList(courseIdListByOthers);
-		System.out.println(courseListforMe.toString());
-		System.out.println(courseListByOthers.toString());
+		try {
+			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
+			courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
+			courseListforMe = teacherService.courseList(courseIdListforMe);
+			courseListByOthers = teacherService.courseList(courseIdListByOthers);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		mv.addObject("courseListforMe", courseListforMe);
 		mv.addObject("courseListByOthers", courseListByOthers);
 		System.out.println(mv.isEmpty()+"tesggghtgdf");
@@ -171,8 +185,16 @@ public class TeacherController {
 	@RequestMapping(value="teacherClassList/{courseId}",method= {RequestMethod.GET})
 	public ModelAndView teacherClassList(@PathVariable String courseId) {
 		ModelAndView mv = new ModelAndView();
-		List<VirtualClass> virtualClassList;
-		virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));
+		List<VirtualClass> virtualClassList = null;
+		try {
+			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;

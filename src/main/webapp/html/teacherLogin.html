@@ -30,6 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             }
         });
         function gradeChange(){
+            alert("sdfghjk")
             if($('#select option:selected').val()=='teacher'){
                 var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
@@ -75,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="Card">
         <div class="card_top">
             <div class="icon_logo">
-                <img src="${pageContext.request.contextPath}/img/b1190.jpg" alt="" style="height: 70px;">
+                <img src="../img/b1190.jpg" alt="" style="height: 70px;">
             </div>
             <div class="icon_banner">登录&nbsp;&nbsp;&nbsp;发现新的课堂</div>
         </div>
@@ -105,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         <div class="password_content">
                             <div class="password_input">
                                 <div class="password_content_input">
-                                    <input name="password" placeholder="输入密码" type="password" id="password" >
+                                    <input name="password" placeholder="输入密码" type="text" id="password" >
                                 </div>
                             </div>
                             <div class="otherMethorToLogin">

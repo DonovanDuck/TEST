@@ -37,8 +37,14 @@ public class TeacherServiceImpl implements ITeacherService{
 	 */
 
 	@Override
-	public void createCourse(Course course) {
-		teacherDao.createCourse(course);
+	public void createCourse(Course course) throws Exception {
+		try {
+			teacherDao.createCourse(course);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层createCourse出问题");
+		}
 	}
 
 	/**
@@ -48,9 +54,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(课程ID)
 	 */
 	@Override
-	public void deleteCourse(Integer courseId) {
+	public void deleteCourse(Integer courseId)throws Exception {
 		// TODO Auto-generated method stub
-		teacherDao.deleteCourse(courseId);
+		try {
+			teacherDao.deleteCourse(courseId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层deleteCourse出问题");
+		}
 	}
 	/**
 	 * @author wenli
@@ -59,9 +71,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(虚拟班级对象)
 	 */
 	@Override
-	public void createVirtualClass(VirtualClass virtualClass) {
+	public void createVirtualClass(VirtualClass virtualClass)throws Exception {
 		// TODO Auto-generated method stub
-		teacherDao.createVirtualClass(virtualClass);
+		try {
+			teacherDao.createVirtualClass(virtualClass);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层createVirtualClass出问题");
+		}
 
 	}
 	/**
@@ -71,9 +89,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(课程对象)
 	 */
 	@Override
-	public void updateCourse(Course course) {
+	public void updateCourse(Course course) throws Exception{
 		// TODO Auto-generated method stub
-		teacherDao.updateCourse(course);
+		try {
+			teacherDao.updateCourse(course);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层updateCourse出问题");
+		}
 	}
 	/**
 	 * @author wenli
@@ -82,9 +106,16 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(自然班级班号)
 	 */
 	@Override
-	public List<Student> studentList(List<String> classNum) {
+	public List<Student> studentList(List<String> classNum) throws Exception{
 		// TODO Auto-generated method stub	
-		return teacherDao.studentList(classNum);
+		try {
+			return teacherDao.studentList(classNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层studentList出问题");
+			return null;
+		}
 	}
 	/**
 	 * @author wenli
@@ -93,9 +124,16 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(学生ID)
 	 */
 	@Override
-	public Student searchStudent(String studentId) {
+	public Student searchStudent(String studentId) throws Exception{
 		// TODO Auto-generated method stub
-		return teacherDao.searchStudent(studentId);
+		try {
+			return teacherDao.searchStudent(studentId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层searchStudent出问题");
+			return null;
+		}
 	}
 	/**
 	 * @author wenli
@@ -104,15 +142,29 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(发布者ID)
 	 */
 	@Override
-	public List<Integer> courseIdList(String employeeNum,Integer manager) {
+	public List<Integer> courseIdList(String employeeNum,Integer manager)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.courseIdList(employeeNum,manager);
+		try {
+			return teacherDao.courseIdList(employeeNum,manager);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层courseIdList出问题");
+			return null;
+		}
 	}
 	
 	@Override
-	public List<Course> courseList(List<Integer> courseIds) {
+	public List<Course> courseList(List<Integer> courseIds) throws Exception{
 		// TODO Auto-generated method stub
-		return teacherDao.courseList(courseIds);
+		try {
+			return teacherDao.courseList(courseIds);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层courseList出问题");
+			return null;
+		}
 	}
 	/**
 	 * @author wenli
@@ -121,9 +173,16 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(虚拟班班号)
 	 */
 	@Override
-	public List<String> searchRealClassNum(String virtualClassNum) {
+	public List<String> searchRealClassNum(String virtualClassNum)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.searchRealClassNum(virtualClassNum);
+		try {
+			return teacherDao.searchRealClassNum(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层searchRealClassNum出问题");
+			return null;
+		}
 	}
 	/**
 	 * @author wenli
@@ -133,114 +192,225 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param2(虚拟班班号)
 	 */
 	@Override
-	public void mapVirtualRealClass(String realClassNum, String virtualClassNUm) {
+	public void mapVirtualRealClass(String realClassNum, String virtualClassNUm) throws Exception{
 		// TODO Auto-generated method stub
-		teacherDao.mapVirtualRealClass(realClassNum, virtualClassNUm);
+		try {
+			teacherDao.mapVirtualRealClass(realClassNum, virtualClassNUm);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层mapVirtualRealClass出问题");
+		}
 
 	}
 
 
 
 	@Override
-	public void createTask(Task task) {
+	public void createTask(Task task)throws Exception {
 		// TODO Auto-generated method stub
-		teacherDao.createTask(task);
-	}
-
-	@Override
-	public void stopTask(String taskId) {
-		// TODO Auto-generated method stub
-		teacherDao.stopTask(taskId);
-	}
-
-	@Override
-	public void restartTask(String taskId) {
-		// TODO Auto-generated method stub
-		teacherDao.restartTask(taskId);
-	}
-
-	@Override
-	public void restartTaskSetEndTime(String taskId, Timestamp taskEndTime) {
-		// TODO Auto-generated method stub
-		teacherDao.restartTaskSetEndTime(taskId, taskEndTime);
-	}
-
-	@Override
-	public void deleteTask(String taskId) {
-		// TODO Auto-generated method stub
-		teacherDao.deleteTask(taskId);
-	}
-
-	@Override
-	public void mapClassTask(String virtualClassNum, String taskId) {
-		// TODO Auto-generated method stub
-		teacherDao.mapClassTask(virtualClassNum, taskId);
-	}
-
-	@Override
-	public void addAccessory(List<Accessory> accessoris) {
-		// TODO Auto-generated method stub
-		teacherDao.addAccessory(accessoris);
+		try {
+			teacherDao.createTask(task);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层createTask出问题");
+		}
 		
 	}
 
 	@Override
-	public List<String> searchTaskId(String virtualClassNum) {
+	public void stopTask(String taskId)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.searchTaskId(virtualClassNum);
+		try {
+			teacherDao.stopTask(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层stopTask出问题");
+		}
 	}
 
 	@Override
-	public List<Task> TaskList(List<String> taskIds) {
+	public void restartTask(String taskId)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.TaskList(taskIds);
+		try {
+			teacherDao.restartTask(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层restartTask出问题");
+		}
 	}
 
 	@Override
-	public Task searchTask(String taskId) {
+	public void restartTaskSetEndTime(String taskId, Timestamp taskEndTime)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.searchTask(taskId);
+		try {
+			teacherDao.restartTaskSetEndTime(taskId, taskEndTime);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层restartTaskSetEndTime出问题");
+		}
 	}
 
 	@Override
-	public Accessory searchAccessory(String taskId) {
+	public void deleteTask(String taskId)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.searchAccessory(taskId);
+		try {
+			teacherDao.deleteTask(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层deleteTask出问题");
+		}
+	}
+
+	@Override
+	public void mapClassTask(String virtualClassNum, String taskId) throws Exception{
+		// TODO Auto-generated method stub
+		try {
+			teacherDao.mapClassTask(virtualClassNum, taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层mapClassTask出问题");
+		}
+	}
+
+	@Override
+	public void addAccessory(List<Accessory> accessoris)throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			teacherDao.addAccessory(accessoris);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层addAccessory出问题");
+		}
+		
+	}
+
+	@Override
+	public List<String> searchTaskId(String virtualClassNum) throws Exception{
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.searchTaskId(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层searchTaskId出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public List<Task> TaskList(List<String> taskIds) throws Exception{
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.TaskList(taskIds);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层TaskList出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public Task searchTask(String taskId)throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.searchTask(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层searchTask出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public Accessory searchAccessory(String taskId) throws Exception{
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.searchAccessory(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层searchAccessory出问题");
+			return null;
+		}
 	}
 	@Override
-	public void createSignIn(Integer courseId) {
+	public void createSignIn(Integer courseId) throws Exception{
 		// TODO Auto-generated method stub
 		int signPoint = teacherDao.getSignPoint(); // 获取签到积分
 		// 
 	}
 	@Override
-	public void addOtherToMyCourse(String employeeNum) {
+	public void addOtherToMyCourse(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		teacherDao.addOtherToMyCourse(employeeNum);
+		try {
+			teacherDao.addOtherToMyCourse(employeeNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层addOtherToMyCourse出问题");
+		}
 	}
 
 	@Override
-	public Integer permissionAddOthers(String employeeNum, Integer courseId) {
+	public Integer permissionAddOthers(String employeeNum, Integer courseId) throws Exception{
 		// TODO Auto-generated method stub
-		return teacherDao.permissionAddOthers(employeeNum, courseId);
+		try {
+			return teacherDao.permissionAddOthers(employeeNum, courseId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层permissionAddOthers出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Teacher teacherLoginByEmployeeNum(String employeeNum) {
+	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		return teacherDao.teacherLoginByEmployeeNum(employeeNum);
+		try {
+			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Teacher teacherLoginByTelephone(String telephone) {
+	public Teacher teacherLoginByTelephone(String telephone)throws Exception {
 		// TODO Auto-generated method stub
-		return teacherDao.teacherLoginByTelephone(telephone);
+		try {
+			return teacherDao.teacherLoginByTelephone(telephone);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层teacherLoginByTelephone出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Teacher teacherLoginByEmail(String email) {
+	public Teacher teacherLoginByEmail(String email) throws Exception{
 		// TODO Auto-generated method stub
-		return teacherDao.teacherLoginByEmail(email);
+		try {
+			return teacherDao.teacherLoginByEmail(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层teacherLoginByEmail出问题");
+			return null;
+		}
 	}
 	
 	/**
@@ -248,14 +418,27 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @param 教师对象
 	 * */
 	@Override
-	public void UpdateTeacher(Teacher teacher) {
-		teacherDao.UpdateTeacher(teacher);
+	public void UpdateTeacher(Teacher teacher) throws Exception{
+		try {
+			teacherDao.UpdateTeacher(teacher);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层UpdateTeacher出问题");
+		}
 	}
 
 	@Override
-	public List<VirtualClass> virtualsForCourse(Integer courseId) {
+	public List<VirtualClass> virtualsForCourse(Integer courseId) throws Exception{
 		// TODO Auto-generated method stub
-		return teacherDao.virtualsForCourse(courseId);
+		try {
+			return teacherDao.virtualsForCourse(courseId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层virtualsForCourse出问题");
+			return null;
+		}
 	}
 
 }

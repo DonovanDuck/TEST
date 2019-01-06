@@ -18,6 +18,7 @@
   <servlet-mapping>
     <servlet-name>spring</servlet-name>
     <url-pattern>/</url-pattern>
+     <url-pattern>*.jpg</url-pattern>
   </servlet-mapping>
   <filter>
     <filter-name>CharacterEncodingFilter</filter-name>
