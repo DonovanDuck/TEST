@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tit.idao.IAdminDao">
+	<!-- 增加教师信息 -->
+	<insert id="addTeacherInfo"
+		parameterType="cn.edu.tit.bean.Teacher">
+		INSERT ignore INTO teacher
+		(employee_num,
+		teacher_name,
+		teacher_password,
+		teacher_gender,
+		education_background,
+		professional_titles,
+		telephone,
+		email,
+		face_img,
+		teacher_nickname)
+		values
+		<foreach item="teacher" collection="list" separator=",">
+			(
+			#{teacher.employeeNum,jdbcType=VARCHAR},
+			#{teacher.teacherName,jdbcType=VARCHAR},
+			#{teacher.teacherPassword,jdbcType=VARCHAR},
+			#{teacher.teacherGender,jdbcType=VARCHAR},
+			#{teacher.educationBackground,jdbcType=VARCHAR},
+			#{teacher.professionalTitles,jdbcType=VARCHAR},
+			#{teacher.telephone,jdbcType=VARCHAR},
+			#{teacher.email,jdbcType=VARCHAR},
+			#{teacher.faceImg,jdbcType=VARCHAR},
+			#{teacher.teacherNickName,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!-- 增加学生信息 -->
+	<insert id="addStudentInfo"
+		parameterType="cn.edu.tit.bean.Student">
+		INSERT ignore INTO student
+		(student_id,
+		student_name,
+		student_gender,
+		student_password,
+		class_num,
+		professional,
+		telephone,
+		email,
+		face_img,
+		student_nickname)
+		VALUES
+		<foreach item="student" collection="list" separator=",">
+			(
+			#{student.studentId,jdbcType=VARCHAR},
+			#{student.studentName,jdbcType=VARCHAR},
+			#{student.studentGender,jdbcType=VARCHAR},
+			#{student.studentPassword,jdbcType=VARCHAR},
+			#{student.classNum,jdbcType=VARCHAR},
+			#{student.professional,jdbcType=VARCHAR},
+			#{student.telephone,jdbcType=VARCHAR},
+			#{student.email,jdbcType=VARCHAR},
+			#{student.faceImg,jdbcType=VARCHAR},
+			#{student.studentNickName,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
+		<id column="employee_num" property="employeeNum" />
+		<result column="teacher_name" property="teacherName" />
+		<result column="teacher_passwoed" property="teacherPassword" />
+		<result column="teacher_gender" property="teacherGender" />
+		<result column="education_background"
+			property="educationBackground" />
+		<result column="teacher_nickname" property="teacherNickName" />
+		<result column="professional_titles"
+			property="professionalTitles" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+	</resultMap>
+
+	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
+		<id column="employee_num" property="adminId" />
+		<result column="teacher_password" property="adminPassword" />
+		<result column="teacher_name" property="adminUsername" />
+	</resultMap>
+
+	<!--读取教师信息，只查询三列数据 -->
+	<select id="readTeacherInfo" resultMap="teacherMap">
+		select * from teacher;
+	</select>
+
+	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+		<id column="student_id" property="studentId" />
+		<result column="student_name" property="studentName" />
+		<result column="student_nickname" property="studentNickName" />
+		<result column="student_gender" property="studentGender" />
+		<result column="student_password" property="studentPassword" />
+		<result column="class_num" property="classNum" />
+		<result column="professional" property="professional" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+	</resultMap>
+	<!--读取学生信息，只查询三列数据 -->
+	<select id="readStudentInfo" resultMap="studentMap">
+		select * from student;
+	</select>
+
+	<!-- 增加管理员信息 -->
+	<insert id="addAdmin">
+		insert into admin (adminPassword, adminUsername) values
+		<foreach item="admin" collection="list" separator=",">
+			(#{admin.adminPassword},#{admin.adminUsername})
+		</foreach>
+	</insert>
+
+	<resultMap type="cn.edu.tit.bean.Category" id="categoryMap">
+		<id column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+		<result column="category_detail" property="categoryDetail" />
+	</resultMap>
+
+	<!-- 管理员初始化系部信息 -->
+	<insert id="initializeCategory">
+		insert into category (category_id,category_name,category_detail)
+		values
+		<foreach item="categories" collection="list" separator=",">
+			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail})
+		</foreach>
+	</insert>
+
+	<!--读取系部信息 -->
+	<select id="readCategoryInfo" resultMap="categoryMap">
+		select * from category;
+	</select>
+
+	<!-- 管理员修改系部信息 -->
+	<update id="modifyCategory">
+		update category set
+		category_name =
+		#{categoryName},
+		category_detail =
+		#{categoryDetail}
+		where category_id =
+		#{categoryId}
+	</update>
+
+	<!-- 增加课程类别信息 -->
+	<insert id="addCourseKinds">
+		INSERT INTO course
+		(course_id,
+		course_name,
+		course_detail,
+		course_category,
+		publisher_id,
+		face_img)
+		VALUES
+		<foreach item="courseList" collection="list" separator=",">
+			(#{courseList.courseId,jdbcType=VARCHAR},
+			#{courseList.courseName,jdbcType=VARCHAR},
+			#{courseList.courseDetail,jdbcType=VARCHAR},
+			#{courseList.courseCategory,jdbcType=VARCHAR},
+			#{courseList.publisherId,jdbcType=VARCHAR},
+			#{courseList.faceImg,jdbcType=VARCHAR})
+		</foreach>
+	</insert>
+
+	<delete id="deleteAdmin">
+		DELETE FROM admin
+		<foreach item="adminList" collection="list" separator=",">
+			where
+			adminId = #{adminList.adminId}
+		</foreach>
+		;
+	</delete>
+
+	<delete id="deleteStudent" parameterType="java.lang.String">
+		DELETE FROM student where student_id = student;
+	</delete>
+	
+	
+	<resultMap type="cn.edu.tit.bean.Admin" id="admin">
+		<id column="adminId" property="adminId" />
+		<result column="adminUsername" property="adminUsername" />
+		<result column="adminPassword" property="adminPassword" />
+	</resultMap>
+
+	<!--读取教师信息，只查询三列数据 -->
+	<select id="loginAdmin" resultMap="admin">
+		select * from admin where
+		adminUsername = #{adminUsername};
+	</select>
+
+</mapper>

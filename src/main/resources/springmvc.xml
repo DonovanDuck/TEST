@@ -29,7 +29,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<context:component-scan
 		base-package="cn.edu.tit.controller" />
 	<mvc:annotation-driven />
-
+	<mvc:resources location="/img/" mapping="/img/**" />
 	<!-- 配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -61,15 +61,15 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- <mvc:interceptors> </mvc:interceptors> -->
 
 	<!--配置上传文件数据解析器 -->
-	<bean id="multipartResolver"
+	<!-- <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize">
 			<value>9242880</value>
 		</property>
 		<property name="maxInMemorySize">
-			 <value>40960</value>
+			<value>-1</value>
 		</property>
-	</bean>
+	</bean> -->
 
 	<!-- 定义全局异常处理器 -->
 	<!-- 只有一个全局异常处理器起作用 -->
@@ -82,5 +82,5 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 		</props> 还可以定义其他的自定义异常 </property> </bean> -->
 	<!-- <bean id="exceptionResolver" class="exception.OverallExceptionResolver"></bean> -->
 
-	
+
 </beans>

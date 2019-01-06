@@ -10,6 +10,8 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Student;
 import cn.edu.tit.iservice.IAdminService;
 
 
@@ -20,35 +22,60 @@ public class AdminTest {
 
 	@Resource
 	private IAdminService iadminService;
-	
-	List<Admin> admin = new ArrayList<Admin>();
-	List<Category> categories = new ArrayList<Category>();
-	
+
+	//	List<Admin> adminList = new ArrayList<Admin>();
+	//	List<Admin> array = new ArrayList<Admin>();
+	//	List<Category> categories = new ArrayList<Category>();
+
 	@Test
 	public void Test() {
-		
+
 		/**
 		 * 测试插入管理员功能
 		 * */
-//		admin = iadminService.readAdmin();
-//		for (Admin admin2 : admin) {
-//			System.out.println("工号是~~~~~~~~~~~~~~~"+admin2.getAdminId());
-//			System.out.println("密码是~~~~~~~~~~~~~~~"+admin2.getAdminPassword());
-//			System.out.println("名字是~~~~~~~~~~~~~~~"+admin2.getAdminUsername());
-//		}
-//		Admin admin1 = new Admin(null,"username","password");
-//		admin.add(admin1);
-//		iadminService.addAdmin(admin);
-		
-		
+		//		array = iadminService.readTeacherInfo();
+		//		for (int i = 0; i < 4; i++) {
+		//			adminList.add(array.get(i));				
+		//		}
+		//		iadminService.addAdmin(adminList);
+
 		/**
 		 * 测试管理员管理系部功能
 		 * */
-		Category category = new Category("1520561","计算机工程系","这是一个作风优良的系部");
-		Category category2 = new Category("152051","法学系","这是一个断案的系部");
-		categories.add(category2);
-		categories.add(category);
-		iadminService.initializeCategory(categories);
-		}
+		//		Category category = new Category("1520561","计算程222222222系","这是一个的系部");
+		//		Category category2 = new Category("152051","法22222222系","这是一个案的系部");
+		//		categories.add(category);
+		//		categories.add(category2);
+		//		iadminService.modifyCategory(categories);		
+
+		/**
+		 * 测试管理员添加课程类别
+		 * */
+		//		Course course = new Course(null, "C++", "这是一门课",1,"1234567", null);
+		//		List<Course> courseList = new ArrayList<Course>();
+		//		courseList.add(course);
+		//		iadminService.addCourseKinds(courseList);
+
+		/**
+		 * 测试删除管理员功能
+		 * */
+		//		Admin admin = new Admin(10, "刘申全","011002");
+		//			adminList.add(admin);				
+		//		iadminService.deleteAdmin(adminList);	
+
+		/**
+		 * 测试管理员登陆
+		 * */
+		//		Admin admin = iadminService.loginAdmin("吴原生");
+		//		System.out.println(admin.toString());
+
+		/**
+		 * 测试查询学生信息登陆
+		 * */
+		//		List<Student> studentList = iadminService.readStudentInfo();
+		//		for (Student student : studentList) {
+		//			System.out.println(student.toString());
+		//		}
 	}
+}
 

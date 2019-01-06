@@ -11,22 +11,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>测试页面</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <body>
-<!-- 测试EXCEL 部分代码 -->
-   <!-- <div id="hidden_file_div">
-		<form id="form_excel" name="form_excel" 
-		action="${pageContext.request.contextPath}/admin/DoExcel" method="post" enctype="multipart/form-data">
-			<input type="file" id="file_excel" name="file_excel" />
-		    <input type="submit" />
-		</form>
-		<input type="text" name="filename" id="filename" />
-	</div> -->
-	<div>
-		<form id="form_excel" name="form_excel" 
-		action="${pageContext.request.contextPath}/admin/DoExcel" method="post" enctype="multipart/form-data">
-			<input type="file" id="file_excel" name="file_excel" />
-		    <input type="submit" />
-		</form>
-	</div>
-	
+	<!--测试excel 文件上传问题-->
+	<!--  -->
+			<div>
+				<form id="form_excel" name="form_excel"
+					action="${pageContext.request.contextPath}/admin/AddTeacher"
+					method="post" enctype="multipart/form-data">
+					<input type="file" id="file_excel" name="file_excel" /> <input
+						type="submit" />
+				</form>
+		
+				<form id="form_excel" name="form_excel"
+					action="${pageContext.request.contextPath}/admin/AddStudent"
+					method="post" enctype="multipart/form-data">
+					<input type="file" id="file_excel" name="file_excel" /> <input
+						type="submit" />
+				</form>
+			</div>
+			 
+	<!--测试头像上传上传问题
+	<form action="${pageContext.request.contextPath}/admin/AddStudent" method="post" enctype="multipart/form-data">
+		<label>用户名：</label>
+			<input type="text" name="name"><br>
+		 <label>密码：</label>
+		 	<input type="password" name="pwd"><br> 
+		 <label>上传头像：</label>
+		 	<input type="file" name="file"><br> 
+		 <input type="submit">-->		
+	</form>
 </body>
 </html>

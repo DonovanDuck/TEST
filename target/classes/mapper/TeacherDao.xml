@@ -1,97 +1,267 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-	 <resultMap type="cn.edu.tit.bean.Course" id="courseMap">
-		<id column="course_id" property="courseId"/>
+
+	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
+		<id column="employee_num" property="employeeNum" />
+		<result column="teacher_name" property="teacherName" />
+		<result column="teacher_password" property="teacherPassword" />
+		<result column="teacher_gender" property="teacherGender" />
+		<result column="education_background"
+			property="educationBackground" />
+		<result column="teacher_nickname" property="teacherNickName" />
+		<result column="professional_titles"
+			property="professionalTitles" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+	</resultMap>
+	<select id="teacherLoginByEmployeeNum"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where
+		employee_num = #{employeeNum};
+	</select>
+	<select id="teacherLoginByTelephone"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where
+		telephone = #{telephone};
+	</select>
+	<select id="teacherLoginByEmail"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where
+		email = #{email};
+	</select>
+
+	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
+		<id column="course_id" property="courseId" />
 		<result column="course_name" property="courseName" />
-		<result column="course_detail" property="courseDetail"/>
+		<result column="course_detail" property="courseDetail" />
 		<result column="course_category" property="courseCategory" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="face_img" property="faceImg" />
 	</resultMap>
 
-	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course" >
-	    insert into course ( course_name, course_detail, course_category,publisher_id,face_img) values (
-	    	#{courseName}, #{courseDetail}, #{courseCategory}, #{publisherId}, #{faceImg}
-	    );
+	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course">
+		insert into course (
+		course_name, course_detail,
+		course_category,publisher_id,face_img)
+		values (
+		#{courseName}, #{courseDetail}, #{courseCategory},
+		#{publisherId}, #{faceImg}
+		);
 	</insert>
 	<delete id="deleteCourse" parameterType="int">
-  		delete from course where course_id = #{courseId}
+		delete from course where
+		course_id = #{courseId}
 	</delete>
-	<select id="courseList" parameterType ="java.lang.String" resultMap="courseMap">
-		select * from course where publisher_id = #{ememployeeNum};
+
+	<select id="courseIdList" resultType="java.lang.Integer">
+		select course_id from teacher_course where employee_num = #{employeeNum} and manager = #{manager}
 	</select>
-	
-	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course" >
-  		update course set
-    	course_name = #{courseName},
-    	course_detail = #{courseDetail},
-    	course_category = #{courseCategory},
-    	face_img = #{faceImg}
-  		where course_id = #{courseId}
+	<select id="courseList" parameterType="java.util.List"
+		resultMap="courseMap">
+		select * from course where course_id in
+		<foreach collection="list" item="courseId" 
+			open="(" separator="," close=")" index="index">
+			#{courseId}
+		</foreach>
+	</select>
+	<select id="permissionAddOthers" resultType="java.lang.Integer">
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
+	</select>
+
+	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
+		update course set
+		course_name = #{courseName},
+		course_detail = #{courseDetail},
+		course_category = #{courseCategory},
+		face_img = #{faceImg}
+		where
+		course_id = #{courseId}
 	</update>
-	
+
 	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
-		<result column="student_gender" property="studentGender"/>
+		<result column="student_nickname" property="studentNickName" />
+		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
-		<result column="class" property="classNum" />
+		<result column="class_num" property="classNum" />
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
-		
-		</resultMap>
-	
-	<select id="studentList" parameterType="java.lang.String"  resultMap="studentMap">
-		select * from student where student_id = #{studentId};
+	</resultMap>
+
+	<select id="studentList" parameterType="java.util.List"
+		resultMap="studentMap">
+		select * from student where class_num in
+		<foreach collection="list" item="classNum" open="("
+			separator="," close=")" index="index">
+			#{classNum}
+		</foreach>
 	</select>
-	
-	
-	<select id="searchRealClassNum" parameterType="java.lang.String" resultType="java.lang.String" >
-		select * from real_virtual_class where virtual_class_num = #{virtualClassNum};
+
+	<select id="searchStudent" parameterType="java.lang.String"
+		resultMap="studentMap">
+		select * from student where
+		student_id =
+		#{studentId}
 	</select>
-	
-	
-	
-	<resultMap type="cn.edu.tit.bean.VirtualClass" id="virtualClassMap">
+
+	<select id="searchRealClassNum" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select * from real_virtual_class where
+		virtual_class_num =
+		#{virtualClassNum};
+	</select>
+
+
+
+	<resultMap type="cn.edu.tit.bean.VirtualClass"
+		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
-		<result column="virtual_class_name" property="virtualClassName"/>
+		<result column="virtual_class_name" property="virtualClassName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
-		<result column="virtual_class_detail" property="virtualClassDetail" />
-		</resultMap>
-	<insert id="createVirtualClass" parameterType="cn.edu.tit.bean.VirtualClass" >
-	    insert into virtual_class ( virtual_class_num,virtual_class_name, creator_id, create_time,virtual_class_detail,face_img,course_id) values (
-	    #{virtualClassNum},	#{virtualClassName}, #{creatorId}, #{createTime}, #{virtualClassDetail},#{faceImg},#{courseId}
-	    );
-	</insert>
-	<insert id="mapVirtualRealClass"  >
-	    insert into real_virtual_class (real_class_num, virtual_class_num) values (
-	    	#{realClassNum}, #{virtualClassNum}
-	    );
-	</insert>
-	
-			
-		
-		
-		
-	<!--  <resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="funkyNumber" property="funkyNumber"/>
-		<result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+		<result column="virtual_class_detail"
+			property="virtualClassDetail" />
 	</resultMap>
-	<select id="getUser2" resultMap="usermap2">
-		select * from users2
+	<insert id="createVirtualClass"
+		parameterType="cn.edu.tit.bean.VirtualClass">
+		insert into virtual_class (
+		virtual_class_num,virtual_class_name,
+		creator_id,
+		create_time,virtual_class_detail,face_img,course_id)
+		values (
+		#{virtualClassNum}, #{virtualClassName}, #{creatorId}, #{createTime},
+		#{virtualClassDetail},#{faceImg},#{courseId}
+		);
+	</insert>
+	<select id="virtualsForCourse" parameterType="java.lang.Integer" resultMap="virtualClassMap">
+		select * from virtual_class where
+		course_id =
+		#{courseId}
 	</select>
-	<insert id="insert2">
-	    insert into users2 (id, name, funkyNumber, roundingMode) values (
-	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
-	    )
-	</insert> -->
+	<insert id="mapVirtualRealClass">
+		insert into real_virtual_class (real_class_num,
+		virtual_class_num) values (
+		#{realClassNum}, #{virtualClassNum}
+		)
+	</insert>
 
+
+
+
+
+	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
+		<id column="task_id" property="taskId" />
+		<result column="task_title" property="taskTitle" />
+		<result column="task_detail" property="taskDetail" />
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="task_end_time" property="taskEndTime" />
+		<result column="status" property="status" />
+		<result column="task_category" property="taskType" />
+		<result column="task_chapter_id" property="chapter" />
+	</resultMap>
+	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
+		insert into task (
+		task_id, task_title,
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category) values (
+		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
+		#{publisherId},#{taskEndTime},#{status},#{taskType})
+
+	</insert>
+	<insert id="mapClassTask">
+		insert into class_task ( virtual_class_num, task_id) values
+		(
+		#{virtualClassNum}, #{taskId})
+
+	</insert>
+	<update id="stopTaskByEndTime" parameterType="java.lang.String">
+		update task set
+		status = 1
+		where task_id = #{taskId}
+	</update>
+	<update id="restartTask" parameterType="java.lang.String">
+		update task set
+		status = 0
+		where task_id = #{taskId}
+	</update>
+	<update id="restartTaskSetEndTime">
+		update task set
+		status = 0,
+		task_end_time =
+		#{taskEndTime}
+		where task_id = #{taskId}
+	</update>
+	<delete id="deleteTask" parameterType="java.lang.String">
+		delete from task where
+		task_id = #{taskId}
+	</delete>
+	<insert id="addAccessory" parameterType="java.util.List">
+		insert into pub_accessory (
+		pub_accessory_name,pub_accessory_path,pub_accessory_time,task_id,delete_flag)
+		values
+		<foreach collection="list" item="accessory" index="index"
+			separator=",">
+			(#{accessory.accessoryName},#{accessory.accessoryPath},#{accessory.accessoryTime},#{accessory.taskId},0)
+		</foreach>
+	</insert>
+
+	<select id="searchTaskId" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select * from class_task where virtual_class_num =
+		#{virtualClassNum} ;
+	</select>
+
+	<select id="TaskList" parameterType="java.util.List"
+		resultMap="taskMap">
+		select * from task where task_id in
+		<foreach collection="list" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
+	<select id="searchTask" parameterType="java.lang.String"
+		resultMap="taskMap">
+		select * from task where task_id = #{taskId};
+	</select>
+
+
+	<resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
+		<id column="pub_accessroy_id" property="accessoryId" />
+		<result column="pub_accessory_name" property="accessoryName" />
+		<result column="pub_accessory_path" property="accessoryPath" />
+		<result column="pub_accessory_time" property="accessoryTime" />
+		<result column="task_id" property="taskId" />
+	</resultMap>
+
+	<select id="searchAccessory" parameterType="java.lang.String"
+		resultMap="accessoryMap">
+		select * from pub_accessory where task_id = #{taskId};
+	</select>
+	
+	<select id="getSignPoint" parameterType="java.lang.String" resultType="int">
+		select point_value from point where task_category = "signIn";
+	</select>
+
+	<!-- 更新教师模块 -->
+	<update id="UpdateTeacher" parameterType="cn.edu.tit.bean.Teacher">
+		UPDATE teacher
+		<set>
+			<if test="teacherName != null">teacher_name = #{teacherName},</if>
+			<if test="teacherPassword != null">teacher_password = #{teacherPassword},</if>
+			<if test="teacherGender != null">teacher_gender =#{teacherGender},</if>
+			<if test="educationBackground != null">education_background = #{educationBackground},</if>
+			<if test="professionalTitles != null">professional_titles = #{professionalTitles},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="faceImg != null">face_img = #{faceImg},</if>
+			<if test="teacherNickName != null">teacher_nickname = #{teacherNickName}</if>
+		</set>
+		WHERE employee_num = #{employeeNum}
+	</update>
 </mapper>

@@ -2,6 +2,7 @@ package cn.edu.tit.iservice;
 
 import java.util.List;
 
+import cn.edu.tit.bean.Chapter;
 import cn.edu.tit.bean.Resource;
 
 public interface IResourceService {
@@ -16,7 +17,7 @@ public interface IResourceService {
 	 * @param categoryId
 	 * @return
 	 */
-	public List<Resource> showResourceByCategory(Integer categoryId);
+	public List<Resource> showResourceByCourse(Integer courseId);
 	
 	/**
 	 * 发布资源到班级
@@ -38,5 +39,11 @@ public interface IResourceService {
 	 * @param resourceList
 	 */
 	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum); 
+	
+	/**
+	 * 查询所有目录信息
+	 * @return
+	 */
+	public List<Chapter> searchChapter(); 
 	
 }

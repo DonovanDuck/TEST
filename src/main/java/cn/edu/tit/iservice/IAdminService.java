@@ -6,32 +6,82 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
 
 
 public interface IAdminService {
 	
 	/**
+	 * @author LiMing
 	 * 管理员初始化分类（系部）信息
 	 */
 	public void initializeCategory(List<Category> categories);
 	
 	/**
+	 * @author LiMing
 	 * 管理员修改分类（系部）信息
 	 */
-	public void modifyCategory();
+	public void modifyCategory(List<Category> categories);
 	
 	/**
+	 * @author LiMing
 	 * 超级管理员添加管理员
 	 */
 	public void addAdmin(List<Admin> admin);
 	
 	/**
-	 * 超级管理员读取所有用户
+	 * @author LiMing
+	 * 超级管理员读取教师信息，设定为管理员
 	 */
-	public List<Admin> readAdmin();
-		
+	public List<Teacher> readTeacherInfo();
+
 	/**
-	 * 管理员导入用户（教师或学生）信息
+	 * @author LiMing
+	 * 添加教师信息,通过Excel表导入
+	 */
+	public String addTeacherInfo(MultipartFile file);
+	
+	/**
+	 * @author LiMing
+	 * 添加学生信息,通过Excel表导入
+	 */
+	public String addStudentInfo(MultipartFile file);
+	
+	/**
+	 * @author LiMing
+	 * 添加学生信息,通过Excel表导入
+	 */
+	public void addCourseKinds(List<Course> course);
+	
+	/**
+	 * @author LiMing
+	 * 删除管理员
+	 */
+	public void deleteAdmin(List<Admin> adminList);
+	
+	/**
+	 * @author LiMing
+	 * 登陆管理员
+	 */
+	public Admin loginAdmin(String adminName);
+	
+	/**
+	 * @author LiMing
+	 * 超级管理员读取教师信息，设定为管理员
+	 */
+	public List<Student> readStudentInfo();
+	
+	/**
+	 * @author LiMing
+	 * 超级管理员读取系部信息
+	 */
+	public List<Category> readCategoryInfo();
+	
+	/**
+	 * @author LiMing
+	 * 删除学生员
 	 * */
-	public String addUserInfo(MultipartFile file);
+	public void deleteStudent(String student);
 }

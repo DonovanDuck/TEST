@@ -11,6 +11,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title>批量导入客户</title>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <body>
-	成功返回
+	成功
 </body>
 </html>

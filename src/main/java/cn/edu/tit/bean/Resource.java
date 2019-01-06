@@ -13,8 +13,10 @@ public class Resource {
 	private String resourceDetail; // 资源描述
 	private Timestamp publishTime; // 资源发布时间
 	private String publisherId; // 发布者id
+	private int resourceTypeId; // 资源类型
 	private String resourcePath; // 资源存储路径
-	private String catetoryId; // 资源所属分类
+	private Integer courseId;// 资源所属分类
+	private Integer resourceChapterId; // 资源所属目录id
 	
 	// setter - getter
 	public String getResourceId() {
@@ -53,27 +55,50 @@ public class Resource {
 	public void setResourcePath(String resourcePath) {
 		this.resourcePath = resourcePath;
 	}
-	public String getCatetoryId() {
-		return catetoryId;
+	
+	public int getResourceType() {
+		return resourceTypeId;
 	}
-	public void setCatetoryId(String catetoryId) {
-		this.catetoryId = catetoryId;
+	public void setResourceType(int resourceTypeId) {
+		this.resourceTypeId = resourceTypeId;
+	}
+	public Integer getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(Integer courseId) {
+		this.courseId = courseId;
+	}
+	public int getResourceTypeId() {
+		return resourceTypeId;
+	}
+	public void setResourceTypeId(int resourceTypeId) {
+		this.resourceTypeId = resourceTypeId;
+	}
+	public Integer getResourceChapterId() {
+		return resourceChapterId;
+	}
+	public void setResourceChapterId(Integer resourceChapterId) {
+		this.resourceChapterId = resourceChapterId;
 	}
 	@Override
 	public String toString() {
 		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
-				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourcePath="
-				+ resourcePath + ", catetoryId=" + catetoryId + "]";
+				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceTypeId="
+				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", resourceChapterId="
+				+ resourceChapterId + "]";
 	}
 	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, String resourcePath, String catetoryId) {
+			String publisherId, int resourceTypeId, String resourcePath, Integer courseId, Integer resourceChapterId) {
 		super();
 		this.resourceId = resourceId;
 		this.resourceName = resourceName;
 		this.resourceDetail = resourceDetail;
 		this.publishTime = publishTime;
 		this.publisherId = publisherId;
+		this.resourceTypeId = resourceTypeId;
 		this.resourcePath = resourcePath;
-		this.catetoryId = catetoryId;
+		this.courseId = courseId;
+		this.resourceChapterId = resourceChapterId;
 	}
+	
 }

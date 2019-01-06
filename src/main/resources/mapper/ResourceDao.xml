@@ -10,20 +10,27 @@
 		<result column="resource_detail" property="resourceDetail" />
 		<result column="publish_time" property="publishTime" />
 		<result column="publisher_id" property="publisherId" />
-		<result column="category_id" property="catetoryId" />
+		<result column="resource_type_id" property="resourceType"/>
 		<result column="resource_path" property="resourcePath" />
+		<result column="course_id" property="courseId" />
 	</resultMap> 
+	
+	<resultMap type="cn.edu.tit.bean.Chapter" id="resourceChapter">
+		<id column="resource_chapter_id" property="chapterId" />
+		<result column="resource_chapter_name" property="chapterName"/>
+		<result column="superior_chapter" property="superiorChapter"/>
+	</resultMap>
 	<!-- 添加资源到资源库 -->
 	<insert id = "addResourceToLib" parameterType="java.util.List">
-		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, category_id, resource_path) values
+		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, course_id, resource_path) values
 		<foreach collection="list" item="item" index="index"  separator="," >
-		(#{item.resourceId}, #{item.resourceName}, #{item.resourceDetail}, #{item.publishTime}, #{item.publisherId}, #{item.catetoryId}, #{item.resourcePath})
+		(#{item.resourceId}, #{item.resourceName}, #{item.resourceDetail}, #{item.publishTime}, #{item.publisherId}, #{item.courseId}, #{item.resourcePath})
 		</foreach>
 	</insert>
 	
 	<!-- 从资源库查同类资源 -->	
-	<select id="searchResourceByCategory" parameterType="java.lang.Integer" resultMap="resource">
-		select * from resource where category_id = #{categoryId};
+	<select id="searchResourceByCourse" parameterType="java.lang.Integer" resultMap="resource">
+		select * from resource where course_id = #{courseId};
 	</select>
 	<!-- 绑定资源和班级 -->
 	<insert id="bandResourceAndClass" parameterType="java.lang.String">
@@ -40,4 +47,8 @@
 		select resource_id from class_resource where virtual_class_num = #{virtualClassNum};
 	</select>
 	
+	<!-- 查询章节信息 -->
+	<select id="searchChapter" resultMap="resourceChapter">
+		select * from resource_chapter;
+	</select>
 </mapper>
