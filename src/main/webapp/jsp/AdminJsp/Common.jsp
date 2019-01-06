@@ -22,6 +22,7 @@
 	rel='stylesheet' type='text/css' />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/Admin/css/cssCharts.css">
+	
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
@@ -34,8 +35,7 @@
 	src="${pageContext.request.contextPath}/js/Admin/morris/raphael-2.1.0.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/morris/morris.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/Admin/moment-with-locales.min.js"></script>
+
 <script
 	src="${pageContext.request.contextPath}/js/Admin/easypiechart.js"></script>
 <script

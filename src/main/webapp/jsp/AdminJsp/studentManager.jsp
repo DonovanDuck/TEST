@@ -1,6 +1,11 @@
-﻿<!DOCTYPE html>
+﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
-
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -117,7 +122,697 @@
                                         </button>
                                     </td>
                                 </tr>
-
+       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>       <tr class="odd gradeX">
+                                    <td class="text-center">&nbsp&nbsp1&nbsp&nbsp</td>
+                                    <td class="text-center">152056106</td>
+                                    <td class="text-center">某某某</td>
+                                    <td class="text-center">MenahemLi</td>
+                                    <td class="text-center">男</td>
+                                    <td class="text-center">在读</td>
+                                    <td class="text-center">1520561</td>
+                                    <td class="text-center">计算机计算机工程系</td>
+                                    <td class="text-center">软件工程</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" style="padding-top: 4%;">
+                                            <small>重置</small>
+                                        </button>
+                                    </td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#Edit" style="padding-top: 2%;">
+                                            <small> 编辑</small>
+                                        </button>
+                                        <button type="button" class="btn btn-default btn-lg" data-toggle="modal" data-target="#" style="padding-top: 2%;">
+                                            <small> 详情</small>
+                                        </button>
+                                    </td>
+                                </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -168,6 +863,6 @@
             </div>
         </div>
     </div>
+    </div>
 </body>
-
 </html>

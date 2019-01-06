@@ -128,6 +128,9 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		List<Teacher> readResult = new ArrayList<Teacher>();
 		readResult = iAdminService.readTeacherInfo();
+		for (Teacher teacher : readResult) {
+			teacher.toString();
+		}
 		mv.addObject("teacherList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
 		return mv;

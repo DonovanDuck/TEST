@@ -12,6 +12,8 @@ import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.idao.IAdminDao;
 import cn.edu.tit.iservice.IAdminService;
 
 
@@ -22,6 +24,9 @@ public class AdminTest {
 
 	@Resource
 	private IAdminService iadminService;
+
+	@Resource
+	private IAdminDao iAdminDao;
 
 	List<Admin> adminList = new ArrayList<Admin>();
 	List<Admin> array = new ArrayList<Admin>();
@@ -56,6 +61,13 @@ public class AdminTest {
 		//		courseList.add(course);
 		//		iadminService.addCourseKinds(courseList);
 
+		/**
+		 * 测试插入老师
+		 * */
+		//		Teacher teacher = new Teacher("1111", "name", "nickName", "password", "男", "大学", "教授", "157", "@qq.com", null, "在职","计算机");
+		//		List<Teacher> teacherList =new ArrayList<Teacher>();
+		//		teacherList.add(teacher);
+		//		iAdminDao.addTeacherInfo(teacherList);
 		/**
 		 * 测试删除管理员功能
 		 * */
