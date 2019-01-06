@@ -264,4 +264,7 @@
 		</set>
 		WHERE employee_num = #{employeeNum}
 	</update>
+	
+	<!-- 更新学生模块 -->
+	
 </mapper>

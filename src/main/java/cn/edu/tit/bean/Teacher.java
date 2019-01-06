@@ -77,19 +77,22 @@ public class Teacher {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
 	@Override
 	public String toString() {
 		return "Teacher [employeeNum=" + employeeNum + ", teacherName=" + teacherName + ", teacherNickName="
 				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
 				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
-				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + "]";
+				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + ", status=" + status + "]";
 	}
 	public Teacher(String employeeNum, String teacherName, String teacherNickName, String teacherPassword,
 			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
-
-			String faceImg) {
-
+			String faceImg, String status) {
 		super();
 		this.employeeNum = employeeNum;
 		this.teacherName = teacherName;
@@ -101,11 +104,11 @@ public class Teacher {
 		this.telephone = telephone;
 		this.email = email;
 		this.faceImg = faceImg;
+		this.status = status;
 	}
 	public Teacher() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 	
-	
-
 }

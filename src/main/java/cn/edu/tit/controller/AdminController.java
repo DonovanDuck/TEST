@@ -70,7 +70,7 @@ public class AdminController {
 	 * 登陆管理员操作
 	 * */
 	@RequestMapping(value="LoginAdmin",method= {RequestMethod.POST})
-	public ModelAndView LoginStudent(@RequestParam(value="adminUsername") String adminUsername,@RequestParam(value="adminPassword") String adminPassword) {			
+	public ModelAndView LoginAdmin(@RequestParam(value="adminUsername") String adminUsername,@RequestParam(value="adminPassword") String adminPassword) {			
 		ModelAndView mv = new ModelAndView();
 		Admin admin = null;
 		String readResult =null;
@@ -81,10 +81,13 @@ public class AdminController {
 				mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面
 			}
 			else {
+				readResult = "密码输入不正确";	
 				mv.addObject("readResult", readResult);//返回信息
+				mv.addObject("admin", admin);
 				mv.setViewName("/jsp/AdminJsp/adminLogin");//设置返回页面
 			}
 		} catch (Exception e) {
+			readResult = "账号输入不正确";
 			mv.addObject("readResult", readResult);//返回信息
 			mv.setViewName("/jsp/AdminJsp/adminLogin");//设置返回页面
 			e.printStackTrace();
@@ -112,7 +115,7 @@ public class AdminController {
 	public ModelAndView readCategories() {			
 		ModelAndView mv = new ModelAndView();
 		List<Category> readResult = new ArrayList<Category>();
-		readResult = iAdminService.readCategoryInfo();
+		readResult = iAdminService.readCategory();
 		mv.addObject("categoryList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
 		return mv;
@@ -142,16 +145,19 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/studentManager");//设置返回页面
 		return mv;
 	}
-	
-	/**
-	 * 删除学生信息
-	 * */
-	@RequestMapping(value="deleteStudent/{studentId}")
-	public ModelAndView deleteStudentInfo(HttpServletRequest request,@PathVariable String studentId) {			
-		ModelAndView mv = new ModelAndView();
-		System.out.println(studentId);
-		
-		iAdminService.deleteStudent(studentId);
-		return mv;
-	}
+//	
+//	/**
+//	 * 测试
+//	 * */
+//	@RequestMapping(value="test")
+//	public ModelAndView test() {			
+//		ModelAndView mv = new ModelAndView();
+//		String num = "1111";
+//		String name = "李明";
+//		mv.addObject("num", num);
+//		mv.addObject("name", name);
+//		mv.setViewName("/success");//设置返回页面
+//		return mv;
+//	}
+
 }

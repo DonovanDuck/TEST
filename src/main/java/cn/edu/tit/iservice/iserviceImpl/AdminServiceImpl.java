@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,40 +24,20 @@ public class AdminServiceImpl implements IAdminService {
 
 	/**
 	 * @author LiMing
-	 * 管理员初始化分类（系部）信息
-	 * */
-	@Override
-	public void initializeCategory(List<Category> categories) {
-		iAdminDao.initializeCategory(categories);
-	}
-
-	/**
-	 * @author LiMing
-	 * 修改系部信息
-	 * */
-	@Override
-	public void modifyCategory(List<Category> categories) {
-		for (Category category : categories) {
-			iAdminDao.modifyCategory(category);
-		}
-	}
-
-	/**
-	 * @author LiMing
 	 * 添加管理员信息
+	 * @return 
 	 * */
 	@Override
-	public void addAdmin(List<Admin> admin) {
-		iAdminDao.addAdmin(admin);
-	}
-
-	/**
-	 * @author LiMing
-	 * 读取老师信息，添加管理员
-	 * */
-	@Override
-	public List<Teacher> readTeacherInfo() {
-		return iAdminDao.readTeacherInfo();
+	public String addAdmin(List<Admin> admin) {
+		String msg = null;
+		try {
+			iAdminDao.addAdmin(admin);
+			msg = "添加管理员成功";
+		} catch (Exception e) {
+			msg = "添加管理员失败";
+			e.printStackTrace();
+		}
+		return msg;
 	}
 
 	/**
@@ -96,6 +77,34 @@ public class AdminServiceImpl implements IAdminService {
 		return insertMsg;
 	}
 
+	/**
+	 * @author LiMing
+	 * 读取老师信息，添加管理员
+	 * */
+	@Override
+	public List<Teacher> readTeacherInfo() {
+		return iAdminDao.readTeacherInfo();
+	}
+
+	/**
+	 * @author LiMing
+	 * 读取教师信息
+	 * @return 
+	 * */
+	@Override
+	public String updateTeacherInfo(List<Teacher> teacher) {
+		String msg = null;
+		try {
+			for (Teacher tc : teacher) {
+				iAdminDao.updateTeacherInfo(tc);
+			}
+			msg = "更新教师信息成功";
+		} catch (Exception e) {
+			msg = "更新教师信息失败";
+			e.printStackTrace();
+		}
+		return msg;
+	}
 
 	/**
 	 * @author LiMing
@@ -133,47 +142,121 @@ public class AdminServiceImpl implements IAdminService {
 		return insertMsg;
 	}
 
-
 	/**
 	 * @author LiMing
-	 * 增加课程信息
+	 * 读取学生信息
 	 * */
-	@Override
-	public void addCourseKinds(List<Course> courseList) {
-		iAdminDao.addCourseKinds(courseList);
-	}
-
-	/**
-	 * @author LiMing
-	 * 删除教师员
-	 * */
-	@Override
-	public void deleteAdmin(List<Admin> adminList) {
-		iAdminDao.deleteAdmin(adminList);
-	}
-	
-	/**
-	 * @author LiMing
-	 * 删除学生员
-	 * */
-	@Override
-	public void deleteStudent(String student) {
-		iAdminDao.deleteStudent(student);
-	}
-
-	@Override
-	public Admin loginAdmin(String adminName) {
-		return iAdminDao.loginAdmin(adminName);
-	}
-
-
 	@Override
 	public List<Student> readStudentInfo() {
 		return iAdminDao.readStudentInfo();
 	}
 
+	/**
+	 * @author LiMing
+	 * 更新学生信息
+	 * @return 
+	 * */
 	@Override
-	public List<Category> readCategoryInfo() {
-		return iAdminDao.readCategoryInfo();
+	public String updateStudentInfo(List<Student> studentList) {
+		String msg = null;
+		try {
+			iAdminDao.updateStudentInfo(studentList);
+			msg = "更新教师信息成功";
+		} catch (Exception e) {
+			msg = "更新教师信息失败";
+			e.printStackTrace();
+		}
+		return msg;
+	}
+
+	/**
+	 * @author LiMing
+	 * 删除管理员信息
+	 * */
+	@Override
+	public String deleteAdmin(List<Admin> adminList) {
+		String msg = null;
+		try {
+			iAdminDao.deleteAdmin(adminList);
+			msg = "删除管理员信息成功";
+		} catch (Exception e) {
+			msg = "删除管理员信息失败";
+			e.printStackTrace();
+		}
+		return msg;
+	}
+
+	/**
+	 * @author LiMing
+	 * 管理员登陆
+	 * */
+	@Override
+	public Admin loginAdmin(String adminName) {
+		return iAdminDao.loginAdmin(adminName);
+	}
+
+	/**
+	 * @author LiMing
+	 * 更新教师信息
+	 * */
+	@Override
+	public String updateAdmin(Admin admin) {
+		String msg = null;
+		try {
+			iAdminDao.updateAdmin(admin);
+			msg = "更新教师信息成功";
+		} catch (Exception e) {
+			msg = "更新教师信息失败";
+			e.printStackTrace();
+		}
+		return msg;
+	}
+
+	/**
+	 * @author LiMing
+	 * 增加分类信息
+	 * */
+	@Override
+	public String addCategory(List<Category> categories) {
+		String msg = null;
+		try {
+			iAdminDao.addCategory(categories);
+			msg = "增加分类信息成功";
+		} catch (Exception e) {
+			msg = "增加分类信息失败";
+			e.printStackTrace();
+		}
+		return msg;		
+	}
+
+	/**
+	 * @author LiMing
+	 * 更新分类信息
+	 * */
+	@Override
+	public String updateCategory(List<Category> categories) {
+		String msg = null;
+		try {
+			for (Category category : categories) {
+				iAdminDao.updateCategory(category);
+			}
+			msg = "更新分类信息成功";
+		} catch (Exception e) {
+			msg = "更新分类信息失败";
+			e.printStackTrace();
+		}
+		return msg;	
+	}
+
+	/**
+	 * @author LiMing 
+	 * 读取分类信息
+	 * @return 
+	 * */
+	@Override
+	public List<Category> readCategory() {
+		List<Category> categories = new ArrayList<Category>();
+		categories = iAdminDao.readCategory();
+		return categories;
 	}
 }
