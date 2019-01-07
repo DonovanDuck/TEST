@@ -16,6 +16,7 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
 	</resultMap>
 	<select id="teacherLoginByEmployeeNum"
 		parameterType="java.lang.String" resultMap="teacherMap">
@@ -32,6 +33,11 @@
 		select * from teacher where
 		email = #{email};
 	</select>
+	
+	<!-- 根据工号查教师名 -->
+	<select id="getTeacherNameById" parameterType="java.lang.String" resultType="String">
+		select teacher_name from teacher where employee_num = #{employeeNum};
+	</select>
 
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
 		<id column="course_id" property="courseId" />
@@ -40,6 +46,9 @@
 		<result column="course_category" property="courseCategory" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="face_img" property="faceImg" />
+		<result column="fine" property="fine" />
+		<result column="course_student_num" property="course_student_num" />
+		<result column="publish_time" property="publishTime" />
 	</resultMap>
 
 	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course">
@@ -48,7 +57,7 @@
 		course_category,publisher_id,face_img)
 		values (
 		#{courseName}, #{courseDetail}, #{courseCategory},
-		#{publisherId}, #{faceImg}
+		#{publisherId}, #{faceImg},#{fine},#{course_student_num},#{publishTime}
 		);
 	</insert>
 	<delete id="deleteCourse" parameterType="int">
@@ -67,6 +76,26 @@
 			#{courseId}
 		</foreach>
 	</select>
+	
+	<!-- 根据id查课 -->
+	<select id="searchCourseById" parameterType="int" resultMap="courseMap">
+		select * from course where course_id = #{courseId};
+	</select>
+	
+	<!-- 根据课程id获得加入课程的教师工号集合 -->
+	<select id="getEmployeeNumByCourseId" parameterType="int" resultType="String">
+		select employee_num from teacher_course where course_id = #{courseId};
+	</select>
+	
+	<!-- 通过工号集合获取教师集合 -->
+	<select id="getTeachersById" parameterType="java.util.List" resultMap="teacherMap">
+		select * from teacher where employee_num in
+		<foreach collection="list" item="employeeNums"
+			open="(" separator="," close=")" index="index">
+			#{employeeNums}
+		</foreach>
+	</select>
+	
 	<select id="permissionAddOthers" resultType="java.lang.Integer">
 		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
 	</select>
@@ -162,16 +191,16 @@
 		<result column="publish_time" property="publishTime" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="task_end_time" property="taskEndTime" />
+		<result column="task_end_time" property="courseId" />
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
-		<result column="task_chapter_id" property="chapter" />
 	</resultMap>
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category) values (
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id) values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType})
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId})
 
 	</insert>
 	<insert id="mapClassTask">

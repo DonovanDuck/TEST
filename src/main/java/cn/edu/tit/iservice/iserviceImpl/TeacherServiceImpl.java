@@ -440,4 +440,18 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 	}
 
+	@Override
+	public Course getCourseById(Integer courseId) throws Exception{
+		// 调用dao
+		return teacherDao.searchCourseById(courseId);
+	}
+
+	@Override
+	public List<Teacher> getTeachersByCourseId(Integer courseId)throws Exception {
+		// 通过课程id获取教师工号
+		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
+		//通过教师工号获得教师圈教师集合
+		return teacherDao.getTeachersById(employeeNumList);
+	}
+
 }

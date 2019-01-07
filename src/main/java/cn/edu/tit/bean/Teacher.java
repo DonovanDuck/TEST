@@ -15,8 +15,6 @@ public class Teacher {
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
 	private String status; // 在职，离职
-
-	// setter - getter
 	public String getEmployeeNum() {
 		return employeeNum;
 	}
@@ -110,5 +108,8 @@ public class Teacher {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
 	
 }

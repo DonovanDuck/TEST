@@ -81,6 +81,26 @@ public class TeacherController {
 		
 	}
 	
+	/**
+	 * 跳转到教师的课程详细页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toCourseDetail/{courseId}")
+	public String toCourseDetail(HttpServletRequest request, @PathVariable Integer courseId){
+		try {
+			// 通过courseid查询课程
+			Course course = teacherService.getCourseById(courseId);
+			// 查询教师圈教师信息
+			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+			request.setAttribute("course", course);
+			request.setAttribute("teacherList", teacherList); //通过存入request在前台访问
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "jsp/Teacher/course_detail";
+	}
+	
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
@@ -99,7 +119,6 @@ public class TeacherController {
 		task.setPublisherId((String) formdata.get("employeeNum"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum((String) formdata.get("virtual_class_num"));
-		task.setChapter((String) formdata.get("chapter"));
 		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
 		
