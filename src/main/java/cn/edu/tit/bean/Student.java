@@ -15,6 +15,7 @@ public class Student {
 	private String faceImg; //学生头像
 	private String status; // 留级，退学
 	private String studentNote; //学生留级后  旧学号
+	private String studentCategory; //学生所属系部
 	public String getStudentId() {
 		return studentId;
 	}
@@ -87,9 +88,27 @@ public class Student {
 	public void setStudentNote(String studentNote) {
 		this.studentNote = studentNote;
 	}
+	public String getStudentCategory() {
+		return studentCategory;
+	}
+	public void setStudentCategory(String studentCategory) {
+		this.studentCategory = studentCategory;
+	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
+				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
+				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
+				+ email + ", faceImg=" + faceImg + ", status=" + status + ", studentNote=" + studentNote
+				+ ", studentCategory=" + studentCategory + "]";
+	}
+	public Student() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Student(String studentId, String studentName, String studentNickName, String studentGender,
 			String studentPassword, String classNum, String professional, String telephone, String email,
-			String faceImg, String status, String studentNote) {
+			String faceImg, String status, String studentNote, String studentCategory) {
 		super();
 		this.studentId = studentId;
 		this.studentName = studentName;
@@ -103,18 +122,9 @@ public class Student {
 		this.faceImg = faceImg;
 		this.status = status;
 		this.studentNote = studentNote;
+		this.studentCategory = studentCategory;
 	}
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
-				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
-				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
-				+ email + ", faceImg=" + faceImg + ", status=" + status + ", studentNote=" + studentNote + "]";
-	}
-	public Student() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
+	
+	
 	
 }

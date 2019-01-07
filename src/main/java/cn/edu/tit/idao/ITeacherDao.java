@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -18,7 +19,6 @@ import cn.edu.tit.bean.VirtualClass;
 
 @Component
 public interface ITeacherDao {
-
 	public void createCourse(Course course) throws Exception;	//创建课程模块1
 	public void deleteCourse(Integer courseId)throws Exception;	//删除课程模块1
 	public void createVirtualClass(VirtualClass virtualClass)throws Exception;		//创建虚拟班级模块1
@@ -26,6 +26,7 @@ public interface ITeacherDao {
 	//public List<Integer> courseIdList(String employeeNum);		//课程id列表模块1，已停用
 	public List<Integer> courseIdList(@Param("employeeNum")String employeeNum,@Param("manager")Integer manager)throws Exception;		//课程id列表模块1
 	public List<Course>	 courseList(List<Integer> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表1
+	public Course searchCourseById(Integer courseId); // 根据courseId查询
 	public List<Student> studentList(List<String> classNums)throws Exception;		//学生列表模块1
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块1
 	public List<String> searchRealClassNum(String virtualClassNum)throws Exception;		//查询虚拟班级对应的自然班列表模块1
@@ -57,4 +58,12 @@ public interface ITeacherDao {
 	
 	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
+	public List<String> getEmployeeNumByCourseId(Integer courseId); //通过courseId获得教师工号集合
+	public List<Teacher> getTeachersById(List<String> employeeNums); // 通过工号集合获取教师集合
+	public String getTeacherNameById(String employeeNum); // 通过工号查询教师名
+	/**
+	 *@author LiMing
+	 * @return
+	 */
+	public List<Category> readCategory();
 }

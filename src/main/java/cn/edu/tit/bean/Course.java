@@ -1,6 +1,7 @@
 package cn.edu.tit.bean;
 
 import java.io.File;
+import java.sql.Timestamp;
 
 public class Course {
 
@@ -9,6 +10,7 @@ public class Course {
 	private String courseDetail; // 课程描述
 	private Integer courseCategory; // 课程所属系部
 	private String publisherId; //发布者id 
+	private Timestamp publishTime; // 创建时间
 	private String faceImg; // 课程图标
 	private String fine; // 精品课
 	private Integer	 courseStudentNum; // 每门课的总人数	
@@ -42,17 +44,17 @@ public class Course {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
-
+	public Timestamp getPublishTime() {
+		return publishTime;
+	}
+	public void setPublishTime(Timestamp publishTime) {
+		this.publishTime = publishTime;
+	}
 	public String getFaceImg() {
 		return faceImg;
 	}
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
-	}
-	
-	public Course() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public String getFine() {
 		return fine;
@@ -66,19 +68,29 @@ public class Course {
 	public void setCourseStudentNum(Integer courseStudentNum) {
 		this.courseStudentNum = courseStudentNum;
 	}
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
+				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", publishTime=" + publishTime
+				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum + "]";
+	}
 	public Course(Integer courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
-			String faceImg, String fine, Integer courseStudentNum) {
+			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
 		this.courseDetail = courseDetail;
 		this.courseCategory = courseCategory;
 		this.publisherId = publisherId;
+		this.publishTime = publishTime;
 		this.faceImg = faceImg;
 		this.fine = fine;
 		this.courseStudentNum = courseStudentNum;
 	}
-	
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }

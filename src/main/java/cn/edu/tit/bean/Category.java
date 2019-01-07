@@ -9,8 +9,13 @@ public class Category {
 	private String categoryId; //分类（系部）id
 	private String categoryName; // 系部名
 	private String categoryDetail; // 系部描述
+	private String categoryNum;
 	
-	// setter - getter
+	@Override
+	public String toString() {
+		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryDetail="
+				+ categoryDetail + ", categoryNum=" + categoryNum + "]";
+	}
 	public String getCategoryId() {
 		return categoryId;
 	}
@@ -29,16 +34,22 @@ public class Category {
 	public void setCategoryDetail(String categoryDetail) {
 		this.categoryDetail = categoryDetail;
 	}
-	@Override
-	public String toString() {
-		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryDetail="
-				+ categoryDetail + "]";
+	public String getCategoryNum() {
+		return categoryNum;
 	}
-	public Category(String categoryId, String categoryName, String categoryDetail) {
+	public void setCategoryNum(String categoryNum) {
+		this.categoryNum = categoryNum;
+	}
+	public Category(String categoryId, String categoryName, String categoryDetail, String categoryNum) {
 		super();
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryDetail = categoryDetail;
+		this.categoryNum = categoryNum;
+	}
+	public Category() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 }
