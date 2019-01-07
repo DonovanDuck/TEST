@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.Task;
 
 @Component
 public interface IResourceDao {
@@ -16,11 +17,39 @@ public interface IResourceDao {
 	public void addResourceToLib(List<Resource> resourceList);
 	
 	/**
-	 * 通过分类id从资源库查找同类资源
+	 * 通过课程查找资源
 	 * @param categoryId
 	 * @return
 	 */
 	public List<Resource> searchResourceByCourse(Integer courseId);
+	
+	/**
+	 * 按资源类型查询课程
+	 * @param resourceTypeId
+	 * @return
+	 */
+	public List<Resource> searchResourceByType(Integer resourceTypeId);
+	
+	/**
+	 * 通过id获取资源存储路径
+	 * @param resourceId
+	 * @return
+	 */
+	public String searchResourcePathById(String resourceId);
+	
+	/**
+	 * 通过资源名查找资源
+	 * @param resourceName
+	 * @return
+	 */
+	public List<Resource> searchResourceByName(String resourceName);
+	
+	/**
+	 * 通过知识点（描述）查询
+	 * @param knowledgePoint
+	 * @return
+	 */
+	public List<Resource> searchResourceByKnow(String knowledgePoint);
 	
 	/**
 	 * 绑定资源和班级到资源班级关联表
@@ -42,5 +71,13 @@ public interface IResourceDao {
 	 * @return
 	 */
 	public Resource searchResourceById(String resourceId);
+	
+	/**
+	 * 通过课程id查询相应类型的任务资源
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 */
+	public List<Task> searchTaskByTypeAndCid(@Param("taskType")String taskType, @Param("courseId")Integer courseId);
 	
 }

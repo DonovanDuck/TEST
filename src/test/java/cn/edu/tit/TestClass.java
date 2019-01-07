@@ -33,16 +33,35 @@ public class TestClass {
 	@Test
 	public void addResourceToLib(){
 		
-		/*Timestamp publishTime = new Timestamp(System.currentTimeMillis());
-		cn.edu.tit.bean.Resource r1 = new cn.edu.tit.bean.Resource(common.uuid(), "resourse1", "r1", publishTime, "1", 1, "", "1")
-				new cn.edu.tit.bean.Resource(common.uuid(), "resourse1", "r1", publishTime, "1",1, "1", "D:/",1);
-		cn.edu.tit.bean.Resource r2 = new cn.edu.tit.bean.Resource(common.uuid(), "resourse2", "r2", publishTime, "1",1, "1", "D:/",1);
+		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+		cn.edu.tit.bean.Resource r1 = new cn.edu.tit.bean.Resource(common.uuid(), "r1", "1", publishTime, "1", 1, "d", 1,"1","1",1,1);
+		cn.edu.tit.bean.Resource r2 = new cn.edu.tit.bean.Resource(common.uuid(), "r2", "1", publishTime, "1", 1, "d", 1,"1","1",1,1);
 		List<cn.edu.tit.bean.Resource> resourceList = new ArrayList<>();
 		System.out.println(publishTime);
 		resourceList.add(r1);
 		resourceList.add(r2);
-		resourceDao.addResourceToLib(resourceList);*/
+		resourceDao.addResourceToLib(resourceList);
 	}
+	
+	@Test
+	public void searchResourceByType(){
+		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByType(1);
+		for(cn.edu.tit.bean.Resource r : resourceList){
+			System.out.println(r.getPublishTime());
+		}
+	}
+	@Test
+	public void searchResourcePathById(){
+		//System.out.println(resourceDao.searchResourcePathById("C380388ADEC14179A0EDFE93331159F3"));
+		//System.out.println(resourceDao.searchResourceByName("r1"));
+		//System.out.println(resourceDao.searchResourceByKnow("1"));
+		//System.out.println(teacherDao.searchCourseById(1));
+		//System.out.println(teacherDao.getEmployeeNumByCourseId(1));
+		//System.out.println(teacherDao.getTeachersById(teacherDao.getEmployeeNumByCourseId(1)));
+		//System.out.println(resourceDao.searchTaskByTypeAndCid("work", 1));
+		System.out.println(teacherDao.getTeacherNameById("2"));
+	}
+	
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);

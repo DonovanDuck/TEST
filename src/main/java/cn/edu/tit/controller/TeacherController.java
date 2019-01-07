@@ -72,15 +72,41 @@ public class TeacherController {
 		return mv;	
 	}
 	
+	/**
+	 * 跳转到教师的课程详细页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toCourseDetail/{courseId}")
+	public String toCourseDetail(HttpServletRequest request, @PathVariable Integer courseId){
+		try {
+			// 通过courseid查询课程
+			Course course = teacherService.getCourseById(courseId);
+			// 查询教师圈教师信息
+			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+			request.setAttribute("course", course);
+			request.setAttribute("teacherList", teacherList); //通过存入request在前台访问
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "jsp/Teacher/course_detail";
+	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 发布任务
+	 */
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
 
-		Object[] obj = Common.fileFactory(request);
-		List<File> files = (List<File>) obj[0];
+		Object[] obj = Common.fileFactory(request);		//解析任务form的各个字段
+		List<File> files = (List<File>) obj[0];			//获得任务中文件内容
 		List<Accessory> accessories = new ArrayList<Accessory>();
-		Map<String, Object> formdata = (Map<String, Object>) obj[1];
-		String taskId =  UUID.randomUUID().toString().replaceAll("-", "");
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];	//获得任务中文本内容
+		String taskId =  UUID.randomUUID().toString().replaceAll("-", "");		//设置任务id
 		Task task=new Task();
 		task.setTaskId(taskId);
 		task.setTaskTitle((String) formdata.get("taskTitle"));
@@ -90,13 +116,12 @@ public class TeacherController {
 		task.setPublisherId((String) formdata.get("employeeNum"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum((String) formdata.get("virtual_class_num"));
-		task.setChapter((String) formdata.get("chapter"));
 		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
 		
 		try {
-			teacherService.createTask(task);
-			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);
+			teacherService.createTask(task);		//创建任务
+			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,7 +135,7 @@ public class TeacherController {
 			accessories.add(accessory);
 		}
 		try {
-			teacherService.addAccessory(accessories);
+			teacherService.addAccessory(accessories);	//添加任务附件
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -149,10 +174,10 @@ public class TeacherController {
 	public ModelAndView teacherCourseList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
-		List<Integer> courseIdListforMe ;
-		List<Integer> courseIdListByOthers;
-		List<Course> courseListforMe = null ;
-		List<Course> courseListByOthers = null;
+		List<Integer> courseIdListforMe ;	//自己创建的课程ID号
+		List<Integer> courseIdListByOthers;		//加入别人的课程ID号
+		List<Course> courseListforMe = null ;		//自己课程实体
+		List<Course> courseListByOthers = null;		//别人课程实体
 		List<Category> categories;//分类信息
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
@@ -187,7 +212,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<VirtualClass> virtualClassList = null;
 		try {
-			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));
+			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));//根据课程ID显示该课程所带班级
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,5 +223,31 @@ public class TeacherController {
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
+	}
+	
+	public ModelAndView teacherTaskList(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		List<String> taskIdList;
+		List<Task> taskList;
+		String readResult =null;
+		Integer point=0;
+		try {
+			taskIdList = teacherService.searchTaskId("E56FE27F03344091BE8BDD698426EC22");//根据虚拟班级号获得任务列表
+			taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
+			for (Task task : taskList) {
+				point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+				task.setTaskPoint(point);
+			}
+			mv.addObject("taskList", taskList);
+			mv.addObject("readResult", readResult);
+			mv.setViewName("/jsp/Teacher/classTask");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
+		
 	}
 }

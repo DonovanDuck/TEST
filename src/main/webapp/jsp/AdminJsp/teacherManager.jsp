@@ -114,6 +114,7 @@
 												<td class="text-center">${teacher.teacherGender }</td>
 												<td class="text-center">${teacher.teacherCategory }</td>
 												<!--教师系部-->
+
 												<td class="text-center">${teacher.status }</td>
 												<!--教师状态-->
 												<td class="text-center"><a
