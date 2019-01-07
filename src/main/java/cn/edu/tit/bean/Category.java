@@ -10,6 +10,7 @@ public class Category {
 	private String categoryName; // 系部名
 	private String categoryDetail; // 系部描述
 	private String categoryNum;
+	
 	@Override
 	public String toString() {
 		return "Category [categoryId=" + categoryId + ", categoryName=" + categoryName + ", categoryDetail="

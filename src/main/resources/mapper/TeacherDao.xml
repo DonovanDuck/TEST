@@ -26,14 +26,13 @@
 		select * from teacher where
 		employee_num = #{employeeNum}
 	</select>
-	
-	
-	
+
 	<select id="teacherLoginByTelephone"
 		parameterType="java.lang.String" resultMap="teacherMap">
 		select * from teacher where
 		telephone = #{telephone};
 	</select>
+	
 	<select id="teacherLoginByEmail"
 		parameterType="java.lang.String" resultMap="teacherMap">
 		select * from teacher where
@@ -107,6 +106,9 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="student_note" property="studentNote" />
+		<result column="student_category" property="studentCategory" />
 	</resultMap>
 
 	<select id="studentList" parameterType="java.util.List"

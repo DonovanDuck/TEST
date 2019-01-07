@@ -133,7 +133,7 @@
 		select * from teacher;
 	</select>
 
-	<!--读取学生信息，只查询三列数据 -->
+	<!--读取学生信息-->
 	<select id="readStudentInfo" resultMap="studentMap">
 		select * from student;
 	</select>

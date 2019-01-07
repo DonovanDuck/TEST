@@ -160,11 +160,11 @@ public class TeacherController {
 		courseListByOthers = teacherService.courseList(courseIdListByOthers);
 		mv.addObject("courseListforMe", courseListforMe);
 		mv.addObject("courseListByOthers", courseListByOthers);
-//		categories = teacherService.readCategory();
-//		mv.addObject("categories", categories);
-//		for (Category category : categories) {
-//			System.out.println(category);
-//		}
+		categories = teacherService.readCategory();
+		mv.addObject("categories", categories);
+		for (Category category : categories) {
+			System.out.println(category);
+		}
 		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
