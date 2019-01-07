@@ -378,6 +378,9 @@ public class TeacherServiceImpl implements ITeacherService{
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
 		try {
+			System.out.println(employeeNum+"--------");
+			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
+			System.out.println(teacher.toString());
 			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

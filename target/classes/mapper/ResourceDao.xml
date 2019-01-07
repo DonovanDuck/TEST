@@ -14,12 +14,7 @@
 		<result column="resource_path" property="resourcePath" />
 		<result column="course_id" property="courseId" />
 	</resultMap> 
-	
-	<resultMap type="cn.edu.tit.bean.Chapter" id="resourceChapter">
-		<id column="resource_chapter_id" property="chapterId" />
-		<result column="resource_chapter_name" property="chapterName"/>
-		<result column="superior_chapter" property="superiorChapter"/>
-	</resultMap>
+
 	<!-- 添加资源到资源库 -->
 	<insert id = "addResourceToLib" parameterType="java.util.List">
 		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, course_id, resource_path) values
@@ -46,9 +41,5 @@
 	<select id="searchResourceIdByClass" parameterType="String" resultType="String">
 		select resource_id from class_resource where virtual_class_num = #{virtualClassNum};
 	</select>
-	
-	<!-- 查询章节信息 -->
-	<select id="searchChapter" resultMap="resourceChapter">
-		select * from resource_chapter;
-	</select>
+
 </mapper>

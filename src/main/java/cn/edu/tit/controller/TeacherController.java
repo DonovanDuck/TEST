@@ -47,10 +47,12 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		Teacher teacher =null;
+		System.out.println(teacherId);
 		String teacherPassword = null;
 		try {
 			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
 			//teacherPassword = Common.eccryptMD5(password);
+			System.out.println(teacher.toString());
 			if(password.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
@@ -144,9 +146,10 @@ public class TeacherController {
 	 * @param request
 	 * @return
 	 * 查找对应老师的课程列表，包括加入的和创建的
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="teacherCourseList",method= {RequestMethod.POST})
-	public ModelAndView teacherCourseList(HttpServletRequest request) {
+	public ModelAndView teacherCourseList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("!!!!!!!!!!1");
 		String readResult =null;

@@ -21,10 +21,8 @@
 	</resultMap>
 	
 	
-	<select id="teacherLoginByEmployeeNum"
-		parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where
-		employee_num = #{employeeNum}
+	<select id="teacherLoginByEmployeeNum" parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where employee_num = #{employeeNum};
 	</select>
 
 	<select id="teacherLoginByTelephone"
