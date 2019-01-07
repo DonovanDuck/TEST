@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -44,28 +45,21 @@ public class TeacherController {
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("sdfghjkjhgfdfghjkhgfds");
 		String readResult =null;
 		Teacher teacher =null;
+		System.out.println(teacherId);
 		String teacherPassword = null;
 		try {
-			System.out.println("dsfghjk");
 			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			
 			teacherPassword = Common.eccryptMD5(password);
-			System.out.println(teacherPassword);
-			System.out.println(teacher.getEmployeeNum());
-			System.out.println(teacher.getTeacherPassword());
+			System.out.println(teacher.toString());
 			if(teacherPassword.equals(teacher.getTeacherPassword()))
-			{
-				System.out.println("登录成功");
-				
+			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
-				System.out.println(request.getSession().getAttribute("teacherId"));
 				mv = teacherCourseList(request);
 				mv.addObject("readResult", "登录成功");//返回信息
 				mv.addObject("teacher",teacher);
-				mv.setViewName("/jsp/Teacher/teacherCourseList");//设置返回页面
+				//mv.setViewName("/jsp/Teacher/teacherCourseList");//设置返回页面
 			}
 			else {
 				mv.addObject("readResult", "密码错误");//返回信息
@@ -127,6 +121,7 @@ public class TeacherController {
 		return "/jsp/Teacher/publishTask";
 		
 	}
+	
 	/**
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
 	 * 使用spring的MultipartFile上传文件
@@ -151,15 +146,19 @@ public class TeacherController {
 	 * @param request
 	 * @return
 	 * 查找对应老师的课程列表，包括加入的和创建的
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="teacherCourseList",method= {RequestMethod.POST})
-	public ModelAndView teacherCourseList(HttpServletRequest request) {
+	public ModelAndView teacherCourseList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("!!!!!!!!!!1");
 		String readResult =null;
+
 		List<Integer> courseIdListforMe ;
 		List<Integer> courseIdListByOthers;
 		List<Course> courseListforMe = null ;
 		List<Course> courseListByOthers = null;
+		List<Category> categories;//分类信息
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
 			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
@@ -171,12 +170,18 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		mv.addObject("courseListforMe", courseListforMe);
 		mv.addObject("courseListByOthers", courseListByOthers);
-		System.out.println(mv.isEmpty()+"tesggghtgdf");
+		categories = teacherService.readCategory();
+		mv.addObject("categories", categories);
+		for (Category category : categories) {
+			System.out.println(category);
+		}
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
+	
+	
 	/**
 	 * @author wenli
 	 * @return

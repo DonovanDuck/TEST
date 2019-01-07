@@ -169,6 +169,12 @@ public class ReadTeacherExcel {
 				case 9:
 					teacher.setTeacherNickName(null);
 					break;
+				case 10:
+					teacher.setStatus(null);;
+					break;
+				case 11:
+					teacher.setTeacherCategory(null);;
+					break;
 				default:
 					break;
 				}

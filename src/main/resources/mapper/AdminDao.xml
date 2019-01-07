@@ -16,6 +16,8 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
 
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
@@ -41,12 +43,15 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="student_note" property="studentNote" />
 	</resultMap>
 
 	<resultMap type="cn.edu.tit.bean.Category" id="categoryMap">
 		<id column="category_id" property="categoryId" />
 		<result column="category_name" property="categoryName" />
 		<result column="category_detail" property="categoryDetail" />
+		<result column="category_num" property="categoryNum" />
 	</resultMap>
 
 	<!-- 增加教师信息 -->
@@ -63,7 +68,8 @@
 		email,
 		face_img,
 		teacher_nickname,
-		status
+		status,
+		teacher_category
 		)
 		values
 		<foreach item="teacher" collection="list" separator=",">
@@ -77,8 +83,9 @@
 			#{teacher.telephone,jdbcType=VARCHAR},
 			#{teacher.email,jdbcType=VARCHAR},
 			#{teacher.faceImg,jdbcType=VARCHAR},
-			#{teacher.teacherNickName,jdbcType=VARCHAR}
-			#{teacher.status,jdbcType=VARCHAR}
+			#{teacher.teacherNickName,jdbcType=VARCHAR},
+			#{teacher.status,jdbcType=VARCHAR},
+			#{teacher.teacherCategory,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -91,14 +98,15 @@
 		student_name,
 		student_gender,
 		student_password,
-		class_num,
+		real_class_num,
 		professional,
 		telephone,
 		email,
 		face_img,
 		student_nickname,
 		status,
-		student_note
+		student_note,
+		student_category
 		)
 		VALUES
 		<foreach item="student" collection="list" separator=",">
@@ -112,9 +120,10 @@
 			#{student.telephone,jdbcType=VARCHAR},
 			#{student.email,jdbcType=VARCHAR},
 			#{student.faceImg,jdbcType=VARCHAR},
-			#{student.studentNickName,jdbcType=VARCHAR}
-			#{student.status,jdbcType=VARCHAR}
-			#{student.studentNote,jdbcType=VARCHAR}
+			#{student.studentNickName,jdbcType=VARCHAR},
+			#{student.status,jdbcType=VARCHAR},
+			#{student.studentNote,jdbcType=VARCHAR},
+			#{student.studentCategory,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>
@@ -124,7 +133,7 @@
 		select * from teacher;
 	</select>
 
-	<!--读取学生信息，只查询三列数据 -->
+	<!--读取学生信息-->
 	<select id="readStudentInfo" resultMap="studentMap">
 		select * from student;
 	</select>
@@ -139,10 +148,11 @@
 
 	<!-- 增加分类信息 -->
 	<insert id="addCategory">
-		insert into category (category_id,category_name,category_detail)
+		insert into category
+		(category_id,category_name,category_detail,category_num)
 		values
 		<foreach item="categories" collection="list" separator=",">
-			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail})
+			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail},#{categories.categoryNum})
 		</foreach>
 	</insert>
 
@@ -198,7 +208,8 @@
 			<if test="email != null">email = #{email},</if>
 			<if test="faceImg != null">face_img = #{faceImg},</if>
 			<if test="teacherNickName != null">teacher_nickname = #{teacherNickName}</if>
-			<if test="status != null">status = #{status}</if>s
+			<if test="status != null">status = #{status}</if>
+			<if test="teacherCategory != null">teacher_category = #{teacherCategory}</if>
 		</set>
 		WHERE employee_num = #{employeeNum}
 	</update>
@@ -219,6 +230,7 @@
 			<if test="studentNickName != null">student_nickname = #{studentNickName}</if>
 			<if test="status != null">status = #{status}</if>
 			<if test="studentNote != null">student_note = #{studentNote}</if>
+			<if test="studentCategory != null">student_category = #{studentCategory}</if>
 		</set>
 		WHERE student_id = #{studentId}
 	</update>

@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -171,7 +172,6 @@ public interface ITeacherService {
 	 * @param courseId
 	 */
 	public void createSignIn(Integer courseId)throws Exception;
-	
 	/**
 	 * @author LiMing
 	 * @param 教师对象，用作更新教师信息
@@ -230,5 +230,11 @@ public interface ITeacherService {
 	 * 根据课程查询虚拟班级
 	 */
 	public List<VirtualClass> virtualsForCourse(Integer courseId )throws Exception;//根据课程查询虚拟班级
+	
+	/**
+	 *@author LiMing
+	 * @return
+	 */
+	public List<Category> readCategory() throws Exception;
 
 }

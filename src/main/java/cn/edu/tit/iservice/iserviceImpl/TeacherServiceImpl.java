@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Admin;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -377,6 +378,9 @@ public class TeacherServiceImpl implements ITeacherService{
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
 		try {
+			System.out.println(employeeNum+"--------");
+			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
+			System.out.println(teacher.toString());
 			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -438,6 +442,14 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("teachDao层virtualsForCourse出问题");
 			return null;
 		}
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.edu.tit.iservice.ITeacherService#readCategory()
+	 */
+	@Override
+	public List<Category> readCategory() {
+		return teacherDao.readCategory();
 	}
 
 }

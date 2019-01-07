@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
@@ -50,7 +51,8 @@ public class TeacherTest {
 	  }  
 	  @Test
 	  public void createCourse() {
-//		  Course course = new Course(null, "妹妹", "菲菲胡哨", 9, "17693280903", "home/wenli/program");
+		//  Course course = new Course(null, "妹妹", "菲菲胡哨", 9, "17693280903", "home/wenli/program");
+
 		  
 		  //teacherService.createCourse(course);
 		  //teacherService.createCourse(course);
@@ -70,7 +72,8 @@ public class TeacherTest {
 	  @Test
 	  public void updateCourse() {
 		  
-//		  Course course = new Course(9, "语文", "奇迹星桥胡哨", 6, "17693280903", "home/wenli/program");
+
+		//  Course course = new Course(9, "语文", "奇迹星桥胡哨", 6, "17693280903", "home/wenli/program");
 		//  teacherService.updateCourse(course);
 	  }
 	  @Test

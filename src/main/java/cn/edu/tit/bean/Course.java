@@ -42,17 +42,11 @@ public class Course {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
-
 	public String getFaceImg() {
 		return faceImg;
 	}
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
-	}
-	
-	public Course() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public String getFine() {
 		return fine;
@@ -66,6 +60,12 @@ public class Course {
 	public void setCourse_student_num(Integer course_student_num) {
 		this.course_student_num = course_student_num;
 	}
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
+				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", faceImg=" + faceImg
+				+ ", fine=" + fine + ", course_student_num=" + course_student_num + "]";
+	}
 	public Course(Integer courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
 			String faceImg, String fine, Integer course_student_num) {
 		super();
@@ -77,6 +77,10 @@ public class Course {
 		this.faceImg = faceImg;
 		this.fine = fine;
 		this.course_student_num = course_student_num;
+	}
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
