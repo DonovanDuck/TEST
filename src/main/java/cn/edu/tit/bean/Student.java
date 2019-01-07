@@ -13,17 +13,9 @@ public class Student {
 	private String telephone; // 电话
 	private String email; // 电子邮件
 	private String faceImg; //学生头像
-	private String status; //学生状态
+	private String status; // 留级，退学
 	private String studentNote; //学生留级后  旧学号
 	private String studentCategory; //学生所属系部
-	@Override
-	public String toString() {
-		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
-				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
-				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
-				+ email + ", faceImg=" + faceImg + ", status=" + status + ", studentNote=" + studentNote
-				+ ", studentCategory=" + studentCategory + "]";
-	}
 	public String getStudentId() {
 		return studentId;
 	}
@@ -102,6 +94,14 @@ public class Student {
 	public void setStudentCategory(String studentCategory) {
 		this.studentCategory = studentCategory;
 	}
+	@Override
+	public String toString() {
+		return "Student [studentId=" + studentId + ", studentName=" + studentName + ", studentNickName="
+				+ studentNickName + ", studentGender=" + studentGender + ", studentPassword=" + studentPassword
+				+ ", classNum=" + classNum + ", professional=" + professional + ", telephone=" + telephone + ", email="
+				+ email + ", faceImg=" + faceImg + ", status=" + status + ", studentNote=" + studentNote
+				+ ", studentCategory=" + studentCategory + "]";
+	}
 	public Student() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -124,6 +124,7 @@ public class Student {
 		this.studentNote = studentNote;
 		this.studentCategory = studentCategory;
 	}
+	
 	
 	
 }

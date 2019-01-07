@@ -32,8 +32,14 @@ public class StudentServiceImpl implements IStudentService{
 	 *更新学生信息操作
 	 */
 	@Override
-	public void UpdateStudent(Student student) {
-		studentDao.UpdateStudent(student);
+	public void UpdateStudent(Student student)throws Exception {
+		try {
+			studentDao.UpdateStudent(student);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层UpdateStudent出问题");
+		}
 	}
 	
 	/**
@@ -43,88 +49,185 @@ public class StudentServiceImpl implements IStudentService{
 	
 
 	@Override
-	public Student studentLoginByEmployeeNum(String employeeNum) {
+	public Student studentLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		return studentDao.studentLoginByEmployeeNum(employeeNum);
+		try {
+			return studentDao.studentLoginByEmployeeNum(employeeNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentLoginByEmployeeNum出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Student studentLoginByTelephone(String telephone) {
+	public Student studentLoginByTelephone(String telephone)throws Exception {
 		// TODO Auto-generated method stub
-		return studentDao.studentLoginByTelephone(telephone);
+		try {
+			return studentDao.studentLoginByTelephone(telephone);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentLoginByTelephone出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Student studentLoginByEmail(String email) {
+	public Student studentLoginByEmail(String email)throws Exception {
 		// TODO Auto-generated method stub
-		return studentDao.studentLoginByEmail(email);
+		try {
+			return studentDao.studentLoginByEmail(email);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentLoginByEmail出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public List<String> studentVirtualClassId(String classnum) {
+	public List<String> studentVirtualClassId(String classnum) throws Exception{
 		// TODO Auto-generated method stub
-		return studentDao.studentVirtualClassId(classnum);
-	}
-
-	@Override
-	public List<VirtualClass> studentVirtualClass(List<String> virtualClassNums) {
-		// TODO Auto-generated method stub
-		return studentDao.studentVirtualClass(virtualClassNums);
-	}
-
-	@Override
-	public void upTask(String studentId, String taskId, String upTaskDetail) {
-		// TODO Auto-generated method stub
-		studentDao.upTask(studentId, taskId, upTaskDetail);
+		try {
+			return studentDao.studentVirtualClassId(classnum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentVirtualClassId出问题");
+			return null;
+		}
 		
 	}
 
 	@Override
-	public void upAccessory(List<Accessory> accessories, String studentId) {
+	public List<VirtualClass> studentVirtualClass(List<String> virtualClassNums) throws Exception{
 		// TODO Auto-generated method stub
-		studentDao.upAccessory(accessories, studentId);
+		try {
+			return studentDao.studentVirtualClass(virtualClassNums);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentVirtualClass出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public List<String> searchTaskId(String virtualClassNum) {
+	public void upTask(String studentId, String taskId, String upTaskDetail)throws Exception {
 		// TODO Auto-generated method stub
-		return studentDao.searchTaskId(virtualClassNum);
+		try {
+			studentDao.upTask(studentId, taskId, upTaskDetail);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层upTask出问题");
+		}
+		
 	}
 
 	@Override
-	public List<Task> TaskList(List<String> taskIds) {
+	public void upAccessory(List<Accessory> accessories, String studentId) throws Exception{
 		// TODO Auto-generated method stub
-		return studentDao.TaskList(taskIds);
+		try {
+			studentDao.upAccessory(accessories, studentId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层upAccessory出问题");
+		}
 	}
 
 	@Override
-	public Task searchTask(String taskId) {
+	public List<String> searchTaskId(String virtualClassNum) throws Exception{
 		// TODO Auto-generated method stub
-		return studentDao.searchTask(taskId);
+		try {
+			return studentDao.searchTaskId(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层searchTaskId出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Accessory searchAccessory(String taskId) {
+	public List<Task> TaskList(List<String> taskIds) throws Exception{
 		// TODO Auto-generated method stub
-		return studentDao.searchAccessory(taskId);
+		try {
+			return studentDao.TaskList(taskIds);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层TaskList出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public List<String> searchRealClassNum(String virtualClassNum) {
+	public Task searchTask(String taskId)throws Exception {
 		// TODO Auto-generated method stub
-		return studentDao.searchRealClassNum(virtualClassNum);
+		try {
+			return studentDao.searchTask(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层searchTask出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public Student searchStudent(String studentId) {
+	public Accessory searchAccessory(String taskId) throws Exception{
 		// TODO Auto-generated method stub
-		return studentDao.searchStudent(studentId);
+		try {
+			return studentDao.searchAccessory(taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层searchAccessory出问题");
+			return null;
+		}
 	}
 
 	@Override
-	public List<Student> studentList(List<String> classNum) {
+	public List<String> searchRealClassNum(String virtualClassNum)throws Exception {
 		// TODO Auto-generated method stub
-		return studentDao.studentList(classNum);
+		try {
+			return studentDao.searchRealClassNum(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层searchRealClassNum出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public Student searchStudent(String studentId)throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return studentDao.searchStudent(studentId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层searchStudent出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public List<Student> studentList(List<String> classNum) throws Exception{
+		// TODO Auto-generated method stub
+		try {
+			return studentDao.studentList(classNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentList出问题");
+			return null;
+		}
 	}
 
 }

@@ -52,6 +52,7 @@ public class TeacherTest {
 	  @Test
 	  public void createCourse() {
 		//  Course course = new Course(null, "妹妹", "菲菲胡哨", 9, "17693280903", "home/wenli/program");
+
 		  
 		  //teacherService.createCourse(course);
 		  //teacherService.createCourse(course);
@@ -71,6 +72,7 @@ public class TeacherTest {
 	  @Test
 	  public void updateCourse() {
 		  
+
 		//  Course course = new Course(9, "语文", "奇迹星桥胡哨", 6, "17693280903", "home/wenli/program");
 		//  teacherService.updateCourse(course);
 	  }
@@ -87,7 +89,7 @@ public class TeacherTest {
 	//	  }
 	  }
 	  @Test 
-	  public void studentList() {
+	  public void studentList() throws Exception {
 		  
 		  List<String> realClasses= teacherService.searchRealClassNum("");
 		  List<Student> students = new ArrayList<Student>();
@@ -114,15 +116,14 @@ public class TeacherTest {
 			e.printStackTrace();
 		}
 	  }
-//
-//	  @Test
-//	  public void loginTest() {
-//		  List<Category> categories =  new ArrayList<Category>();
-//		  categories = teacherService.readCategory();
-//		  for (Category category : categories) {
-//			System.out.println(category.toString());
-//		}
-//	  }
+
+	  @Test
+	  public void loginTest() throws Exception {
+		  Teacher teacher = teacherDao.teacherLoginByEmployeeNum("123456");
+		  System.out.println(teacher.getEmployeeNum());
+		  System.out.println(teacher.getTeacherPassword());
+		  
+	  }
 //	@Resource
 //	ITeacherService iTeacherService;
 //	/**

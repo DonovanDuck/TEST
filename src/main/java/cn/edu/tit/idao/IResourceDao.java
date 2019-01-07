@@ -5,7 +5,6 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
-import cn.edu.tit.bean.Chapter;
 import cn.edu.tit.bean.Resource;
 
 @Component
@@ -43,11 +42,5 @@ public interface IResourceDao {
 	 * @return
 	 */
 	public Resource searchResourceById(String resourceId);
-	
-	/**
-	 * 查询所有目录信息
-	 * @return
-	 */
-	public List<Chapter> searchChapter();
 	
 }
