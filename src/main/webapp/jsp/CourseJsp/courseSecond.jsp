@@ -73,7 +73,10 @@ $(document).ready(function(){
 				varStatus="status">
 				<div class="course">
 					<img src="${pageContext.request.contextPath}/img/Course/tu10.jpg"
-						alt="" /> <small>${courseListforMeItems.courseName }</small>
+						alt="" style="margin-left: 7%;"/> 
+						<div class= "courseName" style="text-align:center;">
+							<small>${courseListforMeItems.courseName }</small>
+						</div>
 				</div>
 			</c:forEach>
 		</div>

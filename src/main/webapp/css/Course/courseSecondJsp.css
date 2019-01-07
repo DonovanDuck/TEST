@@ -122,6 +122,13 @@ a{
     padding-top: 1%;
     float:left;
 }
+
+.courseName{
+	width: 100%;
+    height: auti;
+    padding-top: 1%;
+}
+
 .course img{
     margin-left: 4%;
 }

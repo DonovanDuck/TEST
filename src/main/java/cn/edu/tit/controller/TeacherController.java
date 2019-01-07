@@ -47,13 +47,12 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		Teacher teacher =null;
-		System.out.println(teacherId);
 		String teacherPassword = null;
 		try {
 			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			teacherPassword = Common.eccryptMD5(password);
+			//teacherPassword = Common.eccryptMD5(password);
 			System.out.println(teacher.toString());
-			if(teacherPassword.equals(teacher.getTeacherPassword()))
+			if(password.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				mv = teacherCourseList(request);
@@ -70,9 +69,7 @@ public class TeacherController {
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
 		}
-		
-		return mv;
-		
+		return mv;	
 	}
 	
 	@RequestMapping(value="publishTask")
@@ -151,9 +148,7 @@ public class TeacherController {
 	@RequestMapping(value="teacherCourseList",method= {RequestMethod.POST})
 	public ModelAndView teacherCourseList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("!!!!!!!!!!1");
 		String readResult =null;
-
 		List<Integer> courseIdListforMe ;
 		List<Integer> courseIdListByOthers;
 		List<Course> courseListforMe = null ;

@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="login_form_area">
 					<form id="myform"
 						action="${pageContext.request.contextPath}/teacher/teacherLogin"
-						name="addForm" class="login_form" onsubmit="return CheckPost();" method="POST">
+						name="addForm" class="login_form" onsubmit="return CheckPost();">
 						<div class="login-account">
 							<div class="id_select">
 								<select id="select" onchange="gradeChange()">
