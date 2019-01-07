@@ -163,7 +163,9 @@ public class AdminServiceImpl implements IAdminService {
 	public String updateStudentInfo(List<Student> studentList) {
 		String msg = null;
 		try {
-			iAdminDao.updateStudentInfo(studentList);
+			for (Student student : studentList) {
+				iAdminDao.updateStudentInfo(student);
+			}
 			msg = "更新教师信息成功";
 		} catch (Exception e) {
 			msg = "更新教师信息失败";
@@ -261,5 +263,45 @@ public class AdminServiceImpl implements IAdminService {
 		List<Category> categories = new ArrayList<Category>();
 		categories = iAdminDao.readCategory();
 		return categories;
+	}
+
+	/**
+	 * @author LiMing
+	 * 重置学生密码
+	 * */
+	@Override
+	public String resetStudentPassword(String studentId) {
+		String msg = null;
+		Student student = new Student();
+		student.setStudentPassword("123123");
+		student.setStudentId(studentId);
+		try {
+			iAdminDao.updateStudentInfo(student);
+			msg = "重置密码成功";
+		} catch (Exception e) {
+			msg = "重置密码失败";
+			e.printStackTrace();
+		}
+		return msg;	
+	}
+
+	/**
+	 * @author LiMing
+	 * 重置教师密码
+	 * */
+	@Override
+	public String resetTeacherPassword(String employeeNum) {
+		String msg = null;
+		Teacher teacher = new Teacher();
+		teacher.setTeacherPassword("123123");
+		teacher.setEmployeeNum(employeeNum);
+		try {
+			iAdminDao.updateTeacherInfo(teacher);
+			msg = "重置密码成功";
+		} catch (Exception e) {
+			msg = "重置密码失败";
+			e.printStackTrace();
+		}
+		return msg;	
 	}
 }

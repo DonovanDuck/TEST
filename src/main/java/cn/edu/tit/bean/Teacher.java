@@ -14,8 +14,11 @@ public class Teacher {
 	private String telephone; // 电话
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
-	private String status; // 在职，离职
-	private String teacherCategory;//教师所属系部
+	private String status;//教师状态
+	private String teacherCategory; //教师系部
+	
+	
+	
 	public String getEmployeeNum() {
 		return employeeNum;
 	}
@@ -118,6 +121,7 @@ public class Teacher {
 		// TODO Auto-generated constructor stub
 	}
 
+	
 	
 	
 	

@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -18,7 +19,6 @@ import cn.edu.tit.bean.VirtualClass;
 
 @Component
 public interface ITeacherDao {
-
 	public void createCourse(Course course) throws Exception;	//创建课程模块1
 	public void deleteCourse(Integer courseId)throws Exception;	//删除课程模块1
 	public void createVirtualClass(VirtualClass virtualClass)throws Exception;		//创建虚拟班级模块1
@@ -61,4 +61,9 @@ public interface ITeacherDao {
 	public List<String> getEmployeeNumByCourseId(Integer courseId); //通过courseId获得教师工号集合
 	public List<Teacher> getTeachersById(List<String> employeeNums); // 通过工号集合获取教师集合
 	public String getTeacherNameById(String employeeNum); // 通过工号查询教师名
+	/**
+	 *@author LiMing
+	 * @return
+	 */
+	public List<Category> readCategory();
 }

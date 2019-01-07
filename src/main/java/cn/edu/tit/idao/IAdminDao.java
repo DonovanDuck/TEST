@@ -90,7 +90,7 @@ public interface IAdminDao {
 	 * @param studentList
 	 * 更新学生信息
 	 */
-	public void updateStudentInfo(List<Student> studentList);
+	public void updateStudentInfo(Student student);
 
 	/**
 	 *@author LiMing
@@ -98,5 +98,5 @@ public interface IAdminDao {
 	 * 更新管理员信息
 	 */
 	public void updateAdmin(Admin admin);
-
+	
 }
