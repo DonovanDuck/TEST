@@ -6,7 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import cn.edu.tit.bean.Chapter;
 import cn.edu.tit.bean.Resource;
 import cn.edu.tit.idao.IResourceDao;
 import cn.edu.tit.iservice.IResourceService;
@@ -29,16 +28,16 @@ public class ResourceServiceImpl implements IResourceService {
 		return resourceDao.searchResourceByCourse(courseId);
 	}
 
-	@Override
-	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
-		// TODO Auto-generated method stub
-		for(Resource resource : resourceList){
-			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
-		}
-	}
+//	@Override
+//	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
+//		// TODO Auto-generated method stub
+//		for(Resource resource : resourceList){
+//			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
+//		}
+//	}
 
 
-	@Override
+	/*@Override
 	public List<Resource> showResourceByClass(String virtualClassNum) {
 		List<String> resourceIdList = resourceDao.searchResourceIdByClass(virtualClassNum); // 获取课程相关resourceId
 		List<Resource> resourceList = new ArrayList<>();
@@ -47,18 +46,13 @@ public class ResourceServiceImpl implements IResourceService {
 			resourceList.add(resource);
 		}
 		return resourceList;
-	}
+	}*/
 
-	@Override
-	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum) {
-		upLoadResource(resourceList); // 更新资源库
-		pubResourceToClass(resourceList, virtualClassNum); // 遍历资源id，发布到班级
-	}
+//	@Override
+//	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum) {
+//		upLoadResource(resourceList); // 更新资源库
+//		pubResourceToClass(resourceList, virtualClassNum); // 遍历资源id，发布到班级
+//	}
 
-	@Override
-	public List<Chapter> searchChapter() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
+	
 }

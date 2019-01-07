@@ -43,7 +43,7 @@ public class TeacherController {
 	@Autowired
 	private ITeacherService teacherService;
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
-	public ModelAndView teacherLogin( @RequestParam("teacherId")String teacherId,@RequestParam("teacherPassword")String password,HttpServletRequest request) {
+	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		Teacher teacher =null;
@@ -94,8 +94,14 @@ public class TeacherController {
 		task.setChapter((String) formdata.get("chapter"));
 		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
-		teacherService.createTask(task);
-		teacherService.mapClassTask(task.getVirtualClassNum(), taskId);
+		
+		try {
+			teacherService.createTask(task);
+			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		for (File file : files) {
 			Accessory accessory = new Accessory();
 			accessory.setAccessoryName(file.getName());
@@ -104,7 +110,12 @@ public class TeacherController {
 			accessory.setAccessoryTime(Common.TimestamptoString());
 			accessories.add(accessory);
 		}
-		teacherService.addAccessory(accessories);
+		try {
+			teacherService.addAccessory(accessories);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "/jsp/Teacher/publishTask";
 		
 	}
@@ -139,32 +150,30 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		System.out.println("!!!!!!!!!!1");
 		String readResult =null;
-		List<Integer> courseIdListforMe ;  //创建一个“自己创建课程”的课程ID 集合
-		List<Integer> courseIdListByOthers;//创建一个“别人自己加入的课程” 的课程ID集合
-		List<Course> courseListforMe ;//创建一个“自己创建课程”的实体类
-		List<Course> courseListByOthers; //创建一个“自己加入的课程” 的实体类
+
+		List<Integer> courseIdListforMe ;
+		List<Integer> courseIdListByOthers;
+		List<Course> courseListforMe = null ;
+		List<Course> courseListByOthers = null;
 		List<Category> categories;//分类信息
-		//从表中获取数据,1是自己创建的,获取课程ID
-		courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
-		//从表中获取数据，0是自己加入别人创建的课程，获取课程ID
-		courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
-		for (int i = 0; i < courseIdListforMe.size(); i++) {
-			System.out.println(courseIdListforMe.get(i));
+		System.out.println(request.getSession().getAttribute("teacherId"));
+		try {
+			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
+			courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
+			courseListforMe = teacherService.courseList(courseIdListforMe);
+			courseListByOthers = teacherService.courseList(courseIdListByOthers);
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		for (int i = 0; i < courseIdListByOthers.size(); i++) {
-			System.out.println(courseIdListByOthers.get(i));
-		}
-		//根据 自己创建课程的ID集合  进行搜索，课程列表（自己创建课程的详情）
-		courseListforMe = teacherService.courseList(courseIdListforMe);
-		//根据 自己加入课程的ID集合  进行搜索，课程列表（自己课程的详情）
-		courseListByOthers = teacherService.courseList(courseIdListByOthers);
 		mv.addObject("courseListforMe", courseListforMe);
 		mv.addObject("courseListByOthers", courseListByOthers);
-//		categories = teacherService.readCategory();
-//		mv.addObject("categories", categories);
-//		for (Category category : categories) {
-//			System.out.println(category);
-//		}
+		categories = teacherService.readCategory();
+		mv.addObject("categories", categories);
+		for (Category category : categories) {
+			System.out.println(category);
+		}
 		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
@@ -178,8 +187,16 @@ public class TeacherController {
 	@RequestMapping(value="teacherClassList/{courseId}",method= {RequestMethod.GET})
 	public ModelAndView teacherClassList(@PathVariable String courseId) {
 		ModelAndView mv = new ModelAndView();
-		List<VirtualClass> virtualClassList;
-		virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));
+		List<VirtualClass> virtualClassList = null;
+		try {
+			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;

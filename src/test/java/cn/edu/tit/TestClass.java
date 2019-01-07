@@ -71,7 +71,7 @@ public class TestClass {
 	}
 	
 	@Test
-	public void getSignPoint(){
+	public void getSignPoint() throws Exception{
 		System.out.println(teacherDao.getSignPoint());
 	}
 }
