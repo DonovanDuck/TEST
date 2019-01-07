@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -172,18 +173,22 @@ public interface ITeacherService {
 	 */
 	public void createSignIn(Integer courseId);
 	
-	/**
-	 * @author LiMing
-	 * @param 教师对象，用作更新教师信息
-	 */
-	public void UpdateTeacher(Teacher teacher);	//查询任务附件
-	
-	
 	public void addOtherToMyCourse(String employeeNum);	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId);	//判断是否允许加入其他人到自己课程
 	public Teacher teacherLoginByEmployeeNum(String employeeNum);	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone);	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email);	//通过邮件登录教师
 	public List<VirtualClass> virtualsForCourse(Integer courseId );//根据课程查询虚拟班级
-
+	
+	/**
+	 * @author LiMing
+	 * @param 教师对象，用作更新教师信息
+	 */
+	public void UpdateTeacher(Teacher teacher);	//查询任务附件
+	
+	/**
+	 * @author LiMing
+	 * 读取分类信息
+	 */
+	public List<Category> readCategory();
 }

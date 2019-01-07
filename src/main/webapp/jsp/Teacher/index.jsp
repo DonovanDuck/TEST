@@ -19,8 +19,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
        ${pageContext.request.contextPath}/teacher/teacherLogin
         <input type="submit" value="登录">
     </form>
-    
-
-
 </body>
 </html>

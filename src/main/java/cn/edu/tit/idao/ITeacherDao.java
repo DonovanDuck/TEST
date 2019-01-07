@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -55,4 +56,10 @@ public interface ITeacherDao {
 	public Accessory searchAccessory(String taskId);	//查询任务附件1
 	public void addOtherToMyCourse(String employeeNum);	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId);	//判断是否允许加入其他人到自己课程
+
+	/**
+	 * @author LiMing
+	 * 读取分类信息
+	 */
+	public List<Category> readCategory();
 }

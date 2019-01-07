@@ -51,6 +51,7 @@
 		<id column="category_id" property="categoryId" />
 		<result column="category_name" property="categoryName" />
 		<result column="category_detail" property="categoryDetail" />
+		<result column="category_num" property="categoryNum" />
 	</resultMap>
 
 	<!-- 增加教师信息 -->
@@ -147,10 +148,11 @@
 
 	<!-- 增加分类信息 -->
 	<insert id="addCategory">
-		insert into category (category_id,category_name,category_detail)
+		insert into category
+		(category_id,category_name,category_detail,category_num)
 		values
 		<foreach item="categories" collection="list" separator=",">
-			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail})
+			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail},#{categories.categoryNum})
 		</foreach>
 	</insert>
 

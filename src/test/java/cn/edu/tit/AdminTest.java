@@ -44,14 +44,6 @@ public class AdminTest {
 		//		}
 		//		iadminService.addAdmin(adminList);
 
-		/**
-		 * 测试管理员管理系部功能
-		 * */
-		//		Category category = new Category("1520561","计算程222222222系","这是一个的系部");
-		//		Category category2 = new Category("152051","法22222222系","这是一个案的系部");
-		//		categories.add(category);
-		//		categories.add(category2);
-		//		iadminService.addCategory(categories);
 
 		/**
 		 * 测试管理员添加课程类别

@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -44,28 +45,19 @@ public class TeacherController {
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("teacherId")String teacherId,@RequestParam("teacherPassword")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		System.out.println("sdfghjkjhgfdfghjkhgfds");
 		String readResult =null;
 		Teacher teacher =null;
 		String teacherPassword = null;
 		try {
-			System.out.println("dsfghjk");
 			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			
-			teacherPassword = Common.eccryptMD5(password);
-			System.out.println(teacherPassword);
-			System.out.println(teacher.getEmployeeNum());
-			System.out.println(teacher.getTeacherPassword());
-			if(teacherPassword.equals(teacher.getTeacherPassword()))
-			{
-				System.out.println("登录成功");
-				
+			//teacherPassword = Common.eccryptMD5(password);
+			if(password.equals(teacher.getTeacherPassword()))
+			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
-				System.out.println(request.getSession().getAttribute("teacherId"));
 				mv = teacherCourseList(request);
 				mv.addObject("readResult", "登录成功");//返回信息
 				mv.addObject("teacher",teacher);
-				mv.setViewName("/jsp/Teacher/teacherCourseList");//设置返回页面
+				//mv.setViewName("/jsp/Teacher/teacherCourseList");//设置返回页面
 			}
 			else {
 				mv.addObject("readResult", "密码错误");//返回信息
@@ -116,6 +108,7 @@ public class TeacherController {
 		return "/jsp/Teacher/publishTask";
 		
 	}
+	
 	/**
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
 	 * 使用spring的MultipartFile上传文件
@@ -144,25 +137,39 @@ public class TeacherController {
 	@RequestMapping(value="teacherCourseList",method= {RequestMethod.POST})
 	public ModelAndView teacherCourseList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("!!!!!!!!!!1");
 		String readResult =null;
-		List<Integer> courseIdListforMe ;
-		List<Integer> courseIdListByOthers;
-		List<Course> courseListforMe ;
-		List<Course> courseListByOthers;
-		System.out.println(request.getSession().getAttribute("teacherId"));
+		List<Integer> courseIdListforMe ;  //创建一个“自己创建课程”的课程ID 集合
+		List<Integer> courseIdListByOthers;//创建一个“别人自己加入的课程” 的课程ID集合
+		List<Course> courseListforMe ;//创建一个“自己创建课程”的实体类
+		List<Course> courseListByOthers; //创建一个“自己加入的课程” 的实体类
+		List<Category> categories;//分类信息
+		//从表中获取数据,1是自己创建的,获取课程ID
 		courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
+		//从表中获取数据，0是自己加入别人创建的课程，获取课程ID
 		courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
-		System.out.println(courseIdListforMe.toString());
-		System.out.println(courseIdListByOthers.toString());
+		for (int i = 0; i < courseIdListforMe.size(); i++) {
+			System.out.println(courseIdListforMe.get(i));
+		}
+		for (int i = 0; i < courseIdListByOthers.size(); i++) {
+			System.out.println(courseIdListByOthers.get(i));
+		}
+		//根据 自己创建课程的ID集合  进行搜索，课程列表（自己创建课程的详情）
 		courseListforMe = teacherService.courseList(courseIdListforMe);
+		//根据 自己加入课程的ID集合  进行搜索，课程列表（自己课程的详情）
 		courseListByOthers = teacherService.courseList(courseIdListByOthers);
-		System.out.println(courseListforMe.toString());
-		System.out.println(courseListByOthers.toString());
 		mv.addObject("courseListforMe", courseListforMe);
 		mv.addObject("courseListByOthers", courseListByOthers);
-		System.out.println(mv.isEmpty()+"tesggghtgdf");
+//		categories = teacherService.readCategory();
+//		mv.addObject("categories", categories);
+//		for (Category category : categories) {
+//			System.out.println(category);
+//		}
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
+	
+	
 	/**
 	 * @author wenli
 	 * @return

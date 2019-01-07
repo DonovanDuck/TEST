@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Admin;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -255,6 +256,14 @@ public class TeacherServiceImpl implements ITeacherService{
 	public List<VirtualClass> virtualsForCourse(Integer courseId) {
 		// TODO Auto-generated method stub
 		return teacherDao.virtualsForCourse(courseId);
+	}
+
+	/* (non-Javadoc)
+	 * @see cn.edu.tit.iservice.ITeacherService#readCategory()
+	 */
+	@Override
+	public List<Category> readCategory() {
+		return teacherDao.readCategory();
 	}
 
 }
