@@ -43,29 +43,25 @@ public class TeacherController {
 	private ITeacherService teacherService;
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();
-		System.out.println("sdfghjkjhgfdfghjkhgfds");
-		String readResult =null;
-		Teacher teacher =null;
-		String teacherPassword = null;
+		ModelAndView mv = new ModelAndView();	
+		String readResult =null;			//返回执行结果信息
+		Teacher teacher =null;		
+		String teacherPassword = null;		
 		try {
-			System.out.println("dsfghjk");
-			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			
-			teacherPassword = Common.eccryptMD5(password);
-			System.out.println(teacherPassword);
+			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);		//通过当前登录者ID获取数据库内容
+			teacherPassword = Common.eccryptMD5(password);						//对密码进行加密
+			System.out.println(teacherPassword);								
 			System.out.println(teacher.getEmployeeNum());
 			System.out.println(teacher.getTeacherPassword());
-			if(teacherPassword.equals(teacher.getTeacherPassword()))
+			if(teacherPassword.equals(teacher.getTeacherPassword()))			//判断加密后信息是否和数据库一致
 			{
 				System.out.println("登录成功");
-				
-				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
+				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());	//设置一个attribute，用于以后在request里直接调用当前登录着信息
 				System.out.println(request.getSession().getAttribute("teacherId"));
-				mv = teacherCourseList(request);
+				mv = teacherTaskList(request);												//调用teacherTaskList方法获取任务列表mv
 				mv.addObject("readResult", "登录成功");//返回信息
-				mv.addObject("teacher",teacher);
-				mv.setViewName("/jsp/Teacher/teacherCourseList");//设置返回页面
+				mv.addObject("teacher",teacher);		//注入教师信息
+				//mv.setViewName("/jsp/Teacher/classTask");//设置返回页面
 			}
 			else {
 				mv.addObject("readResult", "密码错误");//返回信息
@@ -80,16 +76,21 @@ public class TeacherController {
 		return mv;
 		
 	}
-	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 发布任务
+	 */
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
 
-		Object[] obj = Common.fileFactory(request);
-		List<File> files = (List<File>) obj[0];
+		Object[] obj = Common.fileFactory(request);		//解析任务form的各个字段
+		List<File> files = (List<File>) obj[0];			//获得任务中文件内容
 		List<Accessory> accessories = new ArrayList<Accessory>();
-		Map<String, Object> formdata = (Map<String, Object>) obj[1];
-		String taskId =  UUID.randomUUID().toString().replaceAll("-", "");
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];	//获得任务中文本内容
+		String taskId =  UUID.randomUUID().toString().replaceAll("-", "");		//设置任务id
 		Task task=new Task();
 		task.setTaskId(taskId);
 		task.setTaskTitle((String) formdata.get("taskTitle"));
@@ -104,8 +105,8 @@ public class TeacherController {
 		task.setStatus(Integer.parseInt(status));
 		
 		try {
-			teacherService.createTask(task);
-			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);
+			teacherService.createTask(task);		//创建任务
+			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -119,7 +120,7 @@ public class TeacherController {
 			accessories.add(accessory);
 		}
 		try {
-			teacherService.addAccessory(accessories);
+			teacherService.addAccessory(accessories);	//添加任务附件
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -156,10 +157,10 @@ public class TeacherController {
 	public ModelAndView teacherCourseList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
-		List<Integer> courseIdListforMe ;
-		List<Integer> courseIdListByOthers;
-		List<Course> courseListforMe = null ;
-		List<Course> courseListByOthers = null;
+		List<Integer> courseIdListforMe ;	//自己创建的课程ID号
+		List<Integer> courseIdListByOthers;		//加入别人的课程ID号
+		List<Course> courseListforMe = null ;		//自己课程实体
+		List<Course> courseListByOthers = null;		//别人课程实体
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
 			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
@@ -187,7 +188,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<VirtualClass> virtualClassList = null;
 		try {
-			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));
+			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));//根据课程ID显示该课程所带班级
 		} catch (NumberFormatException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -198,5 +199,31 @@ public class TeacherController {
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
+	}
+	
+	public ModelAndView teacherTaskList(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		List<String> taskIdList;
+		List<Task> taskList;
+		String readResult =null;
+		Integer point=0;
+		try {
+			taskIdList = teacherService.searchTaskId("E56FE27F03344091BE8BDD698426EC22");//根据虚拟班级号获得任务列表
+			taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
+			for (Task task : taskList) {
+				point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+				task.setTaskPoint(point);
+			}
+			mv.addObject("taskList", taskList);
+			mv.addObject("readResult", readResult);
+			mv.setViewName("/jsp/Teacher/classTask");
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return mv;
+		
 	}
 }

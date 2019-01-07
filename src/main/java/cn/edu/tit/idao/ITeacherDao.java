@@ -37,17 +37,24 @@ public interface ITeacherDao {
 	public void createSignIn(@Param("taskId")String taskId,@Param("signPoint")String signPoint)throws Exception;	//wei实现
 	public Integer getSignPoint()throws Exception; // 获取签到的信息
 	public void UpdateTeacher(Teacher teacher)throws Exception;
+	
 	public void createTask(Task task)throws Exception;	//创建任务1
+	public void mapClassTask(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId)throws Exception;	//1把任务映射到班级任务表中
+	
 	public void stopTask(String taskId)throws Exception;	//截止任务1
 	public void restartTask(String taskId)throws Exception;	//重新启动任务，任务未过期1
 	public void restartTaskSetEndTime(@Param("taskId")String taskId,@Param("taskEndTime")Timestamp taskEndTime)throws Exception;	//1重新启动任务，任务过期
 	public void deleteTask(String taskId)throws Exception;	//删除任务1
-	public void mapClassTask(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId)throws Exception;	//1把任务映射到班级任务表中
+	
 	public void addAccessory(List<Accessory> accessoris)throws Exception;	//添加附件1
+	
 	public List<String> searchTaskId(String virtualClassNum)throws Exception;//查找班级对应的taskid号1
 	public List<Task> TaskList(List<String> taskIds)throws Exception;	//显示所有任务列表1
+	
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情1
-	public Accessory searchAccessory(String taskId)throws Exception;	//查询任务附件1
+	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
+	public List<Accessory> searchAccessory(String taskId)throws Exception;	//查询任务附件1
+	
 	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
 }

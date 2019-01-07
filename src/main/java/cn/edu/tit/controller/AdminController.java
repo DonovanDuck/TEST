@@ -21,6 +21,7 @@ import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
 
 @RequestMapping("/admin")
@@ -69,13 +70,14 @@ public class AdminController {
 	/**
 	 * 登陆管理员操作
 	 * */
-	@RequestMapping(value="LoginAdmin",method= {RequestMethod.POST})
-	public ModelAndView LoginAdmin(@RequestParam(value="adminUsername") String adminUsername,@RequestParam(value="adminPassword") String adminPassword) {			
+	@RequestMapping(value="LoginAdmin",method= {RequestMethod.GET})
+	public ModelAndView LoginAdmin(@RequestParam(value="employeeNum") String adminUsername,@RequestParam(value="password") String adminPassword) {			
 		ModelAndView mv = new ModelAndView();
 		Admin admin = null;
 		String readResult =null;
 		try {
 			admin = iAdminService.loginAdmin(adminUsername);
+			//String password=Common.eccryptMD5(admin.getAdminPassword());
 			if(adminPassword.equals(admin.getAdminPassword()))
 			{
 				mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面

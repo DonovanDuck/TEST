@@ -157,7 +157,11 @@ public class TeacherServiceImpl implements ITeacherService{
 	public List<Course> courseList(List<Integer> courseIds) throws Exception{
 		// TODO Auto-generated method stub
 		try {
-			return teacherDao.courseList(courseIds);
+			if (!courseIds.isEmpty()) {
+				return teacherDao.courseList(courseIds);
+			}
+			else
+				return null;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -331,7 +335,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public Accessory searchAccessory(String taskId) throws Exception{
+	public List<Accessory> searchAccessory(String taskId) throws Exception{
 		// TODO Auto-generated method stub
 		try {
 			return teacherDao.searchAccessory(taskId);
@@ -438,6 +442,12 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("teachDao层virtualsForCourse出问题");
 			return null;
 		}
+	}
+
+	@Override
+	public Integer searchTaskPoint(String taskCategory) throws Exception {
+		// TODO Auto-generated method stub
+		return teacherDao.searchTaskPoint(taskCategory);
 	}
 
 }

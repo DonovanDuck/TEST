@@ -165,7 +165,7 @@ public interface ITeacherService {
 	 * @return	附件信息
 	 * 查询任务附件
 	 */
-	public Accessory searchAccessory(String taskId)throws Exception;	//查询任务附件
+	public List<Accessory> searchAccessory(String taskId)throws Exception;	//查询任务附件
 	/**
 	 * 开启签到
 	 * @param courseId
@@ -230,5 +230,12 @@ public interface ITeacherService {
 	 * 根据课程查询虚拟班级
 	 */
 	public List<VirtualClass> virtualsForCourse(Integer courseId )throws Exception;//根据课程查询虚拟班级
+	/**
+	 * @author wenli
+	 * @param taskCategory
+	 * @return
+	 * @throws Exception
+	 */
+	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 
 }

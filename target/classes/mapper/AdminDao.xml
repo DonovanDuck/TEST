@@ -63,7 +63,8 @@
 		email,
 		face_img,
 		teacher_nickname,
-		status
+		status,
+		teacher_category
 		)
 		values
 		<foreach item="teacher" collection="list" separator=",">
@@ -77,8 +78,9 @@
 			#{teacher.telephone,jdbcType=VARCHAR},
 			#{teacher.email,jdbcType=VARCHAR},
 			#{teacher.faceImg,jdbcType=VARCHAR},
-			#{teacher.teacherNickName,jdbcType=VARCHAR}
-			#{teacher.status,jdbcType=VARCHAR}
+			#{teacher.teacherNickName,jdbcType=VARCHAR},
+			#{teacher.status,jdbcType=VARCHAR},
+			#{teacher.teacherCategory,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>

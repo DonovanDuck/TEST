@@ -108,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												<td>${teacher.teacherGender }</td>
 												<td>${teacher.teacherCategory }</td>
 												<!--教师系部-->
-												<td>${teacher.teacherStatus }</td>
+												<td>${teacher.status }</td>
 												<!--教师状态-->
 												<td>${teacher.teacherPassword }</td>
 												<td><input type="button" title="Edit" value="编辑" /> <input

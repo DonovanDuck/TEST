@@ -36,12 +36,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 alert(newUrl);
             }
             if($('#select option:selected').val()=='student'){
-                var newUrl = '${pageContext.request.contextPath}/teacher/studentLogin';    //设置新提交地址
+                var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
                 alert(newUrl);
             }
             if($('#select option:selected').val()=='manager'){
-                var newUrl = '${pageContext.request.contextPath}/teacher/managerLogin';    //设置新提交地址
+                var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
                 alert(newUrl);
             }

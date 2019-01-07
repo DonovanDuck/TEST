@@ -11,7 +11,7 @@ public class Course {
 	private String publisherId; //发布者id 
 	private String faceImg; // 课程图标
 	private String fine; // 精品课
-	private Integer	course_student_num; // 每门课的总人数	
+	private Integer	 courseStudentNum; // 每门课的总人数	
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -60,14 +60,14 @@ public class Course {
 	public void setFine(String fine) {
 		this.fine = fine;
 	}
-	public Integer getCourse_student_num() {
-		return course_student_num;
+	public Integer getCourseStudentNum() {
+		return courseStudentNum;
 	}
-	public void setCourse_student_num(Integer course_student_num) {
-		this.course_student_num = course_student_num;
+	public void setCourseStudentNum(Integer courseStudentNum) {
+		this.courseStudentNum = courseStudentNum;
 	}
 	public Course(Integer courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
-			String faceImg, String fine, Integer course_student_num) {
+			String faceImg, String fine, Integer courseStudentNum) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -76,8 +76,9 @@ public class Course {
 		this.publisherId = publisherId;
 		this.faceImg = faceImg;
 		this.fine = fine;
-		this.course_student_num = course_student_num;
+		this.courseStudentNum = courseStudentNum;
 	}
+	
 	
 	
 }
