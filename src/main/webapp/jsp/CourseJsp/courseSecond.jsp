@@ -31,7 +31,7 @@ $(document).ready(function(){
 			success : function(msg) { //成功
 			},
 			error : function(obj, msg, e) { //异常
-				alert("OH,NO");
+				
 			}
 		});
 	});

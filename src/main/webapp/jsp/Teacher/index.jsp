@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 alert(newUrl);
             }
             if($('#select option:selected').val()=='manager'){
-                var newUrl = '${pageContext.request.contextPath}/teacher/managerLogin';    //设置新提交地址
+                var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
                 alert(newUrl);
             }
@@ -76,7 +76,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="login_form_area">
 					<form id="myform"
 						action="${pageContext.request.contextPath}/teacher/teacherLogin"
-						name="addForm" class="login_form" onsubmit="return CheckPost();">
+						name="addForm" class="login_form" onsubmit="return CheckPost();" method="POST">
 						<div class="login-account">
 							<div class="id_select">
 								<select id="select" onchange="gradeChange()">

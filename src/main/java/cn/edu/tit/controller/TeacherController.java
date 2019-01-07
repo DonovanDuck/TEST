@@ -51,9 +51,9 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			//teacherPassword = Common.eccryptMD5(password);
+			teacherPassword = Common.eccryptMD5(password);
 			System.out.println(teacher.toString());
-			if(password.equals(teacher.getTeacherPassword()))
+			if(teacherPassword.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				mv = teacherCourseList(request);
