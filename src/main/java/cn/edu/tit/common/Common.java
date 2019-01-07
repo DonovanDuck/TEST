@@ -161,7 +161,7 @@ public  class  Common {
 			stringBuffer.append(resultBytes[i]);
 		}
 		
-		return stringBuffer.toString();
+		return eccryptSHA(stringBuffer.toString());
 	}
 	/**
 	 * @author wenli
@@ -170,14 +170,19 @@ public  class  Common {
 	 * @throws NoSuchAlgorithmException
 	 * sha加密算法
 	 */
-	public static byte[] eccryptSHA(String info) throws NoSuchAlgorithmException{
-		MessageDigest md5 = MessageDigest.getInstance("SHA");
+	public static String eccryptSHA(String info) throws NoSuchAlgorithmException{
+		MessageDigest sha = MessageDigest.getInstance("SHA");
 		byte[] srcBytes = info.getBytes();
 		//使用srcBytes更新摘要
-		md5.update(srcBytes);
+		sha.update(srcBytes);
 		//完成哈希计算，得到result
-		byte[] resultBytes = md5.digest();
-		return resultBytes;
+		byte[] resultBytes = sha.digest();
+		StringBuffer stringBuffer =new StringBuffer();
+		for (int i = 0; i < resultBytes.length; i++) {
+			stringBuffer.append(resultBytes[i]);
+		}
+		
+		return stringBuffer.toString();
 	}
 
 
