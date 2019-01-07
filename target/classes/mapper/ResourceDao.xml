@@ -30,7 +30,7 @@
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
 	</resultMap>
-	
+
 	
 	<!-- 添加资源到资源库 -->
 	<insert id = "addResourceToLib" parameterType="java.util.List">
@@ -85,5 +85,6 @@
 	<select id="searchTaskByTypeAndCid" resultMap="taskMap">
 		select * from task where task_category = #{taskType} and course_id = #{courseId};
 	</select>
+
 
 </mapper>

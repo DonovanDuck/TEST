@@ -13,7 +13,7 @@ public class Course {
 	private Timestamp publishTime; // 创建时间
 	private String faceImg; // 课程图标
 	private String fine; // 精品课
-	private Integer	course_student_num; // 每门课的总人数	
+	private Integer	 courseStudentNum; // 每门课的总人数	
 	public Integer getCourseId() {
 		return courseId;
 	}
@@ -44,17 +44,17 @@ public class Course {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
-
+	public Timestamp getPublishTime() {
+		return publishTime;
+	}
+	public void setPublishTime(Timestamp publishTime) {
+		this.publishTime = publishTime;
+	}
 	public String getFaceImg() {
 		return faceImg;
 	}
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
-	}
-	
-	public Course() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	public String getFine() {
 		return fine;
@@ -62,27 +62,20 @@ public class Course {
 	public void setFine(String fine) {
 		this.fine = fine;
 	}
-	public Integer getCourse_student_num() {
-		return course_student_num;
+	public Integer getCourseStudentNum() {
+		return courseStudentNum;
 	}
-	public void setCourse_student_num(Integer course_student_num) {
-		this.course_student_num = course_student_num;
-	}
-	
-	public Timestamp getPublishTime() {
-		return publishTime;
-	}
-	public void setPublishTime(Timestamp publishTime) {
-		this.publishTime = publishTime;
+	public void setCourseStudentNum(Integer courseStudentNum) {
+		this.courseStudentNum = courseStudentNum;
 	}
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
 				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", publishTime=" + publishTime
-				+ ", faceImg=" + faceImg + ", fine=" + fine + ", course_student_num=" + course_student_num + "]";
+				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum + "]";
 	}
 	public Course(Integer courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
-			Timestamp publishTime, String faceImg, String fine, Integer course_student_num) {
+			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -92,10 +85,12 @@ public class Course {
 		this.publishTime = publishTime;
 		this.faceImg = faceImg;
 		this.fine = fine;
-		this.course_student_num = course_student_num;
+		this.courseStudentNum = courseStudentNum;
 	}
-	
-	
-	
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
 	
 }

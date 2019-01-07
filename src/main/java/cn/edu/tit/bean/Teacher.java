@@ -15,6 +15,7 @@ public class Teacher {
 	private String email; // 电子邮箱
 	private String faceImg; // 教师头像
 	private String status; // 在职，离职
+	private String teacherCategory;//教师所属系部
 	public String getEmployeeNum() {
 		return employeeNum;
 	}
@@ -81,16 +82,23 @@ public class Teacher {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public String getTeacherCategory() {
+		return teacherCategory;
+	}
+	public void setTeacherCategory(String teacherCategory) {
+		this.teacherCategory = teacherCategory;
+	}
 	@Override
 	public String toString() {
 		return "Teacher [employeeNum=" + employeeNum + ", teacherName=" + teacherName + ", teacherNickName="
 				+ teacherNickName + ", teacherPassword=" + teacherPassword + ", teacherGender=" + teacherGender
 				+ ", educationBackground=" + educationBackground + ", professionalTitles=" + professionalTitles
-				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + ", status=" + status + "]";
+				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + ", status=" + status
+				+ ", teacherCategory=" + teacherCategory + "]";
 	}
 	public Teacher(String employeeNum, String teacherName, String teacherNickName, String teacherPassword,
 			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
-			String faceImg, String status) {
+			String faceImg, String status, String teacherCategory) {
 		super();
 		this.employeeNum = employeeNum;
 		this.teacherName = teacherName;
@@ -103,6 +111,7 @@ public class Teacher {
 		this.email = email;
 		this.faceImg = faceImg;
 		this.status = status;
+		this.teacherCategory = teacherCategory;
 	}
 	public Teacher() {
 		super();

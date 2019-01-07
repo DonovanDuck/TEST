@@ -8,15 +8,14 @@
 		<result column="teacher_name" property="teacherName" />
 		<result column="teacher_password" property="teacherPassword" />
 		<result column="teacher_gender" property="teacherGender" />
-		<result column="education_background"
-			property="educationBackground" />
+		<result column="education_background" property="educationBackground" />
 		<result column="teacher_nickname" property="teacherNickName" />
-		<result column="professional_titles"
-			property="professionalTitles" />
+		<result column="professional_titles" property="professionalTitles" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 		<result column="status" property="status" />
+		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
 	<select id="teacherLoginByEmployeeNum"
 		parameterType="java.lang.String" resultMap="teacherMap">
@@ -121,6 +120,9 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="student_node" property="studentNote" />
+
 	</resultMap>
 
 	<select id="studentList" parameterType="java.util.List"
@@ -154,18 +156,17 @@
 		<result column="virtual_class_name" property="virtualClassName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
-		<result column="virtual_class_detail"
-			property="virtualClassDetail" />
+	
 	</resultMap>
 	<insert id="createVirtualClass"
 		parameterType="cn.edu.tit.bean.VirtualClass">
 		insert into virtual_class (
 		virtual_class_num,virtual_class_name,
 		creator_id,
-		create_time,virtual_class_detail,face_img,course_id)
+		create_time,face_img,course_id)
 		values (
 		#{virtualClassNum}, #{virtualClassName}, #{creatorId}, #{createTime},
-		#{virtualClassDetail},#{faceImg},#{courseId}
+		#{faceImg},#{courseId}
 		);
 	</insert>
 	<select id="virtualsForCourse" parameterType="java.lang.Integer" resultMap="virtualClassMap">
@@ -194,6 +195,7 @@
 		<result column="task_end_time" property="courseId" />
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
+
 	</resultMap>
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
@@ -275,6 +277,9 @@
 	
 	<select id="getSignPoint" parameterType="java.lang.String" resultType="int">
 		select point_value from point where task_category = "signIn";
+	</select>
+	<select id="searchTaskPoint" parameterType="java.lang.String" resultType="java.lang.Integer">
+		select point_value from point where task_category = "taskCategory";
 	</select>
 
 	<!-- 更新教师模块 -->
