@@ -12,17 +12,12 @@ li{
     clear: both;
 }
 /*-------------------------------------header---------------------------------------------*/
-.header{
-    width: 80%;
-    height: 80px;
-    background: lightblue;
-    float: left;
-    margin-left: 10%;
-}
+
 /*-------------------------------------main---------------------------------------------*/
 .main{
     width: 80%;
-    float: left;
+    height:788px;
+    /* float: left; */
     margin-left: 10%;
     background: #f2f2f2;
     margin-top:1%;
@@ -104,7 +99,7 @@ li{
     float: right;
     margin-right: 5%;
     margin-top: 13%;
-    background: orange;
+    
 }
 .create{
     padding-left: 4%;
@@ -133,11 +128,3 @@ li{
     /*background: deepskyblue;*/
 }
 /*-------------------------------------footer---------------------------------------------*/
-.footer{
-    width: 80%;
-    height: 80px;
-    float: left;
-    margin-left: 10%;
-    background: lightblue;
-    margin-top: 1%;
-}
