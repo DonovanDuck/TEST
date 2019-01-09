@@ -110,25 +110,27 @@ public class TeacherTest {
 	@SuppressWarnings("null")
 	@Test
 	public void loginTest() throws Exception {
-//		List<Course> list = new ArrayList<Course>();
-//		list = teacherService.readCourseInfoByCategory("1");
-//		for (Course course : list) {
-//			System.out.println(course.toString());
-//			List<RealClass> list = new ArrayList<RealClass>();
-//			list = teacherService.readRealClasss();
-//			for (RealClass realClass : list) {
-//				System.out.println(realClass.toString());
-//				List<Course> list = new ArrayList<Course>();
-//				list = teacherService.readCourse("数据结构");
-//				for (Course course : list) {
-//					System.out.println(course.toString());
-//				}
+		//		List<Course> list = new ArrayList<Course>();
+		//		list = teacherService.readCourseInfoByCategory("1");
+		//		for (Course course : list) {
+		//			System.out.println(course.toString());
+		//			List<RealClass> list = new ArrayList<RealClass>();
+		//			list = teacherService.readRealClasss();
+		//			for (RealClass realClass : list) {
+		//				System.out.println(realClass.toString());
+		//				List<Course> list = new ArrayList<Course>();
+		//				list = teacherService.readCourse("数据结构");
+		//				for (Course course : list) {
+		//					System.out.println(course.toString());
+		//				}
 		Course course = null;
+		Common common = new Common();
 		for (int j = 0; j <15; j++) {
+			String courseId = null;
 			course = new Course();
-			
 			course.setCourseName("数据结构"+j);
-			course.setCourseId(null);
+			courseId = common.uuid();
+			course.setCourseId(courseId);
 			course.setCourseStudentNum(j+10);
 			course.setFaceImg(null);
 			course.setPublishTime(null);
@@ -138,11 +140,8 @@ public class TeacherTest {
 			course.setCourseCategory(2);
 			teacherService.createCourse(course);
 		}
-			
-		}
-			}
 
-
-		
+	}
+}
 
 

@@ -82,7 +82,11 @@
 	
 	<!-- 通过课程id查询相应类型的任务资源 -->
 	<select id="searchTaskByTypeAndCid" resultMap="taskMap">
-		select * from task where task_category = #{taskType} and course_id = #{courseId};
+		select * from task where task_category = #{taskType} and course_id = #{courseId} order by publish_time DESC;
 	</select>
-
+	
+	<!-- 通过课程id查询相应类型的教学资源 -->
+	<select id="searchResourceByTypeAndCid" resultMap="resource">
+		select * from resource where resource_type_id = #{resourceTypeId} and course_id = #{courseId} order by publish_time DESC;
+	</select>
 </mapper>

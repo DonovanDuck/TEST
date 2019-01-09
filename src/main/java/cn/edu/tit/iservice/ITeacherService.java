@@ -191,7 +191,7 @@ public interface ITeacherService {
 	 * @throws Exception
 	 * 拉去别人进入自己课程
 	 */
-	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
+	public void addOtherToMyCourse(String employeeNum, String CourseId, int manager)throws Exception;	//拉取别人加入自己课程
 	
 	/**
 	 * @author wenli
@@ -255,6 +255,7 @@ public interface ITeacherService {
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 
 	/**
+	 * 查询所有系部
 	 * @author LiMing
 	 * @return
 	 * @throws Exception
@@ -262,7 +263,13 @@ public interface ITeacherService {
 	public List<Category> readCategory() throws Exception;
 	
 	/**
-	 * @author LiMing
+	 * 获取所有教师
+	 * @return
+	 */
+	public List<Teacher> getTeachers();
+	 
+	/**
+	 * 
 	 * @param category
 	 * @return
 	 * @throws Exception

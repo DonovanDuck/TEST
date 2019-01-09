@@ -356,10 +356,10 @@ public class TeacherServiceImpl implements ITeacherService{
 		// 
 	}
 	@Override
-	public void addOtherToMyCourse(String employeeNum) throws Exception{
+	public void addOtherToMyCourse(String employeeNum, String courseId,int manager) throws Exception{
 		// TODO Auto-generated method stub
 		try {
-			teacherDao.addOtherToMyCourse(employeeNum);
+			teacherDao.addOtherToMyCourse(employeeNum,courseId,manager);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -485,6 +485,12 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("readCaetgory-------持久层执行失败");
 		}
 		return list;
+	}
+
+	@Override
+	public List<Teacher> getTeachers() {
+		
+		return teacherDao.getTeacher();
 	}
 
 	/**

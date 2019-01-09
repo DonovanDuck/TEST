@@ -34,10 +34,11 @@
                 <img src="${pageContext.request.contextPath}/images/word1.png" alt="" style="width:80px;height:80px;"/>
             </div>
             <div class="word_r">
-                <p>&nbsp;&nbsp;&nbsp;发布人：张XX</p>
-                <p>&nbsp;&nbsp;&nbsp;大致内容：指针的使用</p>
-                <p>&nbsp;&nbsp;&nbsp;发布时间：2018年12月27日</p>
-                <p>&nbsp;&nbsp;&nbsp;被下载：XX</p>
+               <p>&nbsp;&nbsp;&nbsp;名称：java</p>
+                <p>&nbsp;&nbsp;&nbsp;相关知识点：collection</p>
+                <p>&nbsp;&nbsp;&nbsp;发布人：dono</p>
+                <p>&nbsp;&nbsp;&nbsp;发布时间：2019-01-07 15:55:49.0</p>
+                <p>&nbsp;&nbsp;&nbsp;使用次数：3</p>
             </div>
         </div>
         <div class="word">
@@ -45,10 +46,11 @@
                 <img src="${pageContext.request.contextPath}/images/word1.png" alt="" style="width:80px;height:80px;"/>
             </div>
             <div class="word_r">
-                <p>&nbsp;&nbsp;&nbsp;发布人：张XX</p>
-                <p>&nbsp;&nbsp;&nbsp;大致内容：指针的使用</p>
-                <p>&nbsp;&nbsp;&nbsp;发布时间：2018年12月27日</p>
-                <p>&nbsp;&nbsp;&nbsp;被下载：XX</p>
+                <p>&nbsp;&nbsp;&nbsp;名称：java</p>
+                <p>&nbsp;&nbsp;&nbsp;相关知识点：collection</p>
+                <p>&nbsp;&nbsp;&nbsp;发布人：dono</p>
+                <p>&nbsp;&nbsp;&nbsp;发布时间：2019-01-07 15:55:49.0</p>
+                <p>&nbsp;&nbsp;&nbsp;使用次数：3</p>
             </div>
         </div>
         <div class="word">
@@ -56,10 +58,11 @@
                 <img src="${pageContext.request.contextPath}/images/word1.png" alt="" style="width:80px;height:80px;"/>
             </div>
             <div class="word_r">
-                <p>&nbsp;&nbsp;&nbsp;发布人：张XX</p>
-                <p>&nbsp;&nbsp;&nbsp;大致内容：指针的使用</p>
-                <p>&nbsp;&nbsp;&nbsp;发布时间：2018年12月27日</p>
-                <p>&nbsp;&nbsp;&nbsp;被下载：XX</p>
+               <p>&nbsp;&nbsp;&nbsp;名称：java</p>
+                <p>&nbsp;&nbsp;&nbsp;相关知识点：collection</p>
+                <p>&nbsp;&nbsp;&nbsp;发布人：dono</p>
+                <p>&nbsp;&nbsp;&nbsp;发布时间：2019-01-07 15:55:49.0</p>
+                <p>&nbsp;&nbsp;&nbsp;使用次数：3</p>
             </div>
         </div>
         <div class="word">

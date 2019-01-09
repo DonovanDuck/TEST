@@ -80,4 +80,12 @@ public interface IResourceDao {
 	 */
 	public List<Task> searchTaskByTypeAndCid(@Param("taskType")String taskType, @Param("courseId")Integer courseId);
 	
+	/**
+	 * 通过课程id查询相应类型的教学资源
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 */
+	public List<Resource> searchResourceByTypeAndCid(@Param("resourceTypeId")Integer resourceTypeId, @Param("courseId")Integer courseId);
+	
 }

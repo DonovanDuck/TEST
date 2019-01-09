@@ -29,7 +29,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<context:component-scan
 		base-package="cn.edu.tit.controller" />
 	<mvc:annotation-driven />
-	<mvc:resources location="/img/" mapping="/img/**" />
+	<!-- <mvc:resources location="/img/" mapping="/img/**" /> -->
 	<!-- 配置视图解析器 -->
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
