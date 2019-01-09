@@ -121,16 +121,12 @@
 		virtual_class_num =
 		#{virtualClassNum};
 	</select>
-
-
-
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
 		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
 		<result column="virtual_class_name" property="virtualClassName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
-	
 	</resultMap>
 	<insert id="createVirtualClass"
 		parameterType="cn.edu.tit.bean.VirtualClass">

@@ -4,7 +4,7 @@ import java.io.File;
 
 public class Course {
 
-	private Integer courseId; // 课程id
+	private String courseId; // 课程id
 	private String courseName; // 课程名
 	private String courseDetail; // 课程描述
 	private Integer courseCategory; // 课程所属系部
@@ -12,10 +12,13 @@ public class Course {
 	private String faceImg; // 课程图标
 	private String fine; // 精品课
 	private Integer	 courseStudentNum; // 每门课的总人数	
-	public Integer getCourseId() {
+
+	
+	
+	public String getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	public String getCourseName() {
@@ -66,7 +69,7 @@ public class Course {
 	public void setCourseStudentNum(Integer courseStudentNum) {
 		this.courseStudentNum = courseStudentNum;
 	}
-	public Course(Integer courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
+	public Course(String courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
 			String faceImg, String fine, Integer courseStudentNum) {
 		super();
 		this.courseId = courseId;
