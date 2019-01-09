@@ -383,17 +383,17 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		try {
+	
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
 			System.out.println(teacher.toString());
 			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
-			return null;
-		}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
+//			return null;
+//		}
 	}
 
 	@Override
@@ -451,13 +451,13 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public Course getCourseById(Integer courseId) throws Exception{
+	public Course getCourseById(String courseId) throws Exception{
 		// 调用dao
 		return teacherDao.searchCourseById(courseId);
 	}
 
 	@Override
-	public List<Teacher> getTeachersByCourseId(Integer courseId)throws Exception {
+	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception {
 		// 通过课程id获取教师工号
 		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
 		//通过教师工号获得教师圈教师集合
@@ -478,11 +478,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		List<Category> list = new ArrayList<Category>();
 		try {
 			list= teacherDao.readCategory();
-			System.out.println("readCaetgory-------持久层执行成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			list =null;
-			System.out.println("readCaetgory-------持久层执行失败");
 		}
 		return list;
 	}
