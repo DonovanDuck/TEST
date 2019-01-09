@@ -1,6 +1,10 @@
 package cn.edu.tit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,10 +23,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -84,10 +90,13 @@ public class TeacherController {
 	 * @throws Exception 
 	 * 教师、学生登陆后进入的第一个页面
 	 */
-	@RequestMapping(value="courseList",method= {RequestMethod.POST})
+	@RequestMapping(value="courseList",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		categories = teacherService.readCategory();
+		for (Category category : categories) {
+			System.err.println(category.getCategoryId());
+		}
 		List<Course> list = new ArrayList<Course>();
 		List<String> teacherNames = new ArrayList<String>();
 		list = teacherService.readCourse(null);
@@ -479,5 +488,64 @@ public class TeacherController {
 //		response.getWriter().print(course);
 //		return jsonObject;
 //	}
+//	@RequestMapping("/picShow")
+//    public void picShow(HttpServletRequest request,HttpServletResponse response,String picName) throws IOException {
+//		String path = Common.readProperties("path");
+//        String imagePath = path+picName;
+//        response.reset();
+//        //判断文件是否存在
+//        File file = new File(imagePath);
+//        if (!file.exists()) {
+//            imagePath = path+"/"+"course1.jpg";
+//        }
+//        // 得到输出流
+//        OutputStream output = response.getOutputStream();
+//        if (imagePath.toLowerCase().endsWith(".jpg"))// 使用编码处理文件流的情况：
+//        {
+//            response.setContentType("image/jpeg;charset=GB2312");// 设定输出的类型
+//            // 得到图片的真实路径
+//            // 得到图片的文件流
+//            InputStream imageIn = new FileInputStream(new File(imagePath));
+//            // 得到输入的编码器，将文件流进行jpg格式编码
+//            JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(imageIn);
+//            // 得到编码后的图片对象
+//            BufferedImage image = decoder.decodeAsBufferedImage();
+//            // 得到输出的编码器
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(output);
+//            encoder.encode(image);// 对图片进行输出编码
+//            imageIn.close();// 关闭文件流
+//        }
+//        output.close();
+//    }
+	@RequestMapping(value="/picShow/{faceImg}")
+	@ResponseBody
+	public String picShow(HttpServletRequest request,HttpServletResponse response,@PathVariable String faceImg, Model model) {
+		// response.setContentType("image/*")
+		
+		System.out.println("到这了");
+		FileInputStream fis = null;
+		OutputStream os = null;
+		try {
+			fis = new FileInputStream(faceImg);
+			os = response.getOutputStream();
+			int count = 0;
+			byte[] buffer = new byte[1024 * 8];
+			while ((count = fis.read(buffer)) != -1) {
+				os.write(buffer, 0, count);
+				os.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			fis.close();
+			os.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "ok";
+	}
+
+
 
 }

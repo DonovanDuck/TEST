@@ -363,7 +363,7 @@
 	</resultMap>
 	<!--读取系部信息 -->
 	<select id="readCategory" resultMap="categoryMap">
-		select * from category;
+		select * from category order by category_id+0  asc;
 	</select>
 	
 	<!-- 获取所有教师 -->
