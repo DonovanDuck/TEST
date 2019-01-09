@@ -1,6 +1,10 @@
 package cn.edu.tit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -19,10 +23,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
@@ -83,8 +89,6 @@ public class TeacherController {
 		}
 		return mv;	
 	}
-	
-	
 	/**
 	 * @author LiMing
 	 * @param request
@@ -205,7 +209,7 @@ public class TeacherController {
 	        
 			MultipartFile m = mrquest.getFile("faceImg");
 			//将文件存储到指定路径
-			Common.springFileUpload(m, request);
+			Common.springFileUpload(request);
 			//封装课程类
 			Course course = new Course();
 			String courseId = Common.uuid();
@@ -255,22 +259,26 @@ public class TeacherController {
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
-
-		Object[] obj = Common.fileFactory(request);		//解析任务form的各个字段
-		List<File> files = (List<File>) obj[0];			//获得任务中文件内容
-		List<Accessory> accessories = new ArrayList<Accessory>();
-		Map<String, Object> formdata = (Map<String, Object>) obj[1];	//获得任务中文本内容
-		String taskId =  UUID.randomUUID().toString().replaceAll("-", "");		//设置任务id
+		
+		// 转换request，解析出request中的文件
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        // 获取文件map集合
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+		
+		// 创建list集合用于获取文件上传返回路径名
+        List<String> list = new ArrayList<String>();
+        List<Accessory> accessories  = new ArrayList<Accessory>();
+		String taskId =  Common.uuid();	//设置任务id
 		Task task=new Task();
 		task.setTaskId(taskId);
-		task.setTaskTitle((String) formdata.get("taskTitle"));
-		task.setTaskDetail((String) formdata.get("taskDetail"));
-		task.setTaskEndTime((Timestamp) formdata.get("taskEndTime"));
-		task.setTaskType((String) formdata.get("taskType"));
-		task.setPublisherId((String) formdata.get("employeeNum"));
+		task.setTaskTitle(multipartRequest.getParameter("taskTitle"));
+		task.setTaskDetail((String) multipartRequest.getParameter("taskDetail"));
+		task.setTaskEndTime(Timestamp.valueOf(multipartRequest.getParameter("taskEndTime")));
+		task.setTaskType((String) multipartRequest.getParameter("taskType"));
+		task.setPublisherId((String) multipartRequest.getParameter("employeeNum"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
-		task.setVirtualClassNum((String) formdata.get("virtual_class_num"));
-		String status =  (String) formdata.get("status");
+		task.setVirtualClassNum((String) multipartRequest.getParameter("virtual_class_num"));
+		String status =  (String) multipartRequest.getParameter("status");
 		task.setStatus(Integer.parseInt(status));
 
 		try {
@@ -280,14 +288,17 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (File file : files) {
-			Accessory accessory = new Accessory();
-			accessory.setAccessoryName(file.getName());
-			accessory.setAccessoryPath(file.getPath());
+		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+			// 获取单个文件
+            MultipartFile mf = entity.getValue();
+            Accessory accessory = new Accessory();
+			accessory.setAccessoryName(mf.getOriginalFilename());
+			accessory.setAccessoryPath(Common.readProperties("path")+"/"+mf.getOriginalFilename());
 			accessory.setTaskId(taskId);
 			accessory.setAccessoryTime(Common.TimestamptoString());
 			accessories.add(accessory);
 		}
+
 		try {
 			teacherService.addAccessory(accessories);	//添加任务附件
 		} catch (Exception e) {
@@ -327,7 +338,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<VirtualClass> virtualClassList = null;
 		try {
-			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));//根据课程ID显示该课程所带班级
+			virtualClassList = teacherService.virtualsForCourse(String.valueOf(courseId));//根据课程ID显示该课程所带班级
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -337,7 +348,7 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
 	}
-
+	@RequestMapping(value="teacherTaskList",method= {RequestMethod.GET})
 	public ModelAndView teacherTaskList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		List<String> taskIdList;
@@ -360,9 +371,37 @@ public class TeacherController {
 		}
 		return mv;	
 	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @param task_category
+	 * @return
+	 * 根据不同作业类型查找
+	 */
+	@RequestMapping(value="teacherTaskAssortmentList/{taskCategory}",method= {RequestMethod.GET})
+	public ModelAndView teacherTaskAssortmentList(HttpServletRequest request,@PathVariable String taskCategory) {
+		ModelAndView mv = new ModelAndView();
+		List<String> taskIdList;
+		List<Task> taskList;
+		String readResult =null;
+		Integer point=0;
+		try {
+			taskIdList = teacherService.searchTaskId("E56FE27F03344091BE8BDD698426EC22");//根据虚拟班级号获得任务列表
+			taskList = teacherService.teacherTaskAssortmentList(taskIdList,taskCategory);	//根据任务ID号获得任务实体
+			for (Task task : taskList) {
+				point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+				task.setTaskPoint(point);
+			}
+			mv.addObject("taskList", taskList);
+			mv.addObject("readResult", readResult);
+			mv.setViewName("/jsp/Teacher/classTask");
 
-
-
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
 	/**
 	 * @author LiMing
 	 * 通过分类筛选 课程
@@ -398,7 +437,7 @@ public class TeacherController {
 	@RequestMapping(value="toMyJoinCourse")
 	public ModelAndView toMyJoinCourse(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		List<Integer> courseIdListByOthers;		//加入别人的课程ID号
+		List<String> courseIdListByOthers;		//加入别人的课程ID号
 		List<Course> courseListByOthers = null;		//别人课程实体
 		List<String> teacherNames = new ArrayList<String>();
 		System.out.println(request.getSession().getAttribute("teacherId"));
@@ -427,7 +466,7 @@ public class TeacherController {
 	@RequestMapping(value="toMyCreateCourse")
 	public ModelAndView toMyCreateCourse(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		List<Integer> courseIdListforMe ;	//自己创建的课程ID号
+		List<String> courseIdListforMe ;	//自己创建的课程ID号
 		List<Course> courseListforMe = null ;		//自己课程实体
 		//创建老师集合的目的是：课程与创建者的匹配
 		List<String> teacherNames = new ArrayList<String>();
@@ -467,5 +506,64 @@ public class TeacherController {
 //		response.getWriter().print(course);
 //		return jsonObject;
 //	}
+//	@RequestMapping("/picShow")
+//    public void picShow(HttpServletRequest request,HttpServletResponse response,String picName) throws IOException {
+//		String path = Common.readProperties("path");
+//        String imagePath = path+picName;
+//        response.reset();
+//        //判断文件是否存在
+//        File file = new File(imagePath);
+//        if (!file.exists()) {
+//            imagePath = path+"/"+"course1.jpg";
+//        }
+//        // 得到输出流
+//        OutputStream output = response.getOutputStream();
+//        if (imagePath.toLowerCase().endsWith(".jpg"))// 使用编码处理文件流的情况：
+//        {
+//            response.setContentType("image/jpeg;charset=GB2312");// 设定输出的类型
+//            // 得到图片的真实路径
+//            // 得到图片的文件流
+//            InputStream imageIn = new FileInputStream(new File(imagePath));
+//            // 得到输入的编码器，将文件流进行jpg格式编码
+//            JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(imageIn);
+//            // 得到编码后的图片对象
+//            BufferedImage image = decoder.decodeAsBufferedImage();
+//            // 得到输出的编码器
+//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(output);
+//            encoder.encode(image);// 对图片进行输出编码
+//            imageIn.close();// 关闭文件流
+//        }
+//        output.close();
+//    }
+	@RequestMapping(value="/picShow/{faceImg}")
+	@ResponseBody
+	public String picShow(HttpServletRequest request,HttpServletResponse response,@PathVariable String faceImg, Model model) {
+		// response.setContentType("image/*")
+		
+		System.out.println("到这了");
+		FileInputStream fis = null;
+		OutputStream os = null;
+		try {
+			fis = new FileInputStream(faceImg);
+			os = response.getOutputStream();
+			int count = 0;
+			byte[] buffer = new byte[1024 * 8];
+			while ((count = fis.read(buffer)) != -1) {
+				os.write(buffer, 0, count);
+				os.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			fis.close();
+			os.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "ok";
+	}
+
+
 
 }

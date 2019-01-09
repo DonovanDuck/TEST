@@ -22,9 +22,9 @@ a {
 /*---------------------------------header----------------------------------------*/
 .header {
 	width: 80%;
-	height: 80px;
+	height: 110px;
 	margin-left: 10%;
-	background-color: deepskyblue;
+	background-image: url("../../images/head.png");
 }
 /*---------------------------------banner----------------------------------------*/
 .searchAndButton {
@@ -137,6 +137,7 @@ a {
 	padding-top: 1%;
 	float: left;
 	width: 23%;
+	margin-top: 20px;
 }
 
 .courseInfo {
@@ -154,7 +155,7 @@ a {
 .footer {
 	overflow:hidden; 
 	width: 80%;
-	height: 50px;
-	border: 1px solid orange;
+	height: 117px;
+	background-image: url("../../images/bottom.png");
 	margin-top: 1%;
 }
