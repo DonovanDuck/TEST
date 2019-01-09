@@ -9542,7 +9542,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"bLengthChange": true,
+		"bLengthChange": false,
 	
 	
 		/**
@@ -9581,7 +9581,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"bProcessing": false,
+		"bProcessing": true,
 	
 	
 		/**
@@ -9643,7 +9643,7 @@
 		 *      } );
 		 *    } );
 		 */
-		"bScrollCollapse": false,
+		"bScrollCollapse": true,
 	
 	
 		/**

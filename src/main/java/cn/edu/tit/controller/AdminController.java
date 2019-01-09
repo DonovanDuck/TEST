@@ -19,16 +19,23 @@ import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
+import cn.edu.tit.iservice.ITeacherService;
 
 @RequestMapping("/admin")
 @Controller
 public class AdminController {
 	@Autowired
-	IAdminService iAdminService;
+	private IAdminService iAdminService;
+	@Autowired
+	private ITeacherService iTeacherService;//调用教师中的方法
+	
+	private Admin admin = null;  //将管理员信息作为全局变量
+	
 
 	/**
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
@@ -46,6 +53,33 @@ public class AdminController {
 		}
 		mv.addObject("readResult", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
+		return mv;
+	}
+	
+
+	/**
+	 * 添加分类
+	 * */
+	@RequestMapping(value="AddCategory",method= {RequestMethod.POST})
+	public ModelAndView AddCategory(@RequestParam(value="categoryNum") String categoryNum,@RequestParam(value="categoryName") String categoryName,@RequestParam(value="categoryDetail") String categoryDetail) {			
+		ModelAndView mv = new ModelAndView();
+		String readResult = null;
+		try {
+			Category category = new Category();
+			category.setCategoryDetail(categoryDetail);
+			category.setCategoryName(categoryName);
+			category.setCategoryNum(categoryNum);
+			category.setCategoryId(categoryNum);
+			System.out.println(category.toString());
+			List<Category> categories = new ArrayList<Category>();
+			categories.add(category);
+			readResult = iAdminService.addCategory(categories);
+			mv = readCategories();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("readResult", readResult);//返回信息
+		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
 		return mv;
 	}
 
@@ -73,7 +107,6 @@ public class AdminController {
 	@RequestMapping(value="LoginAdmin",method= {RequestMethod.GET})
 	public ModelAndView LoginAdmin(@RequestParam(value="employeeNum") String adminUsername,@RequestParam(value="password") String adminPassword) {			
 		ModelAndView mv = new ModelAndView();
-		Admin admin = null;
 		String readResult =null;
 		try {
 			admin = iAdminService.loginAdmin(adminUsername);
@@ -105,7 +138,11 @@ public class AdminController {
 	public ModelAndView resetStudentPassword(@PathVariable String studentId) {			
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
-		readResult = iAdminService.resetStudentPassword(studentId);
+		try {
+			readResult = iAdminService.resetStudentPassword(studentId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mv.addObject("resetStudentPasswordMsg", readResult);//返回信息
 		mv = readStudentInfo();
 		return mv;
@@ -119,7 +156,11 @@ public class AdminController {
 	public ModelAndView resetTeacherPassword(@PathVariable String employeeNum) {			
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
-		readResult = iAdminService.resetTeacherPassword(employeeNum);
+		try {
+			readResult = iAdminService.resetTeacherPassword(employeeNum);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mv.addObject("resetTeacherPasswordMsg", readResult);//返回信息
 		mv = readTeacherInfo();
 		return mv;
@@ -144,7 +185,14 @@ public class AdminController {
 	public ModelAndView readCategories() {			
 		ModelAndView mv = new ModelAndView();
 		List<Category> readResult = new ArrayList<Category>();
-		readResult = iAdminService.readCategory();
+		try {
+			readResult = iAdminService.readCategory();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		for (Category category : readResult) {
+			System.out.println(category.toString());
+		}
 		mv.addObject("categoryList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
 		return mv;
@@ -157,7 +205,11 @@ public class AdminController {
 	public ModelAndView readTeacherInfo() {			
 		ModelAndView mv = new ModelAndView();
 		List<Teacher> readResult = new ArrayList<Teacher>();
-		readResult = iAdminService.readTeacherInfo();
+		try {
+			readResult = iAdminService.readTeacherInfo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mv.addObject("teacherList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
 		return mv;
@@ -170,24 +222,31 @@ public class AdminController {
 	public ModelAndView readStudentInfo() {			
 		ModelAndView mv = new ModelAndView();
 		List<Student> readResult = new ArrayList<Student>();
-		readResult = iAdminService.readStudentInfo();
+		try {
+			readResult = iAdminService.readStudentInfo();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		mv.addObject("studentList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/studentManager");//设置返回页面
 		return mv;
 	}
-//	
-//	/**
-//	 * 测试
-//	 * */
-//	@RequestMapping(value="test")
-//	public ModelAndView test() {			
-//		ModelAndView mv = new ModelAndView();
-//		String num = "1111";
-//		String name = "李明";
-//		mv.addObject("num", num);
-//		mv.addObject("name", name);
-//		mv.setViewName("/success");//设置返回页面
-//		return mv;
-//	}
+	
+	/**
+	 * 读取实体班级信息
+	 * */
+	@RequestMapping(value="readRealClass",method= {RequestMethod.GET})
+	public ModelAndView readRealClass() {			
+		ModelAndView mv = new ModelAndView();
+		List<RealClass> readResult = new ArrayList<RealClass>();
+		try {
+			readResult = iTeacherService.readRealClasss();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("realClassList", readResult);//返回信息
+		mv.setViewName("/jsp/AdminJsp/realClassManager");//设置返回页面
+		return mv;
+	}
 
 }

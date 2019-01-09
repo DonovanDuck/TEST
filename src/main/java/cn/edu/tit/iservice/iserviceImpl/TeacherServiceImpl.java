@@ -1,6 +1,7 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -467,12 +469,99 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.searchTaskPoint(taskCategory);
 
 	}
-	/* (non-Javadoc)
-	 * @see cn.edu.tit.iservice.ITeacherService#readCategory()
-	 */
+	/**
+	 * @author LiMing
+	 * 读取所有分类
+	 * */
 	@Override
-	public List<Category> readCategory() {
-		return teacherDao.readCategory();
+	public List<Category> readCategory() throws Exception {
+		List<Category> list = new ArrayList<Category>();
+		try {
+			list= teacherDao.readCategory();
+			System.out.println("readCaetgory-------持久层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			list =null;
+			System.out.println("readCaetgory-------持久层执行失败");
+		}
+		return list;
 	}
+
+	/**
+	 * @author LiMing
+	 * 根据 分类 查询 课程
+	 * */
+	@Override
+	public List<Course> readCourseInfoByCategory(String category) throws Exception {
+		List<Course> list = new ArrayList<Course>();
+		try {
+			list = teacherDao.readCourseInfoByCategory(category);
+			System.out.println("readCourseInfoByCategory-------持久层执行成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list =null;
+			System.out.println("readCourseInfoByCategory-------持久层执行失败");
+		}
+		return list;
+	}
+
+	/**
+	 * @author LiMing
+	 * 通过教师的ID得到教师的名字
+	 * */
+	@Override
+	public String getTeacherNameById(String employeeNum) throws Exception {
+		String list = null;
+		try {
+			list = teacherDao.getTeacherNameById(employeeNum);
+			System.out.println("getTeacherNameById-------持久层执行成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list =null;
+			System.out.println("getTeacherNameById-------持久层执行失败");
+		}
+		return list;
+	}
+
+	/**
+	 * @author LiMing
+	 * 读取所有实体班级
+	 * */
+	@Override
+	public List<RealClass> readRealClasss() throws Exception {
+		List<RealClass> list = null;
+		try {
+			list = teacherDao.readRealClasss();
+			System.out.println("readRealClasss-------持久层执行成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list =null;
+			System.out.println("readRealClasss-------持久层执行失败");
+		}
+		return list;
+	}
+
+	/**
+	 * @author LiMing
+	 * 读取所有课程
+	 * */
+	@Override
+	public List<Course> readCourse(String course) throws Exception {
+		List<Course> list = new ArrayList<Course>();
+		try {
+			list =teacherDao.readCourse(course);
+			System.out.println("readCourse-------持久层执行成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list =null;
+			System.out.println("readCourse-------持久层执行失败");
+		}
+		return list;
+	}
+
 
 }

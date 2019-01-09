@@ -5,6 +5,7 @@ import org.springframework.stereotype.Component;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 
@@ -98,5 +99,12 @@ public interface IAdminDao {
 	 * 更新管理员信息
 	 */
 	public void updateAdmin(Admin admin);
+
+	/**
+	 *@author LiMing
+	 * @param realCLassList
+	 * 创建实体班级
+	 */
+	public void addRealClass(List<RealClass> realCLassList);
 	
 }

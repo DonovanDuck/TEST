@@ -133,7 +133,7 @@
 		select * from teacher;
 	</select>
 
-	<!--读取学生信息-->
+	<!--读取学生信息 -->
 	<select id="readStudentInfo" resultMap="studentMap">
 		select * from student;
 	</select>
@@ -178,6 +178,21 @@
 		#{courseList.courseName,jdbcType=VARCHAR}, #{courseList.courseDetail,jdbcType=VARCHAR}, 
 		#{courseList.courseCategory,jdbcType=VARCHAR}, #{courseList.publisherId,jdbcType=VARCHAR}, 
 		#{courseList.faceImg,jdbcType=VARCHAR}) </foreach> </insert> -->
+
+	<!-- 增加实体班级信息信息 -->
+	<insert id="addRealClass"
+		parameterType="cn.edu.tit.bean.RealClass">
+		INSERT ignore INTO real_class
+		(real_class_num,
+		real_class_category)
+		VALUES
+		<foreach item="realClass" collection="list" separator=",">
+			(
+			#{realClass.realClassNum,jdbcType=VARCHAR},
+			#{realClass.realClassCategory,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
 
 	<!--删除管理员信息 -->
 	<delete id="deleteAdmin">
