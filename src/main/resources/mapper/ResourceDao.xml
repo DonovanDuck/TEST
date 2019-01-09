@@ -31,7 +31,6 @@
 		<result column="task_category" property="taskType" />
 	</resultMap>
 
-
 	<!-- 添加资源到资源库 -->
 	<insert id = "addResourceToLib" parameterType="java.util.List">
 		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, course_id, resource_path,resource_type_id,size,time_size,watch_num,use_num) values
