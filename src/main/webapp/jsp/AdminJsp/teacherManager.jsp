@@ -31,15 +31,13 @@
 				<ul class="nav navbar-top-links navbar-right">
 					<li style="float: right; margin-right: 9%"><a
 						class="dropdown-button waves-effect waves-dark" href="#!"
-						data-activates="dropdown1"> <i class="fa fa-user fa-fw"></i> <b>姓名</b>
-							<i class="material-icons right">arrow_drop_down</i>
-					</a></li>
+						data-activates="dropdown1"><b>姓名</b> </a></li>
 				</ul>
 			</div>
 		</nav>
 		<!-- Dropdown Structure -->
 		<ul id="dropdown1" class="dropdown-content">
-			<li><a href="#">${admin.adminUsername }</a></li>
+			<li><a href="#">${sessionScope.Admin.adminUsername }</a></li>
 			<li><a href="#">设置</a></li>
 			<li><a href="#">登出</a></li>
 		</ul>
@@ -61,6 +59,10 @@
 					</li>
 					<li class="text-left"><a href="#"
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
+					</li>
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readRealClass"
+						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
 					</li>
 				</ul>
 			</div>

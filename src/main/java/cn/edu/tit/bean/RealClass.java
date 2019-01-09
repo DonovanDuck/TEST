@@ -21,6 +21,19 @@ public class RealClass {
 	public void setRealClassCategory(String realClassCategory) {
 		this.realClassCategory = realClassCategory;
 	}
+	@Override
+	public String toString() {
+		return "RealClass [realClassNum=" + realClassNum + ", realClassCategory=" + realClassCategory + "]";
+	}
+	public RealClass(String realClassNum, String realClassCategory) {
+		super();
+		this.realClassNum = realClassNum;
+		this.realClassCategory = realClassCategory;
+	}
+	public RealClass() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 	
 }
