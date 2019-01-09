@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -32,13 +34,18 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+<<<<<<< HEAD
 import cn.edu.tit.bean.RealClass;
+=======
+import cn.edu.tit.bean.Student;
+>>>>>>> master
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
+import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
 import net.sf.json.JSONArray;
 
@@ -50,6 +57,11 @@ public class TeacherController {
 	 * */
 	@Autowired
 	private ITeacherService teacherService;
+<<<<<<< HEAD
+=======
+	@Autowired
+	private IStudentService studentService;
+>>>>>>> master
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private Teacher teacher =null;//将teacher 设定为全局变量
 
@@ -79,7 +91,33 @@ public class TeacherController {
 		}
 		return mv;	
 	}
-
+	
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 * 教师、学生登陆后进入的第一个页面
+	 */
+	@RequestMapping(value="courseList",method= {RequestMethod.POST})
+	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		categories = teacherService.readCategory();
+		List<Course> list = new ArrayList<Course>();
+		List<String> teacherNames = new ArrayList<String>();
+		list = teacherService.readCourse(null);
+		for (Course course : list) 
+		{
+			System.out.println(course.toString());
+			teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+		}
+		mv.addObject("categories", categories);
+		mv.addObject("courseList", list);
+		mv.addObject("teacherNames", teacherNames);
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
+		return mv;
+	}
 	/**
 	 * @author LiMing
 	 * @param request
@@ -111,7 +149,7 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping(value="toCourseDetail/{courseId}")
-	public String toCourseDetail(HttpServletRequest request, @PathVariable Integer courseId){
+	public String toCourseDetail(HttpServletRequest request, @PathVariable String courseId){
 		try {
 			// 通过courseid查询课程
 			Course course = teacherService.getCourseById(courseId);
@@ -174,7 +212,7 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping(value="toCourseIntroduce/{courseId}")
-	public String toCourseIntroduce(HttpServletRequest request, @PathVariable Integer courseId){
+	public String toCourseIntroduce(HttpServletRequest request, @PathVariable String courseId){
 		try {
 			//根据id查询课程
 			Course course = teacherService.getCourseById(courseId);
@@ -191,9 +229,13 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="createCourse")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public String createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false) String[] teachers){
+	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false) String[] teachers){
 		try {
-			MultipartHttpServletRequest mrquest = (MultipartHttpServletRequest)request;
+			System.out.println("qingqiu===========================================================================s");
+			//MultipartHttpServletRequest mrquest = (MultipartHttpServletRequest)request;
+			MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+	        MultipartHttpServletRequest mrquest = resolver.resolveMultipart(request);
+	        
 			MultipartFile m = mrquest.getFile("faceImg");
 			//将文件存储到指定路径
 			Common.springFileUpload(m, request);
@@ -212,15 +254,30 @@ public class TeacherController {
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
-			for(int i = 0; i < teachers.length; i++){
-				teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
+			if(teachers != null){
+				for(int i = 0; i < teachers.length; i++){
+					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
+				}
 			}
+			return toCourseSecond(request);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 	}
+	
+	/**
+	 * 微信测试
+	 */
+	/*@RequestMapping(value="createCourse",method= {RequestMethod.POST} )
+	public ModelAndView createCourse(HttpServletRequest request){
+		Common.fileFactory(request);
+		System.out.println("qingqiu==================================================================");
+		System.out.println(request.getParameter(""));
+		return null;
+	}*/
 	
 	/**
 	 * @author wenli

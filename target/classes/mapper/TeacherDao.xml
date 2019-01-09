@@ -127,24 +127,19 @@
 	</select>
 
 	<!-- 根据id查课 -->
-	<select id="searchCourseById" parameterType="int"
-		resultMap="courseMap">
+	<select id="searchCourseById" parameterType="String" resultMap="courseMap">
 		select * from course where course_id = #{courseId};
 	</select>
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
-	<select id="getEmployeeNumByCourseId" parameterType="int"
-		resultType="String">
-		select employee_num from teacher_course where course_id =
-		#{courseId};
+	<select id="getEmployeeNumByCourseId" parameterType="String" resultType="String">
+		select employee_num from teacher_course where course_id = #{courseId};
 	</select>
 
 	<!-- 通过工号集合获取教师集合 -->
-	<select id="getTeachersById" parameterType="java.util.List"
-		resultMap="teacherMap">
+	<select id="getTeachersById" parameterType="java.util.List" resultMap="teacherMap">
 		select * from teacher where employee_num in
-		<foreach collection="list" item="employeeNums" open="("
-			separator="," close=")" index="index">
+		<foreach collection="list" item="employeeNums" open="(" separator="," close=")" index="index">
 			#{employeeNums}
 		</foreach>
 	</select>

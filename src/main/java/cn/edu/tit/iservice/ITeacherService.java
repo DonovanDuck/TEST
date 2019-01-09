@@ -64,7 +64,7 @@ public interface ITeacherService {
 	 * @param courseId
 	 * @return
 	 */
-	public Course getCourseById(Integer courseId)throws Exception;
+	public Course getCourseById(String courseId)throws Exception;
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#studentList(java.lang.String)
@@ -244,7 +244,7 @@ public interface ITeacherService {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Teacher> getTeachersByCourseId(Integer courseId)throws Exception;
+	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception;
 	
 	
 	/**

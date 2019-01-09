@@ -28,7 +28,7 @@ public interface ITeacherDao {
 	//public List<Integer> courseIdList(String employeeNum);		//课程id列表模块1，已停用
 	public List<Integer> courseIdList(@Param("employeeNum")String employeeNum,@Param("manager")Integer manager)throws Exception;		//课程id列表模块1
 	public List<Course>	 courseList(List<Integer> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表1
-	public Course searchCourseById(Integer courseId); // 根据courseId查询
+	public Course searchCourseById(String courseId); // 根据courseId查询
 	public List<Student> studentList(List<String> classNums)throws Exception;		//学生列表模块1
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块1
 	public List<String> searchRealClassNum(String virtualClassNum)throws Exception;		//查询虚拟班级对应的自然班列表模块1
@@ -60,7 +60,7 @@ public interface ITeacherDao {
 	
 	public void addOtherToMyCourse(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId,@Param("manager")int manager )throws Exception;	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
-	public List<String> getEmployeeNumByCourseId(Integer courseId); //通过courseId获得教师工号集合
+	public List<String> getEmployeeNumByCourseId(String courseId); //通过courseId获得教师工号集合
 	public List<Teacher> getTeachersById(List<String> employeeNums); // 通过工号集合获取教师集合
 	
 	public String getTeacherNameById(String employeeNum); // 通过工号查询教师名

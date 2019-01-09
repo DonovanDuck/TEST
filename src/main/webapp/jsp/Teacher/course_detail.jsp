@@ -6,10 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>课程三级页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/lesson3.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Course/lesson3.css"/>
     <!--head-->
     <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/course/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Course/common.css">
 
 </head>
 <body>
@@ -31,16 +31,19 @@
             <img src="${pageContext.request.contextPath}/images/tu3.png" alt="" style="width:100%;height:100%;"/>
         </div>
         <div class="word">
-            <h1>${course. courseName}</h1>
+            <h1>${course. courseName}</h1> <span style="color : red;">       ${course.fine }</span>
             <div class="summery">
                 <p>
                     <li>创建时间：${course.publishTime }</li>
                 	<li>课程人数：${course.courseStudentNum }</li>
-                	<li>${course.fine }</li>
                 </p>
             </div>
                 <div class="button">
                     <a href="创建班级.html" target="_blank">创建班级</a>
+                </div>
+                <div>
+                	<a href="创建班级.html" target="_blank">编辑课程</a>
+                	<a href="创建班级.html" target="_blank">关注课程</a>
                 </div>
         </div>
     </div>
