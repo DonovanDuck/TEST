@@ -107,6 +107,7 @@ public class TeacherTest {
 	//		}
 	//	  }
 
+	@SuppressWarnings("null")
 	@Test
 	public void loginTest() throws Exception {
 //		List<Course> list = new ArrayList<Course>();
@@ -117,14 +118,31 @@ public class TeacherTest {
 //			list = teacherService.readRealClasss();
 //			for (RealClass realClass : list) {
 //				System.out.println(realClass.toString());
-				List<Course> list = new ArrayList<Course>();
-				list = teacherService.readCourse("数据结构");
-				for (Course course : list) {
-					System.out.println(course.toString());
-				}
+//				List<Course> list = new ArrayList<Course>();
+//				list = teacherService.readCourse("数据结构");
+//				for (Course course : list) {
+//					System.out.println(course.toString());
+//				}
+		Course course = null;
+		for (int j = 0; j <15; j++) {
+			course = new Course();
+			
+			course.setCourseName("数据结构"+j);
+			course.setCourseId(null);
+			course.setCourseStudentNum(j+10);
+			course.setFaceImg(null);
+			course.setPublishTime(null);
+			course.setFine(null);
+			course.setCourseDetail("这是一门课");
+			course.setPublisherId("011001");
+			course.setCourseCategory(2);
+			teacherService.createCourse(course);
+		}
+			
+		}
 			}
 
 
-		}
+		
 
 

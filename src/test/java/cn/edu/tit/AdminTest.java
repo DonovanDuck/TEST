@@ -91,19 +91,19 @@ public class AdminTest {
 		/**
 		 * 实体班级的加入
 		 * */
-		//		List<RealClass> realClassList= new ArrayList<RealClass>();
-		//		RealClass realClass = new RealClass();
-		//		for (int i = 0; i < 16; i++) {
-		//			realClass.setRealClassNum("15205"+String.valueOf(i));
-		//			realClass.setRealClassCategory("计算机工程系");
-		//			realClassList.add(realClass);
-		//		}
-		//		try {
-		//			iadminService.addRealClass(realClassList);
-		//		} catch (Exception e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
+		//				List<RealClass> realClassList= new ArrayList<RealClass>();
+		//				RealClass realClass = new RealClass();
+		//				for (int i = 0; i < 16; i++) {
+		//					realClass.setRealClassNum("15205"+String.valueOf(i));
+		//					realClass.setRealClassCategory("计算机工程系");
+		//					realClassList.add(realClass);
+		//				}
+		//				try {
+		//					iadminService.addRealClass(realClassList);
+		//				} catch (Exception e) {
+		//					// TODO Auto-generated catch block
+		//					e.printStackTrace();
+		//				}
 	}
 }
 

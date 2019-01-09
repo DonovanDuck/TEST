@@ -239,11 +239,14 @@ public class AdminController {
 	public ModelAndView readRealClass() {			
 		ModelAndView mv = new ModelAndView();
 		List<RealClass> readResult = new ArrayList<RealClass>();
+		List<Category> categories = new ArrayList<Category>();
 		try {
 			readResult = iTeacherService.readRealClasss();
+			categories = iTeacherService.readCategory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		mv.addObject("categories",categories);
 		mv.addObject("realClassList", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/realClassManager");//设置返回页面
 		return mv;

@@ -1,8 +1,9 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -135,8 +136,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									type="text" class="form-control" id="teacherId">
 							</div>
 							<div class="form-group">
-								<label for="teacherName" class="control-label">所属系部</label>
-								<textarea class="form-control" id="teacherName"></textarea>
+								<select class="selectpicker show-tick form-control"
+									data-live-search="true">
+									<option>四川(sichuan)</option>
+									<option>江西(jiangxi)</option>
+									<option>湖北(hubei)</option>
+									<option>上海(shanghai)</option>
+									<option>北京(beijing)</option>
+									<option>河北(hebei)</option>
+									</select>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
