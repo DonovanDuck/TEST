@@ -15,6 +15,7 @@ import org.slf4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
@@ -39,9 +40,11 @@ public class TeacherTest {
 	      System.out.println("测试开始");
 	  }  
 	  @Test
-	  public void createCourse() throws Exception {
-		  Course course = new Course(null, "C++", "这是一门大学公共课", 1, "123456", "/home", null, 80);
-		  teacherService.createCourse(course);
+
+	  public void createCourse() {
+		//  Course course = new Course(null, "妹妹", "菲菲胡哨", 9, "17693280903", "home/wenli/program");
+
+		  
 		  //teacherService.createCourse(course);
 		  //teacherService.createCourse(course);
 	  }
@@ -50,8 +53,8 @@ public class TeacherTest {
 		  String uuid = Common.uuid();
 		  Timestamp timestamp = new Timestamp(System.currentTimeMillis());
 		  Integer point = teacherService.searchTaskPoint("work");
-		  Task task = new Task(uuid, "实验四", "实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 ", timestamp, null, "123456", "", null, "test", 0, point, null);
-		  teacherService.createTask(task);
+//		  Task task = new Task(uuid, "实验四", "实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 实验描述 ", timestamp, null, "123456", "", null, "test", 0, point, null);
+//		  teacherService.createTask(task);
 		  teacherService.mapClassTask("E56FE27F03344091BE8BDD698426EC22", uuid);
 	  }
 	  @Test
@@ -69,7 +72,8 @@ public class TeacherTest {
 	  @Test
 	  public void updateCourse() {
 		  
-//		  Course course = new Course(9, "语文", "奇迹星桥胡哨", 6, "17693280903", "home/wenli/program");
+
+		//  Course course = new Course(9, "语文", "奇迹星桥胡哨", 6, "17693280903", "home/wenli/program");
 		//  teacherService.updateCourse(course);
 	  }
 	  @Test

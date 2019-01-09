@@ -170,6 +170,12 @@ public class ReadStudentExcel {
 				case 9:
 					student.setFaceImg(null);
 					break;
+				case 10:
+					student.setStatus(null);
+					break;
+				case 11:
+					student.setStudentCategory(null);
+					break;
 				default:
 					break;
 				}

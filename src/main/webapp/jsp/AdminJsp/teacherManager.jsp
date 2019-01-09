@@ -1,8 +1,9 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -46,16 +47,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<nav class="navbar-default navbar-side" role="navigation">
 			<div class="sidebar-collapse">
 				<ul class="nav" id="main-menu">
-					<li class="text-left"><a href="teacherManager.html"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readTeacherInfo"
 						class="waves-effect waves-dark" style="font-size: 20px">教师信息管理</a>
 					</li>
-					<li class="text-left"><a href="studentManager.html"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readStudentInfo"
 						class="waves-effect waves-dark" style="font-size: 20px">学生信息管理</a>
 					</li>
-					<li class="text-left"><a href="categoryManager.html"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/readCategories"
 						class="waves-effect waves-dark" style="font-size: 20px">分类信息管理</a>
 					</li>
-					<li class="text-left"><a href="academicManager.html"
+					<li class="text-left"><a href="#"
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
 					</li>
 				</ul>
@@ -69,14 +73,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div class="card">
 						<div class="card-action" style="padding-bottom: 0%">
 							<h3>文件导入教师信息</h3>
-							<form class="form-inline" id="form_excel" name="form_excel" role="form" action="${pageContext.request.contextPath}/admin/AddTeacher" method="post" enctype="multipart/form-data">
+							<form class="form-inline" id="form_excel" name="form_excel"
+								role="form"
+								action="${pageContext.request.contextPath}/admin/AddTeacher"
+								method="post" enctype="multipart/form-data">
 								<div class="form-group" style="padding-top: 2%">
-									<label class="sr-only" for="file_excel">文件输入</label> 
-									<input type="file" id="file_excel" name="file_excel" >
+									<label class="sr-only" for="file_excel">文件输入</label> <input
+										type="file" id="file_excel" name="file_excel">
 								</div>
 								<button type="submit" class="btn btn-default"
-									style="margin-top: 2%">提交
-								</button>
+									style="margin-top: 2%">提交</button>
 							</form>
 						</div>
 						<div class="card-content " style="padding-top: 0%">
@@ -87,13 +93,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<thead>
 										<tr>
 											<th class="text-center">编号</th>
-											<th class="text-center">教师工号</th>
-											<th class="text-center">教师姓名</th>
-											<th class="text-center">教师昵称</th>
-											<th class="text-center">教师性别</th>
-											<th class="text-center">所属系部</th>
-											<th class="text-center">教师状态</th>
-											<th class="text-center">教师密码</th>
+											<th class="text-center">工号</th>
+											<th class="text-center">姓名</th>
+											<th class="text-center">昵称</th>
+											<th class="text-center">性别</th>
+											<th class="text-center">系部</th>
+											<th class="text-center">状态</th>
+											<th class="text-center">密码</th>
 											<th></th>
 										</tr>
 									</thead>
@@ -101,18 +107,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<c:forEach items="${teacherList }" var="teacher"
 											varStatus="status">
 											<tr>
-												<td>${requestScope.offset+status.index}</td>
-												<td>${teacher.employeeNum }</td>
-												<td>${teacher.teacherName }</td>
-												<td>${teacher.teacherNickName }</td>
-												<td>${teacher.teacherGender }</td>
-												<td>${teacher.teacherCategory }</td>
+												<td class="text-center">${requestScope.offset+status.index}</td>
+												<td class="text-center">${teacher.employeeNum }</td>
+												<td class="text-center">${teacher.teacherName }</td>
+												<td class="text-center">${teacher.teacherNickName }</td>
+												<td class="text-center">${teacher.teacherGender }</td>
+												<td class="text-center">${teacher.teacherCategory }</td>
 												<!--教师系部-->
-												<td>${teacher.status }</td>
+
+												<td class="text-center">${teacher.status }</td>
 												<!--教师状态-->
-												<td>${teacher.teacherPassword }</td>
-												<td><input type="button" title="Edit" value="编辑" /> <input
-													type="button" title="Edit" value="删除" /></td>
+												<td class="text-center"><a
+													href="${pageContext.request.contextPath}/admin/resetTeacherPassword/${teacher.employeeNum }"
+													class="waves-effect waves-dark" style="font-size: 20px">
+														<button type="button" class="btn btn-default btn-lg"
+															style="padding-top: 4%;">
+															<small>重置</small>
+														</button>
+												</a></td>
+												<td class="text-center">
+													<button type="button" class="btn btn-default btn-lg"
+														data-toggle="modal" data-target="#Edit"
+														style="padding-top: 2%;">
+														<small>编辑</small>
+													</button>
+													<button type="button" class="btn btn-default btn-lg"
+														data-toggle="modal" data-target="#"
+														style="padding-top: 2%;">
+														<small>详情</small>
+													</button>
+												</td>
 											</tr>
 										</c:forEach>
 									</tbody>
@@ -120,11 +144,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 					</div>
-					<!--End Advanced Tables -->
 				</div>
-
 			</div>
-			<!-- /. PAGE INNER  -->
 		</div>
 	</div>
 	<div class="modal" id="Edit" tabindex="-1" role="dialog"

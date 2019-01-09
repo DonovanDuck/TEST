@@ -17,20 +17,27 @@
 		<result column="status" property="status" />
 		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
-	<select id="teacherLoginByEmployeeNum"
-		parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where
-		employee_num = #{employeeNum};
+	
+	
+	<select id="teacherLoginByEmployeeNum" parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where employee_num = #{employeeNum};
 	</select>
+
 	<select id="teacherLoginByTelephone"
 		parameterType="java.lang.String" resultMap="teacherMap">
 		select * from teacher where
 		telephone = #{telephone};
 	</select>
+	
 	<select id="teacherLoginByEmail"
 		parameterType="java.lang.String" resultMap="teacherMap">
 		select * from teacher where
 		email = #{email};
+	</select>
+	
+	<!-- 根据工号查教师名 -->
+	<select id="getTeacherNameById" parameterType="java.lang.String" resultType="String">
+		select teacher_name from teacher where employee_num = #{employeeNum};
 	</select>
 
 	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
@@ -40,17 +47,18 @@
 		<result column="course_category" property="courseCategory" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="face_img" property="faceImg" />
-		<result column="fine" property="fine"/>
-		<result column="course_student_num" property="courseStudentNum"/>
+		<result column="fine" property="fine" />
+		<result column="course_student_num" property="course_student_num" />
+		<result column="publish_time" property="publishTime" />
 	</resultMap>
 
 	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course">
 		insert into course (
 		course_name, course_detail,
-		course_category,publisher_id,face_img)
+		course_category,publisher_id,face_img,fine,course_student_num)
 		values (
 		#{courseName}, #{courseDetail}, #{courseCategory},
-		#{publisherId}, #{faceImg}
+		#{publisherId}, #{faceImg},#{fine},#{course_student_num},#{publishTime}
 		);
 	</insert>
 	<delete id="deleteCourse" parameterType="int">
@@ -59,18 +67,43 @@
 	</delete>
 
 	<select id="courseIdList" resultType="java.lang.Integer">
-		select course_id from teacher_course where employee_num = #{employeeNum} and manager = #{manager}
+		select course_id from
+		teacher_course where employee_num = #{employeeNum} and manager =
+		#{manager}
 	</select>
+	
 	<select id="courseList" parameterType="java.util.List"
 		resultMap="courseMap">
 		select * from course where course_id in
-		<foreach collection="list" item="courseId" 
-			open="(" separator="," close=")" index="index">
+		<foreach collection="list" item="courseId" open="("
+			separator="," close=")" index="index">
 			#{courseId}
 		</foreach>
 	</select>
+	
+	<!-- 根据id查课 -->
+	<select id="searchCourseById" parameterType="int" resultMap="courseMap">
+		select * from course where course_id = #{courseId};
+	</select>
+	
+	<!-- 根据课程id获得加入课程的教师工号集合 -->
+	<select id="getEmployeeNumByCourseId" parameterType="int" resultType="String">
+		select employee_num from teacher_course where course_id = #{courseId};
+	</select>
+	
+	<!-- 通过工号集合获取教师集合 -->
+	<select id="getTeachersById" parameterType="java.util.List" resultMap="teacherMap">
+		select * from teacher where employee_num in
+		<foreach collection="list" item="employeeNums"
+			open="(" separator="," close=")" index="index">
+			#{employeeNums}
+		</foreach>
+	</select>
+	
 	<select id="permissionAddOthers" resultType="java.lang.Integer">
-		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
+		select manager from
+		teacher_course where employee_num = #{employeeNum} and course_id =
+		#{courseId}
 	</select>
 
 	<update id="updateCourse" parameterType="cn.edu.tit.bean.Course">
@@ -83,7 +116,7 @@
 		course_id = #{courseId}
 	</update>
 
-	 <resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
 		<result column="student_nickname" property="studentNickName" />
@@ -95,8 +128,8 @@
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 		<result column="status" property="status" />
-		<result column="student_node" property="studentNote" />
-
+		<result column="student_note" property="studentNote" />
+		<result column="student_category" property="studentCategory" />
 	</resultMap>
 
 	<select id="studentList" parameterType="java.util.List"
@@ -119,7 +152,7 @@
 		resultType="java.lang.String">
 		select * from real_virtual_class where
 		virtual_class_num =
-		#{virtualClassNum};
+		#{virtualClassNum}
 	</select>
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
 		id="virtualClassMap">
@@ -139,7 +172,8 @@
 		#{faceImg},#{courseId}
 		);
 	</insert>
-	<select id="virtualsForCourse" parameterType="java.lang.Integer" resultMap="virtualClassMap">
+	<select id="virtualsForCourse" parameterType="java.lang.Integer"
+		resultMap="virtualClassMap">
 		select * from virtual_class where
 		course_id =
 		#{courseId}
@@ -150,11 +184,6 @@
 		#{realClassNum}, #{virtualClassNum}
 		)
 	</insert>
-
-
-
-
-
 	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
 		<id column="task_id" property="taskId" />
 		<result column="task_title" property="taskTitle" />
@@ -162,6 +191,7 @@
 		<result column="publish_time" property="publishTime" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="task_end_time" property="taskEndTime" />
+		<result column="task_end_time" property="courseId" />
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
 
@@ -169,13 +199,14 @@
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category) values (
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id) values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType})
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId})
 
 	</insert>
 	<insert id="mapClassTask">
-		insert into class_task ( virtual_class_num, task_id) values
+		insert into class_task ( virtual_class_num, task_id)
+		values
 		(
 		#{virtualClassNum}, #{taskId})
 
@@ -243,16 +274,19 @@
 		resultMap="accessoryMap">
 		select * from pub_accessory where task_id = #{taskId};
 	</select>
-	
-	<select id="getSignPoint" parameterType="java.lang.String" resultType="int">
-		select point_value from point where task_category = "signIn";
+
+	<select id="getSignPoint" parameterType="java.lang.String"
+		resultType="int">
+		select point_value from point where task_category =
+		"signIn";
 	</select>
 	<select id="searchTaskPoint" parameterType="java.lang.String" resultType="java.lang.Integer">
 		select point_value from point where task_category = "taskCategory";
 	</select>
 
 	<!-- 更新教师模块 -->
-	<update id="UpdateTeacher" parameterType="cn.edu.tit.bean.Teacher">
+	<update id="UpdateTeacher"
+		parameterType="cn.edu.tit.bean.Teacher">
 		UPDATE teacher
 		<set>
 			<if test="teacherName != null">teacher_name = #{teacherName},</if>
@@ -267,7 +301,16 @@
 		</set>
 		WHERE employee_num = #{employeeNum}
 	</update>
-	
-	<!-- 更新学生模块 -->
-	
+
+	<resultMap type="cn.edu.tit.bean.Category" id="categoryMap">
+		<id column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+		<result column="category_detail" property="categoryDetail" />
+		<result column="category_num" property="categoryNum" />
+	</resultMap>
+	<!--读取系部信息 -->
+	<select id="readCategory" resultMap="categoryMap">
+		select * from category;
+	</select>
+
 </mapper>

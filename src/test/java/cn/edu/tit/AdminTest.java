@@ -12,6 +12,8 @@ import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.idao.IAdminDao;
 import cn.edu.tit.iservice.IAdminService;
 
 
@@ -22,6 +24,9 @@ public class AdminTest {
 
 	@Resource
 	private IAdminService iadminService;
+
+	@Resource
+	private IAdminDao iAdminDao;
 
 	List<Admin> adminList = new ArrayList<Admin>();
 	List<Admin> array = new ArrayList<Admin>();
@@ -39,14 +44,6 @@ public class AdminTest {
 		//		}
 		//		iadminService.addAdmin(adminList);
 
-		/**
-		 * 测试管理员管理系部功能
-		 * */
-		//		Category category = new Category("1520561","计算程222222222系","这是一个的系部");
-		//		Category category2 = new Category("152051","法22222222系","这是一个案的系部");
-		//		categories.add(category);
-		//		categories.add(category2);
-		//		iadminService.addCategory(categories);
 
 		/**
 		 * 测试管理员添加课程类别
@@ -56,6 +53,13 @@ public class AdminTest {
 		//		courseList.add(course);
 		//		iadminService.addCourseKinds(courseList);
 
+		/**
+		 * 测试插入老师
+		 * */
+		//		Teacher teacher = new Teacher("1111", "name", "nickName", "password", "男", "大学", "教授", "157", "@qq.com", null, "在职","计算机");
+		//		List<Teacher> teacherList =new ArrayList<Teacher>();
+		//		teacherList.add(teacher);
+		//		iAdminDao.addTeacherInfo(teacherList);
 		/**
 		 * 测试删除管理员功能
 		 * */
@@ -76,6 +80,13 @@ public class AdminTest {
 		//		for (Student student : studentList) {
 		//			System.out.println(student.toString());
 		//		}
+
+		/**
+		 * 测试重置密码
+		 * */
+		//		String studentId = "152056101";
+		//		iadminService.resetStudentPassword(studentId);
+
 	}
 }
 

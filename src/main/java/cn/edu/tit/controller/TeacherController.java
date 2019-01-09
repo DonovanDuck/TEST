@@ -25,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -43,25 +44,22 @@ public class TeacherController {
 	private ITeacherService teacherService;
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
-		ModelAndView mv = new ModelAndView();	
-		String readResult =null;			//返回执行结果信息
-		Teacher teacher =null;		
-		String teacherPassword = null;		
+		ModelAndView mv = new ModelAndView();
+		String readResult =null;
+		Teacher teacher =null;
+		System.out.println(teacherId);
+		String teacherPassword = null;
 		try {
-			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);		//通过当前登录者ID获取数据库内容
-			teacherPassword = Common.eccryptMD5(password);						//对密码进行加密
-			System.out.println(teacherPassword);								
-			System.out.println(teacher.getEmployeeNum());
-			System.out.println(teacher.getTeacherPassword());
-			if(teacherPassword.equals(teacher.getTeacherPassword()))			//判断加密后信息是否和数据库一致
-			{
-				System.out.println("登录成功");
-				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());	//设置一个attribute，用于以后在request里直接调用当前登录着信息
-				System.out.println(request.getSession().getAttribute("teacherId"));
-				mv = teacherTaskList(request);												//调用teacherTaskList方法获取任务列表mv
+			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
+			teacherPassword = Common.eccryptMD5(password);
+			System.out.println(teacher.toString());
+			if(teacherPassword.equals(teacher.getTeacherPassword()))
+			{	
+				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
+				mv = teacherCourseList(request);
 				mv.addObject("readResult", "登录成功");//返回信息
-				mv.addObject("teacher",teacher);		//注入教师信息
-				//mv.setViewName("/jsp/Teacher/classTask");//设置返回页面
+				mv.addObject("teacher",teacher);
+				//mv.setViewName("/jsp/Teacher/teacherCourseList");//设置返回页面
 			}
 			else {
 				mv.addObject("readResult", "密码错误");//返回信息
@@ -76,6 +74,27 @@ public class TeacherController {
 		return mv;
 		
 	}
+	
+	/**
+	 * 跳转到教师的课程详细页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toCourseDetail/{courseId}")
+	public String toCourseDetail(HttpServletRequest request, @PathVariable Integer courseId){
+		try {
+			// 通过courseid查询课程
+			Course course = teacherService.getCourseById(courseId);
+			// 查询教师圈教师信息
+			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+			request.setAttribute("course", course);
+			request.setAttribute("teacherList", teacherList); //通过存入request在前台访问
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return "jsp/Teacher/course_detail";
+	}
+	
 	/**
 	 * @author wenli
 	 * @param request
@@ -100,7 +119,6 @@ public class TeacherController {
 		task.setPublisherId((String) formdata.get("employeeNum"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum((String) formdata.get("virtual_class_num"));
-		task.setChapter((String) formdata.get("chapter"));
 		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
 		
@@ -128,6 +146,7 @@ public class TeacherController {
 		return "/jsp/Teacher/publishTask";
 		
 	}
+	
 	/**
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
 	 * 使用spring的MultipartFile上传文件
@@ -152,15 +171,18 @@ public class TeacherController {
 	 * @param request
 	 * @return
 	 * 查找对应老师的课程列表，包括加入的和创建的
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="teacherCourseList",method= {RequestMethod.POST})
-	public ModelAndView teacherCourseList(HttpServletRequest request) {
+	public ModelAndView teacherCourseList(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		System.out.println("!!!!!!!!!!1");
 		String readResult =null;
 		List<Integer> courseIdListforMe ;	//自己创建的课程ID号
 		List<Integer> courseIdListByOthers;		//加入别人的课程ID号
 		List<Course> courseListforMe = null ;		//自己课程实体
 		List<Course> courseListByOthers = null;		//别人课程实体
+		List<Category> categories;//分类信息
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
 			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
@@ -172,12 +194,18 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		mv.addObject("courseListforMe", courseListforMe);
 		mv.addObject("courseListByOthers", courseListByOthers);
-		System.out.println(mv.isEmpty()+"tesggghtgdf");
+		categories = teacherService.readCategory();
+		mv.addObject("categories", categories);
+		for (Category category : categories) {
+			System.out.println(category);
+		}
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
+	
+	
 	/**
 	 * @author wenli
 	 * @return
