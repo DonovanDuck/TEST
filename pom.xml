@@ -30,6 +30,14 @@
     </properties>
  
         <dependencies>
+        
+        	<!-- json -->
+        	<dependency>
+	            <groupId>net.sf.json-lib</groupId>
+	            <artifactId>json-lib</artifactId>
+	            <version>0.9</version>
+			</dependency>
+
             <!-- Junit测试 -->
             <dependency>
                 <groupId>junit</groupId>

@@ -56,11 +56,12 @@ public interface ITeacherDao {
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 	public List<Accessory> searchAccessory(String taskId)throws Exception;	//查询任务附件1
 	
-	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
+	public void addOtherToMyCourse(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId,@Param("manager")int manager )throws Exception;	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
 	public List<String> getEmployeeNumByCourseId(Integer courseId); //通过courseId获得教师工号集合
 	public List<Teacher> getTeachersById(List<String> employeeNums); // 通过工号集合获取教师集合
 	public String getTeacherNameById(String employeeNum); // 通过工号查询教师名
+	public List<Teacher> getTeacher(); //获取所有教师
 	/**
 	 *@author LiMing
 	 * @return

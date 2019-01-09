@@ -191,7 +191,7 @@ public interface ITeacherService {
 	 * @throws Exception
 	 * 拉去别人进入自己课程
 	 */
-	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
+	public void addOtherToMyCourse(String employeeNum, String CourseId, int manager)throws Exception;	//拉取别人加入自己课程
 	
 	/**
 	 * @author wenli
@@ -239,7 +239,6 @@ public interface ITeacherService {
 	public List<VirtualClass> virtualsForCourse(Integer courseId )throws Exception;//根据课程查询虚拟班级
 	
 	/**
-<<<<<<< HEAD
 	 * 通过courseId查教师圈的老师列表
 	 * @param courseId
 	 * @return
@@ -255,7 +254,17 @@ public interface ITeacherService {
 	 */
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 
-	
+	/**
+	 * 查询所有系部
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Category> readCategory() throws Exception;
+	
+	/**
+	 * 获取所有教师
+	 * @return
+	 */
+	public List<Teacher> getTeachers();
 
 }

@@ -28,6 +28,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.stereotype.Component;
+import org.springframework.web.multipart.MultipartFile;
 
 @Component
 public  class  Common {
@@ -63,9 +64,48 @@ public  class  Common {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	/**
+	 * springmvc的MultipartFile进行文件上传
+	 * @param file
+	 * @param request
+	 */
+	public static void springFileUpload(MultipartFile file, HttpServletRequest request){
+		if (file!=null) {// 判断上传的文件是否为空
+            String path=null;// 文件路径
+            String type=null;// 文件类型
+            String fileName=file.getOriginalFilename();// 文件原名称
+            //System.out.println("上传的文件原名称:"+fileName);
+            // 判断文件类型
+            type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf(".")+1, fileName.length()):null;
+            if (type!=null) {// 判断文件类型是否为空
+//                    // 项目在容器中实际发布运行的根路径
+//                    String realPath=request.getSession().getServletContext().getRealPath("/");
+//                    // 自定义的文件名称
+//                    String trueFileName=String.valueOf(System.currentTimeMillis())+fileName;
+//                    // 设置存放图片文件的路径
+//                    path=realPath+/*System.getProperty("file.separator")+*/trueFileName;
+                	path = readProperties("path")+"/"+fileName;
+//                    System.out.println("存放图片文件的路径:"+path);
+                    // 转存文件到指定的路径
+                    try {
+						file.transferTo(new File(path));
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println("上传失败");
+					} 
+                    System.out.println("文件成功上传到指定目录下");
+            }else {
+                System.out.println("文件类型为空");
+            }
+        }else {
+            System.out.println("没有找到相对应的文件");
+        }
+	}
 
 	/**
-	 * 文件传输工具
+	 * java文件传输工具
 	 * @param request
 	 * @return
 	 */

@@ -35,7 +35,7 @@
             <div class="summery">
                 <p>
                     <li>创建时间：${course.publishTime }</li>
-                	<li>课程人数：${course.course_student_num }</li>
+                	<li>课程人数：${course.courseStudentNum }</li>
                 	<li>${course.fine }</li>
                 </p>
             </div>
@@ -48,14 +48,14 @@
         <div class="main_b_t">
             <nav>
                 <ul>
-                    <li><a href="${pageContext.request.contextPath}/jsp/Teacher/lesson-introduce.jsp" target="target">课程介绍</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" target="target">课程介绍</a></li>
                     <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${courseId}" target="target">资源</a></li>
                     <li><a href="${pageContext.request.contextPath}/jsp/Teacher/class.jsp" target="target">开课班级</a></li>
                 </ul>
             </nav>
         </div>
         <div class="main_b_b">
-            <iframe src="${pageContext.request.contextPath}/jsp/Teacher/lesson-introduce.jsp" name="target" frameborder="0" width="65%" height="100%" scrolling="auto"></iframe>
+            <iframe src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" name="target" frameborder="0" width="65%" height="100%" scrolling="auto"></iframe>
             <div class="friend">
                 <div class="h3"><h2>教师圈</h2></div>
                 
