@@ -14,6 +14,7 @@ public class Course {
 	private String faceImg; // 课程图标
 	private String fine; // 精品课
 	private Integer	 courseStudentNum; // 每门课的总人数	
+
 	public String getCourseId() {
 		return courseId;
 	}
@@ -68,6 +69,7 @@ public class Course {
 	public void setCourseStudentNum(Integer courseStudentNum) {
 		this.courseStudentNum = courseStudentNum;
 	}
+
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
