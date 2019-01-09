@@ -13,6 +13,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 public interface ITeacherService {
 	/**
@@ -290,7 +291,16 @@ public interface ITeacherService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<RealClass> readRealClasss()throws Exception; 
+	public List<RealClass> readRealClass()throws Exception; 
+	
+	/**
+	 *@author LiMing
+	 * @return
+	 * 读取课程
+	 *  当Course 为空时，读取全部课程
+	 *  当Course 不是空时，按照课程名查找课程,当为此情况，则取集合中第一个对象
+	 */
+	public List<Course> readCourse(String course)throws Exception;
 	
 	/**
 	 *@author LiMing
@@ -299,7 +309,13 @@ public interface ITeacherService {
 	 *  当Course 为空时，读取全部课程
 	 *  当Course 不是空时，按照课程名查找课程
 	 */
-	public List<Course> readCourse(String course)throws Exception;
+	public Course readCourseByCourseId(String courseId)throws Exception;
 	
-
+	/**
+	 *@author LiMing
+	 * @return
+	 *读取学期
+	 */
+	public List<Term> readTerm()throws Exception;
+	
 }

@@ -5,6 +5,7 @@ import javax.annotation.Resource;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -16,6 +17,7 @@ import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.idao.IAdminDao;
 import cn.edu.tit.iservice.IAdminService;
+import cn.edu.tit.iservice.ITeacherService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class) // 表示继承了SpringJUnit4ClassRunner类
@@ -25,6 +27,8 @@ public class AdminTest {
 
 	@Resource
 	private IAdminService iadminService;
+	@Autowired
+	private ITeacherService iTeacherService;//调用教师中的方法
 
 	@Resource
 	private IAdminDao iAdminDao;
@@ -104,6 +108,20 @@ public class AdminTest {
 		//					// TODO Auto-generated catch block
 		//					e.printStackTrace();
 		//				}
+
+
+		//		/**
+		//		 * 实体班级的读取
+		//		 * */
+		//		List<RealClass> realClassList= new ArrayList<RealClass>();
+		//		try {
+		//			realClassList = iTeacherService.readRealClass();
+		//		} catch (Exception e) {
+		//			e.printStackTrace();
+		//		}
+		//		for (RealClass realClass : realClassList) {
+		//			System.out.println(realClass.toString());
+		//		}
 	}
 }
 

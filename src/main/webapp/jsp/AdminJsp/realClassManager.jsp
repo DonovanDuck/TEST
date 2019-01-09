@@ -113,7 +113,6 @@
 					</div>
 					<!--End Advanced Tables -->
 				</div>
-
 			</div>
 			<!-- /. PAGE INNER  -->
 		</div>
@@ -130,21 +129,19 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form>
+							<form id="commitCategory" name="commitCategory"
+							action="${pageContext.request.contextPath}/admin/AddRealClass">
 							<div class="form-group">
-								<label for="teacherId" class="control-label">班号</label> <input
-									type="text" class="form-control" id="teacherId">
+								<label for="realClassNum" class="control-label">班号</label> <input
+									type="text" class="form-control" id="realClassNum" name="realClassNum">
 							</div>
 							<div class="form-group">
 								<select class="selectpicker show-tick form-control"
-									data-live-search="true">
-									<option>四川(sichuan)</option>
-									<option>江西(jiangxi)</option>
-									<option>湖北(hubei)</option>
-									<option>上海(shanghai)</option>
-									<option>北京(beijing)</option>
-									<option>河北(hebei)</option>
-									</select>
+									data-live-search="true" name="category" id="category">
+									<c:forEach items="${categories }" var="category" varStatus="status">
+										<option>${category.categoryName }</option>
+										</c:forEach>
+								</select>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
@@ -156,8 +153,6 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal -->
 </body>
 </html>

@@ -32,10 +32,10 @@ public class AdminController {
 	@Autowired
 	private IAdminService iAdminService;
 	@Autowired
-	private ITeacherService iTeacherService;//调用教师中的方法
-	
+	private ITeacherService iTeacherService;
+
 	private Admin admin = null;  //将管理员信息作为全局变量
-	
+
 
 	/**
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
@@ -55,7 +55,7 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
 		return mv;
 	}
-	
+
 
 	/**
 	 * 添加分类
@@ -147,8 +147,8 @@ public class AdminController {
 		mv = readStudentInfo();
 		return mv;
 	}
-	
-	
+
+
 	/**
 	 * 重置老师密码
 	 * */
@@ -165,19 +165,19 @@ public class AdminController {
 		mv = readTeacherInfo();
 		return mv;
 	}
-	
+
 	/**
 	 * 增加系部信息
 	 * */
 	@RequestMapping(value="addCategories",method= {RequestMethod.POST})
-	public ModelAndView LoginStudent() {			
+	public ModelAndView addCategories() {			
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		mv.addObject("readResult", readResult);//返回信息
 		mv.setViewName("/jsp/AdminJsp/departInformation");//设置返回页面
 		return mv;
 	}
-	
+
 	/**
 	 * 读取系部信息
 	 * */
@@ -197,7 +197,7 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
 		return mv;
 	}
-	
+
 	/**
 	 * 读取教师信息
 	 * */
@@ -231,7 +231,7 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/studentManager");//设置返回页面
 		return mv;
 	}
-	
+
 	/**
 	 * 读取实体班级信息
 	 * */
@@ -241,15 +241,37 @@ public class AdminController {
 		List<RealClass> readResult = new ArrayList<RealClass>();
 		List<Category> categories = new ArrayList<Category>();
 		try {
-			readResult = iTeacherService.readRealClasss();
+			readResult = iTeacherService.readRealClass();
 			categories = iTeacherService.readCategory();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		for (RealClass category : readResult) {
+			System.out.println(category.toString());
+		}
 		mv.addObject("categories",categories);
-		mv.addObject("realClassList", readResult);//返回信息
+		mv.addObject("realClassList", readResult);
 		mv.setViewName("/jsp/AdminJsp/realClassManager");//设置返回页面
 		return mv;
 	}
-
+	/**
+	 * 增加实体班级信息
+	 * */
+	@RequestMapping(value="AddRealClass",method= {RequestMethod.GET})
+	public ModelAndView AddRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,HttpServletRequest request) {			
+		ModelAndView mv = new ModelAndView();
+		RealClass realClass = new RealClass();
+		realClass.setRealClassCategory(category);
+		realClass.setRealClassNum(realClassNum);
+		List<RealClass> realCLassList = new ArrayList<RealClass>();
+		realCLassList.add(realClass);
+		try {
+			iAdminService.addRealClass(realCLassList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv = readRealClass();
+		return mv;
+	}
 }

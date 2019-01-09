@@ -32,8 +32,10 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
@@ -48,7 +50,7 @@ public class TeacherController {
 	 * */
 	@Autowired
 	private ITeacherService teacherService;
-	private List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
+	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private Teacher teacher =null;//将teacher 设定为全局变量
 
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
@@ -58,12 +60,11 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			//teacherPassword = Common.eccryptMD5(password);
-			System.out.println(teacher.toString());
-			if(password.equals(teacher.getTeacherPassword()))
+			teacherPassword = Common.eccryptMD5(password);
+			if(teacherPassword.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
-				mv = teacherCourseList(request);
+				mv = toCourseSecond(request);
 				mv.addObject("readResult", "登录成功");//返回信息
 				mv.addObject("teacher",teacher);
 			}
@@ -79,6 +80,31 @@ public class TeacherController {
 		return mv;	
 	}
 
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 * 教师、学生登陆后进入的第一个页面
+	 */
+	@RequestMapping(value="courseList",method= {RequestMethod.POST})
+	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		categories = teacherService.readCategory();
+		List<Course> list = new ArrayList<Course>();
+		List<String> teacherNames = new ArrayList<String>();
+		list = teacherService.readCourse(null);
+		for (Course course : list) 
+		{
+			System.out.println(course.toString());
+			teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+		}
+		mv.addObject("categories", categories);
+		mv.addObject("courseList", list);
+		mv.addObject("teacherNames", teacherNames);
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
+		return mv;
+	}
 	/**
 	 * 跳转到教师的课程详细页面
 	 * @param request
@@ -312,31 +338,6 @@ public class TeacherController {
 	}
 
 
-	/**
-	 * @author LiMing
-	 * @param request
-	 * @return
-	 * @throws Exception 
-	 * 教师登陆后进入的第一个页面
-	 */
-	@RequestMapping(value="teacherCourseList",method= {RequestMethod.POST})
-	public ModelAndView teacherCourseList(HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		categories = teacherService.readCategory();
-		List<Course> list = new ArrayList<Course>();
-		List<String> teacherNames = new ArrayList<String>();
-		list = teacherService.readCourse(null);
-		for (Course course : list) 
-		{
-			System.out.println(course.toString());
-			teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
-		}
-		mv.addObject("categories", categories);
-		mv.addObject("courseList", list);
-		mv.addObject("teacherNames", teacherNames);
-		mv.setViewName("/jsp/CourseJsp/courseSecond");
-		return mv;
-	}
 
 	/**
 	 * @author LiMing
@@ -421,7 +422,29 @@ public class TeacherController {
 		return mv;
 	}
 
-
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * 查找对应老师的课程列表，创建
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toCreateVirtualClass/{courseId}")
+	public ModelAndView toCreateVirtualClass(@PathVariable String courseId) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		List<Term> listTerm = new ArrayList<Term>();
+		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		Course course = new Course();
+		course = teacherService.readCourseByCourseId(courseId);
+		listTerm = teacherService.readTerm();
+		listRealClass = teacherService.readRealClass();
+		mv.addObject("course",course);
+		mv.addObject("listTerm",listTerm);
+		mv.addObject("listRealClass", listRealClass);
+		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
+		return mv;
+	}
+	
 	/**
 	 * @author LiMing
 	 * @param request

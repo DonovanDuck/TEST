@@ -21,6 +21,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.idao.ITeacherDao;
@@ -107,7 +108,6 @@ public class TeacherTest {
 	//		}
 	//	  }
 
-	@SuppressWarnings("null")
 	@Test
 	public void loginTest() throws Exception {
 		//		List<Course> list = new ArrayList<Course>();
@@ -123,23 +123,38 @@ public class TeacherTest {
 		//				for (Course course : list) {
 		//					System.out.println(course.toString());
 		//				}
-		Course course = null;
-		Common common = new Common();
-		for (int j = 0; j <15; j++) {
-			String courseId = null;
-			course = new Course();
-			course.setCourseName("数据结构"+j);
-			courseId = common.uuid();
-			course.setCourseId(courseId);
-			course.setCourseStudentNum(j+10);
-			course.setFaceImg(null);
-			course.setPublishTime(null);
-			course.setFine(null);
-			course.setCourseDetail("这是一门课");
-			course.setPublisherId("011001");
-			course.setCourseCategory(2);
-			teacherService.createCourse(course);
-		}
+
+
+		/**
+		 * 添加课程
+		 * */
+		//		Course course = null;
+		//		Common common = new Common();
+		//		for (int j = 0; j <15; j++) {
+		//			String courseId = null;
+		//			course = new Course();
+		//			course.setCourseName("数据结构"+j);
+		//			courseId = common.uuid();
+		//			course.setCourseId(courseId);
+		//			course.setCourseStudentNum(j+10);
+		//			course.setFaceImg(null);
+		//			course.setPublishTime(null);
+		//			course.setFine(null);
+		//			course.setCourseDetail("这是一门课");
+		//			course.setPublisherId("011001");
+		//			course.setCourseCategory(2);
+		//			teacherService.createCourse(course);
+		//		}
+
+		//		List<Term> list = new ArrayList<Term>();
+		//		list = teacherService.readTerm();
+		//		for(Term term : list) {
+		//			System.out.println(term.toString());
+		//		}
+
+		//		Course course = new Course();
+		//		course  = teacherService.readCourseByCourseId("1A2677BCE8594458A70C47B1D55449B9");
+		//		System.out.println(course.toString());
 
 	}
 }

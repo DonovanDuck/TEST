@@ -328,7 +328,8 @@ public class AdminServiceImpl implements IAdminService {
 	public String resetStudentPassword(String studentId)throws Exception  {
 		String msg = null;
 		Student student = new Student();
-		student.setStudentPassword("123123");
+		String pwd = Common.eccryptMD5("123456");
+		student.setStudentPassword(pwd);
 		student.setStudentId(studentId);
 		try {
 			iAdminDao.updateStudentInfo(student);
