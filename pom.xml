@@ -33,9 +33,9 @@
         
         	<!-- json -->
         	<dependency>
-	            <groupId>net.sf.json-lib</groupId>
-	            <artifactId>json-lib</artifactId>
-	            <version>0.9</version>
+				<groupId>net.sf.json-lib</groupId>
+				<artifactId>json-lib</artifactId>
+				<version>0.9</version>
 			</dependency>
 
             <!-- Junit测试 -->
@@ -233,5 +233,30 @@
 <version>2.4</version>
 </dependency>
 <!-- 操作EXCEL文件需要的包*******结束 -->
+<!-- aspose在线预览控件包 -->
+<!-- 
+<dependency>
+    <groupId>com.aspose</groupId>
+    <artifactId>aspose-words</artifactId>
+    <version>19.1</version>
+    <classifier>jdk16</classifier>
+</dependency>
+<dependency>
+    <groupId>com.aspose</groupId>
+    <artifactId>aspose-cells</artifactId>
+    <version>18.12</version>
+</dependency>
+<dependency>
+    <groupId>com.aspose</groupId>
+    <artifactId>aspose-pdf</artifactId>
+    <version>18.12</version>
+</dependency>
+<dependency>
+    <groupId>com.aspose</groupId>
+    <artifactId>aspose-slides</artifactId>
+    <version>18.12</version>
+    <classifier>jdk16</classifier>
+</dependency>
+ -->
   </dependencies>
 </project>

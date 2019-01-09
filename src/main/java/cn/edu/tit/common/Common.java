@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Properties;
@@ -27,12 +28,18 @@ import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.ibatis.logging.Log;
+import org.apache.ibatis.logging.LogFactory;
 import org.springframework.stereotype.Component;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Component
 public  class  Common {
 
+	// 使用日志工厂获取日志对象
+    private static Log log = LogFactory.getLog(Common.class);
 	/**
 	 * 创建随机串
 	 * @return
@@ -65,43 +72,59 @@ public  class  Common {
 		}
 	}
 	
+	 
 	/**
 	 * springmvc的MultipartFile进行文件上传
 	 * @param file
 	 * @param request
 	 */
-	public static void springFileUpload(MultipartFile file, HttpServletRequest request){
-		if (file!=null) {// 判断上传的文件是否为空
-            String path=null;// 文件路径
-            String type=null;// 文件类型
-            String fileName=file.getOriginalFilename();// 文件原名称
-            //System.out.println("上传的文件原名称:"+fileName);
-            // 判断文件类型
-            type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf(".")+1, fileName.length()):null;
-            if (type!=null) {// 判断文件类型是否为空
-//                    // 项目在容器中实际发布运行的根路径
-//                    String realPath=request.getSession().getServletContext().getRealPath("/");
-//                    // 自定义的文件名称
-//                    String trueFileName=String.valueOf(System.currentTimeMillis())+fileName;
-//                    // 设置存放图片文件的路径
-//                    path=realPath+/*System.getProperty("file.separator")+*/trueFileName;
-                	path = readProperties("path")+"/"+fileName;
-//                    System.out.println("存放图片文件的路径:"+path);
-                    // 转存文件到指定的路径
-                    try {
-						file.transferTo(new File(path));
-					} catch (Exception e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-						System.out.println("上传失败");
-					} 
-                    System.out.println("文件成功上传到指定目录下");
+	public static void springFileUpload(HttpServletRequest request){
+		
+        // 转换request，解析出request中的文件
+        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
+        // 获取文件map集合
+        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
+        String fileName = null;
+        for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
+        	if (entity!=null) {// 判断上传的文件是否为空
+        		// 获取单个文件
+	            MultipartFile mf = entity.getValue();
+	            // 获得原始文件名
+	            fileName = mf.getOriginalFilename();
+                String path=null;// 文件路径
+                String type=null;// 文件类型
+              //  String fileName=file.getOriginalFilename();// 文件原名称
+                //System.out.println("上传的文件原名称:"+fileName);
+                // 判断文件类型
+                type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf(".")+1, fileName.length()):null;
+                if (type!=null) {// 判断文件类型是否为空
+//                        // 项目在容器中实际发布运行的根路径
+//                        String realPath=request.getSession().getServletContext().getRealPath("/");
+//                        // 自定义的文件名称
+//                        String trueFileName=String.valueOf(System.currentTimeMillis())+fileName;
+//                        // 设置存放图片文件的路径
+//                        path=realPath+/*System.getProperty("file.separator")+*/trueFileName;
+                    	path = readProperties("path")+"/"+fileName;
+                    
+//                        System.out.println("存放图片文件的路径:"+path);
+                        // 转存文件到指定的路径
+                        try {
+    						mf.transferTo(new File(path));
+    						
+    					} catch (Exception e) {
+    						// TODO Auto-generated catch block
+    						e.printStackTrace();
+    						System.out.println("上传失败");
+    					} 
+                        System.out.println("文件成功上传到指定目录下");
+                }else {
+                    System.out.println("文件类型为空");
+                }
             }else {
-                System.out.println("文件类型为空");
+                System.out.println("没有找到相对应的文件");
             }
-        }else {
-            System.out.println("没有找到相对应的文件");
         }
+		
 	}
 
 	/**

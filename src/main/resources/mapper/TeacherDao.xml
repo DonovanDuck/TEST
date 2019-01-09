@@ -66,7 +66,7 @@
 	<!-- 查询所有课程 -->
 	<select id="readCourse" parameterType="java.lang.String" resultMap="courseMap">
 		select * from course
-		<if test="course != null">where course_name = #{course}</if>
+		<if test="courseName != null">where course_name = #{courseName}</if>
 	</select>
 
 	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course">
@@ -91,7 +91,7 @@
 		course_id = #{courseId}
 	</delete>
 
-	<select id="courseIdList" resultType="java.lang.Integer">
+	<select id="courseIdList" resultType="java.lang.String">
 		select course_id from
 		teacher_course where employee_num = #{employeeNum} and manager =
 		#{manager}
@@ -107,13 +107,13 @@
 	</select>
 
 	<!-- 根据id查课 -->
-	<select id="searchCourseById" parameterType="int"
+	<select id="searchCourseById" parameterType="java.lang.String"
 		resultMap="courseMap">
 		select * from course where course_id = #{courseId};
 	</select>
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
-	<select id="getEmployeeNumByCourseId" parameterType="int"
+	<select id="getEmployeeNumByCourseId" parameterType="java.lang.String"
 		resultType="String">
 		select employee_num from teacher_course where course_id =
 		#{courseId};
@@ -299,6 +299,14 @@
 			#{taskId}
 		</foreach>
 	</select>
+	<select id="teacherTaskAssortmentList" 
+		resultMap="taskMap">
+		select * from task where task_category = #{taskType} and task_id in
+		<foreach collection="list" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
 	<select id="searchTask" parameterType="java.lang.String"
 		resultMap="taskMap">
 		select * from task where task_id = #{taskId};
@@ -355,7 +363,7 @@
 	</resultMap>
 	<!--读取系部信息 -->
 	<select id="readCategory" resultMap="categoryMap">
-		select * from category;
+		select * from category order by category_id+0  asc;
 	</select>
 	
 	<!-- 获取所有教师 -->

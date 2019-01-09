@@ -28,7 +28,7 @@ public interface ITeacherService {
 	 * @context 删除课程模块
 	 * @Param1(课程ID)
 	 */
-	public void deleteCourse(Integer courseId)throws Exception;	//删除课程模块
+	public void deleteCourse(String courseId)throws Exception;	//删除课程模块
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createVirtualClass(cn.edu.tit.bean.VirtualClass)
@@ -49,21 +49,21 @@ public interface ITeacherService {
 	 * @context 查询发布者对应的课程id列表
 	 * @Param1(发布者ID)
 	 */
-	public List<Integer> courseIdList(String employeeNum,Integer manager)throws Exception;		//课程id列表模块
+	public List<String> courseIdList(String employeeNum,Integer manager)throws Exception;		//课程id列表模块
 	/**
 	 * @author wenli
 	 * @param courseIds
 	 * @return
 	 * 根据课程ID列表查询课程实体列表
 	 */
-	public List<Course>	 courseList(List<Integer> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表
+	public List<Course>	 courseList(List<String> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表
 	
 	/**
 	 * 根据courseid查课程
 	 * @param courseId
 	 * @return
 	 */
-	public Course getCourseById(Integer courseId)throws Exception;
+	public Course getCourseById(String courseId)throws Exception;
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#studentList(java.lang.String)
@@ -163,9 +163,19 @@ public interface ITeacherService {
 	/**
 	 * @author wenli
 	 * @param taskId
+	 * @param taskCategory
+	 * @return
+	 * @throws Exception
+	 * 根据任务类别查找任务列
+	 */
+	public List<Task> teacherTaskAssortmentList(List<String> taskId,String taskCategory)throws Exception;
+	/**
+	 * @author wenli
+	 * @param taskId
 	 * @return	任务详情
 	 * 查看单个任务详情
 	 */
+	
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情
 	/**
 	 * @author wenli
@@ -178,7 +188,7 @@ public interface ITeacherService {
 	 * 开启签到
 	 * @param courseId
 	 */
-	public void createSignIn(Integer courseId)throws Exception;
+	public void createSignIn(String courseId)throws Exception;
 	/**
 	 * @author LiMing
 	 * @param 教师对象，用作更新教师信息
@@ -201,7 +211,7 @@ public interface ITeacherService {
 	 * @throws Exception
 	 * 判断是否允许拉取其他人到自己课程
 	 */
-	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
+	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId)throws Exception;	//判断是否允许加入其他人到自己课程
 	
 	/**
 	 * @author wenli
@@ -236,14 +246,14 @@ public interface ITeacherService {
 	 * @throws Exception
 	 * 根据课程查询虚拟班级
 	 */
-	public List<VirtualClass> virtualsForCourse(Integer courseId )throws Exception;//根据课程查询虚拟班级
+	public List<VirtualClass> virtualsForCourse(String courseId )throws Exception;//根据课程查询虚拟班级
 	
 	/**
 	 * 通过courseId查教师圈的老师列表
 	 * @param courseId
 	 * @return
 	 */
-	public List<Teacher> getTeachersByCourseId(Integer courseId)throws Exception;
+	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception;
 	
 	
 	/**
@@ -299,7 +309,7 @@ public interface ITeacherService {
 	 *  当Course 为空时，读取全部课程
 	 *  当Course 不是空时，按照课程名查找课程
 	 */
-	public List<Course> readCourse(String course)throws Exception;
+	public List<Course> readCourse(String courseName)throws Exception;
 	
 
 }
