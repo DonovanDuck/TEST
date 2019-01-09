@@ -11,6 +11,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.idao.IAdminDao;
@@ -87,6 +88,22 @@ public class AdminTest {
 		//		String studentId = "152056101";
 		//		iadminService.resetStudentPassword(studentId);
 
+		/**
+		 * 实体班级的加入
+		 * */
+		//		List<RealClass> realClassList= new ArrayList<RealClass>();
+		//		RealClass realClass = new RealClass();
+		//		for (int i = 0; i < 16; i++) {
+		//			realClass.setRealClassNum("15205"+String.valueOf(i));
+		//			realClass.setRealClassCategory("计算机工程系");
+		//			realClassList.add(realClass);
+		//		}
+		//		try {
+		//			iadminService.addRealClass(realClassList);
+		//		} catch (Exception e) {
+		//			// TODO Auto-generated catch block
+		//			e.printStackTrace();
+		//		}
 	}
 }
 

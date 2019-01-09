@@ -3,6 +3,7 @@ package cn.edu.tit;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 
 import cn.edu.tit.common.Common;
+import cn.edu.tit.common.DateConverter;
 import cn.edu.tit.idao.IResourceDao;
 import cn.edu.tit.idao.ITeacherDao;
 
@@ -59,7 +61,12 @@ public class TestClass {
 		//System.out.println(teacherDao.getEmployeeNumByCourseId(1));
 		//System.out.println(teacherDao.getTeachersById(teacherDao.getEmployeeNumByCourseId(1)));
 		//System.out.println(resourceDao.searchTaskByTypeAndCid("work", 1));
-		System.out.println(teacherDao.getTeacherNameById("2"));
+		//System.out.println(teacherDao.getTeacherNameById("2"));
+		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
+		Date date = new Date();       
+		Timestamp nousedate = new Timestamp(date.getTime());
+		DateConverter d = new DateConverter();
+		System.out.println(d.convert(null, nousedate));
 	}
 	
 //	@Test

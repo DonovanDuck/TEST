@@ -62,8 +62,29 @@ public class ResourceController {
 			request.setAttribute("teacherNames", obj[1]);
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return "jsp/Teacher/teacher-resource-word";
+	}
+	
+	@RequestMapping(value="toTeachResource/{courseId}/{resourceTypeId}")
+	public String toTeachResource(HttpServletRequest request,  @PathVariable Integer courseId,@PathVariable Integer resourceTypeId){
+		try {
+			//通过课程id查询对应类型资源
+			Object[] obj = resourceService.showResourceByTypeAndCId(resourceTypeId, courseId);
+			request.setAttribute("resourceList", obj[0]);
+			request.setAttribute("teacherNames", obj[1]);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		if(resourceTypeId == 2) 
+			return "jsp/Teacher/teacher-resource-audio";
+		else if(resourceTypeId == 3)
+			return "jsp/Teacher/teacher-resource-video";
+		else if(resourceTypeId == 4)
+			return "jsp/Teacher/teacher-resource-video";
+		return "";
 	}
 	
 	/**

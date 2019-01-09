@@ -56,6 +56,14 @@ public interface IResourceService {
 	public Object[] showTaskByTypeAndCId(String taskType, Integer courseId);
 	
 	/**
+	 * 通过课程id查询相应类型的教学资源
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 */
+	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, Integer courseId);
+	
+	/**
 	 * 发布资源到班级
 	 * @param resourceList
 	 */

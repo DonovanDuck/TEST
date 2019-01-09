@@ -15,8 +15,6 @@ public class Course {
 	private String fine; // 精品课
 	private Integer	 courseStudentNum; // 每门课的总人数	
 
-	
-	
 	public String getCourseId() {
 		return courseId;
 	}
@@ -71,9 +69,15 @@ public class Course {
 	public void setCourseStudentNum(Integer courseStudentNum) {
 		this.courseStudentNum = courseStudentNum;
 	}
-	public Course(String courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
-			String faceImg, String fine, Integer courseStudentNum) {
 
+	@Override
+	public String toString() {
+		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
+				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", publishTime=" + publishTime
+				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum + "]";
+	}
+	public Course(String courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
+			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;

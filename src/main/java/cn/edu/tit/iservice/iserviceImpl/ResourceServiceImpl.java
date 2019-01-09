@@ -69,6 +69,19 @@ public class ResourceServiceImpl implements IResourceService {
 		return obj;
 	}
 
+	@Override
+	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, Integer courseId) {
+		// 获取相应类型的资源
+				List<Resource> resourceList = resourceDao.searchResourceByTypeAndCid(resourceTypeId, courseId);
+				List<String> teacherNames = new ArrayList<>(); // 任务对应教师姓名集合
+				// 根据任务列表查发布人
+				for(Resource resource : resourceList){
+					teacherNames.add(teacherDao.getTeacherNameById(resource.getPublisherId()));
+				}
+				Object[] obj = new Object[]{resourceList, teacherNames};
+				return obj;
+	}
+
 //	@Override
 //	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
 //		// TODO Auto-generated method stub

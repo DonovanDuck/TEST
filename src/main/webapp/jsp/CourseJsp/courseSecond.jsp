@@ -15,27 +15,25 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/Course/courseSecondJsp.css"
 	type="text/css">
-
-<script
-	src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript">
-$(document).ready(function(){
-	$("#searchButton").click(function() {
-		var content = $("#search").val();
-		$.ajax({
-			type : "POST", //请求方式
-			url : "", //请求路径：页面/方法名字
-			data : content, //参数
-			dataType : "text",
-			contentType : "application/json; charset=utf-8",
-			success : function(msg) { //成功
-			},
-			error : function(obj, msg, e) { //异常
-				
-			}
+	$(document).ready(function() {
+		$("#searchButton").click(function() {
+			var content = $("#search").val();
+			$.ajax({
+				type : "/teacher/", //请求方式
+				url : "http", //请求路径：页面/方法名字
+				data : {"content":content}, //参数
+				dataType : "json",
+				contentType : "application/json; charset=utf-8",
+				success : function(msg) { //成功
+				},
+				error : function(obj, msg, e) { 
+					alert("查找数据失败");
+				}
+			});
 		});
 	});
-});
 </script>
 </head>
 <body class="body">
@@ -51,33 +49,31 @@ $(document).ready(function(){
 					<li>
 						<div class="div1">
 							<a
-								href="${pageContext.request.contextPath}/admin/resetStudentPassword/${category.categoryId }"
-								class="" style="font-size: 20px">${category.categoryName }</a>
+								href="${pageContext.request.contextPath}/teacher/readCourseInfoByCategory/${category.categoryId }"
+								class="" style="font-size: 20px" target="course">${category.categoryName }</a>
 						</div>
 					</li>
 				</c:forEach>
 			</ul>
 		</div>
 	</div>
-	<div class="main">
-		<div class="main-top">
-			<button>
-				<a href="">我创建的课程</a>
-			</button>
-			<button>
-				<a href="">我加入的课程</a>
-			</button>
-		</div>
-		<div class="courses">
-			<c:forEach items="${courseListforMe }" var="courseListforMeItems"
-				varStatus="status">
-				<div class="course">
-					<img src="${pageContext.request.contextPath}/img/Course/tu10.jpg"
-						alt="" /> <small>${courseListforMeItems.courseName }</small>
-				</div>
-			</c:forEach>
-		</div>
+	<div class="courses" style="border: 1px solid black; margin-left: 10%">
+		<c:forEach items="${courseList }" var="courseListItems"
+			varStatus="status">
+			<div class="course">
+				<img src="${pageContext.request.contextPath}/img/Course/tu10.jpg"
+					alt="" style="margin-left: 7%;" />
+				<ul class="courseInfo">
+					<li><small>课程名：${courseListItems.courseName }</small></li>
+					<li><small>创建教师：${teacherNames[status.index]}</small></li>
+					<li><small>创建时间：${courseListItems.publishTime }</small></li>
+					<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
+				</ul>
+			</div>
+		</c:forEach>
 	</div>
-	<div class="footer"></div>
+	<div class="footer">
+	
+	</div>
 </body>
 </html>

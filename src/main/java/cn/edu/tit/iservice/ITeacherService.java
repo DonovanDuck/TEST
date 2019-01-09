@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -93,7 +94,6 @@ public interface ITeacherService {
 	 * @Param2(虚拟班班号)
 	 */
 	public void mapVirtualRealClass(String realClassNum,String virtualClassNUm)throws Exception;	//创建虚拟班和自然班映射模块
-
 
 	/**
 	 * @author LiMing
@@ -191,7 +191,7 @@ public interface ITeacherService {
 	 * @throws Exception
 	 * 拉去别人进入自己课程
 	 */
-	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
+	public void addOtherToMyCourse(String employeeNum, String CourseId, int manager)throws Exception;	//拉取别人加入自己课程
 	
 	/**
 	 * @author wenli
@@ -239,7 +239,6 @@ public interface ITeacherService {
 	public List<VirtualClass> virtualsForCourse(Integer courseId )throws Exception;//根据课程查询虚拟班级
 	
 	/**
-<<<<<<< HEAD
 	 * 通过courseId查教师圈的老师列表
 	 * @param courseId
 	 * @return
@@ -255,7 +254,52 @@ public interface ITeacherService {
 	 */
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 
-	
+	/**
+	 * 查询所有系部
+	 * @author LiMing
+	 * @return
+	 * @throws Exception
+	 */
 	public List<Category> readCategory() throws Exception;
+	
+	/**
+	 * 获取所有教师
+	 * @return
+	 */
+	public List<Teacher> getTeachers();
+	 
+	/**
+	 * 
+	 * @param category
+	 * @return
+	 * @throws Exception
+	 */
+	public List<Course> readCourseInfoByCategory(String category) throws Exception;
+	
+	/**
+	 * @author LiMing
+	 * @param employeeNum
+	 * @return
+	 * @throws Exception
+	 */
+	public String getTeacherNameById(String employeeNum)throws Exception; 
+	
+	/**
+	 * @author LiMing
+	 * @param employeeNum
+	 * @return
+	 * @throws Exception
+	 */
+	public List<RealClass> readRealClasss()throws Exception; 
+	
+	/**
+	 *@author LiMing
+	 * @return
+	 * 读取课程
+	 *  当Course 为空时，读取全部课程
+	 *  当Course 不是空时，按照课程名查找课程
+	 */
+	public List<Course> readCourse(String course)throws Exception;
+	
 
 }

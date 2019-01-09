@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -56,14 +57,38 @@ public interface ITeacherDao {
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 	public List<Accessory> searchAccessory(String taskId)throws Exception;	//查询任务附件1
 	
-	public void addOtherToMyCourse(String employeeNum)throws Exception;	//拉取别人加入自己课程
+	public void addOtherToMyCourse(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId,@Param("manager")int manager )throws Exception;	//拉取别人加入自己课程
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
 	public List<String> getEmployeeNumByCourseId(Integer courseId); //通过courseId获得教师工号集合
 	public List<Teacher> getTeachersById(List<String> employeeNums); // 通过工号集合获取教师集合
+	
 	public String getTeacherNameById(String employeeNum); // 通过工号查询教师名
+	public List<Teacher> getTeacher(); //获取所有教师
 	/**
 	 *@author LiMing
 	 * @return
 	 */
 	public List<Category> readCategory();
+	
+	/**
+	 *@author LiMing
+	 * @param category
+	 * @return 根据分类查询课程
+	 */
+	public List<Course> readCourseInfoByCategory(String category);
+
+	/**
+	 *@author LiMing
+	 * @return
+	 * 查询所有实体班级
+	 */
+	public List<RealClass> readRealClasss();
+	
+	/**
+	 *@author LiMing
+	 * @return
+	 * 读取所有课程信息
+	 */
+	public List<Course> readCourse(@Param(value="course")String course);
+	
 }
