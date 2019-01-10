@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -241,6 +242,9 @@ public class TeacherController {
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
+		Object[] obj = Common.fileFactory(request);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 		
 		// 转换request，解析出request中的文件
         MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
@@ -253,14 +257,14 @@ public class TeacherController {
 		String taskId =  Common.uuid();	//设置任务id
 		Task task=new Task();
 		task.setTaskId(taskId);
-		task.setTaskTitle(multipartRequest.getParameter("taskTitle"));
-		task.setTaskDetail((String) multipartRequest.getParameter("taskDetail"));
-		task.setTaskEndTime(Timestamp.valueOf(multipartRequest.getParameter("taskEndTime")));
-		task.setTaskType((String) multipartRequest.getParameter("taskType"));
-		task.setPublisherId((String) multipartRequest.getParameter("employeeNum"));
+		task.setTaskTitle((String) formdata.get("taskTitle"));
+		task.setTaskDetail((String) formdata.get("taskDetail"));
+		task.setTaskEndTime((Timestamp) formdata.get("taskEndTime"));
+		task.setTaskType((String) formdata.get("taskType"));
+		task.setPublisherId((String) formdata.get("publisherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
-		task.setVirtualClassNum((String) multipartRequest.getParameter("virtual_class_num"));
-		String status =  (String) multipartRequest.getParameter("status");
+		task.setVirtualClassNum((String) formdata.get("virtualClassNum"));
+		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
 
 		try {
@@ -270,16 +274,15 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (Map.Entry<String, MultipartFile> entity : fileMap.entrySet()) {
-			// 获取单个文件
-            MultipartFile mf = entity.getValue();
-            Accessory accessory = new Accessory();
-			accessory.setAccessoryName(mf.getOriginalFilename());
-			accessory.setAccessoryPath(Common.readProperties("path")+"/"+mf.getOriginalFilename());
+		for (File file : returnFileList) {
+			Accessory accessory = new Accessory();
+			accessory.setAccessoryName(file.getName());
+			accessory.setAccessoryPath(file.getPath());
 			accessory.setTaskId(taskId);
 			accessory.setAccessoryTime(Common.TimestamptoString());
 			accessories.add(accessory);
 		}
+		
 
 		try {
 			teacherService.addAccessory(accessories);	//添加任务附件

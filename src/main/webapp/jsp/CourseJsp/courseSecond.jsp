@@ -1,3 +1,4 @@
+
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -34,6 +35,7 @@
 			});
 		});
 	});
+
 	alert($("#imge")[0].src);
 </script>
 </head>
@@ -63,16 +65,18 @@
 	<div class="courses" style=" margin-left: 10%">
 		<c:forEach items="${courseList }" var="courseListItems"
 			varStatus="status">
-			<div class="course">
-				<img  id="imge" src="${pageContext.request.contextPath}/teacher/picShow/${courseListItems.faceImg }"
-					alt="" style="margin-left: 7%;" />
-				<ul class="courseInfo">
-					<li><small>课程名：${courseListItems.courseName }</small></li>
-					<li><small>创建教师：${teacherNames[status.index]}</small></li>
-					<li><small>创建时间：${courseListItems.publishTime }</small></li>
-					<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
-				</ul>
-			</div>
+			<a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseListItems.courseId }">
+				<div class="course" >
+					<img  id="imge" src="${pageContext.request.contextPath}/teacher/picShow/${courseListItems.faceImg }"
+						alt="" style="margin-left: 7%;" />
+					<ul class="courseInfo">
+						<li><small>课程名：${courseListItems.courseName }</small></li>
+						<li><small>创建教师：${teacherNames[status.index]}</small></li>
+						<li><small>创建时间：${courseListItems.publishTime }</small></li>
+						<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
+					</ul>
+				</div>
+			</a>
 		</c:forEach>
 	</div>
 	<div class="footer">
