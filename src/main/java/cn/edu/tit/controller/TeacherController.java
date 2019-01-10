@@ -40,11 +40,8 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
-<<<<<<< HEAD
 import cn.edu.tit.bean.RealClass;
-=======
 import cn.edu.tit.bean.Student;
->>>>>>> donovan
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
@@ -179,6 +176,21 @@ public class TeacherController {
 		}
 	}
 	
+	/**
+	 * @author LiMing
+	 * 通过ajax获取班级列表
+	 */
+	@RequestMapping(value="ajaxGetRealClass")
+	public void ajaxGetRealClass(HttpServletRequest request, HttpServletResponse response){
+		try {
+			List<RealClass> realClassList = new ArrayList<RealClass>();
+			JSONArray  json  =  JSONArray.fromObject(realClassList); //将获取的List集合存入 JSONArray中
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	
 	/**
 	 * 跳转到课程详细模块
@@ -494,7 +506,7 @@ public class TeacherController {
 	 * @author LiMing
 	 * @param request
 	 * @return
-	 * 查找对应老师的课程列表，创建
+	 * 创建虚拟班级
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="toCreateVirtualClass/{courseId}")
@@ -514,7 +526,7 @@ public class TeacherController {
 	}
 	
 	/**
-	 * @author LiMing
+	 * @author WenLi
 	 * @param request
 	 * @return
 	 * 查找对应老师的课程列表，创建

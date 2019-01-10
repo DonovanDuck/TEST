@@ -48,16 +48,14 @@
 									.ajax({
 										async : false,
 										cache : false,
-										url : "${pageContext.request.contextPath}/teacher/ajaxGetTeachers/${employeeNum}",
+										url : "${pageContext.request.contextPath}/teacher/ajaxGetRealClass",
 										type : "POST",
 										dataType : "json",
 										success : function(result) {
-											//alert(result);
 											var arr = eval(result);
 											for (var i = 0; i < arr.length; i++) {
-												//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
-												$("#teacher")
-														.append("<input type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+ arr[i].teacherName);
+												$("#realClass")
+														.append("<input type='checkbox' value='"+arr[i].realClassNum+"' name='teacher'/>");
 											}
 										}
 									});
@@ -119,7 +117,7 @@
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
 							<ul id="teacherUl" style="list-style-type: none;">
-								<li id="teacher"></li>
+								<li id="realClass"></li>
 							</ul>
 							<div class="modal-footer">
 								<button id="close" type="button" class="btn btn-default"
