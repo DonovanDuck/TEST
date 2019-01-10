@@ -63,10 +63,16 @@ public class TestClass {
 		//System.out.println(resourceDao.searchTaskByTypeAndCid("work", 1));
 		//System.out.println(teacherDao.getTeacherNameById("2"));
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
-		Date date = new Date();       
-		Timestamp nousedate = new Timestamp(date.getTime());
-		DateConverter d = new DateConverter();
-		System.out.println(d.convert(null, nousedate));
+//		Date date = new Date();       
+//		Timestamp nousedate = new Timestamp(date.getTime());
+//		DateConverter d = new DateConverter();
+//		System.out.println(d.convert(null, nousedate));
+		try {
+			System.out.println(teacherDao.teacherLoginByEmployeeNum("1"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 //	@Test

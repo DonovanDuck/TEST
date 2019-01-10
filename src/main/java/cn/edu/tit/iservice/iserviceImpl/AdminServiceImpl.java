@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,9 +159,6 @@ public class AdminServiceImpl implements IAdminService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("接受excel表格中的数据失败！");
-		}
-		for(Student s : studentList) {
-			System.out.println("打印excel中的数据"+s.toString());
 		}
 		return insertMsg;
 	}
@@ -328,7 +326,8 @@ public class AdminServiceImpl implements IAdminService {
 	public String resetStudentPassword(String studentId)throws Exception  {
 		String msg = null;
 		Student student = new Student();
-		student.setStudentPassword("123123");
+		String pwd = Common.eccryptMD5("123456");
+		student.setStudentPassword(pwd);
 		student.setStudentId(studentId);
 		try {
 			iAdminDao.updateStudentInfo(student);
