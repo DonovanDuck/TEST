@@ -26,23 +26,11 @@
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 
-<%-- <jsp:include page="${pageContext.request.contextPath}/jsp/AdminJsp/Common.jsp" ></jsp:include> --%>
-<script>
-	$('#exampleModal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var recipient = button.data('whatever') // Extract info from data-* attributes
-		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-		var modal = $(this)
-		modal.find('.modal-title').text('New message to ' + recipient)
-		modal.find('.modal-body input').val(recipient)
-	})
-</script>
-
 <script type="text/javascript">
 	$(function() {
 		$("#pull")
 				.click(
+					
 						function() {
 							$
 									.ajax({
@@ -55,7 +43,7 @@
 											var arr = eval(result);
 											for (var i = 0; i < arr.length; i++) {
 												$("#realClass")
-														.append("<input type='checkbox' value='"+arr[i].realClassNum+"' name='teacher'/>");
+														.append("<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"+arr[i].realClassNum);
 											}
 										}
 									});
@@ -67,9 +55,9 @@
 	$(function() {
 		$("#close").click(function() {
 			//拟态框每次关闭要清除之前信息，否则会叠加
-			$("#teacher").remove();
+			$("#realClass").remove();
 			//清除后要留一空li,以保证下次成功动态加载
-			$("#teacherUl").append(" <li id="+"teacher"+">" + "</li>");
+			$("#realClassUl").append(" <li id="+"realClass"+">" + "</li>");
 		});
 	});
 </script>
@@ -116,7 +104,7 @@
 					role="dialog" aria-labelledby="exampleModalLabel">
 					<div class="modal-dialog" role="document">
 						<div class="modal-content">
-							<ul id="teacherUl" style="list-style-type: none;">
+							<ul id="realClassUl" style="list-style-type: none;">
 								<li id="realClass"></li>
 							</ul>
 							<div class="modal-footer">
@@ -150,7 +138,7 @@
 				<div class="button">
 					<div class="create">
 						<span style="color: white;"><input type="submit"
-							value="创建课程"></span>
+							value="创建虚拟班级"></span>
 					</div>
 					<a href="#"><div class="delete">
 							<span style="color: white;">取消</span>

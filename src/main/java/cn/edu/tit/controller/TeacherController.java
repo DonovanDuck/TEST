@@ -185,12 +185,24 @@ public class TeacherController {
 	public void ajaxGetRealClass(HttpServletRequest request, HttpServletResponse response){
 		try {
 			List<RealClass> realClassList = new ArrayList<RealClass>();
+			realClassList = teacherService.readRealClass();
+			for (RealClass realClass : realClassList) {
+				System.out.println(realClass.toString());
+			}
 			JSONArray  json  =  JSONArray.fromObject(realClassList); //将获取的List集合存入 JSONArray中
 			String result = json.toString();
 			response.getWriter().print(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * @author LiMing
+	 * 创建虚拟班级
+	 */
+	@RequestMapping(value="createVirtualClass")
+	public void createVirtualClass(){
 	}
 	
 	/**
