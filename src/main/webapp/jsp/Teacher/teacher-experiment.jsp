@@ -12,6 +12,7 @@
 <main>
     <div class="main_t">
         <div class="class">
+        <img alt="" src="">
             <p><span>1720561班</span>&nbsp;&nbsp;<a href="#">编辑班级信息</a></p>
         </div>
     </div>

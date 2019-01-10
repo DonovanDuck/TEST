@@ -17,7 +17,7 @@ a{
 header{
     width:80%;
     height: 100px;
-    background: #e4e9df;
+    background-image: url("../../images/head.png");
     margin:0 auto;
 }
 .class span{
@@ -153,7 +153,7 @@ main{
 footer{
     width:80%;
     height:80px;
-    background:#2b2b2b;
+    background-image: url("../../images/bottom.png");
     margin:0 auto;
 }
 /***************footer style***************/

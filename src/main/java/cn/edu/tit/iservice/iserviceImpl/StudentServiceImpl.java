@@ -51,14 +51,14 @@ public class StudentServiceImpl implements IStudentService{
 	@Override
 	public Student studentLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		try {
+//		try {
 			return studentDao.studentLoginByEmployeeNum(employeeNum);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("studentDao层studentLoginByEmployeeNum出问题");
-			return null;
-		}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("studentDao层studentLoginByEmployeeNum出问题");
+//			return null;
+//		}
 	}
 
 	@Override

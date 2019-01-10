@@ -27,7 +27,8 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 使用组件扫描的方式可以一次扫描多个Controller -->
 	<context:component-scan
-		base-package="cn.edu.tit.controller" />
+		base-package="cn.edu.tit.controller, cn.edu.tit.controller.wxController" />
+	
 	<mvc:annotation-driven />
 	<!-- <mvc:resources location="/img/" mapping="/img/**" /> -->
 	<!-- 配置视图解析器 -->
@@ -51,7 +52,8 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 访问静态资源文件 -->
 	<!-- <mvc:default-servlet-handler/> 需要在web.xml中配置 -->
-
+	
+	
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/js/**" location="/js/" />

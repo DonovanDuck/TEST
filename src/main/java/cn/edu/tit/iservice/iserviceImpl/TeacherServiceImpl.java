@@ -57,7 +57,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(课程ID)
 	 */
 	@Override
-	public void deleteCourse(Integer courseId)throws Exception {
+	public void deleteCourse(String courseId)throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			teacherDao.deleteCourse(courseId);
@@ -145,7 +145,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param1(发布者ID)
 	 */
 	@Override
-	public List<Integer> courseIdList(String employeeNum,Integer manager)throws Exception {
+	public List<String> courseIdList(String employeeNum,Integer manager)throws Exception {
 		// TODO Auto-generated method stub
 		try {
 			return teacherDao.courseIdList(employeeNum,manager);
@@ -158,7 +158,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 	
 	@Override
-	public List<Course> courseList(List<Integer> courseIds) throws Exception{
+	public List<Course> courseList(List<String> courseIds) throws Exception{
 		// TODO Auto-generated method stub
 		try {
 			if (!courseIds.isEmpty()) {
@@ -351,7 +351,7 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 	}
 	@Override
-	public void createSignIn(Integer courseId) throws Exception{
+	public void createSignIn(String courseId) throws Exception{
 		// TODO Auto-generated method stub
 		int signPoint = teacherDao.getSignPoint(); // 获取签到积分
 		// 
@@ -369,7 +369,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public Integer permissionAddOthers(String employeeNum, Integer courseId) throws Exception{
+	public Integer permissionAddOthers(String employeeNum, String courseId) throws Exception{
 		// TODO Auto-generated method stub
 		try {
 			return teacherDao.permissionAddOthers(employeeNum, courseId);
@@ -384,17 +384,17 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		try {
+	
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
 			System.out.println(teacher.toString());
 			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
-			return null;
-		}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
+//			return null;
+//		}
 	}
 
 	@Override
@@ -439,7 +439,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<VirtualClass> virtualsForCourse(Integer courseId) throws Exception{
+	public List<VirtualClass> virtualsForCourse(String courseId) throws Exception{
 		// TODO Auto-generated method stub
 		try {
 			return teacherDao.virtualsForCourse(courseId);
@@ -452,13 +452,13 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public Course getCourseById(Integer courseId) throws Exception{
+	public Course getCourseById(String courseId) throws Exception{
 		// 调用dao
 		return teacherDao.searchCourseById(courseId);
 	}
 
 	@Override
-	public List<Teacher> getTeachersByCourseId(Integer courseId)throws Exception {
+	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception {
 		// 通过课程id获取教师工号
 		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
 		//通过教师工号获得教师圈教师集合
@@ -479,11 +479,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		List<Category> list = new ArrayList<Category>();
 		try {
 			list= teacherDao.readCategory();
-			System.out.println("readCaetgory-------持久层执行成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			list =null;
-			System.out.println("readCaetgory-------持久层执行失败");
 		}
 		return list;
 	}
@@ -556,10 +554,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * 读取所有课程
 	 * */
 	@Override
-	public List<Course> readCourse(String course) throws Exception {
+	public List<Course> readCourse(String courseName) throws Exception {
 		List<Course> list = new ArrayList<Course>();
 		try {
-			list =teacherDao.readCourse(course);
+			list =teacherDao.readCourse(courseName);
 			System.out.println("readCourse-------持久层执行成功");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -604,6 +602,20 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("readCourseByCourseId-------持久层执行失败");
 		}		
 		return course;
+	}
+	@Override
+	public List<Task> teacherTaskAssortmentList(List<String> taskId, String taskCategory) throws Exception {
+		// TODO Auto-generated method stub
+		List<Task> taskList = new ArrayList<Task>();
+		try {
+			taskList = teacherDao.teacherTaskAssortmentList(taskId, taskCategory);
+			System.out.println("teacherTaskAssortmentList-------持久层执行成功");
+			return taskList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("teacherTaskAssortmentList-------持久层执行失败");
+			return null;
+		}
 	}
 
 
