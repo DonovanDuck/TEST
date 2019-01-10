@@ -52,7 +52,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       		}
      		return true;
    		}
-
     </script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/login.css" type="text/css">
