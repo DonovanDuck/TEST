@@ -20,6 +20,7 @@
 		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
 
+   <!-- 被抛弃的方法，备份。原目的：查询教师，添加管理员-->
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
 		<result column="teacher_password" property="adminPassword" />
@@ -184,12 +185,15 @@
 		parameterType="cn.edu.tit.bean.RealClass">
 		INSERT ignore INTO real_class
 		(real_class_num,
-		real_class_category)
+		real_class_category,
+		real_person_num
+		)
 		VALUES
 		<foreach item="realClass" collection="list" separator=",">
 			(
 			#{realClass.realClassNum,jdbcType=VARCHAR},
-			#{realClass.realClassCategory,jdbcType=VARCHAR}
+			#{realClass.realClassCategory,jdbcType=VARCHAR},
+			#{realClass.realPersonNum,jdbcType=VARCHAR}
 			)
 		</foreach>
 	</insert>

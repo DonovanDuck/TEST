@@ -61,7 +61,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 	<!-- <mvc:interceptors> </mvc:interceptors> -->
 
 	<!--配置上传文件数据解析器 -->
-	 <bean id="multipartResolver"
+	 <!-- <bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize">
 			<value>9242880</value>
@@ -69,7 +69,7 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 		<property name="maxInMemorySize">
 			<value>-1</value>
 		</property>
-	</bean>
+	</bean> -->
 
 	<!-- 定义全局异常处理器 -->
 	<!-- 只有一个全局异常处理器起作用 -->

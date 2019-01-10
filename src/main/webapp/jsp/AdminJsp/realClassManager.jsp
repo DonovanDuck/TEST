@@ -86,6 +86,7 @@
 										<tr>
 											<th class="text-center">序号</th>
 											<th class="text-center">班级号</th>
+											<th class="text-center">班级人数</th>
 											<th class="text-center">所属系部</th>
 											<th></th>
 										</tr>
@@ -96,6 +97,7 @@
 											<tr>
 												<td class="text-center">${requestScope.offset+status.index}</td>
 												<td class="text-center">${realClass.realClassNum }</td>
+												<td class="text-center">${realClass.realPersonNum }</td>
 												<td class="text-center">${realClass.realClassCategory }</td>
 												<td class="text-center">
 													<button type="button" class="btn btn-default btn-lg"
@@ -134,6 +136,10 @@
 							<div class="form-group">
 								<label for="realClassNum" class="control-label">班号</label> <input
 									type="text" class="form-control" id="realClassNum" name="realClassNum">
+							</div>
+							<div class="form-group">
+								<label for="realClassNum" class="control-label">班级人数</label> <input
+									type="text" class="form-control" id="realClassPersonNum" name="realClassPersonNum" value="40">
 							</div>
 							<div class="form-group">
 								<select class="selectpicker show-tick form-control"

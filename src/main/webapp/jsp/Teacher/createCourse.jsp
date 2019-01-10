@@ -126,7 +126,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 						<ul id="teacherUl" style="list-style-type:none;">
 							<li id="teacher"></li>
 						</ul>
-
 						<div class="modal-footer">
 							<button id="close" type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button>

@@ -207,8 +207,8 @@
 
 	<resultMap type="cn.edu.tit.bean.RealClass" id="realCLassMap">
 		<result column="real_class_num" property="realClassNum" />
-		<result column="real_class_category"
-			property="realClassCategory" />
+		<result column="real_class_category" property="realClassCategory" />
+		<result column="real_person_num" property="realPersonNum" />
 	</resultMap>
 	
 	<!-- 读取所有实体课 -->

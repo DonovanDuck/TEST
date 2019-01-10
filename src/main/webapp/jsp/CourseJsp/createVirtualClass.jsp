@@ -41,21 +41,27 @@
 
 <script type="text/javascript">
 	$(function() {
-		$("#pull").click(function() {
-			$.ajax({
-			async : false,
-			cache : false,
-			url : "${pageContext.request.contextPath}/teacher/ajaxGetTeachers/${employeeNum}",
-			type : "POST",
-			dataType : "json",
-			success : function(result) {
-			//alert(result);
-			var arr = eval(result);
-			for (var i = 0; i < arr.length; i++) {
-			//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
-			$("#teacher").append("<input type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+ arr[i].teacherName);}}
-			});
-		});
+		$("#pull")
+				.click(
+						function() {
+							$
+									.ajax({
+										async : false,
+										cache : false,
+										url : "${pageContext.request.contextPath}/teacher/ajaxGetTeachers/${employeeNum}",
+										type : "POST",
+										dataType : "json",
+										success : function(result) {
+											//alert(result);
+											var arr = eval(result);
+											for (var i = 0; i < arr.length; i++) {
+												//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+												$("#teacher")
+														.append("<input type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+ arr[i].teacherName);
+											}
+										}
+									});
+						});
 	});
 </script>
 
@@ -86,21 +92,26 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="main">
-			<form action="${pageContext.request.contextPath}/teacher/createVirtualClass"
+			<form
+				action="${pageContext.request.contextPath}/teacher/createVirtualClass"
 				method="post" enctype="multipart/form-data">
 				<div class="input3">
-					<span>开设学期：</span> 
-					<select name="selectTerm" id="selectTerm">
+					<span>开设学期：</span> <select name="selectTerm" id="selectTerm">
 						<c:forEach items="${listTerm }" var="listTerm">
-							<option>${listTerm.categoryName }</option>
+							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.termOne
+								}</option>
+							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.termTwo
+								}</option>
 						</c:forEach>
 					</select>
 				</div>
 				<div class="input1">
-					<span>开设课程：</span> <input name="courseDetail" placeholder=""
-						style="width: 40%; height: 30px; float: left; margin-left: 2%;">
+					<span>开设课程：</span> <input name="courseDetail"
+					value="${course.courseName }"
+						style="width: 40%; height: 30px; float: left; margin-left: 2%;"
+						readonly="readonly">
 				</div>
 				<!-- 拟态框star -->
 				<div class="modal fade" id="exampleModal" tabindex="-1"
@@ -110,7 +121,6 @@
 							<ul id="teacherUl" style="list-style-type: none;">
 								<li id="teacher"></li>
 							</ul>
-
 							<div class="modal-footer">
 								<button id="close" type="button" class="btn btn-default"
 									data-dismiss="modal">关闭</button>
@@ -134,7 +144,7 @@
 						<div class="add">
 							<button type="button" id="pull" class="btn btn-primary"
 								data-toggle="modal" data-target="#exampleModal"
-								data-whatever="@mdo">选择课程</button>
+								data-whatever="@mdo">选择班级</button>
 						</div>
 					</div>
 				</div>
@@ -152,7 +162,6 @@
 		</div>
 		<div class="footer">
 			<div class="container">
-
 				<!--row End-->
 				<div class="foot-bq">
 					<!-- 版权内容请在本组件"内容配置-版权"处填写 -->
