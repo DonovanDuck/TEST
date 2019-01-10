@@ -40,9 +40,14 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+<<<<<<< HEAD
+import cn.edu.tit.bean.RealClass;
+=======
 import cn.edu.tit.bean.Student;
+>>>>>>> donovan
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
@@ -58,8 +63,6 @@ public class TeacherController {
 	 * */
 	@Autowired
 	private ITeacherService teacherService;
-	@Autowired
-	private IStudentService studentService;
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private Teacher teacher =null;//将teacher 设定为全局变量
 
@@ -89,6 +92,7 @@ public class TeacherController {
 		}
 		return mv;	
 	}
+
 	/**
 	 * @author LiMing
 	 * @param request
@@ -371,6 +375,7 @@ public class TeacherController {
 		}
 		return mv;	
 	}
+
 	
 	/**
 	 * @author wenli
@@ -485,7 +490,29 @@ public class TeacherController {
 		return mv;
 	}
 
-
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * 查找对应老师的课程列表，创建
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toCreateVirtualClass/{courseId}")
+	public ModelAndView toCreateVirtualClass(@PathVariable String courseId) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		List<Term> listTerm = new ArrayList<Term>();
+		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		Course course = new Course();
+		course = teacherService.readCourseByCourseId(courseId);
+		listTerm = teacherService.readTerm();
+		listRealClass = teacherService.readRealClass();
+		mv.addObject("course",course);
+		mv.addObject("listTerm",listTerm);
+		mv.addObject("listRealClass", listRealClass);
+		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
+		return mv;
+	}
+	
 	/**
 	 * @author LiMing
 	 * @param request
