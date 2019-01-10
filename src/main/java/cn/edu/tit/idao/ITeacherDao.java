@@ -16,6 +16,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 
 @Component
@@ -84,7 +85,7 @@ public interface ITeacherDao {
 	 * @return
 	 * 查询所有实体班级
 	 */
-	public List<RealClass> readRealClasss();
+	public List<RealClass> readRealClass();
 	
 	/**
 	 *@author LiMing
@@ -92,5 +93,18 @@ public interface ITeacherDao {
 	 * 读取所有课程信息
 	 */
 	public List<Course> readCourse(@Param(value="courseName")String courseName);
+	
+	/**
+	 *@author LiMing
+	 * @return 返回学期列表
+ 	 */
+	public List<Term> readTerm();
+	
+	/**
+	 *@author LiMing
+	 * @param courseId
+	 * @return
+	 */
+	public Course readCourseByCourseId(String courseId);
 	
 }
