@@ -177,7 +177,7 @@ public class TeacherController {
 	
 	
 	/**
-	 * 跳转到课程详细模块
+	 * 跳转到课程简介详细模块
 	 * @param request
 	 * @param courseId
 	 * @return
@@ -193,7 +193,6 @@ public class TeacherController {
 		}
 		return "jsp/Teacher/lesson-introduce";
 	}
-	
 	/**
 	 * 创建课程
 	 * @return

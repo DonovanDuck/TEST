@@ -65,9 +65,9 @@
 	<div class="courses" style=" margin-left: 10%">
 		<c:forEach items="${courseList }" var="courseListItems"
 			varStatus="status">
-			<a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseListItems.courseId }">
+			<a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
 				<div class="course" >
-					<img  id="imge" src="${pageContext.request.contextPath}/teacher/picShow/${courseListItems.faceImg }"
+					<img  id="imge" 
 						alt="" style="margin-left: 7%;" />
 					<ul class="courseInfo">
 						<li><small>课程名：${courseListItems.courseName }</small></li>
