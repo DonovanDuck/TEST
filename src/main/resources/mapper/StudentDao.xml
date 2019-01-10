@@ -29,17 +29,17 @@
 	</resultMap>
 	
 	<select id="studentLoginByEmployeeNum"
-		parameterType="java.lang.String" resultMap="teacherMap">
+		parameterType="java.lang.String" resultMap="studentMap">
 		select * from student where
-		employee_num = #{ememployeeNum};
+		student_id = #{ememployeeNum};
 	</select>
 	<select id="studentLoginByTelephone"
-		parameterType="java.lang.String" resultMap="teacherMap">
+		parameterType="java.lang.String" resultMap="studentMap">
 		select * from student where
 		telephone = #{telephone};
 	</select>
 	<select id="studentLoginByEmail"
-		parameterType="java.lang.String" resultMap="teacherMap">
+		parameterType="java.lang.String" resultMap="studentMap">
 		select * from student where
 		email = #{email};
 	</select>

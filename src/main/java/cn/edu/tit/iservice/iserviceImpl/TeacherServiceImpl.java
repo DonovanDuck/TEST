@@ -18,6 +18,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.ITeacherDao;
@@ -383,17 +384,17 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-		try {
+	
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
 			System.out.println(teacher.toString());
 			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
-			return null;
-		}
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
+//			return null;
+//		}
 	}
 
 	@Override
@@ -478,11 +479,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		List<Category> list = new ArrayList<Category>();
 		try {
 			list= teacherDao.readCategory();
-			System.out.println("readCaetgory-------持久层执行成功");
 		} catch (Exception e) {
 			e.printStackTrace();
 			list =null;
-			System.out.println("readCaetgory-------持久层执行失败");
 		}
 		return list;
 	}
@@ -536,10 +535,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * 读取所有实体班级
 	 * */
 	@Override
-	public List<RealClass> readRealClasss() throws Exception {
+	public List<RealClass> readRealClass() throws Exception {
 		List<RealClass> list = null;
 		try {
-			list = teacherDao.readRealClasss();
+			list = teacherDao.readRealClass();
 			System.out.println("readRealClasss-------持久层执行成功");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -569,6 +568,41 @@ public class TeacherServiceImpl implements ITeacherService{
 		return list;
 	}
 
+	/**
+	 * @author LiMing
+	 * 读取所有学期
+	 * */
+	@Override
+	public List<Term> readTerm() throws Exception {
+		List<Term> list = new ArrayList<Term>();
+		try {
+			list = teacherDao.readTerm();
+			System.out.println("readTerm-------持久层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			list =null;
+			System.out.println("readTerm-------持久层执行失败");
+		}
+		return list;
+	}
+	
+	/**
+	 * @author LiMing
+	 * 通过课程ID查询课程信息
+	 * */
+	@Override
+	public Course readCourseByCourseId(String courseId) throws Exception {
+		Course course = new Course();
+		try {
+			course = teacherDao.readCourseByCourseId(courseId);
+			System.out.println("readCourseByCourseId-------持久层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			course =null;
+			System.out.println("readCourseByCourseId-------持久层执行失败");
+		}		
+		return course;
+	}
 	@Override
 	public List<Task> teacherTaskAssortmentList(List<String> taskId, String taskCategory) throws Exception {
 		// TODO Auto-generated method stub

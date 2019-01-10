@@ -1,8 +1,9 @@
 ﻿<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -85,6 +86,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 										<tr>
 											<th class="text-center">序号</th>
 											<th class="text-center">班级号</th>
+											<th class="text-center">班级人数</th>
 											<th class="text-center">所属系部</th>
 											<th></th>
 										</tr>
@@ -95,6 +97,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											<tr>
 												<td class="text-center">${requestScope.offset+status.index}</td>
 												<td class="text-center">${realClass.realClassNum }</td>
+												<td class="text-center">${realClass.realPersonNum }</td>
 												<td class="text-center">${realClass.realClassCategory }</td>
 												<td class="text-center">
 													<button type="button" class="btn btn-default btn-lg"
@@ -112,7 +115,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<!--End Advanced Tables -->
 				</div>
-
 			</div>
 			<!-- /. PAGE INNER  -->
 		</div>
@@ -129,14 +131,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form>
+							<form id="commitCategory" name="commitCategory"
+							action="${pageContext.request.contextPath}/admin/AddRealClass">
 							<div class="form-group">
-								<label for="teacherId" class="control-label">班号</label> <input
-									type="text" class="form-control" id="teacherId">
+								<label for="realClassNum" class="control-label">班号</label> <input
+									type="text" class="form-control" id="realClassNum" name="realClassNum">
 							</div>
 							<div class="form-group">
-								<label for="teacherName" class="control-label">所属系部</label>
-								<textarea class="form-control" id="teacherName"></textarea>
+								<label for="realClassNum" class="control-label">班级人数</label> <input
+									type="text" class="form-control" id="realClassPersonNum" name="realClassPersonNum" value="40">
+							</div>
+							<div class="form-group">
+								<select class="selectpicker show-tick form-control"
+									data-live-search="true" name="category" id="category">
+									<c:forEach items="${categories }" var="category" varStatus="status">
+										<option>${category.categoryName }</option>
+										</c:forEach>
+								</select>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
@@ -148,8 +159,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal -->
 </body>
 </html>

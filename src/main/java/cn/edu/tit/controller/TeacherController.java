@@ -32,6 +32,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
@@ -39,11 +41,15 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
+import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
 import net.sf.json.JSONArray;
 
@@ -84,6 +90,7 @@ public class TeacherController {
 		}
 		return mv;	
 	}
+
 	/**
 	 * @author LiMing
 	 * @param request
@@ -91,22 +98,17 @@ public class TeacherController {
 	 * @throws Exception 
 	 * 教师、学生登陆后进入的第一个页面
 	 */
-	@RequestMapping(value="courseList",method= {RequestMethod.GET})
+	@RequestMapping(value="courseList",method= {RequestMethod.POST})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		categories = teacherService.readCategory();
-		for (Category category : categories) {
-			System.err.println(category.getCategoryId());
-		}
 		List<Course> list = new ArrayList<Course>();
 		List<String> teacherNames = new ArrayList<String>();
 		list = teacherService.readCourse(null);
-		if(list != null) {
-			for (Course course : list) 
-			{
-				System.out.println(course.toString());
-				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
-			}
+		for (Course course : list) 
+		{
+			System.out.println(course.toString());
+			teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
 		}
 		mv.addObject("categories", categories);
 		mv.addObject("courseList", list);
@@ -201,7 +203,11 @@ public class TeacherController {
 	@SuppressWarnings({ "unused", "unchecked" })
 	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false) String[] teachers){
 		try {
-			MultipartHttpServletRequest mrquest = (MultipartHttpServletRequest)request;
+			System.out.println("qingqiu===========================================================================s");
+			//MultipartHttpServletRequest mrquest = (MultipartHttpServletRequest)request;
+			MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
+	        MultipartHttpServletRequest mrquest = resolver.resolveMultipart(request);
+	        
 			MultipartFile m = mrquest.getFile("faceImg");
 			//将文件存储到指定路径
 			Common.springFileUpload(request);
@@ -220,8 +226,10 @@ public class TeacherController {
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
-			for(int i = 0; i < teachers.length; i++){
-				teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
+			if(teachers != null){
+				for(int i = 0; i < teachers.length; i++){
+					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
+				}
 			}
 			return toCourseSecond(request);
 		} catch (Exception e) {
@@ -231,6 +239,17 @@ public class TeacherController {
 		}
 		
 	}
+	
+	/**
+	 * 微信测试
+	 */
+	/*@RequestMapping(value="createCourse",method= {RequestMethod.POST} )
+	public ModelAndView createCourse(HttpServletRequest request){
+		Common.fileFactory(request);
+		System.out.println("qingqiu==================================================================");
+		System.out.println(request.getParameter(""));
+		return null;
+	}*/
 	
 	/**
 	 * @author wenli
@@ -355,6 +374,7 @@ public class TeacherController {
 		}
 		return mv;	
 	}
+
 	
 	/**
 	 * @author wenli
@@ -469,7 +489,29 @@ public class TeacherController {
 		return mv;
 	}
 
-
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * 查找对应老师的课程列表，创建
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toCreateVirtualClass/{courseId}")
+	public ModelAndView toCreateVirtualClass(@PathVariable String courseId) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		List<Term> listTerm = new ArrayList<Term>();
+		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		Course course = new Course();
+		course = teacherService.readCourseByCourseId(courseId);
+		listTerm = teacherService.readTerm();
+		listRealClass = teacherService.readRealClass();
+		mv.addObject("course",course);
+		mv.addObject("listTerm",listTerm);
+		mv.addObject("listRealClass", listRealClass);
+		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
+		return mv;
+	}
+	
 	/**
 	 * @author LiMing
 	 * @param request

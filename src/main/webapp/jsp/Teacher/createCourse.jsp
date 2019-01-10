@@ -7,11 +7,11 @@
 <meta charset="UTF-8">
 <title>courseCreate</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/course/create_lesson.css"
+	href="${pageContext.request.contextPath}/css/create_lesson.css"
 	type="text/css">
 <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/course/common.css">
+	href="${pageContext.request.contextPath}/css/common.css">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -126,7 +126,6 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 						<ul id="teacherUl" style="list-style-type:none;">
 							<li id="teacher"></li>
 						</ul>
-
 						<div class="modal-footer">
 							<button id="close" type="button" class="btn btn-default"
 								data-dismiss="modal">关闭</button>
