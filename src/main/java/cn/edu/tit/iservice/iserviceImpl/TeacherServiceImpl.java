@@ -535,10 +535,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * 读取所有实体班级
 	 * */
 	@Override
-	public List<RealClass> readRealClass() throws Exception {
+	public List<RealClass> readRealClass(String realClassNum) throws Exception {
 		List<RealClass> list = null;
 		try {
-			list = teacherDao.readRealClass();
+			list = teacherDao.readRealClass(realClassNum);
 			System.out.println("readRealClasss-------持久层执行成功");
 		} catch (Exception e) {
 			// TODO: handle exception

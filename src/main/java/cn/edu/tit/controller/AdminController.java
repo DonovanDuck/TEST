@@ -291,7 +291,7 @@ public class AdminController {
 		List<RealClass> readResult = new ArrayList<RealClass>();
 		List<Category> categories = new ArrayList<Category>();
 		try {
-			readResult = iTeacherService.readRealClass();
+			readResult = iTeacherService.readRealClass(null);
 			categories = iTeacherService.readCategory();
 		} catch (Exception e) {
 			e.printStackTrace();
