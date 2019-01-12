@@ -85,27 +85,15 @@ li{
     margin-top: 2%;
     padding: 1%;
 }
-.friend1 {
-    float: left;
-    margin-left: 3%;
-    margin-right: 3%;
-    width: 12%;
-    margin-bottom: 2%;
-    background: lightblue;
-}
-.friend1 p{
-    line-height: 20px;
-    text-align: center;
-}
+
 .add{
     padding-left: 4%;
     padding-right: 4%;
     font-size: 18px;
     float: right;
     margin-right: 5%;
-    margin-top: 13%;
-    background: orange;
 }
+
 .create{
     padding-left: 4%;
     padding-right: 4%;
@@ -113,7 +101,6 @@ li{
     font-size: 18px;
     float: left;
     margin-left: 0;
-    background: orange;
 }
 .delete{
     padding-left: 4%;
@@ -122,7 +109,6 @@ li{
     font-size: 18px;
     float: right;
     margin-right: 8%;
-    background: orange;
 }
 .button{
     width: 46%;

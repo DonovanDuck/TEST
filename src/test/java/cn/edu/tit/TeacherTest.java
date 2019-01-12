@@ -11,7 +11,6 @@ import javax.annotation.Resource;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -156,6 +155,24 @@ public class TeacherTest {
 		//		course  = teacherService.readCourseByCourseId("1A2677BCE8594458A70C47B1D55449B9");
 		//		System.out.println(course.toString());
 
+
+		/**
+		 * 测试查询实体班级
+		 * */
+		//		List<RealClass> real = new ArrayList<RealClass>();
+		//		real = teacherService.readRealClass(null);
+		//		for (RealClass realClass : real) {
+		//			System.out.println(realClass.toString());
+		//		}
+		//		List<String> real = new ArrayList<String>();
+		//		List<RealClass> rl = new ArrayList<RealClass>();
+		//		String a = "11111";
+		//		String b = "123456";
+		//		real.add(a);
+		//		real.add(b);
+		//		rl = teacherService.readRealClass(a);
+		//		for (RealClass realClass : rl) {
+		//			System.out.println(realClass.toString());
 	}
 }
 

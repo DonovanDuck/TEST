@@ -13,6 +13,22 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>教师信息管理</title>
 <jsp:include page="Common.jsp"></jsp:include>
+<script type="text/javascript">
+function getRowValue(element){
+	//this做为参数传过来是方法中的element,parentNode就是获取父节点，获取了连个父节点，就相当于获取了tr
+	var node = element.parentNode.parentNode;
+	//给每一个input框赋值，node.children[0].innerHTML,node就是tr，tr的子类有多个【0】根据下标取值
+	document.getElementById("teacherId").value=node.children[1].innerHTML;
+	document.getElementById("teacherName").value=node.children[2].innerHTML;
+	if (node.children[4].innerHTML=="男")
+	  {
+		document.getElementById('select').options[0].selected = true;
+	  }
+	else{
+		document.getElementById('select').options[1].selected = true;
+	}
+	}
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -105,8 +121,8 @@
 											<th></th>
 										</tr>
 									</thead>
-									<tbody>
-										<c:forEach items="${teacherList }" var="teacher"
+									<tbody id="asds">
+										<c:forEach items="${teacherList }" var="teacher" 
 											varStatus="status">
 											<tr>
 												<td class="text-center">${requestScope.offset+status.index}</td>
@@ -128,9 +144,9 @@
 														</button>
 												</a></td>
 												<td class="text-center">
-													<button type="button" class="btn btn-default btn-lg"
-														data-toggle="modal" data-target="#Edit"
-														style="padding-top: 2%;">
+													<button id="edit" type="button" class="btn btn-default btn-lg"
+														data-toggle="modal" data-target="#Edit" id="${teacher.employeeNum }"
+														style="padding-top: 2%;" onclick="getRowValue(this)">
 														<small>编辑</small>
 													</button>
 													<button type="button" class="btn btn-default btn-lg"
@@ -161,18 +177,19 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form>
+						<form class="form-inline" id="form_excel" name="form_excel"
+								role="form" action="${pageContext.request.contextPath}/admin/updateTeacher" method="post">
 							<div class="form-group">
-								<label for="teacherId" class="control-label">教师工号</label> <input
-									type="text" class="form-control" id="teacherId">
+								<label for="teacherId" class="control-label">教师工号</label> 
+								<input type="text" class="form-control" id="teacherId" name="teacherId">
 							</div>
 							<div class="form-group">
 								<label for="teacherName" class="control-label">教师姓名</label>
-								<textarea class="form-control" id="teacherName"></textarea>
+								<input type="text" class="form-control" id="teacherName" name="teacherName">
 							</div>
 							<div class="form-group">
 								<label class="control-label">教师性别</label> <select
-									class="form-control">
+									class="form-control" id="select" name="select">
 									<option>男</option>
 									<option>女</option>
 								</select>

@@ -12,13 +12,35 @@ public class VirtualClass {
 	private String virtualClassName; // 班级名称
 	private String creatorId; // 创建者id
 	private Timestamp createTime; // 创建时间
-	private String virtualClassDetail; // 班级简介
-	private Integer courseId; // 课程id
+	private String virtualClassPersonNum; // 班级人数
+	private String courseId; // 课程id
 	private String faceImg; // 班级图标
 	private String term; // 班级学期信息
 	private List<RealClass> realClassList; // 包含自然班级集合
-	
-	// setter - getter
+	@Override
+	public String toString() {
+		return "VirtualClass [virtualClassNum=" + virtualClassNum + ", virtualClassName=" + virtualClassName
+				+ ", creatorId=" + creatorId + ", createTime=" + createTime + ", virtualClassPersonNum="
+				+ virtualClassPersonNum + ", courseId=" + courseId + ", faceImg=" + faceImg + ", term=" + term
+				+ ", realClassList=" + realClassList + "]";
+	}
+	public VirtualClass() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	public VirtualClass(String virtualClassNum, String virtualClassName, String creatorId, Timestamp createTime,
+			String virtualClassPersonNum, String courseId, String faceImg, String term, List<RealClass> realClassList) {
+		super();
+		this.virtualClassNum = virtualClassNum;
+		this.virtualClassName = virtualClassName;
+		this.creatorId = creatorId;
+		this.createTime = createTime;
+		this.virtualClassPersonNum = virtualClassPersonNum;
+		this.courseId = courseId;
+		this.faceImg = faceImg;
+		this.term = term;
+		this.realClassList = realClassList;
+	}
 	public String getVirtualClassNum() {
 		return virtualClassNum;
 	}
@@ -43,16 +65,16 @@ public class VirtualClass {
 	public void setCreateTime(Timestamp createTime) {
 		this.createTime = createTime;
 	}
-	public String getVirtualClassDetail() {
-		return virtualClassDetail;
+	public String getVirtualClassPersonNum() {
+		return virtualClassPersonNum;
 	}
-	public void setVirtualClassDetail(String virtualClassDetail) {
-		this.virtualClassDetail = virtualClassDetail;
+	public void setVirtualClassPersonNum(String virtualClassPersonNum) {
+		this.virtualClassPersonNum = virtualClassPersonNum;
 	}
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	public String getFaceImg() {
@@ -61,41 +83,17 @@ public class VirtualClass {
 	public void setFaceImg(String faceImg) {
 		this.faceImg = faceImg;
 	}
-	public List<RealClass> getRealClassList() {
-		return realClassList;
-	}
-	public void setRealClassList(List<RealClass> realClassList) {
-		this.realClassList = realClassList;
-	}
 	public String getTerm() {
 		return term;
 	}
 	public void setTerm(String term) {
 		this.term = term;
 	}
-	@Override
-	public String toString() {
-		return "VirtualClass [virtualClassNum=" + virtualClassNum + ", virtualClassName=" + virtualClassName
-				+ ", creatorId=" + creatorId + ", createTime=" + createTime + ", virtualClassDetail="
-				+ virtualClassDetail + ", courseId=" + courseId + ", faceImg=" + faceImg + ", term=" + term
-				+ ", realClassList=" + realClassList + "]";
+	public List<RealClass> getRealClassList() {
+		return realClassList;
 	}
-	public VirtualClass(String virtualClassNum, String virtualClassName, String creatorId, Timestamp createTime,
-			String virtualClassDetail, Integer courseId, String faceImg, String term, List<RealClass> realClassList) {
-		super();
-		this.virtualClassNum = virtualClassNum;
-		this.virtualClassName = virtualClassName;
-		this.creatorId = creatorId;
-		this.createTime = createTime;
-		this.virtualClassDetail = virtualClassDetail;
-		this.courseId = courseId;
-		this.faceImg = faceImg;
-		this.term = term;
+	public void setRealClassList(List<RealClass> realClassList) {
 		this.realClassList = realClassList;
-	}
-	public VirtualClass() {
-		super();
-		// TODO Auto-generated constructor stub
 	}
 	
 	

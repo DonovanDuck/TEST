@@ -1,8 +1,13 @@
 package cn.edu.tit.controller;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -19,10 +24,12 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.MultipartResolver;
@@ -34,11 +41,8 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
-<<<<<<< HEAD
 import cn.edu.tit.bean.RealClass;
-=======
 import cn.edu.tit.bean.Student;
->>>>>>> master
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
@@ -57,13 +61,9 @@ public class TeacherController {
 	 * */
 	@Autowired
 	private ITeacherService teacherService;
-<<<<<<< HEAD
-=======
 	@Autowired
 	private IStudentService studentService;
->>>>>>> master
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
-	private Teacher teacher =null;//将teacher 设定为全局变量
 
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
@@ -71,11 +71,12 @@ public class TeacherController {
 		String readResult =null;
 		String teacherPassword = null;
 		try {
-			teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
+			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
 			teacherPassword = Common.eccryptMD5(password);
 			if(teacherPassword.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
+				request.getSession().setAttribute("teacher", teacher);
 				mv = toCourseSecond(request);
 				mv.addObject("readResult", "登录成功");//返回信息
 				mv.addObject("teacher",teacher);
@@ -91,33 +92,7 @@ public class TeacherController {
 		}
 		return mv;	
 	}
-	
-	
-	/**
-	 * @author LiMing
-	 * @param request
-	 * @return
-	 * @throws Exception 
-	 * 教师、学生登陆后进入的第一个页面
-	 */
-	@RequestMapping(value="courseList",method= {RequestMethod.POST})
-	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		categories = teacherService.readCategory();
-		List<Course> list = new ArrayList<Course>();
-		List<String> teacherNames = new ArrayList<String>();
-		list = teacherService.readCourse(null);
-		for (Course course : list) 
-		{
-			System.out.println(course.toString());
-			teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
-		}
-		mv.addObject("categories", categories);
-		mv.addObject("courseList", list);
-		mv.addObject("teacherNames", teacherNames);
-		mv.setViewName("/jsp/CourseJsp/courseSecond");
-		return mv;
-	}
+
 	/**
 	 * @author LiMing
 	 * @param request
@@ -182,7 +157,7 @@ public class TeacherController {
 		}
 		return "jsp/Teacher/createCourse";
 	}
-	
+
 	/**
 	 * 通过ajax获取教师列表
 	 */
@@ -203,7 +178,108 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
+
+	/**
+	 * @author LiMing
+	 * 通过ajax获取班级列表
+	 */
+	@RequestMapping(value="ajaxGetRealClass")
+	public void ajaxGetRealClass(HttpServletRequest request, HttpServletResponse response){
+		try {
+			List<RealClass> realClassList = new ArrayList<RealClass>();
+			realClassList = teacherService.readRealClass(null);
+			for (RealClass realClass : realClassList) {
+				System.out.println(realClass.toString());
+			}
+			JSONArray  json  =  JSONArray.fromObject(realClassList); //将获取的List集合存入 JSONArray中
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @author LiMing
+	 * 创建虚拟班级
+	 */
+	@SuppressWarnings("unused")
+	@RequestMapping(value="createVirtualClass",method = RequestMethod.POST)
+	public void createVirtualClass(HttpServletRequest request,@RequestParam("selectTerm")String selectTerm,@RequestParam("realClassContent")String realClassContent){	
+		try {
+			Course course = (Course) request.getSession().getAttribute("virtualCourse");
+			String courseId = course.getCourseId();
+			String courseName = course.getCourseName();
+			VirtualClass vir = new VirtualClass();
+			//设置对象的属性
+			vir.setCourseId(courseId);
+			String uuid = Common.uuid();
+			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+			vir.setCreateTime(publishTime);
+			//Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			//vir.setCreatorId(teacher.getEmployeeNum());
+			vir.setCreatorId("011001");
+			vir.setFaceImg(course.getFaceImg());
+			vir.setVirtualClassNum(uuid);
+			vir.setTerm(selectTerm);
+			vir.setVirtualClassName(course.getCourseName());
+			//将前台得到的字符串分割
+			String[] sourceStrArray = realClassContent.split(",");
+			List<String> realClassArray = new ArrayList<String>();
+			//字符串数组排空
+			for(int i = 0;i<sourceStrArray.length;i++) {
+				if(!sourceStrArray[i].isEmpty())
+				{
+					realClassArray.add(sourceStrArray[i]);
+				}
+			}
+			List<RealClass> realClassList = new ArrayList<RealClass>();
+			int count = 0;//班级总人数
+			//将所有班级号转化为对应对象
+			for (String string : realClassArray) {
+				realClassList.add(teacherService.readRealClass(string).get(0));//查询出的始终只有一个
+			}
+			//计算总人数
+			for (RealClass realClass : realClassList) {
+				count+= Integer.parseInt(realClass.getRealPersonNum());
+			}
+			vir.setVirtualClassPersonNum(Integer.toString(count));
+			vir.setRealClassList(realClassList);
+			teacherService.createVirtualClass(vir);
+			/**********实体班和虚拟班的对应***************/
+			
+			for (int i = 0; i < realClassArray.size(); i++) {
+				teacherService.mapVirtualRealClass(realClassArray.get(i),uuid);
+			}		
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * 创建虚拟班级
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toCreateVirtualClass/{courseId}")
+	public ModelAndView toCreateVirtualClass(@PathVariable String courseId,HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		List<Term> listTerm = new ArrayList<Term>();
+		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		Course course = new Course();
+		course = teacherService.readCourseByCourseId(courseId);
+		listTerm = teacherService.readTerm();
+		listRealClass = teacherService.readRealClass(null);
+		request.getSession().setAttribute("virtualCourse", course);//将course放入SESSION
+		mv.addObject("course",course);
+		mv.addObject("listTerm",listTerm);
+		mv.addObject("listRealClass", listRealClass);
+		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
+		return mv;
+	}
 	
 	/**
 	 * 跳转到课程详细模块
@@ -222,7 +298,7 @@ public class TeacherController {
 		}
 		return "jsp/Teacher/lesson-introduce";
 	}
-	
+
 	/**
 	 * 创建课程
 	 * @return
@@ -231,14 +307,12 @@ public class TeacherController {
 	@SuppressWarnings({ "unused", "unchecked" })
 	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false) String[] teachers){
 		try {
-			System.out.println("qingqiu===========================================================================s");
-			//MultipartHttpServletRequest mrquest = (MultipartHttpServletRequest)request;
 			MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-	        MultipartHttpServletRequest mrquest = resolver.resolveMultipart(request);
-	        
+			MultipartHttpServletRequest mrquest = resolver.resolveMultipart(request);
+
 			MultipartFile m = mrquest.getFile("faceImg");
 			//将文件存储到指定路径
-			Common.springFileUpload(m, request);
+			Common.springFileUpload(request);
 			//封装课程类
 			Course course = new Course();
 			String courseId = Common.uuid();
@@ -265,20 +339,10 @@ public class TeacherController {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
-	
-	/**
-	 * 微信测试
-	 */
-	/*@RequestMapping(value="createCourse",method= {RequestMethod.POST} )
-	public ModelAndView createCourse(HttpServletRequest request){
-		Common.fileFactory(request);
-		System.out.println("qingqiu==================================================================");
-		System.out.println(request.getParameter(""));
-		return null;
-	}*/
-	
+
+
 	/**
 	 * @author wenli
 	 * @param request
@@ -288,21 +352,22 @@ public class TeacherController {
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
-
-		Object[] obj = Common.fileFactory(request);		//解析任务form的各个字段
-		List<File> files = (List<File>) obj[0];			//获得任务中文件内容
-		List<Accessory> accessories = new ArrayList<Accessory>();
-		Map<String, Object> formdata = (Map<String, Object>) obj[1];	//获得任务中文本内容
-		String taskId =  UUID.randomUUID().toString().replaceAll("-", "");		//设置任务id
+		Object[] obj = Common.fileFactory(request);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		// 创建list集合用于获取文件上传返回路径名
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		String taskId =  Common.uuid();	//设置任务id
 		Task task=new Task();
 		task.setTaskId(taskId);
 		task.setTaskTitle((String) formdata.get("taskTitle"));
 		task.setTaskDetail((String) formdata.get("taskDetail"));
 		task.setTaskEndTime((Timestamp) formdata.get("taskEndTime"));
 		task.setTaskType((String) formdata.get("taskType"));
-		task.setPublisherId((String) formdata.get("employeeNum"));
+		task.setPublisherId((String) formdata.get("publisherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
-		task.setVirtualClassNum((String) formdata.get("virtual_class_num"));
+		task.setVirtualClassNum((String) formdata.get("virtualClassNum"));
 		String status =  (String) formdata.get("status");
 		task.setStatus(Integer.parseInt(status));
 
@@ -313,7 +378,7 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (File file : files) {
+		for (File file : returnFileList) {
 			Accessory accessory = new Accessory();
 			accessory.setAccessoryName(file.getName());
 			accessory.setAccessoryPath(file.getPath());
@@ -321,6 +386,8 @@ public class TeacherController {
 			accessory.setAccessoryTime(Common.TimestamptoString());
 			accessories.add(accessory);
 		}
+
+
 		try {
 			teacherService.addAccessory(accessories);	//添加任务附件
 		} catch (Exception e) {
@@ -360,7 +427,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<VirtualClass> virtualClassList = null;
 		try {
-			virtualClassList = teacherService.virtualsForCourse(Integer.valueOf(courseId));//根据课程ID显示该课程所带班级
+			virtualClassList = teacherService.virtualsForCourse(String.valueOf(courseId));//根据课程ID显示该课程所带班级
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		} catch (Exception e) {
@@ -370,7 +437,7 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
 	}
-
+	@RequestMapping(value="teacherTaskList",method= {RequestMethod.GET})
 	public ModelAndView teacherTaskList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		List<String> taskIdList;
@@ -395,7 +462,36 @@ public class TeacherController {
 	}
 
 
+	/**
+	 * @author wenli
+	 * @param request
+	 * @param task_category
+	 * @return
+	 * 根据不同作业类型查找
+	 */
+	@RequestMapping(value="teacherTaskAssortmentList/{taskCategory}",method= {RequestMethod.GET})
+	public ModelAndView teacherTaskAssortmentList(HttpServletRequest request,@PathVariable String taskCategory) {
+		ModelAndView mv = new ModelAndView();
+		List<String> taskIdList;
+		List<Task> taskList;
+		String readResult =null;
+		Integer point=0;
+		try {
+			taskIdList = teacherService.searchTaskId("E56FE27F03344091BE8BDD698426EC22");//根据虚拟班级号获得任务列表
+			taskList = teacherService.teacherTaskAssortmentList(taskIdList,taskCategory);	//根据任务ID号获得任务实体
+			for (Task task : taskList) {
+				point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+				task.setTaskPoint(point);
+			}
+			mv.addObject("taskList", taskList);
+			mv.addObject("readResult", readResult);
+			mv.setViewName("/jsp/Teacher/classTask");
 
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
 	/**
 	 * @author LiMing
 	 * 通过分类筛选 课程
@@ -431,7 +527,7 @@ public class TeacherController {
 	@RequestMapping(value="toMyJoinCourse")
 	public ModelAndView toMyJoinCourse(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		List<Integer> courseIdListByOthers;		//加入别人的课程ID号
+		List<String> courseIdListByOthers;		//加入别人的课程ID号
 		List<Course> courseListByOthers = null;		//别人课程实体
 		List<String> teacherNames = new ArrayList<String>();
 		System.out.println(request.getSession().getAttribute("teacherId"));
@@ -451,7 +547,7 @@ public class TeacherController {
 	}
 
 	/**
-	 * @author LiMing
+	 * @author Huang
 	 * @param request
 	 * @return
 	 * 查找对应老师的课程列表，创建
@@ -460,14 +556,16 @@ public class TeacherController {
 	@RequestMapping(value="toMyCreateCourse")
 	public ModelAndView toMyCreateCourse(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		List<Integer> courseIdListforMe ;	//自己创建的课程ID号
+		List<String> courseIdListforMe ;	//自己创建的课程ID号
 		List<Course> courseListforMe = null ;		//自己课程实体
+		Teacher teacher = null;
 		//创建老师集合的目的是：课程与创建者的匹配
 		List<String> teacherNames = new ArrayList<String>();
 		try {
 			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
 			courseListforMe = teacherService.courseList(courseIdListforMe);
 			for (int i = 0; i < courseListforMe.size(); i++) {
+				teacher = (Teacher) request.getSession().getAttribute("teacher");
 				teacherNames.add(teacher.getTeacherName());
 			}
 		} catch (Exception e) {
@@ -479,48 +577,85 @@ public class TeacherController {
 		return mv;
 	}
 
+
 	/**
-	 * @author LiMing
+	 * @author WenLi
 	 * @param request
 	 * @return
 	 * 查找对应老师的课程列表，创建
 	 * @throws Exception 
 	 */
-	@RequestMapping(value="toCreateVirtualClass/{courseId}")
-	public ModelAndView toCreateVirtualClass(@PathVariable String courseId) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		List<Term> listTerm = new ArrayList<Term>();
-		List<RealClass> listRealClass = new ArrayList<RealClass>();
-		Course course = new Course();
-		course = teacherService.readCourseByCourseId(courseId);
-		listTerm = teacherService.readTerm();
-		listRealClass = teacherService.readRealClass();
-		mv.addObject("course",course);
-		mv.addObject("listTerm",listTerm);
-		mv.addObject("listRealClass", listRealClass);
-		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
-		return mv;
+	//	@RequestMapping(value="searchCourse")
+	//	public JSONObject searchCourse(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	//		JSONObject jsonObject = new JSONObject();
+	//		String content = request.getParameter("content");
+	//		List<Course> courseList = null ;
+	//		//通过课程名查询课程，由于课程名不重复，故只取返回集合中的第一个
+	//		courseList = teacherService.readCourse(content);
+	//		Course course = courseList.get(0);
+	//	
+	//		jsonObject.toString();
+	//		response.getWriter().print(course);
+	//		return jsonObject;
+	//	}
+	//	@RequestMapping("/picShow")
+	//    public void picShow(HttpServletRequest request,HttpServletResponse response,String picName) throws IOException {
+	//		String path = Common.readProperties("path");
+	//        String imagePath = path+picName;
+	//        response.reset();
+	//        //判断文件是否存在
+	//        File file = new File(imagePath);
+	//        if (!file.exists()) {
+	//            imagePath = path+"/"+"course1.jpg";
+	//        }
+	//        // 得到输出流
+	//        OutputStream output = response.getOutputStream();
+	//        if (imagePath.toLowerCase().endsWith(".jpg"))// 使用编码处理文件流的情况：
+	//        {
+	//            response.setContentType("image/jpeg;charset=GB2312");// 设定输出的类型
+	//            // 得到图片的真实路径
+	//            // 得到图片的文件流
+	//            InputStream imageIn = new FileInputStream(new File(imagePath));
+	//            // 得到输入的编码器，将文件流进行jpg格式编码
+	//            JPEGImageDecoder decoder = JPEGCodec.createJPEGDecoder(imageIn);
+	//            // 得到编码后的图片对象
+	//            BufferedImage image = decoder.decodeAsBufferedImage();
+	//            // 得到输出的编码器
+	//            JPEGImageEncoder encoder = JPEGCodec.createJPEGEncoder(output);
+	//            encoder.encode(image);// 对图片进行输出编码
+	//            imageIn.close();// 关闭文件流
+	//        }
+	//        output.close();
+	//    }
+	@RequestMapping(value="/picShow/{faceImg}")
+	@ResponseBody
+	public String picShow(HttpServletRequest request,HttpServletResponse response,@PathVariable String faceImg, Model model) {
+		// response.setContentType("image/*")
+
+		System.out.println("到这了");
+		FileInputStream fis = null;
+		OutputStream os = null;
+		try {
+			fis = new FileInputStream(faceImg);
+			os = response.getOutputStream();
+			int count = 0;
+			byte[] buffer = new byte[1024 * 8];
+			while ((count = fis.read(buffer)) != -1) {
+				os.write(buffer, 0, count);
+				os.flush();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		try {
+			fis.close();
+			os.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return "ok";
 	}
-	
-	/**
-	 * @author LiMing
-	 * @param request
-	 * @return
-	 * 查找对应老师的课程列表，创建
-	 * @throws Exception 
-	 */
-//	@RequestMapping(value="searchCourse")
-//	public JSONObject searchCourse(HttpServletRequest request,HttpServletResponse response) throws Exception {
-//		JSONObject jsonObject = new JSONObject();
-//		String content = request.getParameter("content");
-//		List<Course> courseList = null ;
-//		//通过课程名查询课程，由于课程名不重复，故只取返回集合中的第一个
-//		courseList = teacherService.readCourse(content);
-//		Course course = courseList.get(0);
-//	
-//		jsonObject.toString();
-//		response.getWriter().print(course);
-//		return jsonObject;
-//	}
+
+
 
 }

@@ -21,10 +21,9 @@ a {
 }
 /*---------------------------------header----------------------------------------*/
 .header {
-	width: 80%;
-	height: 80px;
-	margin-left: 10%;
-	background-color: deepskyblue;
+	width: 100%;
+	height: 110px;
+	background-image: url("../../images/head.png");
 }
 /*---------------------------------banner----------------------------------------*/
 .searchAndButton {
@@ -68,7 +67,7 @@ a {
 .banner_t {
 	width: 96%;
 	margin-left: 40px;
-	height: 150px;
+	    height: 205px;
 	margin-top: -12px;
 }
 
@@ -80,10 +79,6 @@ a {
 }
 
 .banner li .div1 {
-	/*width: 20%;*/
-	padding-left: 2%;
-	margin-right: 2%;
-	padding-right: 2%;
 	height: 30px;
 	font-size: 20px;
 	color: #2b2b2b;
@@ -137,6 +132,7 @@ a {
 	padding-top: 1%;
 	float: left;
 	width: 23%;
+	margin-top: 20px;
 }
 
 .courseInfo {
@@ -153,8 +149,8 @@ a {
 /*---------------------------------main----------------------------------------*/
 .footer {
 	overflow:hidden; 
-	width: 80%;
-	height: 50px;
-	border: 1px solid orange;
+	width: 100%;
+	height: 117px;
+	background-image: url("../../images/bottom.png");
 	margin-top: 1%;
 }

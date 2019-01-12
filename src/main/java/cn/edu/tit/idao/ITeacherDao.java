@@ -22,12 +22,12 @@ import cn.edu.tit.bean.VirtualClass;
 @Component
 public interface ITeacherDao {
 	public void createCourse(Course course) throws Exception;	//创建课程模块1
-	public void deleteCourse(Integer courseId)throws Exception;	//删除课程模块1
+	public void deleteCourse(String courseId)throws Exception;	//删除课程模块1
 	public void createVirtualClass(VirtualClass virtualClass)throws Exception;		//创建虚拟班级模块1
 	public void updateCourse(Course course)throws Exception;	//修改课程模块1
 	//public List<Integer> courseIdList(String employeeNum);		//课程id列表模块1，已停用
-	public List<Integer> courseIdList(@Param("employeeNum")String employeeNum,@Param("manager")Integer manager)throws Exception;		//课程id列表模块1
-	public List<Course>	 courseList(List<Integer> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表1
+	public List<String> courseIdList(@Param("employeeNum")String employeeNum,@Param("manager")Integer manager)throws Exception;		//课程id列表模块1
+	public List<Course>	 courseList(List<String> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表1
 	public Course searchCourseById(String courseId); // 根据courseId查询
 	public List<Student> studentList(List<String> classNums)throws Exception;		//学生列表模块1
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块1
@@ -36,7 +36,7 @@ public interface ITeacherDao {
 	public Teacher teacherLoginByEmployeeNum(String employeeNum)throws Exception;	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone)throws Exception;	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email)throws Exception;	//通过邮件登录教师
-	public List<VirtualClass> virtualsForCourse(Integer courseId )throws Exception;//根据课程查询虚拟班级1
+	public List<VirtualClass> virtualsForCourse(String courseId )throws Exception;//根据课程查询虚拟班级1
 	public void createSignIn(@Param("taskId")String taskId,@Param("signPoint")String signPoint)throws Exception;	//wei实现
 	public Integer getSignPoint()throws Exception; // 获取签到的信息
 	public void UpdateTeacher(Teacher teacher)throws Exception;
@@ -53,17 +53,19 @@ public interface ITeacherDao {
 	
 	public List<String> searchTaskId(String virtualClassNum)throws Exception;//查找班级对应的taskid号1
 	public List<Task> TaskList(List<String> taskIds)throws Exception;	//显示所有任务列表1
+	public List<Task> teacherTaskAssortmentList(@Param("taskId")List<String> taskId,@Param("taskCategory")String taskCategory)throws Exception;
 	
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情1
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
 	public List<Accessory> searchAccessory(String taskId)throws Exception;	//查询任务附件1
 	
 	public void addOtherToMyCourse(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId,@Param("manager")int manager )throws Exception;	//拉取别人加入自己课程
-	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")Integer courseId)throws Exception;	//判断是否允许加入其他人到自己课程
+	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId)throws Exception;	//判断是否允许加入其他人到自己课程
 	public List<String> getEmployeeNumByCourseId(String courseId); //通过courseId获得教师工号集合
 	public List<Teacher> getTeachersById(List<String> employeeNums); // 通过工号集合获取教师集合
 	
 	public String getTeacherNameById(String employeeNum); // 通过工号查询教师名
+	
 	public List<Teacher> getTeacher(); //获取所有教师
 	/**
 	 *@author LiMing
@@ -80,17 +82,18 @@ public interface ITeacherDao {
 
 	/**
 	 *@author LiMing
+	 * @param realClassNum 
 	 * @return
 	 * 查询所有实体班级
 	 */
-	public List<RealClass> readRealClass();
+	public List<RealClass> readRealClass(@Param(value="realClassNum")String realClassNum);
 	
 	/**
 	 *@author LiMing
 	 * @return
 	 * 读取所有课程信息
 	 */
-	public List<Course> readCourse(@Param(value="course")String course);
+	public List<Course> readCourse(@Param(value="courseName")String courseName);
 	
 	/**
 	 *@author LiMing
