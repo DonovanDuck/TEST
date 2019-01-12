@@ -325,4 +325,26 @@ public class AdminController {
 		mv = readRealClass();
 		return mv;
 	}
+	
+	/**
+	 * 更新教师信息
+	 * */
+	@RequestMapping(value="updateTeacher",method= {RequestMethod.GET})
+	public ModelAndView updateTeacher( @RequestParam("teacherId")String teacherId,@RequestParam("teacherName")String teacherName,@RequestParam("select")String select,HttpServletRequest request) {			
+		ModelAndView mv = new ModelAndView();
+		RealClass realClass = new RealClass();
+		realClass.setRealClassCategory(category);
+		realClass.setRealClassNum(realClassNum);
+		realClass.setRealPersonNum(realClassPersonNum);
+		List<RealClass> realCLassList = new ArrayList<RealClass>();
+		realCLassList.add(realClass);
+		try {
+			iAdminService.addRealClass(realCLassList);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv = readRealClass();
+		return mv;
+	}
 }
