@@ -82,10 +82,11 @@ public interface ITeacherDao {
 
 	/**
 	 *@author LiMing
+	 * @param realClassNum 
 	 * @return
 	 * 查询所有实体班级
 	 */
-	public List<RealClass> readRealClass();
+	public List<RealClass> readRealClass(@Param(value="realClassNum")String realClassNum);
 	
 	/**
 	 *@author LiMing

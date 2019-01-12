@@ -52,7 +52,8 @@ public class WxTeacherController {
 	 * @param password
 	 */
 	@RequestMapping(value="userLogin")
-	public Map<String, Object> userLogin(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="id",required=false) String userid,@RequestParam(value="password",required=false) String password){
+	public Map<String, Object> userLogin(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="id",required=false) String userid,@RequestParam(value="password",required=false) String password)
+	{
 		try {
 			request.setCharacterEncoding("utf-8");
 		} catch (UnsupportedEncodingException e1) {
@@ -177,7 +178,6 @@ public class WxTeacherController {
 			virtualClass.setCreatorId("1");
 			virtualClass.setCourseId(request.getParameter("courseId"));
 			virtualClass.setCreateTime(new Timestamp(System.currentTimeMillis()));
-			virtualClass.setVirtualClassDetail(request.getParameter("virtualClassDetail"));
 			virtualClass.setTerm(request.getParameter("term"));
 			String realClassNumstr = request.getParameter("realClassNums");//====================error
 			String[] realClassNums = null;
@@ -263,7 +263,6 @@ public class WxTeacherController {
 			virtualClass.setVirtualClassName(request.getParameter("virtualClassName"));
 			virtualClass.setCreatorId("1");
 			virtualClass.setCourseId(request.getParameter("courseId"));
-			virtualClass.setVirtualClassDetail(request.getParameter("virtualClassDetail"));
 			virtualClass.setTerm(request.getParameter("term"));
 			String[] realClassNums = request.getParameter("realClassNums").split(",");
 			teacherService.createVirtualClass(virtualClass); // 创建班级
@@ -401,4 +400,5 @@ public class WxTeacherController {
 		}
 		return ret;
 	}
+
 }

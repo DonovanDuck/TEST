@@ -41,5 +41,5 @@ public class RealClass {
 		this.realClassCategory = realClassCategory;
 		this.realPersonNum = realPersonNum;
 	}
-
+	
 }
