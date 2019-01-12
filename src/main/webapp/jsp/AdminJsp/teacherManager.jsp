@@ -177,8 +177,7 @@ function getRowValue(element){
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form class="form-inline" id="form_excel" name="form_excel"
-								role="form" action="${pageContext.request.contextPath}/admin/updateTeacher" method="post">
+						<form role="form" action="${pageContext.request.contextPath}/admin/updateTeacher" method="get">
 							<div class="form-group">
 								<label for="teacherId" class="control-label">教师工号</label> 
 								<input type="text" class="form-control" id="teacherId" name="teacherId">

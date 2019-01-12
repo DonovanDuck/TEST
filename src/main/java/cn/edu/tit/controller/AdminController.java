@@ -332,19 +332,17 @@ public class AdminController {
 	@RequestMapping(value="updateTeacher",method= {RequestMethod.GET})
 	public ModelAndView updateTeacher( @RequestParam("teacherId")String teacherId,@RequestParam("teacherName")String teacherName,@RequestParam("select")String select,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
-		RealClass realClass = new RealClass();
-		realClass.setRealClassCategory(category);
-		realClass.setRealClassNum(realClassNum);
-		realClass.setRealPersonNum(realClassPersonNum);
-		List<RealClass> realCLassList = new ArrayList<RealClass>();
-		realCLassList.add(realClass);
+		Teacher teacher = new Teacher();
+		teacher.setEmployeeNum(teacherId);
+		teacher.setTeacherName(teacherName);
+		teacher.setTeacherGender(select);
+		System.out.println(teacher.toString()+"~~~~~~~~~~");
 		try {
-			iAdminService.addRealClass(realCLassList);
+			iTeacherService.UpdateTeacher(teacher);
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mv = readRealClass();
+		mv = readTeacherInfo();
 		return mv;
 	}
 }
