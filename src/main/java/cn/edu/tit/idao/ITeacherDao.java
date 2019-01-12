@@ -107,4 +107,23 @@ public interface ITeacherDao {
 	 */
 	public Course readCourseByCourseId(String courseId);
 	
+	/**
+	 * 根据学生的自然班级号查虚拟班级号
+	 * @return
+	 */
+	public List<String> getVirtualNumByreal(String realClassNum);
+	/**
+	 * 根据虚拟班号查虚拟班
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public VirtualClass getVirtualById(String virtualClassNum);
+	
+	/**
+	 * 通过学生id获取自然班级号
+	 * @param studentId
+	 * @return
+	 */
+	public String getrealClassNumBySid(String studentId);
+	
 }

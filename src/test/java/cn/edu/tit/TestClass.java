@@ -15,11 +15,12 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
+import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.DateConverter;
 import cn.edu.tit.idao.IResourceDao;
 import cn.edu.tit.idao.ITeacherDao;
+import cn.edu.tit.iservice.ITeacherService;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"}) 
@@ -31,6 +32,8 @@ public class TestClass {
 	private Common common;
 	@Resource
 	private ITeacherDao teacherDao;
+	@Resource
+	private ITeacherService t;
 	
 	@Test
 	public void addResourceToLib(){
@@ -66,14 +69,9 @@ public class TestClass {
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
-//		System.out.println(d.convert(null, nousedate));
-		try {
-			System.out.println(teacherDao.teacherLoginByEmployeeNum("1"));
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		System.out.println(teacherDao.getrealClassNumBySid("561"));
 	}
+	
 	
 //	@Test
 //	public void searchResourceList(){

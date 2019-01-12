@@ -133,11 +133,14 @@ public  class  Common {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static Object[] fileFactory(HttpServletRequest request) {
+	public static Object[] fileFactory(HttpServletRequest request, String id) {
 		try {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
 			String path = readProperties("path");
+			if(!"".equals(id) || id != null){
+				path +="/"+id;
+			}
 			// 创建工厂
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
@@ -145,10 +148,18 @@ public  class  Common {
 			List<FileItem> items = upload.parseRequest(request);// 得到所有的文件
 			for (FileItem fi : items) {
 				if (!fi.isFormField()) { // 判断是否是普通表单字段
-					String fileName = fi.getName();
+					String suffix = fi.getName().substring(fi.getName().lastIndexOf(".")+1); // 获取文件后缀
+					String fileName = uuid()+"."+suffix; // 使用随机码作为文件名避免重名
 					if (fileName != null) {
-						File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
+						File fullFile = new File(new String(fileName.getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
 						File savedFile = new File(path, fullFile.getName()); // 为文件设置存储路径
+						// 文件夹不存在时创建文件夹
+						File fileParent = savedFile.getParentFile();  
+						if(!fileParent.exists()){  
+						    fileParent.mkdirs();  
+						}  
+						savedFile.createNewFile();
+						
 						fi.write(savedFile); // 存储文件
 						returnFileList.add(savedFile); // 保存要返回的文件集合
 					}

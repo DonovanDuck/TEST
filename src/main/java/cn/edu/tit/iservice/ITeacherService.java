@@ -328,4 +328,18 @@ public interface ITeacherService {
 	 */
 	public List<Term> readTerm()throws Exception;
 	
+	/**
+	 * 通过学生的自然班级号查其所在的虚拟班级
+	 * @param realClassNum
+	 * @return
+	 */
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum);
+	
+	/**
+	 * 通过学生id获取自然班级号
+	 * @param studentId
+	 * @return
+	 */
+	public String getrealClassNumBySid(String studentId);
+	
 }

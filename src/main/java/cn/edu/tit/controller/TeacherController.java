@@ -41,11 +41,7 @@ import com.alibaba.fastjson.JSONObject;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
-<<<<<<< HEAD
 import cn.edu.tit.bean.RealClass;
-=======
-import cn.edu.tit.bean.Student;
->>>>>>> donovan
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
@@ -205,28 +201,25 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="createCourse")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false) String[] teachers){
+	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false)String[] teachers){
 		try {
-			System.out.println("qingqiu===========================================================================s");
-			//MultipartHttpServletRequest mrquest = (MultipartHttpServletRequest)request;
-			MultipartResolver resolver = new CommonsMultipartResolver(request.getSession().getServletContext());
-	        MultipartHttpServletRequest mrquest = resolver.resolveMultipart(request);
-	        
-			MultipartFile m = mrquest.getFile("faceImg");
-			//将文件存储到指定路径
-			Common.springFileUpload(request);
+			String courseId = Common.uuid();
+			Object[] obj = Common.fileFactory(request,courseId);
+			List<File> files = (List<File>) obj[0];	// 获取课程图片
+			Map<String, Object> formdata = (Map<String, Object>) obj[1]; // 获取课程内容
 			//封装课程类
 			Course course = new Course();
-			String courseId = Common.uuid();
 			course.setCourseId(courseId);
-			course.setCourseName(mrquest.getParameter("courseName"));
-			course.setCourseDetail(mrquest.getParameter("courseDetail"));
-			course.setCourseCategory(Integer.parseInt(mrquest.getParameter("courseCategory")));
+			course.setCourseName((String)formdata.get("courseName"));
+			course.setCourseDetail((String)formdata.get("courseDetail"));
+			course.setCourseCategory((String)formdata.get("courseCategory"));
 			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
 			course.setPublishTime(publishTime);
-			String employeeNum = mrquest.getParameter("publisherId");
+			String employeeNum = (String)formdata.get("publisherId");
 			course.setPublisherId(employeeNum);
-			course.setFaceImg(Common.readProperties("path")+"/"+m.getOriginalFilename());
+			for(File f : files){ // 集合中只有一张图片
+				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+			}
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
@@ -242,6 +235,82 @@ public class TeacherController {
 			return null;
 		}
 		
+	}
+	
+	
+
+	/**
+	 * 修改课程
+	 * @return
+	 */
+	@RequestMapping(value="modifyCourse")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public ModelAndView modifyCourse(HttpServletRequest request,@RequestParam(value = "courseId", required = false) String courseId, @RequestParam(value = "teacher", required = false) String[] teachers){
+		try {
+			Object[] obj = Common.fileFactory(request,courseId);
+			List<File> files = (List<File>) obj[0];	// 获取课程图片
+			Map<String, Object> formdata = (Map<String, Object>) obj[1]; // 获取课程内容
+			//封装课程类
+			Course course = new Course();
+			course.setCourseId(courseId);
+			course.setCourseName((String)formdata.get("courseName"));
+			course.setCourseDetail((String)formdata.get("courseDetail"));
+			course.setCourseCategory((String)formdata.get("courseCategory"));
+			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+			course.setPublishTime(publishTime);
+			String employeeNum = (String)formdata.get("publisherId");
+			course.setPublisherId(employeeNum);
+			for(File f : files){
+				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+			}
+			teacherService.updateCourse(course); // 修改课程
+			/*teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
+			//通过课程id和获取教师圈的id集合绑定教师到课程
+			if(teachers != null){
+				for(int i = 0; i < teachers.length; i++){
+					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
+				}
+			}*/
+			return toCourseSecond(request);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+	/**
+	 * 跳转到修改课程页面
+	 * @param request
+	 * @param courseId
+	 * @return
+	 */
+	@RequestMapping(value="toModifyCourse/{courseId}")
+	public ModelAndView toModifyCourse(HttpServletRequest request, @PathVariable String courseId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			// 查出课程信息
+			Course course = teacherService.getCourseById(courseId);
+			if(course != null){
+				/*String employeeNum = (String)request.getSession().getAttribute("employeeNum"); //从session中获取教师工号
+				if(employeeNum == null){
+					mv.addObject("readResult", "请先登录");//返回信息
+					mv.setViewName("/jsp/Teacher/index");//设置返回页面
+					return mv;
+				}*/
+				//查找所有系部列表
+				List<Category> categoryList =  teacherService.readCategory();
+				mv.addObject("categoryList",categoryList);
+				mv.addObject("course",course);
+				mv.setViewName("jsp/Teacher/modifyCourse");
+			}
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
 	}
 	
 	/**
@@ -264,19 +333,13 @@ public class TeacherController {
 	@RequestMapping(value="publishTask")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishTask(HttpServletRequest request) {
-		Object[] obj = Common.fileFactory(request);
+		String taskId =  Common.uuid();	//设置任务id
+		Object[] obj = Common.fileFactory(request,taskId);
 		Map<String, Object> formdata = (Map<String, Object>) obj[1];
 		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
-		
-		// 转换request，解析出request中的文件
-        MultipartHttpServletRequest multipartRequest = (MultipartHttpServletRequest) request;
-        // 获取文件map集合
-        Map<String, MultipartFile> fileMap = multipartRequest.getFileMap();
-		
 		// 创建list集合用于获取文件上传返回路径名
         List<String> list = new ArrayList<String>();
         List<Accessory> accessories  = new ArrayList<Accessory>();
-		String taskId =  Common.uuid();	//设置任务id
 		Task task=new Task();
 		task.setTaskId(taskId);
 		task.setTaskTitle((String) formdata.get("taskTitle"));
