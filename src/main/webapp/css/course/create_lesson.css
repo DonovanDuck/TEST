@@ -1,0 +1,128 @@
+*{
+    margin: 0 auto;
+    padding:0;
+}
+a{
+    text-decoration: none;
+}
+li{
+    list-style: none;
+}
+.clear{
+    clear: both;
+}
+/*-------------------------------------header---------------------------------------------*/
+.header{
+    width: 80%;
+    height: 80px;
+    background: lightblue;
+    float: left;
+}
+/*-------------------------------------main---------------------------------------------*/
+.main{
+    width: 80%;
+    float: left;
+    background: #f2f2f2;
+    margin-top:3%;
+    margin-left:10%;
+}
+.main .input1{
+    width: 60%;
+    float: left;
+    margin-left: 20%;
+    margin-top: 3%;
+}
+.main .input1 span{
+    font-weight: bold;
+    font-size: 20px;
+    float: left;
+    margin-left: 8%;
+}
+.main .input3{
+    width: 60%;
+    float: left;
+    margin-left: 20%;
+    margin-top: 2%;
+}
+.main .input3 span{
+    font-weight: bold;
+    font-size: 20px;
+    float: left;
+    margin-left: 8%;
+}
+.teacher-friend span{
+    font-weight: bold;
+    font-size: 20px;
+    float: left;
+    margin-left: 8%;
+}
+.main .input3 select{
+    width: 40%;
+    height: 30px;
+    float: left;
+    margin-left: 2%;
+}
+
+.main .teacher-friend{
+    width: 60%;
+    margin-left:20%;
+    float:left;
+    /*height: 200px;*/
+    /*background: wh/ite;*/
+    /*border: 1px solid #b9b9b9;*/
+    margin-top: 3%;
+}
+.main .teacher-friend h3{
+    margin-left:8%;
+}
+.friend{
+    width: 79%;
+    margin-left: 8%;
+    float: left;
+    /*height: 100px;*/
+    background: white;
+    border: 1px solid #b9b9b9;
+    margin-top: 2%;
+    padding: 1%;
+}
+
+.add{
+    padding-left: 4%;
+    padding-right: 4%;
+    font-size: 18px;
+    float: right;
+    margin-right: 5%;
+}
+
+.create{
+    padding-left: 4%;
+    padding-right: 4%;
+    height: 30px;
+    font-size: 18px;
+    float: left;
+    margin-left: 0;
+}
+.delete{
+    padding-left: 4%;
+    padding-right: 4%;
+    height: 30px;
+    font-size: 18px;
+    float: right;
+    margin-right: 8%;
+}
+.button{
+    width: 46%;
+    float: left;
+    margin-left:27%;
+    margin-top: 2%;
+    margin-bottom: 2%;
+    /*background: deepskyblue;*/
+}
+/*-------------------------------------footer---------------------------------------------*/
+.footer{
+    width: 80%;
+    height: 80px;
+    float: left;
+    background: lightblue;
+    margin-top: 1%;
+}

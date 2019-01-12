@@ -13,6 +13,9 @@
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="student_note" property="studentNote" />
+		<result column="student_category" property="studentCategory" />
 	</resultMap>
 	
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">

@@ -40,7 +40,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping(value="/toTeacherResource/{courseId}")
-	public String toTeacherResource(HttpServletRequest request, @PathVariable Integer courseId){
+	public String toTeacherResource(HttpServletRequest request, @PathVariable String courseId){
 		try {
 			request.setAttribute("courseId", courseId);
 		} catch (Exception e) {
@@ -54,7 +54,7 @@ public class ResourceController {
 	 * @return
 	 */
 	@RequestMapping(value="/toTaskResource/{courseId}/{taskType}")
-	public String toTaskResource(HttpServletRequest request, @PathVariable Integer courseId, @PathVariable String taskType){
+	public String toTaskResource(HttpServletRequest request, @PathVariable String courseId, @PathVariable String taskType){
 		try {
 			//通过课程id查询对应类型资源
 			Object[] obj = resourceService.showTaskByTypeAndCId(taskType, courseId);
@@ -68,7 +68,7 @@ public class ResourceController {
 	}
 	
 	@RequestMapping(value="toTeachResource/{courseId}/{resourceTypeId}")
-	public String toTeachResource(HttpServletRequest request,  @PathVariable Integer courseId,@PathVariable Integer resourceTypeId){
+	public String toTeachResource(HttpServletRequest request,  @PathVariable String courseId,@PathVariable Integer resourceTypeId){
 		try {
 			//通过课程id查询对应类型资源
 			Object[] obj = resourceService.showResourceByTypeAndCId(resourceTypeId, courseId);
