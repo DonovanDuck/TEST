@@ -27,7 +27,7 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public List<Resource> showResourceByCourse(Integer courseId) {
+	public List<Resource> showResourceByCourse(String courseId) {
 		// 调用dao层方法
 		return resourceDao.searchResourceByCourse(courseId);
 	}
@@ -57,7 +57,7 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public Object[] showTaskByTypeAndCId(String taskType, Integer courseId) {
+	public Object[] showTaskByTypeAndCId(String taskType, String courseId) {
 		// 获取相应类型的资源
 		List<Task> taskList = resourceDao.searchTaskByTypeAndCid(taskType, courseId);
 		List<String> teacherNames = new ArrayList<>(); // 任务对应教师姓名集合
@@ -70,7 +70,7 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, Integer courseId) {
+	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, String courseId) {
 		// 获取相应类型的资源
 				List<Resource> resourceList = resourceDao.searchResourceByTypeAndCid(resourceTypeId, courseId);
 				List<String> teacherNames = new ArrayList<>(); // 任务对应教师姓名集合

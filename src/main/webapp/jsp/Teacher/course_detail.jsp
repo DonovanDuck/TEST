@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title>课程三级页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Course/lesson3.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/lesson3.css"/>
     <!--head-->
     <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Course/common.css">
@@ -53,7 +53,7 @@
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" target="target">课程介绍</a></li>
                     <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${courseId}" target="target">资源</a></li>
-                    <li><a href="${pageContext.request.contextPath}/jsp/Teacher/class.jsp" target="target">开课班级</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacher/teacherClassList/${courseId }" target="target">开课班级</a></li>
                 </ul>
             </nav>
         </div>

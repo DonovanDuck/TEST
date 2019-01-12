@@ -41,7 +41,7 @@
 	</insert>
 	
 	<!-- 按班级查询资源 -->	
-	<select id="searchResourceByCourse" parameterType="java.lang.Integer" resultMap="resource">
+	<select id="searchResourceByCourse" parameterType="java.lang.String" resultMap="resource">
 		select * from resource where course_id = #{courseId} order by publish_time DESC;
 	</select>
 	

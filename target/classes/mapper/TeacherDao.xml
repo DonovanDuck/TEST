@@ -267,14 +267,19 @@
 		#{virtualClassPersonNum}
 		);
 	</insert>
-
-	<select id="virtualsForCourse" parameterType="java.lang.Integer"
+	
+	<select id="virtualsForCourse" parameterType="java.lang.String"
 		resultMap="virtualClassMap">
 		select * from virtual_class where
 		course_id =
 		#{courseId}
 	</select>
-
+	<select id="virtualsForCourseBycreatorId" 
+		resultMap="virtualClassMap">
+		select * from virtual_class where
+		course_id =#{courseId} and creator_id = #{ceatorId}
+	</select>
+	
 	<insert id="mapVirtualRealClass">
 		insert into real_virtual_class (real_class_num,
 		virtual_class_num) values (
@@ -347,7 +352,7 @@
 
 	<select id="searchTaskId" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		select * from class_task where virtual_class_num =
+		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
 	</select>
 

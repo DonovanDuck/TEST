@@ -174,6 +174,12 @@ public class TeacherTest {
 		//		for (RealClass realClass : rl) {
 		//			System.out.println(realClass.toString());
 	}
+	@Test
+	public void  timeTest() {
+		String time = "2019-01-12 13:29:03.666";
+		System.out.println(Timestamp.valueOf(time));
+		
+	}
 }
 
 

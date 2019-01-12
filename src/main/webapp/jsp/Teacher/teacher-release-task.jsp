@@ -18,7 +18,7 @@
     <div class="main_m">
         <nav>
             <ul>
-                <li><a href="${pageContext.request.contextPath}/jsp/Teacher/teacher-task.jsp">作业</a></li>
+                <li><a href="${pageContext.request.contextPath}/teacher/toPublishTask">作业</a></li>
                 <li><a href="${pageContext.request.contextPath}/jsp/Teacher/teacher-experiment.jsp">实验</a></li>
                 <li><a href="#">课设</a></li>
                 <li><a href="#">翻转</a></li>
@@ -30,35 +30,26 @@
     </div>
     <div class="main_b">
         <div class="text">
+        <form action="${pageContext.request.contextPath}/teacher/publishTask"  enctype="multipart/form-data" method="post">
             <span><strong>题&nbsp;&nbsp;&nbsp;&nbsp;目：</strong></span>
-            <input type="text" placeholder="请输入题目：" style="width: 60%;height: 30px;float: left;">
-            <select>
-                <option value="" selected>第一章</option>
-                <option value="" >第二章</option>
-                <option value="" >第三章</option>
-                <option value="" >第四章</option>
-                <option value="" >第五章</option>
-                <option value="" >第六章</option>
-                <option value="" >第七章</option>
-                <option value="" >第八章</option>
-                <option value="" >第九章</option>
-                <option value="" >第十章</option>
-                <option value="">第十一章</option>
-                <option value="">第十二章</option>
-                <option value="">第十三章</option>
-            </select>
+            <input type="text" name="taskTitle"  placeholder="请输入题目：" style="width: 60%;height: 30px;float: left;">
+         
             <button style="width:10%;height:30px;">资源库选择</button>
             <br> <br>
             <span><strong>任务详情：</strong></span>
-            <input type="text" placeholder="请输入任务详情：" style="width: 80%;height: 200px;float: left;">
+            <input name="taskDetail" type="text" placeholder="请输入任务详情：" style="width: 80%;height: 200px;float: left;">
             <div class="button">
-                <span>发布时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="datetime-local" placeholder=""> </span>
-                <span>截止时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="datetime-local" placeholder=""></span>
+                <span>发布时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input  type="datetime-local" placeholder=""> </span>
+                <span>截止时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="taskEndTime" type="datetime" placeholder=""></span>
                 <br><br>
-                <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: left;">上传附件</button>
+                
+                <input name="file" type="file"  multiple="multiple"  />
+                上传附件
+                
                 <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right; margin-right: 20%;">上传并发布</button>
                 <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right;margin-right: -30%;">定时发布</button>
             </div>
+            </form>
         </div>
     </div>
 </main>

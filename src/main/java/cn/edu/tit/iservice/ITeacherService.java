@@ -59,6 +59,7 @@ public interface ITeacherService {
 	 */
 	public List<Course>	 courseList(List<String> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表
 	
+	
 	/**
 	 * 根据courseid查课程
 	 * @param courseId
@@ -248,6 +249,16 @@ public interface ITeacherService {
 	 * 根据课程查询虚拟班级
 	 */
 	public List<VirtualClass> virtualsForCourse(String courseId )throws Exception;//根据课程查询虚拟班级
+	/**
+	 * @author wenli
+	 * @param courseId
+	 * @param creatorId
+	 * @return
+	 * @throws Exception
+	 * 根据课程和教师id查询虚拟班级
+	 */
+	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId ,String creatorId)throws Exception;//根据课程和教师id查询虚拟班级1
+
 	
 	/**
 	 * 通过courseId查教师圈的老师列表

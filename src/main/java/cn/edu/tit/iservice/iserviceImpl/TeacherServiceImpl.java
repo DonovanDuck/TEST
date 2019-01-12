@@ -648,6 +648,19 @@ public class TeacherServiceImpl implements ITeacherService{
 		
 		return teacherDao.getrealClassNumBySid(studentId);
 	}
+	
+	@Override
+	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId, String creatorId) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.virtualsForCourseBycreatorId(courseId, creatorId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层virtualsForCourseBycreatorId出问题");
+			return null;
+		}
+	}
 
 
 }

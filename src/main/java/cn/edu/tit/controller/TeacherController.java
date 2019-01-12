@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,7 +24,10 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -42,6 +47,7 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -49,6 +55,7 @@ import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
+import cn.edu.tit.iservice.IResourceService;
 import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
 import net.sf.json.JSONArray;
@@ -63,6 +70,8 @@ public class TeacherController {
 	private ITeacherService teacherService;
 	@Autowired
 	private IStudentService studentService;
+	@Autowired
+	private IResourceService resourceService;
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
@@ -130,7 +139,10 @@ public class TeacherController {
 			Course course = teacherService.getCourseById(courseId);
 			// 查询教师圈教师信息
 			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
-			request.setAttribute("course", course);
+			
+			request.getSession().setAttribute("course", course);
+			Course course2 = (Course) request.getSession().getAttribute("course");
+			System.out.println(course2.getCourseId());
 			request.setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -282,7 +294,7 @@ public class TeacherController {
 	}
 	
 	/**
-	 * 跳转到课程详细模块
+	 * 跳转到课程简介详细模块
 	 * @param request
 	 * @param courseId
 	 * @return
@@ -298,7 +310,6 @@ public class TeacherController {
 		}
 		return "jsp/Teacher/lesson-introduce";
 	}
-
 	/**
 	 * 创建课程
 	 * @return
@@ -427,7 +438,20 @@ public class TeacherController {
 		System.out.println(request.getParameter(""));
 		return null;
 	}*/
-	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 去添加任务页面
+	 */
+	@RequestMapping(value="toPublishTask")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String toPublishTask(HttpServletRequest request) {
+		Course course;
+		course = (Course) request.getSession().getAttribute("course");
+		request.getSession().setAttribute("courseId", course.getCourseId());
+		return "/jsp/Teacher/teacher-release-task";
+	}
 	/**
 	 * @author wenli
 	 * @param request
@@ -444,21 +468,24 @@ public class TeacherController {
 		// 创建list集合用于获取文件上传返回路径名
         List<String> list = new ArrayList<String>();
         List<Accessory> accessories  = new ArrayList<Accessory>();
+        List<Resource> resources = new ArrayList<Resource>();
 		Task task=new Task();
 		task.setTaskId(taskId);
 		task.setTaskTitle((String) formdata.get("taskTitle"));
 		task.setTaskDetail((String) formdata.get("taskDetail"));
-		task.setTaskEndTime((Timestamp) formdata.get("taskEndTime"));
+		task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
 		task.setTaskType((String) formdata.get("taskType"));
-		task.setPublisherId((String) formdata.get("publisherId"));
+		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
-		task.setVirtualClassNum((String) formdata.get("virtualClassNum"));
-		String status =  (String) formdata.get("status");
-		task.setStatus(Integer.parseInt(status));
+		task.setVirtualClassNum((String) request.getSession().getAttribute("virtualClassNum"));
+		task.setCourseId((String) request.getSession().getAttribute("courseId"));
+	
+		task.setStatus(0);
 
 		try {
 			teacherService.createTask(task);		//创建任务
 			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -470,16 +497,28 @@ public class TeacherController {
 			accessory.setTaskId(taskId);
 			accessory.setAccessoryTime(Common.TimestamptoString());
 			accessories.add(accessory);
+			Resource resource = new Resource();
+			resource.setResourceId(Common.uuid());
+			resource.setResourceName(file.getName());
+			resource.setResourceDetail(null);
+			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+			resource.setResourceTypeId(8);//需要判断文件类型
+			resource.setResourcePath(file.getPath());
+			resource.setCourseId((String) request.getSession().getAttribute("courseId"));
+			resource.setSize(file.length()/1024.0+"KB");
+			resources.add(resource);
 		}
-
 
 		try {
 			teacherService.addAccessory(accessories);	//添加任务附件
+			resourceService.upLoadResource(resources);//添加资源
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		return "/jsp/Teacher/publishTask";
+		request.getSession().removeAttribute("courseId");
+		return "redirect:/teacher/toPublishTask";
 
 	}
 
@@ -510,6 +549,7 @@ public class TeacherController {
 	@RequestMapping(value="teacherClassList/{courseId}",method= {RequestMethod.GET})
 	public ModelAndView teacherClassList(@PathVariable String courseId) {
 		ModelAndView mv = new ModelAndView();
+		System.out.println(courseId+"dsfghjkljhgfds");
 		List<VirtualClass> virtualClassList = null;
 		try {
 			virtualClassList = teacherService.virtualsForCourse(String.valueOf(courseId));//根据课程ID显示该课程所带班级
@@ -522,23 +562,29 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
 	}
-	@RequestMapping(value="teacherTaskList",method= {RequestMethod.GET})
-	public ModelAndView teacherTaskList(HttpServletRequest request) {
+	@RequestMapping(value="teacherTaskList/{virtualClassNum}",method= {RequestMethod.GET})
+	public ModelAndView teacherTaskList(HttpServletRequest request ,@PathVariable String virtualClassNum) {
 		ModelAndView mv = new ModelAndView();
 		List<String> taskIdList;
 		List<Task> taskList;
 		String readResult =null;
 		Integer point=0;
+		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
 		try {
-			taskIdList = teacherService.searchTaskId("E56FE27F03344091BE8BDD698426EC22");//根据虚拟班级号获得任务列表
-			taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
-			for (Task task : taskList) {
-				point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
-				task.setTaskPoint(point);
+			taskIdList = teacherService.searchTaskId(virtualClassNum);//根据虚拟班级号获得任务列表
+			if(!taskIdList.isEmpty()) {
+				taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
+				for (Task task : taskList) {
+					point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+					task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
+					task.setTaskPoint(point);
+				}
+				mv.addObject("taskList", taskList);
+			}else {
+				mv.addObject("taskList", null);
 			}
-			mv.addObject("taskList", taskList);
 			mv.addObject("readResult", readResult);
-			mv.setViewName("/jsp/Teacher/classTask");
+			mv.setViewName("/jsp/Teacher/teacher-task");
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -740,7 +786,28 @@ public class TeacherController {
 		}
 		return "ok";
 	}
-
-
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
+	 */
+	@RequestMapping("/resourceDownload")
+	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName) throws IOException {
+		
+		System.out.println(fileName);
+	    File file = new File(Common.readProperties("path")+"/"+fileName);
+	    byte[] body = null;
+	    InputStream is = new FileInputStream(file);
+	    body = new byte[is.available()];
+	    is.read(body);
+	    HttpHeaders headers = new HttpHeaders();
+	    headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+	    HttpStatus statusCode = HttpStatus.OK;
+	    ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+	    return entity;
+	}
+	
 
 }

@@ -39,12 +39,10 @@ public class TestClass {
 	public void addResourceToLib(){
 		
 		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
-		cn.edu.tit.bean.Resource r1 = new cn.edu.tit.bean.Resource(common.uuid(), "r1", "1", publishTime, "1", 1, "d", 1,"1","1",1,1);
-		cn.edu.tit.bean.Resource r2 = new cn.edu.tit.bean.Resource(common.uuid(), "r2", "1", publishTime, "1", 1, "d", 1,"1","1",1,1);
+
 		List<cn.edu.tit.bean.Resource> resourceList = new ArrayList<>();
 		System.out.println(publishTime);
-		resourceList.add(r1);
-		resourceList.add(r2);
+
 		resourceDao.addResourceToLib(resourceList);
 	}
 	
