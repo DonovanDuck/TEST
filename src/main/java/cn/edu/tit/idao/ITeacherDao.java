@@ -83,10 +83,11 @@ public interface ITeacherDao {
 
 	/**
 	 *@author LiMing
+	 * @param realClassNum 
 	 * @return
 	 * 查询所有实体班级
 	 */
-	public List<RealClass> readRealClass();
+	public List<RealClass> readRealClass(@Param(value="realClassNum")String realClassNum);
 	
 	/**
 	 *@author LiMing
@@ -107,5 +108,24 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public Course readCourseByCourseId(String courseId);
+	
+	/**
+	 * 根据学生的自然班级号查虚拟班级号
+	 * @return
+	 */
+	public List<String> getVirtualNumByreal(String realClassNum);
+	/**
+	 * 根据虚拟班号查虚拟班
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public VirtualClass getVirtualById(String virtualClassNum);
+	
+	/**
+	 * 通过学生id获取自然班级号
+	 * @param studentId
+	 * @return
+	 */
+	public String getrealClassNumBySid(String studentId);
 	
 }

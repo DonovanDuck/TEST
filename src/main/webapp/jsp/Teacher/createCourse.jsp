@@ -27,6 +27,25 @@
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 
 <%-- <jsp:include page="${pageContext.request.contextPath}/jsp/AdminJsp/Common.jsp" ></jsp:include> --%>
+<style type="text/css">
+	.phoneUl li{
+		list-style-type: none;
+		float:left;
+		width: 67px;
+	}
+	.confirm_close{
+		width: 40%;
+		height: 50px;
+		position: relative;
+		left: 308px;
+		top:-33px;
+	}
+	.confirm_close ul li{
+		list-style-type: none;
+		float:left;
+		margin-left: 170px;
+	}
+</style>
 <script>
 $('#exampleModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
@@ -53,13 +72,39 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					 var arr = eval(result);
 					for(var i = 0; i < arr.length; i++){
 						//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
-						$("#teacher").append("<input type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName);
+						$("#teacher").append("<input id='teacher' type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName);
 					} 
 				}
 			});
 		});
 	});
 </script>
+
+<!-- <script type="text/javascript">
+	$(function(){
+		$("#confirm").click(function(){
+			var checked=$("input:checkbox[name=teacher]:checked").val();
+			for(var i = 0; i < checked.length; i++){
+				alert(check[i].val());
+			}
+			/* $.ajax({
+				async:false,
+				cache:false,
+				url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers/${employeeNum}",
+				type:"POST",
+				dataType:"json",
+				success:function(result) {
+					//alert(result);
+					 var arr = eval(result);
+					for(var i = 0; i < arr.length; i++){
+						//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+						$("#teacher").append("<input type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName);
+					} 
+				}
+			}); */
+		});
+	});
+</script> -->
 
 <script type="text/javascript">
 	$(function(){
@@ -70,6 +115,30 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 			$("#teacherUl").append(" <li id="+"teacher"+">"+"</li>");
 		});
 	});
+</script>
+
+<!-- 图片预加载 -->
+<script>
+//浏览图片
+    function chan(i) {
+        var objUrl = getObjectURL(i.files[0]);
+        if (objUrl) {
+            $("#photos").attr("src", objUrl);  //这里的id是要显示图片位置的Id
+        }
+    };
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null;
+        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    } 
 </script>
 </head>
 <body>
@@ -96,10 +165,16 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
 				</div>
 				<div class="input1">
-					<span>课程图片：</span> <label for="faceImg" style="cursor: pointer"><img
-						src="${pageContext.request.contextPath}/images/add.png" alt=""></label>
-					<input type="file" id="faceImg" style="display: none;"
-						name="faceImg">
+					<ul class="phoneUl">
+					<span style="float: left;" >课程图片：</span> 
+					<label for="faceImg" style="cursor: pointer">
+						<li>
+							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
+								name="faceImg">
+						</li>
+						<li><img id="photos" src="" width="100" height="100" /></li>
+					</label>
+					</ul>
 				</div>
 				<div class="input3">
 					<span>课程分类：</span> <select name="courseCategory" id="category">
@@ -121,19 +196,19 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				
 				<!-- 拟态框star -->
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<ul id="teacherUl" style="list-style-type:none;">
-							<li id="teacher"></li>
-						</ul>
-						<div class="modal-footer">
-							<button id="close" type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary" data-dismiss="modal">确定</button>
+	  					<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<ul id="teacherul" style="list-style-type:none;">
+									<li id="teacher"></li>
+								</ul>
+								<div class="modal-footer">
+									<button id="close" type="button" class="btn btn-default"
+										data-dismiss="modal">关闭</button>
+									<button type="button" id="confirm" class="btn btn-primary" data-dismiss="modal">确定</button>
+								</div>
+							</div>
 						</div>
 					</div>
-				</div>
-</div>
 				<!-- 拟态框end -->
 				
 				<div class="teacher-friend">
@@ -174,15 +249,14 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					</div>
 				</div>
 				<hr>
-				<div class="button">
-					<div class="create">
-							<span style="color: white;"><input type="submit" value="创建课程"></span>
-						</div> <a href="#"><div class="delete">
-							<span style="color: white;">取消</span>
-						</div></a>
-				</div>
 			</form>
 		</div>
+		<div class="confirm_close">
+					<ul>
+						<li><input class="btn btn-default" style="width: 84px;" type="submit" value="创建" /></li>
+						<li><input class="btn btn-default" style="width: 84px;" value="取消" /></li>
+					</ul>
+				</div>
 		<div class="footer">
 			<div class="container">
 

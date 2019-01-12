@@ -91,7 +91,7 @@ public interface ITeacherService {
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#mapVirtualRealClass(java.lang.String, java.lang.String)
-	 * @context  映射虚拟班和自然班
+	 * @context  映射虚拟班和自然班 插入
 	 * @Param1(自然班班号)
 	 * @Param2(虚拟班班号)
 	 */
@@ -308,11 +308,11 @@ public interface ITeacherService {
 	
 	/**
 	 * @author LiMing
-	 * @param employeeNum
-	 * @return
+	 * @param 条件查找的参数
 	 * @throws Exception
+	 * 查找实体班级信息,当参数不为空时，为条件查找,按照班号查找班级信息
 	 */
-	public List<RealClass> readRealClass()throws Exception; 
+	public List<RealClass> readRealClass(String realClassNum)throws Exception; 
 	
 	/**
 	 *@author LiMing
@@ -338,5 +338,19 @@ public interface ITeacherService {
 	 *读取学期
 	 */
 	public List<Term> readTerm()throws Exception;
+	
+	/**
+	 * 通过学生的自然班级号查其所在的虚拟班级
+	 * @param realClassNum
+	 * @return
+	 */
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum);
+	
+	/**
+	 * 通过学生id获取自然班级号
+	 * @param studentId
+	 * @return
+	 */
+	public String getrealClassNumBySid(String studentId);
 	
 }
