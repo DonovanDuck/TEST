@@ -333,9 +333,7 @@ public class AdminController {
 	public ModelAndView updateTeacher( @RequestParam("teacherId")String teacherId,@RequestParam("teacherName")String teacherName,@RequestParam("select")String select,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		RealClass realClass = new RealClass();
-		realClass.setRealClassCategory(category);
-		realClass.setRealClassNum(realClassNum);
-		realClass.setRealPersonNum(realClassPersonNum);
+	
 		List<RealClass> realCLassList = new ArrayList<RealClass>();
 		realCLassList.add(realClass);
 		try {

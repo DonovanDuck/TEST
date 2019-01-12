@@ -17,7 +17,7 @@ public interface IResourceService {
 	 * @param categoryId
 	 * @return
 	 */
-	public List<Resource> showResourceByCourse(Integer courseId);
+	public List<Resource> showResourceByCourse(String courseId);
 	
 	/**
 	 * 按资源类型查询
@@ -53,7 +53,7 @@ public interface IResourceService {
 	 * @param courseId
 	 * @return
 	 */
-	public Object[] showTaskByTypeAndCId(String taskType, Integer courseId);
+	public Object[] showTaskByTypeAndCId(String taskType, String courseId);
 	
 	/**
 	 * 通过课程id查询相应类型的教学资源
@@ -61,7 +61,7 @@ public interface IResourceService {
 	 * @param courseId
 	 * @return
 	 */
-	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, Integer courseId);
+	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, String courseId);
 	
 	/**
 	 * 发布资源到班级

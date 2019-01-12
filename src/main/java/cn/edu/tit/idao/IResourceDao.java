@@ -21,7 +21,7 @@ public interface IResourceDao {
 	 * @param categoryId
 	 * @return
 	 */
-	public List<Resource> searchResourceByCourse(Integer courseId);
+	public List<Resource> searchResourceByCourse(String courseId);
 	
 	/**
 	 * 按资源类型查询课程
@@ -78,7 +78,7 @@ public interface IResourceDao {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Task> searchTaskByTypeAndCid(@Param("taskType")String taskType, @Param("courseId")Integer courseId);
+	public List<Task> searchTaskByTypeAndCid(@Param("taskType")String taskType, @Param("courseId")String courseId);
 	
 	/**
 	 * 通过课程id查询相应类型的教学资源
@@ -86,6 +86,6 @@ public interface IResourceDao {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Resource> searchResourceByTypeAndCid(@Param("resourceTypeId")Integer resourceTypeId, @Param("courseId")Integer courseId);
+	public List<Resource> searchResourceByTypeAndCid(@Param("resourceTypeId")Integer resourceTypeId, @Param("courseId")String courseId);
 	
 }

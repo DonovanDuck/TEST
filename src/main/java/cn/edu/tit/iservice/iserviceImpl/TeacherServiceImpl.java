@@ -384,17 +384,19 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-	
+	try{
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
+			if(teacher != null)
 			System.out.println(teacher.toString());
-			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
-//			return null;
-//		}
+			
+			return teacher;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
+			return null;
+		}
 	}
 
 	@Override
@@ -488,8 +490,15 @@ public class TeacherServiceImpl implements ITeacherService{
 
 	@Override
 	public List<Teacher> getTeachers() {
+		try {
+			List<Teacher> teachers = teacherDao.getTeacher();
+			return teachers;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
 		
-		return teacherDao.getTeacher();
 	}
 
 	/**
@@ -613,7 +622,42 @@ public class TeacherServiceImpl implements ITeacherService{
 			return taskList;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			System.out.println("teacherTaskAssortmentList-------持久层执行失败");
+			return null;
+		}
+	}
+
+	@Override
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum) {
+		// 根据学生的自然班级号查询班级号
+		List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
+		List<VirtualClass> virtualClasses = new ArrayList<>();
+		if(virtualClassNums != null){
+			// 根据虚拟班号获取虚拟班集合
+			for(String vNum : virtualClassNums){
+				virtualClasses.add(teacherDao.getVirtualById(vNum));
+			}
+		}
+		return virtualClasses;
+	}
+
+	@Override
+	public String getrealClassNumBySid(String studentId) {
+		// TODO Auto-generated method stub
+		
+		return teacherDao.getrealClassNumBySid(studentId);
+	}
+	
+	@Override
+	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId, String creatorId) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.virtualsForCourseBycreatorId(courseId, creatorId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层virtualsForCourseBycreatorId出问题");
 			return null;
 		}
 	}

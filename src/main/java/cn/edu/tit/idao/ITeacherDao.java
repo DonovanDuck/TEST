@@ -37,6 +37,7 @@ public interface ITeacherDao {
 	public Teacher teacherLoginByTelephone(String telephone)throws Exception;	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email)throws Exception;	//通过邮件登录教师
 	public List<VirtualClass> virtualsForCourse(String courseId )throws Exception;//根据课程查询虚拟班级1
+	public List<VirtualClass> virtualsForCourseBycreatorId(@Param("courseId")String courseId ,@Param("creatorId")String creatorId)throws Exception;//根据课程和教师id查询虚拟班级1
 	public void createSignIn(@Param("taskId")String taskId,@Param("signPoint")String signPoint)throws Exception;	//wei实现
 	public Integer getSignPoint()throws Exception; // 获取签到的信息
 	public void UpdateTeacher(Teacher teacher)throws Exception;
@@ -107,5 +108,24 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public Course readCourseByCourseId(String courseId);
+	
+	/**
+	 * 根据学生的自然班级号查虚拟班级号
+	 * @return
+	 */
+	public List<String> getVirtualNumByreal(String realClassNum);
+	/**
+	 * 根据虚拟班号查虚拟班
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public VirtualClass getVirtualById(String virtualClassNum);
+	
+	/**
+	 * 通过学生id获取自然班级号
+	 * @param studentId
+	 * @return
+	 */
+	public String getrealClassNumBySid(String studentId);
 	
 }

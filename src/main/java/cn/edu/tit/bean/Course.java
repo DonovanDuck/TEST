@@ -8,7 +8,7 @@ public class Course {
 	private String courseId; // 课程id
 	private String courseName; // 课程名
 	private String courseDetail; // 课程描述
-	private Integer courseCategory; // 课程所属系部
+	private String courseCategory; // 课程所属系部
 	private String publisherId; //发布者id 
 	private Timestamp publishTime; // 创建时间
 	private String faceImg; // 课程图标
@@ -33,10 +33,10 @@ public class Course {
 	public void setCourseDetail(String courseDetail) {
 		this.courseDetail = courseDetail;
 	}
-	public Integer getCourseCategory() {
+	public String getCourseCategory() {
 		return courseCategory;
 	}
-	public void setCourseCategory(Integer courseCategory) {
+	public void setCourseCategory(String courseCategory) {
 		this.courseCategory = courseCategory;
 	}
 	public String getPublisherId() {
@@ -69,14 +69,13 @@ public class Course {
 	public void setCourseStudentNum(Integer courseStudentNum) {
 		this.courseStudentNum = courseStudentNum;
 	}
-
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
 				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", publishTime=" + publishTime
 				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum + "]";
 	}
-	public Course(String courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
+	public Course(String courseId, String courseName, String courseDetail, String courseCategory, String publisherId,
 			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum) {
 		super();
 		this.courseId = courseId;
@@ -93,6 +92,7 @@ public class Course {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 }

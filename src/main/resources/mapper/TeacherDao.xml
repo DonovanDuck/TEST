@@ -238,6 +238,11 @@
 		<result column="virtual_class_name" property="virtualClassName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
+		<result column="course_id" property="courseId" />
+		<result column="face_img" property="faceImg" />
+		<result column="term" property="term" />
+		<result column="class_student_num" property="classStudentNum" />
+		
 	</resultMap>
 
 	<insert id="createVirtualClass"
@@ -262,14 +267,19 @@
 		#{virtualClassPersonNum}
 		);
 	</insert>
-
-	<select id="virtualsForCourse" parameterType="java.lang.Integer"
+	
+	<select id="virtualsForCourse" parameterType="java.lang.String"
 		resultMap="virtualClassMap">
 		select * from virtual_class where
 		course_id =
 		#{courseId}
 	</select>
-
+	<select id="virtualsForCourseBycreatorId" 
+		resultMap="virtualClassMap">
+		select * from virtual_class where
+		course_id =#{courseId} and creator_id = #{ceatorId}
+	</select>
+	
 	<insert id="mapVirtualRealClass">
 		insert into real_virtual_class (real_class_num,
 		virtual_class_num) values (
@@ -342,7 +352,7 @@
 
 	<select id="searchTaskId" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		select * from class_task where virtual_class_num =
+		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
 	</select>
 
@@ -418,5 +428,20 @@
 	<!-- 获取所有教师 -->
 	<select id="getTeacher" resultMap="teacherMap">
 		select * from teacher
+	</select>
+	
+	<!-- 根据学生的自然班级号查虚拟班级号 -->
+	<select id="getVirtualNumByreal" parameterType="String" resultType="String">
+		select virtual_class_num from real_virtual_class where real_class_num = #{realClassNum};
+	</select>
+	
+	<!-- 根据虚拟班号查虚拟班 -->
+	<select id="getVirtualById" parameterType="String" resultMap="virtualClassMap">
+		select * from virtual_class where virtual_class_num = #{virtualClassNum};
+	</select>
+	
+	<!-- 通过学生id获取自然班级号 -->
+	<select id="getrealClassNumBySid" parameterType="String" resultType="String">
+		select real_class_num from student where student_id = #{studentId};
 	</select>
 </mapper>

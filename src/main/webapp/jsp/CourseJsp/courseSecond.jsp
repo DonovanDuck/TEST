@@ -36,7 +36,6 @@
 		});
 	});
 
-	alert($("#imge")[0].src);
 </script>
 </head>
 <body class="body">
@@ -65,10 +64,10 @@
 	<div class="courses" style=" margin-left: 10%">
 		<c:forEach items="${courseList }" var="courseListItems"
 			varStatus="status">
-			<a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseListItems.courseId }">
+			<a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
 				<div class="course" >
-					<img  id="imge" src="${pageContext.request.contextPath}/teacher/picShow/${courseListItems.faceImg }"
-						alt="" style="margin-left: 7%;" />
+				<!--	<img  
+						alt="" style="margin-left: 7%;" src = "${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />  -->
 					<ul class="courseInfo">
 						<li><small>课程名：${courseListItems.courseName }</small></li>
 						<li><small>创建教师：${teacherNames[status.index]}</small></li>
