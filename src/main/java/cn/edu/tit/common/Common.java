@@ -22,6 +22,7 @@ import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -247,6 +248,8 @@ public  class  Common {
 		
 		return stringBuffer.toString();
 	}
-
-
+	public static int fileType(String fileName) {
+		String type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf(".")+1, fileName.length()):null;
+		return 0;
+	} 
 }

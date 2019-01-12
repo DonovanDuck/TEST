@@ -15,7 +15,7 @@ public class Resource {
 	private String publisherId; // 发布者id
 	private int resourceTypeId; // 资源类型
 	private String resourcePath; // 资源存储路径
-	private Integer courseId;// 资源所属课程	
+	private String courseId;// 资源所属课程	
 	private String size; // 资源大小
 	private String timeSize; // 视频资源时长
 	private Integer watchNum; // 查看次数
@@ -65,10 +65,10 @@ public class Resource {
 	public void setResourceType(int resourceTypeId) {
 		this.resourceTypeId = resourceTypeId;
 	}
-	public Integer getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
-	public void setCourseId(Integer courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	public int getResourceTypeId() {
@@ -115,20 +115,9 @@ public class Resource {
 				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", size=" + size
 				+ ", timeSize=" + timeSize + ", watchNum=" + watchNum + ", useNum=" + useNum + "]";
 	}
+
 	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-		String publisherId, int resourceTypeId, String resourcePath, Integer courseId) {
-	super();
-	this.resourceId = resourceId;
-	this.resourceName = resourceName;
-	this.resourceDetail = resourceDetail;
-	this.publishTime = publishTime;
-	this.publisherId = publisherId;
-	this.resourceTypeId = resourceTypeId;
-	this.resourcePath = resourcePath;
-	this.courseId = courseId;
-}
-	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, int resourceTypeId, String resourcePath, Integer courseId, String size, String timeSize,
+			String publisherId, int resourceTypeId, String resourcePath, String courseId, String size, String timeSize,
 			Integer watchNum, Integer useNum) {
 		super();
 		this.resourceId = resourceId;
@@ -143,6 +132,10 @@ public class Resource {
 		this.timeSize = timeSize;
 		this.watchNum = watchNum;
 		this.useNum = useNum;
+	}
+	public Resource() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	
