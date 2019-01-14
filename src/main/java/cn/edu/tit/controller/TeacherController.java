@@ -78,6 +78,7 @@ public class TeacherController {
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
+		request.getSession().setAttribute("teacherId", null);
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
@@ -91,10 +92,12 @@ public class TeacherController {
 				mv.addObject("teacher",teacher);
 			}
 			else {
+				
 				mv.addObject("readResult", "密码错误");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
+			
 			mv.addObject("readResult", "异常");//返回信息
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
@@ -143,7 +146,7 @@ public class TeacherController {
 			request.getSession().setAttribute("course", course);
 			Course course2 = (Course) request.getSession().getAttribute("course");
 			System.out.println(course2.getCourseId());
-			request.setAttribute("teacherList", teacherList); //通过存入request在前台访问
+			request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -255,7 +258,7 @@ public class TeacherController {
 			for (RealClass realClass : realClassList) {
 				count+= Integer.parseInt(realClass.getRealPersonNum());
 			}
-			vir.setVirtualClassPersonNum(Integer.toString(count));
+			vir.setClassStuentNum(count);
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
 			/**********实体班和虚拟班的对应***************/
