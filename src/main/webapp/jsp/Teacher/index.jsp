@@ -1,3 +1,4 @@
+<%@page import="java.security.SecureRandom"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -9,6 +10,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="UTF-8">
 <title>Title</title>
+<%
+	SecureRandom random = new SecureRandom();
+	random.setSeed(8738);
+	double _csrf = random.nextDouble();
+	session.setAttribute("_csrf", _csrf);
+%>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
         $(document).ready(function () {
@@ -109,6 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 						<button type="submit" class="submit">登录</button>
+						<input type="hidden" name="_csrf" value="<%=_csrf %>" />
 						<div class="Login-footer">
 							<span class="Login-qrcode">
 								<button type="button" class="Button Button--plain">二维码登录</button>

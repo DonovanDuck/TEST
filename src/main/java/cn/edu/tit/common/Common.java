@@ -146,7 +146,7 @@ public  class  Common {
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			upload.setSizeMax(4194304); // 设置最大文件尺寸，这里是4MB
-			List<FileItem> items = upload.parseRequest(request);// 得到所有的文件
+			List<FileItem> items = upload.parseRequest(request);// 得到所有的字段
 			for (FileItem fi : items) {
 				if (!fi.isFormField()) { // 判断是否是普通表单字段
 					String suffix = fi.getName().substring(fi.getName().lastIndexOf(".")+1); // 获取文件后缀

@@ -78,6 +78,7 @@ public class TeacherController {
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
+		request.getSession().setAttribute("teacherId", null);
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
@@ -91,10 +92,12 @@ public class TeacherController {
 				mv.addObject("teacher",teacher);
 			}
 			else {
+				
 				mv.addObject("readResult", "密码错误");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
+			
 			mv.addObject("readResult", "异常");//返回信息
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
@@ -150,7 +153,6 @@ public class TeacherController {
 			request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 			//request.getSession().setAttribute("course", course);
 			request.setAttribute("course", course);
-		
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -244,7 +246,7 @@ public class TeacherController {
 			//将前台得到的字符串分割
 			String[] sourceStrArray = realClassContent.split(",");
 			List<String> realClassArray = new ArrayList<String>();
-			//字符串数组排空
+			//字符串数组判空
 			for(int i = 0;i<sourceStrArray.length;i++) {
 				if(!sourceStrArray[i].isEmpty())
 				{
@@ -259,7 +261,7 @@ public class TeacherController {
 			}
 			//计算总人数
 			for (RealClass realClass : realClassList) {
-				count+= Integer.parseInt(realClass.getRealPersonNum());
+				count+= realClass.getRealPersonNum();
 			}
 			vir.setClassStuentNum(count);
 			vir.setRealClassList(realClassList);
@@ -281,7 +283,7 @@ public class TeacherController {
 	 * @author LiMing
 	 * @param request
 	 * @return
-	 * 创建虚拟班级
+	 * 跳转到创建虚拟班级
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="toCreateVirtualClass/{courseId}")
