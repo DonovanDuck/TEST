@@ -81,7 +81,7 @@
 							<div
 								style="padding-left: 1%; float: left; margin-left: 1%; padding-right: 1%; font-size: 16px;">
 								
-								<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }">${accessory.accessoryName }</a>
+								<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">${accessory.accessoryName }</a>
 								
 							</div>
 						</c:forEach>

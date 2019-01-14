@@ -170,6 +170,49 @@ public class WxTeacherController {
 	}
 	
 	/**
+	 * 创建课程（不加图片）
+	 * @param request
+	 * @param teachers
+	 * @return
+	 */
+	@RequestMapping(value="createCourseNoImg")
+	@SuppressWarnings({ "unused", "unchecked" })
+	@ResponseBody
+	public Map<String, Object> createCourseNoImg(HttpServletRequest request){
+		Map<String, Object> ret = new HashMap<String, Object>();
+		String courseId = Common.uuid();
+		try {
+			//封装课程类
+			Course course = new Course();
+			course.setCourseId(courseId);
+			course.setCourseName(request.getParameter("courseName"));
+			course.setCourseDetail(request.getParameter("courseDetail"));
+			course.setCourseCategory(request.getParameter("courseCategory"));
+			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+			course.setPublishTime(publishTime);
+			String employeeNum = request.getParameter("publisherId");
+			String teacher = request.getParameter("teachers");
+			String[] teachers = teacher.split(",");
+			course.setPublisherId(employeeNum);
+			teacherService.createCourse(course); // 添加课程
+			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
+			//通过课程id和获取教师圈的id集合绑定教师到课程
+			if(teachers != null){
+				for(int i = 0; i < teachers.length; i++){
+					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
+				}
+			}
+			ret.put("status", "OK");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "ERROR");
+			return ret;
+		}
+	}
+	
+	/**
 	 * 创建班级
 	 * @param request
 	 * @return
