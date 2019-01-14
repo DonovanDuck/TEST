@@ -106,7 +106,6 @@ $(function() {
                       check =check+$(this).val()+",";
                 });
                 $("#realClassContent").val(check);
-                alert(check);
             });
 })
      </script>

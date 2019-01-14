@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.annotation.Resource;
 
@@ -173,12 +174,19 @@ public class TeacherTest {
 		//		rl = teacherService.readRealClass(a);
 		//		for (RealClass realClass : rl) {
 		//			System.out.println(realClass.toString());
+
+		//		List<Map<Integer, String>> resourceCategories = new ArrayList<Map<Integer,String>>();
+		//		resourceCategories = teacherService.readResourceCategoried();
+		//		for (Map<Integer, String> map : resourceCategories) {
+		//			System.out.println(map.keySet());
+		//			System.out.println(map.values());
+		//		}
 	}
 	@Test
 	public void  timeTest() {
 		String time = "2019-01-12 13:29:03.666";
 		System.out.println(Timestamp.valueOf(time));
-		
+
 	}
 }
 

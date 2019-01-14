@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -156,7 +157,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public List<Course> courseList(List<String> courseIds) throws Exception{
 		// TODO Auto-generated method stub
@@ -223,7 +224,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("teachDao层createTask出问题");
 		}
-		
+
 	}
 
 	@Override
@@ -296,7 +297,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("teachDao层addAccessory出问题");
 		}
-		
+
 	}
 
 	@Override
@@ -384,12 +385,12 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-	try{
+		try{
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
 			if(teacher != null)
-			System.out.println(teacher.toString());
-			
+				System.out.println(teacher.toString());
+
 			return teacher;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -424,7 +425,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * @param 教师对象
@@ -465,17 +466,17 @@ public class TeacherServiceImpl implements ITeacherService{
 		try {
 			// 通过课程id获取教师工号
 			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
-				return teacherDao.getTeachersById(employeeNumList);
-			   //通过教师工号获得教师圈教师集合
+			return teacherDao.getTeachersById(employeeNumList);
+			//通过教师工号获得教师圈教师集合
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return null;
 		}
-		
-		
+
+
 	}
-	
+
 	public Integer searchTaskPoint(String taskCategory) throws Exception {
 		// TODO Auto-generated method stub
 		return teacherDao.searchTaskPoint(taskCategory);
@@ -507,7 +508,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	/**
@@ -603,7 +604,7 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		return list;
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * 通过课程ID查询课程信息
@@ -654,10 +655,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public String getrealClassNumBySid(String studentId) {
 		// TODO Auto-generated method stub
-		
+
 		return teacherDao.getrealClassNumBySid(studentId);
 	}
-	
+
 	@Override
 	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId, String creatorId) throws Exception {
 		// TODO Auto-generated method stub
@@ -730,6 +731,24 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			return null;
 		}
+	}
+
+	/**
+	 * @author LiMing
+	 * @return 返回资源分类信息
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * */
+	@Override
+	public List<Map<Integer, String>> readResourceCategoried() {
+		List<Map<Integer, String>> list = new ArrayList<Map<Integer,String>>();
+		try {
+			list = teacherDao.readResourceCategoried();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list = null;
+		}
+		return list;
 	}
 
 

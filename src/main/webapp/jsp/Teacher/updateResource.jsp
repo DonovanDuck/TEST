@@ -49,20 +49,10 @@
 	<div class="main">
 		<div class="main-top">
 			<div class="btn-group" role="group" aria-label="...">
-				<a href="${pageContext.request.contextPath}/teacher/toWorkResource"
-					target="course"><button type="button" class="btn btn-default">作业资源</button></a>
-				<a href="${pageContext.request.contextPath}/teacher/toTestResource"
-					target="course"><button type="button" class="btn btn-default">实验资源</button></a>
-				<a
-					href="${pageContext.request.contextPath}/teacher/toCourseResource"
-					target="course"><button type="button" class="btn btn-default">课程资源</button></a>
-				<a
-					href="${pageContext.request.contextPath}/teacher/toExampleResource"
-					target="course"><button type="button" class="btn btn-default">案例资源</button></a>
-				<a
-					href="${pageContext.request.contextPath}/teacher/toOthersResource"
-					target="mainIframe"><button type="button"
-						class="btn btn-default">其他资源</button></a>
+				<c:forEach items="${resourceCategories }" var="resourceCategory">
+					<a href="${pageContext.request.contextPath}/teacher/toResource/${map.key }"
+						target="course"><button type="button" class="btn btn-default">${map.value }</button></a>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="content">

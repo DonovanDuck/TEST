@@ -2,6 +2,7 @@ package cn.edu.tit.iservice;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
@@ -372,4 +373,11 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public List<Course> getStudentJoinCourseByrealNum(String realClassNum);
+	
+	/**
+	 *@author LiMing
+	 * @return 分类ID集合
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 */
+	public List<Map<Integer, String>> readResourceCategoried();
 }

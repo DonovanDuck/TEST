@@ -3,6 +3,7 @@ package cn.edu.tit.idao;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -155,5 +156,12 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public String getCourseIdByVirtualId(String virtualClassNum);
+	
+	/**
+	 * @author LiMing
+	 * @return 返回资源分类信息
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * */
+	public List<Map<Integer, String>> readResourceCategoried();
 	
 }
