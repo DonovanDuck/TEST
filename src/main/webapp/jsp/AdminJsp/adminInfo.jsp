@@ -10,7 +10,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>自然班级管理</title>
+<title>管理员信息管理</title>
 <link
 	href="${pageContext.request.contextPath}/css/Admin/font-awesome.css"
 	rel="stylesheet" />
@@ -73,7 +73,8 @@
 				<h2 style="padding-left: 40%; padding-top: 2%;">自然班级信息页</h2>
 			</div>
 			<div class="col-md-3">
-					<ul class="nav navbar-top-links navbar-right"  style="width:50%;margin-top:4%;">
+				<ul class="nav navbar-top-links navbar-right"
+					style="width: 50%; margin-top: 4%;">
 					<li style="float: right; margin-right: 9%"><a
 						class="dropdown-button waves-effect waves-dark" href="#!"
 						data-activates="dropdown1">个人信息</a></li>
@@ -82,8 +83,10 @@
 		</nav>
 		<!-- Dropdown Structure -->
 		<ul id="dropdown1" class="dropdown-content">
-			<li><a href="${pageContext.request.contextPath}/admin/toAdminInfo">用户：${sessionScope.admin.adminUsername}</a></li>
-			<li><a href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/admin/toAdminInfo">用户：${sessionScope.admin.adminUsername}</a></li>
+			<li><a
+				href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 			<li><a href="#">登出</a></li>
 		</ul>
 		<!--/. NAV TOP  -->
@@ -119,41 +122,30 @@
 				<div class="col-md-12">
 					<!-- Advanced Tables -->
 					<div class="card">
-						<button type="button" class="btn btn-primary btn-lg"
-							data-toggle="modal" data-target="#myModal"
-							style="margin-top: 2%; margin-bottom: -3%; margin-left: 2%; padding-bottom: 3%;">
-							添加实体班级</button>
 						<div class="card-content " style="padding-top: 3%">
 							<div class="table-responsive" style="overflow-x: hidden;">
 								<hr>
 								<table class="table table-striped table-bordered table-hover"
-									id="dataTables-example" style="margin-top:-3%">
+									id="dataTables-example" style="margin-top: -3%">
 									<thead>
 										<tr>
-											<th class="text-center">序号</th>
-											<th class="text-center">班级号</th>
-											<th class="text-center">班级人数</th>
-											<th class="text-center">所属系部</th>
+											<th class="text-center">用户名</th>
+											<th class="text-center">密码</th>
 											<th></th>
 										</tr>
 									</thead>
 									<tbody>
-										<c:forEach items="${realClassList }" var="realClass"
-											varStatus="status">
-											<tr>
-												<td class="text-center">${requestScope.offset+status.index}</td>
-												<td class="text-center">${realClass.realClassNum }</td>
-												<td class="text-center">${realClass.realPersonNum }</td>
-												<td class="text-center">${realClass.realClassCategory }</td>
-												<td class="text-center">
-													<button type="button" class="btn btn-default btn-lg"
-														data-toggle="modal" data-target="#Edit"
-														style="padding-top: 2%;">
-														<small>编辑</small>
-													</button>
-												</td>
-											</tr>
-										</c:forEach>
+										<tr>
+											<td class="text-center">${admin.adminUsername }</td>
+											<td class="text-center">${admin.adminPassword }</td>
+											<td class="text-center">
+												<button type="button" class="btn btn-default btn-lg"
+													data-toggle="modal" data-target="#Edit"
+													style="padding-top: 2%;">
+													<small>编辑</small>
+												</button>
+											</td>
+										</tr>
 									</tbody>
 								</table>
 							</div>
@@ -165,47 +157,6 @@
 			<!-- /. PAGE INNER  -->
 		</div>
 	</div>
-
-	<div class="modal" id="myModal" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">添加实体班</h4>
-				</div>
-				<div class="modal-body">
-					<div class="modal-body">
-							<form id="commitCategory" name="commitCategory"
-							action="${pageContext.request.contextPath}/admin/AddRealClass">
-							<div class="form-group">
-								<label for="realClassNum" class="control-label">班号</label> <input
-									type="text" class="form-control" id="realClassNum" name="realClassNum">
-							</div>
-							<div class="form-group">
-								<label for="realClassNum" class="control-label">班级人数</label> <input
-									type="text" class="form-control" id="realClassPersonNum" name="realClassPersonNum" value="40">
-							</div>
-							<div class="form-group">
-								<select class="selectpicker show-tick form-control"
-									data-live-search="true" name="category" id="category">
-									<c:forEach items="${categories }" var="category" varStatus="status">
-										<option>${category.categoryName }</option>
-										</c:forEach>
-								</select>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal" style="margin-left: 2%">关闭</button>
-								<button type="submit" class="btn btn-primary">提交</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 	<div class="modal" id="Edit" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog">
@@ -213,27 +164,21 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">修改实体班</h4>
+					<h4 class="modal-title" id="myModalLabel">修改管理员信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-							<form id="commitCategory" name="commitCategory"
-							action="${pageContext.request.contextPath}/admin/AddRealClass">
+						<form id="commitCategory" name="commitCategory"
+							action="${pageContext.request.contextPath}/admin/updateAdmin">
 							<div class="form-group">
-								<label for="realClassNum" class="control-label">班号</label> <input
-									type="text" class="form-control" id="realClassNum" name="realClassNum">
+								<label for="realClassNum" class="control-label">用户名</label> <input
+									type="text" class="form-control" id="adminUserName"
+									name="realClassNum">
 							</div>
 							<div class="form-group">
-								<label for="realClassNum" class="control-label">班级人数</label> <input
-									type="text" class="form-control" id="realClassPersonNum" name="realClassPersonNum" value="40">
-							</div>
-							<div class="form-group">
-								<select class="selectpicker show-tick form-control"
-									data-live-search="true" name="category" id="category">
-									<c:forEach items="${categories }" var="category" varStatus="status">
-										<option>${category.categoryName }</option>
-										</c:forEach>
-								</select>
+								<label for="realClassNum" class="control-label">密码</label> <input
+									type="text" class="form-control" id="adminPassword"
+									name="realClassNum">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
