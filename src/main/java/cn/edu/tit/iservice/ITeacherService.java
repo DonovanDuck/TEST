@@ -265,7 +265,7 @@ public interface ITeacherService {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception;
+	public List<Teacher> getTeachersByCourseId(String courseId);
 	
 	
 	/**

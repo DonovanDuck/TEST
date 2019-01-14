@@ -11,7 +11,53 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>分类信息管理</title>
-<jsp:include page="Common.jsp"></jsp:include>
+<link
+	href="${pageContext.request.contextPath}/css/Admin/font-awesome.css"
+	rel="stylesheet" />
+<link
+	href="${pageContext.request.contextPath}/js/Admin/morris/morris-0.4.3.min.css"
+	rel="stylesheet" />
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link
+	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/Admin/css/materialize.min.css"
+	media="screen,projection" />
+<link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/css/Admin/custom-styles.css"
+	rel="stylesheet" />
+<link href='http://fonts.googleapis.com/css?family=Open+Sans'
+	rel='stylesheet' type='text/css' />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/Admin/css/cssCharts.css">
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/materialize.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/dataTables/jquery.dataTables.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/dataTables/dataTables.bootstrap.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+</script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/moment-with-locales.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-example').dataTable();
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-example').dataTable();
+	});
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -27,18 +73,17 @@
 				<h2 style="padding-left: 40%; padding-top: 2%;">分类信息页</h2>
 			</div>
 			<div class="col-md-3">
-				<ul class="nav navbar-top-links navbar-right">
+					<ul class="nav navbar-top-links navbar-right"  style="width:50%;margin-top:4%;">
 					<li style="float: right; margin-right: 9%"><a
 						class="dropdown-button waves-effect waves-dark" href="#!"
-						data-activates="dropdown1"> <b>姓名</b>
-					</a></li>
+						data-activates="dropdown1">个人信息</a></li>
 				</ul>
 			</div>
 		</nav>
 		<!-- Dropdown Structure -->
 		<ul id="dropdown1" class="dropdown-content">
-			<li><a href="#">个人信息</a></li>
-			<li><a href="#">设置</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/toAdminInfo">用户：${sessionScope.admin.adminUsername}</a></li>
+			<li><a href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 			<li><a href="#">登出</a></li>
 		</ul>
 		<!--/. NAV TOP  -->
@@ -57,7 +102,8 @@
 						href="${pageContext.request.contextPath}/admin/readCategories"
 						class="waves-effect waves-dark" style="font-size: 20px">分类信息管理</a>
 					</li>
-					<li class="text-left"><a href="#"
+					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
 					</li>
 					<li class="text-left"><a
@@ -82,7 +128,7 @@
 							<div class="table-responsive" style="overflow-x: hidden;">
 								<hr>
 								<table class="table table-striped table-bordered table-hover"
-									id="dataTables-example">
+									id="dataTables-example" style="margin-top:-3%">
 									<thead>
 										<tr>
 											<th class="text-center">序号</th>

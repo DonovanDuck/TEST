@@ -460,11 +460,20 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception {
-		// 通过课程id获取教师工号
-		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
-		//通过教师工号获得教师圈教师集合
-		return teacherDao.getTeachersById(employeeNumList);
+	@SuppressWarnings({ "unused", "unlikely-arg-type" })
+	public List<Teacher> getTeachersByCourseId(String courseId) {
+		try {
+			// 通过课程id获取教师工号
+			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
+				return teacherDao.getTeachersById(employeeNumList);
+			   //通过教师工号获得教师圈教师集合
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+		
+		
 	}
 	
 	public Integer searchTaskPoint(String taskCategory) throws Exception {
