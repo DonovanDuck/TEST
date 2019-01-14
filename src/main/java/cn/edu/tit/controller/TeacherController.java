@@ -78,6 +78,7 @@ public class TeacherController {
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
+		request.getSession().setAttribute("teacherId", null);
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
@@ -91,10 +92,12 @@ public class TeacherController {
 				mv.addObject("teacher",teacher);
 			}
 			else {
+				
 				mv.addObject("readResult", "密码错误");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
+			
 			mv.addObject("readResult", "异常");//返回信息
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
@@ -150,7 +153,6 @@ public class TeacherController {
 			request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 			//request.getSession().setAttribute("course", course);
 			request.setAttribute("course", course);
-		
 		return "jsp/Teacher/course_detail";
 	}
 

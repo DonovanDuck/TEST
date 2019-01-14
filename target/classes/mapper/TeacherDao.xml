@@ -239,8 +239,7 @@
 		<result column="course_id" property="courseId" />
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
-		<result column="class_student_num" property="classStudentNum" />
-		
+		<result column="class_student_num" property="classStuentNum" />
 	</resultMap>
 
 	<insert id="createVirtualClass"

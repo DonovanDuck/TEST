@@ -29,7 +29,6 @@
 						<td>${virtualClass.virtualClassNum }</td>
 						<td>${virtualClass.virtualClassName }</td>
 						<td>${virtualClass.creatorId }</td>
-						<td>${virtualClass.virtualClassDetail }</td>
 						<td>${virtualClass.courseId }</td>
 					</tr>
 				</table>

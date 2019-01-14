@@ -98,4 +98,5 @@ public class VirtualClass {
 		this.realClassList = realClassList;
 	}
 	
+	
 }
