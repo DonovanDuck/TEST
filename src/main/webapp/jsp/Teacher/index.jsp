@@ -31,17 +31,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             if($('#select option:selected').val()=='teacher'){
                 var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-                alert(newUrl);
             }
             if($('#select option:selected').val()=='student'){
                 var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-                alert(newUrl);
             }
             if($('#select option:selected').val()=='manager'){
                 var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-                alert(newUrl);
+
             }
         }
          function CheckPost (){

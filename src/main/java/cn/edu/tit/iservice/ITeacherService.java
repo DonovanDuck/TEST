@@ -265,7 +265,7 @@ public interface ITeacherService {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception;
+	public List<Teacher> getTeachersByCourseId(String courseId);
 	
 	
 	/**
@@ -353,4 +353,23 @@ public interface ITeacherService {
 	 */
 	public String getrealClassNumBySid(String studentId);
 	
+	/**
+	 * 获取用户关注课程
+	 * @return
+	 */
+	public List<Course> getAttentionCourse(String id);
+	
+	/**
+	 * 获取所有课程中教师创建的班级
+	 * @param employeeNum
+	 * @return
+	 */
+	public List<VirtualClass> getTeacherCreateClass(String employeeNum);
+	
+	/**
+	 * 通过学生所在的自然班级号得到其所参与课程列表
+	 * @param realClassNum
+	 * @return
+	 */
+	public List<Course> getStudentJoinCourseByrealNum(String realClassNum);
 }

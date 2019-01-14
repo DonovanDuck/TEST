@@ -137,19 +137,22 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="toCourseDetail/{courseId}")
 	public String toCourseDetail(HttpServletRequest request, @PathVariable String courseId){
-		try {
 			// 通过courseid查询课程
-			Course course = teacherService.getCourseById(courseId);
+			Course course = null;
+			try {
+				course = teacherService.getCourseById(courseId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			// 查询教师圈教师信息
 			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
-			
 			request.getSession().setAttribute("course", course);
 			Course course2 = (Course) request.getSession().getAttribute("course");
 			System.out.println(course2.getCourseId());
 			request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+			//request.getSession().setAttribute("course", course);
+			request.setAttribute("course", course);
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -217,22 +220,24 @@ public class TeacherController {
 	/**
 	 * @author LiMing
 	 * 创建虚拟班级
+	 * @throws Exception 
 	 */
 	@SuppressWarnings("unused")
 	@RequestMapping(value="createVirtualClass",method = RequestMethod.POST)
-	public void createVirtualClass(HttpServletRequest request,@RequestParam("selectTerm")String selectTerm,@RequestParam("realClassContent")String realClassContent){	
+	public ModelAndView createVirtualClass(HttpServletRequest request,@RequestParam("selectTerm")String selectTerm,@RequestParam("realClassContent")String realClassContent) throws Exception{	
+		ModelAndView mv = new ModelAndView();
+		Course course = (Course) request.getSession().getAttribute("virtualCourse");
+		String courseId = course.getCourseId();
+		String courseName = course.getCourseName();
+		VirtualClass vir = new VirtualClass();
 		try {
-			Course course = (Course) request.getSession().getAttribute("virtualCourse");
-			String courseId = course.getCourseId();
-			String courseName = course.getCourseName();
-			VirtualClass vir = new VirtualClass();
 			//设置对象的属性
 			vir.setCourseId(courseId);
 			String uuid = Common.uuid();
 			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
 			vir.setCreateTime(publishTime);
-			//Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-			//vir.setCreatorId(teacher.getEmployeeNum());
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			vir.setCreatorId(teacher.getEmployeeNum());
 			vir.setCreatorId("011001");
 			vir.setFaceImg(course.getFaceImg());
 			vir.setVirtualClassNum(uuid);
@@ -241,7 +246,7 @@ public class TeacherController {
 			//将前台得到的字符串分割
 			String[] sourceStrArray = realClassContent.split(",");
 			List<String> realClassArray = new ArrayList<String>();
-			//字符串数组排空
+			//字符串数组判空
 			for(int i = 0;i<sourceStrArray.length;i++) {
 				if(!sourceStrArray[i].isEmpty())
 				{
@@ -256,27 +261,29 @@ public class TeacherController {
 			}
 			//计算总人数
 			for (RealClass realClass : realClassList) {
-				count+= Integer.parseInt(realClass.getRealPersonNum());
+				count+= realClass.getRealPersonNum();
 			}
 			vir.setClassStuentNum(count);
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
 			/**********实体班和虚拟班的对应***************/
-			
 			for (int i = 0; i < realClassArray.size(); i++) {
 				teacherService.mapVirtualRealClass(realClassArray.get(i),uuid);
-			}		
+			}
+			String path = toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
+			mv.setViewName(path);
 		} catch (Exception e) {
 			e.printStackTrace();
+			mv = toCreateVirtualClass(courseId,request);//创建虚拟班级失败返回到本页面
 		}
-		
+		return mv;
 	}
 	
 	/**
 	 * @author LiMing
 	 * @param request
 	 * @return
-	 * 创建虚拟班级
+	 * 跳转到创建虚拟班级
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="toCreateVirtualClass/{courseId}")
@@ -812,5 +819,30 @@ public class TeacherController {
 	    return entity;
 	}
 	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * 访问资源更新页
+	 */
+	@RequestMapping("/toUpdateResource")
+	public ModelAndView toUpdateResource() throws IOException {
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("categories", categories);
+	    return mv; 
+	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * 访问作业资源
+	 */
+	@RequestMapping("/toWorkResource")
+	public ModelAndView toWorkResource() throws IOException {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		mv.addObject("categories", categories);
+	    return mv; 
+	}
 
 }

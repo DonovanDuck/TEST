@@ -128,4 +128,32 @@ public interface ITeacherDao {
 	 */
 	public String getrealClassNumBySid(String studentId);
 	
+	/**
+	 * 通过id获取用户关注的课程id集合
+	 * @param id
+	 * @return
+	 */
+	public List<String> getAttentionCid(String id);
+	
+	/**
+	 * 获取教师加入的课程的id
+	 * @return
+	 */
+	public List<String> getJoinCourseByTid(String employeeNum);
+	
+	/**
+	 * 通过课程id和教师工号获取相关班级
+	 * @param courseId
+	 * @param employeeNum
+	 * @return
+	 */
+	public List<VirtualClass> getClassById(@Param(value="courseId") String courseId, @Param(value="employeeNum") String employeeNum);
+	
+	/**
+	 * 通过虚拟班级号查课程id
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public String getCourseIdByVirtualId(String virtualClassNum);
+	
 }

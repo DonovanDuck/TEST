@@ -1,15 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>课程三级页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/lesson3.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/lesson3.css"/>
     <!--head-->
     <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Course/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
 
 </head>
 <body>
@@ -31,7 +34,7 @@
             <img src="${pageContext.request.contextPath}/images/tu3.png" alt="" style="width:100%;height:100%;"/>
         </div>
         <div class="word">
-            <h1>${course. courseName}</h1> <span style="color : red;">       ${course.fine }</span>
+            <h1>${course. courseName}</h1> <span style="color : red;">${course.fine }</span>
             <div class="summery">
                 <p>
                     <li>创建时间：${course.publishTime }</li>
@@ -39,7 +42,7 @@
                 </p>
             </div>
                 <div class="button">
-                    <a href="创建班级.html" target="_blank">创建班级</a>
+                    <a href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a>
                 </div>
                 <div>
                 	<a href="创建班级.html" target="_blank">编辑课程</a>

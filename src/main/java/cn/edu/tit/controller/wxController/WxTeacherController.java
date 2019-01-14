@@ -1,5 +1,4 @@
 package cn.edu.tit.controller.wxController;
-
 import java.io.File;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
@@ -11,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,8 +26,10 @@ import com.alibaba.fastjson.JSON;
 
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IStudentService;
@@ -35,6 +37,11 @@ import cn.edu.tit.iservice.ITeacherService;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+/**
+ * 提供给微信的接口
+ * @author 20586
+ *
+ */
 @RequestMapping("WxTeacherController")
 @RestController
 public class WxTeacherController {
@@ -122,7 +129,7 @@ public class WxTeacherController {
 	@RequestMapping(value="createCourse")
 	@SuppressWarnings({ "unused", "unchecked" })
 	@ResponseBody
-	public Map<String, Object> createCourse(HttpServletRequest request, @RequestBody String[] teachers){
+	public Map<String, Object> createCourse(HttpServletRequest request){
 		Map<String, Object> ret = new HashMap<String, Object>();
 		String courseId = Common.uuid();
 		try {
@@ -138,6 +145,8 @@ public class WxTeacherController {
 			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
 			course.setPublishTime(publishTime);
 			String employeeNum = (String)formdata.get("publisherId");
+			String teacher = (String)formdata.get("teachers");
+			String[] teachers = teacher.split(",");
 			course.setPublisherId(employeeNum);
 			for(File f : files){
 				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
@@ -168,6 +177,17 @@ public class WxTeacherController {
 	@RequestMapping(value="createClass")
 	@ResponseBody
 	public Map<String, Object> createClass(HttpServletRequest request){
+		try {
+			try {
+				request.setCharacterEncoding("utf-8");
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		Map<String, Object> ret = new HashMap<String, Object>();
 		try {
 			VirtualClass virtualClass = new VirtualClass();
@@ -175,15 +195,27 @@ public class WxTeacherController {
 			String virtualClassNUm = Common.uuid();
 			virtualClass.setVirtualClassNum(virtualClassNUm);
 			virtualClass.setVirtualClassName(request.getParameter("virtualClassName"));
-			virtualClass.setCreatorId("1");
+			virtualClass.setCreatorId(request.getParameter("creator"));
 			virtualClass.setCourseId(request.getParameter("courseId"));
 			virtualClass.setCreateTime(new Timestamp(System.currentTimeMillis()));
 			virtualClass.setTerm(request.getParameter("term"));
-			String realClassNumstr = request.getParameter("realClassNums");//====================error
-			String[] realClassNums = null;
-			teacherService.createVirtualClass(virtualClass); // 创建班级
+			String[] realClassNums = request.getParameter("realClassNums").split(",");//====================error
+//			String[] realClassNums = null;
 			// 绑定自然班和虚拟班的关系
+			int count = 0; // 班级总数
+			List<RealClass> realClassList = new ArrayList<RealClass>();
 			if(realClassNums.length != 0){
+				
+				for(String realClassNum : realClassNums){
+					realClassList.add(teacherService.readRealClass(realClassNum).get(0)); // 根据自然班级号获取对应的自然班级
+				}
+				//计算总人数
+				for (RealClass realClass : realClassList) {
+					count+= realClass.getRealPersonNum();
+				}
+				virtualClass.setClassStuentNum(count);
+				teacherService.createVirtualClass(virtualClass); // 创建班级
+				//绑定创建的虚拟班级和其对应的自然班
 				for(String realClassNum : realClassNums){
 					teacherService.mapVirtualRealClass(realClassNum, virtualClassNUm);
 				}
@@ -203,6 +235,7 @@ public class WxTeacherController {
 			return ret;
 		}
 	}
+	
 	
 	/**
 	 * 修改课程
@@ -339,9 +372,12 @@ public class WxTeacherController {
 		try {
 			//通过学生id获取自然班级号
 			String realClassNum  = teacherService.getrealClassNumBySid(studentId);
-			// 通过学生所在的realclass查出virtualclass
-			List<VirtualClass> virtualClasses = teacherService.getVirtualClassNumByreal(realClassNum);
-			ret.put("virtualClasses", virtualClasses);
+			// 通过学生所在的realclass查出其参与的课程
+			List<Course> joinCourses = teacherService.getStudentJoinCourseByrealNum(realClassNum);
+			// 查出学生关注的课程集合
+			List<Course> attentionCourse = teacherService.getAttentionCourse(studentId);
+			ret.put("joinCourses", joinCourses);
+			ret.put("attentionCourse", attentionCourse);
 			ret.put("status", "OK");
 			return ret;
 		} catch (Exception e) {
@@ -397,6 +433,101 @@ public class WxTeacherController {
 			// TODO: handle exception
 			e.printStackTrace();
 			ret.put("status", "ERROR");
+		}
+		return ret;
+	}
+	/**
+	 * 显示教师创建的班级列表
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="showTeacherCreateClass")
+	public Map<String, Object> showTeacherCreateClass(HttpServletRequest request, @RequestParam(value="employeeNum") String employeeNum){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//获取教师创建的所有班级
+			List<VirtualClass> virtualClassList = teacherService.getTeacherCreateClass(employeeNum);
+			ret.put("virtualClassList", virtualClassList);
+			ret.put("status", "OK");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "ERROR");
+		}
+		return ret;
+	}
+	/**
+	 * 查出学生所属虚拟班级列表
+	 * @param request
+	 * @param studentId
+	 * @return
+	 */
+	@RequestMapping(value="showStudentJoinClass")
+	public Map<String, Object> showStudentJoinClass(HttpServletRequest request, @RequestParam(value="studentId") String studentId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//通过学生id获取自然班级号
+			String realClassNum  = teacherService.getrealClassNumBySid(studentId);
+			// 通过学生所在的realclass查出virtualclass
+			List<VirtualClass> virtualClasses = teacherService.getVirtualClassNumByreal(realClassNum);
+			ret.put("virtualClasses", virtualClasses);
+			ret.put("status", "OK");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "ERROR");
+			return ret;
+		}
+	}
+	
+	/**
+	 * 提供课程详细
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toCourseDetail")
+	public Map<String, Object> toCourseDetail(HttpServletRequest request, @Param(value="courseId") String courseId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			// 通过courseid查询课程
+			Course course = teacherService.getCourseById(courseId);
+			// 查询教师圈教师信息
+			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+			ret.put("course", course);
+			ret.put("teacherList", teacherList);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * 获取创建虚拟班级数据
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toCreateVirtualClass")
+	public Map<String, Object> toCreateVirtualClass(@RequestParam(value="courseId") String courseId,HttpServletRequest request) throws Exception {
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			List<Term> listTerm = new ArrayList<Term>();
+			List<RealClass> listRealClass = new ArrayList<RealClass>();
+			Course course = new Course();
+			
+			//course = teacherService.readCourseByCourseId(courseId);
+			listTerm = teacherService.readTerm(); // 获取学期信息
+			listRealClass = teacherService.readRealClass(null); // 获取自然班级列表
+			request.getSession().setAttribute("virtualCourse", course);//将course放入SESSION
+			ret.put("listTerm", listTerm);
+			ret.put("listRealClass", listRealClass);
+			ret.put("courseId", courseId);
+			ret.put("status", "OK");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 		}
 		return ret;
 	}

@@ -47,6 +47,9 @@ $(document).ready(function(){
 				target="course">
 				<button>我加入的课程</button>
 			</a>
+			
+			
+			
 	<div class="courses">
 			<c:forEach items="${courseList }" var="courseListItems"
 				varStatus="status">

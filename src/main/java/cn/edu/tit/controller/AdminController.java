@@ -18,6 +18,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.stereotype.Controller;
 import org.apache.http.entity.ContentType;
+import org.junit.runner.Request;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -42,8 +43,6 @@ public class AdminController {
 	private IAdminService iAdminService;
 	@Autowired
 	private ITeacherService iTeacherService;
-
-	private Admin admin = null;  //将管理员信息作为全局变量
 
 
 	/**
@@ -188,15 +187,17 @@ public class AdminController {
 	 * 登陆管理员操作
 	 * */
 	@RequestMapping(value="LoginAdmin",method= {RequestMethod.GET})
-	public ModelAndView LoginAdmin(@RequestParam(value="employeeNum") String adminUsername,@RequestParam(value="password") String adminPassword) {			
+	public ModelAndView LoginAdmin(@RequestParam(value="employeeNum") String adminUsername,@RequestParam(value="password") String adminPassword,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
+		Admin admin = new Admin();
 		try {
 			admin = iAdminService.loginAdmin(adminUsername);
 			//String password=Common.eccryptMD5(admin.getAdminPassword());
 			if(adminPassword.equals(admin.getAdminPassword()))
-			{
+			{	
 				mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面
+				request.getSession().setAttribute("admin", admin);//将amdin 放入session
 			}
 			else {
 				readResult = "密码输入不正确";	
@@ -313,7 +314,7 @@ public class AdminController {
 		RealClass realClass = new RealClass();
 		realClass.setRealClassCategory(category);
 		realClass.setRealClassNum(realClassNum);
-		realClass.setRealPersonNum(realClassPersonNum);
+		realClass.setRealPersonNum(Integer.parseInt(realClassPersonNum));
 		List<RealClass> realCLassList = new ArrayList<RealClass>();
 		realCLassList.add(realClass);
 		try {
@@ -325,24 +326,62 @@ public class AdminController {
 		mv = readRealClass();
 		return mv;
 	}
+	/**
+	 * 学术管理页面
+	 * */
+	@RequestMapping(value="toAcademicManager",method= {RequestMethod.GET})
+	public ModelAndView toAcademicManager() {			
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/academicManager");
+		return mv;
+	}
 	
+	/**
+	 * 管理员个人信息
+	 * */
+	@RequestMapping(value="toAdminInfo",method= {RequestMethod.GET})
+	public ModelAndView toAdminInfo(HttpServletRequest request) {			
+		ModelAndView mv = new ModelAndView();
+		Admin admin = (Admin) request.getSession().getAttribute("admin");
+		mv.addObject("admin",admin);
+		mv.setViewName("/jsp/AdminJsp/adminInfo");
+		return mv;
+	}
 	/**
 	 * 更新教师信息
 	 * */
 	@RequestMapping(value="updateTeacher",method= {RequestMethod.GET})
 	public ModelAndView updateTeacher( @RequestParam("teacherId")String teacherId,@RequestParam("teacherName")String teacherName,@RequestParam("select")String select,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
-		RealClass realClass = new RealClass();
-	
-		List<RealClass> realCLassList = new ArrayList<RealClass>();
-		realCLassList.add(realClass);
+		Teacher teacher = new Teacher();
+		teacher.setEmployeeNum(teacherId);
+		teacher.setTeacherName(teacherName);
+		teacher.setTeacherGender(select);
+		String updateMsg = null;
+		List<Teacher> readResult = new ArrayList<Teacher>();
 		try {
-			iAdminService.addRealClass(realCLassList);
+			readResult = iAdminService.readTeacherInfo();
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mv = readRealClass();
+		//查看是否修改的工号是已经存在的
+		for (Teacher tc : readResult) {
+			if(tc.getEmployeeNum() == teacherId)
+				{
+				updateMsg = "工号以存在，不可修改";
+				mv.addObject("updateMsg",updateMsg);
+				mv = readTeacherInfo();
+				return mv;
+				}
+		}
+		try {
+			updateMsg = "更新成功";
+			mv.addObject("updateMsg",updateMsg);
+			mv = readTeacherInfo();
+			iTeacherService.UpdateTeacher(teacher);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		return mv;
 	}
 }

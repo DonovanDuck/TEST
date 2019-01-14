@@ -17,6 +17,15 @@ public class VirtualClass {
 	private String term; // 班级学期信息
 	private Integer classStuentNum; // 班级人数
 	private List<RealClass> realClassList; // 包含自然班级集合
+	
+	
+	@Override
+	public String toString() {
+		return "VirtualClass [virtualClassNum=" + virtualClassNum + ", virtualClassName=" + virtualClassName
+				+ ", creatorId=" + creatorId + ", createTime=" + createTime + ", courseId=" + courseId + ", faceImg="
+				+ faceImg + ", term=" + term + ", classStuentNum=" + classStuentNum + ", realClassList=" + realClassList
+				+ "]";
+	}
 	public String getVirtualClassNum() {
 		return virtualClassNum;
 	}
@@ -75,8 +84,19 @@ public class VirtualClass {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
+	public VirtualClass(String virtualClassNum, String virtualClassName, String creatorId, Timestamp createTime,
+			String courseId, String faceImg, String term, Integer classStuentNum, List<RealClass> realClassList) {
+		super();
+		this.virtualClassNum = virtualClassNum;
+		this.virtualClassName = virtualClassName;
+		this.creatorId = creatorId;
+		this.createTime = createTime;
+		this.courseId = courseId;
+		this.faceImg = faceImg;
+		this.term = term;
+		this.classStuentNum = classStuentNum;
+		this.realClassList = realClassList;
+	}
 	
 	
 }

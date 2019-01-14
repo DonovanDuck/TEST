@@ -460,11 +460,20 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception {
-		// 通过课程id获取教师工号
-		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
-		//通过教师工号获得教师圈教师集合
-		return teacherDao.getTeachersById(employeeNumList);
+	@SuppressWarnings({ "unused", "unlikely-arg-type" })
+	public List<Teacher> getTeachersByCourseId(String courseId) {
+		try {
+			// 通过课程id获取教师工号
+			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
+				return teacherDao.getTeachersById(employeeNumList);
+			   //通过教师工号获得教师圈教师集合
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+		
+		
 	}
 	
 	public Integer searchTaskPoint(String taskCategory) throws Exception {
@@ -658,6 +667,67 @@ public class TeacherServiceImpl implements ITeacherService{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("teachDao层virtualsForCourseBycreatorId出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public List<Course> getAttentionCourse(String id) {
+		try {
+			// 获取用户关注课程id集合
+			List<String> userAttentionCid = teacherDao.getAttentionCid(id);
+			// 获取相关课程
+			List<Course> attentionCourse = new ArrayList<>();
+			if(userAttentionCid != null){
+				attentionCourse = teacherDao.courseList(userAttentionCid);
+			}
+			return attentionCourse;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<VirtualClass> getTeacherCreateClass(String employeeNum) {
+		try {
+			// 获取老师加入的课程id集合
+			List<String> joinCourseId = teacherDao.getJoinCourseByTid(employeeNum);
+			// 通过课程id和教师工号获取相关班级
+			List<VirtualClass> virtualClassList = new ArrayList<>();
+			if(joinCourseId != null){
+				for(String cid : joinCourseId){
+					List<VirtualClass> partClassList = teacherDao.getClassById(cid, employeeNum); // 求班级的部分集合，即教师在某门课里创建的班级
+					virtualClassList.addAll(partClassList); // 做交集，并入总的集合中
+				}
+			}
+			return virtualClassList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Course> getStudentJoinCourseByrealNum(String realClassNum) {
+		try {
+			// 根据学生的自然班级号查询班级号
+			List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
+			// 根据虚拟班级号查询所属课程
+			List<Course> courseList = new ArrayList<>();
+			if(virtualClassNums != null){
+				for(String vid : virtualClassNums){
+					String courseId = teacherDao.getCourseIdByVirtualId(vid); // 获取虚拟班对应的课程id
+					Course course = teacherDao.searchCourseById(courseId); // 通过课程id获得课程
+					courseList.add(course);
+				}
+			}
+			return courseList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
 			return null;
 		}
 	}

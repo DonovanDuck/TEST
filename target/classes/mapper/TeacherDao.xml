@@ -144,21 +144,19 @@
 	</select>
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
-	<select id="getEmployeeNumByCourseId" parameterType="String"
-		resultType="String">
-		select employee_num from teacher_course where course_id =
-		#{courseId};
+	<select id="getEmployeeNumByCourseId" parameterType="java.lang.String" >
+		select employee_num from teacher_course where course_id = #{courseId};
 	</select>
 
 	<!-- 通过工号集合获取教师集合 -->
-	<select id="getTeachersById" parameterType="java.util.List"
+	 <select id="getTeachersById" parameterType="java.util.List"
 		resultMap="teacherMap">
 		select * from teacher where employee_num in
 		<foreach collection="list" item="employeeNums" open="("
 			separator="," close=")" index="index">
 			#{employeeNums}
 		</foreach>
-	</select>
+	</select> 
 
 	<select id="permissionAddOthers" resultType="java.lang.Integer">
 		select manager from
@@ -263,7 +261,7 @@
 		#{courseId},
 		#{faceImg},
 		#{term},
-		#{virtualClassPersonNum}
+		#{classStuentNum}
 		);
 	</insert>
 	
@@ -443,4 +441,25 @@
 	<select id="getrealClassNumBySid" parameterType="String" resultType="String">
 		select real_class_num from student where student_id = #{studentId};
 	</select>
+	
+	<!-- 通过id获取用户关注的课程id集合 -->
+	<select id="getAttentionCid" parameterType="String" resultType="String">
+		select course_id from user_attention_course where user_id = #{id};
+	</select>
+	
+	<!-- 获取教师加入的课程的id -->
+	<select id="getJoinCourseByTid" parameterType="String" resultType="String">
+		select course_id from teacher_course where employee_num = #{employeeNum};
+	</select>
+	
+	<!-- 通过课程id和教师工号获取相关班级 -->
+	<select id="getClassById" resultMap="virtualClassMap">
+		select * from virtual_class where employee_num = #{employeeNum} and course_id = #{courseId};
+	</select>
+	
+	<!-- 通过虚拟班级号查课程id集合 -->
+	<select id="getCourseIdByVirtualId" parameterType="String" resultType="String">
+		select course_id from virtual_class where virtual_class_num = #{virtualClassNum};
+	</select>
+	
 </mapper>
