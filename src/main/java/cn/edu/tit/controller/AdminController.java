@@ -313,7 +313,7 @@ public class AdminController {
 		RealClass realClass = new RealClass();
 		realClass.setRealClassCategory(category);
 		realClass.setRealClassNum(realClassNum);
-		realClass.setRealPersonNum(realClassPersonNum);
+		realClass.setRealPersonNum(Integer.parseInt(realClassPersonNum));
 		List<RealClass> realCLassList = new ArrayList<RealClass>();
 		realCLassList.add(realClass);
 		try {

@@ -7,7 +7,7 @@ public class RealClass {
 
 	private String realClassNum; // 自然班级号
 	private String realClassCategory; // 自然班级所属系部
-	private String realPersonNum; //实体班级人数
+	private Integer realPersonNum; //实体班级人数
 	public String getRealClassNum() {
 		return realClassNum;
 	}
@@ -20,10 +20,10 @@ public class RealClass {
 	public void setRealClassCategory(String realClassCategory) {
 		this.realClassCategory = realClassCategory;
 	}
-	public String getRealPersonNum() {
+	public Integer getRealPersonNum() {
 		return realPersonNum;
 	}
-	public void setRealPersonNum(String realPersonNum) {
+	public void setRealPersonNum(Integer realPersonNum) {
 		this.realPersonNum = realPersonNum;
 	}
 	@Override
@@ -31,15 +31,15 @@ public class RealClass {
 		return "RealClass [realClassNum=" + realClassNum + ", realClassCategory=" + realClassCategory
 				+ ", realPersonNum=" + realPersonNum + "]";
 	}
-	public RealClass() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	public RealClass(String realClassNum, String realClassCategory, String realPersonNum) {
+	public RealClass(String realClassNum, String realClassCategory, Integer realPersonNum) {
 		super();
 		this.realClassNum = realClassNum;
 		this.realClassCategory = realClassCategory;
 		this.realPersonNum = realPersonNum;
+	}
+	public RealClass() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 }

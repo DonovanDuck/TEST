@@ -238,7 +238,7 @@ public class TeacherController {
 			//将前台得到的字符串分割
 			String[] sourceStrArray = realClassContent.split(",");
 			List<String> realClassArray = new ArrayList<String>();
-			//字符串数组排空
+			//字符串数组判空
 			for(int i = 0;i<sourceStrArray.length;i++) {
 				if(!sourceStrArray[i].isEmpty())
 				{
@@ -253,9 +253,9 @@ public class TeacherController {
 			}
 			//计算总人数
 			for (RealClass realClass : realClassList) {
-				count+= Integer.parseInt(realClass.getRealPersonNum());
+				count+= realClass.getRealPersonNum();
 			}
-			vir.setVirtualClassPersonNum(Integer.toString(count));
+			vir.setClassStuentNum(count);
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
 			/**********实体班和虚拟班的对应***************/
@@ -273,7 +273,7 @@ public class TeacherController {
 	 * @author LiMing
 	 * @param request
 	 * @return
-	 * 创建虚拟班级
+	 * 跳转到创建虚拟班级
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="toCreateVirtualClass/{courseId}")

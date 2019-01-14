@@ -6,10 +6,10 @@
 <head>
     <meta charset="UTF-8">
     <title>课程三级页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/lesson3.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/lesson3.css"/>
     <!--head-->
     <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Course/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
 
 </head>
 <body>
