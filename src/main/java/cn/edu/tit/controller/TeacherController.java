@@ -804,10 +804,10 @@ public class TeacherController {
 	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
 	 */
 	@RequestMapping("/resourceDownload")
-	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName) throws IOException {
+	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id) throws IOException {
 		
 		System.out.println(fileName);
-	    File file = new File(Common.readProperties("path")+"/"+fileName);
+	    File file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
 	    byte[] body = null;
 	    InputStream is = new FileInputStream(file);
 	    body = new byte[is.available()];
@@ -818,7 +818,6 @@ public class TeacherController {
 	    ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
 	    return entity;
 	}
-	
 	/**
 	 * @author LiMing
 	 * @param request
