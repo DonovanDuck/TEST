@@ -827,22 +827,25 @@ public class TeacherController {
 	@RequestMapping("/toUpdateResource")
 	public ModelAndView toUpdateResource() throws IOException {
 		ModelAndView mv = new ModelAndView();
-		mv.addObject("categories", categories);
+		List<Map<Integer, String>> resourceCategories = new ArrayList<Map<Integer,String>>();
+		resourceCategories = teacherService.readResourceCategoried();
+		mv.addObject("resourceCategories", resourceCategories);
+		mv.setViewName("/jsp/Teacher/updateResource");
 	    return mv; 
 	}
 	
 	/**
 	 * @author LiMing
 	 * @param request
-	 * 访问作业资源
+	 * 访问作业资源,作为默认Iframe的显示内容
 	 */
 	@RequestMapping("/toWorkResource")
 	public ModelAndView toWorkResource() throws IOException {
-		ModelAndView mv = new ModelAndView();
-		
-		
-		mv.addObject("categories", categories);
-	    return mv; 
+//		ModelAndView mv = new ModelAndView();
+//		List<>
+//		mv.addObject("categories", categories);
+//		mv.setViewName("/jsp/Teacher/updateResource");
+	    return null; 
 	}
-
+	
 }
