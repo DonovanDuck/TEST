@@ -2,7 +2,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
@@ -145,7 +144,7 @@
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
 	<select id="getEmployeeNumByCourseId"
-		parameterType="java.lang.String">
+		parameterType="java.lang.String" resultMap="courseMap">
 		select employee_num from
 		teacher_course where course_id = #{courseId};
 	</select>
@@ -235,35 +234,40 @@
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
 		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
-		<result column="virtual_class_name" property="virtualClassName" />
+		<result column="virtual_course_name"
+			property="virtualCourseName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
 		<result column="course_id" property="courseId" />
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
+		<result column="virtual_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"
 		parameterType="cn.edu.tit.bean.VirtualClass">
 		INSERT INTO virtual_class
 		(virtual_class_num,
-		virtual_class_name,
+		virtual_course_name,
 		creator_id,
 		create_time,
 		course_id,
 		face_img,
 		term,
-		class_student_num)
+		class_student_num,
+		virtual_name
+		)
 		VALUES
 		(#{virtualClassNum},
-		#{virtualClassName},
+		#{virtualCourseName},
 		#{creatorId},
 		#{createTime},
 		#{courseId},
 		#{faceImg},
 		#{term},
-		#{classStuentNum}
+		#{classStuentNum},
+		#{virtualClassName}
 		);
 	</insert>
 
@@ -478,8 +482,15 @@
 		= #{virtualClassNum};
 	</select>
 
+	<resultMap type="cn.edu.tit.bean.ResourceType"
+		id="resourceTypeMap">
+		<id column="resource_type_id" property="resourceTypeId" />
+		<result column="resource_type" property="resourceType" />
+	</resultMap>
+
 	<!-- 查询资源分类信息,返回资源ID -->
-	<select id="readResourceCategoried" resultType="java.util.HashMap">
-		SELECT resource_type_id,resource_type FROM resource_type;
+	<select id="readResourceCategoried" resultMap="resourceTypeMap">
+		SELECT * FROM
+		resource_type;
 	</select>
 </mapper>

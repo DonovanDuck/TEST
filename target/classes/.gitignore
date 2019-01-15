@@ -1,5 +1,7 @@
+/applicationContext.xml
 /cn/
-<<<<<<< HEAD
+/common.properties
+/jdbc.properties
+/log4j.properties
 /mapper/
-=======
->>>>>>> 49aef7ee11268608571c754182d399313ad0ae97
+/springmvc.xml

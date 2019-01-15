@@ -16,6 +16,8 @@ import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -466,7 +468,10 @@ public class TeacherServiceImpl implements ITeacherService{
 		try {
 			// 通过课程id获取教师工号
 			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
-			return teacherDao.getTeachersById(employeeNumList);
+			if(employeeNumList.contains(null)) {
+				return teacherDao.getTeachersById(employeeNumList);
+			}
+			else return null;
 			//通过教师工号获得教师圈教师集合
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -639,7 +644,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum) {
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum)  throws Exception{
 		// 根据学生的自然班级号查询班级号
 		List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
 		List<VirtualClass> virtualClasses = new ArrayList<>();
@@ -653,7 +658,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public String getrealClassNumBySid(String studentId) {
+	public String getrealClassNumBySid(String studentId) throws Exception {
 		// TODO Auto-generated method stub
 
 		return teacherDao.getrealClassNumBySid(studentId);
@@ -673,7 +678,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Course> getAttentionCourse(String id) {
+	public List<Course> getAttentionCourse(String id)  throws Exception{
 		try {
 			// 获取用户关注课程id集合
 			List<String> userAttentionCid = teacherDao.getAttentionCid(id);
@@ -691,7 +696,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<VirtualClass> getTeacherCreateClass(String employeeNum) {
+	public List<VirtualClass> getTeacherCreateClass(String employeeNum)  throws Exception{
 		try {
 			// 获取老师加入的课程id集合
 			List<String> joinCourseId = teacherDao.getJoinCourseByTid(employeeNum);
@@ -712,7 +717,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Course> getStudentJoinCourseByrealNum(String realClassNum) {
+	public List<Course> getStudentJoinCourseByrealNum(String realClassNum)  throws Exception{
 		try {
 			// 根据学生的自然班级号查询班级号
 			List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
@@ -739,8 +744,8 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
 	 * */
 	@Override
-	public List<Map<Integer, String>> readResourceCategoried() {
-		List<Map<Integer, String>> list = new ArrayList<Map<Integer,String>>();
+	public List<ResourceType> readResourceCategoried()  throws Exception{
+		List<ResourceType> list = new ArrayList<ResourceType>();
 		try {
 			list = teacherDao.readResourceCategoried();
 		} catch (Exception e) {
@@ -750,6 +755,5 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		return list;
 	}
-
 
 }

@@ -145,6 +145,10 @@ $(function() {
 						style="width: 40%; height: 30px; float: left; margin-left: 2%;"
 						readonly="readonly">
 				</div>
+				<div class="input1">
+					<span>班级名称：</span> <input name="className" id="className"
+						style="width: 40%; height: 30px; float: left; margin-left: 2%;">
+				</div>
 				<div class="teacher-friend">
 					<span>开设班级：</span>
 					<div class="friend">
