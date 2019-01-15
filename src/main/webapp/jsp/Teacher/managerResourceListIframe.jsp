@@ -28,20 +28,24 @@
 	crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript">
-function deleteInfo(id) {
-	alert(id);
+$(function(){
+		window.parent.setTimeIframe();
+})
+</script>
+<script type="text/javascript">
+function deleteInfo() {
+	var id=$("#deleteInfo").val();
+	var path = "${pageContext.request.contextPath}/teacher/toDeleteResource/"+id;
 	$.ajax({
-		async : false,
+		async : true,
 		cache : false,
-		url : "${pageContext.request.contextPath}/teacher/toDeleteResource",
+		url : path,
 		type : "POST",
-		data:"{}",
-		dataType:"json",
-		error : function(textStatus) {
-			 console.log(textStatus);
-        },
+		dataType:"text",
+		error : function() {
+			 window.location.reload; 
+		},
         success : function(data) {
-            alert(data);
         }
 		}
 	);
@@ -70,8 +74,8 @@ function deleteInfo(id) {
 				</div>
 			</div>
 			<div class="col-md-1">
-				<button class="btn btn-default" id="delete" name="delete"
-					style="margin-top: 30%" onclick="deleteInfo(${list.resourceDetail })">删除</button>
+				<button class="btn btn-default" id="deleteInfo" name="deleteInfo" value="${list.resourceId }"
+					style="margin-top: 30%" onclick="deleteInfo()">删除</button>
 				<a
 					href="${pageContext.request.contextPath}/teacher/toUpdateResource/${list.resourceId }">
 					<input class="btn btn-default" style="margin-top: 46%"

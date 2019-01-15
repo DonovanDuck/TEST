@@ -648,7 +648,7 @@ public class TeacherController {
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", list);
-		mv.setViewName("/jsp/CourseJsp/courseIframe");//设置返回页面
+		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
 	}
 
@@ -858,18 +858,16 @@ public class TeacherController {
 		return mv; 
 	}
 	
-	
 	/**
 	 * @author LiMing
 	 * @param request
 	 * 访问作业资源,作为默认Iframe的显示内容
+	 * @throws Exception 
 	 */
-	@RequestMapping("/toDeleteResource")
-	public void toDeleteResource(HttpRequest request,HttpServletResponse response) throws IOException {
-		String msg = "修改成功";
-		//System.out.println(resourceId);
-		JSONArray  json  =  JSONArray.fromObject("suc"); 
-		String result = json.toString();
-		response.getWriter().print(result);
+	@RequestMapping("/toDeleteResource/{resourceId}")
+	public String toDeleteResource(@PathVariable String resourceId) throws Exception {
+		String msg = null;
+		msg  = resourceService.deleteResourceById(resourceId);
+		return msg;
 	}
 }

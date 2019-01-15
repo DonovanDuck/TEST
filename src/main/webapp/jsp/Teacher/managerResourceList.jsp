@@ -27,9 +27,11 @@
 	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
 	crossorigin="anonymous"></script>
 <script language="javascript">
-	var timeIframe;
 	window.onload = function() {
-		timeIframe = setTimeout(GetIframeStatus, 10);
+		setTimeIframe();
+	} 
+	function setTimeIframe(){
+		var timeIframe = setTimeout(GetIframeStatus, 10);
 	}
 	function GetIframeStatus() {
 		var iframe = document.getElementById("mainIframe");

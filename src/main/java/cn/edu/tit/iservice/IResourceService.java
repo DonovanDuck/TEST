@@ -64,6 +64,15 @@ public interface IResourceService {
 	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, String courseId);
 	
 	/**
+	 * 删除资源，根据ID
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 * @throws Exception 
+	 */
+	public String deleteResourceById(String resourceId) throws Exception;
+	
+	/**
 	 * 发布资源到班级
 	 * @param resourceList
 	 */

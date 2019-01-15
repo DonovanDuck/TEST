@@ -102,12 +102,6 @@ public class Resource {
 	public void setUseNum(Integer useNum) {
 		this.useNum = useNum;
 	}
-//	public Resource() {
-//		super();
-//		// TODO Auto-generated constructor stub
-//	}
-	
-	
 	@Override
 	public String toString() {
 		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
