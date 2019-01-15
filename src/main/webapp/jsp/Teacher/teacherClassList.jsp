@@ -22,7 +22,7 @@
 	<p>我的班级</p>
 	<c:forEach items="${virtualClassList }" var="virtualClass">
 		<a target="_parent"
-			href="${pageContext.request.contextPath}/teacher/teacherTaskList/${virtualClass.virtualClassNum }">
+			href="${pageContext.request.contextPath}/teacher/toClassDetail/${virtualClass.virtualClassNum }">
 			<div style="width: 300px; height: 200px; float: left">
 				<table>
 					<tr>

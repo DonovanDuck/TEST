@@ -372,4 +372,10 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public List<Course> getStudentJoinCourseByrealNum(String realClassNum);
+	/**
+	 * @author wenli
+	 * @return
+	 * 查询任务分类
+	 */
+	public List<String> getTaskCategory()throws Exception;
 }

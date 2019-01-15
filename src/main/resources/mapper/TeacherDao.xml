@@ -355,8 +355,8 @@
 
 
 	<select id="teacherTaskAssortmentList" resultMap="taskMap">
-		select * from task where task_category = #{taskType} and task_id in
-		<foreach collection="list" item="taskId" open="("
+		select * from task where task_category = #{taskCategory} and task_id in
+		<foreach collection="taskIds" item="taskId" open="("
 			separator="," close=")" index="index">
 			#{taskId}
 		</foreach>
@@ -460,6 +460,11 @@
 	<!-- 通过虚拟班级号查课程id集合 -->
 	<select id="getCourseIdByVirtualId" parameterType="String" resultType="String">
 		select course_id from virtual_class where virtual_class_num = #{virtualClassNum};
+	</select>
+
+	<!-- 查询任务分类表 -->
+	<select id="getTaskCategory" parameterType="java.util.List" resultType="java.lang.String">
+		select task_category from point
 	</select>
 	
 </mapper>
