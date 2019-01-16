@@ -26,6 +26,7 @@
     if (!file.exists() || file.isDirectory()) {
         return;
     }
+    
     FileInputStream fileInputStream = new FileInputStream(file);
     ServletOutputStream outputStream = response.getOutputStream();
     byte bs[] = new byte[1024];

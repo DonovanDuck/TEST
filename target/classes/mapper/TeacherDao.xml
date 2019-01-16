@@ -18,7 +18,20 @@
 		<result column="status" property="status" />
 		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
-
+	<resultMap type="cn.edu.tit.bean.Resource" id="resourceMap">
+		<id column="resource_id" property="resourceId"/>
+		<result column="resource_name" property="resourceName"/>
+		<result column="resource_detail" property="resourceDetail"/>
+		<result column="publish_time" property="publishTime"/>
+		<result column="publish_id" property="publisherId"/>
+		<result column="course_id" property="courseId"/>
+		<result column="resource_path" property="resourcePath"/>
+		<result column="resource_type_id" property="resourceTypeId"/>
+		<result column="size" property="size"/>
+		<result column="time_size" property="timeSize"/>
+		<result column="watch_num" property="watchNum"/>
+		<result column="use_num" property="useNum"/>
+	</resultMap>
 	<resultMap type="cn.edu.tit.bean.Term" id="termMap">
 		<id column="term_id" property="termId" />
 		<result column="start_year" property="startYear" />
@@ -29,8 +42,18 @@
 
 	<select id="readTerm" resultMap="termMap">
 		select * from term
-	</select>
+	</select> 
 
+	<!-- 创建资源 -->
+	<insert id="createResource" parameterType="cn.edu.tit.bean.Resource">
+		insert into
+		resource(resource_id,resource_name,resource_detail,
+		publish_time,publish_id,course_id,resource_path,
+		resource_type_id,size,time_size,watch_num,use_num)
+		values(#{resourceId},#{resourceName},#{resourceDetail},
+		#{publishTime},#{publisherId},#{courseId},#{resourcePath},
+		#{resourceTypeId},#{size},#{timeSize},#{watchNum},#{useNum});
+	</insert>
 	<!-- 拉教师入课程（教师圈） -->
 	<insert id="addOtherToMyCourse">
 		insert into
@@ -40,8 +63,7 @@
 
 	<select id="teacherLoginByEmployeeNum"
 		parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where
-		employee_num = #{employeeNum};
+		select * from teacher where employee_num = #{employeeNum};
 	</select>
 
 	<select id="teacherLoginByTelephone"
@@ -488,10 +510,14 @@
 		<result column="resource_type" property="resourceType" />
 	</resultMap>
 
-	<!-- 查询资源分类信息,返回资源ID -->
+	<!-- 查询资源分类信息,返回资源 -->
 	<select id="readResourceCategoried" resultMap="resourceTypeMap">
 		SELECT * FROM
 		resource_type;
+	</select>
+	<!-- 查询资源分类信息,返回资源ID -->
+	<select id="getResourceTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT resource_type_id FROM resource_type where resource_type = #{resourceTye};
 	</select>
 
 	<!-- 查询任务分类表 -->
