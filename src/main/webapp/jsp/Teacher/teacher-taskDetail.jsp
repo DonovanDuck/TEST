@@ -20,11 +20,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="description_detail">
 				<span style="font-size: 18px;">作业描述</span>
 				<p>距结束：<span>12：30：10</span></p>
-				<p>编写一个重载函数，返回值类型为void，函数名为print，当调用该函数只有一个参数时，以实数形式输出该数（即输出该数本身），当调用时有两个参数，则以符数形式输出该数（如a+b）。</p>
+				<p>${task.taskDetail }</p>
 				<span>附件</span>
 				<ul class="more">
-					<li class="left"><img src="img/头像.png" /></li>
-					<li class="left"><img src="img/头像.png" /></li>
+					<c:forEach items="${task.accessoryList }" var="accessory">
+						<li class="left">
+							<img src="img/头像.png" />
+							<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">${accessory.accessoryName }</a>
+						</li>
+					</c:forEach>
+					
 				</ul>
 			</div>
 		</div>
