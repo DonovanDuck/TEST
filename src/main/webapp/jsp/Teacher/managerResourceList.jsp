@@ -30,6 +30,11 @@
 	window.onload = function() {
 		setTimeIframe();
 	} 
+	function refresh(id)
+	{
+	// 刷新页面
+	   window.location.reload();
+	}
 	function setTimeIframe(){
 		var timeIframe = setTimeout(GetIframeStatus, 10);
 	}

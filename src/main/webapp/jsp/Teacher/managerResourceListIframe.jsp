@@ -43,7 +43,7 @@ function deleteInfo() {
 		type : "POST",
 		dataType:"text",
 		error : function() {
-			 window.location.reload; 
+			window.parent.refresh(id);
 		},
         success : function(data) {
         }
