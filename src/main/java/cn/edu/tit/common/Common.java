@@ -36,6 +36,8 @@ import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import cn.edu.tit.iservice.ITeacherService;
+
 @Component
 public  class  Common {
 
@@ -258,8 +260,195 @@ public  class  Common {
 		
 		return stringBuffer.toString();
 	}
-	public static int fileType(String fileName) {
+	
+	/**
+	 * @author wenli
+	 * @param fileName
+	 * @return
+	 * 判断文件类型
+	 */
+	public static int fileType(String fileName ,ITeacherService teacherService) {
 		String type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf(".")+1, fileName.length()):null;
+		System.out.println("什么类型:"+type);
+		if(isIncludeInWord(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("word");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInExcel(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("excel");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInPPT(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("ppt");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInVideo(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("video");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInMusic(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("audio");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInPhoto(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("photo");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInCompressed(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("compressed");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
 		return 0;
+		
 	} 
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInWord(String key){
+        boolean include = false;
+        for (TypeMatchByWord e: TypeMatchByWord.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInPhoto(String key){
+        boolean include = false;
+        for (TypeMatchByPhoto e: TypeMatchByPhoto.values()){
+        	
+        	System.out.println(e);
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInExcel(String key){
+        boolean include = false;
+        for (TypeMatchByExcel e: TypeMatchByExcel.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInPPT(String key){
+        boolean include = false;
+        for (TypeMatchByPPT e: TypeMatchByPPT.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInVideo(String key){
+        boolean include = false;
+        for (TypeMatchByVideo e: TypeMatchByVideo.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInMusic(String key){
+        boolean include = false;
+        for (TypeMatchByMusic e: TypeMatchByMusic.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInCompressed(String key){
+        boolean include = false;
+        for (TypeMatchByCompressed e: TypeMatchByCompressed.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	
 }

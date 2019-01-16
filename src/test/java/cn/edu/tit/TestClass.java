@@ -67,17 +67,7 @@ public class TestClass {
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
-<<<<<<< HEAD
-//		System.out.println(teacherDao.searchCourseByName("c++"));
-		String file = "";
-		if(!"".equals(file)){
-			System.out.println("傻逼");
-=======
-		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId("4E7EFBA6DCB04FBB9C8DCCC1445AE5C8");
-		if(employeeNumList.contains(null)) {
-			 System.out.println(teacherDao.getTeachersById(employeeNumList));
->>>>>>> 6ac813779ce335c96a9b2147a29598fc195940b2
-		}
+
 	}
 	
 	

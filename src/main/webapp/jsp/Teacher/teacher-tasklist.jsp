@@ -12,6 +12,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
 	<script src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+	<script type="text/javascript">
+	$(function(){
+		windows.parent.load();
+	})
+	</script>
 </head>
 <body>
 

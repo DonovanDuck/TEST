@@ -40,7 +40,10 @@
 <script language="javascript">
 	var timeIframe;
 	window.onload = function() {
-		timeIframe = setTimeout(GetIframeStatus, 10);
+		reIframe();
+	}
+	function reIframe(){
+		timeIframe = setTimeout(GetIframeStatus, 10);s
 	}
 	function GetIframeStatus() {
 		var iframe = document.getElementById("iframeContent");
@@ -61,6 +64,10 @@
 		}
 	}
 </script>
+<script type="text/javascript">
+function load() {
+	reIframe();
+}</script>
 </head>
 <body>
 	<header></header>
