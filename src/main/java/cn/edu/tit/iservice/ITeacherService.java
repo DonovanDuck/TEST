@@ -407,4 +407,10 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public String getImgpathByCourseId(String courseId);
+	/**
+	 * @author wenli
+	 * @return
+	 * 查询任务分类
+	 */
+	public List<String> getTaskCategory()throws Exception;
 }

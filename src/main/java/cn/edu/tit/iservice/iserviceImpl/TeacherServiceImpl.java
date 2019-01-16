@@ -788,6 +788,17 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.getImgpathByCourseId(courseId);
 	}
+		@Override
+	public List<String> getTaskCategory() throws Exception {
+		try {
+			return teacherDao.getTaskCategory();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("teacherDao层getTaskCategory出问题");
+			return null;
+		}
+		
+	}
 
 
 }

@@ -358,8 +358,8 @@
 
 
 	<select id="teacherTaskAssortmentList" resultMap="taskMap">
-		select * from task where task_category = #{taskType} and task_id in
-		<foreach collection="list" item="taskId" open="("
+		select * from task where task_category = #{taskCategory} and task_id in
+		<foreach collection="taskIds" item="taskId" open="("
 			separator="," close=")" index="index">
 			#{taskId}
 		</foreach>
@@ -481,6 +481,11 @@
 	<!-- 查询资源分类信息,返回资源ID -->
 	<select id="readResourceCategoried" resultType="java.util.HashMap">
 		SELECT resource_type_id,resource_type FROM resource_type;
+	</select>
+
+	<!-- 查询任务分类表 -->
+	<select id="getTaskCategory" parameterType="java.util.List" resultType="java.lang.String">
+		select task_category from point
 	</select>
 	
 	<!-- 通过课程名查课程 -->

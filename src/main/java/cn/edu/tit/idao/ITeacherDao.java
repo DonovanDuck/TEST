@@ -55,7 +55,7 @@ public interface ITeacherDao {
 	
 	public List<String> searchTaskId(String virtualClassNum)throws Exception;//查找班级对应的taskid号1
 	public List<Task> TaskList(List<String> taskIds)throws Exception;	//显示所有任务列表1
-	public List<Task> teacherTaskAssortmentList(@Param("taskId")List<String> taskId,@Param("taskCategory")String taskCategory)throws Exception;
+	public List<Task> teacherTaskAssortmentList(@Param("taskIds")List<String> taskId,@Param("taskCategory")String taskCategory)throws Exception;//根据不同任务类型显示作业列表
 	
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情1
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
@@ -156,6 +156,7 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public String getCourseIdByVirtualId(String virtualClassNum);
+	public List<String> getTaskCategory();
 	
 	/**
 	 * @author LiMing
