@@ -421,4 +421,17 @@ public interface ITeacherService {
 	 * @throws Exception 
 	 */
 	public List<ResourceType> readResourceCategoried() throws Exception;
+	/**
+	 * @author wenli
+	 * @param resourceTye
+	 * @return
+	 * 返回当前资源的id号
+	 */
+	public int getResourceTypeId(String resourceTye)throws Exception;
+	/**
+	 * @author wenli
+	 * @param resource
+	 * 创建资源
+	 */
+	public void createResource(Resource resource)throws Exception;
 }

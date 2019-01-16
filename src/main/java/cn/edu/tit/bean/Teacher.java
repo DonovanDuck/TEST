@@ -92,23 +92,7 @@ public class Teacher {
 				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + ", status=" + status
 				+ ", teacherCategory=" + teacherCategory + "]";
 	}
-	public Teacher(String employeeNum, String teacherName, String teacherNickName, String teacherPassword,
-			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
-			String faceImg, String status, String teacherCategory) {
-		super();
-		this.employeeNum = employeeNum;
-		this.teacherName = teacherName;
-		this.teacherNickName = teacherNickName;
-		this.teacherPassword = teacherPassword;
-		this.teacherGender = teacherGender;
-		this.educationBackground = educationBackground;
-		this.professionalTitles = professionalTitles;
-		this.telephone = telephone;
-		this.email = email;
-		this.faceImg = faceImg;
-		this.status = status;
-		this.teacherCategory = teacherCategory;
-	}
+	
 	public Teacher() {
 		super();
 		// TODO Auto-generated constructor stub

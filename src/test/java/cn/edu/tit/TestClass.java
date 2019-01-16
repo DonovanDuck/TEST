@@ -68,10 +68,15 @@ public class TestClass {
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 =======
 		}
 >>>>>>> liming
+=======
+
+	}
+>>>>>>> 17eacc624033344d57cee8f2d4284ed8db824daf
 	
 	
 //	@Test
