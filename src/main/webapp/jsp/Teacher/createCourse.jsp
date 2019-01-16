@@ -34,11 +34,11 @@
 		width: 67px;
 	}
 	.confirm_close{
-		width: 40%;
-		height: 50px;
-		position: relative;
-		left: 308px;
-		top:-33px;
+		    width: 48%;
+    height: 50px;
+    position: relative;
+    left: 227px;
+    top: 23px;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -249,14 +249,15 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					</div>
 				</div>
 				<hr>
-			</form>
-		</div>
-		<div class="confirm_close">
+				<div class="confirm_close">
 					<ul>
 						<li><input class="btn btn-default" style="width: 84px;" type="submit" value="创建" /></li>
 						<li><input class="btn btn-default" style="width: 84px;" value="取消" /></li>
 					</ul>
 				</div>
+			</form>
+		</div>
+		
 		<div class="footer">
 			<div class="container">
 

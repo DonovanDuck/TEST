@@ -12,29 +12,54 @@
 <title>班级详情页-作业</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
-	<script src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
-	<script type="text/javascript">
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script type="text/javascript">
 	function download(element) {
-		
-		 var params = {};//定义一个数组
-		 var fileName = element.id;
-		 alert(fileName);
-		  params["fileName"] = fileName ;//把这些变量都存在这个数组里
 
-		$.ajax({
-			async:false,
-			cache:false,
-			url:"${pageContext.request.contextPath}/teacher/resourceDownload",
-			type:"POST",
-			data:params,
-			dataType:"text",
-			success:function(result) {
-				
-			}
-		});
-		
+		var params = {};//定义一个数组
+		var fileName = element.id;
+		alert(fileName);
+		params["fileName"] = fileName;//把这些变量都存在这个数组里
+
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/teacher/resourceDownload",
+					type : "POST",
+					data : params,
+					dataType : "text",
+					success : function(result) {
+
+					}
+				});
+
 	}
-	
+</script>
+<script language="javascript">
+	var timeIframe;
+	window.onload = function() {
+		timeIframe = setTimeout(GetIframeStatus, 10);
+	}
+	function GetIframeStatus() {
+		var iframe = document.getElementById("iframeContent");
+		var iframeWindow = iframe.contentWindow;
+		//内容是否加载完
+		if (iframeWindow.document.readyState == "complete") {
+			var iframeWidth, iframeHeight;
+			//获取Iframe的内容实际宽度
+			iframeWidth = iframeWindow.document.documentElement.scrollWidth;
+			//获取Iframe的内容实际高度
+			iframeHeight = iframeWindow.document.documentElement.scrollHeight;
+			//设置Iframe的宽度
+			iframe.width = iframeWidth;
+			//设置Iframe的高度
+			iframe.height = iframeHeight;
+		} else {
+			timeIframe = setTimeout(GetIframeStatus, 10);
+		}
+	}
 </script>
 </head>
 <body>
@@ -50,10 +75,10 @@
 	<div class="main_m">
 		<nav>
 		<ul>
-			<li><a
-				href="${pageContext.request.contextPath}/jsp/Teacher/teacher-task.jsp">作业</a></li>
-			<li><a
-				href="${pageContext.request.contextPath}/jsp/Teacher/teacher-experiment.jsp">实验</a></li>
+			<li><a	target="iframeContent"
+				href="${pageContext.request.contextPath}/teacher/teacherTaskList">全部</a></li>
+			<li><a target="iframeContent"
+				href="${pageContext.request.contextPath}/teacher/teacherTaskListByTaskCategory?taskCategory=trial">实验</a></li>
 			<li><a href="#">课设</a></li>
 			<li><a href="#">翻转</a></li>
 			<li><a href="#">授课计划</a></li>
@@ -63,42 +88,8 @@
 		</nav>
 	</div>
 	<div class="main_b">
-
-		<div class="main_b_r">
-			<div class="task">
-				<c:forEach items="${taskList }" var="task">
-					<div class="task1">
-						<h3>作业详情:</h3>
-						<br>
-						<h4>作业1：${task.taskTitle }</h4>
-						<p class="text">${task.taskDetail }</p>
-						<button class="search" value=""
-							style="line-height: 20px; margin-top: 1%; font-size: 16px; float: left; margin-left: 1%; padding-left: 1%; padding-right: 1%;"
-							type="button">查看全部</button>
-						<br> <br> <span class="span1">发布时间:${task.publishTime }
-							9:00</span> <span class="span2">截至时间：${task.taskEndTime }</span><br> <br>
-						<c:forEach items="${task.accessoryList }" var="accessory"  varStatus="status">
-							<div
-								style="padding-left: 1%; float: left; margin-left: 1%; padding-right: 1%; font-size: 16px;">
-								
-								<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">${accessory.accessoryName }</a>
-								
-							</div>
-						</c:forEach>
-						<button
-							style="padding-left: 1%; float: right; margin-right: 1%; padding-right: 1%; font-size: 16px;">删除</button>
-					</div>
-				</c:forEach>
-				
-			</div>
-			<a
-				href="${pageContext.request.contextPath}/teacher/toPublishTask"
-				target="_parent">
-				<div class="button">
-					<p>发布作业</p>
-				</div>
-			</a>
-		</div>
+		<iframe id="iframeContent" name="iframeContent" style="width: 100%;"
+			frameborder="no" border="0" scrolling="no" src="${pageContext.request.contextPath}/teacher/teacherTaskList"></iframe>
 	</div>
 	</main>
 	<footer></footer>

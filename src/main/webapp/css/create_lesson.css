@@ -22,6 +22,14 @@ li{
     background: #f2f2f2;
     margin-top:1%;
 }
+.modifymain{
+	    height: 541px;
+	    width: 80%;
+    /* float: left; */
+    margin-left: 10%;
+    background: #f2f2f2;
+    margin-top:1%;
+}
 .main .input1{
     width: 60%;
     float: left;
