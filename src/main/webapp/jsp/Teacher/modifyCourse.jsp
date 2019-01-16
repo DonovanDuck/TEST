@@ -27,6 +27,25 @@
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 
 <%-- <jsp:include page="${pageContext.request.contextPath}/jsp/AdminJsp/Common.jsp" ></jsp:include> --%>
+<style type="text/css">
+	.phoneUl li{
+		list-style-type: none;
+		float:left;
+		width: 67px;
+	}
+	.confirm_close{
+	    width: 48%;
+    height: 50px;
+    position: absolute;
+    left: 322px;
+    top: 599px;
+	}
+	.confirm_close ul li{
+		list-style-type: none;
+		float:left;
+		margin-left: 170px;
+	}
+</style>
 <script>
 $('#exampleModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
@@ -61,7 +80,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 	});
 </script>
 
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function(){
 		$("#confirm").click(function(){
 			var checked=$("input:checkbox[name=teacher]:checked").val();
@@ -85,7 +104,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 			}); */
 		});
 	});
-</script>
+</script> -->
 
 <script type="text/javascript">
 	$(function(){
@@ -96,6 +115,30 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 			$("#teacherUl").append(" <li id="+"teacher"+">"+"</li>");
 		});
 	});
+</script>
+
+<!-- 图片预加载 -->
+<script>
+//浏览图片
+    function chan(i) {
+        var objUrl = getObjectURL(i.files[0]);
+        if (objUrl) {
+            $("#photos").attr("src", objUrl);  //这里的id是要显示图片位置的Id
+        }
+    };
+    //建立一個可存取到該file的url
+    function getObjectURL(file) {
+        var url = null;
+        // 下面函数执行的效果是一样的，只是需要针对不同的浏览器执行不同的 js 函数而已
+        if (window.createObjectURL != undefined) { // basic
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) { // mozilla(firefox)
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) { // webkit or chrome
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    } 
 </script>
 </head>
 <body>
@@ -113,19 +156,25 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				</div>
 			</div>
 		</div>
-		<div class="main">
-			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
+		<div class="main" style="height: 578px">
+			<form action="${pageContext.request.contextPath}/teacher/modifyCourse/${course.courseId}"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${employeeNum }">
 				<div class="input1">
 					<span>课程名称：</span> <input name="courseName" type="text"
-						placeholder="请输入课程名称：" value=${course.courseName }
+						placeholder="" value=${course.courseName }
 						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
 				</div>
 				<div class="input1">
-					<span>课程图片：</span> <label for="faceImg" style="cursor: pointer"><img
-						src="${pageContext.request.contextPath}/images/add.png" alt=""></label>
-					<input type="file" id="faceImg" style="display: none;" value=${course.faceImg }
-						name="faceImg">
+					<ul class="phoneUl">
+					<span style="float: left;" >课程图片：</span> 
+					<label for="faceImg" style="cursor: pointer">
+						<li>
+							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
+								name="faceImg" value=${course.faceImg }>
+						</li>
+						<li><img id="photos" src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" width="100" height="100" /></li>
+					</label>
+					</ul>
 				</div>
 				<div class="input3">
 					<span>课程分类：</span> <select name="courseCategory" id="category" value=${course.courseCategory }>
@@ -142,73 +191,15 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					<br> <input name="courseDetail" type="text" placeholder=""
 						style="width: 77%; height: 100px; float: left; margin-left: 9%;" value=${course.courseDetail }>
 				</div>
-
-				<hr>
-				
-				<!-- 拟态框star -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<ul id="teacherul" style="list-style-type:none;">
-							<li id="teacher"></li>
-						</ul>
-						<div class="modal-footer">
-							<button id="close" type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button>
-							<button type="button" id="confirm" class="btn btn-primary" data-dismiss="modal">确定</button>
-						</div>
-					</div>
-				</div>
-</div>
-				<!-- 拟态框end -->
-				
-				<div class="teacher-friend">
-					<h3>教师圈：</h3>
-					<div class="friend">
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="add">
-							<button type="button" id="pull" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">拉入教师</button>
-						</div>
-						
-					</div>
-				</div>
-				<hr>
-				<div class="button">
-					<div class="create">
-							<span style="color: white;"><input type="submit" value="修改课程"></span>
-						</div> <a href="#"><div class="delete">
-							<span style="color: white;">取消</span>
-						</div></a>
+				<div class="confirm_close">
+					<ul>
+						<li><input class="btn btn-default" style="width: 84px;" type="submit" value="修改" /></li>
+						<li><input class="btn btn-default" style="width: 84px;" value="取消" /></li>
+					</ul>
 				</div>
 			</form>
 		</div>
+		
 		<div class="footer">
 			<div class="container">
 

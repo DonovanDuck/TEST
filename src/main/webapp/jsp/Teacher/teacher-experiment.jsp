@@ -1,108 +1,49 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>班级详情页-实验</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/teacher-experiment.css"/>
+<meta charset="UTF-8">
+<title>班级详情页-实验</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/course/teacher-experiment.css" />
+	<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 </head>
 <body>
-<header></header>
-<main>
-    <div class="main_t">
-        <div class="class">
-        <img alt="" src="">
-            <p><span>1720561班</span>&nbsp;&nbsp;<a href="#">编辑班级信息</a></p>
-        </div>
-    </div>
-    <div class="main_m">
-        <nav>
-            <ul>
-                <li><a href="teacher-task.html" target="_self">作业</a></li>
-                <li><a href="teacher-experiment.html">实验</a></li>
-                <li><a href="#">课设</a></li>
-                <li><a href="#">翻转</a></li>
-                <li><a href="#">授课计划</a></li>
-                <li><a href="#">论坛</a></li>
-                <li><a href="#">开放</a></li>
-            </ul>
-        </nav>
-    </div>
-    <div class="main_b">
-        <div class="main_b_l">
-            <ul>
-                <li><a href="#">第一章</a></li>
-                <li><a href="#">第二章</a></li>
-                <li><a href="#">第三章</a></li>
-                <li><a href="#">第四章</a></li>
-                <li><a href="#">第五章</a></li>
-                <li><a href="#">第六章</a></li>
-                <li><a href="#">第七章</a></li>
-                <li><a href="#">第八章</a></li>
-                <li><a href="#">第九章</a></li>
-                <li><a href="#">第十章</a></li>
-                <li><a href="#">第十一章</a></li>
-                <li><a href="#">第十二章</a></li>
-                <li><a href="#">第十三章</a></li>
-                <li><a href="#">第十四章</a></li>
-            </ul>
-        </div>
-        <div class="main_b_r">
-            <div class="word">
-                <div class="word1">
-                <div class="images">
-                    <img src="${pageContext.request.contextPath}/images/word1.png" alt="" style="width:80px;height:80px;"/>
-                </div>
-                <div class="word2">
-                    <p>实验名称：熟悉Visual studio2010环境及简单程序设计 <br>上传时间：2018年12月2日 12:12</p>
-                    <a href="">&nbsp;&nbsp;&nbsp;被下载XX</a>
-                </div>
-                </div>
-                <div class="word1">
-                    <div class="images">
-                        <img src="${pageContext.request.contextPath}/images/word1.png" alt="" style="width:80px;height:80px;"/>
-                    </div>
-                    <div class="word2">
-                        <p>实验名称：熟悉Visual studio2010环境及简单程序设计 <br>上传时间：2018年12月2日 12:12</p>
-                        <a href="">&nbsp;&nbsp;&nbsp;被下载XX</a>
-                    </div>
-                </div>
-                <div class="word1">
-                    <div class="images">
-                        <img src="../images/word1.png" alt="" style="width:80px;height:80px;"/>
-                    </div>
-                    <div class="word2">
-                        <p>实验名称：熟悉Visual studio2010环境及简单程序设计 <br>上传时间：2018年12月2日 12:12</p>
-                        <a href="">&nbsp;&nbsp;&nbsp;被下载XX</a>
-                    </div>
-                </div>
-                <div class="word1">
-                    <div class="images">
-                        <img src="../images/word1.png" alt="" style="width:80px;height:80px;"/>
-                    </div>
-                    <div class="word2">
-                        <p>实验名称：熟悉Visual studio2010环境及简单程序设计 <br>上传时间：2018年12月2日 12:12</p>
-                        <a href="">&nbsp;&nbsp;&nbsp;被下载XX</a>
-                    </div>
-                </div>
-                <div class="word1">
-                    <div class="images">
-                        <img src="../images/word1.png" alt="" style="width:80px;height:80px;"/>
-                    </div>
-                    <div class="word2">
-                        <p>实验名称：熟悉Visual studio2010环境及简单程序设计 <br>上传时间：2018年12月2日 12:12</p>
-                        <a href="">&nbsp;&nbsp;&nbsp;被下载XX</a>
-                    </div>
-                </div>
-            </div>
-            <a href="${pageContext.request.contextPath}/course/teacher-release-task.jsp" target="_blank"><div class="button">
-                <p>发布实验</p>
-            </div>
-            </a>
-        </div>
-    </div>
-    </main>
-<footer></footer>
+	
+		<div class="main_b_r">
+			<div class="word">
+				<c:forEach items="${taskList }" var="task">
+					<div class="word1">
+						<div class="images">
+							<img src="${pageContext.request.contextPath}/images/word1.png"
+								alt="" style="width: 80px; height: 80px;" />
+						</div>
+						<div class="word2">
+							<p>
+								实验名称：${task.taskTitle } <br>上传时间：${task.publishTime }
+							</p>
+							<p >&nbsp;&nbsp;&nbsp;被下载${task.watchNum }</p>
+							<p >&nbsp;&nbsp;&nbsp;查看详情</p>
+						</div>
+					</div>
+				</c:forEach>
+
+			</div>
+			<a
+				href="${pageContext.request.contextPath}/course/teacher-release-task.jsp"
+				target="_blank"><div class="button">
+					<p>发布实验</p>
+				</div> </a>
+		</div>
+	
 </body>
 </html>

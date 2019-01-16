@@ -58,6 +58,7 @@ main .main_t .word{
     background:orange;
     text-align:center;
     line-height:50px;
+    float:left;
 }
 .button a{
     color:white;

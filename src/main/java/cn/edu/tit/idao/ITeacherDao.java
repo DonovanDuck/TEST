@@ -57,7 +57,7 @@ public interface ITeacherDao {
 	
 	public List<String> searchTaskId(String virtualClassNum)throws Exception;//查找班级对应的taskid号1
 	public List<Task> TaskList(List<String> taskIds)throws Exception;	//显示所有任务列表1
-	public List<Task> teacherTaskAssortmentList(@Param("taskId")List<String> taskId,@Param("taskCategory")String taskCategory)throws Exception;
+	public List<Task> teacherTaskAssortmentList(@Param("taskIds")List<String> taskId,@Param("taskCategory")String taskCategory)throws Exception;//根据不同任务类型显示作业列表
 	
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情1
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
@@ -158,11 +158,40 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public String getCourseIdByVirtualId(String virtualClassNum);
+	public List<String> getTaskCategory();
+	
+
+	/**
+	 * 通过课程名查课程
+	 * @param courseName
+	 * @return
+	 */
+	public Course searchCourseByName(String courseName);
+	
+	/**
+	 * 通过班级名查班级
+	 */
+	public VirtualClass searchClassByName(String virtualClassName);
+	
+	/**
+	 * 根据自然班级id查询
+	 * @param realClassNum
+	 * @return
+	 */
+	public RealClass searchRealClassById(String realClassNum);
+	
+	/**
+	 * 根据id查图片
+	 * @param courseId
+	 * @return
+	 */
+	public String getImgpathByCourseId(String courseId);
 	
 	/**
 	 * @author LiMing
 	 * @return 返回资源分类信息
 	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
 	 * */
+	
 	public List<ResourceType> readResourceCategoried();
 }

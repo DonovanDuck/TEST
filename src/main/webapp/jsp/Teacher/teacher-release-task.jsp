@@ -38,7 +38,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <span><strong>题&nbsp;&nbsp;&nbsp;&nbsp;目：</strong></span>
             <input type="text" name="taskTitle"  placeholder="请输入题目：" style="width: 60%;height: 30px;float: left;">
          
-            <button style="width:10%;height:30px;">资源库选择</button>
+            <div style="width:10%;height:30px;">
+	            <select id ="taskCategory" name="taskCategory">
+	            	<c:forEach items="${taskCategoryList }" var="taskCategory">
+								<option>${taskCategory }</option>
+							</c:forEach>
+	            </select>
+            </div>
             <br> <br>
             <span><strong>任务详情：</strong></span>
             <input name="taskDetail" type="text" placeholder="请输入任务详情：" style="width: 80%;height: 200px;float: left;">

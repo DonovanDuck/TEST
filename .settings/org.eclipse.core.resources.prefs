@@ -1,6 +1,6 @@
 =\=\=\=\=\=\=
 <<<<<<<=HEAD
->>>>>>>=4c93a70cf18894b3a906a8c647da9b4937026bb2
+>>>>>>>=6ac813779ce335c96a9b2147a29598fc195940b2
 eclipse.preferences.version=1
 encoding//src/main/java=UTF-8
 encoding//src/main/resources/jdbc.properties=UTF-8
@@ -13,6 +13,7 @@ encoding//src/main/webapp/jsp/AdminJsp/teacherManager.jsp=UTF-8
 encoding//src/main/webapp/jsp/CourseJsp/courseSecond.jsp=UTF-8
 encoding//src/main/webapp/jsp/Teacher/classTask.jsp=UTF-8
 encoding//src/main/webapp/jsp/Teacher/managerResourceList.jsp=UTF-8
+encoding//src/main/webapp/jsp/Teacher/teacher-taskDetail.jsp=UTF-8
 encoding//src/main/webapp/jsp/user_login.jsp=UTF-8
 encoding//src/test/java=UTF-8
 encoding/<project>=UTF-8
