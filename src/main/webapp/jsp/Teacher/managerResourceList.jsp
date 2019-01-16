@@ -14,28 +14,69 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/managerResourceList.css"
 	type="text/css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link
+	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
+
 <script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
+<script type="text/javascript">
+	$('#exampleModal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget)
+		var recipient = button.data('whatever')
+		var modal = $(this)
+		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-body input').val(recipient)
+	})
+</script>
+<script type="text/javascript">
+	function buttonClick(id) {
+		//模拟点击按钮，在父页面显示模态框，调用函数在iframe
+		//path为访问数据的路径
+		$("#modelContent").click();
+		var path = "${pageContext.request.contextPath}/teacher/toModalResource/"
+				+ id;
+		//为form的actionPath 赋值
+		var actionPath = "${pageContext.request.contextPath}/teacher/toUpdateResource/"
+				+ id;
+		$("#commit").attr('action', actionPath);
+		$.ajax({
+			async : false,
+			cache : false,
+			url : path,
+			type : "POST",
+			dataType : "json",
+			error : function() {
+				alert("请求数据失败");
+			},
+			success : function(result) {
+				var arr = eval(result);
+				for (var i = 0; i < arr.length; i++) {
+					$('#resourceName').val(" ");
+					$('#resourceDetail').val(" ");
+					$('#resourceName').val(arr[i].resourceName);
+					$('#resourceDetail').val(arr[i].resourceDetail);
+				}
+			}
+		});
+	}
+</script>
 <script language="javascript">
 	window.onload = function() {
 		setTimeIframe();
-	} 
-	function refresh(id)
-	{
-	// 刷新页面
-	   window.location.reload();
 	}
-	function setTimeIframe(){
+	function refresh(id) {
+		// 刷新页面
+		window.location.reload();
+	}
+	function setTimeIframe() {
 		var timeIframe = setTimeout(GetIframeStatus, 10);
 	}
 	function GetIframeStatus() {
@@ -59,6 +100,9 @@
 </script>
 </head>
 <body class="body">
+	<button type="button" id="modelContent" name="modelContent"
+		class="btn btn-primary" style="display: none" data-toggle="modal"
+		data-target="#exampleModal" data-whatever="@mdo"></button>
 	<div class="header">
 		<div class="logo-box">
 			<img src="${pageContext.request.contextPath}/images/head.png"
@@ -83,8 +127,8 @@
 		</div>
 		<div class="content">
 			<iframe id="mainIframe" name="mainIframe"
-				style="width: 100%;margin-top: 1%" frameborder="no"
-				border="0" scrolling="no"
+				style="width: 100%; margin-top: 1%" frameborder="no" border="0"
+				scrolling="no"
 				src="${pageContext.request.contextPath}/teacher/toResource/${resourceCategories[0].resourceTypeId }"></iframe>
 		</div>
 	</div>
@@ -94,5 +138,38 @@
 				width="100%" height="100%" border="0">
 		</div>
 	</div>
+
+	<!-- 模态框   开始-->
+	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
+		aria-labelledby="exampleModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+					<h4 class="modal-title" id="exampleModalLabel">修改资源</h4>
+				</div>
+				<div class="modal-body">
+					<form id="commit" name="commit" action="" method="post">
+						<div class="form-group">
+							<label for="resourceName" class="control-label">资源名:</label> <input
+								type="text" class="form-control" id="resourceName" name="resourceName">
+						</div>
+						<div class="form-group">
+							<label for="resourceDetail" class="control-label">资源详情:</label>
+							<textarea class="form-control" id="resourceDetail" name="resourceDetail"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="submit" class="btn btn-primary">提交</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- 模态框   结束-->
 </body>
 </html>

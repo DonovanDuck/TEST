@@ -67,7 +67,11 @@ public class TestClass {
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
+<<<<<<< HEAD
 	}
+=======
+		}
+>>>>>>> liming
 	
 	
 //	@Test
