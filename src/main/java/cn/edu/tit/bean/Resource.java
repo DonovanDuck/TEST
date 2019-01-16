@@ -13,15 +13,41 @@ public class Resource {
 	private String resourceDetail; // 资源描述
 	private Timestamp publishTime; // 资源发布时间
 	private String publisherId; // 发布者id
-	private int resourceTypeId; // 资源类型
+	private Integer resourceTypeId; // 资源类型
 	private String resourcePath; // 资源存储路径
 	private String courseId;// 资源所属课程	
 	private String size; // 资源大小
 	private String timeSize; // 视频资源时长
 	private Integer watchNum; // 查看次数
 	private Integer useNum; // 使用次数
-	
-	// setter - getter
+	@Override
+	public String toString() {
+		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
+				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceTypeId="
+				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", size=" + size
+				+ ", timeSize=" + timeSize + ", watchNum=" + watchNum + ", useNum=" + useNum + "]";
+	}
+	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
+			String publisherId, Integer resourceTypeId, String resourcePath, String courseId, String size,
+			String timeSize, Integer watchNum, Integer useNum) {
+		super();
+		this.resourceId = resourceId;
+		this.resourceName = resourceName;
+		this.resourceDetail = resourceDetail;
+		this.publishTime = publishTime;
+		this.publisherId = publisherId;
+		this.resourceTypeId = resourceTypeId;
+		this.resourcePath = resourcePath;
+		this.courseId = courseId;
+		this.size = size;
+		this.timeSize = timeSize;
+		this.watchNum = watchNum;
+		this.useNum = useNum;
+	}
+	public Resource() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public String getResourceId() {
 		return resourceId;
 	}
@@ -52,18 +78,17 @@ public class Resource {
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
+	public Integer getResourceTypeId() {
+		return resourceTypeId;
+	}
+	public void setResourceTypeId(Integer resourceTypeId) {
+		this.resourceTypeId = resourceTypeId;
+	}
 	public String getResourcePath() {
 		return resourcePath;
 	}
 	public void setResourcePath(String resourcePath) {
 		this.resourcePath = resourcePath;
-	}
-	
-	public int getResourceType() {
-		return resourceTypeId;
-	}
-	public void setResourceType(int resourceTypeId) {
-		this.resourceTypeId = resourceTypeId;
 	}
 	public String getCourseId() {
 		return courseId;
@@ -71,19 +96,12 @@ public class Resource {
 	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-	public int getResourceTypeId() {
-		return resourceTypeId;
-	}
-	public void setResourceTypeId(int resourceTypeId) {
-		this.resourceTypeId = resourceTypeId;
-	}
 	public String getSize() {
 		return size;
 	}
 	public void setSize(String size) {
 		this.size = size;
 	}
-	
 	public String getTimeSize() {
 		return timeSize;
 	}
@@ -102,35 +120,5 @@ public class Resource {
 	public void setUseNum(Integer useNum) {
 		this.useNum = useNum;
 	}
-	@Override
-	public String toString() {
-		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
-				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceTypeId="
-				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", size=" + size
-				+ ", timeSize=" + timeSize + ", watchNum=" + watchNum + ", useNum=" + useNum + "]";
-	}
-
-	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, int resourceTypeId, String resourcePath, String courseId, String size, String timeSize,
-			Integer watchNum, Integer useNum) {
-		super();
-		this.resourceId = resourceId;
-		this.resourceName = resourceName;
-		this.resourceDetail = resourceDetail;
-		this.publishTime = publishTime;
-		this.publisherId = publisherId;
-		this.resourceTypeId = resourceTypeId;
-		this.resourcePath = resourcePath;
-		this.courseId = courseId;
-		this.size = size;
-		this.timeSize = timeSize;
-		this.watchNum = watchNum;
-		this.useNum = useNum;
-	}
-	public Resource() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
 	
 }

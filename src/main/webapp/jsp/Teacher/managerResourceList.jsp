@@ -27,27 +27,56 @@
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
-	<script type="text/javascript">
+<script type="text/javascript">
 	$('#exampleModal').on('show.bs.modal', function(event) {
-		var button = $(event.relatedTarget) // Button that triggered the modal
-		var recipient = button.data('whatever') // Extract info from data-* attributes
-		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var button = $(event.relatedTarget)
+		var recipient = button.data('whatever')
 		var modal = $(this)
 		modal.find('.modal-title').text('New message to ' + recipient)
 		modal.find('.modal-body input').val(recipient)
 	})
 </script>
+<script type="text/javascript">
+	function buttonClick(id) {
+		//模拟点击按钮，在父页面显示模态框，调用函数在iframe
+		//path为访问数据的路径
+		$("#modelContent").click();
+		var path = "${pageContext.request.contextPath}/teacher/toModalResource/"
+				+ id;
+		//为form的actionPath 赋值
+		var actionPath = "${pageContext.request.contextPath}/teacher/toUpdateResource/"
+				+ id;
+		$("#commit").attr('action', actionPath);
+		$.ajax({
+			async : false,
+			cache : false,
+			url : path,
+			type : "POST",
+			dataType : "json",
+			error : function() {
+				alert("请求数据失败");
+			},
+			success : function(result) {
+				var arr = eval(result);
+				for (var i = 0; i < arr.length; i++) {
+					$('#resourceName').val(" ");
+					$('#resourceDetail').val(" ");
+					$('#resourceName').val(arr[i].resourceName);
+					$('#resourceDetail').val(arr[i].resourceDetail);
+				}
+			}
+		});
+	}
+</script>
 <script language="javascript">
 	window.onload = function() {
 		setTimeIframe();
-	} 
-	function refresh(id)
-	{
-	// 刷新页面
-	   window.location.reload();
 	}
-	function setTimeIframe(){
+	function refresh(id) {
+		// 刷新页面
+		window.location.reload();
+	}
+	function setTimeIframe() {
 		var timeIframe = setTimeout(GetIframeStatus, 10);
 	}
 	function GetIframeStatus() {
@@ -71,6 +100,9 @@
 </script>
 </head>
 <body class="body">
+	<button type="button" id="modelContent" name="modelContent"
+		class="btn btn-primary" style="display: none" data-toggle="modal"
+		data-target="#exampleModal" data-whatever="@mdo"></button>
 	<div class="header">
 		<div class="logo-box">
 			<img src="${pageContext.request.contextPath}/images/head.png"
@@ -95,8 +127,8 @@
 		</div>
 		<div class="content">
 			<iframe id="mainIframe" name="mainIframe"
-				style="width: 100%;margin-top: 1%" frameborder="no"
-				border="0" scrolling="no"
+				style="width: 100%; margin-top: 1%" frameborder="no" border="0"
+				scrolling="no"
 				src="${pageContext.request.contextPath}/teacher/toResource/${resourceCategories[0].resourceTypeId }"></iframe>
 		</div>
 	</div>
@@ -106,9 +138,9 @@
 				width="100%" height="100%" border="0">
 		</div>
 	</div>
-	
-	
-	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+
+	<!-- 模态框   开始-->
+	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -117,28 +149,27 @@
 						aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
-					<h4 class="modal-title" id="exampleModalLabel">New message</h4>
+					<h4 class="modal-title" id="exampleModalLabel">修改资源</h4>
 				</div>
 				<div class="modal-body">
-					<form id="commit" name="commit"
-						action="${pageContext.request.contextPath}/admin/AddCategory"
-						method="post">
+					<form id="commit" name="commit" action="" method="post">
 						<div class="form-group">
-							<label for="recipient-name" class="control-label">Recipient:</label>
-							<input type="text" class="form-control" id="recipient-name">
+							<label for="resourceName" class="control-label">资源名:</label> <input
+								type="text" class="form-control" id="resourceName" name="resourceName">
 						</div>
 						<div class="form-group">
-							<label for="message-text" class="control-label">Message:</label>
-							<textarea class="form-control" id="message-text"></textarea>
+							<label for="resourceDetail" class="control-label">资源详情:</label>
+							<textarea class="form-control" id="resourceDetail" name="resourceDetail"></textarea>
+						</div>
+						<div class="modal-footer">
+							<button class="btn btn-default" data-dismiss="modal">关闭</button>
+							<button type="submit" class="btn btn-primary">提交</button>
 						</div>
 					</form>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					<button type="button" class="btn btn-primary">Send message</button>
 				</div>
 			</div>
 		</div>
 	</div>
+	<!-- 模态框   结束-->
 </body>
 </html>

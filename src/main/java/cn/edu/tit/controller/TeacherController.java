@@ -75,6 +75,7 @@ public class TeacherController {
 	private IResourceService resourceService;
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private static List<ResourceType> resourceCategories = null;//将资源分类作为全局变量
+	
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -83,8 +84,8 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			//teacherPassword = Common.eccryptMD5(password);
-			if(password.equals(teacher.getTeacherPassword()))
+			teacherPassword = Common.eccryptMD5(password);
+			if(teacherPassword.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
@@ -93,12 +94,10 @@ public class TeacherController {
 				mv.addObject("teacher",teacher);
 			}
 			else {
-
 				mv.addObject("readResult", "密码错误");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
-
 			mv.addObject("readResult", "异常");//返回信息
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
@@ -924,8 +923,8 @@ public class TeacherController {
 	 * 访问资源更新页
 	 * @throws Exception 
 	 */
-	@RequestMapping("/toResource")
-	public ModelAndView toResource() throws Exception {
+	@RequestMapping("/toResourceMain")
+	public ModelAndView toResourceMain() throws Exception {
 		ModelAndView mv = new ModelAndView();
 		resourceCategories = new ArrayList<ResourceType>();
 		resourceCategories = teacherService.readResourceCategoried();
@@ -955,11 +954,13 @@ public class TeacherController {
 	 * @author LiMing
 	 * @param request
 	 * 更新资源
+	 * @throws Exception 
 	 */
 	@RequestMapping("/toUpdateResource/{resourceId}")
-	public ModelAndView toUpddateResource(@PathVariable String resourceId) throws IOException {
+	public ModelAndView toUpdateResource(@PathVariable String resourceId,@RequestParam(value="resourceName")String resourceName,@RequestParam(value="resourceDetail")String resourceDetail) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println(resourceId+"~~~~~~~~~~~~~~~~更新");
+		resourceService.updateResource(resourceId, resourceName, resourceDetail, null, null, null, null, null, null, null, null, null);
+		mv = toResourceMain();
 		return mv; 
 	}
 	

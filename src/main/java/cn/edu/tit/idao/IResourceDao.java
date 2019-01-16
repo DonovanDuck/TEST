@@ -106,5 +106,12 @@ public interface IResourceDao {
 	 * 2.当resourceTypeId为空时，扫描全部资源
 	 */
 	public List<Resource> showResource(@Param("resourceId")String resourceId);
+
+	/**
+	 *@author LiMing
+	 * @param resource
+	 * 更新资源信息
+	 */
+	public void updateResource(Resource resource);
 	
 }

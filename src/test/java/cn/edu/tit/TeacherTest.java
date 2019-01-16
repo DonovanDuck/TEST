@@ -94,17 +94,17 @@ public class TeacherTest {
 	//			  //students.addAll(teacherService.studentList(classNum));
 	//		}
 	//	  }
-	//	  @Test
-	//	  public void MD5test() {
-	//		  
-	//		  String password=null;
-	//		  try {
-	//			System.out.println(Common.eccryptMD5("123456"));
-	//		} catch (NoSuchAlgorithmException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	  }
+		  @Test
+		  public void MD5test() {
+			  
+			  String password=null;
+			  try {
+				System.out.println(Common.eccryptMD5("1"));
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  }
 
 	@Test
 	public void loginTest() throws Exception {

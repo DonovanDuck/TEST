@@ -54,11 +54,9 @@
 	}
 </script>
 <script type="text/javascript">
-	function deleteInfo() {
-		var id = $("#deleteInfo").val();
-		var path = "${pageContext.request.contextPath}/teacher/toDeleteResource/"
-				+ id;
-
+	function updateInfo() {
+		var id = $("#updateInfo").val();
+		window.parent.buttonClick(id);
 	}
 </script>
 </head>
@@ -88,7 +86,8 @@
 					value="${list.resourceId }" style="margin-top: 30%"
 					onclick="deleteInfo()">删除</button>
 				<button class="btn btn-default" style="margin-top: 46%"
-					value="${list.resourceId }" onclick="updateInfo()">修改</button>
+					id="updateInfo" name="updateInfo" value="${list.resourceId }"
+					onclick="updateInfo()">修改</button>
 			</div>
 		</div>
 	</c:forEach>

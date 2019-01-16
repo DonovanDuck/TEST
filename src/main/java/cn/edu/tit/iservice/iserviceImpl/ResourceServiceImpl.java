@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -125,6 +126,37 @@ public class ResourceServiceImpl implements IResourceService {
 		return resourceList;
 	}
 
+	
+	/**
+	 * @author LiMing
+	 * 更新资源信息
+	 * */
+	@Override
+	public void updateResource(String resourceId,String resourceName, String resourceDetail, Timestamp publishTime,
+			String publisherId, Integer resourceTypeId, String resourcePath, String courseId, String size, String timeSize,
+			Integer watchNum, Integer useNum) throws Exception 
+	{
+		Resource resource = new Resource();
+		resource.setResourceId(resourceId);
+		resource.setPublisherId(publisherId);
+		resource.setPublishTime(publishTime);
+		resource.setResourceDetail(resourceDetail);
+		resource.setResourceName(resourceName);
+		resource.setResourcePath(resourcePath);
+		resource.setResourceTypeId(resourceTypeId);
+		resource.setSize(size);
+		resource.setTimeSize(timeSize);
+		resource.setUseNum(useNum);
+		resource.setWatchNum(watchNum);
+		resource.setCourseId(courseId);
+		try {
+			resourceDao.updateResource(resource);
+			System.out.println("updateResource--------DAO层执行成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("updateResource--------DAO层执行成功");
+		}
+	}
 //	@Override
 //	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
 //		// TODO Auto-generated method stub
@@ -132,8 +164,6 @@ public class ResourceServiceImpl implements IResourceService {
 //			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
 //		}
 //	}
-
-
 	/*@Override
 	public List<Resource> showResourceByClass(String virtualClassNum) {
 		List<String> resourceIdList = resourceDao.searchResourceIdByClass(virtualClassNum); // 获取课程相关resourceId

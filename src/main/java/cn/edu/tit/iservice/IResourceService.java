@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import cn.edu.tit.bean.Resource;
@@ -86,10 +87,24 @@ public interface IResourceService {
 	public List<Resource> showResource(String resourceId) throws Exception;
 	
 	/**
-	 * 发布资源到班级
-	 * @param resourceList
+	 *@author LiMing
+	 * @param resourceName
+	 * @param resourceDetail
+	 * @param publishTime
+	 * @param publisherId
+	 * @param resourceTypeId
+	 * @param resourcePath
+	 * @param courseId
+	 * @param size
+	 * @param timeSize
+	 * @param watchNum
+	 * @param useNum
+	 * @throws Exception
+	 * 更新资源，不需要更新的字段传空，更新的字段设置值
 	 */
-	//public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum);
+	public void updateResource(String resourceId,String resourceName, String resourceDetail, Timestamp publishTime, String publisherId,
+			Integer resourceTypeId, String resourcePath, String courseId, String size, String timeSize, Integer watchNum,
+			Integer useNum) throws Exception;
 	
 	
 	/**
