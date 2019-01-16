@@ -43,6 +43,11 @@ public class ResourceTest {
 		//			// TODO Auto-generated catch block
 		//			e.printStackTrace();
 		//		}
+		//		List<cn.edu.tit.bean.Resource> list = new ArrayList<cn.edu.tit.bean.Resource>();
+		//		list = iresource.showResourceByType(5);
+		//		for (cn.edu.tit.bean.Resource resource : list) {
+		//			System.out.println(resource.toString());
+		//		}
 	}
 
 }

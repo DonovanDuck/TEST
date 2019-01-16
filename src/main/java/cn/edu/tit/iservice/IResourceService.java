@@ -23,8 +23,11 @@ public interface IResourceService {
 	 * 按资源类型查询
 	 * @param resourceTypeId
 	 * @return
+	 * 此方法中：
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
 	 */
-	public List<Resource> showResourceByType(int resourceTypeId);
+	public List<Resource> showResourceByType(Integer resourceTypeId);
 	
 	/**
 	 * 通过id获得资源路径
@@ -71,6 +74,16 @@ public interface IResourceService {
 	 * @throws Exception 
 	 */
 	public String deleteResourceById(String resourceId) throws Exception;
+	
+	/**
+	 * 查找资源
+	 * @param resourceId
+	 * @return
+	 * @throws Exception 
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
+	 */
+	public List<Resource> showResource(String resourceId) throws Exception;
 	
 	/**
 	 * 发布资源到班级

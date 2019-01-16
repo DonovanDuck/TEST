@@ -840,6 +840,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<Resource> list = new ArrayList<Resource>();
 		int type = Integer.parseInt(resourceType);
+		//showResourceByType()为混合方法，看具体注释
 		list  = resourceService.showResourceByType(type);
 		mv.addObject("resource", list);
 		mv.setViewName("/jsp/Teacher/managerResourceListIframe");
@@ -849,7 +850,7 @@ public class TeacherController {
 	/**
 	 * @author LiMing
 	 * @param request
-	 * 访问作业资源,作为默认Iframe的显示内容
+	 * 更新资源
 	 */
 	@RequestMapping("/toUpdateResource/{resourceId}")
 	public ModelAndView toUpddateResource(@PathVariable String resourceId) throws IOException {
@@ -861,7 +862,7 @@ public class TeacherController {
 	/**
 	 * @author LiMing
 	 * @param request
-	 * 访问作业资源,作为默认Iframe的显示内容
+	 * 删除资源
 	 * @throws Exception 
 	 */
 	@RequestMapping("/toDeleteResource/{resourceId}")
@@ -869,5 +870,21 @@ public class TeacherController {
 		String msg = null;
 		msg  = resourceService.deleteResourceById(resourceId);
 		return msg;
+	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * 返回需要更新的资源，将对象显示在模态框
+	 * @throws Exception 
+	 */
+	@RequestMapping("/toModalResource/{resourceId}")
+	public void tomodalResource(HttpServletRequest request, HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+		String msg = null;
+		List<Resource> list = new ArrayList<Resource>();
+		list  = resourceService.showResource(resourceId);//此时resourceId 不为空，将按照条件查询。返回只有一个对象的集合
+		JSONArray  json  =  JSONArray.fromObject(list); 
+		String result = json.toString();
+		response.getWriter().print(result);
 	}
 }

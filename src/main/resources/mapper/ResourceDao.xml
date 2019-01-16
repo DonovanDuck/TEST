@@ -45,9 +45,22 @@
 		select * from resource where course_id = #{courseId} order by publish_time DESC;
 	</select>
 	
+	<!-- 按id查询资源 -->	
+	<select id="showResource" parameterType="java.lang.String" resultMap="resource">
+		select * from resource 
+		<if test="null!=resourceId">
+			where resource_id = #{resourceId} 
+		</if>
+		order by publish_time DESC;
+	</select>
+	
 	<!-- 按类型查询资源 -->
 	<select id="searchResourceByType" parameterType="int" resultMap="resource">
-		select * from resource where resource_type_id = #{resourceTypeId} order by publish_time DESC;
+		select * from resource 
+		<if test="null!=resourceTypeId">
+			where resource_type_id = #{resourceTypeId} 
+		</if>
+		order by publish_time DESC;
 	</select>
 	
 	<!-- 通过id查询资源路径 -->

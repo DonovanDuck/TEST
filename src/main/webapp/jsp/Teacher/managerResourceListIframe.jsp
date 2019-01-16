@@ -14,42 +14,52 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/managerResourceList.css"
 	type="text/css">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
-	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
-	crossorigin="anonymous">
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap-theme.min.css"
-	integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp"
-	crossorigin="anonymous">
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
-	integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
-	crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+<link
+	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
+
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
+
 <script type="text/javascript">
-$(function(){
+	$(function() {
 		window.parent.setTimeIframe();
-})
+	})
 </script>
 <script type="text/javascript">
-function deleteInfo() {
-	var id=$("#deleteInfo").val();
-	var path = "${pageContext.request.contextPath}/teacher/toDeleteResource/"+id;
-	$.ajax({
-		async : true,
-		cache : false,
-		url : path,
-		type : "POST",
-		dataType:"text",
-		error : function() {
-			window.parent.refresh(id);
-		},
-        success : function(data) {
-        }
-		}
-	);
-}
+	function deleteInfo() {
+		var id = $("#deleteInfo").val();
+		var path = "${pageContext.request.contextPath}/teacher/toDeleteResource/"
+				+ id;
+		$.ajax({
+			async : false,
+			cache : false,
+			url : path,
+			type : "POST",
+			dataType : "json",
+			error : function() {
+				window.parent.refresh(id);
+			},
+			success : function(msg) {
+				window.parent.refresh(id);
+			}
+		});
+	}
+</script>
+<script type="text/javascript">
+	function deleteInfo() {
+		var id = $("#deleteInfo").val();
+		var path = "${pageContext.request.contextPath}/teacher/toDeleteResource/"
+				+ id;
+
+	}
 </script>
 </head>
 <body>
@@ -74,13 +84,11 @@ function deleteInfo() {
 				</div>
 			</div>
 			<div class="col-md-1">
-				<button class="btn btn-default" id="deleteInfo" name="deleteInfo" value="${list.resourceId }"
-					style="margin-top: 30%" onclick="deleteInfo()">删除</button>
-				<a
-					href="${pageContext.request.contextPath}/teacher/toUpdateResource/${list.resourceId }">
-					<input class="btn btn-default" style="margin-top: 46%"
-					type="submit" value="修改">
-				</a>
+				<button class="btn btn-default" id="deleteInfo" name="deleteInfo"
+					value="${list.resourceId }" style="margin-top: 30%"
+					onclick="deleteInfo()">删除</button>
+				<button class="btn btn-default" style="margin-top: 46%"
+					value="${list.resourceId }" onclick="updateInfo()">修改</button>
 			</div>
 		</div>
 	</c:forEach>

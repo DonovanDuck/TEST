@@ -33,7 +33,7 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public List<Resource> showResourceByType(int resourceTypeId) {
+	public List<Resource> showResourceByType(Integer resourceTypeId) {
 		// 调用dao层方法
 		return resourceDao.searchResourceByType(resourceTypeId);
 	}
@@ -101,6 +101,28 @@ public class ResourceServiceImpl implements IResourceService {
 			System.out.println("deleteResourceById--------DAO层执行失败");
 		}
 		return msg;
+	}
+
+	/**
+	 * 查找资源
+	 * @param resourceId
+	 * @return
+	 * @throws Exception 
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
+	 */
+	@Override
+	public List<Resource> showResource(String resourceId) throws Exception {
+		List<Resource> resourceList = new ArrayList<Resource>();
+		try {
+			resourceList = resourceDao.showResource(resourceId);
+			System.out.println("showResource--------DAO层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resourceList = null;
+			System.out.println("showResource--------DAO层执行失败");
+		}
+		return resourceList;
 	}
 
 //	@Override
