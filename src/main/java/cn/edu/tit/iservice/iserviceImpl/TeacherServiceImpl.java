@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,8 @@ import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -156,7 +159,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public List<Course> courseList(List<String> courseIds) throws Exception{
 		// TODO Auto-generated method stub
@@ -223,7 +226,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("teachDao层createTask出问题");
 		}
-		
+
 	}
 
 	@Override
@@ -296,7 +299,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("teachDao层addAccessory出问题");
 		}
-		
+
 	}
 
 	@Override
@@ -384,12 +387,12 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-	try{
+		try{
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
 			if(teacher != null)
-			System.out.println(teacher.toString());
-			
+				System.out.println(teacher.toString());
+
 			return teacher;
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -424,7 +427,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * @param 教师对象
@@ -465,17 +468,20 @@ public class TeacherServiceImpl implements ITeacherService{
 		try {
 			// 通过课程id获取教师工号
 			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
+			if(employeeNumList.contains(null)) {
 				return teacherDao.getTeachersById(employeeNumList);
-			   //通过教师工号获得教师圈教师集合
+			}
+			else return null;
+			//通过教师工号获得教师圈教师集合
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 			return null;
 		}
-		
-		
+
+
 	}
-	
+
 	public Integer searchTaskPoint(String taskCategory) throws Exception {
 		// TODO Auto-generated method stub
 		return teacherDao.searchTaskPoint(taskCategory);
@@ -507,7 +513,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			return null;
 		}
-		
+
 	}
 
 	/**
@@ -603,7 +609,7 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		return list;
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * 通过课程ID查询课程信息
@@ -638,7 +644,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum) {
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum)  throws Exception{
 		// 根据学生的自然班级号查询班级号
 		List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
 		List<VirtualClass> virtualClasses = new ArrayList<>();
@@ -652,12 +658,12 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public String getrealClassNumBySid(String studentId) {
+	public String getrealClassNumBySid(String studentId) throws Exception {
 		// TODO Auto-generated method stub
-		
+
 		return teacherDao.getrealClassNumBySid(studentId);
 	}
-	
+
 	@Override
 	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId, String creatorId) throws Exception {
 		// TODO Auto-generated method stub
@@ -672,7 +678,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Course> getAttentionCourse(String id) {
+	public List<Course> getAttentionCourse(String id)  throws Exception{
 		try {
 			// 获取用户关注课程id集合
 			List<String> userAttentionCid = teacherDao.getAttentionCid(id);
@@ -690,7 +696,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<VirtualClass> getTeacherCreateClass(String employeeNum) {
+	public List<VirtualClass> getTeacherCreateClass(String employeeNum)  throws Exception{
 		try {
 			// 获取老师加入的课程id集合
 			List<String> joinCourseId = teacherDao.getJoinCourseByTid(employeeNum);
@@ -711,7 +717,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Course> getStudentJoinCourseByrealNum(String realClassNum) {
+	public List<Course> getStudentJoinCourseByrealNum(String realClassNum)  throws Exception{
 		try {
 			// 根据学生的自然班级号查询班级号
 			List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
@@ -732,7 +738,62 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 	}
 
+	/**
+	 * @author LiMing
+	 * @return 返回资源分类信息
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * */
 	@Override
+	public List<ResourceType> readResourceCategoried()  throws Exception{
+		List<ResourceType> list = new ArrayList<ResourceType>();
+		try {
+			list = teacherDao.readResourceCategoried();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list = null;
+		}
+		return list;
+	}
+
+	@Override
+	public Course getCourseByName(String courseName) {
+		// 查询课程
+		return teacherDao.searchCourseByName(courseName);
+	}
+
+	@Override
+	public VirtualClass getClassByName(String virtualClassName) {
+		// 查询班级
+		return teacherDao.searchClassByName(virtualClassName);
+	}
+
+	@Override
+	public List<RealClass> getRealClassList(String virtualClassNum) {
+		try {
+			// 获取自然班级号
+			List<String> realClassNum = searchRealClassNum(virtualClassNum);
+			List<RealClass> realClassList = new ArrayList<>();
+			if(!realClassNum.contains(null)){
+				//获取自然班级集合
+				for(String rNum : realClassNum){
+					realClassList.add(teacherDao.searchRealClassById(rNum));
+				}
+			}
+			return realClassList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public String getImgpathByCourseId(String courseId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getImgpathByCourseId(courseId);
+	}
+		@Override
 	public List<String> getTaskCategory() throws Exception {
 		try {
 			return teacherDao.getTaskCategory();
@@ -743,6 +804,4 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		
 	}
-
-
 }

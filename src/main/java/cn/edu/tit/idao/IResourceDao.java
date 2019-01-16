@@ -87,5 +87,13 @@ public interface IResourceDao {
 	 * @return
 	 */
 	public List<Resource> searchResourceByTypeAndCid(@Param("resourceTypeId")Integer resourceTypeId, @Param("courseId")String courseId);
+
+	/**
+	 * 删除资源，根据ID
+	 * @param taskType
+	 * @param courseId
+	 * @throws Exception 
+	 */
+	public void deleteResourceById(@Param("resourceId")String resourceId);
 	
 }

@@ -149,8 +149,8 @@ public  class  Common {
 			List<FileItem> items = upload.parseRequest(request);// 得到所有的字段
 			for (FileItem fi : items) {
 				if (!fi.isFormField()) { // 判断是否是普通表单字段
-					String fileName = fi.getName(); // 使用随机码作为文件名避免重名
-					if (fileName != null) {
+					String fileName = fi.getName(); 
+					if (!fileName.isEmpty()) {
 						File fullFile = new File(new String(fileName.getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
 						File savedFile = new File(path, fullFile.getName()); // 为文件设置存储路径
 						// 文件夹不存在时创建文件夹

@@ -13,6 +13,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <!--head-->
     <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
+<link
+	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
+	
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 
 </head>
 <body>
@@ -41,13 +51,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<li>课程人数：${course.courseStudentNum }</li>
                 </p>
             </div>
-                <div class="button">
-                    <a href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a>
-                </div>
+            	<%-- <c:if test="${manager == 1 }"> --%>
+                <button style="float:left" type="button" class="btn btn-warning"><a href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a></button>
+                <%-- </c:if>   --%>  
+               
                 <div>
-                	<a href="创建班级.html" target="_blank">编辑课程</a>
-                	<a href="创建班级.html" target="_blank">关注课程</a>
+               <%--  <c:if test="${teacher != null }"> --%>
+                	<a href="${pageContext.request.contextPath}/teacher/toModifyCourse/${course.courseId}"><button class="btn btn-default" type="submit" style="margin-left: 43px;">编辑课程</button></a>
+                <%-- </c:if>
+                <c:if test="${student != null }"> --%>
+                	<button class="btn btn-default" type="submit" style="margin-left: 43px;">进入课程</button>
+               <%--  </c:if> --%>
+                <button class="btn btn-default" type="submit">关注课程</button>
+                
+                <button class="btn btn-default" type="submit">相关论坛</button>
                 </div>
+                
         </div>
     </div>
     <div class="main_b">

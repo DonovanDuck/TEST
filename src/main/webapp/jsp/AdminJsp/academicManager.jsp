@@ -59,7 +59,7 @@
 		<nav class="navbar navbar-default top-navbar" role="navigation">
 			<div class="navbar-header col-md-3" style="padding: 0%">
 				<a class="navbar-brand waves-effect waves-dark"
-					href="teacherManager.html"><strong>后台管理</strong></a>
+					href=""><strong>后台管理</strong></a>
 				<div id="sideNav" href="">
 					<i class="material-icons dp48"></i>
 				</div>

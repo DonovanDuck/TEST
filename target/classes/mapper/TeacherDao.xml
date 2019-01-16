@@ -2,7 +2,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
@@ -144,19 +143,21 @@
 	</select>
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
-	<select id="getEmployeeNumByCourseId" parameterType="java.lang.String" >
-		select employee_num from teacher_course where course_id = #{courseId};
+	<select id="getEmployeeNumByCourseId"
+		parameterType="java.lang.String" resultMap="courseMap">
+		select employee_num from
+		teacher_course where course_id = #{courseId};
 	</select>
 
 	<!-- 通过工号集合获取教师集合 -->
-	 <select id="getTeachersById" parameterType="java.util.List"
+	<select id="getTeachersById" parameterType="java.util.List"
 		resultMap="teacherMap">
 		select * from teacher where employee_num in
 		<foreach collection="list" item="employeeNums" open="("
 			separator="," close=")" index="index">
 			#{employeeNums}
 		</foreach>
-	</select> 
+	</select>
 
 	<select id="permissionAddOthers" resultType="java.lang.Integer">
 		select manager from
@@ -233,50 +234,56 @@
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
 		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
-		<result column="virtual_class_name" property="virtualClassName" />
+		<result column="virtual_course_name"
+			property="virtualCourseName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
 		<result column="course_id" property="courseId" />
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
+		<result column="virtual_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"
 		parameterType="cn.edu.tit.bean.VirtualClass">
 		INSERT INTO virtual_class
 		(virtual_class_num,
-		virtual_class_name,
+		virtual_course_name,
 		creator_id,
 		create_time,
 		course_id,
 		face_img,
 		term,
-		class_student_num)
+		class_student_num,
+		virtual_name
+		)
 		VALUES
 		(#{virtualClassNum},
-		#{virtualClassName},
+		#{virtualCourseName},
 		#{creatorId},
 		#{createTime},
 		#{courseId},
 		#{faceImg},
 		#{term},
-		#{classStuentNum}
+		#{classStuentNum},
+		#{virtualClassName}
 		);
 	</insert>
-	
+
 	<select id="virtualsForCourse" parameterType="java.lang.String"
 		resultMap="virtualClassMap">
 		select * from virtual_class where
 		course_id =
 		#{courseId}
 	</select>
-	<select id="virtualsForCourseBycreatorId" 
+	<select id="virtualsForCourseBycreatorId"
 		resultMap="virtualClassMap">
 		select * from virtual_class where
-		course_id =#{courseId} and creator_id = #{ceatorId}
+		course_id =#{courseId} and
+		creator_id = #{ceatorId}
 	</select>
-	
+
 	<insert id="mapVirtualRealClass">
 		insert into real_virtual_class (real_class_num,
 		virtual_class_num) values (
@@ -426,40 +433,65 @@
 	<select id="getTeacher" resultMap="teacherMap">
 		select * from teacher
 	</select>
-	
+
 	<!-- 根据学生的自然班级号查虚拟班级号 -->
-	<select id="getVirtualNumByreal" parameterType="String" resultType="String">
-		select virtual_class_num from real_virtual_class where real_class_num = #{realClassNum};
+	<select id="getVirtualNumByreal" parameterType="String"
+		resultType="String">
+		select virtual_class_num from real_virtual_class where
+		real_class_num = #{realClassNum};
 	</select>
-	
+
 	<!-- 根据虚拟班号查虚拟班 -->
-	<select id="getVirtualById" parameterType="String" resultMap="virtualClassMap">
-		select * from virtual_class where virtual_class_num = #{virtualClassNum};
+	<select id="getVirtualById" parameterType="String"
+		resultMap="virtualClassMap">
+		select * from virtual_class where virtual_class_num =
+		#{virtualClassNum};
 	</select>
-	
+
 	<!-- 通过学生id获取自然班级号 -->
-	<select id="getrealClassNumBySid" parameterType="String" resultType="String">
-		select real_class_num from student where student_id = #{studentId};
+	<select id="getrealClassNumBySid" parameterType="String"
+		resultType="String">
+		select real_class_num from student where student_id =
+		#{studentId};
 	</select>
-	
+
 	<!-- 通过id获取用户关注的课程id集合 -->
-	<select id="getAttentionCid" parameterType="String" resultType="String">
-		select course_id from user_attention_course where user_id = #{id};
+	<select id="getAttentionCid" parameterType="String"
+		resultType="String">
+		select course_id from user_attention_course where user_id =
+		#{id};
 	</select>
-	
+
 	<!-- 获取教师加入的课程的id -->
-	<select id="getJoinCourseByTid" parameterType="String" resultType="String">
-		select course_id from teacher_course where employee_num = #{employeeNum};
+	<select id="getJoinCourseByTid" parameterType="String"
+		resultType="String">
+		select course_id from teacher_course where employee_num =
+		#{employeeNum};
 	</select>
-	
+
 	<!-- 通过课程id和教师工号获取相关班级 -->
 	<select id="getClassById" resultMap="virtualClassMap">
-		select * from virtual_class where employee_num = #{employeeNum} and course_id = #{courseId};
+		select * from virtual_class
+		where creator_id = #{employeeNum} and course_id = #{courseId};
 	</select>
-	
+
 	<!-- 通过虚拟班级号查课程id集合 -->
-	<select id="getCourseIdByVirtualId" parameterType="String" resultType="String">
-		select course_id from virtual_class where virtual_class_num = #{virtualClassNum};
+	<select id="getCourseIdByVirtualId" parameterType="String"
+		resultType="String">
+		select course_id from virtual_class where virtual_class_num
+		= #{virtualClassNum};
+	</select>
+
+	<resultMap type="cn.edu.tit.bean.ResourceType"
+		id="resourceTypeMap">
+		<id column="resource_type_id" property="resourceTypeId" />
+		<result column="resource_type" property="resourceType" />
+	</resultMap>
+
+	<!-- 查询资源分类信息,返回资源ID -->
+	<select id="readResourceCategoried" resultMap="resourceTypeMap">
+		SELECT * FROM
+		resource_type;
 	</select>
 
 	<!-- 查询任务分类表 -->
@@ -467,4 +499,23 @@
 		select task_category from point
 	</select>
 	
+	<!-- 通过课程名查课程 -->
+	<select id="searchCourseByName" parameterType="String" resultMap="courseMap">
+		select * from course where course_name = #{courseName};
+	</select>
+	
+	<!-- 通过班级名查班级 -->
+	<select id="searchClassByName" parameterType="String" resultMap="virtualClassMap">
+		select * from virtual_class where virtual_class_name = #{virtualClassName};
+	</select>
+	
+	<!-- 根据自然班级id查询 -->
+	<select id="searchRealClassById" parameterType="String" resultMap="realCLassMap">
+		select * from real_class where real_class_num = #{realClassNum};
+	</select>
+	
+	<!-- 根据id查图片 -->
+	<select id="getImgpathByCourseId" parameterType="String" resultType="String">
+		select face_img from course where course_id = #{courseId};
+	</select>
 </mapper>

@@ -3,6 +3,7 @@ package cn.edu.tit.idao;
 import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
@@ -13,6 +14,8 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -157,4 +160,38 @@ public interface ITeacherDao {
 	public String getCourseIdByVirtualId(String virtualClassNum);
 	public List<String> getTaskCategory();
 	
+
+	/**
+	 * 通过课程名查课程
+	 * @param courseName
+	 * @return
+	 */
+	public Course searchCourseByName(String courseName);
+	
+	/**
+	 * 通过班级名查班级
+	 */
+	public VirtualClass searchClassByName(String virtualClassName);
+	
+	/**
+	 * 根据自然班级id查询
+	 * @param realClassNum
+	 * @return
+	 */
+	public RealClass searchRealClassById(String realClassNum);
+	
+	/**
+	 * 根据id查图片
+	 * @param courseId
+	 * @return
+	 */
+	public String getImgpathByCourseId(String courseId);
+	
+	/**
+	 * @author LiMing
+	 * @return 返回资源分类信息
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * */
+	
+	public List<ResourceType> readResourceCategoried();
 }

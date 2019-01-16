@@ -82,6 +82,27 @@ public class ResourceServiceImpl implements IResourceService {
 				return obj;
 	}
 
+	/**
+	 * 删除资源，根据ID
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 */
+	@Override
+	public String deleteResourceById(String resourceId) throws Exception{
+		String msg = null;
+		try {
+			resourceDao.deleteResourceById(resourceId);
+			msg = "删除成功";
+			System.out.println("deleteResourceById--------DAO层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "删除失败";
+			System.out.println("deleteResourceById--------DAO层执行失败");
+		}
+		return msg;
+	}
+
 //	@Override
 //	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
 //		// TODO Auto-generated method stub
