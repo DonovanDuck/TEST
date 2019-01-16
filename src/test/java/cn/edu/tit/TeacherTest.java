@@ -6,9 +6,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -180,6 +178,12 @@ public class TeacherTest {
 		//		for (Map<Integer, String> map : resourceCategories) {
 		//			System.out.println(map.keySet());
 		//			System.out.println(map.values());
+		//		}
+
+		//		List<cn.edu.tit.bean.Resource> list = new ArrayList<cn.edu.tit.bean.Resource>();
+		//		list = teacherService.readResourceByType("1");
+		//		for (cn.edu.tit.bean.Resource resource : list) {
+		//			System.out.println(resource.toString());
 		//		}
 	}
 	@Test

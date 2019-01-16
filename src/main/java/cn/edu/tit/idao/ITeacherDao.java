@@ -14,6 +14,8 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -158,13 +160,7 @@ public interface ITeacherDao {
 	public String getCourseIdByVirtualId(String virtualClassNum);
 	public List<String> getTaskCategory();
 	
-	/**
-	 * @author LiMing
-	 * @return 返回资源分类信息
-	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
-	 * */
-	public List<Map<Integer, String>> readResourceCategoried();
-	
+
 	/**
 	 * 通过课程名查课程
 	 * @param courseName
@@ -191,4 +187,11 @@ public interface ITeacherDao {
 	 */
 	public String getImgpathByCourseId(String courseId);
 	
+	/**
+	 * @author LiMing
+	 * @return 返回资源分类信息
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * */
+	
+	public List<ResourceType> readResourceCategoried();
 }
