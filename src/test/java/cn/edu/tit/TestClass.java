@@ -67,7 +67,10 @@ public class TestClass {
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
-		System.out.println(teacherDao.getrealClassNumBySid("561"));
+		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId("4E7EFBA6DCB04FBB9C8DCCC1445AE5C8");
+		if(employeeNumList.contains(null)) {
+			 System.out.println(teacherDao.getTeachersById(employeeNumList));
+		}
 	}
 	
 	

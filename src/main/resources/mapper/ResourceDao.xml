@@ -89,4 +89,9 @@
 	<select id="searchResourceByTypeAndCid" resultMap="resource">
 		select * from resource where resource_type_id = #{resourceTypeId} and course_id = #{courseId} order by publish_time DESC;
 	</select>
+	
+	<!-- 根据ID 删除资源-->
+	<delete id="deleteResourceById" parameterType="java.lang.String">
+		DELETE FROM resource WHERE resource_id = #{resourceId};
+	</delete>
 </mapper>
