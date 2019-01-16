@@ -380,4 +380,31 @@ public interface ITeacherService {
 	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
 	 */
 	public List<Map<Integer, String>> readResourceCategoried();
+	
+	/**
+	 * 通过课程名查课程
+	 * @param courseName
+	 * @return
+	 */
+	public Course getCourseByName(String courseName);
+	
+	/**
+	 * 通过班级名查班级
+	 * @param virtualClassName
+	 * @return
+	 */
+	public VirtualClass getClassByName(String virtualClassName);
+	
+	/**
+	 * 根据虚拟班级id获取自然班级列表
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public List<RealClass> getRealClassList(String virtualClassNum);
+	/**
+	 * 根据courseId查路径
+	 * @param courseId
+	 * @return
+	 */
+	public String getImgpathByCourseId(String courseId);
 }

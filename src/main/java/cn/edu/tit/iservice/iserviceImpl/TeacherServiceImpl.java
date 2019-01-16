@@ -751,5 +751,43 @@ public class TeacherServiceImpl implements ITeacherService{
 		return list;
 	}
 
+	@Override
+	public Course getCourseByName(String courseName) {
+		// 查询课程
+		return teacherDao.searchCourseByName(courseName);
+	}
+
+	@Override
+	public VirtualClass getClassByName(String virtualClassName) {
+		// 查询班级
+		return teacherDao.searchClassByName(virtualClassName);
+	}
+
+	@Override
+	public List<RealClass> getRealClassList(String virtualClassNum) {
+		try {
+			// 获取自然班级号
+			List<String> realClassNum = searchRealClassNum(virtualClassNum);
+			List<RealClass> realClassList = new ArrayList<>();
+			if(!realClassNum.contains(null)){
+				//获取自然班级集合
+				for(String rNum : realClassNum){
+					realClassList.add(teacherDao.searchRealClassById(rNum));
+				}
+			}
+			return realClassList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public String getImgpathByCourseId(String courseId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getImgpathByCourseId(courseId);
+	}
+
 
 }

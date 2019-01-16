@@ -67,7 +67,11 @@ public class TestClass {
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
-		System.out.println(teacherDao.getrealClassNumBySid("561"));
+//		System.out.println(teacherDao.searchCourseByName("c++"));
+		String file = "";
+		if(!"".equals(file)){
+			System.out.println("傻逼");
+		}
 	}
 	
 	

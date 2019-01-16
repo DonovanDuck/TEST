@@ -164,4 +164,30 @@ public interface ITeacherDao {
 	 * */
 	public List<Map<Integer, String>> readResourceCategoried();
 	
+	/**
+	 * 通过课程名查课程
+	 * @param courseName
+	 * @return
+	 */
+	public Course searchCourseByName(String courseName);
+	
+	/**
+	 * 通过班级名查班级
+	 */
+	public VirtualClass searchClassByName(String virtualClassName);
+	
+	/**
+	 * 根据自然班级id查询
+	 * @param realClassNum
+	 * @return
+	 */
+	public RealClass searchRealClassById(String realClassNum);
+	
+	/**
+	 * 根据id查图片
+	 * @param courseId
+	 * @return
+	 */
+	public String getImgpathByCourseId(String courseId);
+	
 }

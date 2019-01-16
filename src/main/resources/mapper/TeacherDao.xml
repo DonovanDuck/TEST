@@ -468,7 +468,7 @@
 	<!-- 通过课程id和教师工号获取相关班级 -->
 	<select id="getClassById" resultMap="virtualClassMap">
 		select * from virtual_class
-		where employee_num = #{employeeNum} and course_id = #{courseId};
+		where creator_id = #{employeeNum} and course_id = #{courseId};
 	</select>
 
 	<!-- 通过虚拟班级号查课程id集合 -->
@@ -481,5 +481,25 @@
 	<!-- 查询资源分类信息,返回资源ID -->
 	<select id="readResourceCategoried" resultType="java.util.HashMap">
 		SELECT resource_type_id,resource_type FROM resource_type;
+	</select>
+	
+	<!-- 通过课程名查课程 -->
+	<select id="searchCourseByName" parameterType="String" resultMap="courseMap">
+		select * from course where course_name = #{courseName};
+	</select>
+	
+	<!-- 通过班级名查班级 -->
+	<select id="searchClassByName" parameterType="String" resultMap="virtualClassMap">
+		select * from virtual_class where virtual_class_name = #{virtualClassName};
+	</select>
+	
+	<!-- 根据自然班级id查询 -->
+	<select id="searchRealClassById" parameterType="String" resultMap="realCLassMap">
+		select * from real_class where real_class_num = #{realClassNum};
+	</select>
+	
+	<!-- 根据id查图片 -->
+	<select id="getImgpathByCourseId" parameterType="String" resultType="String">
+		select face_img from course where course_id = #{courseId};
 	</select>
 </mapper>

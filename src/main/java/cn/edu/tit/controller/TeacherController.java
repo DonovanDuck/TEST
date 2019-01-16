@@ -82,8 +82,8 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			teacherPassword = Common.eccryptMD5(password);
-			if(teacherPassword.equals(teacher.getTeacherPassword()))
+			//teacherPassword = Common.eccryptMD5(password);
+			if(password.equals(teacher.getTeacherPassword()))
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
@@ -162,12 +162,15 @@ public class TeacherController {
 	 * @param employeeNum
 	 * @return
 	 */
-	@RequestMapping("toCreateCourse/{employeeNum}")
+	@RequestMapping("toCreateCourse")
 	public String toCreateCourse(HttpServletRequest request, @PathVariable String employeeNum){
 		try {
 			//查找所有系部列表
 			List<Category> categoryList =  teacherService.readCategory();
-			request.setAttribute("employeeNum", employeeNum);
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			Student student = (Student) request.getSession().getAttribute("teacher");
+			request.setAttribute("teacher", teacher);
+			request.setAttribute("student", student);
 			request.setAttribute("categoryList", categoryList);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -368,9 +371,9 @@ public class TeacherController {
 	 * 修改课程
 	 * @return
 	 */
-	@RequestMapping(value="modifyCourse")
+	@RequestMapping(value="modifyCourse/{courseId}")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView modifyCourse(HttpServletRequest request,@RequestParam(value = "courseId", required = false) String courseId, @RequestParam(value = "teacher", required = false) String[] teachers){
+	public String modifyCourse(HttpServletRequest request,@PathVariable String courseId){
 		try {
 			Object[] obj = Common.fileFactory(request,courseId);
 			List<File> files = (List<File>) obj[0];	// 获取课程图片
@@ -385,8 +388,17 @@ public class TeacherController {
 			course.setPublishTime(publishTime);
 			String employeeNum = (String)formdata.get("publisherId");
 			course.setPublisherId(employeeNum);
-			for(File f : files){
-				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+			if(!files.isEmpty()){
+				for(File f : files){
+					course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+				}
+			}else{
+				//如果课程图片未被修改则保留原始路径
+				String path = teacherService.getImgpathByCourseId(courseId);
+				if(path.isEmpty()){
+					path = Common.readProperties("path")+"/1.png";
+				}
+				course.setFaceImg(path);
 			}
 			teacherService.updateCourse(course); // 修改课程
 			/*teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
@@ -396,7 +408,7 @@ public class TeacherController {
 					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
 				}
 			}*/
-			return toCourseSecond(request);
+			return toCourseDetail( request,courseId);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -418,12 +430,12 @@ public class TeacherController {
 			// 查出课程信息
 			Course course = teacherService.getCourseById(courseId);
 			if(course != null){
-				/*String employeeNum = (String)request.getSession().getAttribute("employeeNum"); //从session中获取教师工号
-				if(employeeNum == null){
+				Teacher teacher = (Teacher) request.getSession().getAttribute("teacher"); //从session中获取教师工号
+				if(teacher == null){
 					mv.addObject("readResult", "请先登录");//返回信息
 					mv.setViewName("/jsp/Teacher/index");//设置返回页面
 					return mv;
-				}*/
+				}
 				//查找所有系部列表
 				List<Category> categoryList =  teacherService.readCategory();
 				mv.addObject("categoryList",categoryList);
