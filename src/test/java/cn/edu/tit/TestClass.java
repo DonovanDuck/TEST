@@ -67,9 +67,6 @@ public class TestClass {
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
 //		DateConverter d = new DateConverter();
-		}
-	
-	
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
@@ -78,6 +75,7 @@ public class TestClass {
 //		}
 //	}
 //	
+	}
 	@Test
 	public void pubResourceToClass(){
 		resourceDao.bandResourceAndClass("432811798460453484200E908AAA976F", "12345");

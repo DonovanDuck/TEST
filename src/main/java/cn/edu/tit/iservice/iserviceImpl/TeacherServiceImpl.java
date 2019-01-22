@@ -804,4 +804,26 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		
 	}
+
+		@Override
+		public int getResourceTypeId(String resourceTye) {
+			// TODO Auto-generated method stub
+			try {
+				return teacherDao.getResourceTypeId(resourceTye);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return 0;
+			}
+			
+		}
+
+		@Override
+		public void createResource(Resource resource) throws Exception {
+			try {
+				teacherDao.createResource(resource);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
 }
