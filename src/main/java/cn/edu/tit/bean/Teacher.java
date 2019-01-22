@@ -1,4 +1,5 @@
 package cn.edu.tit.bean;
+import java.io.*;
 public class Teacher {
 	private String employeeNum; // 教师工号
 	private String teacherName; // 教师名
@@ -12,6 +13,7 @@ public class Teacher {
 	private String faceImg; // 教师头像
 	private String status;//教师状态
 	private String teacherCategory; //教师系部
+	
 	public String getEmployeeNum() {
 		return employeeNum;
 	}
