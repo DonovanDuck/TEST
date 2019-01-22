@@ -17,6 +17,11 @@
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 </head>
+<script type="text/javascript">
+	$(function(){
+		windows.parent.load();
+	})
+	</script>
 <body>
 	
 		<div class="main_b_r">

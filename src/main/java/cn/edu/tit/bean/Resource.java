@@ -20,34 +20,6 @@ public class Resource {
 	private String timeSize; // 视频资源时长
 	private Integer watchNum; // 查看次数
 	private Integer useNum; // 使用次数
-	@Override
-	public String toString() {
-		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
-				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceTypeId="
-				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", size=" + size
-				+ ", timeSize=" + timeSize + ", watchNum=" + watchNum + ", useNum=" + useNum + "]";
-	}
-	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, Integer resourceTypeId, String resourcePath, String courseId, String size,
-			String timeSize, Integer watchNum, Integer useNum) {
-		super();
-		this.resourceId = resourceId;
-		this.resourceName = resourceName;
-		this.resourceDetail = resourceDetail;
-		this.publishTime = publishTime;
-		this.publisherId = publisherId;
-		this.resourceTypeId = resourceTypeId;
-		this.resourcePath = resourcePath;
-		this.courseId = courseId;
-		this.size = size;
-		this.timeSize = timeSize;
-		this.watchNum = watchNum;
-		this.useNum = useNum;
-	}
-	public Resource() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
 	public String getResourceId() {
 		return resourceId;
 	}
@@ -120,5 +92,35 @@ public class Resource {
 	public void setUseNum(Integer useNum) {
 		this.useNum = useNum;
 	}
+	@Override
+	public String toString() {
+		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
+				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceTypeId="
+				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", size=" + size
+				+ ", timeSize=" + timeSize + ", watchNum=" + watchNum + ", useNum=" + useNum + "]";
+	}
+	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
+			String publisherId, Integer resourceTypeId, String resourcePath, String courseId, String size,
+			String timeSize, Integer watchNum, Integer useNum) {
+		super();
+		this.resourceId = resourceId;
+		this.resourceName = resourceName;
+		this.resourceDetail = resourceDetail;
+		this.publishTime = publishTime;
+		this.publisherId = publisherId;
+		this.resourceTypeId = resourceTypeId;
+		this.resourcePath = resourcePath;
+		this.courseId = courseId;
+		this.size = size;
+		this.timeSize = timeSize;
+		this.watchNum = watchNum;
+		this.useNum = useNum;
+	}
+	public Resource() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	
 	
 }

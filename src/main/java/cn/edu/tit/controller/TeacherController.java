@@ -528,7 +528,7 @@ public class TeacherController {
 			resource.setResourceDetail(null);
 			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
 			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
-			resource.setResourceTypeId(5);//需要判断文件类型
+			resource.setResourceTypeId(Common.fileType(file.getName(), teacherService));//需要判断文件类型
 			resource.setResourcePath(file.getPath());
 			resource.setCourseId((String) request.getSession().getAttribute("courseId"));
 			resource.setSize(file.length()/1024.0+"KB");
@@ -544,6 +544,41 @@ public class TeacherController {
 		request.getSession().removeAttribute("courseId");
 		return "redirect:/teacher/toPublishTask";
 
+	}
+	@RequestMapping(value="toPublishResource")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String toPublishResource(HttpServletRequest request) {
+		
+		Course course;
+		course = (Course) request.getSession().getAttribute("course");
+		request.getSession().setAttribute("courseId", course.getCourseId());
+		return "/jsp/Teacher/teacher-release-task";
+	}
+	@RequestMapping(value="publishResource")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String publishResource(HttpServletRequest request) {
+		String resourceId = Common.uuid();
+		Object[] obj = Common.fileFactory(request,resourceId);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		Resource resource = new Resource();
+		resource.setResourceId(resourceId);
+		resource.setCourseId((String) request.getSession().getAttribute("courseId"));
+		resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+		resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+		resource.setResourceDetail((String) formdata.get("resourceDetail"));
+		resource.setResourceName((String) formdata.get("resourceName"));
+		resource.setResourcePath(returnFileList.get(0).getPath());
+		resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
+		resource.setResourceTypeId(Common.fileType(returnFileList.get(0).getName(), teacherService));//需要判断文件类型
+		try {
+			teacherService.createResource(resource);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return "redirect:/teacher/toPublishResource";
+		
 	}
 
 	/**

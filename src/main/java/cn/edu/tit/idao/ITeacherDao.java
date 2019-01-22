@@ -36,7 +36,7 @@ public interface ITeacherDao {
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块1
 	public List<String> searchRealClassNum(String virtualClassNum)throws Exception;		//查询虚拟班级对应的自然班列表模块1
 	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNUm)throws Exception;	//创建虚拟班和自然班映射模块1
-	public Teacher teacherLoginByEmployeeNum(String employeeNum)throws Exception;	//通过职工号登录教师
+	public Teacher teacherLoginByEmployeeNum(@Param("employeeNum")String employeeNum)throws Exception;	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone)throws Exception;	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email)throws Exception;	//通过邮件登录教师
 	public List<VirtualClass> virtualsForCourse(String courseId )throws Exception;//根据课程查询虚拟班级1
@@ -194,4 +194,17 @@ public interface ITeacherDao {
 	 * */
 	
 	public List<ResourceType> readResourceCategoried();
+	/**
+	 * @author wenli
+	 * @param resourceTye
+	 * @return
+	 * 返回当前资源的id号
+	 */
+	public int getResourceTypeId(String resourceTye)throws Exception;
+	/**
+	 * @author wenli
+	 * @param resource
+	 * 创建资源
+	 */
+	public void createResource(Resource resource)throws Exception;
 }
