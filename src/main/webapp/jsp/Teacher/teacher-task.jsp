@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>班级详情页-作业</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/Course/teacher-task.css" />
+	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script type="text/javascript">
@@ -75,7 +75,7 @@ function load() {
 	<div class="main_t">
 		<div class="class">
 			<p>
-				<span>1720561班</span>&nbsp;&nbsp;<a href="#">编辑班级信息</a>
+				<span>${virtualClassName }</span>&nbsp;&nbsp;<a href="#">编辑班级信息</a>
 			</p>
 		</div>
 	</div>
@@ -84,11 +84,14 @@ function load() {
 		<ul>
 			<li><a	target="iframeContent"
 				href="${pageContext.request.contextPath}/teacher/teacherTaskList">全部</a></li>
+				<li><a  target="iframeContent"
+				href="${pageContext.request.contextPath}/teacher/teacherTaskListByTaskCategory?taskCategory=work">作业</a></li>
 			<li><a target="iframeContent"
 				href="${pageContext.request.contextPath}/teacher/teacherTaskListByTaskCategory?taskCategory=trial">实验</a></li>
-			<li><a href="#">课设</a></li>
+			<li><a  target="iframeContent"
+				href="${pageContext.request.contextPath}/teacher/teacherTaskListByTaskCategory?taskCategory=course_design">课设</a></li>
 			<li><a href="#">翻转</a></li>
-			<li><a href="#">授课计划</a></li>
+			
 			<li><a href="#">论坛</a></li>
 			<li><a href="#">开放</a></li>
 		</ul>

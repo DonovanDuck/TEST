@@ -142,13 +142,14 @@ public class ReadStudentExcel {
 				switch (c) {
 				case 0:
 					student.setStudentId(getValue(cell) );
+					student.setClassNum(getValue(cell).substring(0,7));
 					break;
 				case 1:
 					student.setStudentName( getValue(cell));
 					break;
-				case 2:
-					student.setClassNum( getValue(cell));
-					break;
+//				case 2:
+//					student.setClassNum( getValue(cell));
+//					break;
 				case 3:
 					student.setStudentGender(getValue(cell) );
 					break;	

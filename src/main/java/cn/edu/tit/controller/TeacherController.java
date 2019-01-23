@@ -84,8 +84,8 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			//teacherPassword = Common.eccryptMD5(password);
-			if(password.equals(teacher.getTeacherPassword()) )
+			teacherPassword = Common.eccryptMD5(password);
+			if(teacherPassword.equals(teacher.getTeacherPassword()) )
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
@@ -527,32 +527,37 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		for (File file : returnFileList) {
-			Accessory accessory = new Accessory();
-			accessory.setAccessoryName(file.getName());
-			accessory.setAccessoryPath(file.getPath());
-			accessory.setTaskId(taskId);
-			accessory.setAccessoryTime(Common.TimestamptoString());
-			accessories.add(accessory);
-			Resource resource = new Resource();
-			resource.setResourceId(Common.uuid());
-			resource.setResourceName(file.getName());
-			resource.setResourceDetail(null);
-			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
-			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
-			resource.setResourceTypeId(Common.fileType(file.getName(), teacherService));//需要判断文件类型
-			resource.setResourcePath(file.getPath());
-			resource.setCourseId((String) request.getSession().getAttribute("courseId"));
-			resource.setSize(file.length()/1024.0+"KB");
-			resources.add(resource);
+		if(!returnFileList.isEmpty()) {
+			
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				accessory.setAccessoryName(file.getName());
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId(taskId);
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+				Resource resource = new Resource();
+				resource.setResourceId(Common.uuid());
+				resource.setResourceName(file.getName());
+				resource.setResourceDetail(null);
+				resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+				resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+				resource.setResourceTypeId(Common.fileType(file.getName(), teacherService));//需要判断文件类型
+				resource.setResourcePath(file.getPath());
+				resource.setCourseId((String) request.getSession().getAttribute("courseId"));
+				resource.setSize(file.length()/1024.0+"KB");
+				resources.add(resource);
+			}
+			try {
+				teacherService.addAccessory(accessories);	//添加任务附件
+				resourceService.upLoadResource(resources);//添加资源
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
-		try {
-			teacherService.addAccessory(accessories);	//添加任务附件
-			resourceService.upLoadResource(resources);//添加资源
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+		
+		
 		request.getSession().removeAttribute("courseId");
 		return "redirect:/teacher/toPublishTask";
 
@@ -639,10 +644,13 @@ public class TeacherController {
 	 * @return
 	 * 跳转到班级详情页
 	 */
-	@RequestMapping(value="toClassDetail/{virtualClassNum}",method= {RequestMethod.GET})
-	public String toClassDetail(HttpServletRequest request  ,@PathVariable String virtualClassNum) {
+	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
+	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ) {
+		ModelAndView mv = new ModelAndView();
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
-		return "/jsp/Teacher/teacher-task";
+		mv.addObject("virtualClassName",virtualClassName);
+		mv.setViewName("/jsp/Teacher/teacher-task");
+		return mv;
 		
 	}
 	/**
@@ -718,8 +726,12 @@ public class TeacherController {
 				
 				mv.setViewName("/jsp/Teacher/teacher-experiment");
 			}
-			if(taskCategory=="courseDesign") {
-				mv.setViewName("/jsp/Teacher/teacher-task");
+			
+			if(taskCategory.equals("course_design")) {
+				mv.setViewName("/jsp/Teacher/teacher-tasklist");
+			}
+			if(taskCategory.equals("work")) {
+				mv.setViewName("/jsp/Teacher/teacher-tasklist");
 			}
 			
 
