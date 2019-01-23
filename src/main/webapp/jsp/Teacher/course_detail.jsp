@@ -24,6 +24,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 
+
+
 </head>
 <body>
     <div class="wrapper"> 
@@ -51,17 +53,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 	<li>课程人数：${course.courseStudentNum }</li>
                 </p>
             </div>
-            	<%-- <c:if test="${manager == 1 }"> --%>
+            	<c:if test="${teacher != null && (manager == 0 || manager == 1)  }"> 
                 <button style="float:left" type="button" class="btn btn-warning"><a href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a></button>
-                <%-- </c:if>   --%>  
+                 </c:if>   
                
                 <div>
-               <%--  <c:if test="${teacher != null }"> --%>
+                <c:if test="${teacher != null && manager == 1 }"> 
                 	<a href="${pageContext.request.contextPath}/teacher/toModifyCourse/${course.courseId}"><button class="btn btn-default" type="submit" style="margin-left: 43px;">编辑课程</button></a>
-                <%-- </c:if>
-                <c:if test="${student != null }"> --%>
-                	<button class="btn btn-default" type="submit" style="margin-left: 43px;">进入课程</button>
-               <%--  </c:if> --%>
+                 </c:if>
+                <c:if test="${student != null }"> 
+                	<button class="btn btn-default" type="submit" style="margin-left: 43px;">进入班级</button>
+                </c:if> 
                 <button class="btn btn-default" type="submit">关注课程</button>
                 
                 <button class="btn btn-default" type="submit">相关论坛</button>
@@ -73,14 +75,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="main_b_t">
             <nav>
                 <ul>
-                    <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" target="target">课程介绍</a></li>
-                    <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${courseId}" target="target">资源</a></li>
-                    <li><a href="${pageContext.request.contextPath}/teacher/teacherClassList/${courseId }" target="target">开课班级</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}" target="target">课程介绍</a></li>
+                    <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${course.courseId}" target="target">资源</a></li>
+                    <li><a href="#" >拓展任务</a>
+                    <li style="width: 160px"><a href="${pageContext.request.contextPath}/teacher/teacherClassList/${course.courseId }" target="target">暂时的开课班级列表</a></li>
                 </ul>
             </nav>
         </div>
         <div class="main_b_b">
-            <iframe src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" name="target" frameborder="0" width="65%" height="100%" scrolling="auto"></iframe>
+            <iframe src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}" name="target" frameborder="0" width="65%" height="100%" scrolling="auto"></iframe>
             <div class="friend">
                 <div class="h3"><h2>教师圈</h2></div>
                 

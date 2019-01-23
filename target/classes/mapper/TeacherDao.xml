@@ -264,7 +264,7 @@
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
-		<result column="virtual_name" property="virtualClassName" />
+		<result column="virtual_class_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"
@@ -278,7 +278,7 @@
 		face_img,
 		term,
 		class_student_num,
-		virtual_name
+		virtual_class_name
 		)
 		VALUES
 		(#{virtualClassNum},
@@ -540,8 +540,13 @@
 		select * from real_class where real_class_num = #{realClassNum};
 	</select>
 	
-	<!-- 根据id查图片 -->
+	<!-- 根据课程id查图片 -->
 	<select id="getImgpathByCourseId" parameterType="String" resultType="String">
 		select face_img from course where course_id = #{courseId};
+	</select>
+	
+	<!-- 获取标志位，查老师是否是课程创建者 -->
+	<select id="getManagerByEmployeeNum" resultType="int">
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
 	</select>
 </mapper>

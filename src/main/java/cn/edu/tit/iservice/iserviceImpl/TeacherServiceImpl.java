@@ -826,4 +826,10 @@ public class TeacherServiceImpl implements ITeacherService{
 				// TODO: handle exception
 			}
 		}
+
+		@Override
+		public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
+			// TODO Auto-generated method stub
+			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
+		}
 }

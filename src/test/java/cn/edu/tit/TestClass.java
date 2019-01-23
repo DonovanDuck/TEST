@@ -66,17 +66,8 @@ public class TestClass {
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
-//		DateConverter d = new DateConverter();
-<<<<<<< HEAD
-<<<<<<< HEAD
+		System.out.println();
 	}
-=======
-		}
->>>>>>> liming
-=======
-
-	}
->>>>>>> 17eacc624033344d57cee8f2d4284ed8db824daf
 	
 	
 //	@Test
@@ -108,6 +99,6 @@ public class TestClass {
 	
 	@Test
 	public void getSignPoint() throws Exception{
-		System.out.println(teacherDao.getSignPoint());
+		System.out.println(teacherDao.getManagerByEmployeeNum("1", "1"));
 	}
 }

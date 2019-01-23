@@ -84,8 +84,8 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			teacherPassword = Common.eccryptMD5(password);
-			if(teacherPassword.equals(teacher.getTeacherPassword()))
+			//teacherPassword = Common.eccryptMD5(password);
+			if(password.equals(teacher.getTeacherPassword()) )
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
@@ -150,6 +150,13 @@ public class TeacherController {
 		request.getSession().setAttribute("course", course);
 		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		//request.getSession().setAttribute("course", course);
+		// 查出操作者是否是manager
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		if(teacher != null){
+			//查manager
+			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId);
+			request.setAttribute("manager", manager);
+		}
 		request.setAttribute("course", course);
 		return "jsp/Teacher/course_detail";
 	}
@@ -161,12 +168,12 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping("toCreateCourse")
-	public String toCreateCourse(HttpServletRequest request, @PathVariable String employeeNum){
+	public String toCreateCourse(HttpServletRequest request){
 		try {
 			//查找所有系部列表
 			List<Category> categoryList =  teacherService.readCategory();
 			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-			Student student = (Student) request.getSession().getAttribute("teacher");
+			Student student = (Student) request.getSession().getAttribute("student");
 			request.setAttribute("teacher", teacher);
 			request.setAttribute("student", student);
 			request.setAttribute("categoryList", categoryList);
@@ -180,10 +187,12 @@ public class TeacherController {
 	/**
 	 * 通过ajax获取教师列表
 	 */
-	@RequestMapping(value="ajaxGetTeachers/{employeeNum}")
-	public void ajaxGetTeachers(HttpServletRequest request, HttpServletResponse response, @PathVariable String employeeNum){
+	@RequestMapping(value="ajaxGetTeachers")
+	public void ajaxGetTeachers(HttpServletRequest request, HttpServletResponse response){
 		try {
 			List<Teacher> teacherList = new ArrayList<>();
+			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
+			String employeeNum = teach.getEmployeeNum();
 			for(Teacher teacher : teacherService.getTeachers()){
 				if(!employeeNum.equals(teacher.getEmployeeNum())){ // 在选择的教师中过滤掉当前的操作者
 					teacherList.add(teacher);
@@ -313,6 +322,7 @@ public class TeacherController {
 			//根据id查询课程
 			Course course = teacherService.getCourseById(courseId);
 			request.setAttribute("courseDetail", course.getCourseDetail());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -324,7 +334,7 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="createCourse")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false)String[] teachers){
+	public ModelAndView createCourse(HttpServletRequest request){
 		try {
 			String courseId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,courseId);
@@ -339,6 +349,8 @@ public class TeacherController {
 			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
 			course.setPublishTime(publishTime);
 			String employeeNum = (String)formdata.get("publisherId");
+			String teacherStr = (String)formdata.get("teacherContent");
+			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
 			for(File f : files){ // 集合中只有一张图片
 				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
