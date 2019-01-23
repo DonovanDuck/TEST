@@ -193,8 +193,8 @@ public class AdminController {
 		Admin admin = new Admin();
 		try {
 			admin = iAdminService.loginAdmin(adminUsername);
-			//String password=Common.eccryptMD5(admin.getAdminPassword());
-			if(adminPassword.equals(admin.getAdminPassword()))
+			String password=Common.eccryptMD5(adminPassword);
+			if(password.equals(admin.getAdminPassword()))
 			{	
 				mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面
 				request.getSession().setAttribute("admin", admin);//将amdin 放入session
