@@ -797,6 +797,7 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 		mv.addObject("teacherNames",teacherNames);
+		mv.addObject("categories",categories);
 		mv.addObject("courseList", list);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
