@@ -22,11 +22,32 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
+	
+	<style type="text/css">
+	.phoneUl li{
+		list-style-type: none;
+		float:left;
+		width: 67px;
+	}
+	.confirm_close{
+		  width: 48%;
+    height: 50px;
+    position: absolute;
+    left: 322px;
+    top: 834px;
+	}
+	.confirm_close ul li{
+		list-style-type: none;
+		float:left;
+		margin-left: 170px;
+	}
+</style>
 
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
+
 <script>
 $('#exampleModal').on('show.bs.modal', function (event) {
 	  var button = $(event.relatedTarget) // Button that triggered the modal
@@ -44,23 +65,21 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				.click(
 
 						function() {
-							$
-									.ajax({
-										async : false,
-										cache : false,
-										url : "${pageContext.request.contextPath}/teacher/ajaxGetRealClass",
-										type : "POST",
-										dataType : "json",
-										success : function(result) {
-											var arr = eval(result);
-											for (var i = 0; i < arr.length; i++) {
-												$("#realClassLi")
-														.append(
-																"<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
-																		+ arr[i].realClassNum);
-											}
-										}
-									});
+							$.ajax({
+								async:false,
+								cache:false,
+								url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers/${employeeNum}",
+								type:"POST",
+								dataType:"json",
+								success:function(result) {
+									//alert(result);
+									 var arr = eval(result);
+									for(var i = 0; i < arr.length; i++){
+										//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+										$("#teacher").append("<input id='teacher' type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName);
+									} 
+								}
+							});
 						});
 	});
 </script>
@@ -130,85 +149,97 @@ $(function() {
 							width="292" height="59" border="0">
 					</div>
 					<div class="nav-box">
-						<ul id="nav" class="nav clearfix"></ul>
+						<ul id="nav" class="nav clearfix">
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="main">
-			<form
-				action="${pageContext.request.contextPath}/teacher/createVirtualClass"
-				method="post">
+			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
+				<input type="hidden" name="publisherId" value="${employeeNum }">
+				<div class="input1">
+					<span>课程名称：</span> <input name="courseName" type="text"
+						placeholder="请输入课程名称："
+						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
+				</div>
+				<div class="input1">
+					<ul class="phoneUl">
+					<span style="float: left;" >课程图片：</span> 
+					<label for="faceImg" style="cursor: pointer">
+						<li>
+							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
+								name="faceImg">
+						</li>
+						<li><img id="photos" src="" width="100" height="100" /></li>
+					</label>
+					</ul>
+				</div>
 				<div class="input3">
-					<span>开设学期：</span> <select name="selectTerm" id="selectTerm">
-						<c:forEach items="${listTerm }" var="listTerm">
-							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.termOne
-								}</option>
-							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.termTwo
-								}</option>
+					<span>课程分类：</span> <select name="courseCategory" id="category">
+						<c:forEach items="${categoryList }" var="category">
+							<option value="${category.categoryId }">${category.categoryName }</option>
 						</c:forEach>
 					</select>
 				</div>
+
+
+				<hr>
 				<div class="input1">
-					<span>开设课程：</span> <input name="courseName" id="courseName"
-						value="${course.courseName }"
-						style="width: 40%; height: 30px; float: left; margin-left: 2%;"
-						readonly="readonly">
+					<span>课程介绍：</span> <br>
+					<br> <input name="courseDetail" type="text" placeholder=""
+						style="width: 77%; height: 100px; float: left; margin-left: 9%;">
 				</div>
-				<div class="input1">
-					<span>班级名称：</span> <input name="className" id="className"
-						style="width: 40%; height: 30px; float: left; margin-left: 2%;">
-				</div>
+
+				<hr>
+				
+				<!-- 拟态框star -->
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	  					<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<ul id="teacherul" style="list-style-type:none;">
+									<li id="teacher"></li>
+								</ul>
+								<div class="modal-footer">
+									<button id="close" type="button" class="btn btn-default"
+										data-dismiss="modal">关闭</button>
+									<button type="button" id="confirm" class="btn btn-primary" data-dismiss="modal">确定</button>
+								</div>
+							</div>
+						</div>
+					</div>
+				<!-- 拟态框end -->
+				
 				<div class="teacher-friend">
-					<span>开设班级：</span>
+					<h3>教师圈：</h3>
 					<div class="friend">
 						<ul id="selectedRealClassUI" style="list-style-type: none;">
-							<li id="selectedRealClass" name=“selectedRealClass”
-								style="float: left; margin-left: 2%;"></li>
+							<li id="selectedTeachers" name=selectedTeachers
+								style="float: left; margin-left: 2%;">
+									<li id="selectedTeachers" name="selectedTeachers" style="float: left;margin-left:2%;">
+									<input value="${employeeNum }" name="selectedTeacherContent" id="selectedTeacherContent"/>
+									</li>
+								</li>
 						</ul>
 						<div class="add">
-							<button type="button" id="pull" class="btn btn-primary"
-								data-toggle="modal" data-target="#exampleModal"
-								data-whatever="@mdo">选择班级</button>
+							<button type="button" id="pull" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">拉入教师</button>
 						</div>
-						<input value="" name='realClassContent' id='realClassContent'
+						<input value="" name="teacherContent" id="teacherContent"
 							type="hidden" />
 					</div>
 				</div>
 				<hr>
-				<div class="button">
-					<div class="create">
-						<span style="color: white;">
-							<button type="onSubmit" id="adsf" class="btn btn-primary">确定</button>
-						</span>
-					</div>
-					<div class="delete">
-						<a href="#"><button type="button" id="pull"
-								class="btn btn-primary">取消</button> </a>
-					</div>
+				<div class="confirm_close">
+					<ul>
+						<li><input id="create" class="btn btn-default" style="width: 84px;" type="submit" value="创建" /></li>
+						<li><input class="btn btn-default" style="width: 84px;" value="取消" /></li>
+					</ul>
 				</div>
 			</form>
-			<!-- 拟态框star -->
-			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
-				aria-labelledby="exampleModalLabel">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<ul id="realClassUl" style="list-style-type: none;">
-							<li id="realClassLi"><input type="hidden" name="test" /></li>
-						</ul>
-						<div class="modal-footer">
-							<button id="close" type="button" class="btn btn-default"
-								data-dismiss="modal">关闭</button>
-							<button type="button" class="btn btn-primary" id="modalConfirm"
-								data-dismiss="modal">确定</button>
-						</div>
-					</div>
-				</div>
-			</div>
-			<!-- 拟态框end -->
 		</div>
+		
 		<div class="footer">
 			<div class="container">
+
 				<!--row End-->
 				<div class="foot-bq">
 					<!-- 版权内容请在本组件"内容配置-版权"处填写 -->
@@ -221,8 +252,11 @@ $(function() {
 					</div>
 				</div>
 			</div>
+			<!--container End-->
 		</div>
-	</div>
+		
+		<!-- bootstrup -->
+		
 </body>
 
 </html>

@@ -34,11 +34,11 @@
 		width: 67px;
 	}
 	.confirm_close{
-		    width: 48%;
+		  width: 48%;
     height: 50px;
-    position: relative;
-    left: 227px;
-    top: 23px;
+    position: absolute;
+    left: 322px;
+    top: 834px;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -64,11 +64,11 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 			$.ajax({
 				async:false,
 				cache:false,
-				url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers/${employeeNum}",
+				url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers",
 				type:"POST",
 				dataType:"json",
 				success:function(result) {
-					//alert(result);
+					alert(result);
 					 var arr = eval(result);
 					for(var i = 0; i < arr.length; i++){
 						//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
@@ -79,6 +79,55 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 		});
 	});
 </script>
+
+ <script type="text/javascript">
+	$(function() {
+		//定义两个全局变量
+		var checked = [];//点击确认后获取的多选框的值
+		var new_arr = []; //经过筛选后的多选框的值，无重复值
+		$("#confirm")
+				.click(
+						function() {
+							$('input:checkbox:checked')
+									.each(
+											function() {
+												checked.push($(this).val()); //获取到多选框的一个值
+												for (var i = 0; i < checked.length; i++) {
+													var items = checked[i];
+													if ($.inArray(items,
+															new_arr) == -1) {
+														new_arr.push(items);//判断元素是否已在new_arr
+														$("#selectedTeachers")
+																.append(
+																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;'>"
+																				+ "<input value='"+items+"' name='selectedTeacherContent' id='selectedTeacherContent'/></li>");
+													}
+												}
+
+											});
+						});
+	});
+</script> 
+
+<script type="text/javascript">
+$(function() {
+	$("#create").click(
+            function() {
+            	var i = 1;
+                var check=",";
+                $("input[name='teacher']:checked").each(function(i){
+                	if(i == 1){
+                		 check =check+$(this).val();
+                	}
+                	else{
+                		 check =check+","+$(this).val();
+                	}
+                	i = i+1;
+                });
+                $("#teacherContent").val(check);
+            });
+})
+     </script>
 
 <!-- <script type="text/javascript">
 	$(function(){
@@ -158,7 +207,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 		</div>
 		<div class="main">
 			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
-				<input type="hidden" name="publisherId" value="${employeeNum }">
+				<input type="hidden" name="publisherId" value="${teacher.employeeNum }">
 				<div class="input1">
 					<span>课程名称：</span> <input name="courseName" type="text"
 						placeholder="请输入课程名称："
@@ -214,44 +263,25 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				<div class="teacher-friend">
 					<h3>教师圈：</h3>
 					<div class="friend">
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
-						<div class="friend1">
-							<img src="../images/head.png" alt="">
-							<p>张XX</p>
-						</div>
+						<ul id="selectedRealClassUI" style="list-style-type: none;">
+							<li id="selectedTeachers" name=selectedTeachers
+								style="float: left; margin-left: 2%;">
+									<li id="selectedTeachers" name="selectedTeachers" style="float: left;margin-left:2%;">
+									<input value="${teacher.employeeNum }" name="selectedTeacherContent" id="selectedTeacherContent"/>
+									</li>
+								</li>
+						</ul>
 						<div class="add">
 							<button type="button" id="pull" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">拉入教师</button>
 						</div>
-						
+						<input value="" name="teacherContent" id="teacherContent"
+							type="hidden" />
 					</div>
 				</div>
 				<hr>
 				<div class="confirm_close">
 					<ul>
-						<li><input class="btn btn-default" style="width: 84px;" type="submit" value="创建" /></li>
+						<li><input id="create" class="btn btn-default" style="width: 84px;" type="submit" value="创建" /></li>
 						<li><input class="btn btn-default" style="width: 84px;" value="取消" /></li>
 					</ul>
 				</div>

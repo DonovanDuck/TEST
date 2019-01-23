@@ -28,14 +28,14 @@ public interface IResourceDao {
 	 * @param resourceTypeId
 	 * @return
 	 */
-	public List<Resource> searchResourceByType(Integer resourceTypeId);
+	public List<Resource> searchResourceByType(@Param("resourceTypeId")Integer resourceTypeId);
 	
 	/**
 	 * 通过id获取资源存储路径
 	 * @param resourceId
 	 * @return
 	 */
-	public String searchResourcePathById(String resourceId);
+	public String searchResourcePathById(@Param("resourceId")String resourceId);
 	
 	/**
 	 * 通过资源名查找资源
@@ -95,5 +95,23 @@ public interface IResourceDao {
 	 * @throws Exception 
 	 */
 	public void deleteResourceById(@Param("resourceId")String resourceId);
+
+
+	/**
+	 * 查找资源
+	 * @param resourceId
+	 * @return
+	 * @throws Exception 
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
+	 */
+	public List<Resource> showResource(@Param("resourceId")String resourceId);
+
+	/**
+	 *@author LiMing
+	 * @param resource
+	 * 更新资源信息
+	 */
+	public void updateResource(Resource resource);
 	
 }

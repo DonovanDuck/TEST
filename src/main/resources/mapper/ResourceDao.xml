@@ -45,9 +45,22 @@
 		select * from resource where course_id = #{courseId} order by publish_time DESC;
 	</select>
 	
+	<!-- 按id查询资源 -->	
+	<select id="showResource" parameterType="java.lang.String" resultMap="resource">
+		select * from resource 
+		<if test="null!=resourceId">
+			where resource_id = #{resourceId} 
+		</if>
+		order by publish_time DESC;
+	</select>
+	
 	<!-- 按类型查询资源 -->
 	<select id="searchResourceByType" parameterType="int" resultMap="resource">
-		select * from resource where resource_type_id = #{resourceTypeId} order by publish_time DESC;
+		select * from resource 
+		<if test="null!=resourceTypeId">
+			where resource_type_id = #{resourceTypeId} 
+		</if>
+		order by publish_time DESC;
 	</select>
 	
 	<!-- 通过id查询资源路径 -->
@@ -94,4 +107,24 @@
 	<delete id="deleteResourceById" parameterType="java.lang.String">
 		DELETE FROM resource WHERE resource_id = #{resourceId};
 	</delete>
+	
+	<!--更新老师信息 -->
+	<update id="updateResource"
+		parameterType="cn.edu.tit.bean.Resource">
+		UPDATE resource
+		<set>
+			<if test="resourceName != null">resource_name = #{resourceName},</if>
+			<if test="resourceDetail != null">resource_detail = #{resourceDetail},</if>
+			<if test="publishTime != null">publish_time =#{publishTime},</if>
+			<if test="publisherId != null">publisher_id = #{publisherId},</if>
+			<if test="resourceTypeId != null">resource_type_id = #{resourceTypeId},</if>
+			<if test="resourcePath != null">resource_path = #{resourcePath},</if>
+			<if test="courseId != null">course_id = #{courseId},</if>
+			<if test="size != null">size = #{size},</if>
+			<if test="timeSize != null">time_size = #{timeSize},</if>
+			<if test="watchNum != null">watch_num = #{watchNum},</if>
+			<if test="useNum != null">use_num = #{useNum}</if>
+		</set>
+		WHERE resource_id = #{resourceId}
+	</update>
 </mapper>

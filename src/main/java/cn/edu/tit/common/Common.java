@@ -31,16 +31,17 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.iservice.IResourceService;
 import cn.edu.tit.iservice.ITeacherService;
 
 @Component
 public  class  Common {
-
 	// 使用日志工厂获取日志对象
     private static Log log = LogFactory.getLog(Common.class);
 	/**

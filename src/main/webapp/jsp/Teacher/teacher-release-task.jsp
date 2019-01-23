@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
     <meta charset="UTF-8">
     <title>教师发布任务页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/teacher-release-task.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Course/teacher-release-task.css" type="text/css">
 </head>
 <body>
 <header></header>

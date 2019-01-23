@@ -22,5 +22,18 @@ public class ResourceType {
 	public void setResourceType(String resourceType) {
 		this.resourceType = resourceType;
 	}
+	public ResourceType(Integer resourceTypeId, String resourceType) {
+		super();
+		this.resourceTypeId = resourceTypeId;
+		this.resourceType = resourceType;
+	}
+	public ResourceType() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	@Override
+	public String toString() {
+		return "ResourceType [resourceTypeId=" + resourceTypeId + ", resourceType=" + resourceType + "]";
+	}
 	
 }

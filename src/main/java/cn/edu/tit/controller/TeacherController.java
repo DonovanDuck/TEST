@@ -75,6 +75,7 @@ public class TeacherController {
 	private IResourceService resourceService;
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private static List<ResourceType> resourceCategories = null;//将资源分类作为全局变量
+	
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -83,8 +84,8 @@ public class TeacherController {
 		String teacherPassword = null;
 		try {
 			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			teacherPassword = Common.eccryptMD5(password);
-			if(teacherPassword.equals(teacher.getTeacherPassword()))
+			//teacherPassword = Common.eccryptMD5(password);
+			if(password.equals(teacher.getTeacherPassword()) )
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
@@ -93,12 +94,10 @@ public class TeacherController {
 				mv.addObject("teacher",teacher);
 			}
 			else {
-
 				mv.addObject("readResult", "密码错误");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
-
 			mv.addObject("readResult", "异常");//返回信息
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
@@ -151,6 +150,13 @@ public class TeacherController {
 		request.getSession().setAttribute("course", course);
 		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		//request.getSession().setAttribute("course", course);
+		// 查出操作者是否是manager
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		if(teacher != null){
+			//查manager
+			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId);
+			request.setAttribute("manager", manager);
+		}
 		request.setAttribute("course", course);
 		return "jsp/Teacher/course_detail";
 	}
@@ -162,12 +168,12 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping("toCreateCourse")
-	public String toCreateCourse(HttpServletRequest request, @PathVariable String employeeNum){
+	public String toCreateCourse(HttpServletRequest request){
 		try {
 			//查找所有系部列表
 			List<Category> categoryList =  teacherService.readCategory();
 			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-			Student student = (Student) request.getSession().getAttribute("teacher");
+			Student student = (Student) request.getSession().getAttribute("student");
 			request.setAttribute("teacher", teacher);
 			request.setAttribute("student", student);
 			request.setAttribute("categoryList", categoryList);
@@ -181,10 +187,12 @@ public class TeacherController {
 	/**
 	 * 通过ajax获取教师列表
 	 */
-	@RequestMapping(value="ajaxGetTeachers/{employeeNum}")
-	public void ajaxGetTeachers(HttpServletRequest request, HttpServletResponse response, @PathVariable String employeeNum){
+	@RequestMapping(value="ajaxGetTeachers")
+	public void ajaxGetTeachers(HttpServletRequest request, HttpServletResponse response){
 		try {
 			List<Teacher> teacherList = new ArrayList<>();
+			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
+			String employeeNum = teach.getEmployeeNum();
 			for(Teacher teacher : teacherService.getTeachers()){
 				if(!employeeNum.equals(teacher.getEmployeeNum())){ // 在选择的教师中过滤掉当前的操作者
 					teacherList.add(teacher);
@@ -314,6 +322,7 @@ public class TeacherController {
 			//根据id查询课程
 			Course course = teacherService.getCourseById(courseId);
 			request.setAttribute("courseDetail", course.getCourseDetail());
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -325,7 +334,7 @@ public class TeacherController {
 	 */
 	@RequestMapping(value="createCourse")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView createCourse(HttpServletRequest request, @RequestParam(value = "teacher", required = false)String[] teachers){
+	public ModelAndView createCourse(HttpServletRequest request){
 		try {
 			String courseId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,courseId);
@@ -340,6 +349,8 @@ public class TeacherController {
 			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
 			course.setPublishTime(publishTime);
 			String employeeNum = (String)formdata.get("publisherId");
+			String teacherStr = (String)formdata.get("teacherContent");
+			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
 			for(File f : files){ // 集合中只有一张图片
 				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
@@ -786,6 +797,7 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 		mv.addObject("teacherNames",teacherNames);
+		mv.addObject("categories",categories);
 		mv.addObject("courseList", list);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
@@ -959,8 +971,8 @@ public class TeacherController {
 	 * 访问资源更新页
 	 * @throws Exception 
 	 */
-	@RequestMapping("/toResource")
-	public ModelAndView toResource() throws Exception {
+	@RequestMapping("/toResourceMain")
+	public ModelAndView toResourceMain() throws Exception {
 		ModelAndView mv = new ModelAndView();
 		resourceCategories = new ArrayList<ResourceType>();
 		resourceCategories = teacherService.readResourceCategoried();
@@ -979,6 +991,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<Resource> list = new ArrayList<Resource>();
 		int type = Integer.parseInt(resourceType);
+		//showResourceByType()为混合方法，看具体注释
 		list  = resourceService.showResourceByType(type);
 		mv.addObject("resource", list);
 		mv.setViewName("/jsp/Teacher/managerResourceListIframe");
@@ -988,19 +1001,21 @@ public class TeacherController {
 	/**
 	 * @author LiMing
 	 * @param request
-	 * 访问作业资源,作为默认Iframe的显示内容
+	 * 更新资源
+	 * @throws Exception 
 	 */
 	@RequestMapping("/toUpdateResource/{resourceId}")
-	public ModelAndView toUpddateResource(@PathVariable String resourceId) throws IOException {
+	public ModelAndView toUpdateResource(@PathVariable String resourceId,@RequestParam(value="resourceName")String resourceName,@RequestParam(value="resourceDetail")String resourceDetail) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		System.out.println(resourceId+"~~~~~~~~~~~~~~~~更新");
+		resourceService.updateResource(resourceId, resourceName, resourceDetail, null, null, null, null, null, null, null, null, null);
+		mv = toResourceMain();
 		return mv; 
 	}
 	
 	/**
 	 * @author LiMing
 	 * @param request
-	 * 访问作业资源,作为默认Iframe的显示内容
+	 * 删除资源
 	 * @throws Exception 
 	 */
 	@RequestMapping("/toDeleteResource/{resourceId}")
@@ -1008,5 +1023,21 @@ public class TeacherController {
 		String msg = null;
 		msg  = resourceService.deleteResourceById(resourceId);
 		return msg;
+	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * 返回需要更新的资源，将对象显示在模态框
+	 * @throws Exception 
+	 */
+	@RequestMapping("/toModalResource/{resourceId}")
+	public void tomodalResource(HttpServletRequest request, HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+		String msg = null;
+		List<Resource> list = new ArrayList<Resource>();
+		list  = resourceService.showResource(resourceId);//此时resourceId 不为空，将按照条件查询。返回只有一个对象的集合
+		JSONArray  json  =  JSONArray.fromObject(list); 
+		String result = json.toString();
+		response.getWriter().print(result);
 	}
 }
