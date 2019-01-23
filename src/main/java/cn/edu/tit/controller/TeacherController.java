@@ -157,7 +157,7 @@ public class TeacherController {
 			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId);
 			request.setAttribute("manager", manager);
 		}
-		request.setAttribute("course", course);
+		request.getSession().setAttribute("course", course);
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -176,7 +176,7 @@ public class TeacherController {
 			Student student = (Student) request.getSession().getAttribute("student");
 			request.setAttribute("teacher", teacher);
 			request.setAttribute("student", student);
-			request.setAttribute("categoryList", categoryList);
+			request.getSession().setAttribute("categoryList", categoryList);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -285,6 +285,7 @@ public class TeacherController {
 			return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
 		} 
 	}
+	
 
 	/**
 	 * @author LiMing
@@ -298,6 +299,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<Term> listTerm = new ArrayList<Term>();
 		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		
 		Course course = new Course();
 		course = teacherService.readCourseByCourseId(courseId);
 		listTerm = teacherService.readTerm();
@@ -307,6 +309,40 @@ public class TeacherController {
 		mv.addObject("listTerm",listTerm);
 		mv.addObject("listRealClass", listRealClass);
 		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
+		return mv;
+	}
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 去编辑虚拟班级
+	 */
+	@RequestMapping(value="toEditVirtualClass")
+	public ModelAndView toEditVirtualClass(HttpServletRequest request) {
+		
+		
+		ModelAndView mv = new ModelAndView();
+		List<Term> listTerm = new ArrayList<Term>();
+		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);
+		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
+		String creator = (String) request.getSession().getAttribute("teacherId");
+		Course course = (Course) request.getSession().getAttribute("course");
+		try {
+			listTerm = teacherService.readTerm();
+			listRealClass = teacherService.getRealClassList(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("listTerm",listTerm);
+		mv.addObject("listRealClass", listRealClass);
+		mv.addObject("virtualClassNum", virtualClassNum);
+		mv.addObject("virtualClassName", virtualClassName);
+		mv.addObject("creator", creator);
+		mv.addObject("course", course);
+		mv.setViewName("/jsp/Teacher/editVirtualClass");
 		return mv;
 	}
 
@@ -648,11 +684,13 @@ public class TeacherController {
 	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ) {
 		ModelAndView mv = new ModelAndView();
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
+		request.getSession().setAttribute("virtualClassName", virtualClassName);
 		mv.addObject("virtualClassName",virtualClassName);
 		mv.setViewName("/jsp/Teacher/teacher-task");
 		return mv;
 		
 	}
+
 	/**
 	 * @author wenli
 	 * @param request

@@ -75,7 +75,7 @@ function load() {
 	<div class="main_t">
 		<div class="class">
 			<p>
-				<span>${virtualClassName }</span>&nbsp;&nbsp;<a href="#">编辑班级信息</a>
+				<span>${virtualClassName }</span>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/teacher/toEditVirtualClass">编辑班级信息</a>
 			</p>
 		</div>
 	</div>

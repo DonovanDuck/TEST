@@ -440,4 +440,11 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId);
+	/**
+	 * @author wenli
+	 * 根据虚拟班号查虚拟班
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public VirtualClass getVirtualById(String virtualClassNum);
 }
