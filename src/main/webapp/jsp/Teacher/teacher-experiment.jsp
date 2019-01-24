@@ -44,8 +44,13 @@
 
 			</div>
 			<a
+<<<<<<< HEAD
 				href="${pageContext.request.contextPath}/Teacher/teacher-release-task.jsp"
 				target="_blank"><div class="button">
+=======
+				href="${pageContext.request.contextPath}/teacher/toPublishTask"
+				target="iframeContent"><div class="button">
+>>>>>>> 7efbb9cf67ecb25efbd225955f7ec74c87d91e0e
 					<p>发布实验</p>
 				</div> </a>
 		</div>

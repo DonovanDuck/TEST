@@ -521,7 +521,7 @@
 	</select>
 
 	<!-- 查询任务分类表 -->
-	<select id="getTaskCategory" parameterType="java.util.List" resultType="java.lang.String">
+	<select id="getTaskCategory"  resultType="java.lang.String">
 		select task_category from point
 	</select>
 	
