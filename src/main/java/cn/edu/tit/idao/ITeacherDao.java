@@ -207,4 +207,11 @@ public interface ITeacherDao {
 	 * 创建资源
 	 */
 	public void createResource(Resource resource)throws Exception;
+	
+	
+	/**
+	 * 获取标志位，查老师是否是课程创建者
+	 * @return
+	 */
+	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId);
 }

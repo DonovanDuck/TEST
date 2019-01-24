@@ -103,7 +103,7 @@ public class AdminController {
 		File file = new File("");
 		for(FileItem fi : items) {
 			File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
-			file = new File("/home/wenruo/Desktop/userInfo", fullFile.getName()); // 为文件设置存储路径
+			file = new File("/home/wenli/spocwork/studentInfo", fullFile.getName()); // 为文件设置存储路径
 			fi.write(file);
 		}
 		FileInputStream fileInputStream = new FileInputStream(file);
@@ -112,7 +112,7 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		try {
-			//调用ITeacherService 下的方法，完成增加教师
+			//调用ITeacherService 下的方法，完成增加学生
 			readResult = iAdminService.addStudentInfo(multipartFile);
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -193,8 +193,8 @@ public class AdminController {
 		Admin admin = new Admin();
 		try {
 			admin = iAdminService.loginAdmin(adminUsername);
-			//String password=Common.eccryptMD5(admin.getAdminPassword());
-			if(adminPassword.equals(admin.getAdminPassword()))
+			String password=Common.eccryptMD5(adminPassword);
+			if(password.equals(admin.getAdminPassword()))
 			{	
 				mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面
 				request.getSession().setAttribute("admin", admin);//将amdin 放入session

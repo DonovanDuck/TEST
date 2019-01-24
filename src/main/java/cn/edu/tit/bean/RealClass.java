@@ -6,7 +6,7 @@ package cn.edu.tit.bean;
 public class RealClass {
 
 	private String realClassNum; // 自然班级号
-	private String realClassCategory; // 自然班级所属系部
+	private String realClassCategory; //自然班级所属系部
 	private Integer realPersonNum; //实体班级人数
 	public String getRealClassNum() {
 		return realClassNum;

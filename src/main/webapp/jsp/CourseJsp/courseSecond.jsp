@@ -16,6 +16,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/Course/courseSecondJsp.css"
 	type="text/css">
+<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -46,6 +48,7 @@
 		<input class="search" id="search" type="search" placeholder="请输入关键词">
 		<button class="search-button" id="searchButton">搜索</button>
 	</div>
+	<a href="${pageContext.request.contextPath}/teacher/toCreateCourse" style="position: relative;top: -26px;left:269px"><button class="btn btn-default" >创建课程</button></a>
 	<div class="banner">
 		<div class="banner_t">
 			<ul>

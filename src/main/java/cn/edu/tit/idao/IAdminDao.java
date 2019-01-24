@@ -106,5 +106,10 @@ public interface IAdminDao {
 	 * 创建实体班级
 	 */
 	public void addRealClass(List<RealClass> realCLassList);
+	/**
+	 * @author wenli
+	 * 更新实体班级人数
+	 */
+	public void updateStudentNumInRealClass(String realClassNum);
 	
 }

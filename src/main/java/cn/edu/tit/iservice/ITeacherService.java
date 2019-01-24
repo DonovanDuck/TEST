@@ -434,4 +434,17 @@ public interface ITeacherService {
 	 * 创建资源
 	 */
 	public void createResource(Resource resource)throws Exception;
+	
+	/**
+	 * 获取标志位，查老师是否是课程创建者
+	 * @return
+	 */
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId);
+	/**
+	 * @author wenli
+	 * 根据虚拟班号查虚拟班
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public VirtualClass getVirtualById(String virtualClassNum);
 }
