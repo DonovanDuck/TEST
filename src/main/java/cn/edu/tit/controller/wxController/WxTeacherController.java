@@ -404,7 +404,7 @@ public class WxTeacherController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value = "wxShowTeacherCoure", method = { RequestMethod.GET })
+	@RequestMapping(value = "wxShowTeacherCourse", method = { RequestMethod.GET })
 	public Map<String, Object> wxShowTeacherCoure(HttpServletRequest request) {
 		Map<String, Object> ret = new HashMap<>();
 		try {

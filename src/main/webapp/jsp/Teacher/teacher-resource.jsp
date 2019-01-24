@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/teacher-resource.css" type="text/css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Course/teacher-resource.css" type="text/css"/>
 <body>
 <main>
     <div class="main_t"></div>

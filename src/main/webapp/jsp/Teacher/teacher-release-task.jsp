@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
     <meta charset="UTF-8">
     <title>教师发布任务页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/teacher-release-task.css" type="text/css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/teacher-release-task.css" type="text/css">
 </head>
 <body>
 <header></header>
@@ -20,17 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
     <div class="main_m">
-        <nav>
-            <ul>
-                <li><a href="${pageContext.request.contextPath}/teacher/toPublishTask">作业</a></li>
-                <li><a href="${pageContext.request.contextPath}/jsp/Teacher/teacher-experiment.jsp">实验</a></li>
-                <li><a href="#">课设</a></li>
-                <li><a href="#">翻转</a></li>
-                <li><a href="#">授课计划</a></li>
-                <li><a href="#">论坛</a></li>
-                <li><a href="#">开放</a></li>
-            </ul>
-        </nav>
+        
     </div>
     <div class="main_b">
         <div class="text">
@@ -38,10 +28,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <span><strong>题&nbsp;&nbsp;&nbsp;&nbsp;目：</strong></span>
             <input type="text" name="taskTitle"  placeholder="请输入题目：" style="width: 60%;height: 30px;float: left;">
          
-            <div style="width:10%;height:30px;">
-	            <select id ="taskCategory" name="taskCategory">
+            <div style="width:10%;height:30px;float:left">
+	            <select id ="taskCategory" name="taskCategory" >
 	            	<c:forEach items="${taskCategoryList }" var="taskCategory">
-								<option>${taskCategory }</option>
+								<option <c:if test="${taskCategory=='work'}"> selected="selected" </c:if> >${taskCategory }</option>
 							</c:forEach>
 	            </select>
             </div>
@@ -49,7 +39,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <span><strong>任务详情：</strong></span>
             <input name="taskDetail" type="text" placeholder="请输入任务详情：" style="width: 80%;height: 200px;float: left;">
             <div class="button">
-                <span>发布时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input  type="datetime-local" placeholder=""> </span>
+                
                 <span>截止时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="taskEndTime" type="datetime" placeholder=""></span>
                 <br><br>
                 
@@ -65,4 +55,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </main>
 <footer></footer>
 </body>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 </html>
