@@ -44,8 +44,8 @@
 
 			</div>
 			<a
-				href="${pageContext.request.contextPath}/course/teacher-release-task.jsp"
-				target="_blank"><div class="button">
+				href="${pageContext.request.contextPath}/teacher/toPublishTask"
+				target="iframeContent"><div class="button">
 					<p>发布实验</p>
 				</div> </a>
 		</div>

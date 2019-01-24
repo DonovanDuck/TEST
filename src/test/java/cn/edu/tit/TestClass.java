@@ -66,14 +66,7 @@ public class TestClass {
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
-<<<<<<< HEAD
-		System.out.println();
-	}
-	
-	
-=======
-//		DateConverter d = new DateConverter();
->>>>>>> 792a6ed49d55f28cba5d54eff83be7fa0eb84b48
+
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);

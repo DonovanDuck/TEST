@@ -832,4 +832,10 @@ public class TeacherServiceImpl implements ITeacherService{
 			// TODO Auto-generated method stub
 			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
 		}
+
+		@Override
+		public VirtualClass getVirtualById(String virtualClassNum) {
+			// TODO Auto-generated method stub
+			return teacherDao.getVirtualById(virtualClassNum);
+		}
 }
