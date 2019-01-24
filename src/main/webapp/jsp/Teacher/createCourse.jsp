@@ -68,7 +68,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				type:"POST",
 				dataType:"json",
 				success:function(result) {
-					alert(result);
+					//alert(result);
 					 var arr = eval(result);
 					for(var i = 0; i < arr.length; i++){
 						//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
@@ -97,10 +97,10 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 													if ($.inArray(items,
 															new_arr) == -1) {
 														new_arr.push(items);//判断元素是否已在new_arr
-														$("#selectedTeachers")
+														$("#selectedRealClassUI")
 																.append(
-																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;'>"
-																				+ "<input value='"+items+"' name='selectedTeacherContent' id='selectedTeacherContent'/></li>");
+																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;width: 30%;'>"
+																				+ "<span>教师:</span><input value='"+items+"' name='selectedTeacherContent' style='width: 50%;' id='selectedTeacherContent'/></li>");
 													}
 												}
 
@@ -114,9 +114,9 @@ $(function() {
 	$("#create").click(
             function() {
             	var i = 1;
-                var check=",";
+                var check="";
                 $("input[name='teacher']:checked").each(function(i){
-                	if(i == 1){
+                	if(i == 0){
                 		 check =check+$(this).val();
                 	}
                 	else{
@@ -215,7 +215,7 @@ $(function() {
 				</div>
 				<div class="input1">
 					<ul class="phoneUl">
-					<span style="float: left;" >课程图片：</span> 
+					<span style="float: left;" >添加图片：</span> 
 					<label for="faceImg" style="cursor: pointer">
 						<li>
 							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
@@ -265,10 +265,9 @@ $(function() {
 					<div class="friend">
 						<ul id="selectedRealClassUI" style="list-style-type: none;">
 							<li id="selectedTeachers" name=selectedTeachers
-								style="float: left; margin-left: 2%;">
-									<li id="selectedTeachers" name="selectedTeachers" style="float: left;margin-left:2%;">
-									<input value="${teacher.employeeNum }" name="selectedTeacherContent" id="selectedTeacherContent"/>
-									</li>
+								style="float: left; margin-left: 2%; width: 30%;">
+									<span>教师:</span>
+									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
 								</li>
 						</ul>
 						<div class="add">

@@ -38,14 +38,14 @@
 	}
 </script>
 <script language="javascript">
-	var timeIframe;
+	 var timeIframe;
 	window.onload = function() {
 		reIframe();
 	}
 	function reIframe(){
 		timeIframe = setTimeout(GetIframeStatus, 10);s
-	}
-	function GetIframeStatus() {
+	} 
+	 function GetIframeStatus() {
 		var iframe = document.getElementById("iframeContent");
 		var iframeWindow = iframe.contentWindow;
 		//内容是否加载完

@@ -66,14 +66,11 @@ public class TestClass {
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
-<<<<<<< HEAD
-		System.out.println();
+		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId("A9D00CD8C4EC46469EEE1C0F1CFE63DE");
+		System.out.println(employeeNumList);
 	}
 	
-	
-=======
-//		DateConverter d = new DateConverter();
->>>>>>> 792a6ed49d55f28cba5d54eff83be7fa0eb84b48
+
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
@@ -82,7 +79,6 @@ public class TestClass {
 //		}
 //	}
 //	
-	}
 	@Test
 	public void pubResourceToClass(){
 		resourceDao.bandResourceAndClass("432811798460453484200E908AAA976F", "12345");

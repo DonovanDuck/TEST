@@ -11,9 +11,9 @@
 <meta charset="UTF-8">
 <title>班级详情页-实验</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/course/teacher-experiment.css" />
+	href="${pageContext.request.contextPath}/css/Course/teacher-experiment.css" />
 	<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
+	href="${pageContext.request.contextPath}/css/Course/teacher-task.css" />
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 </head>
@@ -44,7 +44,7 @@
 
 			</div>
 			<a
-				href="${pageContext.request.contextPath}/course/teacher-release-task.jsp"
+				href="${pageContext.request.contextPath}/Teacher/teacher-release-task.jsp"
 				target="_blank"><div class="button">
 					<p>发布实验</p>
 				</div> </a>
