@@ -60,4 +60,12 @@ public class StudentController {
 	}
 
 
+	@RequestMapping(value="toStudentCenter")
+	public ModelAndView toStudentCenter() {			
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/StudentJsp/studentCenter");//设置返回页面
+		return mv;
+	}
+
+
 }
