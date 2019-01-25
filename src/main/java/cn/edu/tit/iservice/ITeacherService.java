@@ -21,6 +21,13 @@ import cn.edu.tit.bean.VirtualClass;
 public interface ITeacherService {
 	/**
 	 * @author wenli
+	 * @param virtualClassNum
+	 * @return
+	 * 根据虚拟班级号找到所对应的实体班级号列表
+	 */
+	public List<String> searchRealClassIdList(String virtualClassNum);
+	/**
+	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createCourse(cn.edu.tit.bean.Course)
 	 * @context 创建课程模块
 	 * @Param1(课程对象)
@@ -98,7 +105,7 @@ public interface ITeacherService {
 	 * @Param1(自然班班号)
 	 * @Param2(虚拟班班号)
 	 */
-	public void mapVirtualRealClass(String realClassNum,String virtualClassNUm)throws Exception;	//创建虚拟班和自然班映射模块
+	public void mapVirtualRealClass(String realClassNum,String virtualClassNum)throws Exception;	//创建虚拟班和自然班映射模块
 
 	/**
 	 * @author LiMing
@@ -269,7 +276,13 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public List<Teacher> getTeachersByCourseId(String courseId);
-	
+	/**
+	 * @author wenli
+	 * @param creatorId
+	 * @return
+	 * 根据创建者Id获得他创建的所有班级列表
+	 */
+	public List<VirtualClass> getVirtualClassByCreatorId(String creatorId);
 	
 	/**
 	 * @author wenli
