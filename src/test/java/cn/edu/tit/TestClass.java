@@ -67,14 +67,6 @@ public class TestClass {
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
-		List<Course> courseList = teacherDao.getCourseByLimit();
-		for(Course c : courseList){
-			System.out.println(c);
-		}
-		
-	}
-	
-
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
@@ -83,6 +75,7 @@ public class TestClass {
 //		}
 //	}
 //	
+	}
 	@Test
 	public void pubResourceToClass(){
 		resourceDao.bandResourceAndClass("432811798460453484200E908AAA976F", "12345");

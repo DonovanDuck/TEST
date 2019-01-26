@@ -33,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
             }
             if($('#select option:selected').val()=='student'){
-                var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
+                var newUrl = '${pageContext.request.contextPath}/student/LoginStudent';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
             }
             if($('#select option:selected').val()=='manager'){

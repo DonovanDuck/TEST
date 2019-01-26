@@ -22,7 +22,6 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
-
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
