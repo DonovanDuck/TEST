@@ -19,7 +19,7 @@
 	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet" />
+	rel="stylesheet"src/main/webapp/jsp/Teacher/createCourse.jsp"" />
 	
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
@@ -38,7 +38,7 @@
     height: 50px;
     position: absolute;
     left: 322px;
-    top: 834px;
+    top: 870px;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -191,20 +191,8 @@ $(function() {
 </script>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="header">
-			<div class="logo-nav-box">
-				<div class="container">
-					<div class="logo-box">
-						<img src="${pageContext.request.contextPath}/images/head-logo.png"
-							width="292" height="59" border="0">
-					</div>
-					<div class="nav-box">
-						<ul id="nav" class="nav clearfix">
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="wrapper"></div>
+		<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main">
 			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${teacher.employeeNum }">

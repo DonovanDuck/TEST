@@ -72,6 +72,8 @@ public class TeacherController {
 	@Autowired
 	private IStudentService studentService;
 	@Autowired
+	public MainController mainController;
+	@Autowired
 	private IResourceService resourceService;
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private static List<ResourceType> resourceCategories = null;//将资源分类作为全局变量
@@ -89,7 +91,7 @@ public class TeacherController {
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
-				mv = toCourseSecond(request);
+				mv=mainController.toMain(request); //去首页
 				mv.addObject("readResult", "登录成功");//返回信息
 				mv.addObject("teacher",teacher);
 			}
@@ -112,7 +114,7 @@ public class TeacherController {
 	 * @throws Exception 
 	 * 教师、学生登陆后进入的第一个页面
 	 */
-	@RequestMapping(value="courseList",method= {RequestMethod.POST})
+	@RequestMapping(value="courseList",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		categories = teacherService.readCategory();
@@ -286,7 +288,6 @@ public class TeacherController {
 		} 
 	}
 	
-
 	/**
 	 * @author LiMing
 	 * @param request
@@ -852,8 +853,19 @@ public class TeacherController {
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
 	}
-
-
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 进入我的相关班级的iframe入口
+	 */
+	@RequestMapping(value="toMyCourse")
+	public ModelAndView toMyCourse(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/Teacher/teacherInfo/teacher_course_iframe");
+		return mv;
+	}
 	/**
 	 * @author LiMing
 	 * @param request
@@ -866,20 +878,69 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		List<String> courseIdListByOthers;		//加入别人的课程ID号
 		List<Course> courseListByOthers = null;		//别人课程实体
+		List<Teacher> teacherList = null;
 		List<String> teacherNames = new ArrayList<String>();
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
 			courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
 			courseListByOthers = teacherService.courseList(courseIdListByOthers);
-			for (Course course : courseListByOthers) {
-				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+			if(courseListByOthers!=null) {
+				
+				for (Course course : courseListByOthers ) {
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+				}
+				for (Course course : courseListByOthers) {
+					teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				}
 			}
+			
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListByOthers);
-		mv.setViewName("/jsp/CourseJsp/courseIframe");
+		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_jion");
+		return mv;
+	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * 查找对应老师的课程列表，关注
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toMyInterestCourse")
+	public ModelAndView toMyInterestCourse(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		List<String> courseIdListByOthers;		//加入别人的课程ID号
+		List<Course> courseListByOthers = null;		//别人课程实体
+		List<Teacher> teacherList = null;
+		List<String> teacherNames = new ArrayList<String>();
+		System.out.println(request.getSession().getAttribute("teacherId"));
+		try {
+			courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 2);
+			courseListByOthers = teacherService.courseList(courseIdListByOthers);
+			if(courseListByOthers!=null) {
+				
+				for (Course course : courseListByOthers ) {
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+				}
+				for (Course course : courseListByOthers) {
+					teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				}
+			}
+			
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.addObject("teacherNames",teacherNames);
+		mv.addObject("courseList", courseListByOthers);
+		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_interest");
 		return mv;
 	}
 
@@ -896,24 +957,69 @@ public class TeacherController {
 		List<String> courseIdListforMe ;	//自己创建的课程ID号
 		List<Course> courseListforMe = null ;		//自己课程实体
 		Teacher teacher = null;
+		List<String> teacherIdList = null;
+		List<Teacher> teacherList = null;
 		//创建老师集合的目的是：课程与创建者的匹配
 		List<String> teacherNames = new ArrayList<String>();
 		try {
 			courseIdListforMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
+			
 			courseListforMe = teacherService.courseList(courseIdListforMe);
-			for (int i = 0; i < courseListforMe.size(); i++) {
-				teacher = (Teacher) request.getSession().getAttribute("teacher");
-				teacherNames.add(teacher.getTeacherName());
+			if(courseListforMe!=null) {
+				for (Course course : courseListforMe ) {
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+				}
+				for (int i = 0; i < courseListforMe.size(); i++) {
+					teacher = (Teacher) request.getSession().getAttribute("teacher");
+					teacherNames.add(teacher.getTeacherName());
+				}
 			}
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListforMe);
-		mv.setViewName("/jsp/CourseJsp/courseIframe");
+		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_create");
 		return mv;
 	}
-
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 到个人中心的班级列表页
+	 */
+	@RequestMapping(value="toMyClassList")
+	public ModelAndView toMyClassList(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		List<VirtualClass> virtualClassList= null;
+		List<RealClass> realClassList = null;
+		List<String> realClassIdList = null;
+		String creatorId = (String) request.getSession().getAttribute("teacherId");
+		virtualClassList = teacherService.getVirtualClassByCreatorId(creatorId);
+		if(virtualClassList!=null) {
+			for (VirtualClass virtualClass : virtualClassList) {
+				
+				realClassList = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
+				virtualClass.setRealClassList(realClassList);
+			}
+			
+		}
+		
+		mv.addObject("virtualClassList", virtualClassList);
+		mv.setViewName("jsp/Teacher/teacherInfo/teacher_class_iframe");
+		return mv;
+	}
+	
+	@RequestMapping(value="toMyInfo")
+	public ModelAndView toMyInfo(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		mv.addObject("teacher", teacher);
+		mv.setViewName("jsp/Teacher/teacherInfo/teacher_myInfo_iframe");
+		return mv;
+	}
 
 	/**
 	 * @author WenLi
@@ -1089,5 +1195,27 @@ public class TeacherController {
 		JSONArray  json  =  JSONArray.fromObject(list); 
 		String result = json.toString();
 		response.getWriter().print(result);
+	}
+	
+	/**
+	 * 跳转到教师主页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toTeacherPage")
+	public ModelAndView toTeacherPage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获取教师信息
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			mv.addObject("teacher",teacher);
+			mv.setViewName("jsp/Teacher/teacherInfo/centreForTeacher"); //跳转教师个人页
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			mv.addObject("readResult", "异常");//返回信息
+			mv.setViewName("/jsp/Teacher/index");//设置返回页面
+		}
+		return mv;
 	}
 }

@@ -202,10 +202,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param2(虚拟班班号)
 	 */
 	@Override
-	public void mapVirtualRealClass(String realClassNum, String virtualClassNUm) throws Exception{
+	public void mapVirtualRealClass(String realClassNum, String virtualClassNum) throws Exception{
 		// TODO Auto-generated method stub
 		try {
-			teacherDao.mapVirtualRealClass(realClassNum, virtualClassNUm);
+			teacherDao.mapVirtualRealClass(realClassNum, virtualClassNum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -837,5 +837,22 @@ public class TeacherServiceImpl implements ITeacherService{
 		public VirtualClass getVirtualById(String virtualClassNum) {
 			// TODO Auto-generated method stub
 			return teacherDao.getVirtualById(virtualClassNum);
+		}
+
+		@Override
+		public List<Course> getCourseByLimit() {
+			
+			return teacherDao.getCourseByLimit();
+		}
+		@Override
+		public List<VirtualClass> getVirtualClassByCreatorId(String creatorId) {
+			// TODO Auto-generated method stub
+			return teacherDao.getVirtualClassByCreatorId(creatorId);
+		}
+
+		@Override
+		public List<String> searchRealClassIdList(String virtualClassNum) {
+			// TODO Auto-generated method stub
+			return teacherDao.searchRealClassIdList(virtualClassNum);
 		}
 }

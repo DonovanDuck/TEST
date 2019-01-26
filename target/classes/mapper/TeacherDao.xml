@@ -290,7 +290,7 @@
 		#{term},
 		#{classStuentNum},
 		#{virtualClassName}
-		);
+		)
 	</insert>
 
 	<select id="virtualsForCourse" parameterType="java.lang.String"
@@ -496,6 +496,16 @@
 		select * from virtual_class
 		where creator_id = #{employeeNum} and course_id = #{courseId};
 	</select>
+	<!-- 通过教师工号获取相关班级 -->
+	<select id="getVirtualClassByCreatorId" parameterType="String" resultMap="virtualClassMap">
+		select * from virtual_class
+		where creator_id = #{creatorId} 
+	</select>
+	<!-- 根据虚拟班级号找到所对应的实体班级号列表 -->
+	<select id="searchRealClassIdList" parameterType="String" resultType="String">
+		select real_class_num from real_virtual_class
+		where virtual_class_num = #{virtualClassNum} 
+	</select>
 
 	<!-- 通过虚拟班级号查课程id集合 -->
 	<select id="getCourseIdByVirtualId" parameterType="String"
@@ -549,4 +559,10 @@
 	<select id="getManagerByEmployeeNum" resultType="int">
 		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
 	</select>
+	
+	<!-- 根据时间获取前十二个课程信息到首页 -->
+	<select id="getCourseByLimit" resultMap="courseMap">
+		select * from course order by publish_time DESC limit 0,8;
+	</select>
+	
 </mapper>

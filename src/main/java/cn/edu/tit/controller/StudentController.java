@@ -7,9 +7,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.ResourceType;
@@ -68,7 +65,7 @@ public class StudentController {
 				mv.addObject("readResult", readResult);//返回信息
 				request.getSession().setAttribute("studentId", student.getStudentId());
 				request.getSession().setAttribute("student", student);
-				mv.setViewName("/jsp/StudentJsp/studentCenter_MyCourse");//设置返回页面
+				mv=mainController.toMain(request); //去首页
 			}
 
 		} catch (Exception e) {
@@ -83,8 +80,8 @@ public class StudentController {
 	 * 跳转到学生中心,此方法作为第一入口
 	 * @throws Exception 
 	 * */
-	@RequestMapping(value="toStudentCenter")
-	public ModelAndView toStudentCenter(HttpServletRequest request) throws Exception {			
+	@RequestMapping(value="toStudentPage")
+	public ModelAndView toStudentPage(HttpServletRequest request) throws Exception {			
 		ModelAndView mv = new ModelAndView();
 		Student student = (Student) request.getSession().getAttribute("student");
 		List<String> listCourseId_MyCourse = new ArrayList<String>();

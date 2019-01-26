@@ -35,7 +35,7 @@ public interface ITeacherDao {
 	public List<Student> studentList(List<String> classNums)throws Exception;		//学生列表模块1
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块1
 	public List<String> searchRealClassNum(String virtualClassNum)throws Exception;		//查询虚拟班级对应的自然班列表模块1
-	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNUm)throws Exception;	//创建虚拟班和自然班映射模块1
+	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNum)throws Exception;	//创建虚拟班和自然班映射模块1
 	public Teacher teacherLoginByEmployeeNum(@Param("employeeNum")String employeeNum)throws Exception;	//通过职工号登录教师
 	public Teacher teacherLoginByTelephone(String telephone)throws Exception;	//通过手机号登录教师
 	public Teacher teacherLoginByEmail(String email)throws Exception;	//通过邮件登录教师
@@ -151,7 +151,13 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public List<VirtualClass> getClassById(@Param(value="courseId") String courseId, @Param(value="employeeNum") String employeeNum);
-	
+	/**
+	 * @author wenli
+	 * @param creatorId
+	 * @return
+	 * 根据创建者Id获得他创建的所有班级列表
+	 */
+	public List<VirtualClass> getVirtualClassByCreatorId(String creatorId);
 	/**
 	 * 通过虚拟班级号查课程id
 	 * @param virtualClassNum
@@ -179,7 +185,13 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public RealClass searchRealClassById(String realClassNum);
-	
+	/**
+	 * @author wenli
+	 * @param virtualClassNum
+	 * @return
+	 * 根据虚拟班级号找到所对应的实体班级号列表
+	 */
+	public List<String> searchRealClassIdList(String virtualClassNum);
 	/**
 	 * 根据id查图片
 	 * @param courseId
@@ -209,9 +221,16 @@ public interface ITeacherDao {
 	public void createResource(Resource resource)throws Exception;
 	
 	
+	
 	/**
 	 * 获取标志位，查老师是否是课程创建者
 	 * @return
 	 */
 	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId);
+	
+	/**
+	 * 根据时间获取前十二个课程信息到首页
+	 * @return
+	 */
+	public List<Course> getCourseByLimit();
 }
