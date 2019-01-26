@@ -2,19 +2,23 @@ package cn.edu.tit.bean;
 
 import java.io.File;
 import java.sql.Timestamp;
+import java.util.List;
 
 public class Course {
 
 	private String courseId; // 课程id
 	private String courseName; // 课程名
 	private String courseDetail; // 课程描述
-	private Integer courseCategory; // 课程所属系部
+	private String courseCategory; // 课程所属系部
 	private String publisherId; //发布者id 
 	private Timestamp publishTime; // 创建时间
 	private String faceImg; // 课程图标
 	private String fine; // 精品课
 	private Integer	 courseStudentNum; // 每门课的总人数	
-
+	private List<Teacher> teacherList;//该课程对应的教师团队集合
+	
+	
+	
 	public String getCourseId() {
 		return courseId;
 	}
@@ -33,10 +37,10 @@ public class Course {
 	public void setCourseDetail(String courseDetail) {
 		this.courseDetail = courseDetail;
 	}
-	public Integer getCourseCategory() {
+	public String getCourseCategory() {
 		return courseCategory;
 	}
-	public void setCourseCategory(Integer courseCategory) {
+	public void setCourseCategory(String courseCategory) {
 		this.courseCategory = courseCategory;
 	}
 	public String getPublisherId() {
@@ -69,15 +73,21 @@ public class Course {
 	public void setCourseStudentNum(Integer courseStudentNum) {
 		this.courseStudentNum = courseStudentNum;
 	}
-
+	public List<Teacher> getTeacherList() {
+		return teacherList;
+	}
+	public void setTeacherList(List<Teacher> teacherList) {
+		this.teacherList = teacherList;
+	}
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
 				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", publishTime=" + publishTime
 				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum + "]";
 	}
-	public Course(String courseId, String courseName, String courseDetail, Integer courseCategory, String publisherId,
-			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum) {
+	
+	public Course(String courseId, String courseName, String courseDetail, String courseCategory, String publisherId,
+			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum, List<Teacher> teacherList) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -88,11 +98,13 @@ public class Course {
 		this.faceImg = faceImg;
 		this.fine = fine;
 		this.courseStudentNum = courseStudentNum;
+		this.teacherList = teacherList;
 	}
 	public Course() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 }

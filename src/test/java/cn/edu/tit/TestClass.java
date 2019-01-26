@@ -15,11 +15,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-
+import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.DateConverter;
 import cn.edu.tit.idao.IResourceDao;
 import cn.edu.tit.idao.ITeacherDao;
+import cn.edu.tit.iservice.ITeacherService;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
 @ContextConfiguration(locations = {"classpath:applicationContext.xml"}) 
@@ -31,17 +33,17 @@ public class TestClass {
 	private Common common;
 	@Resource
 	private ITeacherDao teacherDao;
+	@Resource
+	private ITeacherService t;
 	
 	@Test
 	public void addResourceToLib(){
 		
 		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
-		cn.edu.tit.bean.Resource r1 = new cn.edu.tit.bean.Resource(common.uuid(), "r1", "1", publishTime, "1", 1, "d", 1,"1","1",1,1);
-		cn.edu.tit.bean.Resource r2 = new cn.edu.tit.bean.Resource(common.uuid(), "r2", "1", publishTime, "1", 1, "d", 1,"1","1",1,1);
+
 		List<cn.edu.tit.bean.Resource> resourceList = new ArrayList<>();
 		System.out.println(publishTime);
-		resourceList.add(r1);
-		resourceList.add(r2);
+
 		resourceDao.addResourceToLib(resourceList);
 	}
 	
@@ -63,12 +65,16 @@ public class TestClass {
 		//System.out.println(resourceDao.searchTaskByTypeAndCid("work", 1));
 		//System.out.println(teacherDao.getTeacherNameById("2"));
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
-		Date date = new Date();       
-		Timestamp nousedate = new Timestamp(date.getTime());
-		DateConverter d = new DateConverter();
-		System.out.println(d.convert(null, nousedate));
+//		Date date = new Date();       
+//		Timestamp nousedate = new Timestamp(date.getTime());
+		List<Course> courseList = teacherDao.getCourseByLimit();
+		for(Course c : courseList){
+			System.out.println(c);
+		}
+		
 	}
 	
+
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
@@ -98,6 +104,6 @@ public class TestClass {
 	
 	@Test
 	public void getSignPoint() throws Exception{
-		System.out.println(teacherDao.getSignPoint());
+		System.out.println(teacherDao.getManagerByEmployeeNum("1", "1"));
 	}
 }

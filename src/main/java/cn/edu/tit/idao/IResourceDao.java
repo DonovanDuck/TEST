@@ -21,21 +21,21 @@ public interface IResourceDao {
 	 * @param categoryId
 	 * @return
 	 */
-	public List<Resource> searchResourceByCourse(Integer courseId);
+	public List<Resource> searchResourceByCourse(String courseId);
 	
 	/**
 	 * 按资源类型查询课程
 	 * @param resourceTypeId
 	 * @return
 	 */
-	public List<Resource> searchResourceByType(Integer resourceTypeId);
+	public List<Resource> searchResourceByType(@Param("resourceTypeId")Integer resourceTypeId);
 	
 	/**
 	 * 通过id获取资源存储路径
 	 * @param resourceId
 	 * @return
 	 */
-	public String searchResourcePathById(String resourceId);
+	public String searchResourcePathById(@Param("resourceId")String resourceId);
 	
 	/**
 	 * 通过资源名查找资源
@@ -78,7 +78,7 @@ public interface IResourceDao {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Task> searchTaskByTypeAndCid(@Param("taskType")String taskType, @Param("courseId")Integer courseId);
+	public List<Task> searchTaskByTypeAndCid(@Param("taskType")String taskType, @Param("courseId")String courseId);
 	
 	/**
 	 * 通过课程id查询相应类型的教学资源
@@ -86,6 +86,32 @@ public interface IResourceDao {
 	 * @param courseId
 	 * @return
 	 */
-	public List<Resource> searchResourceByTypeAndCid(@Param("resourceTypeId")Integer resourceTypeId, @Param("courseId")Integer courseId);
+	public List<Resource> searchResourceByTypeAndCid(@Param("resourceTypeId")Integer resourceTypeId, @Param("courseId")String courseId);
+
+	/**
+	 * 删除资源，根据ID
+	 * @param taskType
+	 * @param courseId
+	 * @throws Exception 
+	 */
+	public void deleteResourceById(@Param("resourceId")String resourceId);
+
+
+	/**
+	 * 查找资源
+	 * @param resourceId
+	 * @return
+	 * @throws Exception 
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
+	 */
+	public List<Resource> showResource(@Param("resourceId")String resourceId);
+
+	/**
+	 *@author LiMing
+	 * @param resource
+	 * 更新资源信息
+	 */
+	public void updateResource(Resource resource);
 	
 }

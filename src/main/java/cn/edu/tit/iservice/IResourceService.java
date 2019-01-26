@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 import cn.edu.tit.bean.Resource;
@@ -17,14 +18,17 @@ public interface IResourceService {
 	 * @param categoryId
 	 * @return
 	 */
-	public List<Resource> showResourceByCourse(Integer courseId);
+	public List<Resource> showResourceByCourse(String courseId);
 	
 	/**
 	 * 按资源类型查询
 	 * @param resourceTypeId
 	 * @return
+	 * 此方法中：
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
 	 */
-	public List<Resource> showResourceByType(int resourceTypeId);
+	public List<Resource> showResourceByType(Integer resourceTypeId);
 	
 	/**
 	 * 通过id获得资源路径
@@ -53,7 +57,7 @@ public interface IResourceService {
 	 * @param courseId
 	 * @return
 	 */
-	public Object[] showTaskByTypeAndCId(String taskType, Integer courseId);
+	public Object[] showTaskByTypeAndCId(String taskType, String courseId);
 	
 	/**
 	 * 通过课程id查询相应类型的教学资源
@@ -61,13 +65,46 @@ public interface IResourceService {
 	 * @param courseId
 	 * @return
 	 */
-	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, Integer courseId);
+	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, String courseId);
 	
 	/**
-	 * 发布资源到班级
-	 * @param resourceList
+	 * 删除资源，根据ID
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 * @throws Exception 
 	 */
-	//public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum);
+	public String deleteResourceById(String resourceId) throws Exception;
+	
+	/**
+	 * 查找资源
+	 * @param resourceId
+	 * @return
+	 * @throws Exception 
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
+	 */
+	public List<Resource> showResource(String resourceId) throws Exception;
+	
+	/**
+	 *@author LiMing
+	 * @param resourceName
+	 * @param resourceDetail
+	 * @param publishTime
+	 * @param publisherId
+	 * @param resourceTypeId
+	 * @param resourcePath
+	 * @param courseId
+	 * @param size
+	 * @param timeSize
+	 * @param watchNum
+	 * @param useNum
+	 * @throws Exception
+	 * 更新资源，不需要更新的字段传空，更新的字段设置值
+	 */
+	public void updateResource(String resourceId,String resourceName, String resourceDetail, Timestamp publishTime, String publisherId,
+			Integer resourceTypeId, String resourcePath, String courseId, String size, String timeSize, Integer watchNum,
+			Integer useNum) throws Exception;
 	
 	
 	/**

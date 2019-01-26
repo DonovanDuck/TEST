@@ -2,6 +2,7 @@ package cn.edu.tit.iservice;
 
 import java.sql.Timestamp;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,11 +11,21 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 public interface ITeacherService {
+	/**
+	 * @author wenli
+	 * @param virtualClassNum
+	 * @return
+	 * 根据虚拟班级号找到所对应的实体班级号列表
+	 */
+	public List<String> searchRealClassIdList(String virtualClassNum);
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createCourse(cn.edu.tit.bean.Course)
@@ -33,7 +44,7 @@ public interface ITeacherService {
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createVirtualClass(cn.edu.tit.bean.VirtualClass)
 	 * @context 创建虚拟班级模块
-	 * @Param1(虚拟班级对象)
+	 * @Param1(虚拟班级对象) 
 	 */
 	public void createVirtualClass(VirtualClass virtualClass)throws Exception;		//创建虚拟班级模块
 	/**
@@ -57,6 +68,7 @@ public interface ITeacherService {
 	 * 根据课程ID列表查询课程实体列表
 	 */
 	public List<Course>	 courseList(List<String> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表
+	
 	
 	/**
 	 * 根据courseid查课程
@@ -89,11 +101,11 @@ public interface ITeacherService {
 	/**
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#mapVirtualRealClass(java.lang.String, java.lang.String)
-	 * @context  映射虚拟班和自然班
+	 * @context  映射虚拟班和自然班 插入
 	 * @Param1(自然班班号)
 	 * @Param2(虚拟班班号)
 	 */
-	public void mapVirtualRealClass(String realClassNum,String virtualClassNUm)throws Exception;	//创建虚拟班和自然班映射模块
+	public void mapVirtualRealClass(String realClassNum,String virtualClassNum)throws Exception;	//创建虚拟班和自然班映射模块
 
 	/**
 	 * @author LiMing
@@ -247,14 +259,30 @@ public interface ITeacherService {
 	 * 根据课程查询虚拟班级
 	 */
 	public List<VirtualClass> virtualsForCourse(String courseId )throws Exception;//根据课程查询虚拟班级
+	/**
+	 * @author wenli
+	 * @param courseId
+	 * @param creatorId
+	 * @return
+	 * @throws Exception
+	 * 根据课程和教师id查询虚拟班级
+	 */
+	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId ,String creatorId)throws Exception;//根据课程和教师id查询虚拟班级1
+
 	
 	/**
 	 * 通过courseId查教师圈的老师列表
 	 * @param courseId
 	 * @return
 	 */
-	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception;
-	
+	public List<Teacher> getTeachersByCourseId(String courseId);
+	/**
+	 * @author wenli
+	 * @param creatorId
+	 * @return
+	 * 根据创建者Id获得他创建的所有班级列表
+	 */
+	public List<VirtualClass> getVirtualClassByCreatorId(String creatorId);
 	
 	/**
 	 * @author wenli
@@ -296,11 +324,20 @@ public interface ITeacherService {
 	
 	/**
 	 * @author LiMing
-	 * @param employeeNum
-	 * @return
+	 * @param 条件查找的参数
 	 * @throws Exception
+	 * 查找实体班级信息,当参数不为空时，为条件查找,按照班号查找班级信息
 	 */
-	public List<RealClass> readRealClasss()throws Exception; 
+	public List<RealClass> readRealClass(String realClassNum)throws Exception; 
+	
+	/**
+	 *@author LiMing
+	 * @return
+	 * 读取课程
+	 *  当Course 为空时，读取全部课程
+	 *  当Course 不是空时，按照课程名查找课程,当为此情况，则取集合中第一个对象
+	 */
+	public List<Course> readCourse(String courseName)throws Exception;
 	
 	/**
 	 *@author LiMing
@@ -309,7 +346,124 @@ public interface ITeacherService {
 	 *  当Course 为空时，读取全部课程
 	 *  当Course 不是空时，按照课程名查找课程
 	 */
-	public List<Course> readCourse(String courseName)throws Exception;
+	public Course readCourseByCourseId(String courseId)throws Exception;
 	
-
+	/**
+	 *@author LiMing
+	 * @return
+	 *读取学期
+	 */
+	public List<Term> readTerm()throws Exception;
+	
+	/**
+	 * 通过学生的自然班级号查其所在的虚拟班级
+	 * @param realClassNum
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum) throws Exception;
+	
+	/**
+	 * 通过学生id获取自然班级号
+	 * @param studentId
+	 * @return
+	 * @throws Exception 
+	 */
+	public String getrealClassNumBySid(String studentId) throws Exception;
+	
+	/**
+	 * 获取用户关注课程
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<Course> getAttentionCourse(String id) throws Exception;
+	
+	/**
+	 * 获取所有课程中教师创建的班级
+	 * @param employeeNum
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<VirtualClass> getTeacherCreateClass(String employeeNum) throws Exception;
+	
+	/**
+	 * 通过学生所在的自然班级号得到其所参与课程列表
+	 * @param realClassNum
+	 * @return
+	 * @throws Exception 
+	 */
+	public List<Course> getStudentJoinCourseByrealNum(String realClassNum) throws Exception;
+	
+	
+	/**
+	 * 通过课程名查课程
+	 * @param courseName
+	 * @return
+	 */
+	public Course getCourseByName(String courseName);
+	
+	/**
+	 * 通过班级名查班级
+	 * @param virtualClassName
+	 * @return
+	 */
+	public VirtualClass getClassByName(String virtualClassName);
+	
+	/**
+	 * 根据虚拟班级id获取自然班级列表
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public List<RealClass> getRealClassList(String virtualClassNum);
+	/**
+	 * 根据courseId查路径
+	 * @param courseId
+	 * @return
+	 */
+	public String getImgpathByCourseId(String courseId);
+	/**
+	 * @author wenli
+	 * @return
+	 * 查询任务分类
+	 */
+	public List<String> getTaskCategory()throws Exception;
+	/**
+	 *@author LiMing
+	 * @return 分类ID集合
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * @throws Exception 
+	 */
+	public List<ResourceType> readResourceCategoried() throws Exception;
+	/**
+	 * @author wenli
+	 * @param resourceTye
+	 * @return
+	 * 返回当前资源的id号
+	 */
+	public int getResourceTypeId(String resourceTye)throws Exception;
+	/**
+	 * @author wenli
+	 * @param resource
+	 * 创建资源
+	 */
+	public void createResource(Resource resource)throws Exception;
+	
+	/**
+	 * 获取标志位，查老师是否是课程创建者
+	 * @return
+	 */
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId);
+	/**
+	 * @author wenli
+	 * 根据虚拟班号查虚拟班
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public VirtualClass getVirtualById(String virtualClassNum);
+	
+	/**
+	 * 根据时间获取前8个课程信息到首页
+	 * @return
+	 */
+	public List<Course> getCourseByLimit();
 }

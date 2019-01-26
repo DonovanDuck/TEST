@@ -1,3 +1,4 @@
+
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -15,6 +16,8 @@
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/Course/courseSecondJsp.css"
 	type="text/css">
+<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -34,17 +37,16 @@
 			});
 		});
 	});
-	alert($("#imge")[0].src);
+
 </script>
 </head>
 <body class="body">
-	<div class="header">
-		
-	</div>
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 	<div class="searchAndButton">
 		<input class="search" id="search" type="search" placeholder="请输入关键词">
 		<button class="search-button" id="searchButton">搜索</button>
 	</div>
+	<a href="${pageContext.request.contextPath}/teacher/toCreateCourse" style="position: relative;top: -26px;left:269px"><button class="btn btn-default" >创建课程</button></a>
 	<div class="banner">
 		<div class="banner_t">
 			<ul>
@@ -63,16 +65,18 @@
 	<div class="courses" style=" margin-left: 10%">
 		<c:forEach items="${courseList }" var="courseListItems"
 			varStatus="status">
-			<div class="course">
-				<img  id="imge" src="${pageContext.request.contextPath}/teacher/picShow/${courseListItems.faceImg }"
-					alt="" style="margin-left: 7%;" />
-				<ul class="courseInfo">
-					<li><small>课程名：${courseListItems.courseName }</small></li>
-					<li><small>创建教师：${teacherNames[status.index]}</small></li>
-					<li><small>创建时间：${courseListItems.publishTime }</small></li>
-					<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
-				</ul>
-			</div>
+			<a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
+				<div class="course" >
+				<!--	<img  
+						alt="" style="margin-left: 7%;" src = "${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />  -->
+					<ul class="courseInfo">
+						<li><small>课程名：${courseListItems.courseName }</small></li>
+						<li><small>创建教师：${teacherNames[status.index]}</small></li>
+						<li><small>创建时间：${courseListItems.publishTime }</small></li>
+						<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
+					</ul>
+				</div>
+			</a>
 		</c:forEach>
 	</div>
 	<div class="footer">

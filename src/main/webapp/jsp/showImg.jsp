@@ -26,6 +26,7 @@
     if (!file.exists() || file.isDirectory()) {
         return;
     }
+    
     FileInputStream fileInputStream = new FileInputStream(file);
     ServletOutputStream outputStream = response.getOutputStream();
     byte bs[] = new byte[1024];
@@ -33,7 +34,6 @@
     while ((l = fileInputStream.read(bs)) != -1) {
         outputStream.write(bs, 0, l);
     }
-    
     outputStream.flush();
     outputStream.close();
     fileInputStream.close();

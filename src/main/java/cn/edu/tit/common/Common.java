@@ -22,6 +22,7 @@ import java.util.Properties;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.commons.beanutils.ConvertUtils;
@@ -30,14 +31,17 @@ import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.ibatis.logging.Log;
 import org.apache.ibatis.logging.LogFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.iservice.IResourceService;
+import cn.edu.tit.iservice.ITeacherService;
 
 @Component
 public  class  Common {
-
 	// 使用日志工厂获取日志对象
     private static Log log = LogFactory.getLog(Common.class);
 	/**
@@ -133,22 +137,32 @@ public  class  Common {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public static Object[] fileFactory(HttpServletRequest request) {
+	public static Object[] fileFactory(HttpServletRequest request, String id) {
 		try {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
 			String path = readProperties("path");
+			if(!"".equals(id) || id != null){
+				path +="/"+id;
+			}
 			// 创建工厂
 			DiskFileItemFactory factory = new DiskFileItemFactory();
 			ServletFileUpload upload = new ServletFileUpload(factory);
 			upload.setSizeMax(4194304); // 设置最大文件尺寸，这里是4MB
-			List<FileItem> items = upload.parseRequest(request);// 得到所有的文件
+			List<FileItem> items = upload.parseRequest(request);// 得到所有的字段
 			for (FileItem fi : items) {
 				if (!fi.isFormField()) { // 判断是否是普通表单字段
-					String fileName = fi.getName();
-					if (fileName != null) {
-						File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
+					String fileName = fi.getName(); 
+					if (!fileName.isEmpty()) {
+						File fullFile = new File(new String(fileName.getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
 						File savedFile = new File(path, fullFile.getName()); // 为文件设置存储路径
+						// 文件夹不存在时创建文件夹
+						File fileParent = savedFile.getParentFile();  
+						if(!fileParent.exists()){  
+						    fileParent.mkdirs();  
+						}  
+						savedFile.createNewFile();
+						
 						fi.write(savedFile); // 存储文件
 						returnFileList.add(savedFile); // 保存要返回的文件集合
 					}
@@ -247,6 +261,195 @@ public  class  Common {
 		
 		return stringBuffer.toString();
 	}
-
-
+	
+	/**
+	 * @author wenli
+	 * @param fileName
+	 * @return
+	 * 判断文件类型
+	 */
+	public static int fileType(String fileName ,ITeacherService teacherService) {
+		String type=fileName.indexOf(".")!=-1?fileName.substring(fileName.lastIndexOf(".")+1, fileName.length()):null;
+		System.out.println("什么类型:"+type);
+		if(isIncludeInWord(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("word");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInExcel(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("excel");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInPPT(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("ppt");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInVideo(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("video");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInMusic(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("audio");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInPhoto(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("photo");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		if(isIncludeInCompressed(type)) {
+			 try {
+				return  teacherService.getResourceTypeId("compressed");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				System.out.println("Common处调用的teacherService.getResourceTypeId(type)出问题了");
+				return 0;
+			}
+		}
+		return 0;
+		
+	} 
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInWord(String key){
+        boolean include = false;
+        for (TypeMatchByWord e: TypeMatchByWord.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInPhoto(String key){
+        boolean include = false;
+        for (TypeMatchByPhoto e: TypeMatchByPhoto.values()){
+        	
+        	System.out.println(e);
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInExcel(String key){
+        boolean include = false;
+        for (TypeMatchByExcel e: TypeMatchByExcel.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInPPT(String key){
+        boolean include = false;
+        for (TypeMatchByPPT e: TypeMatchByPPT.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInVideo(String key){
+        boolean include = false;
+        for (TypeMatchByVideo e: TypeMatchByVideo.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInMusic(String key){
+        boolean include = false;
+        for (TypeMatchByMusic e: TypeMatchByMusic.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	/**
+	 * @author wenli
+	 * @param key
+	 * @return
+	 */
+	public static boolean isIncludeInCompressed(String key){
+        boolean include = false;
+        for (TypeMatchByCompressed e: TypeMatchByCompressed.values()){
+            if(e.toString().toLowerCase().equals(key.toLowerCase())){
+                include = true;
+                break;
+            }
+        }
+        return include;
+    }
+	
 }

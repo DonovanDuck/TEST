@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,13 +28,13 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public List<Resource> showResourceByCourse(Integer courseId) {
+	public List<Resource> showResourceByCourse(String courseId) {
 		// 调用dao层方法
 		return resourceDao.searchResourceByCourse(courseId);
 	}
 
 	@Override
-	public List<Resource> showResourceByType(int resourceTypeId) {
+	public List<Resource> showResourceByType(Integer resourceTypeId) {
 		// 调用dao层方法
 		return resourceDao.searchResourceByType(resourceTypeId);
 	}
@@ -57,7 +58,7 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public Object[] showTaskByTypeAndCId(String taskType, Integer courseId) {
+	public Object[] showTaskByTypeAndCId(String taskType, String courseId) {
 		// 获取相应类型的资源
 		List<Task> taskList = resourceDao.searchTaskByTypeAndCid(taskType, courseId);
 		List<String> teacherNames = new ArrayList<>(); // 任务对应教师姓名集合
@@ -70,7 +71,7 @@ public class ResourceServiceImpl implements IResourceService {
 	}
 
 	@Override
-	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, Integer courseId) {
+	public Object[] showResourceByTypeAndCId(Integer resourceTypeId, String courseId) {
 		// 获取相应类型的资源
 				List<Resource> resourceList = resourceDao.searchResourceByTypeAndCid(resourceTypeId, courseId);
 				List<String> teacherNames = new ArrayList<>(); // 任务对应教师姓名集合
@@ -82,6 +83,80 @@ public class ResourceServiceImpl implements IResourceService {
 				return obj;
 	}
 
+	/**
+	 * 删除资源，根据ID
+	 * @param taskType
+	 * @param courseId
+	 * @return
+	 */
+	@Override
+	public String deleteResourceById(String resourceId) throws Exception{
+		String msg = null;
+		try {
+			resourceDao.deleteResourceById(resourceId);
+			msg = "删除成功";
+			System.out.println("deleteResourceById--------DAO层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			msg = "删除失败";
+			System.out.println("deleteResourceById--------DAO层执行失败");
+		}
+		return msg;
+	}
+
+	/**
+	 * 查找资源
+	 * @param resourceId
+	 * @return
+	 * @throws Exception 
+	 * 1.当resourceTypeId不为空时，根据类型查找资源
+	 * 2.当resourceTypeId为空时，扫描全部资源
+	 */
+	@Override
+	public List<Resource> showResource(String resourceId) throws Exception {
+		List<Resource> resourceList = new ArrayList<Resource>();
+		try {
+			resourceList = resourceDao.showResource(resourceId);
+			System.out.println("showResource--------DAO层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			resourceList = null;
+			System.out.println("showResource--------DAO层执行失败");
+		}
+		return resourceList;
+	}
+
+	
+	/**
+	 * @author LiMing
+	 * 更新资源信息
+	 * */
+	@Override
+	public void updateResource(String resourceId,String resourceName, String resourceDetail, Timestamp publishTime,
+			String publisherId, Integer resourceTypeId, String resourcePath, String courseId, String size, String timeSize,
+			Integer watchNum, Integer useNum) throws Exception 
+	{
+		Resource resource = new Resource();
+		resource.setResourceId(resourceId);
+		resource.setPublisherId(publisherId);
+		resource.setPublishTime(publishTime);
+		resource.setResourceDetail(resourceDetail);
+		resource.setResourceName(resourceName);
+		resource.setResourcePath(resourcePath);
+		resource.setResourceTypeId(resourceTypeId);
+		resource.setSize(size);
+		resource.setTimeSize(timeSize);
+		resource.setUseNum(useNum);
+		resource.setWatchNum(watchNum);
+		resource.setCourseId(courseId);
+		try {
+			resourceDao.updateResource(resource);
+			System.out.println("updateResource--------DAO层执行成功");
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("updateResource--------DAO层执行成功");
+		}
+	}
 //	@Override
 //	public void pubResourceToClass(List<Resource> resourceList, String virtualClassNum) {
 //		// TODO Auto-generated method stub
@@ -89,8 +164,6 @@ public class ResourceServiceImpl implements IResourceService {
 //			resourceDao.bandResourceAndClass(resource.getResourceId(), virtualClassNum);
 //		}
 //	}
-
-
 	/*@Override
 	public List<Resource> showResourceByClass(String virtualClassNum) {
 		List<String> resourceIdList = resourceDao.searchResourceIdByClass(virtualClassNum); // 获取课程相关resourceId

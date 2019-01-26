@@ -1,5 +1,6 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -139,15 +140,36 @@ public class AdminServiceImpl implements IAdminService {
 		ReadStudentExcel readExcel=new ReadStudentExcel();
 		//解析excel，获取上传的事件单
 		List<Student> studentList = null;
+		List<RealClass> realClasses = new ArrayList<RealClass>();
 		int insertResult = 0;//记录插入数
 		String insertMsg = "";
 		try {
 			studentList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Student对象的studentList集合
 			iAdminDao.addStudentInfo(studentList);	//调用函数，完成写入数据库操作
+			
 			for(Student s :studentList) {
 				insertResult++;
+				//以下一段是用来系统初始化所有班级时使用的，由于没有所有班级表，所以采用这种方式获得所有班级，日后，如果有了班级表，则可直接从班级表获得
+				/*
+				String classNum = s.getClassNum();
+				String catrgoryId;
+				if(s.getClassNum().substring(3,4).equals("0")) {
+					catrgoryId = s.getClassNum().substring(4, 5);
+				}else {
+					catrgoryId = s.getClassNum().substring(3, 5);
+				}
+				
+				RealClass realClass = new RealClass();
+				realClass.setRealClassNum(classNum);
+				realClass.setRealClassCategory(catrgoryId);
+				realClass.setRealPersonNum(0);
+				realClasses.add(realClass);*/
+				//这一步是应该加在此处的步骤，即导入学生信息时往实体班级写入具体人数
+				String classNum = s.getClassNum();
+				iAdminDao.updateStudentNumInRealClass(classNum);
 				System.out.println(s.toString());  //输出每条插入的数据
 			}
+			//iAdminDao.addRealClass(realClasses);  添加班级信息
 			if(insertResult ==0) {
 				insertMsg = "载入数据库失败";
 			}else if(insertResult == studentList.size()){
@@ -158,9 +180,6 @@ public class AdminServiceImpl implements IAdminService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.err.println("接受excel表格中的数据失败！");
-		}
-		for(Student s : studentList) {
-			System.out.println("打印excel中的数据"+s.toString());
 		}
 		return insertMsg;
 	}
@@ -328,7 +347,8 @@ public class AdminServiceImpl implements IAdminService {
 	public String resetStudentPassword(String studentId)throws Exception  {
 		String msg = null;
 		Student student = new Student();
-		student.setStudentPassword("123123");
+		String pwd = Common.eccryptMD5("123456");
+		student.setStudentPassword(pwd);
 		student.setStudentId(studentId);
 		try {
 			iAdminDao.updateStudentInfo(student);
@@ -350,7 +370,8 @@ public class AdminServiceImpl implements IAdminService {
 	public String resetTeacherPassword(String employeeNum) throws Exception {
 		String msg = null;
 		Teacher teacher = new Teacher();
-		teacher.setTeacherPassword("123123");
+		String pwd = Common.eccryptMD5("123456");
+		teacher.setTeacherPassword(pwd);
 		teacher.setEmployeeNum(employeeNum);
 		try {
 			iAdminDao.updateTeacherInfo(teacher);

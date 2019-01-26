@@ -1,9 +1,6 @@
 package cn.edu.tit.bean;
-
-import java.io.File;
-
+import java.io.*;
 public class Teacher {
-
 	private String employeeNum; // 教师工号
 	private String teacherName; // 教师名
 	private String teacherNickName; // 教师昵称
@@ -16,8 +13,6 @@ public class Teacher {
 	private String faceImg; // 教师头像
 	private String status;//教师状态
 	private String teacherCategory; //教师系部
-	
-	
 	
 	public String getEmployeeNum() {
 		return employeeNum;
@@ -99,30 +94,9 @@ public class Teacher {
 				+ ", telephone=" + telephone + ", email=" + email + ", faceImg=" + faceImg + ", status=" + status
 				+ ", teacherCategory=" + teacherCategory + "]";
 	}
-	public Teacher(String employeeNum, String teacherName, String teacherNickName, String teacherPassword,
-			String teacherGender, String educationBackground, String professionalTitles, String telephone, String email,
-			String faceImg, String status, String teacherCategory) {
-		super();
-		this.employeeNum = employeeNum;
-		this.teacherName = teacherName;
-		this.teacherNickName = teacherNickName;
-		this.teacherPassword = teacherPassword;
-		this.teacherGender = teacherGender;
-		this.educationBackground = educationBackground;
-		this.professionalTitles = professionalTitles;
-		this.telephone = telephone;
-		this.email = email;
-		this.faceImg = faceImg;
-		this.status = status;
-		this.teacherCategory = teacherCategory;
-	}
+	
 	public Teacher() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
-	
-	
-	
 }

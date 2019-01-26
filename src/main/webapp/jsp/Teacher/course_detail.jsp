@@ -1,64 +1,80 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>课程三级页面</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/Course/lesson3.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/lesson3.css"/>
     <!--head-->
     <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/Course/common.css">
+<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/common.css">
+<link
+	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
+	rel="stylesheet">
+<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
+	
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
+
+
 
 </head>
 <body>
     <div class="wrapper"> 
-  <div class="header"> 
-    <div class="logo-nav-box">
-      <div class="container">
-        <div class="logo-box">
-					<img src="${pageContext.request.contextPath}/images/head-logo.png" width="292" height="59" border="0" ></div>
-        <div class="nav-box"><ul id="nav" class="nav clearfix">
-      </div>
-      </div>
-    </div>
-  </div>
+  <jsp:include page="/jsp/top.jsp" flush="true"/>
   <!-- header End -->
 <main>
     <div class="main_t">
         <div class="img">
-            <img src="${pageContext.request.contextPath}/images/tu3.png" alt="" style="width:100%;height:100%;"/>
+            <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width:100%;height:100%;"/>
         </div>
         <div class="word">
-            <h1>${course. courseName}</h1> <span style="color : red;">       ${course.fine }</span>
+            <h1>${course. courseName}</h1> <span style="color : red;">${course.fine }</span>
             <div class="summery">
                 <p>
                     <li>创建时间：${course.publishTime }</li>
                 	<li>课程人数：${course.courseStudentNum }</li>
                 </p>
             </div>
-                <div class="button">
-                    <a href="创建班级.html" target="_blank">创建班级</a>
-                </div>
+            	<c:if test="${teacher != null && (manager == 0 || manager == 1)  }"> 
+                <button style="float:left" type="button" class="btn btn-warning"><a href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a></button>
+                 </c:if>   
+               
                 <div>
-                	<a href="创建班级.html" target="_blank">编辑课程</a>
-                	<a href="创建班级.html" target="_blank">关注课程</a>
+                <c:if test="${teacher != null && manager == 1 }"> 
+                	<a href="${pageContext.request.contextPath}/teacher/toModifyCourse/${course.courseId}"><button class="btn btn-default" type="submit" style="margin-left: 43px;">编辑课程</button></a>
+                 </c:if>
+                <c:if test="${student != null }"> 
+                	<button class="btn btn-default" type="submit" style="margin-left: 43px;">进入班级</button>
+                </c:if> 
+                <button class="btn btn-default" type="submit">关注课程</button>
+                
+                <button class="btn btn-default" type="submit">相关论坛</button>
                 </div>
+                
         </div>
     </div>
     <div class="main_b">
         <div class="main_b_t">
             <nav>
                 <ul>
-                    <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" target="target">课程介绍</a></li>
-                    <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${courseId}" target="target">资源</a></li>
-                    <li><a href="${pageContext.request.contextPath}/jsp/Teacher/class.jsp" target="target">开课班级</a></li>
+                    <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}" target="target">课程介绍</a></li>
+                    <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${course.courseId}" target="target">资源</a></li>
+                    <li><a href="#" >拓展任务</a>
+                    <li style="width: 160px"><a href="${pageContext.request.contextPath}/teacher/teacherClassList/${course.courseId }" target="target">暂时的开课班级列表</a></li>
                 </ul>
             </nav>
         </div>
         <div class="main_b_b">
-            <iframe src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${courseId}" name="target" frameborder="0" width="65%" height="100%" scrolling="auto"></iframe>
+            <iframe src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}" name="target" frameborder="0" width="65%" height="100%" scrolling="auto"></iframe>
             <div class="friend">
                 <div class="h3"><h2>教师圈</h2></div>
                 

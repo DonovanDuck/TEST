@@ -5,13 +5,11 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Map;
 import javax.annotation.Resource;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.Logger;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -21,6 +19,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.idao.ITeacherDao;
@@ -95,36 +94,104 @@ public class TeacherTest {
 	//			  //students.addAll(teacherService.studentList(classNum));
 	//		}
 	//	  }
-	//	  @Test
-	//	  public void MD5test() {
-	//		  
-	//		  String password=null;
-	//		  try {
-	//			System.out.println(Common.eccryptMD5("123456"));
-	//		} catch (NoSuchAlgorithmException e) {
-	//			// TODO Auto-generated catch block
-	//			e.printStackTrace();
-	//		}
-	//	  }
+		  @Test
+		  public void MD5test() {
+			  
+			  String password=null;
+			  try {
+				System.out.println(Common.eccryptMD5("3"));
+			} catch (NoSuchAlgorithmException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		  }
 
 	@Test
 	public void loginTest() throws Exception {
-//		List<Course> list = new ArrayList<Course>();
-//		list = teacherService.readCourseInfoByCategory("1");
-//		for (Course course : list) {
-//			System.out.println(course.toString());
-//			List<RealClass> list = new ArrayList<RealClass>();
-//			list = teacherService.readRealClasss();
-//			for (RealClass realClass : list) {
-//				System.out.println(realClass.toString());
-				List<Course> list = new ArrayList<Course>();
-				list = teacherService.readCourse("数据结构");
-				for (Course course : list) {
-					System.out.println(course.toString());
-				}
-			}
+		//		List<Course> list = new ArrayList<Course>();
+		//		list = teacherService.readCourseInfoByCategory("1");
+		//		for (Course course : list) {
+		//			System.out.println(course.toString());
+		//			List<RealClass> list = new ArrayList<RealClass>();
+		//			list = teacherService.readRealClasss();
+		//			for (RealClass realClass : list) {
+		//				System.out.println(realClass.toString());
+		//				List<Course> list = new ArrayList<Course>();
+		//				list = teacherService.readCourse("数据结构");
+		//				for (Course course : list) {
+		//					System.out.println(course.toString());
+		//				}
 
 
-		}
+		/**
+		 * 添加课程
+		 * */
+		//		Course course = null;
+		//		Common common = new Common();
+		//		for (int j = 0; j <15; j++) {
+		//			String courseId = null;
+		//			course = new Course();
+		//			course.setCourseName("数据结构"+j);
+		//			courseId = common.uuid();
+		//			course.setCourseId(courseId);
+		//			course.setCourseStudentNum(j+10);
+		//			course.setFaceImg(null);
+		//			course.setPublishTime(null);
+		//			course.setFine(null);
+		//			course.setCourseDetail("这是一门课");
+		//			course.setPublisherId("011001");
+		//			course.setCourseCategory(2);
+		//			teacherService.createCourse(course);
+		//		}
+
+		//		List<Term> list = new ArrayList<Term>();
+		//		list = teacherService.readTerm();
+		//		for(Term term : list) {
+		//			System.out.println(term.toString());
+		//		}
+
+		//		Course course = new Course();
+		//		course  = teacherService.readCourseByCourseId("1A2677BCE8594458A70C47B1D55449B9");
+		//		System.out.println(course.toString());
+
+
+		/**
+		 * 测试查询实体班级
+		 * */
+		//		List<RealClass> real = new ArrayList<RealClass>();
+		//		real = teacherService.readRealClass(null);
+		//		for (RealClass realClass : real) {
+		//			System.out.println(realClass.toString());
+		//		}
+		//		List<String> real = new ArrayList<String>();
+		//		List<RealClass> rl = new ArrayList<RealClass>();
+		//		String a = "11111";
+		//		String b = "123456";
+		//		real.add(a);
+		//		real.add(b);
+		//		rl = teacherService.readRealClass(a);
+		//		for (RealClass realClass : rl) {
+		//			System.out.println(realClass.toString());
+
+		//		List<Map<Integer, String>> resourceCategories = new ArrayList<Map<Integer,String>>();
+		//		resourceCategories = teacherService.readResourceCategoried();
+		//		for (Map<Integer, String> map : resourceCategories) {
+		//			System.out.println(map.keySet());
+		//			System.out.println(map.values());
+		//		}
+
+		//		List<cn.edu.tit.bean.Resource> list = new ArrayList<cn.edu.tit.bean.Resource>();
+		//		list = teacherService.readResourceByType("1");
+		//		for (cn.edu.tit.bean.Resource resource : list) {
+		//			System.out.println(resource.toString());
+		//		}
+	}
+	@Test
+	public void  timeTest() {
+		String time = "2019-01-12 13:29:03.666";
+		System.out.println(Timestamp.valueOf(time));
+
+	}
+}
 
 

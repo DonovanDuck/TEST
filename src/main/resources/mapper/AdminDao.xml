@@ -20,6 +20,7 @@
 		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
 
+   <!-- 被抛弃的方法，备份。原目的：查询教师，添加管理员-->
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
 		<result column="teacher_password" property="adminPassword" />
@@ -181,15 +182,18 @@
 
 	<!-- 增加实体班级信息信息 -->
 	<insert id="addRealClass"
-		parameterType="cn.edu.tit.bean.RealClass">
+		parameterType="java.util.List">
 		INSERT ignore INTO real_class
 		(real_class_num,
-		real_class_category)
+		real_class_category,
+		real_person_num
+		)
 		VALUES
 		<foreach item="realClass" collection="list" separator=",">
 			(
-			#{realClass.realClassNum,jdbcType=VARCHAR},
-			#{realClass.realClassCategory,jdbcType=VARCHAR}
+			#{realClass.realClassNum},
+			#{realClass.realClassCategory},
+			#{realClass.realPersonNum}
 			)
 		</foreach>
 	</insert>
@@ -202,7 +206,7 @@
 			adminId = #{adminList.adminId};
 		</foreach>
 	</delete>
-
+	
 	<!--管理员登陆查询信息 -->
 	<select id="loginAdmin" resultMap="admin">
 		select * from admin where
@@ -258,5 +262,9 @@
 			<if test="teacherPassword != null">adminPassword = #{adminPassword}</if>
 		</set>
 		WHERE adminId = #{adminId}
+	</update>
+	<!-- 跟新实体班级学生人数 -->
+	<update id="updateStudentNumInRealClass" parameterType="java.lang.String">
+		update real_class set real_person_num=real_person_num+1 where real_class_num = #{realClassNum}
 	</update>
 </mapper>

@@ -1,3 +1,4 @@
+<%@page import="java.security.SecureRandom"%>
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -9,6 +10,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="UTF-8">
 <title>Title</title>
+<%
+	SecureRandom random = new SecureRandom();
+	random.setSeed(8738);
+	double _csrf = random.nextDouble();
+	session.setAttribute("_csrf", _csrf);
+%>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
         $(document).ready(function () {
@@ -24,17 +31,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             if($('#select option:selected').val()=='teacher'){
                 var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-                alert(newUrl);
             }
             if($('#select option:selected').val()=='student'){
                 var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-                alert(newUrl);
             }
             if($('#select option:selected').val()=='manager'){
                 var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
                 $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-                alert(newUrl);
+
             }
         }
          function CheckPost (){
@@ -52,7 +57,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
       		}
      		return true;
    		}
-
     </script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/login.css" type="text/css">
@@ -112,6 +116,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</div>
 						</div>
 						<button type="submit" class="submit">登录</button>
+						<input type="hidden" name="_csrf" value="<%=_csrf %>" />
 						<div class="Login-footer">
 							<span class="Login-qrcode">
 								<button type="button" class="Button Button--plain">二维码登录</button>

@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,9 +16,12 @@ import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
+import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.ITeacherDao;
@@ -155,7 +159,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			return null;
 		}
 	}
-	
+
 	@Override
 	public List<Course> courseList(List<String> courseIds) throws Exception{
 		// TODO Auto-generated method stub
@@ -198,10 +202,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * @Param2(虚拟班班号)
 	 */
 	@Override
-	public void mapVirtualRealClass(String realClassNum, String virtualClassNUm) throws Exception{
+	public void mapVirtualRealClass(String realClassNum, String virtualClassNum) throws Exception{
 		// TODO Auto-generated method stub
 		try {
-			teacherDao.mapVirtualRealClass(realClassNum, virtualClassNUm);
+			teacherDao.mapVirtualRealClass(realClassNum, virtualClassNum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -222,7 +226,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("teachDao层createTask出问题");
 		}
-		
+
 	}
 
 	@Override
@@ -295,7 +299,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("teachDao层addAccessory出问题");
 		}
-		
+
 	}
 
 	@Override
@@ -383,17 +387,19 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public Teacher teacherLoginByEmployeeNum(String employeeNum) throws Exception{
 		// TODO Auto-generated method stub
-	
+		try{
 			System.out.println(employeeNum+"--------");
 			Teacher teacher = teacherDao.teacherLoginByEmployeeNum(employeeNum);
-			System.out.println(teacher.toString());
-			return teacherDao.teacherLoginByEmployeeNum(employeeNum);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
-//			return null;
-//		}
+			if(teacher != null)
+				System.out.println(teacher.toString());
+
+			return teacher;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层teacherLoginByEmployeeNum出问题");
+			return null;
+		}
 	}
 
 	@Override
@@ -421,7 +427,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			return null;
 		}
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * @param 教师对象
@@ -457,13 +463,25 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public List<Teacher> getTeachersByCourseId(String courseId)throws Exception {
-		// 通过课程id获取教师工号
-		List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
-		//通过教师工号获得教师圈教师集合
-		return teacherDao.getTeachersById(employeeNumList);
+	@SuppressWarnings({ "unused", "unlikely-arg-type" })
+	public List<Teacher> getTeachersByCourseId(String courseId) {
+		try {
+			// 通过课程id获取教师工号
+			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
+			if(!employeeNumList.contains(null) && !(employeeNumList.isEmpty())) {
+				return teacherDao.getTeachersById(employeeNumList);
+			}
+			else return null;
+			//通过教师工号获得教师圈教师集合
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+
+
 	}
-	
+
 	public Integer searchTaskPoint(String taskCategory) throws Exception {
 		// TODO Auto-generated method stub
 		return teacherDao.searchTaskPoint(taskCategory);
@@ -487,8 +505,15 @@ public class TeacherServiceImpl implements ITeacherService{
 
 	@Override
 	public List<Teacher> getTeachers() {
-		
-		return teacherDao.getTeacher();
+		try {
+			List<Teacher> teachers = teacherDao.getTeacher();
+			return teachers;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+
 	}
 
 	/**
@@ -534,10 +559,10 @@ public class TeacherServiceImpl implements ITeacherService{
 	 * 读取所有实体班级
 	 * */
 	@Override
-	public List<RealClass> readRealClasss() throws Exception {
+	public List<RealClass> readRealClass(String realClassNum) throws Exception {
 		List<RealClass> list = null;
 		try {
-			list = teacherDao.readRealClasss();
+			list = teacherDao.readRealClass(realClassNum);
 			System.out.println("readRealClasss-------持久层执行成功");
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -567,6 +592,41 @@ public class TeacherServiceImpl implements ITeacherService{
 		return list;
 	}
 
+	/**
+	 * @author LiMing
+	 * 读取所有学期
+	 * */
+	@Override
+	public List<Term> readTerm() throws Exception {
+		List<Term> list = new ArrayList<Term>();
+		try {
+			list = teacherDao.readTerm();
+			System.out.println("readTerm-------持久层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			list =null;
+			System.out.println("readTerm-------持久层执行失败");
+		}
+		return list;
+	}
+
+	/**
+	 * @author LiMing
+	 * 通过课程ID查询课程信息
+	 * */
+	@Override
+	public Course readCourseByCourseId(String courseId) throws Exception {
+		Course course = new Course();
+		try {
+			course = teacherDao.readCourseByCourseId(courseId);
+			System.out.println("readCourseByCourseId-------持久层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			course =null;
+			System.out.println("readCourseByCourseId-------持久层执行失败");
+		}		
+		return course;
+	}
 	@Override
 	public List<Task> teacherTaskAssortmentList(List<String> taskId, String taskCategory) throws Exception {
 		// TODO Auto-generated method stub
@@ -577,10 +637,222 @@ public class TeacherServiceImpl implements ITeacherService{
 			return taskList;
 		} catch (Exception e) {
 			// TODO: handle exception
+			e.printStackTrace();
 			System.out.println("teacherTaskAssortmentList-------持久层执行失败");
 			return null;
 		}
 	}
 
+	@Override
+	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum)  throws Exception{
+		// 根据学生的自然班级号查询班级号
+		List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
+		List<VirtualClass> virtualClasses = new ArrayList<>();
+		if(virtualClassNums != null){
+			// 根据虚拟班号获取虚拟班集合
+			for(String vNum : virtualClassNums){
+				virtualClasses.add(teacherDao.getVirtualById(vNum));
+			}
+		}
+		return virtualClasses;
+	}
 
+	@Override
+	public String getrealClassNumBySid(String studentId) throws Exception {
+		// TODO Auto-generated method stub
+
+		return teacherDao.getrealClassNumBySid(studentId);
+	}
+
+	@Override
+	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId, String creatorId) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.virtualsForCourseBycreatorId(courseId, creatorId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层virtualsForCourseBycreatorId出问题");
+			return null;
+		}
+	}
+
+	@Override
+	public List<Course> getAttentionCourse(String id)  throws Exception{
+		try {
+			// 获取用户关注课程id集合
+			List<String> userAttentionCid = teacherDao.getAttentionCid(id);
+			// 获取相关课程
+			List<Course> attentionCourse = new ArrayList<>();
+			if(userAttentionCid != null){
+				attentionCourse = teacherDao.courseList(userAttentionCid);
+			}
+			return attentionCourse;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<VirtualClass> getTeacherCreateClass(String employeeNum)  throws Exception{
+		try {
+			// 获取老师加入的课程id集合
+			List<String> joinCourseId = teacherDao.getJoinCourseByTid(employeeNum);
+			// 通过课程id和教师工号获取相关班级
+			List<VirtualClass> virtualClassList = new ArrayList<>();
+			if(joinCourseId != null){
+				for(String cid : joinCourseId){
+					List<VirtualClass> partClassList = teacherDao.getClassById(cid, employeeNum); // 求班级的部分集合，即教师在某门课里创建的班级
+					virtualClassList.addAll(partClassList); // 做交集，并入总的集合中
+				}
+			}
+			return virtualClassList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public List<Course> getStudentJoinCourseByrealNum(String realClassNum)  throws Exception{
+		try {
+			// 根据学生的自然班级号查询班级号
+			List<String> virtualClassNums =  teacherDao.getVirtualNumByreal(realClassNum);
+			// 根据虚拟班级号查询所属课程
+			List<Course> courseList = new ArrayList<>();
+			if(virtualClassNums != null){
+				for(String vid : virtualClassNums){
+					String courseId = teacherDao.getCourseIdByVirtualId(vid); // 获取虚拟班对应的课程id
+					Course course = teacherDao.searchCourseById(courseId); // 通过课程id获得课程
+					courseList.add(course);
+				}
+			}
+			return courseList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	/**
+	 * @author LiMing
+	 * @return 返回资源分类信息
+	 * 查询 资源 分类的信息,分了几种类，只返回类型ID
+	 * */
+	@Override
+	public List<ResourceType> readResourceCategoried()  throws Exception{
+		List<ResourceType> list = new ArrayList<ResourceType>();
+		try {
+			list = teacherDao.readResourceCategoried();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			list = null;
+		}
+		return list;
+	}
+
+	@Override
+	public Course getCourseByName(String courseName) {
+		// 查询课程
+		return teacherDao.searchCourseByName(courseName);
+	}
+
+	@Override
+	public VirtualClass getClassByName(String virtualClassName) {
+		// 查询班级
+		return teacherDao.searchClassByName(virtualClassName);
+	}
+
+	@Override
+	public List<RealClass> getRealClassList(String virtualClassNum) {
+		try {
+			// 获取自然班级号
+			List<String> realClassNum = searchRealClassNum(virtualClassNum);
+			List<RealClass> realClassList = new ArrayList<>();
+			if(!realClassNum.contains(null)){
+				//获取自然班级集合
+				for(String rNum : realClassNum){
+					realClassList.add(teacherDao.searchRealClassById(rNum));
+				}
+			}
+			return realClassList;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return null;
+		}
+	}
+
+	@Override
+	public String getImgpathByCourseId(String courseId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getImgpathByCourseId(courseId);
+	}
+		@Override
+	public List<String> getTaskCategory() throws Exception {
+		try {
+			return teacherDao.getTaskCategory();
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("teacherDao层getTaskCategory出问题");
+			return null;
+		}
+		
+	}
+
+		@Override
+		public int getResourceTypeId(String resourceTye) {
+			// TODO Auto-generated method stub
+			try {
+				return teacherDao.getResourceTypeId(resourceTye);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				return 0;
+			}
+			
+		}
+
+		@Override
+		public void createResource(Resource resource) throws Exception {
+			try {
+				teacherDao.createResource(resource);
+			} catch (Exception e) {
+				// TODO: handle exception
+			}
+		}
+
+		@Override
+		public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
+			// TODO Auto-generated method stub
+			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
+		}
+
+		@Override
+		public VirtualClass getVirtualById(String virtualClassNum) {
+			// TODO Auto-generated method stub
+			return teacherDao.getVirtualById(virtualClassNum);
+		}
+
+		@Override
+		public List<Course> getCourseByLimit() {
+			
+			return teacherDao.getCourseByLimit();
+		}
+		@Override
+		public List<VirtualClass> getVirtualClassByCreatorId(String creatorId) {
+			// TODO Auto-generated method stub
+			return teacherDao.getVirtualClassByCreatorId(creatorId);
+		}
+
+		@Override
+		public List<String> searchRealClassIdList(String virtualClassNum) {
+			// TODO Auto-generated method stub
+			return teacherDao.searchRealClassIdList(virtualClassNum);
+		}
 }

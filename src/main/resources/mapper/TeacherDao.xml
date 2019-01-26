@@ -2,7 +2,6 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.ITeacherDao">
-
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
@@ -19,17 +18,52 @@
 		<result column="status" property="status" />
 		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
-	
+	<resultMap type="cn.edu.tit.bean.Resource" id="resourceMap">
+		<id column="resource_id" property="resourceId"/>
+		<result column="resource_name" property="resourceName"/>
+		<result column="resource_detail" property="resourceDetail"/>
+		<result column="publish_time" property="publishTime"/>
+		<result column="publish_id" property="publisherId"/>
+		<result column="course_id" property="courseId"/>
+		<result column="resource_path" property="resourcePath"/>
+		<result column="resource_type_id" property="resourceTypeId"/>
+		<result column="size" property="size"/>
+		<result column="time_size" property="timeSize"/>
+		<result column="watch_num" property="watchNum"/>
+		<result column="use_num" property="useNum"/>
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.Term" id="termMap">
+		<id column="term_id" property="termId" />
+		<result column="start_year" property="startYear" />
+		<result column="end_year" property="endYear" />
+		<result column="termOne" property="termOne" />
+		<result column="termTwo" property="termTwo" />
+	</resultMap>
+
+	<select id="readTerm" resultMap="termMap">
+		select * from term
+	</select> 
+
+	<!-- 创建资源 -->
+	<insert id="createResource" parameterType="cn.edu.tit.bean.Resource">
+		insert into
+		resource(resource_id,resource_name,resource_detail,
+		publish_time,publish_id,course_id,resource_path,
+		resource_type_id,size,time_size,watch_num,use_num)
+		values(#{resourceId},#{resourceName},#{resourceDetail},
+		#{publishTime},#{publisherId},#{courseId},#{resourcePath},
+		#{resourceTypeId},#{size},#{timeSize},#{watchNum},#{useNum});
+	</insert>
 	<!-- 拉教师入课程（教师圈） -->
 	<insert id="addOtherToMyCourse">
-		insert into teacher_course(employee_num,course_id,manager) 
-			values(#{employeeNum},#{courseId},#{manager});
+		insert into
+		teacher_course(employee_num,course_id,manager)
+		values(#{employeeNum},#{courseId},#{manager});
 	</insert>
-	
-	
-	<select id="teacherLoginByEmployeeNum" parameterType="java.lang.String" resultMap="teacherMap">
-		select * from teacher where employee_num = #{employeeNum};
 
+	<select id="teacherLoginByEmployeeNum"
+		parameterType="java.lang.String" resultMap="teacherMap">
+		select * from teacher where employee_num = #{employeeNum};
 	</select>
 
 	<select id="teacherLoginByTelephone"
@@ -62,15 +96,33 @@
 		<result column="course_student_num" property="courseStudentNum" />
 		<result column="publish_time" property="publishTime" />
 	</resultMap>
-	
+
+	<!-- 通过课程Id查询课程 -->
+	<select id="readCourseByCourseId"
+		parameterType="java.lang.String" resultMap="courseMap">
+		select * from course where
+		course_id = #{courseId}
+	</select>
+
 	<!-- 查询所有课程 -->
-	<select id="readCourse" parameterType="java.lang.String" resultMap="courseMap">
+	<select id="readCourse" parameterType="java.lang.String"
+		resultMap="courseMap">
 		select * from course
 		<if test="courseName != null">where course_name = #{courseName}</if>
 	</select>
 
+	<!-- 读取所有实体课,若参数不为空，则根据条件查询 -->
+	<select id="readRealClass" resultMap="realCLassMap"
+		parameterType="java.lang.String">
+		select * from real_class
+		<if test="null!=realClassNum">
+			where real_class_num =#{realClassNum}
+		</if>
+	</select>
+
 	<insert id="createCourse" parameterType="cn.edu.tit.bean.Course">
-		insert into course (course_id,
+		insert into course
+		(course_id,
 		course_name, course_detail,
 		course_category,publisher_id,face_img,fine,course_student_num,publish_time)
 		values (#{courseId},
@@ -107,18 +159,24 @@
 	</select>
 
 	<!-- 根据id查课 -->
-	<select id="searchCourseById" parameterType="String" resultMap="courseMap">
+	<select id="searchCourseById" parameterType="String"
+		resultMap="courseMap">
 		select * from course where course_id = #{courseId};
 	</select>
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
-	<select id="getEmployeeNumByCourseId" parameterType="String" resultType="String">
-		select employee_num from teacher_course where course_id = #{courseId};
+	<select id="getEmployeeNumByCourseId"
+		parameterType="java.lang.String" resultType="java.lang.String">
+		select employee_num from
+		teacher_course where course_id = #{courseId};
 	</select>
+
 	<!-- 通过工号集合获取教师集合 -->
-	<select id="getTeachersById" parameterType="java.util.List" resultMap="teacherMap">
+	<select id="getTeachersById" parameterType="java.util.List"
+		resultMap="teacherMap">
 		select * from teacher where employee_num in
-		<foreach collection="list" item="employeeNums" open="(" separator="," close=")" index="index">
+		<foreach collection="list" item="employeeNums" open="("
+			separator="," close=")" index="index">
 			#{employeeNums}
 		</foreach>
 	</select>
@@ -177,50 +235,84 @@
 		virtual_class_num =
 		#{virtualClassNum}
 	</select>
-	
-	
+
+
 	<resultMap type="cn.edu.tit.bean.RealClass" id="realCLassMap">
 		<result column="real_class_num" property="realClassNum" />
-		<result column="real_class_category" property="realClassCategory" />
+		<result column="real_class_category"
+			property="realClassCategory" />
+		<result column="real_person_num" property="realPersonNum" />
 	</resultMap>
-	<!-- 读取所有实体课 -->
-	<select id="readRealClasss" 
-		resultMap="realCLassMap">
-		select * from real_class
-	</select>
 
+	<select id="TaskList" parameterType="java.util.List"
+		resultMap="taskMap">
+		select * from task where task_id in
+		<foreach collection="list" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
 
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
 		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
-		<result column="virtual_class_name" property="virtualClassName" />
+		<result column="virtual_course_name"
+			property="virtualCourseName" />
 		<result column="creator_id" property="creatorId" />
 		<result column="create_time" property="createTime" />
+		<result column="course_id" property="courseId" />
+		<result column="face_img" property="faceImg" />
+		<result column="term" property="term" />
+		<result column="class_student_num" property="classStuentNum" />
+		<result column="virtual_class_name" property="virtualClassName" />
 	</resultMap>
+
 	<insert id="createVirtualClass"
 		parameterType="cn.edu.tit.bean.VirtualClass">
-		insert into virtual_class (
-		virtual_class_num,virtual_class_name,
+		INSERT INTO virtual_class
+		(virtual_class_num,
+		virtual_course_name,
 		creator_id,
-		create_time,face_img,course_id)
-		values (
-		#{virtualClassNum},
-		#{virtualClassName}, #{creatorId}, #{createTime},
-		#{faceImg},#{courseId}
-		);
+		create_time,
+		course_id,
+		face_img,
+		term,
+		class_student_num,
+		virtual_class_name
+		)
+		VALUES
+		(#{virtualClassNum},
+		#{virtualCourseName},
+		#{creatorId},
+		#{createTime},
+		#{courseId},
+		#{faceImg},
+		#{term},
+		#{classStuentNum},
+		#{virtualClassName}
+		)
 	</insert>
-	<select id="virtualsForCourse" parameterType="java.lang.Integer"
+
+	<select id="virtualsForCourse" parameterType="java.lang.String"
 		resultMap="virtualClassMap">
 		select * from virtual_class where
 		course_id =
 		#{courseId}
 	</select>
+	<select id="virtualsForCourseBycreatorId"
+		resultMap="virtualClassMap">
+		select * from virtual_class where
+		course_id =#{courseId} and
+		creator_id = #{ceatorId}
+	</select>
+
 	<insert id="mapVirtualRealClass">
 		insert into real_virtual_class (real_class_num,
 		virtual_class_num) values (
 		#{realClassNum}, #{virtualClassNum}
 		)
 	</insert>
+
 	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
 		<id column="task_id" property="taskId" />
 		<result column="task_title" property="taskTitle" />
@@ -231,8 +323,8 @@
 		<result column="task_end_time" property="courseId" />
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
-
 	</resultMap>
+
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
@@ -240,25 +332,27 @@
 		values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
 		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId})
-
 	</insert>
+
 	<insert id="mapClassTask">
 		insert into class_task ( virtual_class_num, task_id)
 		values
 		(
 		#{virtualClassNum}, #{taskId})
-
 	</insert>
+
 	<update id="stopTaskByEndTime" parameterType="java.lang.String">
 		update task set
 		status = 1
 		where task_id = #{taskId}
 	</update>
+
 	<update id="restartTask" parameterType="java.lang.String">
 		update task set
 		status = 0
 		where task_id = #{taskId}
 	</update>
+
 	<update id="restartTaskSetEndTime">
 		update task set
 		status = 0,
@@ -266,10 +360,12 @@
 		#{taskEndTime}
 		where task_id = #{taskId}
 	</update>
+
 	<delete id="deleteTask" parameterType="java.lang.String">
 		delete from task where
 		task_id = #{taskId}
 	</delete>
+
 	<insert id="addAccessory" parameterType="java.util.List">
 		insert into pub_accessory (
 		pub_accessory_name,pub_accessory_path,pub_accessory_time,task_id,delete_flag)
@@ -282,22 +378,14 @@
 
 	<select id="searchTaskId" parameterType="java.lang.String"
 		resultType="java.lang.String">
-		select * from class_task where virtual_class_num =
+		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
 	</select>
 
-	<select id="TaskList" parameterType="java.util.List"
-		resultMap="taskMap">
-		select * from task where task_id in
-		<foreach collection="list" item="taskId" open="("
-			separator="," close=")" index="index">
-			#{taskId}
-		</foreach>
-	</select>
-	<select id="teacherTaskAssortmentList" 
-		resultMap="taskMap">
-		select * from task where task_category = #{taskType} and task_id in
-		<foreach collection="list" item="taskId" open="("
+
+	<select id="teacherTaskAssortmentList" resultMap="taskMap">
+		select * from task where task_category = #{taskCategory} and task_id in
+		<foreach collection="taskIds" item="taskId" open="("
 			separator="," close=")" index="index">
 			#{taskId}
 		</foreach>
@@ -306,7 +394,6 @@
 		resultMap="taskMap">
 		select * from task where task_id = #{taskId};
 	</select>
-
 
 	<resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
 		<id column="pub_accessroy_id" property="accessoryId" />
@@ -326,6 +413,7 @@
 		select point_value from point where task_category =
 		"signIn";
 	</select>
+
 	<select id="searchTaskPoint" parameterType="java.lang.String"
 		resultType="java.lang.Integer">
 		select point_value from point where task_category =
@@ -356,13 +444,125 @@
 		<result column="category_detail" property="categoryDetail" />
 		<result column="category_num" property="categoryNum" />
 	</resultMap>
+
 	<!--读取系部信息 -->
 	<select id="readCategory" resultMap="categoryMap">
-		select * from category order by category_id+0  asc;
+		select * from category order
+		by category_id+0 asc;
 	</select>
-	
+
 	<!-- 获取所有教师 -->
 	<select id="getTeacher" resultMap="teacherMap">
 		select * from teacher
 	</select>
+
+	<!-- 根据学生的自然班级号查虚拟班级号 -->
+	<select id="getVirtualNumByreal" parameterType="String"
+		resultType="String">
+		select virtual_class_num from real_virtual_class where
+		real_class_num = #{realClassNum};
+	</select>
+
+	<!-- 根据虚拟班号查虚拟班 -->
+	<select id="getVirtualById" parameterType="String"
+		resultMap="virtualClassMap">
+		select * from virtual_class where virtual_class_num =
+		#{virtualClassNum};
+	</select>
+
+	<!-- 通过学生id获取自然班级号 -->
+	<select id="getrealClassNumBySid" parameterType="String"
+		resultType="String">
+		select real_class_num from student where student_id =
+		#{studentId};
+	</select>
+
+	<!-- 通过id获取用户关注的课程id集合 -->
+	<select id="getAttentionCid" parameterType="String"
+		resultType="String">
+		select course_id from user_attention_course where user_id =
+		#{id};
+	</select>
+
+	<!-- 获取教师加入的课程的id -->
+	<select id="getJoinCourseByTid" parameterType="String"
+		resultType="String">
+		select course_id from teacher_course where employee_num =
+		#{employeeNum};
+	</select>
+
+	<!-- 通过课程id和教师工号获取相关班级 -->
+	<select id="getClassById" resultMap="virtualClassMap">
+		select * from virtual_class
+		where creator_id = #{employeeNum} and course_id = #{courseId};
+	</select>
+	<!-- 通过教师工号获取相关班级 -->
+	<select id="getVirtualClassByCreatorId" parameterType="String" resultMap="virtualClassMap">
+		select * from virtual_class
+		where creator_id = #{creatorId} 
+	</select>
+	<!-- 根据虚拟班级号找到所对应的实体班级号列表 -->
+	<select id="searchRealClassIdList" parameterType="String" resultType="String">
+		select real_class_num from real_virtual_class
+		where virtual_class_num = #{virtualClassNum} 
+	</select>
+
+	<!-- 通过虚拟班级号查课程id集合 -->
+	<select id="getCourseIdByVirtualId" parameterType="String"
+		resultType="String">
+		select course_id from virtual_class where virtual_class_num
+		= #{virtualClassNum};
+	</select>
+
+	<resultMap type="cn.edu.tit.bean.ResourceType"
+		id="resourceTypeMap">
+		<id column="resource_type_id" property="resourceTypeId" />
+		<result column="resource_type" property="resourceType" />
+	</resultMap>
+
+	<!-- 查询资源分类信息,返回资源 -->
+	<select id="readResourceCategoried" resultMap="resourceTypeMap">
+		SELECT * FROM
+		resource_type;
+	</select>
+	<!-- 查询资源分类信息,返回资源ID -->
+	<select id="getResourceTypeId" parameterType="java.lang.String" resultType="java.lang.Integer">
+		SELECT resource_type_id FROM resource_type where resource_type = #{resourceTye};
+	</select>
+
+	<!-- 查询任务分类表 -->
+	<select id="getTaskCategory"  resultType="java.lang.String">
+		select task_category from point
+	</select>
+	
+	<!-- 通过课程名查课程 -->
+	<select id="searchCourseByName" parameterType="String" resultMap="courseMap">
+		select * from course where course_name = #{courseName};
+	</select>
+	
+	<!-- 通过班级名查班级 -->
+	<select id="searchClassByName" parameterType="String" resultMap="virtualClassMap">
+		select * from virtual_class where virtual_class_name = #{virtualClassName};
+	</select>
+	
+	<!-- 根据自然班级id查询 -->
+	<select id="searchRealClassById" parameterType="String" resultMap="realCLassMap">
+		select * from real_class where real_class_num = #{realClassNum};
+	</select>
+	
+	<!-- 根据课程id查图片 -->
+	<select id="getImgpathByCourseId" parameterType="String" resultType="String">
+		select face_img from course where course_id = #{courseId};
+	</select>
+	
+	<!-- 获取标志位，查老师是否是课程创建者 -->
+	<select id="getManagerByEmployeeNum" resultType="int">
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
+	</select>
+	
+	<!-- 根据时间获取前十二个课程信息到首页 -->
+	<select id="getCourseByLimit" resultMap="courseMap">
+		select * from course order by publish_time DESC limit 0,8;
+	</select>
+	
 </mapper>

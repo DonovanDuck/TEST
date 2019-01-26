@@ -18,6 +18,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
 
@@ -59,5 +60,26 @@ public class StudentController {
 		return mv;
 	}
 
+	/**
+	 * 跳转到学生主页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toStudentPage")
+	public ModelAndView toStudentPage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获取教师信息
+			Student student = (Student) request.getSession().getAttribute("student");
+			mv.addObject("student",student);
+			mv.setViewName(""); //跳转教师个人页
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			mv.addObject("readResult", "异常");//返回信息
+			mv.setViewName("/jsp/Teacher/index");//设置返回页面
+		}
+		return mv;
+	}
 
 }
