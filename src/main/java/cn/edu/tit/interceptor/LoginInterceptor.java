@@ -26,7 +26,7 @@ public class LoginInterceptor implements HandlerInterceptor {
 		HttpSession session = request.getSession();
 		Object obj = session.getAttribute("teacherId"); // 当前teacherid
 		// 判断点击的uri是否和登录页面有关，进行筛选
-		String[] noFilters = new String[] { "login", "Login" }; // url中如果有"login"和"handle"不拦截
+		String[] noFilters = new String[] { "login", "Login","main","Main" }; // url中如果有"login"和"handle"不拦截
 		String uri = request.getRequestURI();
 		boolean beFilter = true;
 		if (uri.indexOf("spoc-mooc") != -1) {

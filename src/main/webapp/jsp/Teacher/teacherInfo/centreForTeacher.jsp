@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
 <body>
-<header></header>
+ <jsp:include page="/jsp/top.jsp" flush="true"/>
 <main>
     <div class="main_t">
         <div class="images">
@@ -44,6 +44,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     </div>
 </main>
-<footer></footer>
+<jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>
