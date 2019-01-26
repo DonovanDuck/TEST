@@ -72,6 +72,8 @@ public class TeacherController {
 	@Autowired
 	private IStudentService studentService;
 	@Autowired
+	public MainController mainController;
+	@Autowired
 	private IResourceService resourceService;
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 	private static List<ResourceType> resourceCategories = null;//将资源分类作为全局变量
@@ -89,7 +91,7 @@ public class TeacherController {
 			{	
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
-				mv = toCourseSecond(request);
+				mv=mainController.toMain(request);
 				mv.addObject("readResult", "登录成功");//返回信息
 				mv.addObject("teacher",teacher);
 			}
@@ -112,7 +114,7 @@ public class TeacherController {
 	 * @throws Exception 
 	 * 教师、学生登陆后进入的第一个页面
 	 */
-	@RequestMapping(value="courseList",method= {RequestMethod.POST})
+	@RequestMapping(value="courseList",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		categories = teacherService.readCategory();
@@ -1089,5 +1091,27 @@ public class TeacherController {
 		JSONArray  json  =  JSONArray.fromObject(list); 
 		String result = json.toString();
 		response.getWriter().print(result);
+	}
+	
+	/**
+	 * 跳转到教师主页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toTeacherPage")
+	public ModelAndView toTeacherPage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获取教师信息
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			mv.addObject("teacher",teacher);
+			mv.setViewName(""); //跳转教师个人页
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			mv.addObject("readResult", "异常");//返回信息
+			mv.setViewName("/jsp/Teacher/index");//设置返回页面
+		}
+		return mv;
 	}
 }

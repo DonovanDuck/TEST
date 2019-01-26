@@ -549,4 +549,10 @@
 	<select id="getManagerByEmployeeNum" resultType="int">
 		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
 	</select>
+	
+	<!-- 根据时间获取前十二个课程信息到首页 -->
+	<select id="getCourseByLimit" resultMap="courseMap">
+		select * from course order by publish_time DESC limit 0,8;
+	</select>
+	
 </mapper>

@@ -447,4 +447,10 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualById(String virtualClassNum);
+	
+	/**
+	 * 根据时间获取前8个课程信息到首页
+	 * @return
+	 */
+	public List<Course> getCourseByLimit();
 }

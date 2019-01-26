@@ -214,4 +214,10 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId);
+	
+	/**
+	 * 根据时间获取前十二个课程信息到首页
+	 * @return
+	 */
+	public List<Course> getCourseByLimit();
 }

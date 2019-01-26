@@ -838,4 +838,10 @@ public class TeacherServiceImpl implements ITeacherService{
 			// TODO Auto-generated method stub
 			return teacherDao.getVirtualById(virtualClassNum);
 		}
+
+		@Override
+		public List<Course> getCourseByLimit() {
+			
+			return teacherDao.getCourseByLimit();
+		}
 }
