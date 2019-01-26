@@ -895,7 +895,7 @@ public class TeacherController {
 				}
 			}
 			
-			
+			 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -1209,7 +1209,7 @@ public class TeacherController {
 			//获取教师信息
 			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
 			mv.addObject("teacher",teacher);
-			mv.setViewName(""); //跳转教师个人页
+			mv.setViewName("jsp/Teacher/teacherInfo/centreForTeacher"); //跳转教师个人页
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
