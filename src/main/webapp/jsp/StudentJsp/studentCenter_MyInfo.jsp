@@ -106,14 +106,14 @@
             </div>
             <div id="g2">
                 <form action="">
-                    昵称：<br/><input type="text" placeholder="请输入昵称："/><br/>
-                    密码：<br/><input type="text" placeholder="请输入密码："/><br/>
-                    出生年月日：<br/><input type="text" placeholder="请输入年月日："/><br/>
-                    政治面貌：<br/><input type="text" placeholder="请输入政治面貌："/><br/>
-                    学习成果：<br/><textarea name="" id="1" cols="30" rows="4" placeholder=""></textarea><br/>
-                    产学研项目：<br/><textarea name="" id="2" cols="30" rows="4" placeholder=""></textarea><br/>
-                    获奖情况：<br/><textarea name="" id="3" cols="30" rows="4" placeholder=""></textarea><br/>
-                    其它：<br/><textarea name="" id="4" cols="30" rows="4" placeholder=""></textarea><br/>
+                    昵称：<br/><input type="text" placeholder="请输入昵称：" value="${student.studentNickName }"/><br/>
+                    密码：<br/><input type="text" placeholder="请输入密码：" value="**********"/><br/>
+                    出生年月日：<br/><input type="text" placeholder="请输入年月日：" value="${student.studentId }"/><br/>
+                    政治面貌：<br/><input type="text" placeholder="请输入政治面貌：" value="${student.studentId }"/><br/>
+                    学习成果：<br/><textarea name="" id="1" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
+                    产学研项目：<br/><textarea name="" id="2" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
+                    获奖情况：<br/><textarea name="" id="3" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
+                    其它：<br/><textarea name="" id="4" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
                     <div class="outer">
                         <div class="qr" onclick="xx()">确认</div>
                         <div class="qx" onclick="xx()">取消</div>
