@@ -608,6 +608,8 @@ public class TeacherController {
 		request.getSession().setAttribute("courseId", course.getCourseId());
 		return "/jsp/Teacher/teacher-release-task";
 	}
+	
+	
 	@RequestMapping(value="publishResource")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishResource(HttpServletRequest request) {
