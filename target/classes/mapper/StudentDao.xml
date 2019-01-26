@@ -15,7 +15,7 @@
 		<result column="student_nickname" property="studentNickName" />
 		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
-		<result column="class_num" property="classNum" />
+		<result column="real_class_num" property="classNum" />
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
@@ -166,7 +166,8 @@
 
 	<select id="getStudentCourse" resultType="java.lang.String">
 		SELECT course_id FROM
-		student_course where student_id = #{studentId} and status = #{status};
+		student_course where student_id = #{studentId} and manager =
+		#{status};
 	</select>
 
 	<!--更新学生信息 -->
@@ -182,16 +183,17 @@
 			<if test="telephone != null">telephone = #{telephone},</if>
 			<if test="email != null">email = #{email},</if>
 			<if test="faceImg != null">face_img = #{faceImg},</if>
-			<if test="studentNickName != null">student_nickname = #{studentNickName}</if>
-			<if test="status != null">status = #{status}</if>
-			<if test="studentNote != null">student_note = #{studentNote}</if>
+			<if test="studentNickName != null">student_nickname = #{studentNickName},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="studentNote != null">student_note = #{studentNote},</if>
 			<if test="studentCategory != null">student_category = #{studentCategory}</if>
 		</set>
 		WHERE student_id = #{studentId}
 	</update>
 	<!--读取系部信息 -->
-	<select id="getCategoryById" resultMap="categoryMap" parameterType="java.lang.String">
-		select * from category where category_id = #{categoryId};
+	<select id="getCategoryById" resultMap="categoryMap"
+		parameterType="java.lang.String">
+		select * from category where category_id =
+		#{categoryId};
 	</select>
-
 </mapper>

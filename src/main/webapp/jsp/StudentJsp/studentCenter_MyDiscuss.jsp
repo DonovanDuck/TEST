@@ -150,11 +150,11 @@
 <main>
     <div class="main_t">
         <div class="images">
-            <img src="../images/s-tou.png" alt=""/>
+            <img src="${student.faceImg }" alt="" />
         </div>
-        <div class="message">
-            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;star</h2>
-            <p> &nbsp;&nbsp;&nbsp;&nbsp;172056218</p>
+          <div class="message">
+            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
         </div>
     </div>
     <div class="main_b">

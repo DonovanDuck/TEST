@@ -247,7 +247,7 @@ public class StudentServiceImpl implements IStudentService{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("studentDao层studentList出问题");
+			System.out.println("studentDao层getStudentCourse出问题");
 			list = null;
 		}
 		return list;
@@ -267,10 +267,9 @@ public class StudentServiceImpl implements IStudentService{
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			System.out.println("studentDao层studentList出问题");
+			System.out.println("studentDao层getCategoryById出问题");
 			Category = null;
 		}
 		return Category;
 	}
-
 }

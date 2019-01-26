@@ -67,17 +67,6 @@ public class TestClass {
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
-<<<<<<< HEAD
-=======
-		List<Course> courseList = teacherDao.getCourseByLimit();
-		for(Course c : courseList){
-			System.out.println(c);
-		}
-		
-	}
-	
-
->>>>>>> donovan
 //	@Test
 //	public void searchResourceList(){
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);

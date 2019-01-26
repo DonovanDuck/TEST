@@ -19,13 +19,12 @@
             g1.style.display="none";
             g2.style.display="block";
         }
-        function xx(){
-            var top=document.getElementById('top');
-            var g1=document.getElementById('g1');
-            var g2=document.getElementById('g2');
-            top.style.display="block";
-            g1.style.display="block";
-            g2.style.display="none";
+        function commitButton(){
+        	var form = document.getElementById('infoForm');
+        	form.submit();
+        }
+        function cancelButton(){
+        	window.history.go(-1);//返回上一页
         }
     </script>
 </head>
@@ -34,7 +33,7 @@
 <main>
     <div class="main_t">
         <div class="images">
-            <img src="../images/s-tou.png" alt=""/>
+            <img src="${student.faceImg }"  style="width:100%;height:100%;" alt="" />
         </div>
         <div class="message">
             &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
@@ -105,18 +104,19 @@
                 <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它：${student.studentId }</p>
             </div>
             <div id="g2">
-                <form action="">
-                    昵称：<br/><input type="text" placeholder="请输入昵称：" value="${student.studentNickName }"/><br/>
-                    密码：<br/><input type="text" placeholder="请输入密码：" value="**********"/><br/>
-                    出生年月日：<br/><input type="text" placeholder="请输入年月日：" value="${student.studentId }"/><br/>
-                    政治面貌：<br/><input type="text" placeholder="请输入政治面貌：" value="${student.studentId }"/><br/>
-                    学习成果：<br/><textarea name="" id="1" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
-                    产学研项目：<br/><textarea name="" id="2" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
-                    获奖情况：<br/><textarea name="" id="3" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
-                    其它：<br/><textarea name="" id="4" cols="30" rows="4" placeholder="${student.studentId }"></textarea><br/>
+                <form action="${pageContext.request.contextPath}/student/updateStudent" id="infoForm">
+                    昵称：<br/><input type="text" placeholder="请输入昵称：" id="nickName" name="nickName" value="${student.studentNickName }"/><br/>
+                    密码：<br/><input type="text" placeholder="请输入密码：" id="password" name="password"/><br/>
+                    确认密码：<br/><input type="text" placeholder="请输入密码：" id="passwordAgain" name="passwordAgain"/><br/>
+                    出生年月日：<br/><input type="text" placeholder="请输入年月日：" id="date" name="date" value="${student.studentId }"/><br/>
+                    政治面貌：<br/><input type="text" placeholder="请输入政治面貌：" id="part" name="part" value="${student.studentId }"/><br/>
+                    学习成果：<br/><textarea name="" id="1" cols="30" rows="4" id="studyResult" name="studyResult" placeholder="${student.studentId }"></textarea><br/>
+                    产学研项目：<br/><textarea name="" id="2" cols="30" rows="4" id="" name="" placeholder="${student.studentId }"></textarea><br/>
+                    获奖情况：<br/><textarea name="" id="3" cols="30" rows="4" id="prize" name="prize" placeholder="${student.studentId }"></textarea><br/>
+                    其它：<br/><textarea name="" id="4" cols="30" rows="4" id="others" name="others" placeholder="${student.studentId }"></textarea><br/>
                     <div class="outer">
-                        <div class="qr" onclick="xx()">确认</div>
-                        <div class="qx" onclick="xx()">取消</div>
+                        <div class="qr" onclick="commitButton()">确认</div>
+                        <div class="qx" onclick="cancelButton()">取消</div>
                     </div>
                 </form>
             </div>

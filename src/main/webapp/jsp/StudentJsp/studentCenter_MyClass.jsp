@@ -16,13 +16,12 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="../images/s-tou.png" alt="" />
+			<img src="${student.faceImg }" style="width:100%;height:100%;" alt="" />
 		</div>
-		<div class="message">
-			&nbsp;&nbsp;
-			<h2>&nbsp;&nbsp;&nbsp;star</h2>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;172056218</p>
-		</div>
+		    <div class="message">
+            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
+        </div>
 	</div>
 	<div class="main_b">
 		<div class="main_b_l">
@@ -65,7 +64,26 @@
 			</a>
 		</div>
 		<div class="main_b_r" id="r1">
-			<div id="r2"></div>
+			<table border="1"
+				style="margin-left: 20px; margin-top: 20px; width: 96%;">
+				<tr>
+					<th>序号</th>
+					<th>课程图片</th>
+					<th>课程名称</th>
+					<th>班级名称</th>
+					<th>开课学期</th>
+				</tr>
+				<c:forEach items="${virtualClassList }" var="virtualClass"
+					varStatus="status">
+					<tr>
+						<td>${ status.index + 1}</td>
+						<td><img src="${virtualClass.faceImg }" style="width:100%;height:100%;" alt="" /></td>
+						<td>${virtualClass.virtualCourseName }</td>
+						<td>${virtualClass.virtualClassName }</td>
+						<td>${virtualClass.term }</td>
+					</tr>
+				</c:forEach>
+			</table>
 		</div>
 	</main>
 	<footer></footer>

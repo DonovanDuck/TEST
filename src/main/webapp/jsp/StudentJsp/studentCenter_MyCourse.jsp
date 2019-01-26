@@ -46,13 +46,12 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="../images/s-tou.png" alt="" />
+			<img src="${student.faceImg }" style="width:100%;height:100%;" alt="" />
 		</div>
-		<div class="message">
-			&nbsp;&nbsp;
-			<h2>&nbsp;&nbsp;&nbsp;star</h2>
-			<p>&nbsp;&nbsp;&nbsp;&nbsp;172056218</p>
-		</div>
+		    <div class="message">
+            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
+            <p> &nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
+        </div>
 	</div>
 	<div class="main_b">
 		<div class="main_b_l">
@@ -109,63 +108,36 @@
 			</div>
 			<div class="hr"></div>
 			<div class="main_b_r_b" id="k1">
-				<div class="lesson">
-					<div class="lesson_l">
-						<img src="../images/tu6.jpg" alt="" />
+				<c:forEach items="${listCourse_MyCourse }" var="course" varStatus="loop">
+					<div class="lesson">
+						<div class="lesson_l">
+							<img src="${course.faceImg }" style="width: 100%; heigth: 100%"
+								alt="" />
+						</div>
+						<div class="lesson_r">
+							<h3>${course.courseName }</h3>
+							<p>创课老师：${listCourseId_MyCourse_publishName[loop.count-1]}</p>
+							<p>开课老师：王五</p>
+							<p>开课时间：2018-2019年 第二学期</p>
+						</div>
 					</div>
-					<div class="lesson_r">
-						<h3>数据结构</h3>
-						<p>创课老师：张三</p>
-						<p>开课老师：王五</p>
-						<p>开课时间：2018-2019年 第二学期</p>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 			<div class="main_b_r_b" id="k2">
-				<div class="lesson">
-					<div class="lesson_l">
-						<img src="../images/tu2.png" alt="" />
+				<c:forEach items="${listCourse_Myattention }" var="course" varStatus="loop">
+					<div class="lesson">
+						<div class="lesson_l">
+							<img src="${course.faceImg }" style="width: 100%; heigth: 100%"
+								alt="" />
+						</div>
+						<div class="lesson_r">
+							<h3>${course.courseName }</h3>
+							<p>创课老师：${listCourseId_Myattention_publishName[loop.count-1]}</p>
+							<p>开课老师：王五</p>
+							<p>开课时间：2018-2019年 第二学期</p>
+						</div>
 					</div>
-					<div class="lesson_r">
-						<h3>数字图像处理</h3>
-						<p>创课老师：李莉莉</p>
-						<p>开课老师：孟璇朗</p>
-						<p>开课时间：2018-2019年 第一学期</p>
-					</div>
-				</div>
-				<div class="lesson">
-					<div class="lesson_l">
-						<img src="../images/tu1.jpg" alt="" />
-					</div>
-					<div class="lesson_r">
-						<h3>概率论与数理统计</h3>
-						<p>创课老师：赵江波</p>
-						<p>开课老师：赵江波</p>
-						<p>开课时间：2017-2018年 第一学期</p>
-					</div>
-				</div>
-				<div class="lesson">
-					<div class="lesson_l">
-						<img src="../images/tu10.jpg" alt="" />
-					</div>
-					<div class="lesson_r">
-						<h3>WEB编程技术</h3>
-						<p>创课老师：张虎</p>
-						<p>开课老师：张军</p>
-						<p>开课时间：2018-2019年 第二学期</p>
-					</div>
-				</div>
-				<div class="lesson">
-					<div class="lesson_l">
-						<img src="../images/tu6.jpg" alt="" />
-					</div>
-					<div class="lesson_r">
-						<h3>数据结构</h3>
-						<p>创课老师：张三</p>
-						<p>开课老师：王五</p>
-						<p>开课时间：2018-2019年 第二学期</p>
-					</div>
-				</div>
+				</c:forEach>
 			</div>
 		</div>
 	</div>

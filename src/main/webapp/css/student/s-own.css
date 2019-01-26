@@ -315,6 +315,10 @@ main {
 	height: 480px;
 	margin: 0 auto;
 }
+
+td{
+	text-align:center;
+}
 /***************main_b style***************/
 /***************main style***************/
 /***************footer style***************/
