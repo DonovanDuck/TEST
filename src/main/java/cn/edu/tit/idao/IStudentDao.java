@@ -6,6 +6,8 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
@@ -38,6 +40,20 @@ public interface IStudentDao {
 	 * @author LiMing
 	 * 更新学生操作
 	 * */
-	public void UpdateStudent(Student student)throws Exception;
+	public void updateStudent(Student student)throws Exception;
+	
+	/**
+	 * @author LiMing
+	 * 查询学生课程信息
+	 * @param 当status为1时，自己加入课程。当status为0时，为自己关注的课程
+	 * */
+	public List<String> getStudentCourse(@Param("status")String status,@Param("studentId")String studentId)throws Exception;
+
+	/**
+	 * @author LiMing
+	 * 查询学生课程信息
+	 * @param categoryId 系部ID
+	 * */
+	public Category getCategoryById(@Param("categoryId")String categoryId);
 	
 }

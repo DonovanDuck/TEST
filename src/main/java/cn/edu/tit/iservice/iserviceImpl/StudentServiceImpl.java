@@ -1,6 +1,8 @@
 package cn.edu.tit.iservice.iserviceImpl;
 
 import javax.annotation.Resource;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,8 @@ import cn.edu.tit.iservice.IStudentService;
  * context:学生Service层实体类
  */
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.VirtualClass;
 
@@ -32,9 +36,9 @@ public class StudentServiceImpl implements IStudentService{
 	 *更新学生信息操作
 	 */
 	@Override
-	public void UpdateStudent(Student student)throws Exception {
+	public void updateStudent(Student student)throws Exception {
 		try {
-			studentDao.UpdateStudent(student);
+			studentDao.updateStudent(student);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -228,6 +232,45 @@ public class StudentServiceImpl implements IStudentService{
 			System.out.println("studentDao层studentList出问题");
 			return null;
 		}
+	}
+
+	/**
+	 * @author LiMing
+	 * 查询学生课程信息
+	 * @param 当status为1时，自己加入课程。当status为0时，为自己关注的课程
+	 * */
+	@Override
+	public List<String> getStudentCourse(String status,String studentId) throws Exception {
+		List<String> list = new ArrayList<String>();
+		try {
+			list = studentDao.getStudentCourse(status,studentId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentList出问题");
+			list = null;
+		}
+		return list;
+	}
+
+
+	/**
+	 * @author LiMing
+	 * 查询学生课程信息
+	 * @param categoryId 系部ID
+	 * */
+	@Override
+	public Category getCategoryById(String categoryId) throws Exception {
+		Category Category = new Category();
+		try {
+			Category = studentDao.getCategoryById(categoryId);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("studentDao层studentList出问题");
+			Category = null;
+		}
+		return Category;
 	}
 
 }
