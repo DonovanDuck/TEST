@@ -34,7 +34,7 @@
     height: 50px;
     position: absolute;
     left: 322px;
-    top: 834px;
+    top: 870px;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -141,19 +141,7 @@ $(function() {
 </head>
 <body>
 	<div class="wrapper">
-		<div class="header">
-			<div class="logo-nav-box">
-				<div class="container">
-					<div class="logo-box">
-						<img src="${pageContext.request.contextPath}/images/head-logo.png"
-							width="292" height="59" border="0">
-					</div>
-					<div class="nav-box">
-						<ul id="nav" class="nav clearfix">
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main">
 			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${employeeNum }">

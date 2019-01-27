@@ -19,7 +19,7 @@
 	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet" />
+	rel="stylesheet"src/main/webapp/jsp/Teacher/createCourse.jsp"" />
 	
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
@@ -38,7 +38,7 @@
     height: 50px;
     position: absolute;
     left: 322px;
-    top: 834px;
+    top: 870px;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -68,7 +68,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				type:"POST",
 				dataType:"json",
 				success:function(result) {
-					alert(result);
+					//alert(result);
 					 var arr = eval(result);
 					for(var i = 0; i < arr.length; i++){
 						//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
@@ -97,10 +97,10 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 													if ($.inArray(items,
 															new_arr) == -1) {
 														new_arr.push(items);//判断元素是否已在new_arr
-														$("#selectedTeachers")
+														$("#selectedRealClassUI")
 																.append(
-																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;'>"
-																				+ "<input value='"+items+"' name='selectedTeacherContent' id='selectedTeacherContent'/></li>");
+																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;width: 30%;'>"
+																				+ "<span>教师:</span><input value='"+items+"' name='selectedTeacherContent' style='width: 50%;' id='selectedTeacherContent'/></li>");
 													}
 												}
 
@@ -114,9 +114,9 @@ $(function() {
 	$("#create").click(
             function() {
             	var i = 1;
-                var check=",";
+                var check="";
                 $("input[name='teacher']:checked").each(function(i){
-                	if(i == 1){
+                	if(i == 0){
                 		 check =check+$(this).val();
                 	}
                 	else{
@@ -191,20 +191,8 @@ $(function() {
 </script>
 </head>
 <body>
-	<div class="wrapper">
-		<div class="header">
-			<div class="logo-nav-box">
-				<div class="container">
-					<div class="logo-box">
-						<img src="${pageContext.request.contextPath}/images/head-logo.png"
-							width="292" height="59" border="0">
-					</div>
-					<div class="nav-box">
-						<ul id="nav" class="nav clearfix">
-					</div>
-				</div>
-			</div>
-		</div>
+	<div class="wrapper"></div>
+		<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main">
 			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${teacher.employeeNum }">
@@ -215,7 +203,7 @@ $(function() {
 				</div>
 				<div class="input1">
 					<ul class="phoneUl">
-					<span style="float: left;" >课程图片：</span> 
+					<span style="float: left;" >添加图片：</span> 
 					<label for="faceImg" style="cursor: pointer">
 						<li>
 							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
@@ -265,10 +253,9 @@ $(function() {
 					<div class="friend">
 						<ul id="selectedRealClassUI" style="list-style-type: none;">
 							<li id="selectedTeachers" name=selectedTeachers
-								style="float: left; margin-left: 2%;">
-									<li id="selectedTeachers" name="selectedTeachers" style="float: left;margin-left:2%;">
-									<input value="${teacher.employeeNum }" name="selectedTeacherContent" id="selectedTeacherContent"/>
-									</li>
+								style="float: left; margin-left: 2%; width: 30%;">
+									<span>教师:</span>
+									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
 								</li>
 						</ul>
 						<div class="add">

@@ -29,21 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
     <div class="wrapper"> 
-  <div class="header"> 
-    <div class="logo-nav-box">
-      <div class="container">
-        <div class="logo-box">
-					<img src="${pageContext.request.contextPath}/images/head-logo.png" width="292" height="59" border="0" ></div>
-        <div class="nav-box"><ul id="nav" class="nav clearfix">
-      </div>
-      </div>
-    </div>
-  </div>
+  <jsp:include page="/jsp/top.jsp" flush="true"/>
   <!-- header End -->
 <main>
     <div class="main_t">
         <div class="img">
-            <img src="${pageContext.request.contextPath}/images/tu3.png" alt="" style="width:100%;height:100%;"/>
+            <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width:100%;height:100%;"/>
         </div>
         <div class="word">
             <h1>${course. courseName}</h1> <span style="color : red;">${course.fine }</span>

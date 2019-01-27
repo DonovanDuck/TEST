@@ -1,4 +1,3 @@
-
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
@@ -41,9 +40,7 @@
 </script>
 </head>
 <body class="body">
-	<div class="header">
-		
-	</div>
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 	<div class="searchAndButton">
 		<input class="search" id="search" type="search" placeholder="请输入关键词">
 		<button class="search-button" id="searchButton">搜索</button>

@@ -54,9 +54,8 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 										success : function(result) {
 											var arr = eval(result);
 											for (var i = 0; i < arr.length; i++) {
-												$("#realClassLi")
-														.append(
-																"<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
+												
+												$("#realClassLi").append("<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
 																		+ arr[i].realClassNum);
 											}
 										}
@@ -122,19 +121,7 @@ $(function() {
 </head>
 <body>
 	<div class="wrapper">
-		<div class="header">
-			<div class="logo-nav-box">
-				<div class="container">
-					<div class="logo-box">
-						<img src="${pageContext.request.contextPath}/images/head-logo.png"
-							width="292" height="59" border="0">
-					</div>
-					<div class="nav-box">
-						<ul id="nav" class="nav clearfix"></ul>
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main">
 			<form
 				action="${pageContext.request.contextPath}/teacher/createVirtualClass"

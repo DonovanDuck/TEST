@@ -166,7 +166,7 @@
 
 	<!-- 根据课程id获得加入课程的教师工号集合 -->
 	<select id="getEmployeeNumByCourseId"
-		parameterType="java.lang.String" resultMap="courseMap">
+		parameterType="java.lang.String" resultType="java.lang.String">
 		select employee_num from
 		teacher_course where course_id = #{courseId};
 	</select>
@@ -264,7 +264,7 @@
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
-		<result column="virtual_class_name" property="virtualClassName" />
+		<result column="virtual_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"
@@ -559,4 +559,10 @@
 	<select id="getManagerByEmployeeNum" resultType="int">
 		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
 	</select>
+	
+	<!-- 根据时间获取前十二个课程信息到首页 -->
+	<select id="getCourseByLimit" resultMap="courseMap">
+		select * from course order by publish_time DESC limit 0,8;
+	</select>
+	
 </mapper>

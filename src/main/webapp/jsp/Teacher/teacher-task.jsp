@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>班级详情页-作业</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
+	href="${pageContext.request.contextPath}/css/Course/teacher-task.css" />
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script type="text/javascript">
@@ -38,14 +38,14 @@
 	}
 </script>
 <script language="javascript">
-	var timeIframe;
+	 var timeIframe;
 	window.onload = function() {
 		reIframe();
 	}
 	function reIframe(){
 		timeIframe = setTimeout(GetIframeStatus, 10);s
-	}
-	function GetIframeStatus() {
+	} 
+	 function GetIframeStatus() {
 		var iframe = document.getElementById("iframeContent");
 		var iframeWindow = iframe.contentWindow;
 		//内容是否加载完
@@ -70,7 +70,7 @@ function load() {
 }</script>
 </head>
 <body>
-	<header></header>
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 	<main>
 	<div class="main_t">
 		<div class="class">

@@ -44,7 +44,7 @@ public interface ITeacherService {
 	 * @author wenli
 	 * @see cn.edu.tit.iservice.ITeacherService#createVirtualClass(cn.edu.tit.bean.VirtualClass)
 	 * @context 创建虚拟班级模块
-	 * @Param1(虚拟班级对象)
+	 * @Param1(虚拟班级对象) 
 	 */
 	public void createVirtualClass(VirtualClass virtualClass)throws Exception;		//创建虚拟班级模块
 	/**
@@ -460,4 +460,10 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualById(String virtualClassNum);
+	
+	/**
+	 * 根据时间获取前8个课程信息到首页
+	 * @return
+	 */
+	public List<Course> getCourseByLimit();
 }

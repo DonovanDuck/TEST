@@ -143,19 +143,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 </head>
 <body>
 	<div class="wrapper">
-		<div class="header">
-			<div class="logo-nav-box">
-				<div class="container">
-					<div class="logo-box">
-						<img src="${pageContext.request.contextPath}/images/head-logo.png"
-							width="292" height="59" border="0">
-					</div>
-					<div class="nav-box">
-						<ul id="nav" class="nav clearfix">
-					</div>
-				</div>
-			</div>
-		</div>
+		<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main" style="height: 578px">
 			<form action="${pageContext.request.contextPath}/teacher/modifyCourse/${course.courseId}"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${employeeNum }">

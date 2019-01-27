@@ -2,13 +2,20 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.IStudentDao">
+
+	<resultMap type="cn.edu.tit.bean.Category" id="categoryMap">
+		<id column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+		<result column="category_detail" property="categoryDetail" />
+		<result column="category_num" property="categoryNum" />
+	</resultMap>
 	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
 		<result column="student_nickname" property="studentNickName" />
 		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
-		<result column="class_num" property="classNum" />
+		<result column="real_class_num" property="classNum" />
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
@@ -17,20 +24,33 @@
 		<result column="student_note" property="studentNote" />
 		<result column="student_category" property="studentCategory" />
 	</resultMap>
-	
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
 		<result column="teacher_passwoed" property="teacherPassword" />
-		<result column="teacher_gender" property="teacherGender"/>
-		<result column="education_background" property="educationBackground"/>
+		<result column="teacher_gender" property="teacherGender" />
+		<result column="education_background"
+			property="educationBackground" />
 		<result column="teacher_nickname" property="teacherNickName" />
-		<result column="professional_titles" property="professionalTitles" />
+		<result column="professional_titles"
+			property="professionalTitles" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 	</resultMap>
-	
+
+	<resultMap type="cn.edu.tit.bean.Course" id="courseMap">
+		<id column="course_id" property="courseId" />
+		<result column="course_name" property="courseName" />
+		<result column="course_detail" property="courseDetail" />
+		<result column="course_category" property="courseCategory" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="face_img" property="faceImg" />
+		<result column="fine" property="fine" />
+		<result column="course_student_num" property="courseStudentNum" />
+		<result column="publish_time" property="publishTime" />
+	</resultMap>
+
 	<select id="studentLoginByEmployeeNum"
 		parameterType="java.lang.String" resultMap="studentMap">
 		select * from student where
@@ -63,7 +83,8 @@
 			property="virtualClassDetail" />
 	</resultMap>
 
-	<select id="studentVirtualClass" parameterType="java.util.List"  resultMap="virtualClassMap">
+	<select id="studentVirtualClass" parameterType="java.util.List"
+		resultMap="virtualClassMap">
 		select * from virtual_class where virtual_class_num in
 		<foreach collection="list" item="virtualClassNum" open="("
 			separator="," close=")" index="index">
@@ -129,9 +150,11 @@
 		#{virtualClassNum}
 	</select>
 
-	<select id="searchStudent" parameterType="java.lang.String"  resultMap="studentMap">
+	<select id="searchStudent" parameterType="java.lang.String"
+		resultMap="studentMap">
 		select * from student where student_id = #{studentId}
 	</select>
+
 	<select id="studentList" parameterType="java.util.List"
 		resultMap="studentMap">
 		select * from student where class_num in
@@ -141,9 +164,36 @@
 		</foreach>
 	</select>
 
+	<select id="getStudentCourse" resultType="java.lang.String">
+		SELECT course_id FROM
+		student_course where student_id = #{studentId} and manager =
+		#{status};
+	</select>
 
-	<!-- ********************************************************* -->
-
-
-
+	<!--更新学生信息 -->
+	<update id="updateStudent"
+		parameterType="cn.edu.tit.bean.Student">
+		UPDATE student
+		<set>
+			<if test="studentName != null">student_name = #{studentName},</if>
+			<if test="studentPassword != null">student_password = #{studentPassword},</if>
+			<if test="studentGender != null">student_gender =#{studentGender},</if>
+			<if test="classNum != null">class_num = #{classNum},</if>
+			<if test="professional != null">professional = #{professional},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="faceImg != null">face_img = #{faceImg},</if>
+			<if test="studentNickName != null">student_nickname = #{studentNickName},</if>
+			<if test="status != null">status = #{status},</if>
+			<if test="studentNote != null">student_note = #{studentNote},</if>
+			<if test="studentCategory != null">student_category = #{studentCategory}</if>
+		</set>
+		WHERE student_id = #{studentId}
+	</update>
+	<!--读取系部信息 -->
+	<select id="getCategoryById" resultMap="categoryMap"
+		parameterType="java.lang.String">
+		select * from category where category_id =
+		#{categoryId};
+	</select>
 </mapper>

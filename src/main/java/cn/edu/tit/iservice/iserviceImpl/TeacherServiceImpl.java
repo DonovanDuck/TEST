@@ -468,7 +468,7 @@ public class TeacherServiceImpl implements ITeacherService{
 		try {
 			// 通过课程id获取教师工号
 			List<String> employeeNumList = teacherDao.getEmployeeNumByCourseId(courseId);
-			if(employeeNumList.contains(null)) {
+			if(!employeeNumList.contains(null) && !(employeeNumList.isEmpty())) {
 				return teacherDao.getTeachersById(employeeNumList);
 			}
 			else return null;
@@ -839,6 +839,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			return teacherDao.getVirtualById(virtualClassNum);
 		}
 
+		@Override
+		public List<Course> getCourseByLimit() {
+			
+			return teacherDao.getCourseByLimit();
+		}
 		@Override
 		public List<VirtualClass> getVirtualClassByCreatorId(String creatorId) {
 			// TODO Auto-generated method stub
