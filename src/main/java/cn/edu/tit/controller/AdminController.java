@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
@@ -35,6 +36,7 @@ import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
 import cn.edu.tit.iservice.ITeacherService;
+import net.sf.json.JSONArray;
 
 @RequestMapping("/admin")
 @Controller
@@ -155,8 +157,8 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/studentManager");//设置返回页面
 		return mv;
 	}
-	
-	
+
+
 	/**
 	 * 添加分类
 	 * */
@@ -203,12 +205,12 @@ public class AdminController {
 				readResult = "密码输入不正确";	
 				mv.addObject("readResult", readResult);//返回信息
 				mv.addObject("admin", admin);
-				mv.setViewName("/jsp/AdminJsp/adminLogin");//设置返回页面
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
 			readResult = "账号输入不正确";
 			mv.addObject("readResult", readResult);//返回信息
-			mv.setViewName("/jsp/AdminJsp/adminLogin");//设置返回页面
+			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
 		}
 		return mv;
@@ -335,7 +337,7 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/academicManager");
 		return mv;
 	}
-	
+
 	/**
 	 * 管理员个人信息
 	 * */
@@ -347,41 +349,39 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/adminInfo");
 		return mv;
 	}
+
 	/**
 	 * 更新教师信息
+	 * @throws Exception 
 	 * */
-	@RequestMapping(value="updateTeacher",method= {RequestMethod.GET})
-	public ModelAndView updateTeacher( @RequestParam("teacherId")String teacherId,@RequestParam("teacherName")String teacherName,@RequestParam("select")String select,HttpServletRequest request) {			
+	@RequestMapping(value="updateTeacher")
+	public ModelAndView updateTeacher( @RequestParam("teacherId")String teacherId,@RequestParam("teacherName")String teacherName,@RequestParam("select")String select,HttpServletRequest request) throws Exception {			
 		ModelAndView mv = new ModelAndView();
 		Teacher teacher = new Teacher();
 		teacher.setEmployeeNum(teacherId);
 		teacher.setTeacherName(teacherName);
 		teacher.setTeacherGender(select);
-		String updateMsg = null;
-		List<Teacher> readResult = new ArrayList<Teacher>();
-		try {
-			readResult = iAdminService.readTeacherInfo();
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//查看是否修改的工号是已经存在的
-		for (Teacher tc : readResult) {
-			if(tc.getEmployeeNum() == teacherId)
-				{
-				updateMsg = "工号以存在，不可修改";
-				mv.addObject("updateMsg",updateMsg);
-				mv = readTeacherInfo();
-				return mv;
-				}
-		}
-		try {
-			updateMsg = "更新成功";
-			mv.addObject("updateMsg",updateMsg);
-			mv = readTeacherInfo();
-			iTeacherService.UpdateTeacher(teacher);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		iTeacherService.UpdateTeacher(teacher);
+		mv = readTeacherInfo();
 		return mv;
+	}
+
+	/**
+	 * 查询工号是否重复
+	 * @throws Exception 
+	 * */
+	@RequestMapping(value="verificationTeacherId/{employeeNum}")
+	public void verificationTeacherId(HttpServletRequest request,@PathVariable String employeeNum, HttpServletResponse response) throws Exception {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		response.setHeader("Cache-Control", "no-cache"); 
+		String msg = null;//返回信息
+		Teacher teacher = null;
+		teacher = iTeacherService.teacherLoginByEmployeeNum(employeeNum);
+		if(teacher!=null)
+		{
+			msg = "工号已存在";			
+		}
+		response.getWriter().print(msg);
 	}
 }

@@ -42,10 +42,6 @@ public class StudentController {
 	@Autowired
 	private ITeacherService teacherService;
 	@Autowired
-	private IResourceService resourceService;
-	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
-	private static List<ResourceType> resourceCategories = null;//将资源分类作为全局变量
-	@Autowired
 	private IStudentService studentService;
 	@Autowired
 	public MainController mainController;
