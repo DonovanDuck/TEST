@@ -24,7 +24,7 @@ public interface IAdminService {
 	 * @author LiMing
 	 * 管理员修改分类（系部）信息
 	 */
-	public String updateCategory(List<Category> categories) throws Exception;
+	public void updateCategory(Category category) throws Exception;
 
 	/**
 	 * @author LiMing
@@ -101,15 +101,29 @@ public interface IAdminService {
 	 * 重置学生密码
 	 */
 	public String resetStudentPassword(String studentId) throws Exception;
-	
+
 	/**
 	 *@author LiMing
 	 * @return
 	 * 重置教师密码
 	 */
 	public String resetTeacherPassword(String employeeNum) throws Exception;
+	
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * @param 单个教师个人信息
+	 */
+	public void addOneTeacher(Teacher teacher) throws Exception;
 
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * @param 单个学生个人信息
+	 */
+	public void addOneStudent(Student student) throws Exception;
 
+	
 	/**
 	 * @author LiMing
 	 * @context  创建实体班

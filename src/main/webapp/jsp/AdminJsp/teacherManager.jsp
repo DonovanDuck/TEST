@@ -66,6 +66,7 @@
 		var node = element.parentNode.parentNode;
 		//给每一个input框赋值，node.children[0].innerHTML,node就是tr，tr的子类有多个【0】根据下标取值
 		document.getElementById("teacherId").value = node.children[1].innerHTML;
+		document.getElementById("teacherIdB").value = node.children[1].innerHTML;
 		document.getElementById("teacherName").value = node.children[2].innerHTML;
 		if (node.children[4].innerHTML == "男") {
 			document.getElementById('select').options[0].selected = true;
@@ -86,21 +87,27 @@
 </script>
 <script type="text/javascript">
 	function checkTwo() {
-		var uid = $("#teacherId").val();
+		var teacherId = $("#teacherId").val();
+		var teacherIdB = $("#teacherIdB").val();
 		var judge = true;
-		path = "${pageContext.request.contextPath}/admin/verificationTeacherId/"+uid;
-		$.ajax({
-			async : false,
-			cache : false,
-			url : path,
-			scriptCharset : 'UTF-8',
-			success : function(msg) {
-				alert(msg);
-				judge = false;
-			}
-		});
-			return judge;
+		path = "${pageContext.request.contextPath}/admin/verificationTeacherId/"
+				+ teacherId;
+		if (teacherId != teacherIdB) {
+			$.ajax({
+				async : false,
+				cache : false,
+				url : path,
+				scriptCharset : 'UTF-8',
+				success : function(msg) {
+					if (!isEmpty(msg)) {
+						alert("工号已经存在");
+						judge = false;
+					}
+				}
+			});
 		}
+		return judge;
+	}
 </script>
 <script type="text/javascript">
 	//判断字符是否为空的方法
@@ -271,7 +278,8 @@
 							<div class="form-group">
 								<label for="teacherId" class="control-label">教师工号</label> <input
 									type="text" class="form-control" id="teacherId"
-									name="teacherId">
+									name="teacherId"> <input type="text"
+									style="display: none" id="teacherIdB" name="teacherIdB" />
 							</div>
 							<div class="form-group">
 								<label for="teacherName" class="control-label">教师姓名</label> <input
