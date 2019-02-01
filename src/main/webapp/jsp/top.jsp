@@ -124,7 +124,7 @@ header nav li a{
               </li>
               <li>|</li>
               <c:if test="${teacher == null && student == null }">
-              <li><a href="">登陆</a></li>
+              <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登陆</a></li>
               </c:if>
               <c:if test="${teacher != null }">
               <a href="<c:url value='/teacher/toTeacherPage'/>"><li style="width: 120px;">欢迎:${teacher.teacherName }</li></a>

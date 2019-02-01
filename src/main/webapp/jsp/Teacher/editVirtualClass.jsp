@@ -54,9 +54,8 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 										success : function(result) {
 											var arr = eval(result);
 											for (var i = 0; i < arr.length; i++) {
-												$("#realClassLi")
-														.append(
-																"<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
+												
+												$("#realClassLi").append("<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
 																		+ arr[i].realClassNum);
 											}
 										}

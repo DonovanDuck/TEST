@@ -25,6 +25,12 @@
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 
 <%-- <jsp:include page="${pageContext.request.contextPath}/jsp/AdminJsp/Common.jsp" ></jsp:include> --%>
 <style type="text/css">
@@ -225,8 +231,8 @@ $(function() {
 				<hr>
 				<div class="input1">
 					<span>课程介绍：</span> <br>
-					<br> <input name="courseDetail" type="text" placeholder=""
-						style="width: 77%; height: 100px; float: left; margin-left: 9%;">
+					<br> <textarea id="courseDetail" name="courseDetail" type="text" placeholder=""
+						style="width: 77%; height: 100px; float: left; margin-left: 9%;" ></textarea>
 				</div>
 
 				<hr>
@@ -296,5 +302,9 @@ $(function() {
 		<!-- bootstrup -->
 		
 </body>
-
+<script type="text/javascript" charset="utf-8">
+	UE.getEditor('courseDetail');
+	
+	
+</script>
 </html>

@@ -645,22 +645,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               </nav>
           </div>
       </main>
-      <footer>
-          <div class="footer-img"><img src="${pageContext.request.contextPath}/images/erweima.png" alt=""></div>
-          <div>
-              <hr>
-              <nav>
-                  <ul>
-                      <li><a href="<c:url value='/main/toMain'/>">首页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="<c:url value='/teacher/courseList'/>">课程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">讨论区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">学生成果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">产学研项目&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">微信端&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                  </ul>
-              </nav>
-          </div>
-      </footer>
+       <jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

@@ -466,4 +466,25 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public List<Course> getCourseByLimit();
+	
+	/**
+	 * 根据类型id查类型
+	 * @param categoryId
+	 * @return
+	 */
+	public String getCategoryById(String categoryId);
+	
+	/**
+	 * 教师关注课程
+	 * @param courseId
+	 * @param employeeNum
+	 */
+	public void teacherAttentionCourse(String courseId,String employeeNum);
+	
+	/**
+	 * 根据学生自然班id和课程id查询所在虚拟班信息
+	 * @param studentId
+	 * @return
+	 */
+	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
 }
