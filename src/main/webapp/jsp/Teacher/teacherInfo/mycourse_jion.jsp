@@ -17,7 +17,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }" target="_top">
         <div class="lesson">
             <div class="lesson_l">
-                <img src="../images/tu6.jpg" alt=""/>
+                <img src="../images/tu6.jpg" style="width: 100%;" alt=""/>
             </div>
             <div class="lesson_r">
                 <h3>${course.courseName }</h3>
@@ -30,8 +30,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </a>
     </c:forEach>
-    
-    </a>
 </div>
 </body>
 </html>

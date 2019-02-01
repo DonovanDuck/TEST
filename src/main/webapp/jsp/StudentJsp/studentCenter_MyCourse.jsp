@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
 <script>
@@ -46,12 +48,15 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="${student.faceImg }" style="width:100%;height:100%;" alt="" />
+			<img
+				src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }"
+				style="width: 100%; height: 100%;" alt="" />
 		</div>
-		    <div class="message">
-            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
-            <p> &nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
-        </div>
+		<div class="message">
+			&nbsp;&nbsp;
+			<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
+		</div>
 	</div>
 	<div class="main_b">
 		<div class="main_b_l">
@@ -126,6 +131,7 @@
 				</c:forEach>
 			</div>
 			<div class="main_b_r_b" id="k2">
+
 				<c:forEach items="${listCourse_Myattention }" var="course" varStatus="loop">
 				<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 					<div class="lesson">

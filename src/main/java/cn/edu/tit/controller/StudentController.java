@@ -42,10 +42,6 @@ public class StudentController {
 	@Autowired
 	private ITeacherService teacherService;
 	@Autowired
-	private IResourceService resourceService;
-	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
-	private static List<ResourceType> resourceCategories = null;//将资源分类作为全局变量
-	@Autowired
 	private IStudentService studentService;
 	@Autowired
 	public MainController mainController;
@@ -103,10 +99,11 @@ public class StudentController {
 		//我关注的课程集合
 		List<Course> listCourse_Myattention;
 		/*******************数据获取*********************/
-		//获取所有关注课程ID
-		listCourseId_MyCourse = studentService.getStudentCourse("0",student.getStudentId());
-		//获取所有加入课程ID
-		listCourseId_Myattention = studentService.getStudentCourse("1",student.getStudentId());
+		try {
+			//获取所有关注课程ID
+			listCourseId_MyCourse = studentService.getStudentCourse("0",student.getStudentId());
+			//获取所有加入课程ID
+			listCourseId_Myattention = studentService.getStudentCourse("1",student.getStudentId());
 
 		//获取课程ID对应的课程
 		listCourse_MyCourse = teacherService.courseList(listCourseId_MyCourse);
@@ -127,6 +124,10 @@ public class StudentController {
 		mv.addObject("listCourse_Myattention", listCourse_Myattention);//返回信息
 		mv.addObject("listCourseId_Myattention_publishName", listCourseId_Myattention_publishName);//返回信息
 		mv.setViewName("/jsp/StudentJsp/studentCenter_MyCourse");//设置返回页面
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("/jsp/StudentJsp/studentCenter_MyCourse");//设置返回页面
+		}		
 		return mv;
 	}
 

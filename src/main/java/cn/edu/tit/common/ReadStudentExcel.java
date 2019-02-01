@@ -2,6 +2,7 @@ package cn.edu.tit.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -74,9 +75,10 @@ public class ReadStudentExcel {
 	 * 根据excel里面的内容读取信息
 	 * @param is    输入流
 	 * @param isExcel2003 excel是2003还是2007版本
+	 * @throws NoSuchAlgorithmException 
 	 * @throws IOException
 	 */
-	public List<Student> createExcel(InputStream is, boolean isExcel2003) {
+	public List<Student> createExcel(InputStream is, boolean isExcel2003) throws NoSuchAlgorithmException {
 		List<Student> studentList = new ArrayList<Student>();
 		try {
 			Workbook wb = null;
@@ -100,8 +102,9 @@ public class ReadStudentExcel {
 	 * 
 	 * @param wb
 	 * @return
+	 * @throws NoSuchAlgorithmException 
 	 */
-	private List<Student> readExcelValue(Workbook wb) {
+	private List<Student> readExcelValue(Workbook wb) throws NoSuchAlgorithmException {
 		// 得到第一个shell
 		Sheet sheet = wb.getSheetAt(0);
 		// 得到Excel的行数
@@ -154,7 +157,8 @@ public class ReadStudentExcel {
 					student.setStudentGender(getValue(cell) );
 					break;	
 				case 4:
-					student.setStudentPassword(getValue(cell) );
+					String ps = Common.eccryptMD5(getValue(cell));
+					student.setStudentPassword(ps);
 					break;
 				case 5:
 					student.setEmail(getValue(cell));
