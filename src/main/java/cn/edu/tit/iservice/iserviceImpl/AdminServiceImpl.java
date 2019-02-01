@@ -27,7 +27,7 @@ import cn.edu.tit.iservice.IAdminService;
  * */
 @Service
 public class AdminServiceImpl implements IAdminService {
-	
+
 	@Autowired
 	private IAdminDao iAdminDao;
 
@@ -146,7 +146,7 @@ public class AdminServiceImpl implements IAdminService {
 		try {
 			studentList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Student对象的studentList集合
 			iAdminDao.addStudentInfo(studentList);	//调用函数，完成写入数据库操作
-			
+
 			for(Student s :studentList) {
 				insertResult++;
 				//以下一段是用来系统初始化所有班级时使用的，由于没有所有班级表，所以采用这种方式获得所有班级，日后，如果有了班级表，则可直接从班级表获得
@@ -158,7 +158,7 @@ public class AdminServiceImpl implements IAdminService {
 				}else {
 					catrgoryId = s.getClassNum().substring(3, 5);
 				}
-				
+
 				RealClass realClass = new RealClass();
 				realClass.setRealClassNum(classNum);
 				realClass.setRealClassCategory(catrgoryId);
@@ -198,7 +198,7 @@ public class AdminServiceImpl implements IAdminService {
 			e.printStackTrace();
 			studentList = null;
 			System.out.println("readStudentInfo-----持久层处理失败");		
-			}
+		}
 		return studentList;
 	}
 
@@ -304,20 +304,14 @@ public class AdminServiceImpl implements IAdminService {
 	 * 更新分类信息
 	 * */
 	@Override
-	public String updateCategory(List<Category> categories) throws Exception {
-		String msg = null;
+	public void updateCategory(Category category) throws Exception {
 		try {
-			for (Category category : categories) {
-				iAdminDao.updateCategory(category);
-			}
-			msg = "更新分类信息成功";
+			iAdminDao.updateCategory(category);
 			System.out.println("updateCategory-----持久层处理成功");
 		} catch (Exception e) {
-			msg = "更新分类信息失败";
 			e.printStackTrace();
 			System.out.println("updateCategory-----持久层处理失败");
-		}
-		return msg;	
+		}	
 	}
 
 	/**
@@ -401,5 +395,41 @@ public class AdminServiceImpl implements IAdminService {
 			System.out.println("createRealClass-----持久层处理成功");
 		}
 		return msg;
+	}
+
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * @param 单个教师个人信息
+	 */
+	@Override
+	public void addOneTeacher(Teacher teacher) throws Exception {
+		List<Teacher> list = new ArrayList<Teacher>();
+		list.add(teacher);
+		try {
+			iAdminDao.addTeacherInfo(list);
+			System.out.println("addOneTeacher-----持久层处理成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("addOneTeacher-----持久层处理成功");
+		}
+	}
+
+	/**
+	 * @author LiMing
+	 * 添加教师信息
+	 * @param 单个学生个人信息
+	 */
+	@Override
+	public void addOneStudent(Student student) throws Exception {
+		List<Student> list = new ArrayList<Student>();
+		list.add(student);
+		try {
+			iAdminDao.addStudentInfo(list);
+			System.out.println("addOneStudent-----持久层处理成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("addOneStudent-----持久层处理成功");
+		}
 	}
 }
