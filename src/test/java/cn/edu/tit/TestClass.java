@@ -20,7 +20,9 @@ import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.DateConverter;
 import cn.edu.tit.idao.IResourceDao;
+import cn.edu.tit.idao.IStudentDao;
 import cn.edu.tit.idao.ITeacherDao;
+import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
 
 @RunWith(SpringJUnit4ClassRunner.class)     //表示继承了SpringJUnit4ClassRunner类  
@@ -34,7 +36,9 @@ public class TestClass {
 	@Resource
 	private ITeacherDao teacherDao;
 	@Resource
-	private ITeacherService t;
+	private IStudentDao studentDao;
+	@Resource
+	private ITeacherService teacherService;
 	
 	@Test
 	public void addResourceToLib(){
@@ -67,14 +71,8 @@ public class TestClass {
 		//System.out.println(resourceDao.searchResourceByTypeAndCid(1, 1));
 //		Date date = new Date();       
 //		Timestamp nousedate = new Timestamp(date.getTime());
-//	@Test
-//	public void searchResourceList(){
-//		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByCategory(1);
-//		for(cn.edu.tit.bean.Resource r : resourceList){
-//			System.out.println(r.getResourceId());
-//		}
-//	}
 //	
+		System.out.println(teacherService.getVirtualClassByRidAndCid("1", "8D5C77FD6E9D4CEB855DFDB7CBA21C7B"));
 	}
 	@Test
 	public void pubResourceToClass(){

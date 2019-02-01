@@ -75,7 +75,9 @@ function load() {
 	<div class="main_t">
 		<div class="class">
 			<p>
+			<c:if test="${teacher != null }">
 				<span>${virtualClassName }</span>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/teacher/toEditVirtualClass">编辑班级信息</a>
+			</c:if>
 			</p>
 		</div>
 	</div>

@@ -23,6 +23,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="word2" id="w3">
         <p><a target="mycourse" href="../html/mycourse_interest.html" id="p3">我关注的课程</a></p>
     </div>
+    <div class="word2" id="w3">
+        <p><a target="_blank" href="${pageContext.request.contextPath}/teacher/toCreateCourse" >创建课程</a></p>
+    </div>
 </div>
 <div class="hr"></div>
     <div class="main_b_r_b">

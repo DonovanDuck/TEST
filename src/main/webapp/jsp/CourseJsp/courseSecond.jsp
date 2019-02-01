@@ -45,7 +45,7 @@
 		<input class="search" id="search" type="search" placeholder="请输入关键词">
 		<button class="search-button" id="searchButton">搜索</button>
 	</div>
-	<a href="${pageContext.request.contextPath}/teacher/toCreateCourse" style="position: relative;top: -26px;left:269px"><button class="btn btn-default" >创建课程</button></a>
+	<%-- <a href="${pageContext.request.contextPath}/teacher/toCreateCourse" style="position: relative;top: -26px;left:269px"><button class="btn btn-default" >创建课程</button></a> --%>
 	<div class="banner">
 		<div class="banner_t">
 			<ul>
@@ -66,8 +66,10 @@
 			varStatus="status">
 			<a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
 				<div class="course" >
-				<!--	<img  
-						alt="" style="margin-left: 7%;" src = "${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />  -->
+				<div style="width: 228px;height: 165px;">
+					<img alt="" style="width: 100%;height: 100%" src = "${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />
+				</div>
+				  
 					<ul class="courseInfo">
 						<li><small>课程名：${courseListItems.courseName }</small></li>
 						<li><small>创建教师：${teacherNames[status.index]}</small></li>

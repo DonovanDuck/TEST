@@ -67,24 +67,28 @@ public class ResourceController {
 		return "jsp/Teacher/teacher-resource-word";
 	}
 	
-	@RequestMapping(value="toTeachResource/{courseId}/{resourceTypeId}")
-	public String toTeachResource(HttpServletRequest request,  @PathVariable String courseId,@PathVariable Integer resourceTypeId){
+	@RequestMapping(value="toTeachResource/{courseId}")
+	public String toTeachResource(HttpServletRequest request,  @PathVariable String courseId){
+		//
 		try {
-			//通过课程id查询对应类型资源
-			Object[] obj = resourceService.showResourceByTypeAndCId(resourceTypeId, courseId);
-			request.setAttribute("resourceList", obj[0]);
-			request.setAttribute("teacherNames", obj[1]);
+			//通过课程id查询音频类型资源
+			Object[] obj = resourceService.showResourceByTypeAndCId(2, courseId);
+			request.setAttribute("audioresourceList", obj[0]);
+			request.setAttribute("audioteacherNames", obj[1]);
+			//通过课程id查询视频类型资源
+			Object[] obj2 = resourceService.showResourceByTypeAndCId(3, courseId);
+			request.setAttribute("videoresourceList", obj2[0]);
+			request.setAttribute("videoteacherNames", obj2[1]);
+			//通过课程id查询图片类型资源
+			Object[] obj3 = resourceService.showResourceByTypeAndCId(4, courseId);
+			request.setAttribute("imgresourceList", obj3[0]);
+			request.setAttribute("imgteacherNames", obj3[1]);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
-		if(resourceTypeId == 2) 
-			return "jsp/Teacher/teacher-resource-audio";
-		else if(resourceTypeId == 3)
-			return "jsp/Teacher/teacher-resource-video";
-		else if(resourceTypeId == 4)
-			return "jsp/Teacher/teacher-resource-video";
-		return "";
+			return "jsp/Teacher/teacher-resource-media";
+		
 	}
 	
 	/**

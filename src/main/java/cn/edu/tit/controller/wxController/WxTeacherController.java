@@ -81,9 +81,9 @@ public class WxTeacherController {
 			try {
 				Teacher teacher = teacherService.teacherLoginByEmployeeNum(userid);
 				Student student = studentService.studentLoginByEmployeeNum(userid);
-				userPassword = password;
+				userPassword = Common.eccryptMD5(password);
 				if (teacher != null) {
-					if (password.equals(teacher.getTeacherPassword())) {
+					if (userPassword.equals(teacher.getTeacherPassword())) {
 						ret.put("user", teacher);
 						System.out.println("ttahcer========================================");
 						return ret;
@@ -93,7 +93,7 @@ public class WxTeacherController {
 						return ret;
 					}
 				} else if (student != null) {
-					if (userid.equals(student.getStudentPassword())) {
+					if (userPassword.equals(student.getStudentPassword())) {
 						ret.put("user", student);
 						System.out.println("ttahcer========================================");
 						return ret;

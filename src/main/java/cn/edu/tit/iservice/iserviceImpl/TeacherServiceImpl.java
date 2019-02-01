@@ -855,4 +855,43 @@ public class TeacherServiceImpl implements ITeacherService{
 			// TODO Auto-generated method stub
 			return teacherDao.searchRealClassIdList(virtualClassNum);
 		}
+
+		@Override
+		public String getCategoryById(String categoryId) {
+			// TODO Auto-generated method stub
+			return teacherDao.getCategoryById(categoryId);
+		}
+
+		@Override
+		public void teacherAttentionCourse(String courseId, String employeeNum) {
+			// TODO Auto-generated method stub
+			teacherDao.teacherAttentionCourse(courseId, employeeNum);
+		}
+
+		@Override
+		public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId) {
+			try {
+				// 查询课程所有虚拟班
+				List<VirtualClass> virtualClassList = teacherDao.virtualsForCourse(courseId);
+				String virtualClassNum = "";
+				//通过课程虚拟班集合和学生所属自然班查自然班虚拟班关联表，找出学生所在虚拟班id
+				if(virtualClassList != null && !virtualClassList.isEmpty()){
+					for(VirtualClass v : virtualClassList){
+						 virtualClassNum = teacherDao.getVirtualClassNumByVidAndRid(realClassNum,v.getVirtualClassNum());
+						if(!("".equals(virtualClassNum)) && virtualClassNum != null){
+							break;
+						}
+					}
+				}
+				// 通过虚拟班id查出虚拟班信息
+				VirtualClass virtualClass = teacherDao.getVirtualById(virtualClassNum);
+				return virtualClass;
+			} catch (Exception e) {
+				// TODO: handle exception
+				e.printStackTrace();
+				return null;
+			}
+			
+			
+		}
 }
