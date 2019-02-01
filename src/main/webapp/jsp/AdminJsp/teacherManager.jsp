@@ -100,7 +100,7 @@
 				scriptCharset : 'UTF-8',
 				success : function(msg) {
 					if (!isEmpty(msg)) {
-						alert("工号已经存在");
+						alert(msg);
 						judge = false;
 					}
 				}
@@ -112,9 +112,9 @@
 <script type="text/javascript">
 	//判断字符是否为空的方法
 	function isEmpty(obj) {
-		if (typeof obj == "undefined" || obj == null || obj == "") {
+		if (obj == null||obj == "null") {
 			return true;
-		} else {
+		}else{
 			return false;
 		}
 	}

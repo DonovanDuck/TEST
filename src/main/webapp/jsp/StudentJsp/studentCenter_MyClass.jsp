@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
 </head>

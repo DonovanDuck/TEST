@@ -104,12 +104,12 @@
 			});
 		}
 		return judge;
-	}
+	}2
 </script>
 <script type="text/javascript">
 	//判断字符是否为空的方法
 	function isEmpty(obj) {
-		if (typeof obj == "undefined" || obj == null || obj == "") {
+		if (typeof obj == "undefined" || obj == null || obj == ""||obj == "null") {
 			return true;
 		} else {
 			return false;
