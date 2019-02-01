@@ -99,26 +99,31 @@ public class StudentController {
 		//我关注的课程集合
 		List<Course> listCourse_Myattention = new ArrayList<Course>();
 		/*******************数据获取*********************/
-		//获取所有关注课程ID
-		listCourseId_MyCourse = studentService.getStudentCourse("0",student.getStudentId());
-		//获取所有加入课程ID
-		listCourseId_Myattention = studentService.getStudentCourse("1",student.getStudentId());
+		try {
+			//获取所有关注课程ID
+			listCourseId_MyCourse = studentService.getStudentCourse("0",student.getStudentId());
+			//获取所有加入课程ID
+			listCourseId_Myattention = studentService.getStudentCourse("1",student.getStudentId());
 
-		//获取课程ID对应的课程
-		listCourse_MyCourse = teacherService.courseList(listCourseId_MyCourse);
-		listCourse_Myattention = teacherService.courseList(listCourseId_Myattention);
+			//获取课程ID对应的课程
+			listCourse_MyCourse = teacherService.courseList(listCourseId_MyCourse);
+			listCourse_Myattention = teacherService.courseList(listCourseId_Myattention);
 
-		for (Course co : listCourse_MyCourse) {
-			listCourseId_MyCourse_publishName.add(teacherService.getTeacherNameById(co.getPublisherId()));
-		}
-		for (Course co : listCourse_Myattention) {
-			listCourseId_Myattention_publishName.add(teacherService.getTeacherNameById(co.getPublisherId()));
-		}
-		mv.addObject("listCourse_MyCourse", listCourse_MyCourse);//返回信息
-		mv.addObject("listCourseId_MyCourse_publishName", listCourseId_MyCourse_publishName);//返回信息
-		mv.addObject("listCourse_Myattention", listCourse_Myattention);//返回信息
-		mv.addObject("listCourseId_Myattention_publishName", listCourseId_Myattention_publishName);//返回信息
-		mv.setViewName("/jsp/StudentJsp/studentCenter_MyCourse");//设置返回页面
+			for (Course co : listCourse_MyCourse) {
+				listCourseId_MyCourse_publishName.add(teacherService.getTeacherNameById(co.getPublisherId()));
+			}
+			for (Course co : listCourse_Myattention) {
+				listCourseId_Myattention_publishName.add(teacherService.getTeacherNameById(co.getPublisherId()));
+			}
+			mv.addObject("listCourse_MyCourse", listCourse_MyCourse);//返回信息
+			mv.addObject("listCourseId_MyCourse_publishName", listCourseId_MyCourse_publishName);//返回信息
+			mv.addObject("listCourse_Myattention", listCourse_Myattention);//返回信息
+			mv.addObject("listCourseId_Myattention_publishName", listCourseId_Myattention_publishName);//返回信息
+			mv.setViewName("/jsp/StudentJsp/studentCenter_MyCourse");//设置返回页面
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv.setViewName("/jsp/StudentJsp/studentCenter_MyCourse");//设置返回页面
+		}		
 		return mv;
 	}
 

@@ -239,12 +239,12 @@ main {
 
 .lesson_l {
 	width: 25%;
-	height: 130px;
+	height: 100%;
 	float: left;
 }
 
 .lesson_r {
-	width: 71%;
+	width: 72%;
 	height: 130px;
 	float: right;
 }

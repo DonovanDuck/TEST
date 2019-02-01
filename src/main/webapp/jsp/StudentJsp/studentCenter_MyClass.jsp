@@ -18,12 +18,15 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }" style="width:100%;height:100%;" alt="" />
+			<img
+				src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }"
+				style="width: 100%; height: 100%;" alt="" />
 		</div>
-		    <div class="message">
-            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
-            <p> &nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
-        </div>
+		<div class="message">
+			&nbsp;&nbsp;
+			<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
+			<p>&nbsp;&nbsp;&nbsp;&nbsp;${student.studentId }</p>
+		</div>
 	</div>
 	<div class="main_b">
 		<div class="main_b_l">
@@ -74,15 +77,20 @@
 					<th>课程名称</th>
 					<th>班级名称</th>
 					<th>开课学期</th>
+					<th></th>
 				</tr>
 				<c:forEach items="${virtualClassList }" var="virtualClass"
 					varStatus="status">
 					<tr>
 						<td>${ status.index + 1}</td>
-						<td><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }" style="width:100%;height:100%;" alt="" /></td>
+						<td><img
+							src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }"
+							style="width: 100%; height: 100%;" alt="" /></td>
 						<td>${virtualClass.virtualCourseName }</td>
 						<td>${virtualClass.virtualClassName }</td>
 						<td>${virtualClass.term }</td>
+						<td><a
+							href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }"><button>详情</button></a></td>
 					</tr>
 				</c:forEach>
 			</table>

@@ -677,6 +677,7 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
 	}
+	
 	/**
 	 * @author wenli
 	 * @param request
@@ -693,7 +694,6 @@ public class TeacherController {
 		return mv;
 		
 	}
-
 	/**
 	 * @author wenli
 	 * @param request
