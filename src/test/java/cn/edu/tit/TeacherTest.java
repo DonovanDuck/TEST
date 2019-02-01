@@ -99,7 +99,7 @@ public class TeacherTest {
 			  
 			  String password=null;
 			  try {
-				System.out.println(Common.eccryptMD5("3"));
+				System.out.println(Common.eccryptMD5("1"));
 			} catch (NoSuchAlgorithmException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -46,7 +46,7 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="${student.faceImg }" style="width:100%;height:100%;" alt="" />
+			<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }" style="width:100%;height:100%;" alt="" />
 		</div>
 		    <div class="message">
             &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
@@ -111,7 +111,7 @@
 				<c:forEach items="${listCourse_MyCourse }" var="course" varStatus="loop">
 					<div class="lesson">
 						<div class="lesson_l">
-							<img src="${course.faceImg }" style="width: 100%; heigth: 100%"
+							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" style="width: 100%; heigth: 100%"
 								alt="" />
 						</div>
 						<div class="lesson_r">
@@ -127,7 +127,7 @@
 				<c:forEach items="${listCourse_Myattention }" var="course" varStatus="loop">
 					<div class="lesson">
 						<div class="lesson_l">
-							<img src="${course.faceImg }" style="width: 100%; heigth: 100%"
+							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" style="width: 100%; heigth: 100%"
 								alt="" />
 						</div>
 						<div class="lesson_r">

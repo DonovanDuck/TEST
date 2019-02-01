@@ -53,10 +53,29 @@
 		$('#dataTables-example').dataTable();
 	});
 </script>
-<script>
-	$(document).ready(function() {
-		$('#dataTables-example').dataTable();
-	});
+<script type="text/javascript">
+	function check() {
+		var uid = $("#file_excel").val();
+		if (uid == null || uid == "") {
+			alert("文件为空");
+			return false;
+		}
+		return true;
+	}
+</script>
+<script type="text/javascript">
+	function getRowValue(element) {
+		//this做为参数传过来是方法中的element,parentNode就是获取父节点，获取了连个父节点，就相当于获取了tr
+		var node = element.parentNode.parentNode;
+		//给每一个input框赋值，node.children[0].innerHTML,node就是tr，tr的子类有多个【0】根据下标取值
+		document.getElementById("studentId").value = node.children[1].innerHTML;
+		document.getElementById("studentName").value = node.children[2].innerHTML;
+		if (node.children[4].innerHTML == "男") {
+			document.getElementById('select').options[0].selected = true;
+		} else {
+			document.getElementById('select').options[1].selected = true;
+		}
+	}
 </script>
 </head>
 <body>
@@ -124,7 +143,7 @@
 							<form class="form-inline" id="form_excel" name="form_excel"
 								role="form"
 								action="${pageContext.request.contextPath}/admin/addStudent"
-								method="post" enctype="multipart/form-data">
+								method="post" enctype="multipart/form-data" onsubmit="return check()">
 								<div class="form-group" style="padding-top: 2%">
 									<label class="sr-only" for="file_excel">文件输入</label> <input
 										type="file" id="file_excel" name="file_excel">
@@ -176,8 +195,8 @@
 												</a></td>
 												<td class="text-center">
 													<button type="button" class="btn btn-default btn-lg"
-														data-toggle="modal" data-target="#Edit"
-														style="padding-top: 2%;">
+														data-toggle="modal" data-target="#Edit" id="${student.studentId }"
+														style="padding-top: 2%;" onclick="getRowValue(this)">
 														<small>编辑</small>
 													</button>
 													<button type="button" class="btn btn-default btn-lg"
@@ -214,15 +233,16 @@
 						<form>
 							<div class="form-group">
 								<label for="studentId" class="control-label">学号</label> <input
-									type="text" class="form-control" id="studentId">
+									type="text" class="form-control" id="studentId" name="studentId">
 							</div>
 							<div class="form-group">
 								<label for="studentName" class="control-label">姓名</label>
-								<textarea class="form-control" id="studentName"></textarea>
+								<input type="text" class="form-control" id="studentName"
+									name="studentName">
 							</div>
 							<div class="form-group">
 								<label class="control-label">性别</label> <select
-									class="form-control">
+									class="form-control" id="select" name="select">
 									<option>男</option>
 									<option>女</option>
 								</select>
