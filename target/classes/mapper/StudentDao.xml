@@ -196,4 +196,9 @@
 		select * from category where category_id =
 		#{categoryId};
 	</select>
+	
+	<!-- 学生关注课程 -->
+	<insert id="studentAttentionCourse">
+		insert into student_course(student_id,course_id,manager) values (#{studentId},#{courseId},1)
+	</insert>
 </mapper>

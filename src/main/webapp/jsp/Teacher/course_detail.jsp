@@ -24,7 +24,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 
-
+<script type="text/javascript">
+	function attention(){
+		//alert('${course.courseId}');
+		 $.ajax({
+			async:false,
+			cache:false,
+			url:"${pageContext.request.contextPath}/teacher/ajaxAttentionCourse",
+			data:{'courseId':'${course.courseId}'},
+			type:"POST",
+			dataType:"text",
+			success:function(result) {
+				alert(eval(result));
+				 
+			}
+		}); 
+	}
+</script>
 
 </head>
 <body>
@@ -37,11 +53,29 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width:100%;height:100%;"/>
         </div>
         <div class="word">
-            <h1>${course. courseName}</h1> <span style="color : red;">${course.fine }</span>
+            <div  style="float: left;">
+            	<h1>${course. courseName}</h1> 
+            </div>
+            <c:if test="${course.fine != null && course.fine != '' }"> 
+            <div  style="color : red;position: relative;top: 34px;left: 20px;width: 50px;height: 50px;float: left;">
+            	<span>${course.fine }</span>
+            </div>
+            </c:if>
+            <div style="width: 244px;height: 60px;position: relative;left: 10px;top:10px;padding-top: 15px;float: left;">
+            	<c:if test="${teacher != null && manager == 1 }"> 
+                	<a href="${pageContext.request.contextPath}/teacher/toModifyCourse/${course.courseId}">
+                		<button class="btn btn-default" type="submit" style="margin-left: 21px;margin-right: 22px;">编辑</button>
+                	</a>
+                 </c:if>
+            <button id="attention" class="btn btn-default" onclick="attention()">关注</button>
+            </div>
+            <!-- 清除浮动 -->
+            <div style="clear:both;"></div>
             <div class="summery">
                 <p>
+                <li>${category }</li>
                     <li>创建时间：${course.publishTime }</li>
-                	<li>课程人数：${course.courseStudentNum }</li>
+                	<li>参与人数：${course.courseStudentNum }</li>
                 </p>
             </div>
             	<c:if test="${teacher != null && (manager == 0 || manager == 1)  }"> 
@@ -49,15 +83,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  </c:if>   
                
                 <div>
-                <c:if test="${teacher != null && manager == 1 }"> 
-                	<a href="${pageContext.request.contextPath}/teacher/toModifyCourse/${course.courseId}"><button class="btn btn-default" type="submit" style="margin-left: 43px;">编辑课程</button></a>
-                 </c:if>
-                <c:if test="${student != null }"> 
-                	<button class="btn btn-default" type="submit" style="margin-left: 43px;">进入班级</button>
-                </c:if> 
-                <button class="btn btn-default" type="submit">关注课程</button>
                 
-                <button class="btn btn-default" type="submit">相关论坛</button>
+                <c:if test="${student != null && virtualClass != null }"> 
+                	<a target="_parent"
+			href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }">
+                	<button class="btn btn-default" type="submit" style="margin-left: 43px;">班级信息</button>
+                	</a>
+                </c:if> 
+                
+                <button class="btn btn-default" type="submit" style="margin-left: 35px;">课程讨论区</button>
                 </div>
                 
         </div>
@@ -68,8 +102,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <ul>
                     <li><a href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}" target="target">课程介绍</a></li>
                     <li><a href="${pageContext.request.contextPath}/resource/toTeacherResource/${course.courseId}" target="target">资源</a></li>
-                    <li><a href="#" >拓展任务</a>
+                    <li><a href="${pageContext.request.contextPath}/jsp/Teacher/teacher-resource-expansion-task.jsp" target="target" >拓展任务</a>
                     <li style="width: 160px"><a href="${pageContext.request.contextPath}/teacher/teacherClassList/${course.courseId }" target="target">暂时的开课班级列表</a></li>
+                    <li><a href="${pageContext.request.contextPath}/jsp/Teacher/teacher-release-task.jsp" target="_blank">上传资源</a></li>
                 </ul>
             </nav>
         </div>

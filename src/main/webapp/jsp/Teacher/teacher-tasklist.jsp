@@ -49,6 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</c:forEach>
 				
 			</div>
+			<c:if test="${teacher != null }">
 			<a
 				href="${pageContext.request.contextPath}/teacher/toPublishTask"
 				target="iframeContent">
@@ -56,6 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<p>发布作业</p>
 				</div>
 			</a>
+			</c:if>
 		</div>
 </body>
 </html>

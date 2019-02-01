@@ -14,18 +14,19 @@
     <div class="main_b_t">
        <nav>
         <ul>
-            <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/work" target="arise" > 作业资源</a></li>
-            <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/trial" target="arise" > 实验资源</a></li>
-            <li><a href="${pageContext.request.contextPath}/resource/toTeachResource/${courseId}/2" target="arise">音频资源</a></li>
-            <li><a href="${pageContext.request.contextPath}/resource/toTeachResource/${courseId}/3" target="arise">视频资源</a></li>
-            <li><a href="${pageContext.request.contextPath}/resource/toTeachResource/${courseId}/4" target="arise">图片资源</a></li>
-            <li class="first"><a href="#">发布资源</a>
+        <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/work" target="arise" > 教案库</a></li>
+        <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/work" target="arise" > 教学资源库</a></li>
+        <li><a href="${pageContext.request.contextPath}/resource/toTeachResource/${courseId }" target="arise" > 多媒体资源</a></li>
+            <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/work" target="arise" > 作业库</a></li>
+            <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/trial" target="arise" > 实验库</a></li>
+            <li><a href="${pageContext.request.contextPath}/resource/toTaskResource/${courseId }/work" target="arise" > 课程设计库</a></li>
+            <%-- <li class="first"><a href="#">发布资源</a>
              <div class="second">
                  <ul>
                      <li><a href="${pageContext.request.contextPath}/jsp/Teacher/teacher-release-task.jsp" target="_blank">上传资源</a></li>
                  </ul>
              </div>
-            </li>
+            </li> --%>
         </ul>
        </nav>
     </div>

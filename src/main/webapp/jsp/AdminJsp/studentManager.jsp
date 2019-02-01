@@ -104,7 +104,7 @@
 			});
 		}
 		return judge;
-	}2
+	}
 </script>
 <script type="text/javascript">
 	//判断字符是否为空的方法
