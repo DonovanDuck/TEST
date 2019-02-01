@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
 </head>
@@ -16,7 +18,7 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="${student.faceImg }" style="width:100%;height:100%;" alt="" />
+			<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }" style="width:100%;height:100%;" alt="" />
 		</div>
 		    <div class="message">
             &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
@@ -77,7 +79,7 @@
 					varStatus="status">
 					<tr>
 						<td>${ status.index + 1}</td>
-						<td><img src="${virtualClass.faceImg }" style="width:100%;height:100%;" alt="" /></td>
+						<td><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }" style="width:100%;height:100%;" alt="" /></td>
 						<td>${virtualClass.virtualCourseName }</td>
 						<td>${virtualClass.virtualClassName }</td>
 						<td>${virtualClass.term }</td>

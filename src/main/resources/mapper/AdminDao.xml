@@ -159,7 +159,7 @@
 
 	<!--读取系部信息 -->
 	<select id="readCategory" resultMap="categoryMap">
-		select * from category;
+		select * from category ORDER BY category_num;
 	</select>
 
 	<!-- 更新分类信息 -->
@@ -169,8 +169,8 @@
 		#{categoryName},
 		category_detail =
 		#{categoryDetail}
-		where category_id =
-		#{categoryId}
+		where category_num =
+		#{categoryNum}
 	</update>
 
 	<!-- 增加课程类别信息 被抛弃功能 <insert id="addCourseKinds"> INSERT INTO course (course_id, 

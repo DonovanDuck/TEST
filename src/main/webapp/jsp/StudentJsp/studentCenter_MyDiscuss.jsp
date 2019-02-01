@@ -8,6 +8,8 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
     <script>
@@ -150,7 +152,7 @@
 <main>
     <div class="main_t">
         <div class="images">
-            <img src="${student.faceImg }" alt="" />
+            <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }" alt="" />
         </div>
           <div class="message">
             &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${student.studentNickName }</h2>
