@@ -126,12 +126,10 @@ a {
 	width: 23%;
 	margin-right: 1%;
 	margin-bottom: 2%;
-	height: 230px;
+	height: 249px;
 	/*background: pink;*/
 	border: 1px solid #80808073;
-	padding-top: 1%;
 	float: left;
-	width: 23%;
 	margin-top: 20px;
 }
 
@@ -140,7 +138,6 @@ a {
 }
 
 .course img {
-	margin-left: 4%;
 }
 
 .course p {

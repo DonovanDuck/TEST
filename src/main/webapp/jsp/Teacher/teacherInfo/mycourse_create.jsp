@@ -18,6 +18,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="lesson">
             <div class="lesson_l">
                 <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 100%;height: 100%"/>
+
             </div>
             <div class="lesson_r">
                 <h3>${course.courseName }</h3>
@@ -30,8 +31,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </a>
     </c:forEach>
-    
 </div>
-
 </body>
 </html>

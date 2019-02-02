@@ -233,4 +233,24 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public List<Course> getCourseByLimit();
+	/**
+	 * 根据类型id查类型
+	 * @param categoryId
+	 * @return
+	 */
+	public String getCategoryById(String categoryId);
+	
+	/**
+	 * 教师关注课程
+	 * @param courseId
+	 * @param employeeNum
+	 */
+	public void teacherAttentionCourse(@Param(value="courseId")String courseId,@Param(value="employeeNum")String employeeNum);
+	
+	/**
+	 * 通过虚拟班级号和自然班级号查对应的虚拟班级号
+	 * （方法中多个虚拟班级号循环遍历，结果集只有一个）
+	 * @return
+	 */
+	public String getVirtualClassNumByVidAndRid(@Param(value="realClassNum")String realClassNum,@Param(value="virtualClassNum")String virtualClassNum);
 }

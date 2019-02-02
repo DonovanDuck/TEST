@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>班级详情页-作业</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/Course/teacher-task.css" />
+	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script type="text/javascript">
@@ -75,7 +75,9 @@ function load() {
 	<div class="main_t">
 		<div class="class">
 			<p>
+			<c:if test="${teacher != null }">
 				<span>${virtualClassName }</span>&nbsp;&nbsp;<a href="${pageContext.request.contextPath}/teacher/toEditVirtualClass">编辑班级信息</a>
+			</c:if>
 			</p>
 		</div>
 	</div>

@@ -36,8 +36,8 @@
 		<id column="term_id" property="termId" />
 		<result column="start_year" property="startYear" />
 		<result column="end_year" property="endYear" />
-		<result column="termOne" property="termOne" />
-		<result column="termTwo" property="termTwo" />
+		<result column="term" property="term" />
+
 	</resultMap>
 
 	<select id="readTerm" resultMap="termMap">
@@ -264,7 +264,7 @@
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
-		<result column="virtual_name" property="virtualClassName" />
+		<result column="virtual_class_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"
@@ -499,12 +499,17 @@
 	<!-- 通过教师工号获取相关班级 -->
 	<select id="getVirtualClassByCreatorId" parameterType="String" resultMap="virtualClassMap">
 		select * from virtual_class
-		where creator_id = #{creatorId} 
+		where creator_id = #{creatorId};
 	</select>
 	<!-- 根据虚拟班级号找到所对应的实体班级号列表 -->
 	<select id="searchRealClassIdList" parameterType="String" resultType="String">
 		select real_class_num from real_virtual_class
-		where virtual_class_num = #{virtualClassNum} 
+		where virtual_class_num = #{virtualClassNum};
+	</select>
+
+	<!-- 通过虚拟班级号和自然班级号查对应的虚拟班级号 -->
+	<select id="getVirtualClassNumByVidAndRid" resultType="String">
+		select virtual_class_num from real_virtual_class where virtual_class_num = #{virtualClassNum} and real_class_num = #{realClassNum};
 	</select>
 
 	<!-- 通过虚拟班级号查课程id集合 -->
@@ -557,7 +562,7 @@
 	
 	<!-- 获取标志位，查老师是否是课程创建者 -->
 	<select id="getManagerByEmployeeNum" resultType="int">
-		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId}
+		select manager from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId} and manager = 1;
 	</select>
 	
 	<!-- 根据时间获取前十二个课程信息到首页 -->
@@ -565,4 +570,13 @@
 		select * from course order by publish_time DESC limit 0,8;
 	</select>
 	
+	<!-- 根据类型id查类型 -->
+	<select id="getCategoryById" parameterType="String" resultType="String">
+		select category_name from category where category_id = #{categoryId};
+	</select>
+	
+	<!-- 教师关注课程 -->
+	<insert id="teacherAttentionCourse">
+		insert into teacher_course(employee_num,course_id,manager) values (#{employeeNum},#{courseId},2)
+	</insert>
 </mapper>

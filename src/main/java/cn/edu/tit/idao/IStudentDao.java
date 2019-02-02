@@ -55,4 +55,11 @@ public interface IStudentDao {
 	 * @param categoryId 系部ID
 	 * */
 	public Category getCategoryById(@Param("categoryId")String categoryId);
+	
+	/**
+	 * 学生关注课程
+	 * @param courseId
+	 * @param employeeNum
+	 */
+	public void studentAttentionCourse(@Param(value="courseId")String courseId,@Param(value="studentId")String studentId);
 }

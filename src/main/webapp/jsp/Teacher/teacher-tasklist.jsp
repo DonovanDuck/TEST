@@ -10,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/Course/teacher-task.css" />
+	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
 	<script src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 	<script type="text/javascript">
 	$(function(){
@@ -49,6 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</c:forEach>
 				
 			</div>
+			<c:if test="${teacher != null }">
 			<a
 				href="${pageContext.request.contextPath}/teacher/toPublishTask"
 				target="iframeContent">
@@ -56,6 +57,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<p>发布作业</p>
 				</div>
 			</a>
+			</c:if>
 		</div>
 </body>
 </html>

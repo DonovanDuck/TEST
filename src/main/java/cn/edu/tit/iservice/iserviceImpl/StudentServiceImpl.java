@@ -272,4 +272,10 @@ public class StudentServiceImpl implements IStudentService{
 		}
 		return Category;
 	}
+
+	@Override
+	public void studentAttentionCourse(String courseId, String studentId) {
+		// TODO Auto-generated method stub
+		studentDao.studentAttentionCourse(courseId, studentId);
+	}
 }

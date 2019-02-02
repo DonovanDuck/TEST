@@ -7,11 +7,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title></title>
-    
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
-   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<meta charset="UTF-8">
+<title></title>
+
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/teacher/own.css" />
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
 <body>
  <jsp:include page="/jsp/top.jsp" flush="true"/>
@@ -45,5 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </main>
 <jsp:include page="/jsp/footer.jsp" flush="true"/>
+
 </body>
 </html>

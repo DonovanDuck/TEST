@@ -159,6 +159,17 @@ public class TeacherController {
 			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId);
 			request.setAttribute("manager", manager);
 		}
+		//查操作者是否是学生
+		Student student = (Student) request.getSession().getAttribute("student");
+		if(student != null){
+			//查出所在虚拟班级信息
+			VirtualClass virtualClass = teacherService.getVirtualClassByRidAndCid(student.getClassNum(), courseId);
+			request.setAttribute("virtualClass", virtualClass);
+		}
+		request.setAttribute("student", student);
+		//查询课程类别名
+		String category = teacherService.getCategoryById(course.getCourseCategory());
+		request.setAttribute("category", category);
 		request.getSession().setAttribute("course", course);
 		return "jsp/Teacher/course_detail";
 	}
@@ -225,6 +236,49 @@ public class TeacherController {
 			String result = json.toString();
 			response.getWriter().print(result);
 		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 用户关注课程
+	 * @param request
+	 * @param response
+	 */
+	@RequestMapping(value="ajaxAttentionCourse")
+	public void ajaxAttentionCourse(HttpServletRequest request, HttpServletResponse response){
+		String result = "";
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+			//,@RequestParam(value="courseId")String courseId
+			String courseId = request.getParameter("courseId");
+			//判断是否登录
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			Student student = (Student) request.getSession().getAttribute("student");
+			if(teacher == null && student == null){
+				result = JSONObject.toJSONString("请先登录");
+			}
+			//如果登录，则关注课程
+			if(teacher != null){
+				teacherService.teacherAttentionCourse(courseId, teacher.getEmployeeNum()); 
+				result = JSONObject.toJSONString("关注成功！");
+			}
+			else if(student != null){
+				studentService.studentAttentionCourse(courseId, student.getStudentId());
+				result = JSONObject.toJSONString("关注成功！");
+			}
+			response.getWriter().println(result);
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			result = JSONObject.toJSONString("请不要重复关注！");
+		}
+		try {
+			response.getWriter().println(result);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -677,6 +731,7 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherClassList");
 		return mv;
 	}
+	
 	/**
 	 * @author wenli
 	 * @param request
@@ -688,12 +743,15 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
 		request.getSession().setAttribute("virtualClassName", virtualClassName);
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		Student student = (Student) request.getSession().getAttribute("student");
+		request.setAttribute("teacher", teacher);
+		request.setAttribute("student", student);
 		mv.addObject("virtualClassName",virtualClassName);
 		mv.setViewName("/jsp/Teacher/teacher-task");
 		return mv;
 		
 	}
-
 	/**
 	 * @author wenli
 	 * @param request
@@ -722,6 +780,10 @@ public class TeacherController {
 			}else {
 				mv.addObject("taskList", null);
 			}
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			Student student = (Student) request.getSession().getAttribute("student");
+			mv.addObject("teacher",teacher);
+			mv.addObject("student",student);
 			mv.addObject("readResult", readResult);
 			mv.setViewName("/jsp/Teacher/teacher-tasklist");
 
@@ -995,6 +1057,7 @@ public class TeacherController {
 	@RequestMapping(value="toMyClassList")
 	public ModelAndView toMyClassList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		List<Term> termList = null;
 		List<VirtualClass> virtualClassList= null;
 		List<RealClass> realClassList = null;
 		List<String> realClassIdList = null;
@@ -1008,7 +1071,13 @@ public class TeacherController {
 			}
 			
 		}
-		
+		try {
+			termList = teacherService.readTerm();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("termList", termList);
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("jsp/Teacher/teacherInfo/teacher_class_iframe");
 		return mv;
@@ -1220,4 +1289,6 @@ public class TeacherController {
 		}
 		return mv;
 	}
+	
+
 }

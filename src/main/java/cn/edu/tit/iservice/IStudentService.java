@@ -48,4 +48,11 @@ public interface IStudentService {
 	 * @param categoryId 系部ID
 	 * */
 	public Category getCategoryById(String categoryId)  throws Exception;
+	
+	/**
+	 * 学生关注课程
+	 * @param courseId
+	 * @param employeeNum
+	 */
+	public void studentAttentionCourse(String courseId,String studentId);
 }
