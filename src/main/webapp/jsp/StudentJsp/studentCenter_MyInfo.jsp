@@ -48,8 +48,9 @@
 	<main>
 	<div class="main_t">
 		<div class="images">
-			<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }" style="width: 100%; height: 100%;"
-				alt="" />
+			<img
+				src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }"
+				style="width: 100%; height: 100%;" alt="" />
 		</div>
 		<div class="message">
 			&nbsp;&nbsp;
@@ -107,6 +108,7 @@
 				</div>
 			</div>
 			<div class="r5_b" id="g1">
+			<hr><div class="r5_b_body">
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：${student.studentId }</p>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称：${student.studentNickName }</p>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名：${student.studentName }</p>
@@ -120,19 +122,25 @@
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;获奖情况：${student.studentId }</p>
 				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它：${student.studentId }</p>
 			</div>
+			</div>
 			<div id="g2">
+				<div class="r5_t">
+					<div class="h3">
+						<p>我的信息</p>
+					</div>
+				</div>
+				<hr>
 				<form
 					action="${pageContext.request.contextPath}/student/updateStudent"
-					id="infoForm">
+					id="infoForm" style="margin-left: 10%;">
 					昵称：<br /> <input type="text" placeholder="请输入昵称：" id="nickName"
 						name="nickName" value="${student.studentNickName }" /><br /> 密码：<br />
 					<input type="password" placeholder="请输入密码：" id="password"
 						name="password" /><br /> 确认密码：<br /> <input type="password"
-						placeholder="请输入密码："id="passwordAgain"
-						name="passwordAgain" /><br /> 出生年月日：<br /> <input type="text"
-						placeholder="请输入年月日：" id="date" name="date"
-						value="${student.studentId }" /><br /> 政治面貌：<br /> <input
-						type="text" placeholder="请输入政治面貌：" id="part" name="part"
+						placeholder="请输入密码：" id="passwordAgain" name="passwordAgain" /><br />
+					出生年月日：<br /> <input type="text" placeholder="请输入年月日：" id="date"
+						name="date" value="${student.studentId }" /><br /> 政治面貌：<br />
+					<input type="text" placeholder="请输入政治面貌：" id="part" name="part"
 						value="${student.studentId }" /><br /> 学习成果：<br />
 					<textarea name="" id="1" cols="30" rows="4" id="studyResult"
 						name="studyResult" placeholder="${student.studentId }"></textarea>

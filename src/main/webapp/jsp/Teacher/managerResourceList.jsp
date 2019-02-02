@@ -110,10 +110,6 @@
 		<div class="logo-box">
 			<img src="${pageContext.request.contextPath}/images/head.png"
 				border="0">
-			<button
-				style="width: 7%; height: 5%; position: absolute; right: 4%; top: 2%;">
-				<h4>个人信息</h4>
-			</button>
 		</div>
 	</div>
 	<div class="main">
@@ -121,9 +117,9 @@
 			<div class="btn-group" role="group" aria-label="...">
 				<c:forEach items="${resourceCategories }" var="resourceCategory">
 					<a
-						href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.resourceTypeId }"
+						href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
 						target="mainIframe">
-						<button type="button" class="btn btn-default">${resourceCategory.resourceType }</button>
+						<button type="button" class="btn btn-default">${resourceCategory.value }</button>
 					</a>
 				</c:forEach>
 			</div>
@@ -132,7 +128,7 @@
 			<iframe id="mainIframe" name="mainIframe"
 				style="width: 100%; margin-top: 1%" frameborder="no" border="0"
 				scrolling="no"
-				src="${pageContext.request.contextPath}/teacher/toResource/${resourceCategories[0].resourceTypeId }"></iframe>
+				src="${pageContext.request.contextPath}/teacher/toResource/0"></iframe>
 		</div>
 	</div>
 	<div class="footer">

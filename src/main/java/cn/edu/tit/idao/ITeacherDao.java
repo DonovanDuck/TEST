@@ -218,7 +218,7 @@ public interface ITeacherDao {
 	 * @param resource
 	 * 创建资源
 	 */
-	public void createResource(Resource resource)throws Exception;
+	public void addResource(Resource resource)throws Exception;
 	
 	
 	
