@@ -36,8 +36,8 @@
 		<id column="term_id" property="termId" />
 		<result column="start_year" property="startYear" />
 		<result column="end_year" property="endYear" />
-		<result column="termOne" property="termOne" />
-		<result column="termTwo" property="termTwo" />
+		<result column="term" property="term" />
+
 	</resultMap>
 
 	<select id="readTerm" resultMap="termMap">

@@ -1047,6 +1047,7 @@ public class TeacherController {
 	@RequestMapping(value="toMyClassList")
 	public ModelAndView toMyClassList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		List<Term> termList = null;
 		List<VirtualClass> virtualClassList= null;
 		List<RealClass> realClassList = null;
 		List<String> realClassIdList = null;
@@ -1060,7 +1061,13 @@ public class TeacherController {
 			}
 			
 		}
-		
+		try {
+			termList = teacherService.readTerm();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("termList", termList);
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("jsp/Teacher/teacherInfo/teacher_class_iframe");
 		return mv;
