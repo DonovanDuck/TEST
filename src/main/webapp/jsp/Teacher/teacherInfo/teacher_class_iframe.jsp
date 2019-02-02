@@ -34,7 +34,7 @@
 				<tr>
 					<td>${ status.index + 1}</td>
 					<td><img
-						src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }"
+						src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" style="height: 350px;width: 50px"
 						alt="" /></td>
 					<td>${virtualClass.virtualCourseName }</td>
 					<td>${virtualClass.virtualClassName }</td>

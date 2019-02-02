@@ -104,6 +104,6 @@ function load() {
 			frameborder="no" border="0" scrolling="no" src="${pageContext.request.contextPath}/teacher/teacherTaskList"></iframe>
 	</div>
 	</main>
-	<footer></footer>
+	<jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

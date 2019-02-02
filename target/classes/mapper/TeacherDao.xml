@@ -264,7 +264,7 @@
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
-		<result column="virtual_name" property="virtualClassName" />
+		<result column="virtual_class_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"

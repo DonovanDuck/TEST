@@ -22,6 +22,10 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
@@ -171,4 +175,5 @@
 	</div>
 	<!-- 模态框   结束-->
 </body>
+
 </html>
