@@ -117,7 +117,7 @@
 				<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 					<div class="lesson">
 						<div class="lesson_l">
-							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" style="width: 100%; heigth: 100%"
+							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
 								alt="" />
 						</div>
 						<div class="lesson_r">
@@ -136,7 +136,7 @@
 				<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 					<div class="lesson">
 						<div class="lesson_l">
-							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" style="width: 100%; heigth: 100%"
+							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
 								alt="" />
 						</div>
 						<div class="lesson_r">

@@ -16,7 +16,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     height: 120px;
     background: url("../img/head.png") no-repeat;
     background-size: cover;
-    margin-top: 1%;
     position: relative;
 }
 
