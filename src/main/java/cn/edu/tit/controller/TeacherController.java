@@ -111,7 +111,7 @@ public class TeacherController {
 	 * @param request
 	 * @return
 	 * @throws Exception 
-	 * 教师、学生登陆后进入的第一个页面
+	 * 课程二级页面
 	 */
 	@RequestMapping(value="courseList",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
@@ -148,7 +148,6 @@ public class TeacherController {
 		}
 		// 查询教师圈教师信息
 		List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
-		request.getSession().setAttribute("course", course);
 		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		//request.getSession().setAttribute("course", course);
 		// 查出操作者是否是manager
@@ -547,16 +546,7 @@ public class TeacherController {
 		return mv;
 	}
 
-	/**
-	 * 微信测试
-	 */
-	/*@RequestMapping(value="createCourse",method= {RequestMethod.POST} )
-	public ModelAndView createCourse(HttpServletRequest request){
-		Common.fileFactory(request);
-		System.out.println("qingqiu==================================================================");
-		System.out.println(request.getParameter(""));
-		return null;
-	}*/
+	
 	/**
 	 * @author wenli
 	 * @param request
@@ -1054,6 +1044,7 @@ public class TeacherController {
 	@RequestMapping(value="toMyClassList")
 	public ModelAndView toMyClassList(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
+		List<Term> termList = null;
 		List<VirtualClass> virtualClassList= null;
 		List<RealClass> realClassList = null;
 		List<String> realClassIdList = null;
@@ -1068,6 +1059,13 @@ public class TeacherController {
 
 		}
 
+		try {
+			termList = teacherService.readTerm();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("termList", termList);
 		mv.addObject("virtualClassList", virtualClassList);
 		mv.setViewName("jsp/Teacher/teacherInfo/teacher_class_iframe");
 		return mv;

@@ -10,6 +10,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8">
     <title>教师发布任务页面</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/teacher-release-task.css" type="text/css">
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 </head>
 <body>
 <header></header>
@@ -37,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </div>
             <br> <br>
             <span><strong>任务详情：</strong></span>
-            <input name="taskDetail" type="text" placeholder="请输入任务详情：" style="width: 80%;height: 200px;float: left;">
+            <textarea id="taskDetail" name="taskDetail" type="text" placeholder="请输入任务详情：" style="width: 600px;height: 200px;float: left;"></textarea>
             <div class="button">
                 
                 <span>截止时间:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input name="taskEndTime" type="datetime" placeholder=""></span>
@@ -57,4 +61,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+	<script type="text/javascript" charset="utf-8">
+	UE.getEditor('taskDetail');
+	
+</script>
 </html>

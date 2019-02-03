@@ -36,8 +36,8 @@
 		<id column="term_id" property="termId" />
 		<result column="start_year" property="startYear" />
 		<result column="end_year" property="endYear" />
-		<result column="termOne" property="termOne" />
-		<result column="termTwo" property="termTwo" />
+		<result column="term" property="term" />
+
 	</resultMap>
 
 	<select id="readTerm" resultMap="termMap">
@@ -287,7 +287,7 @@
 		<result column="face_img" property="faceImg" />
 		<result column="term" property="term" />
 		<result column="class_student_num" property="classStuentNum" />
-		<result column="virtual_name" property="virtualClassName" />
+		<result column="virtual_class_name" property="virtualClassName" />
 	</resultMap>
 
 	<insert id="createVirtualClass"

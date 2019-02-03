@@ -20,7 +20,10 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
-	
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
@@ -34,11 +37,10 @@
 		width: 67px;
 	}
 	.confirm_close{
-	    width: 48%;
+	    width: 100%;
     height: 50px;
-    position: absolute;
-    left: 322px;
-    top: 599px;
+        top: 24px;
+    position: relative;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -144,12 +146,12 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 <body>
 	<div class="wrapper">
 		<jsp:include page="/jsp/top.jsp" flush="true"/>
-		<div class="main" style="height: 578px">
+		<div class="main" style="height: auto;min-height: 780px;">
 			<form action="${pageContext.request.contextPath}/teacher/modifyCourse/${course.courseId}"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${employeeNum }">
 				<div class="input1">
 					<span>课程名称：</span> <input name="courseName" type="text"
-						placeholder="" value=${course.courseName }
+						placeholder="" value="${course.courseName }"
 						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
 				</div>
 				<div class="input1">
@@ -158,7 +160,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					<label for="faceImg" style="cursor: pointer">
 						<li>
 							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
-								name="faceImg" value=${course.faceImg }>
+								name="faceImg" value="${course.faceImg }">
 						</li>
 						<li><img id="photos" src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" width="100" height="100" /></li>
 					</label>
@@ -176,38 +178,26 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 				<hr>
 				<div class="input1">
 					<span>课程介绍：</span> <br>
-					<br> <input name="courseDetail" type="text" placeholder=""
-						style="width: 77%; height: 100px; float: left; margin-left: 9%;" value=${course.courseDetail }>
-				</div>
-				<div class="confirm_close">
+					<br><textarea id="courseDetail" name="courseDetail" type="text" placeholder=""
+						style="width:700px; height: 200px; float: left; margin-left: 9%;" value="${course.courseDetail }"></textarea>
+					<div class="confirm_close">
 					<ul>
 						<li><input class="btn btn-default" style="width: 84px;" type="submit" value="修改" /></li>
 						<li><input class="btn btn-default" style="width: 84px;" value="取消" /></li>
 					</ul>
+				</div> 
 				</div>
+				
 			</form>
 		</div>
 		
-		<div class="footer">
-			<div class="container">
-
-				<!--row End-->
-				<div class="foot-bq">
-					<!-- 版权内容请在本组件"内容配置-版权"处填写 -->
-					<div
-						style="width: 900px; text-align: center; float: left; position: relative; left: 135px; top: 8px;">
-						<p>地址：山西省太原市尖草坪区新兰路31号&nbsp;&nbsp;&nbsp;&nbsp;邮编：030008</p>
-						<p>
-							版权所有：太原工业学院&nbsp;&nbsp;&nbsp;&nbsp;ICP备案号：晋ICP备14003279号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;晋公网安备号：140110430070001
-						</p>
-					</div>
-				</div>
-			</div>
-			<!--container End-->
-		</div>
+		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 		
 		<!-- bootstrup -->
 		
 </body>
-
+	<script type="text/javascript" charset="utf-8">
+	UE.getEditor('courseDetail');
+	
+</script>
 </html>

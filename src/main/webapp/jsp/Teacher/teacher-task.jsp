@@ -11,7 +11,7 @@
 <meta charset="UTF-8">
 <title>班级详情页-作业</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/Course/teacher-task.css" />
+	href="${pageContext.request.contextPath}/css/course/teacher-task.css" />
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script type="text/javascript">
@@ -104,6 +104,6 @@ function load() {
 			frameborder="no" border="0" scrolling="no" src="${pageContext.request.contextPath}/teacher/teacherTaskList"></iframe>
 	</div>
 	</main>
-	<footer></footer>
+	<jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

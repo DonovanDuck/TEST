@@ -19,18 +19,16 @@
 	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet"src/main/webapp/jsp/Teacher/createCourse.jsp"" />
-	
+	rel="stylesheet">
+	<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
+<%-- 	
 <script
-	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script> --%>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 
 <%-- <jsp:include page="${pageContext.request.contextPath}/jsp/AdminJsp/Common.jsp" ></jsp:include> --%>
 <style type="text/css">
@@ -40,11 +38,11 @@
 		width: 67px;
 	}
 	.confirm_close{
-		  width: 48%;
+	   width: 100%;
     height: 50px;
-    position: absolute;
-    left: 322px;
-    top: 870px;
+            top: -7px;
+    left: 195px;
+    position: relative;
 	}
 	.confirm_close ul li{
 		list-style-type: none;
@@ -195,6 +193,7 @@ $(function() {
         return url;
     } 
 </script>
+
 </head>
 <body>
 	<div class="wrapper"></div>
@@ -230,12 +229,12 @@ $(function() {
 
 				<hr>
 				<div class="input1">
-					<span>课程介绍：</span> <br>
-					<br> <textarea id="courseDetail" name="courseDetail" type="text" placeholder=""
-						style="width: 77%; height: 100px; float: left; margin-left: 9%;" ></textarea>
+					<span>课程介绍：</span>
+					<textarea id="courseDetail" name="courseDetail" type="text" placeholder=""
+						style="width:700px; height: 200px; float: left; margin-left: 9%;" ></textarea>
 				</div>
-
-				<hr>
+				
+		
 				
 				<!-- 拟态框star -->
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
@@ -281,30 +280,13 @@ $(function() {
 			</form>
 		</div>
 		
-		<div class="footer">
-			<div class="container">
-
-				<!--row End-->
-				<div class="foot-bq">
-					<!-- 版权内容请在本组件"内容配置-版权"处填写 -->
-					<div
-						style="width: 900px; text-align: center; float: left; position: relative; left: 135px; top: 8px;">
-						<p>地址：山西省太原市尖草坪区新兰路31号&nbsp;&nbsp;&nbsp;&nbsp;邮编：030008</p>
-						<p>
-							版权所有：太原工业学院&nbsp;&nbsp;&nbsp;&nbsp;ICP备案号：晋ICP备14003279号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;晋公网安备号：140110430070001
-						</p>
-					</div>
-				</div>
-			</div>
-			<!--container End-->
-		</div>
+		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 		
 		<!-- bootstrup -->
 		
 </body>
 <script type="text/javascript" charset="utf-8">
 	UE.getEditor('courseDetail');
-	
 	
 </script>
 </html>
