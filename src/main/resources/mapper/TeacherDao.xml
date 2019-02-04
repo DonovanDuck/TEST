@@ -37,7 +37,6 @@
 		<result column="start_year" property="startYear" />
 		<result column="end_year" property="endYear" />
 		<result column="term" property="term" />
-
 	</resultMap>
 
 	<select id="readTerm" resultMap="termMap">
@@ -301,7 +300,7 @@
 		face_img,
 		term,
 		class_student_num,
-		virtual_class_name
+		virtual_name
 		)
 		VALUES
 		(#{virtualClassNum},

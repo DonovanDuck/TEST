@@ -131,7 +131,6 @@
 				</c:forEach>
 			</div>
 			<div class="main_b_r_b" id="k2">
-
 				<c:forEach items="${listCourse_Myattention }" var="course" varStatus="loop">
 				<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 					<div class="lesson">

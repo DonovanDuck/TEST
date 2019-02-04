@@ -74,6 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th>序号</th>
 				<th>课程图片</th>
+				
 				<th>课程名称</th>
 				<th>班级名称</th>
 				<th>授课班级</th>
@@ -98,7 +99,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 
 			</c:forEach>
-
 		</table>
 	</div>
 </body>

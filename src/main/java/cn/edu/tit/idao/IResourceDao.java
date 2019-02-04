@@ -102,13 +102,12 @@ public interface IResourceDao {
 	 * @param resourceId
 	 * @return
 	 * @throws Exception 
-	 * 1.当resourceTypeId不为空时，根据类型查找资源
-	 * 2.当resourceTypeId为空时，扫描全部资源
+	 * 1.当resourceId不为空时，根据iD查找资源
+	 * 2.当resourceId为空时，扫描全部资源
 	 */
 	public List<Resource> showResource(@Param("resourceId")String resourceId);
 
 	/**
-	 *@author LiMing
 	 * @param resource
 	 * 更新资源信息
 	 */

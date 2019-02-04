@@ -11,6 +11,7 @@ import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 
 @Component
@@ -62,4 +63,10 @@ public interface IStudentDao {
 	 * @param employeeNum
 	 */
 	public void studentAttentionCourse(@Param(value="courseId")String courseId,@Param(value="studentId")String studentId);
+	
+	/**
+	 * @param termId
+	 * @return 返回学期信息
+	 */
+	public Term readTermById(@Param(value="termId")String termId);
 }

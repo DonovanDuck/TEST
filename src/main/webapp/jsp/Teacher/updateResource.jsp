@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>资源发布页面</title>
+<title>资源更新页面</title>
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common.css">
 <link rel="stylesheet"
@@ -33,18 +33,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div class="main_b">
 		<div class="text">
 			<form
-				action="${pageContext.request.contextPath}/teacher/publishResource"
+				action="${pageContext.request.contextPath}/teacher/"
 				enctype="multipart/form-data" method="post">
-				<span><strong>名&nbsp;&nbsp;&nbsp;&nbsp;称：</strong></span> <input
-					type="text" name="resourceName" placeholder="请输入名称："
+				<span><strong>名&nbsp;&nbsp;&nbsp;&nbsp;称:</strong></span> <input
+					type="text" name="resourceName" value="${resource.resourceName }"
 					style="width: 60%; height: 30px; float: left;"> <br> <br>
 				<span><strong>资源详情：</strong></span> <input name="resourceDetail"
-					type="text" placeholder="请输入资源详情："
+					type="text"  value="${resource.resourceDetail }"
 					style="width: 80%; height: 210px; float: left;">
 				<div class="button">
 					<b>附件:</b> <input name="file" type="file" multiple="multiple" />
 					<button
-						style="padding-left: 1%; padding-right: 1%; font-size: 16px; float: right; margin-right: 20%;">上传并发布</button>
+						style="padding-left: 1%; padding-right: 1%; font-size: 16px; float: right; margin-right: 20%;">更新</button>
 				</div>
 			</form>
 		</div>

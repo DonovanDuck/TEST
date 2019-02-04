@@ -70,13 +70,17 @@
 					<label class="col-md-3 text-center">资源名:</label> <label
 						class="col-md-9 text-left" style="margin-left: -1%">${list.resourceName }</label>
 				</div>
+				<div class="resource_name col-md-12" style="height: 20%">
+					<label class="col-md-3 text-center" style="padding-left: 0%">发布时间:</label>
+					<label class="col-md-9 text-left" style="margin-left: -1%">${list.publishTime }</label>
+				</div>
 				<div class="resourse_Info" style="height: 80%">
 					<div class="col-md-3 text-right">
-						<label class="col-md-12 text-center">资源介绍:</label>
+						<label class="col-md-12 text-center" style="padding-left: -4%">资源介绍:</label>
 					</div>
 					<div class="col-md-9 text-left">
-						<textarea readonly
-							style="width: 100%; height: 100px; border: 0px; outline: none;">${list.resourceDetail }</textarea>
+						<b><textarea readonly
+								style="width: 100%; height: 70px; border: 0px; outline: none;">${list.resourceDetail }</textarea></b>
 					</div>
 				</div>
 			</div>
@@ -84,9 +88,9 @@
 				<button class="btn btn-default" id="deleteInfo" name="deleteInfo"
 					value="${list.resourceId }" style="margin-top: 30%"
 					onclick="deleteInfo()">删除</button>
-				<button class="btn btn-default" style="margin-top: 46%"
-					id="updateInfo" name="updateInfo" value="${list.resourceId }"
-					onclick="updateInfo()">修改</button>
+				<a target="_parent" href="${pageContext.request.contextPath}/teacher/toUpdateResourcePage/${list.resourceId }"><button class="btn btn-default" style="margin-top: 46%"
+						id="updateInfo" name="updateInfo" value="${list.resourceId }"
+						onclick="">修改</button></a>
 			</div>
 		</div>
 	</c:forEach>
