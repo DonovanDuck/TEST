@@ -148,7 +148,7 @@
     </script>
 </head>
 <body>
-<header></header>
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 <main>
     <div class="main_t">
         <div class="images">
@@ -333,6 +333,6 @@
         </div>
     </div>
 </main>
-<footer></footer>
+<jsp:include page="/jsp/footer.jsp" flush="true" />
 </body>
 </html>

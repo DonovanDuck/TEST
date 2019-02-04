@@ -20,6 +20,7 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 
 @Service
@@ -277,5 +278,23 @@ public class StudentServiceImpl implements IStudentService{
 	public void studentAttentionCourse(String courseId, String studentId) {
 		// TODO Auto-generated method stub
 		studentDao.studentAttentionCourse(courseId, studentId);
+	}
+
+	
+	/**
+	 * @param termId
+	 * @return 返回学期信息
+	 */
+	@Override
+	public Term readTermById(String termId) {
+		Term term = new Term();
+		try {
+			term = studentDao.readTermById(termId);
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("studentDao层readTermById出问题");
+			term = null;
+		}
+		return term;
 	}
 }

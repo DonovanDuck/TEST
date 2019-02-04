@@ -487,4 +487,5 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
+
 }
