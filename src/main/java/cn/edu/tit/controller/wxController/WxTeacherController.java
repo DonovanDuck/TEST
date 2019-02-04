@@ -692,5 +692,33 @@ public class WxTeacherController {
 		}
 		return ret;
 	}
+	
+	/**
+	 * @author LiMing
+	 * 通过分类筛选 课程
+	 * */
+	@RequestMapping(value="readCourseInfoByCategory",method= {RequestMethod.GET})
+	public Map<String, Object> readCategoryInfo(@RequestParam(value="categoryId") String categoryId) {		
+		List<Category> categories = new ArrayList<>();
+		Map<String, Object> ret = new HashMap<>();
+		String category = categoryId;
+		List<Course> list = new ArrayList<Course>();
+		List<String> teacherNames = new ArrayList<String>();
+		try {
+			categories = teacherService.readCategory();
+			list = teacherService.readCourseInfoByCategory(category);
+			for (Course course : list) {
+				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		ret.put("teacherNames",teacherNames);
+		ret.put("categories",categories);
+		ret.put("courseList", list);
+		return ret;
+	}
+	
+	
 
 }

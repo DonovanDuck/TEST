@@ -1318,6 +1318,23 @@ public class TeacherController {
 		}
 		return mv;
 	}
-
+	
+	/**
+	 * 退出
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="quit")
+	public ModelAndView quit(HttpServletRequest request){
+		try {
+			request.getSession().setAttribute("teacher", null);
+			request.getSession().setAttribute("student", null);
+			return mainController.toMain(request);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return mainController.toMain(request);
+		}
+	}
 
 }

@@ -58,7 +58,6 @@ main .main_t .word{
     background:orange;
     text-align:center;
     line-height:50px;
-    float:left;
 }
 .button a{
     color:white;
@@ -78,11 +77,11 @@ main .main_t .word{
     background:white;
 }
 .main_b_t nav{
-    width:70%;
+    width:30%;
     height:40px;
 }
 .main_b_t li{
-    width:70px;
+    width:24%;
     height:40px;
     float:left;
     margin-right:1%;
