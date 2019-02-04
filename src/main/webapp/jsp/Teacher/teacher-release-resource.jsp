@@ -41,13 +41,14 @@
 					style="width: 60%; height: 30px; float: left;">
 				<div style="width: 10%; height: 30px; float: left">
 					<select id="taskCategory" name="taskCategory">
-						<option>选择资源类型</option>
-						<option>教案资源</option>
-						<option>教学资源资源</option>
-						<option>作业资源</option>
-						<option>多媒体资资源</option>
-						<option>实验资源</option>
-						<option>课程设计资源</option>
+						<option value="">选择资源类型</option>
+						<option value="">教案资源</option>
+						<option value="">教学资源资源</option>
+						<option value="">作业资源</option>
+						<option value="">多媒体资资源</option>
+						<option value="">实验资源</option>
+						<option value=""
+						]>课程设计资源</option>
 					</select>
 				</div>
 				<br> <br> <span><strong>资源介绍：</strong></span> <input
