@@ -21,11 +21,12 @@
 						.on(
 								"change",
 								function() {
-									var id = $(this).children(
-											'option:selected').val();
+									var id = $(this)
+											.children('option:selected').val();
 									path = "${pageContext.request.contextPath}/student/selectVirtualClassByTerm/"
 											+ id;
-									$("#selectButtonA").attr("href",path);;
+									$("#selectButtonA").attr("href", path);
+									;
 									$("#selectButton").click();
 								})
 			})
@@ -101,6 +102,7 @@
 						<span>开课学期:</span><select
 							style="width: 70%; height: 24px; float: right;" id="selectTerm"
 							name="selectTerm">
+							<option>选择学期</option>
 							<c:forEach items="${listTerm }" var="listTerm">
 								<option value="${listTerm.termId }">
 									${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}
