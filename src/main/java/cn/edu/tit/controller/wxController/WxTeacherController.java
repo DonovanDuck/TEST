@@ -590,13 +590,14 @@ public class WxTeacherController {
 	 * @return
 	 */
 	@RequestMapping(value = "toCourseDetail")
-	public Map<String, Object> toCourseDetail(HttpServletRequest request, @Param(value = "courseId") String courseId) {
+	public Map<String, Object> toCourseDetail(HttpServletRequest request, @RequestParam(value = "courseId") String courseId) {
 		Map<String, Object> ret = new HashMap<>();
 		try {
 			// 通过courseid查询课程
 			Course course = teacherService.getCourseById(courseId);
 			// 查询教师圈教师信息
 			List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+			request.getSession().setAttribute("course", course);
 			ret.put("course", course);
 			ret.put("teacherList", teacherList);
 		} catch (Exception e) {
@@ -635,6 +636,61 @@ public class WxTeacherController {
 		return ret;
 	}
 	
+	/**
+	 * 跳转到首页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toMain")
+	public Map<String, Object> toMain(HttpServletRequest request){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//按时间查询前12个课程信息
+			List<Course> courseList = teacherService.getCourseByLimit();
+			//获取创课教师
+			List<String> teacherNameList = new ArrayList<>();
+			for(Course course : courseList){
+				teacherNameList.add(teacherService.getTeacherNameById(course.getPublisherId()));
+			}
+			ret.put("courseList",courseList);
+			ret.put("teacherNameList",teacherNameList);
+			ret.put("teacher",request.getSession().getAttribute("teacher"));
+			ret.put("student",request.getSession().getAttribute("student"));
+			ret.put("status", "OK");
+		} catch (Exception e) {
+			// TODO: handle exception
+			ret.put("status", "ERROR");
+			e.printStackTrace();
+			return ret;
+		}
+		return ret;
+	}
 	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 跳转到添加任务发布页面
+	 */
+	@RequestMapping(value="toPublishTask")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public Map<String, Object> toPublishTask(HttpServletRequest request,@RequestParam("course") Course course) {
+		Map<String, Object> ret = new HashMap<>();
+		//Course course;
+		try {
+			List<String> taskCategoryList=null;
+			//course = (Course) request.getSession().getAttribute("course");
+			taskCategoryList = teacherService.getTaskCategory();
+			request.getSession().setAttribute("taskCategoryList", taskCategoryList);
+			request.getSession().setAttribute("courseId", course.getCourseId());
+			ret.put("taskCategoryList", taskCategoryList);
+			ret.put("courseId", course.getCourseId());
+		} catch (Exception e) {
+			ret.put("status", "ERROR");
+			e.printStackTrace();
+			return ret;
+		}
+		return ret;
+	}
 
 }

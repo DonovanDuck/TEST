@@ -817,13 +817,19 @@ public class TeacherServiceImpl implements ITeacherService{
 			}
 			
 		}
-
+		
+		/**
+		 * @author LiMing
+		 * @param 添加的资源
+		 * */
 		@Override
-		public void createResource(Resource resource) throws Exception {
+		public void addResource(Resource resource) throws Exception {
 			try {
-				teacherDao.createResource(resource);
+				teacherDao.addResource(resource);
+				System.out.println("createResource------Dao 层执行成功");
 			} catch (Exception e) {
-				// TODO: handle exception
+				System.out.println("createResource------Dao 层执行失败");
+				e.printStackTrace();
 			}
 		}
 

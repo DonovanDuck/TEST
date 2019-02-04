@@ -81,22 +81,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<c:forEach items="${virtualClassList }" var="virtualClass"
 				varStatus="status">
-				<a target="_parent"
-					href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }">
-					<tbody>
-					<tr onclick="toClassDetail(this)">
-						<td>${ status.index + 1}</td>
-						<td><img src="../../teacher/images/tu6.jpg" alt="" /></td>
-						<td>${virtualClass.virtualCourseName }</td>
-						<td>${virtualClass.virtualClassName }</td>
-						<td><c:forEach items="${virtualClass.realClassList }"
-								var="realClass">
-	            	${realClass.realClassNum }<br />
-							</c:forEach></td>
-						<td>${virtualClass.term }</td>
-					</tr>
-					</tbody>
-				</a>
+				<tr>
+					<td>${ status.index + 1}</td>
+					<td><img
+						src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" style="height: 350px;width: 50px"
+						alt="" /></td>
+					<td>${virtualClass.virtualCourseName }</td>
+					<td>${virtualClass.virtualClassName }</td>
+					<td><c:forEach items="${virtualClass.realClassList }"
+							var="realClass">
+            	${realClass.realClassNum }<br />
+						</c:forEach></td>
+					<td>${virtualClass.term }</td>
+					<td><a target="_parent"
+						href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }"><button>详情</button></a></td>
+				</tr>
+
 			</c:forEach>
 
 		</table>

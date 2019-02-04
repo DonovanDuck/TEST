@@ -33,6 +33,10 @@ public class Term {
 	public void setTerm(String term) {
 		this.term = term;
 	}
+	@Override
+	public String toString() {
+		return "Term [termId=" + termId + ", startYear=" + startYear + ", endYear=" + endYear + ", term=" + term + "]";
+	}
 	public Term(String termId, String startYear, String endYear, String term) {
 		super();
 		this.termId = termId;
@@ -44,6 +48,6 @@ public class Term {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
+
 	
 }

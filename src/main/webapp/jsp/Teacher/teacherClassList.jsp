@@ -20,6 +20,7 @@
 	<p>${readResult }</p>
 
 	<p>我的班级</p>
+	
 	<c:forEach items="${virtualClassList }" var="virtualClass">
 		<a target="_parent"
 			href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }">
