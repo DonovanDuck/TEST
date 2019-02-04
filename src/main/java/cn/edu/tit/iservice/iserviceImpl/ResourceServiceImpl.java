@@ -174,7 +174,6 @@ public class ResourceServiceImpl implements IResourceService {
 		}
 		return resourceList;
 	}*/
-
 //	@Override
 //	public void synchroResourceOfLibAndClass(List<Resource> resourceList, String virtualClassNum) {
 //		upLoadResource(resourceList); // 更新资源库

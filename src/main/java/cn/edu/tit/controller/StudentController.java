@@ -6,12 +6,14 @@ package cn.edu.tit.controller;
 import java.io.File;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,9 +21,11 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
@@ -149,10 +153,27 @@ public class StudentController {
 	@RequestMapping(value="toStudentCenter_MyClass")
 	public ModelAndView toStudentCenter_MyClass(HttpServletRequest request) throws Exception {	
 		ModelAndView mv = new ModelAndView();
-		Student student = (Student) request.getSession().getAttribute("student");
-		String studentClass = student.getClassNum();
+		Term term = new Term();
+		List<RealClass> realClass = new ArrayList<RealClass>();
+		List<Term> termList = new ArrayList<Term>();
 		List<VirtualClass> virtualList = new ArrayList<VirtualClass>();
-		virtualList = teacherService.getVirtualClassNumByreal(studentClass);
+		termList = teacherService.readTerm();//获取学期信息
+		Student student = (Student) request.getSession().getAttribute("student");//从SSEION中获取学生信息
+		String studentClass = student.getClassNum();
+		virtualList = teacherService.getVirtualClassNumByreal(studentClass);//获取虚拟班级列表
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				realClass = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
+				virtualClass.setRealClassList(realClass);
+			}
+		}
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				term = studentService.readTermById(virtualClass.getTerm());
+				virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+			}
+		}
+		mv.addObject("listTerm", termList);//返回信息
 		mv.addObject("virtualClassList", virtualList);//返回信息
 		mv.setViewName("/jsp/StudentJsp/studentCenter_MyClass");//设置返回页面
 		return mv;
@@ -213,6 +234,46 @@ public class StudentController {
 		student.setStudentNickName(nickName);
 		studentService.updateStudent(student);
 		mv = toStudentPage(request);
+		return mv;
+	}
+
+	/**
+	 * @throws Exception 
+	 * */
+	@RequestMapping(value="/selectVirtualClassByTerm/{termId}")
+	public ModelAndView selectVirtualClassByTerm(HttpServletRequest request,@PathVariable(value="termId") String termId) throws Exception {	
+		ModelAndView mv = new ModelAndView();
+		Term term = new Term();
+		List<RealClass> realClass = new ArrayList<RealClass>();
+		List<Term> termList = new ArrayList<Term>();
+		List<VirtualClass> virtualList = new ArrayList<VirtualClass>();
+		termList = teacherService.readTerm();//获取学期信息
+		Student student = (Student) request.getSession().getAttribute("student");//从SSEION中获取学生信息
+		String studentClass = student.getClassNum();
+		virtualList = teacherService.getVirtualClassNumByreal(studentClass);//获取虚拟班级列表
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				realClass = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
+				virtualClass.setRealClassList(realClass);
+			}
+		}
+		Iterator<VirtualClass> vi = virtualList.iterator();
+		while(vi.hasNext()) {
+			VirtualClass vii = vi.next();
+			if(!vii.getTerm().equals(termId))
+			{
+				vi.remove();
+			}
+		}
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				term = studentService.readTermById(virtualClass.getTerm());
+				virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+			}
+		}
+		mv.addObject("listTerm", termList);//返回信息
+		mv.addObject("virtualClassList", virtualList);//返回信息
+		mv.setViewName("/jsp/StudentJsp/studentCenter_MyClass");//设置返回页面
 		return mv;
 	}
 }

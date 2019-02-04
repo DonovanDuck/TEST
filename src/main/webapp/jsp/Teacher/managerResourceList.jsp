@@ -15,17 +15,19 @@
 	href="${pageContext.request.contextPath}/css/teacher/managerResourceList.css"
 	type="text/css">
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-	rel="stylesheet">
 <link
 	href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
@@ -103,25 +105,39 @@
 </script>
 </head>
 <body class="body">
-	<button type="button" id="modelContent" name="modelContent"
-		class="btn btn-primary" style="display: none" data-toggle="modal"
-		data-target="#exampleModal" data-whatever="@mdo"></button>
-	<div class="header">
-		<div class="logo-box">
-			<img src="${pageContext.request.contextPath}/images/head.png"
-				border="0">
-		</div>
-	</div>
+	<jsp:include page="/jsp/top.jsp" flush="true" />
 	<div class="main">
 		<div class="main-top">
 			<div class="btn-group" role="group" aria-label="...">
-				<c:forEach items="${resourceCategories }" var="resourceCategory">
-					<a
-						href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
-						target="mainIframe">
-						<button type="button" class="btn btn-default">${resourceCategory.value }</button>
-					</a>
-				</c:forEach>
+				<a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">教案库</button>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">教学资源库</button>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">多媒体资源</button>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">作业库</button>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">实验库</button>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">课程设计库</button>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">全部</button>
+				</a>
 			</div>
 		</div>
 		<div class="content">
@@ -131,13 +147,7 @@
 				src="${pageContext.request.contextPath}/teacher/toResource/0"></iframe>
 		</div>
 	</div>
-	<div class="footer">
-		<div class="logo-box">
-			<img src="${pageContext.request.contextPath}/images/bottom.png"
-				width="100%" height="100%" border="0">
-		</div>
-	</div>
-
+	<jsp:include page="/jsp/footer.jsp" flush="true" />
 	<!-- 模态框   开始-->
 	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel">
@@ -154,11 +164,13 @@
 					<form id="commit" name="commit" action="" method="post">
 						<div class="form-group">
 							<label for="resourceName" class="control-label">资源名:</label> <input
-								type="text" class="form-control" id="resourceName" name="resourceName">
+								type="text" class="form-control" id="resourceName"
+								name="resourceName">
 						</div>
 						<div class="form-group">
 							<label for="resourceDetail" class="control-label">资源详情:</label>
-							<textarea class="form-control" id="resourceDetail" name="resourceDetail"></textarea>
+							<textarea class="form-control" id="resourceDetail"
+								name="resourceDetail"></textarea>
 						</div>
 						<div class="modal-footer">
 							<button class="btn btn-default" data-dismiss="modal">关闭</button>
@@ -171,5 +183,4 @@
 	</div>
 	<!-- 模态框   结束-->
 </body>
-
 </html>

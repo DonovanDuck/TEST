@@ -69,7 +69,6 @@ public interface IResourceService {
 	
 	/**
 	 * 删除资源，根据ID
-	 * @param taskType
 	 * @param courseId
 	 * @return
 	 * @throws Exception 
