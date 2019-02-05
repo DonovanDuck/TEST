@@ -16,6 +16,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     background: #333333;
     float:left;
     height: 299.88px;
+    margin-top: 54px;
 }
 footer .footer-img{
     width: 130px;
