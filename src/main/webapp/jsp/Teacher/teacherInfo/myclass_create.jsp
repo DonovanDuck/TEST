@@ -56,12 +56,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }" alt=""/>
             </div>
             <div class="b1_r">
-                <p class="h">${virtualClass.virtualCourseName }</p>
-                <p class="p1">班级名称：${virtualClass.virtualClassName }</p>
+                <p class="h">${virtualClass.virtualClassName }</p>
                 <p class="p1">授课班级：<c:forEach items="${virtualClass.realClassList }"
 								var="realClass">
 	            	${realClass.realClassNum }<span>&nbsp;&nbsp;&nbsp;</span>
 							</c:forEach></p>
+                <p class="p1">课程名称：${virtualClass.virtualCourseName }</p>
+                
                 <p class="p2" id ="term">开课学期：&nbsp;${virtualClass.term }</p>
             </div>
         </div>
@@ -74,7 +75,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<th>序号</th>
 				<th>课程图片</th>
-				
 				<th>课程名称</th>
 				<th>班级名称</th>
 				<th>授课班级</th>
@@ -99,7 +99,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</tr>
 
 			</c:forEach>
+
 		</table>
 	</div>
 </body>
-</html>

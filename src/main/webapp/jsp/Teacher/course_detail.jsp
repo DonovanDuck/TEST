@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:if test="${teacher != null && (manager == 0 || manager == 1)  }">
 					<button style="float: left" type="button" class="btn btn-warning">
 						<a
-							href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a>
+							href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass?courseId=${course.courseId }">创建班级</a>
 					</button>
 				</c:if>
 

@@ -124,21 +124,32 @@
 		<jsp:include page="/jsp/top.jsp" flush="true" />
 		<div class="main">
 			<form
-				action="${pageContext.request.contextPath}/teacher/createVirtualClass"
+				action="${pageContext.request.contextPath}/teacher/createVirtualClass?courseId=null"
 				method="post">
 				<div class="input3">
 					<span>开设学期：</span> <select name="selectTerm" id="selectTerm">
 						<c:forEach items="${listTerm }" var="listTerm">
-							<option value="${listTerm.termId }">${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term
-								}</option>
+							<option value="${listTerm.termId }">${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}</option>
+							
 						</c:forEach>
 					</select>
 				</div>
 				<div class="input1">
-					<span>开设课程：</span> <input name="courseName" id="courseName"
+					<!-- <span>开设课程：</span> 
+					
+					<input name="courseName" id="courseName"
 						value="${course.courseName }"
 						style="width: 40%; height: 30px; float: left; margin-left: 2%;"
 						readonly="readonly">
+						 -->
+						<span>开设课程:</span>
+            <select placeholder="" style="width: 40%; height: 30px; float: left; margin-left: 2%;" >
+            	<c:forEach items="${courseList }" var="courses">
+            	 	<option value="${courses.courseName }"
+            	 		 <c:if test="${!empty course && courses.courseName eq course.courseName }"> selected="selected" </c:if> >${courses.courseName }</option>
+            	</c:forEach>
+            </select>
+         
 				</div>
 				<div class="input1">
 					<span>班级名称：</span> <input name="className" id="className"
