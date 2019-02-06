@@ -126,10 +126,10 @@ header nav li a{
               <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登陆</a></li>
               </c:if>
               <c:if test="${teacher != null }">
-              <a href="<c:url value='/teacher/toTeacherPage'/>"><li style="width: 120px;">欢迎:${teacher.teacherName }</li></a>
+              <a href="<c:url value='/teacher/toTeacherPage'/>"><li style="width: 140px;">欢迎:${teacher.teacherName }</li></a>
               </c:if>
               <c:if test="${student != null }">
-              <a href="<c:url value='/student/toStudentPage'/>"><li style="width: 120px;">欢迎:${student.studentName }</li></a>
+              <a href="<c:url value='/student/toStudentPage'/>"><li style="width: 140px;">欢迎:${student.studentName }</li></a>
               </c:if>
               <li>|</li>
               <li class="li2"><a href="">我们</a>

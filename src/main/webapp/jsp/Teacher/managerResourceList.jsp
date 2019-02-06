@@ -110,31 +110,31 @@
 		<div class="main-top">
 			<div class="btn-group" role="group" aria-label="...">
 				<a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/1"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">教案库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/2"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">教学资源库</button>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+				</a><a
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/3"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">多媒体资源</button>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+				</a><a
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/4"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">作业库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/5"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">实验库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/6"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">课程设计库</button>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+				</a><a
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/7"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">全部</button>
 				</a>
@@ -148,7 +148,12 @@
 		</div>
 	</div>
 	<jsp:include page="/jsp/footer.jsp" flush="true" />
-	<!-- 模态框   开始-->
+	
+	
+	
+	
+	
+<!-- <!-- 	模态框   开始  (抛弃的更新资源方法)
 	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel">
 		<div class="modal-dialog" role="document">
@@ -181,6 +186,9 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框   结束-->
+	模态框   结束 -->
+	
+	
+	
 </body>
 </html>

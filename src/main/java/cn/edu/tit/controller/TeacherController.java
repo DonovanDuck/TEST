@@ -637,12 +637,12 @@ public class TeacherController {
 				e.printStackTrace();
 			}
 		}
-
-
 		request.getSession().removeAttribute("courseId");
 		return "redirect:/teacher/toPublishTask";
 
 	}
+
+
 	@RequestMapping(value="toPublishResource")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String toPublishResource(HttpServletRequest request) {
@@ -1277,21 +1277,21 @@ public class TeacherController {
 		return msg;
 	}
 
-	/**
-	 * @author LiMing
-	 * @param request
-	 * 返回需要更新的资源，将对象显示在模态框
-	 * @throws Exception 
-	 */
-	@RequestMapping("/toModalResource/{resourceId}")
-	public void tomodalResource(HttpServletRequest request, HttpServletResponse response,@PathVariable String resourceId) throws Exception {
-		String msg = null;
-		List<Resource> list = new ArrayList<Resource>();
-		list  = resourceService.showResource(resourceId);//此时resourceId 不为空，将按照条件查询。返回只有一个对象的集合
-		JSONArray  json  =  JSONArray.fromObject(list); 
-		String result = json.toString();
-		response.getWriter().print(result);
-	}
+	//	/**
+	//	 * @author LiMing
+	//	 * @param request
+	//	 * 返回需要更新的资源，将对象显示在模态框(抛弃的更新资源方法)
+	//	 * @throws Exception 
+	//	 */
+	//	@RequestMapping("/toModalResource/{resourceId}")
+	//	public void tomodalResource(HttpServletRequest request, HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+	//		String msg = null;
+	//		List<Resource> list = new ArrayList<Resource>();
+	//		list  = resourceService.showResource(resourceId);//此时resourceId 不为空，将按照条件查询。返回只有一个对象的集合
+	//		JSONArray  json  =  JSONArray.fromObject(list); 
+	//		String result = json.toString();
+	//		response.getWriter().print(result);
+	//	}
 
 	/**
 	 * 跳转到教师主页
@@ -1314,28 +1314,80 @@ public class TeacherController {
 		}
 		return mv;
 	}
-	
-		/**
-		 * 跳转到教师主页
-		 * @param request
-		 * @return
-		 * @throws Exception 
-		 */
-		@RequestMapping("/toUpdateResourcePage/{resourceId}")
-		public ModelAndView toUpdateResourcePage(HttpServletRequest request,@PathVariable String resourceId) throws Exception{
-			ModelAndView mv = new ModelAndView();
-			List<Resource> list = new ArrayList<Resource>();
-			Resource resource = new Resource();
-			try {
-				list = resourceService.showResource(resourceId);
-				resource = list.get(0);
-				mv.addObject("resource",resource);
-				mv.setViewName("jsp/Teacher/updateResource"); 
-			} catch (Exception e) {
-				e.printStackTrace();
-				mv.addObject("readResult", "异常");//返回信息
-				mv = toResourceMain();
-			}
-			return mv;
+
+	/**
+	 * 跳转到教师主页
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 */
+	@RequestMapping("/toUpdateResourcePage/{resourceId}")
+	public ModelAndView toUpdateResourcePage(HttpServletRequest request,@PathVariable String resourceId) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		List<Resource> list = new ArrayList<Resource>();
+		Resource resource = new Resource();
+		try {
+			list = resourceService.showResource(resourceId);
+			resource = list.get(0);
+			mv.addObject("resource",resource);
+			mv.setViewName("jsp/Teacher/teacher-update-resource"); 
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv.addObject("readResult", "异常");//返回信息
+			mv = toResourceMain();
 		}
+		return mv;
+	}
+
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @throws Exception 
+	 * 资源分类跳转，用于资源更新时的按照分类查找资源
+	 * 1.教案库
+	 * 2.教学资源库
+	 * 3.多媒体资源
+	 * 4.作业库
+	 * 5.实验库
+	 * 6.课程设计库
+	 * 7.全部资源
+	 * @return 返回对应资源
+	 */
+	@RequestMapping("/toResourceCategory/{category}")
+	public ModelAndView toResourceCategory(HttpServletRequest request,@PathVariable String category) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		switch (category) {
+		case "1"://教案库
+			
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		case "2"://教学资源库
+
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		case "3"://多媒体资源
+			
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		case "4"://作业库
+
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		case "5"://实验库
+
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		case "6"://课程设计库
+
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		case "7"://全部资源
+
+			mv.setViewName("jsp/Teacher/managerResourceListIframe"); 
+			break;
+		default:
+			break;
+		}
+		return mv;
+	}
 }
