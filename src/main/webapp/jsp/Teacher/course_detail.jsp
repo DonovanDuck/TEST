@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<c:if test="${teacher != null && (manager == 0 || manager == 1)  }">
 					<button style="float: left" type="button" class="btn btn-warning">
 						<a
-							href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass/${course.courseId }">创建班级</a>
+							href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass?courseId=${course.courseId }">创建班级</a>
 					</button>
 				</c:if>
 
@@ -103,6 +103,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								style="margin-left: 43px;">班级信息</button>
 						</a>
 					</c:if>
+					
+					<c:if test="${teacher != null && (manager == 0 || manager == 1)  }">
+					
+						<a target="_parent"
+							href="${pageContext.request.contextPath}/teacher/toPublishResource">
+							<button class="btn btn-default" type="submit"
+								style="margin-left: 43px;">发布资源</button>
+						</a>
+						
+						<a target="_parent"
+							href="${pageContext.request.contextPath}/teacher/toResourceMain">
+							<button class="btn btn-default" type="submit"
+								style="margin-left: 43px;">资源管理</button>
+						</a>
+					
+				</c:if>
 
 					<button class="btn btn-default" type="submit"
 						style="margin-left: 35px;">课程讨论区</button>
@@ -123,18 +139,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li><a
 							href="${pageContext.request.contextPath}/jsp/Teacher/teacher-resource-expansion-task.jsp"
 							target="target">拓展任务</a>
-						<li style="width: 160px"><a
+						<%-- <li style="width: 160px"><a
 							href="${pageContext.request.contextPath}/teacher/teacherClassList/${course.courseId }"
-							target="target">暂时的开课班级列表</a></li>
-						<li><a
+							target="target">暂时的开课班级列表</a></li> --%>
+						<%-- <li><a
 							href="${pageContext.request.contextPath}/jsp/Teacher/teacher-release-task.jsp"
-							target="_blank">发布任务</a></li>
-						<li><a
+							target="_blank">发布任务</a></li> --%>
+						<%-- <li><a
 							href="${pageContext.request.contextPath}/teacher/toPublishResource"
 							target="_blank">发布资源</a></li>
 						<li><a
 							href="${pageContext.request.contextPath}/teacher/toResourceMain"
-							target="_blank">资源管理</a></li>
+							target="_blank">资源管理</a></li> --%>
 					</ul>
 				</nav>
 			</div>

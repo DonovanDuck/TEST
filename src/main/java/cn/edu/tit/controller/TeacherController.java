@@ -23,6 +23,7 @@ import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.xpath.operations.Mod;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
@@ -187,6 +188,7 @@ public class TeacherController {
 			Student student = (Student) request.getSession().getAttribute("student");
 			request.setAttribute("teacher", teacher);
 			request.setAttribute("student", student);
+
 			request.getSession().setAttribute("categoryList", categoryList);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -349,17 +351,29 @@ public class TeacherController {
 	 * 跳转到创建虚拟班级
 	 * @throws Exception 
 	 */
-	@RequestMapping(value="toCreateVirtualClass/{courseId}")
-	public ModelAndView toCreateVirtualClass(@PathVariable String courseId,HttpServletRequest request) throws Exception {
+	@RequestMapping(value="toCreateVirtualClass")
+	public ModelAndView toCreateVirtualClass(String courseId,HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		List<Term> listTerm = new ArrayList<Term>();
 		List<RealClass> listRealClass = new ArrayList<RealClass>();
+		List<Course> courseList = null;
+		List<String> courseIdList = null;
 		Course course = new Course();
-		course = teacherService.readCourseByCourseId(courseId);
+		if(courseId!=null) {
+			course = teacherService.readCourseByCourseId(courseId);
+		}
 		listTerm = teacherService.readTerm();
 		listRealClass = teacherService.readRealClass(null);
 		request.getSession().setAttribute("virtualCourse", course);//将course放入SESSION
+		courseIdList =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
+		courseIdList.addAll(teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1));
+		courseList = teacherService.courseList(courseIdList);
+		mv.addObject("courseList", courseList);
 		mv.addObject("course",course);
+		System.out.println(course.getCourseName()+"=========");
+		for (Course courses : courseList) {
+			System.out.println(courses.getCourseName());
+		}
 		mv.addObject("listTerm",listTerm);
 		mv.addObject("listRealClass", listRealClass);
 		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
@@ -910,12 +924,25 @@ public class TeacherController {
 	 * @author wenli
 	 * @param request
 	 * @return
-	 * 进入我的相关班级的iframe入口
+	 * 进入我的相关课程的iframe入口
 	 */
 	@RequestMapping(value="toMyCourse")
 	public ModelAndView toMyCourse(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/jsp/Teacher/teacherInfo/teacher_course_iframe");
+		return mv;
+	}
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 进入我的相关班级的iframe入口
+	 */
+	@RequestMapping(value="toMyClass")
+	public ModelAndView toMyClass(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("/jsp/Teacher/teacherInfo/teacher_class_iframe");
 		return mv;
 	}
 	/**
@@ -1063,7 +1090,7 @@ public class TeacherController {
 		}
 		mv.addObject("termList", termList);
 		mv.addObject("virtualClassList", virtualClassList);
-		mv.setViewName("jsp/Teacher/teacherInfo/teacher_class_iframe");
+		mv.setViewName("jsp/Teacher/teacherInfo/myclass_create");
 		return mv;
 	}
 
@@ -1315,6 +1342,24 @@ public class TeacherController {
 		return mv;
 	}
 	
+	/**
+	 * 退出
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="quit")
+	public ModelAndView quit(HttpServletRequest request){
+		try {
+			request.getSession().setAttribute("teacher", null);
+			request.getSession().setAttribute("student", null);
+			return mainController.toMain(request);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return mainController.toMain(request);
+		}
+	}
+
 		/**
 		 * 跳转到教师主页
 		 * @param request
