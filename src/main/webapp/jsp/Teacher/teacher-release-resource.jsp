@@ -32,6 +32,9 @@
 <body>
 	<jsp:include page="/jsp/top.jsp" flush="true" />
 	<div class="main_b">
+		<div class="mian_top" style="margin-top: 1%;margin-left: 1%;">
+			<h2>课程名:&nbsp&nbsp${course.courseName }</h2>
+		</div>
 		<div class="text">
 			<form
 				action="${pageContext.request.contextPath}/teacher/publishResource"
@@ -47,8 +50,7 @@
 						<option value="">作业资源</option>
 						<option value="">多媒体资资源</option>
 						<option value="">实验资源</option>
-						<option value=""
-						]>课程设计资源</option>
+						<option value="">课程设计资源</option>
 					</select>
 				</div>
 				<br> <br> <span><strong>资源介绍：</strong></span> <input

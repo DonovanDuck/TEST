@@ -21,14 +21,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 /*---------------登录------------------*/
 header span{
-    width: 30%;
+    width: 39%;
     float: right;
     text-align: center;
     line-height: 30px;
     margin-top: 1%;
 }
 header span li{
-    width: 11%;
+    width: 45px;
     float: left;
     color: white;
     margin-right: 1%;
@@ -126,13 +126,18 @@ header nav li a{
               <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登陆</a></li>
               </c:if>
               <c:if test="${teacher != null }">
-              <a href="<c:url value='/teacher/toTeacherPage'/>"><li style="width: 140px;">欢迎:${teacher.teacherName }</li></a>
+              <a href="<c:url value='/teacher/toTeacherPage'/>"><li style="width: 120px;">欢迎:${teacher.teacherName }</li></a>
+              <li>|</li>
+              <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
               </c:if>
               <c:if test="${student != null }">
-              <a href="<c:url value='/student/toStudentPage'/>"><li style="width: 140px;">欢迎:${student.studentName }</li></a>
+              <a href="<c:url value='/student/toStudentPage'/>"><li style="width: 120px;">欢迎:${student.studentName }</li></a>
+              <li>|</li>
+              <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
               </c:if>
               <li>|</li>
-              <li class="li2"><a href="">我们</a>
+              <li class="li2"><a href="">我们</a></li>
+              
                   <!--<div class="h_span_li2">-->
                       <!--<ul>-->
                         <!--<li><a href="">我的作品</a></li>-->
@@ -141,7 +146,7 @@ header nav li a{
                         <!--<li><a href="">我的主页</a></li>-->
                       <!--</ul>-->
                   <!--</div>-->
-              </li>
+              
              </span>
           <!--导航-->
           <nav>

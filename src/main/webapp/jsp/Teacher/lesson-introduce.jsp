@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <title></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course/lesson-introduce.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/lesson-introduce.css"/>
 </head>
 <body>
 <main>

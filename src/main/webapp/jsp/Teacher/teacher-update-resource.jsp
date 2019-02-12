@@ -12,7 +12,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common.css">
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/teacher/teacher-release-task.css"
+	href="${pageContext.request.contextPath}/css/teacher/teacher-release-resource.css"
 	type="text/css">
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
@@ -31,15 +31,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<jsp:include page="/jsp/top.jsp" flush="true" />
 	<div class="main_b">
+		<div class="mian_top" style="margin-top: 1%">
+			<h2>课程名:&nbsp&nbsp${course.courseName }</h2>
+		</div>
 		<div class="text">
-			<form
-				action="${pageContext.request.contextPath}/teacher/"
+			<form action="${pageContext.request.contextPath}/teacher/"
 				enctype="multipart/form-data" method="post">
 				<span><strong>名&nbsp;&nbsp;&nbsp;&nbsp;称:</strong></span> <input
 					type="text" name="resourceName" value="${resource.resourceName }"
 					style="width: 60%; height: 30px; float: left;"> <br> <br>
 				<span><strong>资源详情：</strong></span> <input name="resourceDetail"
-					type="text"  value="${resource.resourceDetail }"
+					type="text" value="${resource.resourceDetail }"
 					style="width: 80%; height: 210px; float: left;">
 				<div class="button">
 					<b>附件:</b> <input name="file" type="file" multiple="multiple" />

@@ -487,5 +487,21 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
+	
+	/**
+	 *@author LiMing
+	 * @param 课程名
+	 * @return 返回查询到的课程信息
+	 * 课程二级页面的搜索功能，模糊查询
+	 */
+	public List<Course> searchCourse(String courseName);
+	
+	/**
+	 *@author LiMing
+	 * @param realClass
+	 * @return 实体班级的集合
+	 * 实体班级的模糊查询
+	 */
+	public List<RealClass> readRealClassToSelect(String realClass);
 
 }

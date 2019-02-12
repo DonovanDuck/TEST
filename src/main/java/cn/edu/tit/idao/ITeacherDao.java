@@ -253,4 +253,20 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public String getVirtualClassNumByVidAndRid(@Param(value="realClassNum")String realClassNum,@Param(value="virtualClassNum")String virtualClassNum);
+
+	/**
+	 *@author LiMing
+	 * @param search
+	 * @return
+	 */
+	public List<Course> searchCourse(@Param(value="courseName")String courseName);
+	
+	
+	/**
+	 *@author LiMing
+	 * @param realClass
+	 * @return 实体班级的集合
+	 * 实体班级的模糊查询
+	 */
+	public List<RealClass> readRealClassToSelect(@Param(value="realClass")String realClass);
 }
