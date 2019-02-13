@@ -48,10 +48,11 @@
 											for (var i = 0; i < arr.length; i++) {
 												var msg = "<li id='realClass' name='realClass'><input type='checkbox' value='"
 														+ arr[i].realClassNum
-														+ "' name='realClassCheckbox' id='realClassCheckbox'/>"
+														+ "' name='realClassCheckbox' id='realClassCheckbox' class='realClassCheckbox'/>"
 														+ arr[i].realClassNum
 														+ "</li>";
-												$("#realClassUI").append($(msg));
+												$("#realClassUI")
+														.append($(msg));
 											}
 										},
 										error : function() {
@@ -61,15 +62,52 @@
 	})
 </script>
 <script type="text/javascript">
- 	$(function() {
-		$("input:checkbox").on("change", function() {
-			if(this.checked)
-			{
-			 var banProvinceName =this.value;
-			 alert(banProvinceName);
-			}
-		})
-	}); 
+	$(document)
+			.on(
+					"click",
+					".realClassCheckbox",
+					function() {
+						$(".friend").css("display", "block");
+						if (this.checked) {
+							var content = this.value;
+							var msg = "<li id='selectedRealClass' name='selectedRealClass' style='float: left; margin-left: 2%;'><input type='checkbox' value='"
+				+ content
+				+ "' name='realClassCheckboxSelected' checked='true' id='realClassCheckboxSelected' class='realClassCheckboxSelected'/>"
+									+ content + "</li>";
+							$("#selectedRealClassUI").append($(msg));
+						}
+					})
+</script>
+<!-- 图片预加载 -->
+<script>
+    function chan(i) {
+        var objUrl = getObjectURL(i.files[0]);
+        if (objUrl) {
+            $("#photos").attr("src", objUrl);
+        }
+    };
+    function getObjectURL(file) {
+        var url = null;
+        if (window.createObjectURL != undefined) {
+            url = window.createObjectURL(file);
+        } else if (window.URL != undefined) {
+            url = window.URL.createObjectURL(file);
+        } else if (window.webkitURL != undefined) {
+            url = window.webkitURL.createObjectURL(file);
+        }
+        return url;
+    } 
+</script>
+<script type="text/javascript">
+	$(function() {
+		$("#submitButton").click(function() {
+			var check = ",";
+			$("input[name='realClassCheckboxSelected']:checked").each(function(i) {
+				check = check + $(this).val() + ",";
+			});
+			$("#realClassToController").val(check);
+		});
+	})
 </script>
 </head>
 <body>
@@ -80,8 +118,8 @@
 		</div>
 		<div class="main">
 			<form
-				action="${pageContext.request.contextPath}/teacher/createVirtualClass?courseId=null"
-				method="post">
+				action="${pageContext.request.contextPath}/teacher/createVirtualClass"
+				method="post" enctype="multipart/form-data">
 				<div class="input1">
 					<span>课程名称:</span> <select placeholder=""
 						style="width: 40%; height: 30px; float: left; margin-left: 4%;">
@@ -109,35 +147,31 @@
 						<span style="float: left;">课程图片：</span>
 						<label for="faceImg" style="cursor: pointer; margin-left: 2%;">
 							<li><input type="file" id="faceImg" style="display: none;"
-								onchange="chan(this)" name="faceImg" value="${course.faceImg }">
-						</li>
+								onchange="chan(this)" name="faceImg" value=" "></li>
 							<li><img id="photos"
-								src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
-								width="100" height="100" /></li>
+								src="${pageContext.request.contextPath}/images/add.png"
+								width="50%" height="50%" style="border: 1px solid black" /></li>
 						</label>
 					</ul>
 				</div>
 				<div class="teacher-friend">
 					<span>开设班级：</span>
-					<div class="friend">
-						<ul id="selectedRealClassUI" style="list-style-type: none;">
-							<li id="selectedRealClass" name=“selectedRealClass”
-								style="float: left; margin-left: 2%;"></li>
+					<div class="friend" style="display: none">
+						<p>已选班级：</p>
+						<ul id="selectedRealClassUI" name="selectedRealClassUI"
+							class="selectedRealClassUI">
 						</ul>
-						<!-- 						<div class="add">
-							<button type="button" id="pull" class="btn btn-primary">选择班级</button>
-						</div> -->
-						<input value="" name='realClassContent' id='realClassContent'
-							type="hidden" />
+						<input value="" name='realClassToController' id='realClassToController' class="realClassToController"
+							style="dispaly:none"/>
 					</div>
 					<div class="selectClassContent">
-						<input name="selectInputRealClass" id="selectInputRealClass"
+						<input name="realClassContent" id="realClassContent"
 							placeholder="筛选班级">
 						<ul id="realClassUI" name="realClassUI">
 							<c:forEach items="${listRealClass }" var="item">
 								<li id="realClass" name=“realClass”><input type="checkbox"
 									value="${item.realClassNum }" name="realClassCheckbox"
-									id="realClassCheckbox" />${item.realClassNum }</li>
+									id="realClassCheckbox" class="realClassCheckbox" />${item.realClassNum }</li>
 							</c:forEach>
 						</ul>
 					</div>
@@ -146,7 +180,7 @@
 				<div class="button">
 					<div class="create">
 						<span style="color: white;">
-							<button type="onSubmit" id="adsf" class="btn btn-primary">确定</button>
+							<button type="onSubmit" id="submitButton" class="btn btn-primary">确定</button>
 						</span>
 					</div>
 					<div class="delete">

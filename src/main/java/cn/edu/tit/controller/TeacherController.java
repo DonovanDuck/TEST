@@ -292,66 +292,6 @@ public class TeacherController {
 		}
 	}
 
-	/**
-	 * @author LiMing
-	 * 创建虚拟班级
-	 * @throws Exception 
-	 */
-	@SuppressWarnings("unused")
-	@RequestMapping(value="createVirtualClass",method = RequestMethod.POST)
-	public String createVirtualClass(HttpServletRequest request,@RequestParam("className")String className,@RequestParam("selectTerm")String selectTerm,@RequestParam("realClassContent")String realClassContent) throws Exception{	
-		Course course = (Course) request.getSession().getAttribute("virtualCourse");
-		String courseId = course.getCourseId();
-		String courseName = course.getCourseName();
-		VirtualClass vir = new VirtualClass();
-		try {
-			//设置对象的属性
-			vir.setCourseId(courseId);
-			String uuid = Common.uuid();
-			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
-			vir.setCreateTime(publishTime);
-			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-			vir.setCreatorId(teacher.getEmployeeNum());
-			vir.setFaceImg(course.getFaceImg());
-			vir.setVirtualClassNum(uuid);
-			vir.setTerm(selectTerm);
-			vir.setVirtualCourseName(course.getCourseName());
-			System.out.println(selectTerm+"~~~~~~~~~~~~~~~~~~~~~");
-			//将前台得到的字符串分割
-			String[] sourceStrArray = realClassContent.split(",");
-			List<String> realClassArray = new ArrayList<String>();
-			//字符串数组判空
-			for(int i = 0;i<sourceStrArray.length;i++) {
-				if(!sourceStrArray[i].isEmpty())
-				{
-					realClassArray.add(sourceStrArray[i]);
-				}
-			}
-			List<RealClass> realClassList = new ArrayList<RealClass>();
-			int count = 0;//班级总人数
-			//将所有班级号转化为对应对象
-			for (String string : realClassArray) {
-				realClassList.add(teacherService.readRealClass(string).get(0));//查询出的始终只有一个
-			}
-			//计算总人数
-			for (RealClass realClass : realClassList) {
-				count+= realClass.getRealPersonNum();
-			}
-			vir.setVirtualClassName(className);
-			vir.setClassStuentNum(count);
-			vir.setRealClassList(realClassList);
-			teacherService.createVirtualClass(vir);
-			/**********实体班和虚拟班的对应***************/
-			for (int i = 0; i < realClassArray.size(); i++) {
-				teacherService.mapVirtualRealClass(realClassArray.get(i),uuid);
-			}
-			//return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
-		} catch (Exception e) {
-			e.printStackTrace();
-			//return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
-		} 
-		return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
-	}
 
 	/**
 	 * @author LiMing
@@ -481,7 +421,129 @@ public class TeacherController {
 
 	}
 
-
+	/**
+	 * @author LiMing
+	 * 创建虚拟班级
+	 * @throws Exception 
+	 */
+	@SuppressWarnings({ "unused", "unchecked" })
+	@RequestMapping(value="createVirtualClass",method = RequestMethod.POST)
+	public String createVirtualClass(HttpServletRequest request) throws Exception{	
+		Course course = (Course) request.getSession().getAttribute("virtualCourse");
+		String courseId = course.getCourseId();
+		String courseName = course.getCourseName();
+		VirtualClass vir = new VirtualClass();
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+		try {
+			String virId = Common.uuid();
+			Object[] obj = Common.fileFactory(request,virId);
+			List<File> files = (List<File>) obj[0];	// 获取课程图片
+			Map<String, Object> formdata = (Map<String, Object>) obj[1]; // 获取课程内容
+			String selectTerm = (String)formdata.get("selectTerm");
+			List<String> list = (List<String>) formdata.get("selectedRealClassUI");
+			String a = (String)formdata.get("selectedRealClassUI");
+			String realClassContent =  (String)formdata.get("realClassToController");
+			String className = (String)formdata.get("className");
+			String[] sourceStrArray = realClassContent.split(",");
+			List<RealClass> realClassList = new ArrayList<RealClass>();
+			List<String> realClassArray = new ArrayList<String>();	
+			//字符串数组判空
+			for(int i = 0;i<sourceStrArray.length;i++) {
+				if(!sourceStrArray[i].isEmpty())
+				{
+					realClassArray.add(sourceStrArray[i]);
+				}
+			}
+			int count = 0;//班级总人数
+			//将所有班级号转化为对应对象
+			for (String string : realClassArray) {
+				realClassList.add(teacherService.readRealClass(string).get(0));//查询出的始终只有一个
+			}
+			//计算总人数
+			for (RealClass realClass : realClassList) {
+				count+= realClass.getRealPersonNum();
+			}
+			vir.setVirtualClassNum(virId);
+			vir.setCourseId(courseId);
+			vir.setCreateTime(publishTime);
+			vir.setCreatorId(teacher.getEmployeeNum());
+			vir.setVirtualCourseName(course.getCourseName());
+			vir.setVirtualClassName(className);
+			vir.setTerm(selectTerm);
+			vir.setClassStuentNum(count);
+			for(File f : files){ // 集合中只有一张图片
+				vir.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+			}
+			vir.setRealClassList(realClassList);
+			teacherService.createVirtualClass(vir);
+			/**********实体班和虚拟班的对应***************/
+			for (int i = 0; i < realClassArray.size(); i++) {
+				teacherService.mapVirtualRealClass(realClassArray.get(i),virId);
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} 
+		return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
+	}
+	///**
+	//* @author LiMing
+	//* 创建虚拟班级
+	//* @throws Exception 
+	//*/
+	//@SuppressWarnings("unused")
+	//@RequestMapping(value="createVirtualClass",method = RequestMethod.POST)
+	//public String createVirtualClass(HttpServletRequest request,@RequestParam("className")String className,@RequestParam("selectTerm")String selectTerm,@RequestParam("realClassContent")String realClassContent) throws Exception{	
+	//	Course course = (Course) request.getSession().getAttribute("virtualCourse");
+	//	String courseId = course.getCourseId();
+	//	String courseName = course.getCourseName();
+	//	VirtualClass vir = new VirtualClass();
+	//	try {
+	//		//设置对象的属性
+	//		vir.setCourseId(courseId);
+	//		String uuid = Common.uuid();
+	//		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
+	//		vir.setCreateTime(publishTime);
+	//		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+	//		vir.setCreatorId(teacher.getEmployeeNum());
+	//		vir.setFaceImg(course.getFaceImg());
+	//		vir.setVirtualClassNum(uuid);
+	//		vir.setTerm(selectTerm);
+	//		vir.setVirtualCourseName(course.getCourseName());
+	//		System.out.println(selectTerm+"~~~~~~~~~~~~~~~~~~~~~");
+	//		//将前台得到的字符串分割
+	//		String[] sourceStrArray = realClassContent.split(",");
+	//		List<String> realClassArray = new ArrayList<String>();
+	//		//字符串数组判空
+	//		for(int i = 0;i<sourceStrArray.length;i++) {
+	//			if(!sourceStrArray[i].isEmpty())
+	//			{
+	//				realClassArray.add(sourceStrArray[i]);
+	//			}
+	//		}
+	//		List<RealClass> realClassList = new ArrayList<RealClass>();
+	//		int count = 0;//班级总人数
+	//		//将所有班级号转化为对应对象
+	//		for (String string : realClassArray) {
+	//			realClassList.add(teacherService.readRealClass(string).get(0));//查询出的始终只有一个
+	//		}
+	//		//计算总人数
+	//		for (RealClass realClass : realClassList) {
+	//			count+= realClass.getRealPersonNum();
+	//		}
+	//		vir.setVirtualClassName(className);
+	//		vir.setClassStuentNum(count);
+	//		vir.setRealClassList(realClassList);
+	//		teacherService.createVirtualClass(vir);
+	//		/**********实体班和虚拟班的对应***************/
+	//		for (int i = 0; i < realClassArray.size(); i++) {
+	//			teacherService.mapVirtualRealClass(realClassArray.get(i),uuid);
+	//		}
+	//	} catch (Exception e) {
+	//		e.printStackTrace();
+	//	} 
+	//	return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
+	//}
 
 	/**
 	 * 修改课程
@@ -1492,7 +1554,7 @@ public class TeacherController {
 		}
 
 	}
-	
+
 	//	/**
 	//	 * @author LiMing
 	//	 * 通过ajax获取班级列表
