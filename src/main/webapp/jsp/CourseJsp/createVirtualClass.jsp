@@ -28,14 +28,14 @@
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 <script>
-$('#exampleModal').on('show.bs.modal', function (event) {
-	  var button = $(event.relatedTarget) // Button that triggered the modal
-	  var recipient = button.data('whatever') // Extract info from data-* attributes
-	  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
-	  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
-	  var modal = $(this)
-	  modal.find('.modal-title').text('New message to ' + recipient)
-	  modal.find('.modal-body input').val(recipient)
+	$('#exampleModal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var recipient = button.data('whatever') // Extract info from data-* attributes
+		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var modal = $(this)
+		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-body input').val(recipient)
 	})
 </script>
 <script type="text/javascript">
@@ -108,21 +108,20 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 	});
 </script>
 <script type="text/javascript">
-$(function() {
-	$("#adsf").click(
-            function() {
-                var check=",";
-                $("input[name='realClass']:checked").each(function(i){
-                      check =check+$(this).val()+",";
-                });
-                $("#realClassContent").val(check);
-            });
-})
-     </script>
+	$(function() {
+		$("#adsf").click(function() {
+			var check = ",";
+			$("input[name='realClass']:checked").each(function(i) {
+				check = check + $(this).val() + ",";
+			});
+			$("#realClassContent").val(check);
+		});
+	})
+</script>
 </head>
 <body>
 	<div class="wrapper">
-		<jsp:include page="/jsp/top.jsp" flush="true"/>
+		<jsp:include page="/jsp/top.jsp" flush="true" />
 		<div class="main">
 			<form
 				action="${pageContext.request.contextPath}/teacher/createVirtualClass?courseId=null"
@@ -130,8 +129,7 @@ $(function() {
 				<div class="input3">
 					<span>开设学期：</span> <select name="selectTerm" id="selectTerm">
 						<c:forEach items="${listTerm }" var="listTerm">
-							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term
-								}</option>
+							<option value="${listTerm.termId }">${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}</option>
 							
 						</c:forEach>
 					</select>

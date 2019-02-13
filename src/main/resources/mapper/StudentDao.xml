@@ -196,6 +196,19 @@
 		select * from category where category_id =
 		#{categoryId};
 	</select>
+		<resultMap type="cn.edu.tit.bean.Term" id="termMap">
+		<id column="term_id" property="termId" />
+		<result column="start_year" property="startYear" />
+		<result column="end_year" property="endYear" />
+		<result column="term" property="term" />
+	</resultMap>
+	
+	<!--读取学期信息 -->
+	<select id="readTermById" resultMap="termMap"
+		parameterType="java.lang.String">
+		select * from term where term_id =
+		#{termId};
+	</select>
 	
 	<!-- 学生关注课程 -->
 	<insert id="studentAttentionCourse">

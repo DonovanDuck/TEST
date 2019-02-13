@@ -17,11 +17,9 @@ a{
 header{
     width:80%;
     height: 100px;
-    background-image: url("../../images/head.png");
+
     margin:0 auto;
-}
-.class span{
-    font-size:28px;
+    background-image: url("../../images/head.png");
 }
 /***************header style**************/
 /***************main style***************/
@@ -36,6 +34,9 @@ main{
     width:100%;
     height:60px;
     background:white;
+}
+.class span{
+   font-size:28px;
 }
 /***************main_t style***************/
 /***************main_m style***************/
@@ -66,11 +67,11 @@ main{
 .main_m nav li:hover a{
     color:white;
 }
-.main_m nav li:nth-child(1) a{
-    color:white;
-}
-.main_m nav li:nth-child(1){
+.main_m nav li:nth-child(2){
     background:orange;
+}
+.main_m nav li:nth-child(2) a{
+    color:white;
 }
 /***************main_m style***************/
 /***************main_b style***************/
@@ -101,43 +102,35 @@ main{
     height:870px;
     float:right;
 }
-.main_b_r .task{
+.main_b_r .word{
     width:78%;
-    height:860px;
+    height:870px;
     float:left;
-    padding-top:10px;
 }
-.task1{
-    width: 92%;
-    margin-left:3%;
+.main_b_r .word .word1{
+    width: 96%;
+    background: white;
     float: left;
-    padding: 1%;
-    background: #eaeaea;
-    margin-bottom:10px;
+    padding: 2%;
+    margin-top: 2%;
 }
-.task1:hover{
-    box-shadow: 0 0 5px #2b2b2b;
-}
-.text{
-    width: 93%;
-    height: 50px;
-    overflow: hidden;
-    margin-left: 3%;
-    margin-top: 1%;
-    padding: 1%;
-}
-.span1{
-    margin-top: 0.5%;
+.main_b_r .images{
     float: left;
+    margin-right: 2%;
 }
-.span2{
-    margin-top: 0.5%;
-    float: right;
+.word1 .word2{
+    line-height: 30px;
+}
+.word2 a{
+    color: black;
+}
+.word2 a:hover{
+    color: blue;
 }
 .main_b_r .button{
     width:22%;
     height:60px;
-    float:left;
+    float:right;
     background: #59fff0;
     margin-top:10px;
     text-align:center;
@@ -148,11 +141,11 @@ main{
     font-size:24px;
 }
 
-/***************main_b style***************/
+/***************main-b style***************/
 /***************footer style***************/
 footer{
-    width:100%;
-    height:126px;
+    width:80%;
+    height:80px;
     background-image: url("../../images/bottom.png");
     margin:0 auto;
 }

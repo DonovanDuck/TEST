@@ -12,9 +12,28 @@
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/student/table.css" />
+<script type="text/javascript">
+	$(
+			function() {
+				$("#selectTerm")
+						.on(
+								"change",
+								function() {
+									var id = $(this)
+											.children('option:selected').val();
+									path = "${pageContext.request.contextPath}/student/selectVirtualClassByTerm/"
+											+ id;
+									$("#selectButtonA").attr("href", path);
+									;
+									$("#selectButton").click();
+								})
+			})
+</script>
 </head>
 <body>
-	<header> </header>
+	<jsp:include page="/jsp/top.jsp" flush="true" />
 	<main>
 	<div class="main_t">
 		<div class="images">
@@ -69,33 +88,62 @@
 			</a>
 		</div>
 		<div class="main_b_r" id="r1">
-			<table border="1"
-				style="margin-left: 20px; margin-top: 20px; width: 96%;">
-				<tr>
-					<th>序号</th>
-					<th>课程图片</th>
-					<th>课程名称</th>
-					<th>班级名称</th>
-					<th>开课学期</th>
-					<th></th>
-				</tr>
-				<c:forEach items="${virtualClassList }" var="virtualClass"
+			<div class="main_b_r_t">
+				<div class="word1" id="w1" onclick="f()">
+					<p>
+						<a href="#" id="p1">我的班级</a>
+					</p>
+				</div>
+			</div>
+			<hr>
+			<div class="sx" style="margin-top: 1%">
+				<div class="sx_r">
+					<p>
+						<span>开课学期:</span><select
+							style="width: 70%; height: 24px; float: right;" id="selectTerm"
+							name="selectTerm">
+							<option>选择学期</option>
+							<c:forEach items="${listTerm }" var="listTerm">
+								<option value="${listTerm.termId }">
+									${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}
+								</option>
+							</c:forEach>
+						</select>
+					</p>
+				</div>
+			</div>
+			<div class="table" style="margin-left: 6%; margin-top: 1%;">
+				<c:forEach items="${virtualClassList }" var="item"
 					varStatus="status">
-					<tr>
-						<td>${ status.index + 1}</td>
-						<td><img
-							src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }"
-							style="width: 100%; height: 100%;" alt="" /></td>
-						<td>${virtualClass.virtualCourseName }</td>
-						<td>${virtualClass.virtualClassName }</td>
-						<td>${virtualClass.term }</td>
-						<td><a
-							href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }"><button>详情</button></a></td>
-					</tr>
+					<a
+						href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
+						<div class="b1" style="border: 1px solid #000">
+							<div class="b1_l">
+								<img
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+									alt="" />
+							</div>
+							<div class="b1_r">
+								<p class="h">${item.virtualCourseName }</p>
+								<p class="p1">
+									授课班级：
+									<c:forEach items="${item.realClassList }" var="realClass">
+	            	${realClass.realClassNum }班<span>&nbsp;&nbsp;&nbsp;</span>
+									</c:forEach>
+								</p>
+								<p class="p1">课程名称：${item.virtualCourseName }</p>
+								<p class="p2">开课学期：${item.term }</p>
+							</div>
+						</div>
+					</a>
 				</c:forEach>
-			</table>
+			</div>
 		</div>
+		<a id="selectButtonA" name="selectButtonA" href="">
+			<button id="selectButton" name="selectButton" style="display: none">
+			</button>
+		</a>
 	</main>
-	<footer></footer>
+	<jsp:include page="/jsp/footer.jsp" flush="true" />
 </body>
 </html>
