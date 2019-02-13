@@ -121,7 +121,7 @@
 							<div class="b1_l">
 								<img
 									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
-									alt="" />
+									alt="" style="width:100%;height:100%;"/>
 							</div>
 							<div class="b1_r">
 								<p class="h">${item.virtualCourseName }</p>

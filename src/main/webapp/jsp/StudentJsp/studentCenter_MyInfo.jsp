@@ -42,9 +42,28 @@
 		})
 	})
 </script>
+<script>
+	    function chan(i) {
+		var objUrl = getObjectURL(i.files[0]);
+		if (objUrl) {
+			$("#photos").attr("src", objUrl);
+		}
+	};
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) {
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) {
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) {
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	} 
+</script>
 </head>
 <body>
-	<jsp:include page="/jsp/top.jsp" flush="true"/>
+	<jsp:include page="/jsp/top.jsp" flush="true" />
 	<main>
 	<div class="main_t">
 		<div class="images">
@@ -108,20 +127,40 @@
 				</div>
 			</div>
 			<div class="r5_b" id="g1">
-			<hr><div class="r5_b_body">
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：${student.studentId }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称：${student.studentNickName }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名：${student.studentName }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：${student.studentGender }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;出生年月：${student.studentId }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;政治面貌：${student.studentId }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系别：${student.studentCategory }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专业：${category.categoryName }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;学习成果：${student.studentId }</p>
-				<p>产学研项目：${student.studentId }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;获奖情况：${student.studentId }</p>
-				<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它：${student.studentId }</p>
-			</div>
+				<hr>
+				<div class="r5_b_body" style="position: relative">
+					<div class="photo" id="photo" name="photo"
+						style="position: absolute; left: -18%; top: 2%; width: 15%; height: 36%;">
+						<ul class="phoneUl">
+							<label for="faceImg" style="cursor: pointer; margin-left: 2%;">
+								<li><input type="file" id="faceImg" style="display: none;"
+									onchange="chan(this)" name="faceImg" value=" "></li> <c:if
+									test="${empty student.faceImg }">
+									<li><img id="photos"
+										src="${pageContext.request.contextPath}/images/add.png"
+										width="100%" height="100%" style="border: 1px solid black" /></li>
+								</c:if> <c:if test="${!empty student.faceImg }">
+									<li><img id="photos"
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }"
+										width="100%" height="100%" style="border: 1px solid black" /></li>
+								</c:if>
+
+							</label>
+						</ul>
+					</div>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;学号：${student.studentId }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称：${student.studentNickName }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名：${student.studentName }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：${student.studentGender }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;出生年月：${student.studentId }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;政治面貌：${student.studentId }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;系别：${student.studentCategory }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;专业：${category.categoryName }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;学习成果：${student.studentId }</p>
+					<p>产学研项目：${student.studentId }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;获奖情况：${student.studentId }</p>
+					<p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;其它：${student.studentId }</p>
+				</div>
 			</div>
 			<div id="g2">
 				<div class="r5_t">
