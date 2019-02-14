@@ -38,7 +38,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			dataType:"text",
 			success:function(result) {
 				alert(eval(result));
-				 
+				if(eval(result) == "关注成功！"){
+					$("#attention").html("已关注");
+				}
+				else{
+					$("#attention").html("关注");
+				}
 			}
 		}); 
 	}
@@ -46,8 +51,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 </head>
 <body>
+<jsp:include page="/jsp/top.jsp" flush="true" />
 	<div class="wrapper">
-		<jsp:include page="/jsp/top.jsp" flush="true" />
+		
 		<!-- header End -->
 		<main>
 		<div class="main_t">
@@ -75,24 +81,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								style="margin-left: 21px; margin-right: 22px;">编辑</button>
 						</a>
 					</c:if>
+					
+					<c:if test="${ attention != 2 }">
 					<button id="attention" class="btn btn-default"
 						onclick="attention()">关注</button>
+					</c:if>
+					<c:if test="${ attention == 2 }">
+					<button id="attention" class="btn btn-default"
+						onclick="attention()">已关注</button>
+					</c:if>
+					
 				</div>
 				<!-- 清除浮动 -->
 				<div style="clear: both;"></div>
 				<div class="summery">
 					<p>
 					<li>${category }</li>
-					<li>创建时间：${course.publishTime }</li>
+					<li>创建时间：${publishTime }</li>
 					<li>参与人数：${course.courseStudentNum }</li>
 					</p>
 				</div>
-				<c:if test="${teacher != null && (manager == 0 || manager == 1)  }">
+				<%-- <c:if test="${teacher != null && (manager == 0 || manager == 1)  }">
 					<button style="float: left" type="button" class="btn btn-warning">
 						<a
 							href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass?courseId=${course.courseId }">创建班级</a>
 					</button>
-				</c:if>
+				</c:if> --%>
 
 				<div>
 
@@ -106,11 +120,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 					<c:if test="${teacher != null && (manager == 0 || manager == 1)  }">
 					
-						<a target="_parent"
+						<%-- <a target="_parent"
 							href="${pageContext.request.contextPath}/teacher/toPublishResource">
 							<button class="btn btn-default" type="submit"
 								style="margin-left: 43px;">发布资源</button>
-						</a>
+						</a> --%>
 						
 						<a target="_parent"
 							href="${pageContext.request.contextPath}/teacher/toResourceMain?courseId=${course.courseId }">

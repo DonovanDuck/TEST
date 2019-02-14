@@ -184,21 +184,31 @@ public class TeacherController {
 		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
 		if(teacher != null){
 			//查manager
-			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId);
+			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId,1);
 			request.setAttribute("manager", manager);
+			//查当前用户是否关注课程
+			Integer attention = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId,2);
+			request.setAttribute("attention", attention);
 		}
+		
 		//查操作者是否是学生
 		Student student = (Student) request.getSession().getAttribute("student");
 		if(student != null){
 			//查出所在虚拟班级信息
 			VirtualClass virtualClass = teacherService.getVirtualClassByRidAndCid(student.getClassNum(), courseId);
 			request.setAttribute("virtualClass", virtualClass);
+			//查当前用户是否关注课程
+			Integer attention = studentService.getManagerByStudentId(student.getStudentId(), courseId,2);
+			request.setAttribute("attention", attention);
 		}
 		request.setAttribute("student", student);
 		//查询课程类别名
 		String category = teacherService.getCategoryById(course.getCourseCategory());
 		request.setAttribute("category", category);
 		request.getSession().setAttribute("course", course);
+		//修改课程创建时间格式
+		String publishTime = course.getPublishTime().toString().substring(0, 10);
+		request.setAttribute("publishTime", publishTime);
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -232,6 +242,8 @@ public class TeacherController {
 	@RequestMapping(value="ajaxGetTeachers")
 	public void ajaxGetTeachers(HttpServletRequest request, HttpServletResponse response){
 		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
 			List<Teacher> teacherList = new ArrayList<>();
 			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
 			String employeeNum = teach.getEmployeeNum();
@@ -257,14 +269,14 @@ public class TeacherController {
 	@RequestMapping(value="ajaxAttentionCourse")
 	public void ajaxAttentionCourse(HttpServletRequest request, HttpServletResponse response){
 		String result = "";
+		//判断是否登录
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		Student student = (Student) request.getSession().getAttribute("student");
+		String courseId = request.getParameter("courseId");
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=UTF-8");
 			//,@RequestParam(value="courseId")String courseId
-			String courseId = request.getParameter("courseId");
-			//判断是否登录
-			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-			Student student = (Student) request.getSession().getAttribute("student");
 			if(teacher == null && student == null){
 				result = JSONObject.toJSONString("请先登录");
 			}
@@ -282,7 +294,13 @@ public class TeacherController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			result = JSONObject.toJSONString("请不要重复关注！");
+			if(teacher != null){
+				teacherService.teacherExitAttentionCourse(courseId, teacher.getEmployeeNum()); 
+			}
+			else if(student != null){
+				studentService.studentExitAttentionCourse(courseId, student.getStudentId());
+			}
+			result = JSONObject.toJSONString("取消关注成功！");
 		}
 		try {
 			response.getWriter().println(result);

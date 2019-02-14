@@ -12,17 +12,17 @@ li{
     clear: both;
 }
 /*------------------------------head  start ----------------------------------------*/
-header{
+/* header{
     width: 100%;
     height: 120px;
     background: url("../img/head.png") no-repeat;
     background-size: cover;
     margin-top: 1%;
     position: relative;
-}
+} */
 
 /*---------------登录------------------*/
-header span{
+/* header span{
     width: 30%;
     float: right;
     text-align: center;
@@ -43,7 +43,7 @@ header span li a{
 }
 header span li:nth-child(1){
     position: relative;
-}
+} */
 .erweima{
     width: 130px;
     position: absolute;
@@ -55,49 +55,16 @@ header span li:nth-child(1){
 .li1:hover .erweima{
     display: block;
 }
-header span li a:hover{
+/* header span li a:hover{
     text-decoration: underline;
 }
 header span li:nth-child(5){
     position: relative;
-}
-.h_span_li2 {
-    width: 120px;
-    position: absolute;
-    padding: 1%;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    display: none;
-}
-.h_span_li2 li{
-    width: 100%;
-    height: 30px;
-    font-size: 16px;
-}
-.li2:hover .h_span_li2{
-    display: block;
-}
+} */
+
 
 /*--------------导航---------------*/
-header nav {
-    width: 40%;
-    float: right;
-    line-height: 30px;
-    right: 3%;
-    bottom: 6%;
-    position: absolute;
-   
-}
-header nav li{
-    float: left;
-    margin-left: 4%;
-    margin-right: 4%;
-}
-header nav li a:hover{
-    color: blue;
-}
-header nav li a{
-    color: white;
-}
+
 /*------------------------------head  end ----------------------------------------*/
 /*------------------------------banner start ----------------------------------------*/
 .banner{

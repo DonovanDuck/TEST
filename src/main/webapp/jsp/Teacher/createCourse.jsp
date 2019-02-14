@@ -40,7 +40,7 @@
 	.confirm_close{
 	   width: 100%;
     height: 50px;
-            top: -7px;
+            top: 25px;
     left: 195px;
     position: relative;
 	}

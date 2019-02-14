@@ -601,7 +601,7 @@
 	<select id="getManagerByEmployeeNum" resultType="int">
 		select manager
 		from teacher_course where employee_num = #{employeeNum} and course_id
-		= #{courseId} and manager = 1;
+		= #{courseId} and manager = #{manager};
 	</select>
 
 	<!-- 根据时间获取前十二个课程信息到首页 -->
@@ -621,8 +621,13 @@
 	<insert id="teacherAttentionCourse">
 		insert into
 		teacher_course(employee_num,course_id,manager) values
-		(#{employeeNum},#{courseId},2)
+		(#{employeeNum},#{courseId},2);
 	</insert>
+	
+	<!-- 取消关注 -->
+	<delete id="teacherExitAttentionCourse">
+		delete from teacher_course where employee_num = #{employeeNum} and course_id = #{courseId} and manager = 2;
+	</delete>
 
 	<select id="searchCourse" resultMap="courseMap"
 		parameterType="java.lang.String">

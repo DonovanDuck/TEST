@@ -815,8 +815,12 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			return 0;
 		}
-
 	}
+		@Override
+		public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager) {
+			// TODO Auto-generated method stub
+			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId, manager);
+		}
 
 	/**
 	 * @author LiMing
@@ -833,11 +837,11 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 	}
 
-	@Override
+/*	@Override
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
 		// TODO Auto-generated method stub
 		return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
-	}
+	}*/
 
 	@Override
 	public VirtualClass getVirtualById(String virtualClassNum) {
@@ -937,5 +941,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("readRealClassToSelect------Dao 层执行失败");
 		}
 		return list;
+	}
+	
+	@Override
+	public void teacherExitAttentionCourse(String courseId, String employeeNum) {
+		// TODO Auto-generated method stub
+		teacherDao.teacherExitAttentionCourse(courseId, employeeNum);
 	}
 }

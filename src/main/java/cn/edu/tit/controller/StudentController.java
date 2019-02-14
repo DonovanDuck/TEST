@@ -170,7 +170,9 @@ public class StudentController {
 		if(virtualList!=null) {
 			for (VirtualClass virtualClass : virtualList) {
 				term = studentService.readTermById(virtualClass.getTerm());
-				virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+				if(term != null){
+					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+				}
 			}
 		}
 		mv.addObject("listTerm", termList);//返回信息
