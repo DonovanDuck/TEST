@@ -29,12 +29,12 @@
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#selectInputRealClass")
+		$("#realClassContent")
 				.bind(
 						"input propertychange",
 						function() {
 							var path = "${pageContext.request.contextPath}/teacher/readRealClassToSelect/"
-									+ $("#selectInputRealClass").val();
+									+ $("#realClassContent").val();
 							$("#realClassUI").empty();
 							$
 									.ajax({
@@ -164,8 +164,8 @@
 							style="dispaly:none"/>
 					</div>
 					<div class="selectClassContent">
-						<input name="realClassContent" id="realClassContent"
-							placeholder="筛选班级">
+						<input name="realClassContent" id="realClassContent" class="realClassContent"
+							placeholder="筛选班级" style="border:1px solid #969696">
 						<ul id="realClassUI" name="realClassUI">
 							<c:forEach items="${listRealClass }" var="item">
 								<li id="realClass" name=“realClass”><input type="checkbox"

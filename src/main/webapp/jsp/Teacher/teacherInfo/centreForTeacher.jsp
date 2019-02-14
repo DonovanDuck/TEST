@@ -12,6 +12,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
+	<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 </head>
 <body>
@@ -36,7 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="main_b_r">
         <iframe  id="iframeContent" name="iframeContent"
-                 style="width: 100%;height: 100%"
+                 style="width: 100%;min-height: 700px";height: auto;
                 frameborder="no" border="0" scrolling="no"
                 src="${pageContext.request.contextPath}/teacher/toMyCourse"></iframe>
         </div>

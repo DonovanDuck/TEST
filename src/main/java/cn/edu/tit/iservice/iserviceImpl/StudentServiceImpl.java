@@ -297,4 +297,16 @@ public class StudentServiceImpl implements IStudentService{
 		}
 		return term;
 	}
+
+	@Override
+	public Integer getManagerByStudentId(String studentId, String courseId, int manager) {
+		// TODO Auto-generated method stub
+		return studentDao.getManagerByStudentId(studentId, courseId, manager);
+	}
+
+	@Override
+	public void studentExitAttentionCourse(String courseId, String studentId) {
+		// TODO Auto-generated method stub
+		studentDao.studentExitAttentionCourse(courseId, studentId);
+	}
 }
