@@ -32,7 +32,7 @@
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$('#exampleModal').on('show.bs.modal', function(event) {
 		var button = $(event.relatedTarget)
 		var recipient = button.data('whatever')
@@ -72,7 +72,7 @@
 			}
 		});
 	}
-</script>
+</script> -->
 <script language="javascript">
 	window.onload = function() {
 		setTimeIframe();
@@ -106,35 +106,40 @@
 </head>
 <body class="body">
 	<jsp:include page="/jsp/top.jsp" flush="true" />
+	<div class="mian_top" style="margin-left:10%">
+	<h2>
+	课程名:&nbsp&nbsp${course.courseName }
+	</h2>
+	</div>
 	<div class="main">
 		<div class="main-top">
 			<div class="btn-group" role="group" aria-label="...">
 				<a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/1?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">教案库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/2?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">教学资源库</button>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+				</a><a
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/3?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">多媒体资源</button>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+				</a><a
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/4?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">作业库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/5?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">实验库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/6?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">课程设计库</button>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResource/${resourceCategory.key }"
+				</a><a
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/7?courseId=${course.courseId }"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">全部</button>
 				</a>
@@ -144,11 +149,11 @@
 			<iframe id="mainIframe" name="mainIframe"
 				style="width: 100%; margin-top: 1%" frameborder="no" border="0"
 				scrolling="no"
-				src="${pageContext.request.contextPath}/teacher/toResource/0"></iframe>
+				src="${pageContext.request.contextPath}/teacher/toResource/0?courseId=${course.courseId }"></iframe>
 		</div>
 	</div>
 	<jsp:include page="/jsp/footer.jsp" flush="true" />
-	<!-- 模态框   开始-->
+	<!-- <!-- 	模态框   开始  (抛弃的更新资源方法)
 	<div class="modal" id="exampleModal" tabindex="-1" role="dialog"
 		aria-labelledby="exampleModalLabel">
 		<div class="modal-dialog" role="document">
@@ -181,6 +186,6 @@
 			</div>
 		</div>
 	</div>
-	<!-- 模态框   结束-->
+	模态框   结束 -->
 </body>
 </html>

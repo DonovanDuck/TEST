@@ -88,7 +88,7 @@
 				<button class="btn btn-default" id="deleteInfo" name="deleteInfo"
 					value="${list.resourceId }" style="margin-top: 30%"
 					onclick="deleteInfo()">删除</button>
-				<a target="_parent" href="${pageContext.request.contextPath}/teacher/toUpdateResourcePage/${list.resourceId }"><button class="btn btn-default" style="margin-top: 46%"
+				<a target="_parent" href="${pageContext.request.contextPath}/teacher/toUpdateResourcePage/${list.resourceId }?courseId=${course.courseId }"><button class="btn btn-default" style="margin-top: 46%"
 						id="updateInfo" name="updateInfo" value="${list.resourceId }"
 						onclick="">修改</button></a>
 			</div>

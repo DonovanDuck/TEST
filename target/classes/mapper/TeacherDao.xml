@@ -74,7 +74,7 @@
 		#{watchNum},
 		#{useNum});
 	</insert>
-	
+
 	<!-- 拉教师入课程（教师圈） -->
 	<insert id="addOtherToMyCourse">
 		insert into
@@ -300,7 +300,7 @@
 		face_img,
 		term,
 		class_student_num,
-		virtual_name
+		virtual_class_name
 		)
 		VALUES
 		(#{virtualClassNum},
@@ -623,4 +623,23 @@
 		teacher_course(employee_num,course_id,manager) values
 		(#{employeeNum},#{courseId},2)
 	</insert>
+
+	<select id="searchCourse" resultMap="courseMap"
+		parameterType="java.lang.String">
+		select * from course
+		<where>
+			course_name
+			LIKE CONCAT(CONCAT("%", #{courseName}), "%")
+		</where>
+	</select>
+	
+	
+	<select id="readRealClassToSelect" resultMap="realCLassMap"
+		parameterType="java.lang.String">
+		select * from real_class
+		<where>
+			real_class_num
+			LIKE CONCAT(CONCAT("%", #{realClass}), "%")
+		</where>
+	</select>
 </mapper>
