@@ -188,9 +188,11 @@ public class TeacherTest {
 	}
 	@Test
 	public void  timeTest() {
-		String time = "2019-01-12 13:29:03.666";
-		System.out.println(Timestamp.valueOf(time));
-
+		List<RealClass> list = new ArrayList<RealClass>();
+		list = teacherService.readRealClassToSelect("12");
+		for (RealClass realClass : list) {
+			System.out.println(realClass.toString());
+		}
 	}
 }
 

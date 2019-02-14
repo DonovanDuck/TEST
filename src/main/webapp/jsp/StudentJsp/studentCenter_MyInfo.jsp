@@ -104,7 +104,7 @@
 					<p>我的信息</p>
 				</div>
 				<div class="bj" onclick="bj()">
-					<p>编辑个人信息</p>
+					<a>编辑个人信息</a>
 				</div>
 			</div>
 			<div class="r5_b" id="g1">

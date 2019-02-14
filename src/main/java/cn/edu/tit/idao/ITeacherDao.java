@@ -260,4 +260,20 @@ public interface ITeacherDao {
 	 * @param getEmployeeNum
 	 */
 	public void teacherExitAttentionCourse(@Param(value="courseId")String courseId, @Param(value="employeeNum")String employeeNum);
+
+	/**
+	 *@author LiMing
+	 * @param search
+	 * @return
+	 */
+	public List<Course> searchCourse(@Param(value="courseName")String courseName);
+	
+	
+	/**
+	 *@author LiMing
+	 * @param realClass
+	 * @return 实体班级的集合
+	 * 实体班级的模糊查询
+	 */
+	public List<RealClass> readRealClassToSelect(@Param(value="realClass")String realClass);
 }

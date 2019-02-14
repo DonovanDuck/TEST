@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</a> --%>
 						
 						<a target="_parent"
-							href="${pageContext.request.contextPath}/teacher/toResourceMain">
+							href="${pageContext.request.contextPath}/teacher/toResourceMain?courseId=${course.courseId }">
 							<button class="btn btn-default" type="submit"
 								style="margin-left: 43px;">资源管理</button>
 						</a>
