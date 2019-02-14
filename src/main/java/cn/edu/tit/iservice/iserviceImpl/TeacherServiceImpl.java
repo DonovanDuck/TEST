@@ -834,9 +834,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 
 		@Override
-		public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
+		public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager) {
 			// TODO Auto-generated method stub
-			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
+			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId, manager);
 		}
 
 		@Override
@@ -899,5 +899,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			}
 			
 			
+		}
+
+		@Override
+		public void teacherExitAttentionCourse(String courseId, String employeeNum) {
+			// TODO Auto-generated method stub
+			teacherDao.teacherExitAttentionCourse(courseId, employeeNum);
 		}
 }

@@ -226,7 +226,7 @@ public interface ITeacherDao {
 	 * 获取标志位，查老师是否是课程创建者
 	 * @return
 	 */
-	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId);
+	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId,@Param(value="manager")int manager);
 	
 	/**
 	 * 根据时间获取前十二个课程信息到首页
@@ -253,4 +253,11 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public String getVirtualClassNumByVidAndRid(@Param(value="realClassNum")String realClassNum,@Param(value="virtualClassNum")String virtualClassNum);
+	
+	/**
+	 * 取消关注
+	 * @param courseId
+	 * @param getEmployeeNum
+	 */
+	public void teacherExitAttentionCourse(@Param(value="courseId")String courseId, @Param(value="employeeNum")String employeeNum);
 }

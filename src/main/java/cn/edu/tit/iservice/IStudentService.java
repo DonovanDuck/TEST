@@ -62,4 +62,16 @@ public interface IStudentService {
 	 * @return 返回学期信息
 	 */
 	public Term readTermById(String termId);
+	/**
+	 * 获取标志位，查学生manager
+	 * @return
+	 */
+	public Integer getManagerByStudentId(String studentId, String courseId,int manager);
+	
+	/**
+	 * 取消关注
+	 * @param courseId
+	 * @param getEmployeeNum
+	 */
+	public void studentExitAttentionCourse(String courseId, String studentId);
 }

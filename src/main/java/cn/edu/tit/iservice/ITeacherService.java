@@ -449,10 +449,10 @@ public interface ITeacherService {
 	public void addResource(Resource resource)throws Exception;
 	
 	/**
-	 * 获取标志位，查老师是否是课程创建者
+	 * 获取标志位，查老师manager
 	 * @return
 	 */
-	public Integer getManagerByEmployeeNum(String employeeNum, String courseId);
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager);
 	/**
 	 * @author wenli
 	 * 根据虚拟班号查虚拟班
@@ -487,5 +487,12 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
+	
+	/**
+	 * 取消关注
+	 * @param courseId
+	 * @param getEmployeeNum
+	 */
+	public void teacherExitAttentionCourse(String courseId, String getEmployeeNum);
 
 }

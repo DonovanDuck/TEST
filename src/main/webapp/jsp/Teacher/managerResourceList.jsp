@@ -138,6 +138,11 @@
 					target="mainIframe">
 					<button type="button" class="btn btn-default">全部</button>
 				</a>
+				</a> <a
+					href="${pageContext.request.contextPath}/teacher/toPublishResource"
+					target="mainIframe">
+					<button type="button" class="btn btn-default">发布资源</button>
+				</a>
 			</div>
 		</div>
 		<div class="content">

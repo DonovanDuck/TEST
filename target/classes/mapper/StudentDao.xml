@@ -212,6 +212,19 @@
 	
 	<!-- 学生关注课程 -->
 	<insert id="studentAttentionCourse">
-		insert into student_course(student_id,course_id,manager) values (#{studentId},#{courseId},1)
+		insert into student_course(student_id,course_id,manager) values (#{studentId},#{courseId},2)
 	</insert>
+	
+	<!-- 获取标志位，查学生manager -->
+	<select id="getManagerByStudentId" resultType="int">
+		select manager
+		from student_course where student_id = #{studentId} and course_id
+		= #{courseId} and manager = #{manager};
+	</select>
+	
+	<!-- 取消关注 -->
+	<delete id="studentExitAttentionCourse">
+		delete from student_course where student_id = #{studentId} and course_id = #{courseId} and manager = 2;
+	</delete>
+	
 </mapper>

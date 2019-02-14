@@ -11,6 +11,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8">
     <title>太原工业学院</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
+    <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" />
+    <style>
+    	.title p{
+    		font-size: 10px;
+    		opacity: 0.7;
+    	}
+    </style>
     <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
     <script type="text/javascript">
         $(function (){
@@ -28,8 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
 </head>
 <body>
-      <jsp:include page="/jsp/top.jsp" flush="true"/>
-      <%-- <iframe frameborder="0" src="<c:url value='/jsp/top.jsp'/>" name="top"></iframe> --%>
+      <jsp:include page="/jsp/top.jsp" flush="true" />
       <div class="banner">
           <div class="banner-img">
               <img src="${pageContext.request.contextPath}/images/banner_img01.jpg" alt="" style="width: 1400px;height:600px;overflow: hidden;"/>
@@ -59,9 +66,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               <div class="rel-img"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p>课程名：${course.courseName }</p>
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">课程名：${course.courseName }</p>
                                       <p>创建教师：${teacherNameList[status.index] }</p>
-                                      <p>创建时间：${course.publishTime }</p>
+                                      <p>创建时间：${publishTime[status.index] }</p>
                                       <p>课程人数：${course.courseStudentNum }</p>
                                   </div>
                               </div>
@@ -118,9 +125,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               <div class="rel-img"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p>课程名：${course.courseName }</p>
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">课程名：${course.courseName }</p>
                                       <p>创建教师：${teacherNameList[status.index] }</p>
-                                      <p>创建时间：${course.publishTime }</p>
+                                      <p>创建时间：${publishTime[status.index] }</p>
                                       <p>课程人数：${course.courseStudentNum }</p>
                                   </div>
                               </div>

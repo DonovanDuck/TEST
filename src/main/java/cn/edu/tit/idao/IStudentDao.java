@@ -69,4 +69,20 @@ public interface IStudentDao {
 	 * @return 返回学期信息
 	 */
 	public Term readTermById(@Param(value="termId")String termId);
+	
+	/**
+	 * 获取标志位，查学生manager
+	 * @return
+	 */
+	public Integer getManagerByStudentId(@Param(value="studentId")String studentId, @Param(value="courseId")String courseId,@Param(value="manager")int manager);
+	
+	/**
+	 * 取消关注
+	 * @param courseId
+	 * @param getEmployeeNum
+	 */
+	public void studentExitAttentionCourse(@Param(value="courseId")String courseId, @Param(value="studentId")String studentId);
+
+
+
 }

@@ -53,27 +53,31 @@ header span li:nth-child(1){
 .li1:hover .erweima{
     display: block;
 }
+.spanLi2{
+	width: 130px;
+    position: absolute;
+    padding: 1%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    left: 963px;
+    top: 29px;
+    display: none;
+    z-index: 1;
+}
+.spanLi2 li{
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+}
+.m:hover .spanLi2{
+    display: block;
+}
 header span li a:hover{
     text-decoration: underline;
 }
 header span li:nth-child(5){
     position: relative;
 }
-.h_span_li2 {
-    width: 120px;
-    position: absolute;
-    padding: 1%;
-    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-    display: none;
-}
-.h_span_li2 li{
-    width: 100%;
-    height: 30px;
-    font-size: 16px;
-}
-.li2:hover .h_span_li2{
-    display: block;
-}
+
 
 /*--------------导航---------------*/
 header nav {
@@ -125,37 +129,41 @@ header nav li a{
               <c:if test="${teacher == null && student == null }">
               <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登陆</a></li>
               </c:if>
-              <c:if test="${teacher != null }">
-              <a href="<c:url value='/teacher/toTeacherPage'/>"><li style="width: 120px;">欢迎:${teacher.teacherName }</li></a>
+              <%-- <c:if test="${teacher != null }"> --%>
+              <li class="m" style="width: 120px;"><a href="<c:url value='/teacher/toTeacherPage'/>">欢迎:${teacher.teacherName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
-              </c:if>
+              <%-- </c:if> --%>
               <c:if test="${student != null }">
-              <a href="<c:url value='/student/toStudentPage'/>"><li style="width: 120px;">欢迎:${student.studentName }</li></a>
+              <li class="menu" style="width: 120px;"><a href="<c:url value='/student/toStudentPage'/>">欢迎:${student.studentName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
               </c:if>
+              <div class="spanLi2">
+                      <ul>
+                       	<li><a href="">我的作品</a></li>
+                        <li><a href="">我的课程</a></li>
+                        <li><a href="">我的班级</a></li>
+                        <li><a href="">我的主页</a></li>
+                      </ul>
+                  </div>
               <li>|</li>
               <li class="li2"><a href="">我们</a></li>
-              
-                  <!--<div class="h_span_li2">-->
-                      <!--<ul>-->
-                        <!--<li><a href="">我的作品</a></li>-->
-                        <!--<li><a href="">我的课程</a></li>-->
-                        <!--<li><a href="">我的班级</a></li>-->
-                        <!--<li><a href="">我的主页</a></li>-->
-                      <!--</ul>-->
-                  <!--</div>-->
-              
              </span>
           <!--导航-->
           <nav>
               <ul>
-                  <li><a href="<c:url value='/main/toMain'/>">首页</a></li>
-                  <li><a href="<c:url value='/teacher/courseList'/>">课程</a></li>
-                  <li><a href="">互助</a></li>
-                  <li><a href="">学生成果</a></li>
-                  <li><a href="">产学研项目</a></li>
+                  <li class="li2"><a href="<c:url value='/main/toMain'/>">首页</a></li>
+                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>">课程</a></li>
+                  <li class="li2"><a href="">互助</a></li>
+                  <li class="li2"><a href="">学生成果</a></li>
+                  <li class="li2"><a href="">产学研项目</a></li>
+                  <c:if test="${teacher != null }">
+                  <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>">个人中心</a></li>
+	              </c:if>
+	              <c:if test="${student != null }">
+	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>">个人中心</a></li>
+	              </c:if>
               </ul>
           </nav>
       </header>
