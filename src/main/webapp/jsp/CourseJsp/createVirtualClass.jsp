@@ -29,12 +29,12 @@
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$("#selectInputRealClass")
+		$("#realClassContent")
 				.bind(
 						"input propertychange",
 						function() {
 							var path = "${pageContext.request.contextPath}/teacher/readRealClassToSelect/"
-									+ $("#selectInputRealClass").val();
+									+ $("#realClassContent").val();
 							$("#realClassUI").empty();
 							$
 									.ajax({
@@ -122,10 +122,9 @@
 				method="post" enctype="multipart/form-data">
 				<div class="input1">
 					<span>课程名称:</span> <select placeholder=""
-						style="width: 40%; height: 30px; float: left; margin-left: 4%;">
+						style="width: 40%; height: 30px; float: left; margin-left: 4%;" id="courseName" name="courseName">
 						<c:forEach items="${courseList }" var="courses">
-							<option value="${courses.courseName }"
-								<c:if test="${!empty course && courses.courseName eq course.courseName }"> selected="selected" </c:if>>${courses.courseName }</option>
+							<option value="${courses.courseName }">${courses.courseName }</option>
 						</c:forEach>
 					</select>
 				</div>
@@ -165,8 +164,8 @@
 							style="dispaly:none"/>
 					</div>
 					<div class="selectClassContent">
-						<input name="realClassContent" id="realClassContent"
-							placeholder="筛选班级">
+						<input name="realClassContent" id="realClassContent" class="realClassContent"
+							placeholder="筛选班级" style="border:1px solid #969696">
 						<ul id="realClassUI" name="realClassUI">
 							<c:forEach items="${listRealClass }" var="item">
 								<li id="realClass" name=“realClass”><input type="checkbox"

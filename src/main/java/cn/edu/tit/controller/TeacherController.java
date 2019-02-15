@@ -449,7 +449,6 @@ public class TeacherController {
 	public String createVirtualClass(HttpServletRequest request) throws Exception{	
 		Course course = (Course) request.getSession().getAttribute("virtualCourse");
 		String courseId = course.getCourseId();
-		String courseName = course.getCourseName();
 		VirtualClass vir = new VirtualClass();
 		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
 		Timestamp publishTime = new Timestamp(System.currentTimeMillis());
@@ -463,10 +462,10 @@ public class TeacherController {
 			String a = (String)formdata.get("selectedRealClassUI");
 			String realClassContent =  (String)formdata.get("realClassToController");
 			String className = (String)formdata.get("className");
-			String[] sourceStrArray = realClassContent.split(",");
 			List<RealClass> realClassList = new ArrayList<RealClass>();
 			List<String> realClassArray = new ArrayList<String>();	
-			//字符串数组判空
+			String courseName = (String)formdata.get("courseName");
+			String[] sourceStrArray = realClassContent.split(",");
 			for(int i = 0;i<sourceStrArray.length;i++) {
 				if(!sourceStrArray[i].isEmpty())
 				{
@@ -486,12 +485,12 @@ public class TeacherController {
 			vir.setCourseId(courseId);
 			vir.setCreateTime(publishTime);
 			vir.setCreatorId(teacher.getEmployeeNum());
-			vir.setVirtualCourseName(course.getCourseName());
+			vir.setVirtualCourseName(courseName);
 			vir.setVirtualClassName(className);
 			vir.setTerm(selectTerm);
 			vir.setClassStuentNum(count);
 			for(File f : files){ // 集合中只有一张图片
-				vir.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+				vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+f.getName());
 			}
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
