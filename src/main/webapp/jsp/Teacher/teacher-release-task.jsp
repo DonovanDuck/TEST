@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="file" type="file"  multiple="multiple"  />
                 上传附件
                 
-                <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right; margin-right: 20%;">上传并发布</button>
+                <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right; margin-right: 20%;" type="submit">上传并发布</button>
                 <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right;margin-right: -30%;">定时发布</button>
             </div>
             </form>

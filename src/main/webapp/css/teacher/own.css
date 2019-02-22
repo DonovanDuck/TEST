@@ -27,7 +27,7 @@ header
 /***************main style***************/
 main{
     width:80%;
-    height:830px;
+    height:1500px;
     margin:0 auto;
     background:#f2f2f2;
 }
@@ -53,23 +53,15 @@ main{
 /***************main_b style***************/
 .main_b{
     width:100%;
-    height:630px;
+    height:1300px;
 }
 .main_b_l{
     width:16%;
-    height:630px;
+    height:1300px;
     margin-top:10px;
     margin-left:1px;
     float:left;
     background:white;
-}
-.main_b_r{
-    width: 82%;
-    height: 100%;
-    margin-top: 10px;
-    margin-left: 8px;
-    float: left;
-    background-color: white;
 }
 .nav1{
     width:100%;
@@ -86,7 +78,7 @@ main{
 }
 #r1{
     width:82%;
-    height:630px;
+    height:1300px;
     margin-top:10px;
     background:white;
     float:right;
@@ -106,43 +98,44 @@ main{
     display:none;
 }
 #r2{
-    width:100%;
-    height:630px;
+    width:82%;
+    height:1300px;
     margin-top:10px;
     background:white;
     float:right;
     margin-right:1px;
-
+    display:none;
 }
 #r2 table tr{
     border:1px solid #f2f2f2;
 }
 #r3{
     width:82%;
-    height:630px;
+    height:1300px;
     margin-top:10px;
     background:white;
     float:right;
     margin-right:1px;
-
+    display:none;
 }
 
 #r4{
     width:82%;
-    height:630px;
+    height:1300px;
     margin-top:10px;
     background:white;
     float:right;
     margin-right:1px;
-
+    display:none;
 }
 #r5{
     width:82%;
-    height:630px;
+    height:1300px;
     margin-top:10px;
     background:white;
     float:right;
     margin-right:1px;
+    display:none;
 }
 .main_b_r_t{
     width:100%;
@@ -190,7 +183,7 @@ main{
 }
 .main_b_r_b{
     width:100%;
-    height:540px;
+    height:740px;
 }
 .lesson{
     width:100%;
@@ -203,7 +196,7 @@ main{
     float:left;
 }
 .lesson_r{
-    width:72%;
+    width:75%;
     height:130px;
     float:right;
 }
@@ -232,27 +225,39 @@ main{
     margin-top:3px;
 }
 .r5_t{
-    width:100%;
+    width:96%;
     height:60px;
+    margin-left: 2%;
 }
 .r5_t .h3{
-    width:30%;
+    width:20%;
     height:60px;
     text-align:center;
     line-height:60px;
     float:left;
 }
 .r5_t .h3 p{
-    font-size:20px;
+    font-size:24px;
+    font-weight: bold;
 }
 .r5_t .bj{
-    width:10%;
-    height:60px;
+    width:15%;
+    height:40px;
     margin-right:10px;
-    background:orange;
+    background:#00bc9b;
     float:right;
     text-align:center;
-    line-height:60px;
+    line-height:40px;
+    margin-top: 10px;
+    border-radius: 5%;
+}
+.r5_t .bj:hover{
+    cursor: pointer;
+}
+.r5_t hr{
+    width:100%;
+    font-weight: bold;
+    margin-bottom: 0;
 }
 .r5_t .bj p{
     color:white;
@@ -262,15 +267,130 @@ main{
     height:480px;
     margin:0 auto;
 }
-#g3{
-    width:80%;
-    height:480px;
-    margin:0 auto;
-    display:none;
+.r5_b p{
+    line-height: 30px;
+    margin-top: 1%;
+    color: rgba(0, 0, 0, 0.8);
+}
+.r5_b p:nth-child(1){
+    margin-top: 2%;
+}
+#t5{
+    width: 85%;
+    padding-left: 15%;
+    padding-top: 2%;
+    font-size: 17px;
+    line-height: 30px;
+}
+#t5 p{
+    margin-bottom: 1%;
+}
+#t5 .span{
+    padding-left: 2%;
+    padding-right: 2%;
+    color: white;
+    font-size: 17px;
+    background: orange;
+    margin-left: 5%;
+}
+#t5 .span:hover{
+    cursor: pointer;
+}
+#t6{
+    width: 85%;
+    padding-left: 15%;
+    padding-top: 2%;
+    font-size: 17px;
+    line-height: 40px;
+    display: none;
+}
+#t6 .bj{
+    width: 10%;
+    background: orange;
+    text-align: center;
+    color: white;
+    font-size: 17px;
+    margin-top: 2%;
+    margin-left: 10%;
+}
+#t6 .bj:hover{
+    cursor: pointer;
+}
+#t7{
+    padding-top: 2%;
+    display: none;
+}
+#t7 .xiangmu{
+    width: 96%;
+    margin-left: 2%;
+    float: left;
+    /*height: 80px;*/
+    margin-bottom: 1.5%;
+    background: #f5f1eb;
+}
+.xiangmu .add{
+    float: right;
+    margin-right: 3%;
+    color: white;
+    width: 6%;
+    line-height: 22px;
+    background: orange;
+    text-align: center;
+}
+#t7 .xiangmu_1{
+    font-size: 19px;
+    font-weight: bold;
+    margin-left: 1%;
+}
+.xiangmu .xiangmu_2{
+    height: 130px;
+    width: 100%;
+}
+#t7 hr{
+    margin-top: 4px;
+    margin-bottom: 8px;
+}
+#t7 .name{
+    margin-top: 1%;
+    width: 76%;
+    float: left;
+    margin-left: 10%;
+    font-size: 22px;
+    line-height: 20px;
+    margin-bottom: 2%;
+}
+#t7 .time{
+    width: 86%;
+    margin-left: 16%;
+}
+#t7 .time li{
+    float: left;
+    line-height: 26px;
+    font-size: 15px;
+    margin-right: 7%;
+    padding-left: 2%;
+    padding-right: 2%;
+    margin-bottom: 1%;
+    color: #656565
+}
+.li_1{
+    width: 100%;
+}
+#t8{
+    width: 85%;
+    margin-left: 15%;
+    font-size: 17px;
+    line-height: 40px;
+    display: none;
+    padding-top: 2%;
+}
+#t8 input{
+    line-height: 20px;
 }
 .outer{
     width:100%;
     height:60px;
+    margin-top: 2%;
 }
 #qr{
     width:70px;
@@ -279,27 +399,33 @@ main{
     float:left;
     text-align:center;
     line-height:40px;
+    margin-left: 25px;
+    color: white;
+}
+#qr:hover{
+    cursor: pointer;
 }
 #qx{
     width:70px;
     height:40px;
     background:orange;
     float:left;
-    margin-left:80px;
+    margin-left:170px;
     text-align:center;
     line-height:40px;
+    color: white;
 }
-td{
-	text-align:center;
+#qx:hover{
+    cursor: pointer;
 }
 /***************main_b style***************/
 /***************main style***************/
 /***************footer style***************/
-/* footer{
+footer{
     width:80%;
     height:60px;
     background:#f2f2f2;
     margin:0 auto;
-} */
+}
 /***************footer style***************/
 

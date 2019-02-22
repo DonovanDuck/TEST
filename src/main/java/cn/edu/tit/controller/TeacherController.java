@@ -97,11 +97,11 @@ public class TeacherController {
 			}
 			else {
 				mv.addObject("readResult", "密码错误");//返回信息
-				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				//mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
-			mv.addObject("readResult", "异常");//返回信息
-			mv.setViewName("/jsp/Teacher/index");//设置返回页面
+			mv.addObject("readResult", "登录异常，请刷新本页后重新登录");//返回信息
+		//	mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			e.printStackTrace();
 		}
 		return mv;	
@@ -941,7 +941,6 @@ public class TeacherController {
 	@RequestMapping(value="toMyClass")
 	public ModelAndView toMyClass(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		
 		mv.setViewName("/jsp/Teacher/teacherInfo/teacher_class_iframe");
 		return mv;
 	}
@@ -1094,6 +1093,12 @@ public class TeacherController {
 		return mv;
 	}
 
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 去个人信息
+	 */
 	@RequestMapping(value="toMyInfo")
 	public ModelAndView toMyInfo(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
@@ -1102,6 +1107,42 @@ public class TeacherController {
 		mv.setViewName("jsp/Teacher/teacherInfo/teacher_myInfo_iframe");
 		return mv;
 	}
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 去个人中心的基本信息
+	 */
+	@RequestMapping(value="toMyInfoBase")
+	public ModelAndView toMyInfoBase(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		mv.addObject("teacher", teacher);
+		mv.setViewName("jsp/Teacher/teacherInfo/myInfo_base");
+		return mv;
+	}
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 去个人中心的详细信息
+	 */
+	@RequestMapping(value="toMyInfoAll")
+	public ModelAndView toMyInfoAll(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		mv.addObject("teacher", teacher);
+		mv.setViewName("jsp/Teacher/teacherInfo/myInfo_all");
+		return mv;
+	}@RequestMapping(value="toMyInfoFruit")
+	public ModelAndView toMyInfoFruit(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		mv.addObject("teacher", teacher);
+		mv.setViewName("jsp/Teacher/teacherInfo/myInfo_all");
+		return mv;
+	}
+	
 
 	/**
 	 * @author WenLi
