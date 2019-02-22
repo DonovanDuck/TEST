@@ -6,6 +6,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -104,49 +105,58 @@
 	}
 </script>
 </head>
-<body class="body">
+<body class="body" style="overflow-x: hidden;">
 	<jsp:include page="/jsp/top.jsp" flush="true" />
-	<div class="mian_top" style="margin-left:10%">
-	<h2>
-	课程名:&nbsp&nbsp${course.courseName }
-	</h2>
+	<div class="mian_top"
+		style="margin-bottom: 1%; text-align: center; margin: 0px">
+		<h2 style="margin-bottom: 4px; margin: 0;">课程名:&nbsp&nbsp${course.courseName
+			}</h2>
+		<h3 style="width: 22%; float: left; margin: 0; margin-top: 1%;">类型:&nbsp&nbsp${course.courseCategory
+			}</h3>
+		<h3
+			style="width: 57%; float: left; margin: 0; margin-bottom: 1%; margin-top: 1%;">
+			课程创建时间:&nbsp&nbsp
+			<fmt:formatDate value="${course.publishTime }" pattern="yyyy年MM月dd日" />
+		</h3>
+		<h3 style="width: 20%; float: left; margin: 0; margin-top: 1%;">
+			<a
+				href="${pageContext.request.contextPath}/teacher/toPublishResource"
+				target="_parent">
+				<button type="button" class="btn btn-primary">发布资源</button>
+			</a>
+		</h3>
 	</div>
 	<div class="main">
 		<div class="main-top">
 			<div class="btn-group" role="group" aria-label="...">
 				<a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/1?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/1"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">教案库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/2?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/2"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">教学资源库</button>
 				</a><a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/3?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/3"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">多媒体资源</button>
 				</a><a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/4?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/4"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">作业库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/5?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/5"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">实验库</button>
 				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/6?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/6"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">课程设计库</button>
 				</a><a
-					href="${pageContext.request.contextPath}/teacher/toResourceCategory/7?courseId=${course.courseId }"
+					href="${pageContext.request.contextPath}/teacher/toResourceCategory/7"
 					target="mainIframe">
 					<button type="button" class="btn btn-default">全部</button>
-				</a>
-				</a> <a
-					href="${pageContext.request.contextPath}/teacher/toPublishResource"
-					target="mainIframe">
-					<button type="button" class="btn btn-default">发布资源</button>
 				</a>
 			</div>
 		</div>
@@ -154,7 +164,7 @@
 			<iframe id="mainIframe" name="mainIframe"
 				style="width: 100%; margin-top: 1%" frameborder="no" border="0"
 				scrolling="no"
-				src="${pageContext.request.contextPath}/teacher/toResource/0?courseId=${course.courseId }"></iframe>
+				src="${pageContext.request.contextPath}/teacher/toResourceCategory/1?courseId=${course.courseId }"></iframe>
 		</div>
 	</div>
 	<jsp:include page="/jsp/footer.jsp" flush="true" />
