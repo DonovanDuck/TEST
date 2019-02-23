@@ -948,4 +948,10 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		teacherDao.teacherExitAttentionCourse(courseId, employeeNum);
 	}
+
+	@Override
+	public List<Teacher> vagueSearchTeachers(String employeeNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.vagueSearchTeachers(employeeNum);
+	}
 }

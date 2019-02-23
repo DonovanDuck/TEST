@@ -112,7 +112,7 @@
 </head>
 <body>
 	<div class="wrapper">
-		<jsp:include page="/jsp/top.jsp" flush="true" />
+		<%-- <jsp:include page="/jsp/top.jsp" flush="true" /> --%>
 		<div class="main_top" style="text-align: center;">
 			<h2 style="margin: 0; padding: 0;">创建新班级</h2>
 		</div>
@@ -190,11 +190,11 @@
 				</div>
 			</form>
 		</div>
-		<div class="footer">
+		<!-- <div class="footer">
 			<div class="container">
-				<!--row End-->
+				row End
 				<div class="foot-bq">
-					<!-- 版权内容请在本组件"内容配置-版权"处填写 -->
+					版权内容请在本组件"内容配置-版权"处填写
 					<div
 						style="width: 900px; text-align: center; float: left; position: relative; left: 135px; top: 8px;">
 						<p>地址：山西省太原市尖草坪区新兰路31号&nbsp;&nbsp;&nbsp;&nbsp;邮编：030008</p>
@@ -204,7 +204,7 @@
 					</div>
 				</div>
 			</div>
-		</div>
+		</div> -->
 	</div>
 </body>
 

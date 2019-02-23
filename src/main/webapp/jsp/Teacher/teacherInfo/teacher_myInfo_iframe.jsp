@@ -11,6 +11,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title></title>
   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
     <script type="text/javascript">
     
     function g(){
@@ -29,7 +33,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="h3">
             <p>我的信息</p>
         </div>
-        <div class="bj">
+        <div class="bj" style="cursor:pointer;">
             <p onclick="g()">编辑个人信息</p>
         </div>
     </div>
@@ -56,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             政治面貌：<input type="text" placeholder="请输入政治面貌："/><br/>
             职称：<input type="text" placeholder="请输入职称："/><br/>
             职务：<input type="text" placeholder="请输入职务："/><br/>
-            研究方向：<br/><textarea name="" id="1" cols="30" rows="4" placeholder=""></textarea><br/>
+            研究方向：<br/><input name="" id="1" cols="30" rows="4" placeholder="" /><br/>
             发表论文：<br/><textarea name="" id="2" cols="30" rows="4" placeholder=""></textarea><br/>
             教学改革：<br/><textarea name="" id="3" cols="30" rows="4" placeholder=""></textarea><br/>
             获奖情况：<br/><textarea name="" id="4" cols="30" rows="4" placeholder=""></textarea><br/>
@@ -69,3 +73,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
 </div>
 </body>
+<script type="text/javascript" charset="utf-8">
+	UE.getEditor('2');
+	UE.getEditor('3');
+	UE.getEditor('4');
+	
+</script>

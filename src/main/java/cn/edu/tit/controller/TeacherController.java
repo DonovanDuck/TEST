@@ -119,17 +119,21 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		categories = teacherService.readCategory();
 		List<Course> list = new ArrayList<Course>();
-		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
+		List<Teacher> teacherList = new ArrayList<>();
 		list = teacherService.readCourse(null);
 		if(!list.isEmpty()) {
 			for (Course course : list) 
 			{
-				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+				course.setTeacherList(teacherList);
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
 			}
 		}
 		mv.addObject("categories", categories);
 		mv.addObject("courseList", list);
-		mv.addObject("teacherNames", teacherNames);
+		mv.addObject("publishTime",publishTime);
+		mv.addObject("teacherList", teacherList);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
@@ -147,16 +151,19 @@ public class TeacherController {
 		categories = teacherService.readCategory();
 		List<Course> list = new ArrayList<Course>();
 		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
 		list = teacherService.searchCourse(search);
 		if(!list.isEmpty()) {
 			for (Course course : list) 
 			{
 				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
 			}
 		}
 		mv.addObject("categories", categories);
 		mv.addObject("courseList", list);
 		mv.addObject("teacherNames", teacherNames);
+		mv.addObject("publishTime",publishTime);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
@@ -248,6 +255,33 @@ public class TeacherController {
 			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
 			String employeeNum = teach.getEmployeeNum();
 			for(Teacher teacher : teacherService.getTeachers()){
+				if(!employeeNum.equals(teacher.getEmployeeNum())){ // 在选择的教师中过滤掉当前的操作者
+					teacherList.add(teacher);
+				}
+			}
+			JSONArray  json  =  JSONArray.fromObject(teacherList); 
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * 通过ajax查找教师列表
+	 */
+	@RequestMapping(value="ajaxSearchTeachers")
+	public void ajaxSearchTeachers(HttpServletRequest request, HttpServletResponse response){
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+			String employee = request.getParameter("employeeNum"); //获取查询关键字
+			List<Teacher> teachers = teacherService.vagueSearchTeachers(employee);
+			List<Teacher> teacherList = new ArrayList<>();
+			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
+			String employeeNum = teach.getEmployeeNum();
+			for(Teacher teacher : teachers){
 				if(!employeeNum.equals(teacher.getEmployeeNum())){ // 在选择的教师中过滤掉当前的操作者
 					teacherList.add(teacher);
 				}
@@ -420,7 +454,7 @@ public class TeacherController {
 			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
 			for(File f : files){ // 集合中只有一张图片
-				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+				course.setFaceImg(f.getPath());
 			}
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
@@ -430,7 +464,7 @@ public class TeacherController {
 					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
 				}
 			}
-			return toCourseSecond(request);
+			return toMyCreateCourse(request);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -491,7 +525,7 @@ public class TeacherController {
 			vir.setTerm(selectTerm);
 			vir.setClassStuentNum(count);
 			for(File f : files){ // 集合中只有一张图片
-				vir.setFaceImg(Common.readProperties("path")+"/"+f.getName());
+				vir.setFaceImg(f.getPath());
 			}
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
@@ -1047,6 +1081,7 @@ public class TeacherController {
 		List<Course> courseListByOthers = null;		//别人课程实体
 		List<Teacher> teacherList = null;
 		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
 			courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
@@ -1056,6 +1091,7 @@ public class TeacherController {
 				for (Course course : courseListByOthers ) {
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
 				}
 				for (Course course : courseListByOthers) {
 					teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
@@ -1067,6 +1103,7 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 		mv.addObject("teacherNames",teacherNames);
+		mv.addObject("publishTime",publishTime);
 		mv.addObject("courseList", courseListByOthers);
 		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_jion");
 		return mv;
@@ -1085,6 +1122,7 @@ public class TeacherController {
 		List<String> courseIdListByOthers;		//加入别人的课程ID号
 		List<Course> courseListByOthers = null;		//别人课程实体
 		List<Teacher> teacherList = null;
+		List<String> publishTime = new ArrayList<>();
 		List<String> teacherNames = new ArrayList<String>();
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
@@ -1095,6 +1133,7 @@ public class TeacherController {
 				for (Course course : courseListByOthers ) {
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
 				}
 				for (Course course : courseListByOthers) {
 					teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
@@ -1105,6 +1144,7 @@ public class TeacherController {
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListByOthers);
+		mv.addObject("publishTime",publishTime);
 		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_interest");
 		return mv;
 	}
@@ -1122,6 +1162,7 @@ public class TeacherController {
 		List<String> courseIdListforMe ;	//自己创建的课程ID号
 		List<Course> courseListforMe = null ;		//自己课程实体
 		Teacher teacher = null;
+		List<String> publishTime = new ArrayList<>();
 		List<String> teacherIdList = null;
 		List<Teacher> teacherList = null;
 		//创建老师集合的目的是：课程与创建者的匹配
@@ -1134,6 +1175,7 @@ public class TeacherController {
 				for (Course course : courseListforMe ) {
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
 				}
 				for (int i = 0; i < courseListforMe.size(); i++) {
 					teacher = (Teacher) request.getSession().getAttribute("teacher");
@@ -1146,6 +1188,7 @@ public class TeacherController {
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListforMe);
+		mv.addObject("publishTime",publishTime);
 		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_create");
 		return mv;
 	}

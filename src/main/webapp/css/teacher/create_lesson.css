@@ -23,7 +23,7 @@ li{
 .main{
     width: 80%;
     float: left;
-    margin-left: 10%;
+    /* margin-left: 10%; */
     background: #f2f2f2;
     margin-top:1%;
 }

@@ -168,7 +168,7 @@
 	<select id="courseIdList" resultType="java.lang.String">
 		select course_id from
 		teacher_course where employee_num = #{employeeNum} and manager =
-		#{manager}
+		#{manager};
 	</select>
 
 	<select id="courseList" parameterType="java.util.List"
@@ -647,4 +647,8 @@
 			LIKE CONCAT(CONCAT("%", #{realClass}), "%")
 		</where>
 	</select>
+	
+	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
+	</select> 
 </mapper>

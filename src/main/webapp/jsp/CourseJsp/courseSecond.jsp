@@ -56,9 +56,15 @@
 					</div>
 
 					<ul class="courseInfo">
-						<li><small>课程名：${courseListItems.courseName }</small></li>
-						<li><small>创建教师：${teacherNames[status.index]}</small></li>
-						<li><small>创建时间：${courseListItems.publishTime }</small></li>
+						<li><small>${courseListItems.courseName }</small></li>
+						<li><small>
+							教师团队：
+                                      	<c:forEach items="${courseListItems.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                              
+						</small></li>
+						<li><small>创建时间：${publishTime[status.index]  }</small></li>
 						<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
 					</ul>
 				</div>

@@ -118,7 +118,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<button type="submit" class="submit">登录</button>
 						<input type="hidden" name="_csrf" value="<%=_csrf %>" />
 						<div class="Login-footer">
-							<span class="Login-qrcode">
+							<!-- <span class="Login-qrcode">
 								<button type="button" class="Button Button--plain">二维码登录</button>
 							</span> <span class="Login-footerSeparate Login-qrcodeSeparate">
 								· </span> <span class="Login-aboardPhone">
@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								class="Login-socialLogin">
 								<button id="entrance" type="button"
 									class="Button Login-socialButtonEntrance Button--plain">社交帐号登录
-								</button>
+								</button> -->
 								<div id="entrance_content" style="display: none;">
 									<span
 										class="Login-socialButtonGroup Login-socialButtonGroup--hidden">

@@ -509,5 +509,12 @@ public interface ITeacherService {
 	 * 实体班级的模糊查询
 	 */
 	public List<RealClass> readRealClassToSelect(String realClass);
+	
+	/**
+	 * 通过教师工号模糊查找教师列表
+	 * @param employeeNum
+	 * @return
+	 */
+	public List<Teacher> vagueSearchTeachers(String employeeNum);
 
 }

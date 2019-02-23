@@ -11,8 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8">
     <title>太原工业学院</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
-    <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet" />
+    <%-- <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" /> --%>
     <style>
     	.title p{
     		font-size: 10px;
@@ -63,11 +63,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <td>
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">课程名：${course.courseName }</p>
-                                      <p>创建教师：${teacherNameList[status.index] }</p>
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p>教师团队：
+                                      	<c:forEach items="${course.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                                      </p>
                                       <p>创建时间：${publishTime[status.index] }</p>
                                       <p>课程人数：${course.courseStudentNum }</p>
                                   </div>
@@ -126,7 +130,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               <div class="info">
                                   <div class="title">
                                       <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">课程名：${course.courseName }</p>
-                                      <p>创建教师：${teacherNameList[status.index] }</p>
+                                      <p>教师团队：
+                                      	<c:forEach items="${course.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                                      </p>
                                       <p>创建时间：${publishTime[status.index] }</p>
                                       <p>课程人数：${course.courseStudentNum }</p>
                                   </div>

@@ -25,7 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="word2" id="w4" style="margin-left: -2%">
 				<p>
-					<a target="_parent"
+					<a target="myclass"
 						href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass"
 						id="p4">创建班级</a>
 				</p>

@@ -58,7 +58,8 @@ main{
 }
 .main_b_r{
     width: 82%;
-    height: 110%;
+    min-height: 110%;
+    height:auto;
     margin-top: 10px;
     margin-left: 8px;
     float: left;

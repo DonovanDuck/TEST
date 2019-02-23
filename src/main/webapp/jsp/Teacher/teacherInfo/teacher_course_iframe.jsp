@@ -32,12 +32,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="word2" id="w3">
 				<p>
-					<a target="mycourse" href="../html/mycourse_interest.html" id="p3">我关注的课程</a>
+					<a target="mycourse" href="${pageContext.request.contextPath}/teacher/toMyInterestCourse" id="p3">我关注的课程</a>
 				</p>
 			</div>
 			<div class="word2" id="w4" style="margin-left: -2%">
 				<p>
-					<a target="_parent"
+					<a target="mycourse"
 						href="${pageContext.request.contextPath}/teacher/toCreateCourse"
 						id="p4">创建课程</a>
 				</p>

@@ -28,7 +28,7 @@ header span{
     margin-top: 1%;
 }
 header span li{
-    width: 45px;
+    width: 51px;
     float: left;
     color: white;
     margin-right: 1%;
@@ -37,7 +37,7 @@ header span li{
 }
 header span li a{
     color: white;
-    font-size: 14px;
+    font-size: 17px;
 }
 header span li:nth-child(1){
     position: relative;
@@ -81,7 +81,7 @@ header span li:nth-child(5){
 
 /*--------------导航---------------*/
 header nav {
-    width: 40%;
+    width: 49%;
     float: right;
     line-height: 30px;
     right: 3%;
@@ -129,11 +129,11 @@ header nav li a{
               <c:if test="${teacher == null && student == null }">
               <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登陆</a></li>
               </c:if>
-              <%-- <c:if test="${teacher != null }"> --%>
+               <c:if test="${teacher != null }">
               <li class="m" style="width: 120px;"><a href="<c:url value='/teacher/toTeacherPage'/>">欢迎:${teacher.teacherName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
-              <%-- </c:if> --%>
+               </c:if> 
               <c:if test="${student != null }">
               <li class="menu" style="width: 120px;"><a href="<c:url value='/student/toStudentPage'/>">欢迎:${student.studentName }</a></li>
               <li>|</li>
@@ -153,16 +153,16 @@ header nav li a{
           <!--导航-->
           <nav>
               <ul>
-                  <li class="li2"><a href="<c:url value='/main/toMain'/>">首页</a></li>
-                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>">课程</a></li>
-                  <li class="li2"><a href="">互助</a></li>
-                  <li class="li2"><a href="">学生成果</a></li>
-                  <li class="li2"><a href="">产学研项目</a></li>
+                  <li class="li2"><a href="<c:url value='/main/toMain'/>" style="font-size: 17px;">首页</a></li>
+                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>" style="font-size: 17px;">课程</a></li>
+                  <li class="li2"><a href="" style="font-size: 17px;">讨论区</a></li>
+                  <li class="li2"><a href="" style="font-size: 17px;">学生成果</a></li>
+                  <li class="li2"><a href="" style="font-size: 17px;">产学研项目</a></li>
                   <c:if test="${teacher != null }">
-                  <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>">个人中心</a></li>
+                  <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 17px;">个人中心</a></li>
 	              </c:if>
 	              <c:if test="${student != null }">
-	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>">个人中心</a></li>
+	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 17px;">个人中心</a></li>
 	              </c:if>
               </ul>
           </nav>

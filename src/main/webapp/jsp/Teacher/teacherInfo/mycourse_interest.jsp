@@ -12,12 +12,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
 </head>
 <body>
-<div  id="k3">
-  <c:forEach items="${courseList }" var="course">
+<div class="main_b_r_b" id="k1">
+<c:forEach items="${courseList }" var="course" varStatus="status">
     <a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }" target="_top">
         <div class="lesson">
             <div class="lesson_l">
-                <img src="../images/tu6.jpg" style="width: 100%;"alt=""/>
+                <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 100%;height: 100%"/>
+
             </div>
             <div class="lesson_r">
                 <h3>${course.courseName }</h3>
@@ -25,7 +26,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <p>教师团队：<c:forEach items="${course.teacherList }" var="teacher">
                 ${teacher.teacherName }
                 </c:forEach> </p>
-                <p>创课时间：${course.publishTime }</p>
+                <p>创课时间：${publishTime[status.index]  }</p>
             </div>
         </div>
     </a>
