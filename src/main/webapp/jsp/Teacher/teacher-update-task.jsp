@@ -6,11 +6,13 @@
 			+ path + "/";
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <title>资源更新页面</title>
+
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common.css">
 <link rel="stylesheet"
@@ -33,12 +35,6 @@
 	rel="stylesheet" />
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
-<script type="text/javascript">
-	function submitButton() {
-		var path = "${pageContext.request.contextPath}/teacher/updateResource/${resource.resourceId }";
-		alert(path);
-	}
-</script>
 </head>
 <body>
 	<jsp:include page="/jsp/top.jsp" flush="true" />
@@ -63,14 +59,15 @@
 	</div>
 	<div class="main_b">
 		<div class="text">
-			<form action="" enctype="multipart/form-data" method="post"
-				onSubmit="submitButton()">
+			<form
+				action="${pageContext.request.contextPath}/teacher/updateTask?${task.taskId }"
+				enctype="multipart/form-data" method="post">
 				<table class="table">
 					<tbody>
 						<tr>
 							<th style="border: 0px">名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</th>
 							<td style="border: 0px"><input type="text"
-								name="resourceName" value="${resource.resourceName }"
+								name="resourceName" value="${task.taskTitle }"
 								style="width: 60%; height: 30px; float: left;">
 								<div style="width: 15%; height: 30px; float: left">
 									<select id="taskCategory" name="taskCategory">
@@ -87,26 +84,27 @@
 						<tr>
 							<th style="border: 0px">资源介绍：</th>
 							<td style="border: 0px"><input name="resourceDetail"
-								type="text" value="${resource.resourceDetail }"
+								type="text" value="${task.taskDetail }"
 								style="width: 80%; height: 70px;" maxlength="100"></td>
 						</tr>
-						<c:if test="${empty resource.resourcePath }">
-							<tr class="isEmpty">
+						<c:if test="${fn:length(task.accessoryList)==0}">
+							<tr>
 								<th style="border: 0px">附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</th>
-								<td style="border: 0px"><input style="margin-top: 1%;"
-									name="file" type="file" class="isEmpty" multiple="multiple"></td>
+								<td style="border: 0px"><input name="file" type="file"
+									class="isEmpty" multiple="multiple"></td>
 							</tr>
 						</c:if>
-						<c:if test="${!empty resource.resourcePath }">
-							<tr class="notEmpty">
-								<th style="border: 0px; padding-top: 16px">原始附件：</th>
-								<td style="border: 0px"><a
-									href="${pageContext.request.contextPath}/teacher/downLoadResorce?path=${resource.resourcePath }">
-										<button type="button" class="btn btn-xs"
-											style="margin-top: 1%;">${resource.resourceName }</button>
-								</a>
-									<button type="button" class="btn btn-xs"
-										style="margin-top: 1%;">更新附件</button></td>
+						<c:if test="${fn:length(task.accessoryList)>0}">
+							<tr>
+								<th style="border: 0px;padding-top:18px;">原始附件：</th>
+								<td style="border: 0px"><c:forEach
+										items="${task.accessoryList }" var="accessory"
+										varStatus="status">
+										<a
+											href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }"><button
+												type="button" class="btn btn-xs" style="margin-top: 1%;">${accessory.accessoryName }</button></a>
+
+									</c:forEach></td>
 							</tr>
 						</c:if>
 						<tr>

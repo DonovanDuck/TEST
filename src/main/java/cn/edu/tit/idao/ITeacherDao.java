@@ -284,4 +284,10 @@ public interface ITeacherDao {
 	 */
 	public List<Teacher> vagueSearchTeachers(String employeeNum);
 
+	 /**@author LiMing
+	 * @param 任务分类
+	 * @return 返回任务列表
+	 * 根据任务类型和课程查询该课程下的任务
+	 */
+	public List<Task> getTaskByPointAndCourse(@Param(value="taskCategory")String taskCategory,@Param(value="courseId")String courseId);
 }

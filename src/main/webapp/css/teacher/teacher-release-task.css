@@ -116,6 +116,23 @@ main{
 .button span:nth-child(2){
     margin-left:19%;
 }
+
+.table {
+	width: 80%;
+	border-spacing: 0 0.5rem;
+	border-collapse: separate;
+}
+
+.table th {
+	border:0px;
+	width: 20%;
+	padding-top: 16px;
+	text-align: end;
+}
+
+.table td {
+	border:0px;
+}
 /***************main_b style***************/
 /***************footer style***************/
 footer{
