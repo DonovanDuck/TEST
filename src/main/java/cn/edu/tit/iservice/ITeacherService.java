@@ -73,7 +73,7 @@ public interface ITeacherService {
 	/**
 	 * 根据courseid查课程
 	 * @param courseId
-	 * @return
+	 * @return 返回课程信息（注意：数据库中存储为分类ID，但是读取过程中修改为分类名）
 	 */
 	public Course getCourseById(String courseId)throws Exception;
 	/**
@@ -509,5 +509,17 @@ public interface ITeacherService {
 	 * 实体班级的模糊查询
 	 */
 	public List<RealClass> readRealClassToSelect(String realClass);
+	
+	/**
+	 *@author LiMing
+	 * @param 任务分类
+	 * @param 课程ID
+	 * @return 返回任务列表
+	 * 根据任务类型和课程查询该课程下的任务
+	 * 类型有（暂时2019.02.15）
+	 *   work  作业   
+	 * 	 trial  实验
+	 */
+	public List<Task> getTaskByPointAndCourse(String taskCategory,String courseId);
 
 }

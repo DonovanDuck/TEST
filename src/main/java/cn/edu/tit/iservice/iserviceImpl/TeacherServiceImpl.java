@@ -948,4 +948,23 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		teacherDao.teacherExitAttentionCourse(courseId, employeeNum);
 	}
+
+	/**
+	 *@author LiMing
+	 * @param 任务分类
+	 * @return 返回任务列表
+	 * 根据任务类型查询任务
+	 */
+	@Override
+	public List<Task> getTaskByPointAndCourse(String taskCategory,String courseId){
+		List<Task> list = new ArrayList<Task>();
+		try {
+			list = teacherDao.getTaskByPointAndCourse(taskCategory,courseId);
+			System.out.println("getTaskByPointAndCourse------Dao 层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getTaskByPointAndCourse------Dao 层执行失败");
+		}
+		return list;
+	}
 }
