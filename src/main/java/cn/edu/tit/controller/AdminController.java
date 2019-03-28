@@ -51,7 +51,7 @@ public class AdminController {
 	private ITeacherService iTeacherService;
 	@Autowired
 	private IStudentService iStudentService;
-
+	
 
 	/**
 	 * @author LiMing
@@ -73,7 +73,7 @@ public class AdminController {
 		File file = new File("");
 		for(FileItem fi : items) {
 			File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
-			file = new File("/home/wenruo/Desktop/userInfo", fullFile.getName()); // 为文件设置存储路径
+			file = new File(Common.readProperties("path"), fullFile.getName()); // 为文件设置存储路径
 			fi.write(file);
 		}
 		FileInputStream fileInputStream = new FileInputStream(file);
@@ -113,7 +113,7 @@ public class AdminController {
 		File file = new File("");
 		for(FileItem fi : items) {
 			File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
-			file = new File("/home/wenruo/Desktop/userInfo", fullFile.getName()); // 为文件设置存储路径
+			file = new File(Common.readProperties("path"), fullFile.getName()); // 为文件设置存储路径
 			fi.write(file);
 		}
 		FileInputStream fileInputStream = new FileInputStream(file);

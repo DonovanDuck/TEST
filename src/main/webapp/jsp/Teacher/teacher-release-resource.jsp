@@ -6,6 +6,7 @@
 			+ path + "/";
 %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -83,8 +84,11 @@
 				<br> <br> <span><strong>资源介绍：</strong></span> <input
 					name="resourceDetail" type="text" placeholder="请输入资源详情：(字数100内)"
 					style="width: 80%; height: 100px; float: left;" maxlength="100">
-				<br> <br> <span style="margin-top: 1%;"><strong>附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</strong></span><input
-					style="margin-top: 6%;" name="file" type="file" multiple="multiple">
+				<br> <br> <span style="margin-top: 1%"> <strong>附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</strong></span>
+				<ul id="accessoryUI" name="accessoryUI" style="margin-top: 4%;">
+					<li id="accessory" name="accessory"><input name="upFile"
+						type="file" id="upFile" multiple="multiple"></li>
+				</ul>
 				<div class="button">
 					<button
 						style="padding-left: 1%; padding-right: 1%; font-size: 16px; float: right; margin-right: 20%;"
