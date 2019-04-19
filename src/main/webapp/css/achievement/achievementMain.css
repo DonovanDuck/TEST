@@ -1,0 +1,30 @@
+.content {
+	margin-left: 10%;
+	width: 80%;
+	height: 100%;
+}
+
+.rightSearch {
+	margin: 0;
+}
+
+.bottomColumn {
+	margin-top:1%;
+}
+
+.infoContent{
+	font-size: 14px;
+	color:black;
+}
+.infoContent p{
+	margin:0px;
+	padding:0px;
+}
+
+.footer {
+	overflow: hidden;
+	width: 100%;
+	height: 117px;
+	background-image: url("../../images/bottom.png");
+	margin-top: 1%;
+}

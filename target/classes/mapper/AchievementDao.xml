@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tit.idao.IAchievementDao">
+	<resultMap type="cn.edu.tit.bean.Achievement" id="achievementMap">
+		<id column="achievement_id" property="achievementId" />
+		<result column="achievement_category" property="achievementName" />
+		<result column="achievement_name" property="achievementCategory" />
+		<result column="achievement_photo" property="achievementPhoto" />
+		<result column="achievement_detail" property="achievementDetail" />
+		<result column="guidance_teacher" property="guidanceTeacher" />
+		<result column="member" property="member" />
+		<result column="compere" property="compere" />
+		<result column="team_name" property="teamName" />
+		<result column="level" property="level" />
+		<result column="approval_time" property="approvalTime" />
+		<result column="finish_time" property="finishTime" />
+		<result column="achievement_accessory" property="achievementAccessory" />
+		<result column="fund" property="fund" />
+		<result column="feature" property="feature" />
+		<result column="shared_value" property="sharedValue" />
+		<result column="is_share" property="isShare" />
+		<result column="turnover" property="turnover" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.IURP" id="IURPMap">
+		<id column="project_id" property="projectId" />
+		<result column="project_name" property="projectName" />
+		<result column="project_detail" property="projectDetail" />
+		<result column="compere" property="compere" />
+		<result column="member" property="member" />
+		<result column="collect_the_amount" property="collectTheAmount" />
+		<result column="cooperator" property="cooperator" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="status" property="status" />
+		<result column="project_photo" property="projectPhoto" />
+		<result column="is_share" property="isshare" />
+		<result column="project_category" property="projectCategory" />
+	</resultMap>
+	<!-- 关于achievement 表的查询 -->
+	<select id="queryAchievement" resultMap="achievementMap">
+		SELECT * FROM
+		achievement;
+	</select>
+	<select id="queryAchievementByCategory" resultMap="achievementMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement where achievement_category=
+		#{category};
+	</select>
+	<select id="queryAchievementByName" resultMap="achievementMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement
+		<where>
+			achievement_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<select id="queryAchievementByTeam" resultMap="achievementMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement
+		<where>
+			team_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<!-- 关于IURP产学研表的查询 -->
+	<select id="queryIURP" resultMap="IURPMap">
+		SELECT * FROM
+		industry_university_research_project;
+	</select>
+	<select id="queryIURPByName" resultMap="IURPMap" parameterType="java.lang.String">
+		SELECT * FROM industry_university_research_project
+		<where>
+			project_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<select id="queryIURPByAuthor" resultMap="IURPMap"
+		parameterType="java.lang.String">
+		SELECT * FROM industry_university_research_project
+		<where>
+			member
+			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+</mapper>

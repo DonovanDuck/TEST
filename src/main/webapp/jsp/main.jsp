@@ -292,7 +292,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--学生成果-->
           <div class="chengguo">
               学生成果
-              <span><a href="">查看全部</a></span>
+              <span><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">查看全部</a></span>
               <table>
                   <tr>
                       <td>
