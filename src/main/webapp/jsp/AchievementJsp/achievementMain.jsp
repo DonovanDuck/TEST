@@ -37,8 +37,7 @@
 						href="${pageContext.request.contextPath}/achievement/selectCategory?category=4"
 						role="button">毕业设计</a> <a class="btn btn-default"
 						href="${pageContext.request.contextPath}/achievement/selectCategory?category=5"
-						role="button">产学研</a>
-						<a class="btn btn-default"
+						role="button">产学研</a> <a class="btn btn-default"
 						href="${pageContext.request.contextPath}/achievement/toAchievementMainPage"
 						role="button">全部</a>
 				</div>
@@ -56,7 +55,9 @@
 				<c:if test="${!empty achievementList}">
 					<c:forEach items="${achievementList }" var="item"
 						varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/..">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailAchievement?achievementId="
+							${item.achievementId }>
 							<div class="chengguo-out col-md-2" style="padding: 2px">
 								<div class="rel-img">
 									<img src="${pageContext.request.contextPath}/img/fire.png"
@@ -102,8 +103,10 @@
 			</div>
 		</div>
 	</div>
+	<a class="btn btn-default"
+		href="${pageContext.request.contextPath}/achievement/toUploadAchievement"
+		role="button">上传新作品</a>
 	<div class="footer"></div>
-	</div>
 </body>
 <%-- 备份代码
 <div class="chengguo-out col-md-2">

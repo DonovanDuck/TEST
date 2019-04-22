@@ -7,27 +7,21 @@ import java.sql.Timestamp;
  * 产学研类
  * */
 public class IURP {
-	private String projectId;
-	private String projectName;
-	private String projectDetail;
-	private String compere;
-	private String member;
-	private Integer collectTheAmount;
-	private String cooperator;
-	private Date startTime;
-	private Date endTime;
-	private String status;
-	private String projectPhoto;
-	private String isshare;
-	private String projectCategory;
-	@Override
-	public String toString() {
-		return "IURP [projectId=" + projectId + ", projectName=" + projectName + ", projectDetail=" + projectDetail
-				+ ", compere=" + compere + ", member=" + member + ", collectTheAmount=" + collectTheAmount
-				+ ", cooperator=" + cooperator + ", startTime=" + startTime + ", endTime=" + endTime + ", status="
-				+ status + ", projectPhoto=" + projectPhoto + ", isshare=" + isshare + ", projectCategory="
-				+ projectCategory + "]";
-	}
+	private String projectId; //产学研id
+	private String projectName;//产学研名字
+	private String introduction;//产学研简介（50字以内）
+	private String projectDetail;//产学研详情
+	private String compere;//主持人
+	private String member;//成员
+	private Integer collectTheAmount;//进账金额
+	private String cooperator;//合作单位
+	private Date startTime;//开始时间
+	private Date endTime;//结束时间
+	private String status;//状态
+	private AchievementPicture projectPhoto;//产学研照片
+	private AchievementAccessory accessory;//产学研附件
+	private String isshare;//是否分享
+	private String projectCategory;//项目类别
 	public String getProjectId() {
 		return projectId;
 	}
@@ -39,6 +33,12 @@ public class IURP {
 	}
 	public void setProjectName(String projectName) {
 		this.projectName = projectName;
+	}
+	public String getIntroduction() {
+		return introduction;
+	}
+	public void setIntroduction(String introduction) {
+		this.introduction = introduction;
 	}
 	public String getProjectDetail() {
 		return projectDetail;
@@ -88,11 +88,17 @@ public class IURP {
 	public void setStatus(String status) {
 		this.status = status;
 	}
-	public String getProjectPhoto() {
+	public AchievementPicture getProjectPhoto() {
 		return projectPhoto;
 	}
-	public void setProjectPhoto(String projectPhoto) {
+	public void setProjectPhoto(AchievementPicture projectPhoto) {
 		this.projectPhoto = projectPhoto;
+	}
+	public AchievementAccessory getAccessory() {
+		return accessory;
+	}
+	public void setAccessory(AchievementAccessory accessory) {
+		this.accessory = accessory;
 	}
 	public String getIsshare() {
 		return isshare;
@@ -106,16 +112,21 @@ public class IURP {
 	public void setProjectCategory(String projectCategory) {
 		this.projectCategory = projectCategory;
 	}
-	public IURP() {
-		super();
-		// TODO Auto-generated constructor stub
+	@Override
+	public String toString() {
+		return "IURP [projectId=" + projectId + ", projectName=" + projectName + ", introduction=" + introduction
+				+ ", projectDetail=" + projectDetail + ", compere=" + compere + ", member=" + member
+				+ ", collectTheAmount=" + collectTheAmount + ", cooperator=" + cooperator + ", startTime=" + startTime
+				+ ", endTime=" + endTime + ", status=" + status + ", projectPhoto=" + projectPhoto + ", accessory="
+				+ accessory + ", isshare=" + isshare + ", projectCategory=" + projectCategory + "]";
 	}
-	public IURP(String projectId, String projectName, String projectDetail, String compere, String member,
-			Integer collectTheAmount, String cooperator, Date startTime, Date endTime, String status,
-			String projectPhoto, String isshare, String projectCategory) {
+	public IURP(String projectId, String projectName, String introduction, String projectDetail, String compere,
+			String member, Integer collectTheAmount, String cooperator, Date startTime, Date endTime, String status,
+			AchievementPicture projectPhoto, AchievementAccessory accessory, String isshare, String projectCategory) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
+		this.introduction = introduction;
 		this.projectDetail = projectDetail;
 		this.compere = compere;
 		this.member = member;
@@ -125,8 +136,14 @@ public class IURP {
 		this.endTime = endTime;
 		this.status = status;
 		this.projectPhoto = projectPhoto;
+		this.accessory = accessory;
 		this.isshare = isshare;
 		this.projectCategory = projectCategory;
 	}
+	public IURP() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
 	
 }

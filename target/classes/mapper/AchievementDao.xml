@@ -65,6 +65,11 @@
 		</where>
 		;
 	</select>
+	<select id="queryAchievementById" resultMap="achievementMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement achievement_id=
+		#{achievementId};
+	</select>
 	<!-- 关于IURP产学研表的查询 -->
 	<select id="queryIURP" resultMap="IURPMap">
 		SELECT * FROM
@@ -87,4 +92,81 @@
 		</where>
 		;
 	</select>
+
+	<insert id="publishAchievement" parameterType="cn.edu.tit.bean.Achievement">
+		INSERT INTO
+		achievement
+		(achievement_id,
+		achievement_category,
+		achievement_name,
+		achievement_photo,
+		achievement_detail,
+		guidance_teacher,
+		member,
+		compere,
+		team_name,
+		level,
+		approval_time,
+		finish_time,
+		achievement_accessory,
+		fund,
+		feature,
+		shared_value,
+		is_share,
+		turnover)
+		VALUES
+		(
+		#{achievement.achievementId,jdbcType=VARCHAR},
+		#{achievement.achievementCategory,jdbcType=VARCHAR},
+		#{achievement.achievementName,jdbcType=VARCHAR},
+		#{achievement.achievementPhoto,jdbcType=VARCHAR},
+		#{achievement.achievementDetail,jdbcType=VARCHAR},
+		#{achievement.guidanceTeacher,jdbcType=VARCHAR},
+		#{achievement.member,jdbcType=VARCHAR},
+		#{achievement.compere,jdbcType=VARCHAR},
+		#{achievement.teamName,jdbcType=VARCHAR},
+		#{achievement.level,jdbcType=VARCHAR},
+		#{achievement.approvalTime,jdbcType=VARCHAR},
+		#{achievement.finishTime,jdbcType=VARCHAR},
+		#{achievement.achievementAccessory,jdbcType=VARCHAR},
+		#{achievement.fund,jdbcType=VARCHAR},
+		#{achievement.feature,jdbcType=VARCHAR},
+		#{achievement.sharedValue,jdbcType=VARCHAR},
+		#{achievement.isShare,jdbcType=VARCHAR},
+		#{achievement.turnover,jdbcType=VARCHAR}
+		)
+	</insert>
+	<insert id="publishIURP" parameterType="cn.edu.tit.bean.IURP">
+		INSERT INTO
+		industry_university_research_project
+		(project_id,
+		project_name,
+		project_detail,
+		compere,
+		member,
+		collect_the_amount,
+		cooperator,
+		start_time,
+		end_time,
+		status,
+		project_photo,
+		is_share,
+		project_category)
+		VALUES
+		(
+		#{iurp.projectId,jdbcType=VARCHAR},
+		#{iurp.projectName,jdbcType=VARCHAR},
+		#{iurp.projectDetail,jdbcType=VARCHAR},
+		#{iurp.compere,jdbcType=VARCHAR},
+		#{iurp.member,jdbcType=VARCHAR},
+		#{iurp.collectTheAmount,jdbcType=VARCHAR},
+		#{iurp.cooperator,jdbcType=VARCHAR},
+		#{iurp.startTime,jdbcType=VARCHAR},
+		#{iurp.endTime,jdbcType=VARCHAR},
+		#{iurp.status,jdbcType=VARCHAR},
+		#{iurp.projectPhoto,jdbcType=VARCHAR},
+		#{iurp.isshare,jdbcType=VARCHAR},
+		#{iurp.projectCategory,jdbcType=VARCHAR}
+		)
+	</insert>
 </mapper>
