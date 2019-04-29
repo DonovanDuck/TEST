@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title> 信息页</title>
+<title>信息页</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
@@ -54,10 +54,12 @@
 			<div class="col-md-12 bottomColumn" style="min-height: 400px">
 				<c:if test="${!empty iURPList}">
 					<c:forEach items="${iURPList }" var="item" varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
-							<div class="chengguo-out col-md-4" style="padding:8px">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px;margin-top: 1%;">
 								<div class="doorPlank"
-									style="padding: 2.5rem; background-color: white;">
+									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;">
@@ -84,10 +86,12 @@
 				<c:if test="${!empty courseExpandList}">
 					<c:forEach items="${courseExpandList }" var="item"
 						varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
-							<div class="chengguo-out col-md-4" style="padding: 8px">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px;margin-top: 1%;">
 								<div class="doorPlank"
-									style="padding: 2.5rem; background-color: white;">
+									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;">
@@ -101,7 +105,8 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+												${item.achievementCategory }推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
 										</div>
@@ -113,10 +118,12 @@
 				</c:if>
 				<c:if test="${!empty gdfcsList}">
 					<c:forEach items="${gdfcsList }" var="item" varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/toDetailGDFCS?achievementId=${item.achievementId }">
-							<div class="chengguo-out col-md-4" style="padding: 8px">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailGDFCS?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px;margin-top: 1%;">
 								<div class="doorPlank"
-									style="padding: 2.5rem; background-color: white;">
+									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;">
@@ -130,7 +137,8 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+												${item.achievementCategory }推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
 										</div>
@@ -142,10 +150,12 @@
 				</c:if>
 				<c:if test="${!empty siaeList}">
 					<c:forEach items="${siaeList }" var="item" varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/toDetailSIAE?achievementId=${item.achievementId }">
-							<div class="chengguo-out col-md-4" style="padding: 8px">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailSIAE?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px; margin-top: 1%;">
 								<div class="doorPlank"
-									style="padding: 2.5rem; background-color: white;">
+									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;">
@@ -159,7 +169,8 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+												${item.achievementCategory }推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
 										</div>
@@ -171,10 +182,12 @@
 				</c:if>
 				<c:if test="${!empty aocscList}">
 					<c:forEach items="${aocscList }" var="item" varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
-							<div class="chengguo-out col-md-4" style="padding: 8px">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px;margin-top: 1%;">
 								<div class="doorPlank"
-									style="padding: 2.5rem; background-color: white;">
+									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;">
@@ -188,7 +201,8 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+												${item.achievementCategory }推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
 										</div>
@@ -201,7 +215,7 @@
 			</div>
 		</div>
 	</div>
-	<a class="btn btn-default"
+	<a class="btn btn-primary"
 		href="${pageContext.request.contextPath}/achievement/toUploadAchievement"
 		role="button">上传新作品</a>
 	<div class="footer"></div>

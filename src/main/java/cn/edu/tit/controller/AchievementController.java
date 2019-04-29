@@ -218,10 +218,11 @@ public class AchievementController {
 			i.setProjectName((String)formdata.get("name"));
 			i.setStartTime(ConverDate((String)formdata.get("startTime")));
 			i.setStatus(null);
+			i.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());//获取图片的第一个图片
+			iAchievementService.insertIURP(i);
 			/**
 			 * 文件的处理
 			 * */
-			i.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());//获取图片的第一个图片
 			List<AchievementPicture> pictureList = new ArrayList<>();
 			AchievementPicture pi;
 			for(int j = 0;j<files.size()-1;j++){
@@ -237,6 +238,8 @@ public class AchievementController {
 				pi.setDeleteFlag(null);
 				pictureList.add(pi);
 			}
+			pictureList.remove(0);//第一张图片存至对象中，剩下图片放置入图片库
+			iAchievementService.insertAchievementPicture(pictureList);
 			AchievementAccessory aa = new AchievementAccessory();
 			List<AchievementAccessory> aaList = new ArrayList<>();
 			String accessoryId = Common.uuid();
@@ -248,10 +251,8 @@ public class AchievementController {
 			aa.setAuthorId(null);
 			aa.setDeleteFlag(null);
 			aaList.add(aa);
-			/**文件处理结束***/
 			iAchievementService.insertAchievementAccessory(aaList);
-			iAchievementService.insertAchievementPicture(pictureList);
-			iAchievementService.insertIURP(i);
+			/**文件处理结束***/
 			return mv = toAchievementMainPage(request);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -366,5 +367,78 @@ public class AchievementController {
 		return mv;
 	}
 	/******************************************详情页结束*********************************************************/
-
+	/******************************************页面跳转的开始 iframe*********************************************************/
+	/**
+	 * 跳转到大学生竞赛成果
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toAOCSCUpload")
+	public ModelAndView toAOCSCUpload(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			mv.setViewName("/jsp/AchievementJsp/AOCSCUpload");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	/**
+	 * 跳转到产学研成果
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toIURPUpload")
+	public ModelAndView toIURPUpload(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			mv.setViewName("/jsp/AchievementJsp/IURPUpload");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;}
+	/**
+	 * 跳转到产学研成果
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toCourseExpandUpload")
+	public ModelAndView toCourseExpandUpload(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			mv.setViewName("/jsp/AchievementJsp/CourseExpandUpload");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;}
+	/**
+	 * 跳转到大学生毕业设计
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toGDFCSUpload")
+	public ModelAndView toGDFCSUpload(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			mv.setViewName("/jsp/AchievementJsp/GDFCSUpload");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;}
+	/**
+	 * 大学生创新创业
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toSIAEUpload")
+	public ModelAndView toSIAEUpload(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		try {
+			mv.setViewName("/jsp/AchievementJsp/SIAEUpload");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;}
+	/******************************************页面跳转的结束 iframe*********************************************************/
 }
+

@@ -45,8 +45,8 @@ public interface IAchievementDao {
 	public SIAE querySIAEById(@Param("achievementId")String achievementId)throws Exception;
 	
 	public List<AchievementPicture> queryAchievementPicture(@Param("achievementId")String achievementId)throws Exception;
-	public void insertAchievementPicture(@Param("ap")List<AchievementPicture> ap)throws Exception;
+	public void insertAchievementPicture(@Param("list")List<AchievementPicture> list)throws Exception;
 	
 	public List<AchievementAccessory> queryAchievementAccessory(@Param("achievementId")String achievementId)throws Exception;
-	public void insertAchievementAccessory(@Param("ap")List<AchievementAccessory> ap)throws Exception;	
+	public void insertAchievementAccessory(@Param("list")List<AchievementAccessory> list)throws Exception;	
 }

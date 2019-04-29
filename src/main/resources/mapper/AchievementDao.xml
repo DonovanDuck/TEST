@@ -110,7 +110,7 @@
 		<result column="accessory_name" property="accessoryName" />
 		<result column="accessory_path" property="accessoryPath" />
 		<result column="accessory_time" property="accessoryTime" />
-		<result column="ahievement_id" property="achievementId" />
+		<result column="achievement_id" property="achievementId" />
 		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 
@@ -458,7 +458,7 @@
 		</where>
 		;
 	</select>
-	<insert id="insertAchievementPicture">
+	<insert id="insertAchievementPicture" parameterType="cn.edu.tit.bean.AchievementPicture">
 		INSERT INTO
 		achievement_picture
 		(accessory_id,
@@ -489,9 +489,9 @@
 		</where>
 		;
 	</select>
-	<insert id="insertAchievementAccessory">
+	<insert id="insertAchievementAccessory" parameterType="cn.edu.tit.bean.AchievementAccessory">
 		INSERT INTO
-		achievement_picture
+		achievement_accessory
 		(accessory_id,
 		author_id,
 		accessory_name,
