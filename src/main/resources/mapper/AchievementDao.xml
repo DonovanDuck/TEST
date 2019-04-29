@@ -7,6 +7,7 @@
 		<id column="project_id" property="projectId" />
 		<result column="project_name" property="projectName" />
 		<result column="project_detail" property="projectDetail" />
+		<result column="introduction" property="introduction" />
 		<result column="compere" property="compere" />
 		<result column="member" property="member" />
 		<result column="collect_the_amount" property="collectTheAmount" />
@@ -14,9 +15,11 @@
 		<result column="start_time" property="startTime" />
 		<result column="end_time" property="endTime" />
 		<result column="status" property="status" />
-		<result column="project_photo" property="projectPhoto" />
 		<result column="is_share" property="isshare" />
 		<result column="project_category" property="projectCategory" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
+		<result column="price" property="price" />
 	</resultMap>
 	<!--大学生竞赛成果映射 -->
 	<resultMap type="cn.edu.tit.bean.AOCSC" id="AOCSCMap">
@@ -33,6 +36,8 @@
 		<result column="feature" property="feature" />
 		<result column="finish_time" property="finishTime" />
 		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
 	</resultMap>
 	<!--课程拓展作品成果映射 -->
 	<resultMap type="cn.edu.tit.bean.CourseExpand" id="CourseExpandMap">
@@ -48,6 +53,8 @@
 		<result column="team_name" property="teamName" />
 		<result column="finish_time" property="finishTime" />
 		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
 	</resultMap>
 	<!--大学生毕业设计成果映射 -->
 	<resultMap type="cn.edu.tit.bean.GDFCS" id="GDFCSMap">
@@ -60,6 +67,8 @@
 		<result column="compere" property="compere" />
 		<result column="finish_time" property="finishTime" />
 		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
 	</resultMap>
 	<!--大学生创新创业成果映射 -->
 	<resultMap type="cn.edu.tit.bean.SIAE" id="SIAEMap">
@@ -81,6 +90,8 @@
 		<result column="midreply" property="midreply" />
 		<result column="concluding_report" property="concludingRreport" />
 		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
 	</resultMap>
 	<!--成果图片映射 -->
 	<resultMap type="cn.edu.tit.bean.AchievementPicture" id="AchievementPictureMap">
@@ -107,10 +118,17 @@
 	<!-- 关于IURP产学研表的查询 -->
 	<select id="queryIURP" resultMap="IURPMap">
 		SELECT * FROM
-		industry_university_research_project;
+		achievement_industry_university_research_project;
+	</select>
+	<select id="queryIURPById" resultMap="IURPMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_industry_university_research_project
+		<where>
+			project_id = #{achievementId}
+		</where>
+		;
 	</select>
 	<select id="queryIURPByName" resultMap="IURPMap" parameterType="java.lang.String">
-		SELECT * FROM industry_university_research_project
+		SELECT * FROM achievement_industry_university_research_project
 		<where>
 			project_name
 			LIKE CONCAT(CONCAT("%", #{search}), "%")
@@ -119,16 +137,16 @@
 	</select>
 	<select id="queryIURPByAuthor" resultMap="IURPMap"
 		parameterType="java.lang.String">
-		SELECT * FROM industry_university_research_project
+		SELECT * FROM achievement_industry_university_research_project
 		<where>
-			member
+			compere
 			LIKE CONCAT(CONCAT("%", #{search}), "%")
 		</where>
 		;
 	</select>
 	<insert id="insertIURP" parameterType="cn.edu.tit.bean.IURP">
 		INSERT INTO
-		industry_university_research_project
+		achievement_industry_university_research_project
 		(project_id,
 		project_name,
 		project_detail,
@@ -139,12 +157,14 @@
 		start_time,
 		end_time,
 		status,
-		project_photo,
+		first_picture,
 		is_share,
-		project_category)
+		project_category,
+		introduction,
+		browse_volume,
+		price)
 		VALUES
-		(
-		#{iurp.projectId},
+		(#{iurp.projectId},
 		#{iurp.projectName},
 		#{iurp.projectDetail},
 		#{iurp.compere},
@@ -154,10 +174,13 @@
 		#{iurp.startTime},
 		#{iurp.endTime},
 		#{iurp.status},
-		#{iurp.projectPhoto},
+		#{iurp.firstPicture},
 		#{iurp.isshare},
-		#{iurp.projectCategory}
-		)
+		#{iurp.projectCategory},
+		#{iurp.introduction},
+		#{iurp.browseVolume},
+		#{iurp.price}
+		);
 	</insert>
 
 
@@ -172,6 +195,13 @@
 		<where>
 			achievement_name
 			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<select id="queryAOCSCById" resultMap="AOCSCMap" parameterType="java.lang.String">
+		SELECT * FROM achievements_of_college_students_competition
+		<where>
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -199,7 +229,9 @@
 		level,
 		feature,
 		finish_time,
-		upload_time)
+		upload_time,
+		first_picture
+		)
 		VALUES
 		(#{iu.achievementId},
 		#{iu.achievementName},
@@ -213,7 +245,8 @@
 		#{iu.level},
 		#{iu.feature},
 		#{iu.finishTime},
-		#{iu.uploadTime}
+		#{iu.uploadTime},
+		#{iu.firstPicture}
 		);
 	</insert>
 
@@ -228,6 +261,14 @@
 		<where>
 			achievement_name
 			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<select id="queryCourseExpandById" resultMap="CourseExpandMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_course_expand
+		<where>
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -254,7 +295,9 @@
 		compere,
 		team_name,
 		finish_time,
-		upload_time)
+		upload_time,
+		first_picture
+		)
 		VALUES
 		(#{iu.achievementId},
 		#{iu.courseId},
@@ -267,7 +310,8 @@
 		#{iu.compere},
 		#{iu.teamName},
 		#{iu.finishTime},
-		#{iu.uploadTime}
+		#{iu.uploadTime},
+		#{iu.firstPicture}
 		);
 	</insert>
 
@@ -283,6 +327,13 @@
 		<where>
 			achievement_name
 			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<select id="queryGDFCSById" resultMap="GDFCSMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_graduation_design_for_college_students
+		<where>
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -306,7 +357,9 @@
 		guidance_teacher,
 		compere,
 		finish_time,
-		upload_time)
+		upload_time,
+		first_picture
+		)
 		VALUES
 		(#{gdfcs.achievementId},
 		#{gdfcs.achievementName},
@@ -316,7 +369,8 @@
 		#{gdfcs.guidanceTeacher},
 		#{gdfcs.compere},
 		#{gdfcs.finishTime},
-		#{gdfcs.uploadTime}
+		#{gdfcs.uploadTime},
+		#{gdfcs.firstPicture}
 		);
 	</insert>
 
@@ -331,6 +385,13 @@
 		<where>
 			achievement_name
 			LIKE CONCAT(CONCAT("%", #{search}), "%")
+		</where>
+		;
+	</select>
+	<select id="querySIAEById" resultMap="SIAEMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_student_innovation_and_entrepreneurship
+		<where>
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -363,7 +424,9 @@
 		declaration,
 		midreply,
 		concluding_report,
-		upload_time)
+		upload_time,
+		first_picture
+		)
 		VALUES
 		(#{siae.achievementId},
 		#{siae.achievementName},
@@ -382,7 +445,8 @@
 		#{siae.declaration},
 		#{siae.midreply},
 		#{siae.concludingRreport},
-		#{siae.uploadTime}
+		#{siae.uploadTime},
+		#{siae.firstPicture}
 		);
 	</insert>
 
@@ -425,7 +489,7 @@
 		</where>
 		;
 	</select>
-	<insert id="queryAchievementAccessory">
+	<insert id="insertAchievementAccessory">
 		INSERT INTO
 		achievement_picture
 		(accessory_id,

@@ -19,6 +19,8 @@ public class GDFCS {
 	private Date finishTime;//完成时间
 	private Timestamp uploadTime;//上传时间
 	private AchievementAccessory achievementAccessory;//大学生毕业设计附件
+	private String firstPicture;//第一张图片
+	private Integer browseVolume;//浏览量
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -85,17 +87,31 @@ public class GDFCS {
 	public void setAchievementAccessory(AchievementAccessory achievementAccessory) {
 		this.achievementAccessory = achievementAccessory;
 	}
+	public String getFirstPicture() {
+		return firstPicture;
+	}
+	public void setFirstPicture(String firstPicture) {
+		this.firstPicture = firstPicture;
+	}
+	public Integer getBrowseVolume() {
+		return browseVolume;
+	}
+	public void setBrowseVolume(Integer browseVolume) {
+		this.browseVolume = browseVolume;
+	}
 	@Override
 	public String toString() {
 		return "GDFCS [achievementId=" + achievementId + ", achievementName=" + achievementName
 				+ ", achievementCategory=" + achievementCategory + ", achievementPhoto=" + achievementPhoto
 				+ ", introduction=" + introduction + ", achievementDetail=" + achievementDetail + ", guidanceTeacher="
 				+ guidanceTeacher + ", compere=" + compere + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime
-				+ ", achievementAccessory=" + achievementAccessory + "]";
+				+ ", achievementAccessory=" + achievementAccessory + ", firstPicture=" + firstPicture
+				+ ", browseVolume=" + browseVolume + "]";
 	}
 	public GDFCS(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
-			String compere, Date finishTime, Timestamp uploadTime, AchievementAccessory achievementAccessory) {
+			String compere, Date finishTime, Timestamp uploadTime, AchievementAccessory achievementAccessory,
+			String firstPicture, Integer browseVolume) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -108,9 +124,12 @@ public class GDFCS {
 		this.finishTime = finishTime;
 		this.uploadTime = uploadTime;
 		this.achievementAccessory = achievementAccessory;
+		this.firstPicture = firstPicture;
+		this.browseVolume = browseVolume;
 	}
 	public GDFCS() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 }

@@ -16,28 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `achievement_picture`
+-- Dumping data for table `achievement_picture`
 --
 
-DROP TABLE IF EXISTS `achievement_picture`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `achievement_picture` (
-  `accessory_id` varchar(255) NOT NULL,
-  `author_id` varchar(255) DEFAULT NULL,
-  `accessory_name` varchar(255) DEFAULT NULL,
-  `accessory_path` varchar(255) DEFAULT NULL,
-  `accessory_time` date DEFAULT NULL,
-  `achievement_id` varchar(255) NOT NULL,
-  `delete_flag` int(11) DEFAULT NULL,
-  PRIMARY KEY (`accessory_id`),
-  KEY `fk_achievement_picture_1_idx` (`achievement_id`),
-  CONSTRAINT `fk_achievement_picture_1` FOREIGN KEY (`achievement_id`) REFERENCES `achievement_course_expand` (`achievement_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_achievement_picture_2` FOREIGN KEY (`achievement_id`) REFERENCES `achievement_graduation_design_for_college_students` (`achievement_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_achievement_picture_3` FOREIGN KEY (`achievement_id`) REFERENCES `achievement_student_innovation_and_entrepreneurship` (`achievement_id`) ON UPDATE CASCADE,
-  CONSTRAINT `fk_achievement_picture_4` FOREIGN KEY (`achievement_id`) REFERENCES `achievements_of_college_students_competition` (`achievement_id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `achievement_picture` WRITE;
+/*!40000 ALTER TABLE `achievement_picture` DISABLE KEYS */;
+INSERT INTO `achievement_picture` VALUES ('09708A3B8D8942929FE777E4D9DC5397','182056202','1','/home/menahemli/Desktop/fire.png','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL),('1093D8006B5E4D22BB58B445D1DB13C7','182056202','2','/home/menahemli/Desktop/fire.png','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL),('2495743867AB41A8AAE8BE8940AADCBF','182056202','3','/home/menahemli/Desktop/fire.png','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL),('26A826CA045340628F49F39093B9FEA3','182056202','4','/home/menahemli/Desktop/fire.png','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL),('CB84D5F514464F6E9A65A62FBC84D116','182056202','4','/home/menahemli/Desktop/2121.jpg','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL),('DDA075E35E814D29BA6BE083B55743E0','182056202','5','/home/menahemli/Desktop/2121.jpg','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL),('E77A9541025A48AE85F00152EE01374C','182056202','4','/home/menahemli/Desktop/2121.jpg','2019-01-10','09708A3B8D8942929FE777E4D9DC5397',NULL);
+/*!40000 ALTER TABLE `achievement_picture` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -48,4 +34,4 @@ CREATE TABLE `achievement_picture` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 21:48:01
+-- Dump completed on 2019-04-29 12:31:08

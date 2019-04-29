@@ -1,3 +1,7 @@
+.body {
+	background-color: #E8EBF0;
+}
+
 .content {
 	margin-left: 10%;
 	width: 80%;
@@ -9,16 +13,43 @@
 }
 
 .bottomColumn {
-	margin-top:1%;
+	margin-top: 2%;
 }
 
-.infoContent{
+.infoContent {
 	font-size: 14px;
-	color:black;
+	color: black;
 }
-.infoContent p{
-	margin:0px;
-	padding:0px;
+
+.infoContent p {
+	margin: 0px;
+	padding: 0px;
+}
+
+.chengguo-out{
+	height:20%;
+}
+
+.achievementTitle {
+	margin-top: 4%;
+}
+
+.description {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	font-size: 15px;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	color: gray;
+}
+
+.publishTime {
+	color: #b4b4b4;
+	font-size: 13px;
 }
 
 .footer {

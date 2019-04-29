@@ -16,31 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `achievement_industry_university_research_project`
+-- Dumping data for table `achievement_industry_university_research_project`
 --
 
-DROP TABLE IF EXISTS `achievement_industry_university_research_project`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `achievement_industry_university_research_project` (
-  `project_id` varchar(255) NOT NULL,
-  `project_name` varchar(255) DEFAULT NULL,
-  `project_detail` varchar(255) DEFAULT NULL,
-  `compere` varchar(255) DEFAULT NULL COMMENT '主持人',
-  `member` varchar(255) DEFAULT NULL,
-  `collect_the_amount` int(11) DEFAULT NULL COMMENT '进账金额',
-  `cooperator` varchar(255) DEFAULT NULL COMMENT '合作单位',
-  `start_time` datetime DEFAULT NULL,
-  `end_time` datetime DEFAULT NULL,
-  `status` varchar(255) DEFAULT NULL,
-  `project_photo` varchar(255) DEFAULT NULL,
-  `is_share` varchar(255) DEFAULT NULL,
-  `project_category` varchar(255) DEFAULT NULL COMMENT '项目类型',
-  PRIMARY KEY (`project_id`),
-  UNIQUE KEY `project_id_UNIQUE` (`project_id`),
-  KEY `index2` (`project_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `achievement_industry_university_research_project` WRITE;
+/*!40000 ALTER TABLE `achievement_industry_university_research_project` DISABLE KEYS */;
+INSERT INTO `achievement_industry_university_research_project` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','这是产学研','未知','liming',200,'合作单位','2019-01-10 00:52:28','2019-01-10 00:52:28','2','/home/menahemli/Desktop/fire.png','1','a','这是一款具有轻打功能的游戏，锻炼大脑，锻炼情绪等等好多好多实用的功能',2330,20.5),('518BA1058A0347C2831D94AB76DF13EB','成果名称','项目详情','项目负责人','项目成员 ,',NULL,'合作单位','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/2.jpg','否','产学研','项目简介',NULL,123);
+/*!40000 ALTER TABLE `achievement_industry_university_research_project` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -51,4 +34,4 @@ CREATE TABLE `achievement_industry_university_research_project` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 21:48:01
+-- Dump completed on 2019-04-29 12:31:08

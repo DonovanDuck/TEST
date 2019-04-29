@@ -28,6 +28,8 @@ public class SIAE {
 	private String midreply;//中期检查
 	private String concludingRreport;//结题报告
 	private Timestamp uploadTime;//成果上传时间
+	private String firstPicture;//第一张图片
+	private Integer browseVolume;//浏览量
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -148,6 +150,18 @@ public class SIAE {
 	public void setUploadTime(Timestamp uploadTime) {
 		this.uploadTime = uploadTime;
 	}
+	public String getFirstPicture() {
+		return firstPicture;
+	}
+	public void setFirstPicture(String firstPicture) {
+		this.firstPicture = firstPicture;
+	}
+	public Integer getBrowseVolume() {
+		return browseVolume;
+	}
+	public void setBrowseVolume(Integer browseVolume) {
+		this.browseVolume = browseVolume;
+	}
 	@Override
 	public String toString() {
 		return "SIAE [achievementId=" + achievementId + ", achievementName=" + achievementName
@@ -157,13 +171,13 @@ public class SIAE {
 				+ ", level=" + level + ", feature=" + feature + ", finishTime=" + finishTime + ", achievementAccessory="
 				+ achievementAccessory + ", plan=" + plan + ", status=" + status + ", declaration=" + declaration
 				+ ", midreply=" + midreply + ", concludingRreport=" + concludingRreport + ", uploadTime=" + uploadTime
-				+ "]";
+				+ ", firstPicture=" + firstPicture + ", browseVolume=" + browseVolume + "]";
 	}
 	public SIAE(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
 			String member, String compere, String teamName, String level, String feature, Date finishTime,
 			AchievementAccessory achievementAccessory, String plan, String status, String declaration, String midreply,
-			String concludingRreport, Timestamp uploadTime) {
+			String concludingRreport, Timestamp uploadTime, String firstPicture, Integer browseVolume) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -185,6 +199,8 @@ public class SIAE {
 		this.midreply = midreply;
 		this.concludingRreport = concludingRreport;
 		this.uploadTime = uploadTime;
+		this.firstPicture = firstPicture;
+		this.browseVolume = browseVolume;
 	}
 	public SIAE() {
 		super();

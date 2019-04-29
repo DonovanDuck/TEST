@@ -20,9 +20,9 @@ public class CourseExpand {
 	private String teamName; //团队名
 	private Date finishTime;//完成时间时间
 	private Timestamp uploadTime;//上传时间
+	private String firstPicture;//第一张图片
 	private AchievementAccessory achievementAccessory;//课程拓展附件
-	
-	
+	private Integer browseVolume;//浏览量
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -101,11 +101,23 @@ public class CourseExpand {
 	public void setUploadTime(Timestamp uploadTime) {
 		this.uploadTime = uploadTime;
 	}
+	public String getFirstPicture() {
+		return firstPicture;
+	}
+	public void setFirstPicture(String firstPicture) {
+		this.firstPicture = firstPicture;
+	}
 	public AchievementAccessory getAchievementAccessory() {
 		return achievementAccessory;
 	}
 	public void setAchievementAccessory(AchievementAccessory achievementAccessory) {
 		this.achievementAccessory = achievementAccessory;
+	}
+	public Integer getBrowseVolume() {
+		return browseVolume;
+	}
+	public void setBrowseVolume(Integer browseVolume) {
+		this.browseVolume = browseVolume;
 	}
 	@Override
 	public String toString() {
@@ -113,17 +125,14 @@ public class CourseExpand {
 				+ achievementName + ", achievementCategory=" + achievementCategory + ", achievementPhoto="
 				+ achievementPhoto + ", introduction=" + introduction + ", achievementDetail=" + achievementDetail
 				+ ", guidanceTeacher=" + guidanceTeacher + ", member=" + member + ", compere=" + compere + ", teamName="
-				+ teamName + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime + ", achievementAccessory="
-				+ achievementAccessory + "]";
-	}
-	public CourseExpand() {
-		super();
-		// TODO Auto-generated constructor stub
+				+ teamName + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime + ", firstPicture="
+				+ firstPicture + ", achievementAccessory=" + achievementAccessory + ", browseVolume=" + browseVolume
+				+ "]";
 	}
 	public CourseExpand(String achievementId, String courseId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
-			String member, String compere, String teamName, Date finishTime, Timestamp uploadTime,
-			AchievementAccessory achievementAccessory) {
+			String member, String compere, String teamName, Date finishTime, Timestamp uploadTime, String firstPicture,
+			AchievementAccessory achievementAccessory, Integer browseVolume) {
 		super();
 		this.achievementId = achievementId;
 		this.courseId = courseId;
@@ -138,8 +147,13 @@ public class CourseExpand {
 		this.teamName = teamName;
 		this.finishTime = finishTime;
 		this.uploadTime = uploadTime;
+		this.firstPicture = firstPicture;
 		this.achievementAccessory = achievementAccessory;
+		this.browseVolume = browseVolume;
 	}
-	
+	public CourseExpand() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	
 }

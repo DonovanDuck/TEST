@@ -156,8 +156,8 @@ header nav li a{
                   <li class="li2"><a href="<c:url value='/main/toMain'/>">首页</a></li>
                   <li class="li2"><a href="<c:url value='/teacher/courseList'/>">课程</a></li>
                   <li class="li2"><a href="">互助</a></li>
-                  <li class="li2"><a href="">学生成果</a></li>
-                  <li class="li2"><a href="">产学研项目</a></li>
+                  <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
+                  <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li>
                   <c:if test="${teacher != null }">
                   <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>">个人中心</a></li>
 	              </c:if>

@@ -16,29 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `achievement_course_expand`
+-- Dumping data for table `achievement_course_expand`
 --
 
-DROP TABLE IF EXISTS `achievement_course_expand`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `achievement_course_expand` (
-  `achievement_id` varchar(255) NOT NULL,
-  `course_id` varchar(35) DEFAULT NULL,
-  `achievement_name` varchar(255) DEFAULT NULL,
-  `achievement_category` varchar(255) DEFAULT NULL,
-  `introduction` varchar(255) DEFAULT NULL,
-  `achievement_detail` varchar(255) DEFAULT NULL,
-  `guidance_teacher` varchar(255) DEFAULT NULL,
-  `member` varchar(255) DEFAULT NULL,
-  `compere` varchar(255) DEFAULT NULL,
-  `team_name` varchar(255) DEFAULT NULL,
-  `finish_time` date DEFAULT NULL,
-  `upload_time` date DEFAULT NULL,
-  PRIMARY KEY (`achievement_id`),
-  KEY `fk_id_idx` (`course_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `achievement_course_expand` WRITE;
+/*!40000 ALTER TABLE `achievement_course_expand` DISABLE KEYS */;
+INSERT INTO `achievement_course_expand` VALUES ('09708A3B8D8942929FE777E4D9DC5397','09708A3B8D8942929FE777E4D9DC5397','阿斯顿发作品','课程拓展','这是一个简介，关于课程拓展课程拓展课程拓展的简介','','',NULL,NULL,NULL,'2019-01-10',NULL,'/home/menahemli/Desktop/1313.jpg',5656565);
+/*!40000 ALTER TABLE `achievement_course_expand` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +34,4 @@ CREATE TABLE `achievement_course_expand` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 21:48:01
+-- Dump completed on 2019-04-29 12:31:08

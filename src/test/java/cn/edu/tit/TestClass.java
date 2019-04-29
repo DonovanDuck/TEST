@@ -97,5 +97,8 @@ public class TestClass {
 	@Test
 	public void getSignPoint() throws Exception{
 		studentDao.studentExitAttentionCourse("09708A3B8D8942929FE777E4D9DC5397", "1");
+		System.out.println(common.eccryptMD5("1"));
 	}
+	
+	
 }

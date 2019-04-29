@@ -13,6 +13,7 @@ public class IURP {
 	private String projectDetail;//产学研详情
 	private String compere;//主持人
 	private String member;//成员
+	private Float price;//价格
 	private Integer collectTheAmount;//进账金额
 	private String cooperator;//合作单位
 	private Date startTime;//开始时间
@@ -22,6 +23,17 @@ public class IURP {
 	private AchievementAccessory accessory;//产学研附件
 	private String isshare;//是否分享
 	private String projectCategory;//项目类别
+	private String firstPicture;//第一张图片
+	private Integer browseVolume;//浏览量
+	@Override
+	public String toString() {
+		return "IURP [projectId=" + projectId + ", projectName=" + projectName + ", introduction=" + introduction
+				+ ", projectDetail=" + projectDetail + ", compere=" + compere + ", member=" + member + ", price="
+				+ price + ", collectTheAmount=" + collectTheAmount + ", cooperator=" + cooperator + ", startTime="
+				+ startTime + ", endTime=" + endTime + ", status=" + status + ", projectPhoto=" + projectPhoto
+				+ ", accessory=" + accessory + ", isshare=" + isshare + ", projectCategory=" + projectCategory
+				+ ", firstPicture=" + firstPicture + ", browseVolume=" + browseVolume + "]";
+	}
 	public String getProjectId() {
 		return projectId;
 	}
@@ -57,6 +69,12 @@ public class IURP {
 	}
 	public void setMember(String member) {
 		this.member = member;
+	}
+	public Float getPrice() {
+		return price;
+	}
+	public void setPrice(Float price) {
+		this.price = price;
 	}
 	public Integer getCollectTheAmount() {
 		return collectTheAmount;
@@ -112,17 +130,22 @@ public class IURP {
 	public void setProjectCategory(String projectCategory) {
 		this.projectCategory = projectCategory;
 	}
-	@Override
-	public String toString() {
-		return "IURP [projectId=" + projectId + ", projectName=" + projectName + ", introduction=" + introduction
-				+ ", projectDetail=" + projectDetail + ", compere=" + compere + ", member=" + member
-				+ ", collectTheAmount=" + collectTheAmount + ", cooperator=" + cooperator + ", startTime=" + startTime
-				+ ", endTime=" + endTime + ", status=" + status + ", projectPhoto=" + projectPhoto + ", accessory="
-				+ accessory + ", isshare=" + isshare + ", projectCategory=" + projectCategory + "]";
+	public String getFirstPicture() {
+		return firstPicture;
+	}
+	public void setFirstPicture(String firstPicture) {
+		this.firstPicture = firstPicture;
+	}
+	public Integer getBrowseVolume() {
+		return browseVolume;
+	}
+	public void setBrowseVolume(Integer browseVolume) {
+		this.browseVolume = browseVolume;
 	}
 	public IURP(String projectId, String projectName, String introduction, String projectDetail, String compere,
-			String member, Integer collectTheAmount, String cooperator, Date startTime, Date endTime, String status,
-			AchievementPicture projectPhoto, AchievementAccessory accessory, String isshare, String projectCategory) {
+			String member, Float price, Integer collectTheAmount, String cooperator, Date startTime, Date endTime,
+			String status, AchievementPicture projectPhoto, AchievementAccessory accessory, String isshare,
+			String projectCategory, String firstPicture, Integer browseVolume) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -130,6 +153,7 @@ public class IURP {
 		this.projectDetail = projectDetail;
 		this.compere = compere;
 		this.member = member;
+		this.price = price;
 		this.collectTheAmount = collectTheAmount;
 		this.cooperator = cooperator;
 		this.startTime = startTime;
@@ -139,6 +163,8 @@ public class IURP {
 		this.accessory = accessory;
 		this.isshare = isshare;
 		this.projectCategory = projectCategory;
+		this.firstPicture = firstPicture;
+		this.browseVolume = browseVolume;
 	}
 	public IURP() {
 		super();

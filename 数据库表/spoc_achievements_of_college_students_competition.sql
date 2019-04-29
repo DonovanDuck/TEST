@@ -16,29 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `achievements_of_college_students_competition`
+-- Dumping data for table `achievements_of_college_students_competition`
 --
 
-DROP TABLE IF EXISTS `achievements_of_college_students_competition`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `achievements_of_college_students_competition` (
-  `achievement_id` varchar(255) NOT NULL,
-  `achievement_name` varchar(255) DEFAULT NULL,
-  `achievement_category` varchar(255) DEFAULT NULL,
-  `achievement_introduction` varchar(255) DEFAULT NULL,
-  `ahievement_detail` varchar(255) DEFAULT NULL,
-  `guidance_teacher` varchar(255) DEFAULT NULL,
-  `member` varchar(255) DEFAULT NULL COMMENT '团队成员',
-  `compere` varchar(255) DEFAULT NULL COMMENT '主持人（项目负责人）',
-  `team_name` varchar(255) DEFAULT NULL,
-  `level` varchar(255) DEFAULT NULL COMMENT '等级：校级、省级、国急',
-  `feature` varchar(255) DEFAULT NULL COMMENT '特点',
-  `finish_time` date DEFAULT NULL COMMENT '作品完成时间',
-  `upload_time` date DEFAULT NULL COMMENT '上传成果时间',
-  PRIMARY KEY (`achievement_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `achievements_of_college_students_competition` WRITE;
+/*!40000 ALTER TABLE `achievements_of_college_students_competition` DISABLE KEYS */;
+INSERT INTO `achievements_of_college_students_competition` VALUES ('09708A3B8D8942929FE777E4D9DC5397','大学生竞赛成果作品','大学生竞赛','作品简介大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品','',NULL,NULL,NULL,NULL,NULL,NULL,'2019-01-10','2019-01-10','/home/menahemli/Desktop/1.jpg',56565);
+/*!40000 ALTER TABLE `achievements_of_college_students_competition` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -49,4 +34,4 @@ CREATE TABLE `achievements_of_college_students_competition` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 21:48:01
+-- Dump completed on 2019-04-29 12:31:08

@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>成果信息页</title>
+<title> 信息页</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
@@ -28,18 +28,18 @@
 			<div class="col-md-12 topColumn">
 				<div class="col-md-8 leftSelect">
 					<a class="btn btn-default"
-						href="${pageContext.request.contextPath}/achievement/selectCategory?category=1"
-						role="button">课程拓展</a> <a class="btn btn-default"
-						href="${pageContext.request.contextPath}/achievement/selectCategory?category=2"
-						role="button">大学生创新创业</a> <a class="btn btn-default"
-						href="${pageContext.request.contextPath}/achievement/selectCategory?category=3"
-						role="button">大学生竞赛</a> <a class="btn btn-default"
-						href="${pageContext.request.contextPath}/achievement/selectCategory?category=4"
-						role="button">毕业设计</a> <a class="btn btn-default"
-						href="${pageContext.request.contextPath}/achievement/selectCategory?category=5"
-						role="button">产学研</a> <a class="btn btn-default"
 						href="${pageContext.request.contextPath}/achievement/toAchievementMainPage"
-						role="button">全部</a>
+						role="button">全部</a> <a class="btn btn-default"
+						href="${pageContext.request.contextPath}/achievement/selectCategory?category=CourseExpand"
+						role="button">课程拓展</a> <a class="btn btn-default"
+						href="${pageContext.request.contextPath}/achievement/selectCategory?category=SIAE"
+						role="button">大学生创新创业</a> <a class="btn btn-default"
+						href="${pageContext.request.contextPath}/achievement/selectCategory?category=AOCSC"
+						role="button">大学生竞赛</a> <a class="btn btn-default"
+						href="${pageContext.request.contextPath}/achievement/selectCategory?category=GDFCS"
+						role="button">毕业设计</a> <a class="btn btn-default"
+						href="${pageContext.request.contextPath}/achievement/selectCategory?category=IURP"
+						role="button">产学研</a>
 				</div>
 				<div class="col-md-4 rightSearch">
 					<form
@@ -52,48 +52,146 @@
 				</div>
 			</div>
 			<div class="col-md-12 bottomColumn" style="min-height: 400px">
-				<c:if test="${!empty achievementList}">
-					<c:forEach items="${achievementList }" var="item"
-						varStatus="status">
-						<a
-							href="${pageContext.request.contextPath}/achievement/toDetailAchievement?achievementId="
-							${item.achievementId }>
-							<div class="chengguo-out col-md-2" style="padding: 2px">
-								<div class="rel-img">
-									<img src="${pageContext.request.contextPath}/img/fire.png"
-										style="position: absolute; margin-left: 0; margin-top: 0;">
-									<img alt="" style="width: 100%; height: 100%"
-										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.achievementPhoto }" />
-								</div>
-								<div class="info">
-									<div class="infoContent">
-										<p>成果名称：${item.achievementName }</p>
-										<p>类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别：${item.achievementCategory
-											}</p>
-										<p>团队名称：${item.teamName }</p>
-										<p>完成时间：${item.finishTime }</p>
+				<c:if test="${!empty iURPList}">
+					<c:forEach items="${iURPList }" var="item" varStatus="status">
+						<a href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
+							<div class="chengguo-out col-md-4" style="padding:8px">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white;">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.projectName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												产学研推荐&nbsp&nbsp<span class="publishTime">发布于：${item.endTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
 									</div>
 								</div>
 							</div>
 						</a>
 					</c:forEach>
 				</c:if>
-				<c:if test="${!empty iURPList}">
-					<c:forEach items="${iURPList }" var="item" varStatus="status">
-						<a href="${pageContext.request.contextPath}/achievement/..">
-							<div class="chengguo-out col-md-2" style="padding: 2px">
-								<div class="rel-img">
-									<img src="${pageContext.request.contextPath}/img/fire.png"
-										style="position: absolute; margin-left: 0; margin-top: 0;">
-									<img alt="" style="width: 100%; height: 100%"
-										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.projectPhoto }" />
+				<c:if test="${!empty courseExpandList}">
+					<c:forEach items="${courseExpandList }" var="item"
+						varStatus="status">
+						<a href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4" style="padding: 8px">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white;">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
+									</div>
 								</div>
-								<div class="info">
-									<div class="infoContent">
-										<p>成果名称：${item.projectName }</p>
-										<p>类&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp别：产学研</p>
-										<p>团队名称：${item.member }</p>
-										<p>完成时间：${item.endTime }</p>
+							</div>
+						</a>
+					</c:forEach>
+				</c:if>
+				<c:if test="${!empty gdfcsList}">
+					<c:forEach items="${gdfcsList }" var="item" varStatus="status">
+						<a href="${pageContext.request.contextPath}/achievement/toDetailGDFCS?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4" style="padding: 8px">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white;">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</c:forEach>
+				</c:if>
+				<c:if test="${!empty siaeList}">
+					<c:forEach items="${siaeList }" var="item" varStatus="status">
+						<a href="${pageContext.request.contextPath}/achievement/toDetailSIAE?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4" style="padding: 8px">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white;">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</c:forEach>
+				</c:if>
+				<c:if test="${!empty aocscList}">
+					<c:forEach items="${aocscList }" var="item" varStatus="status">
+						<a href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4" style="padding: 8px">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white;">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												${item.achievementCategory }推荐&nbsp&nbsp<span class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
 									</div>
 								</div>
 							</div>
@@ -118,7 +216,7 @@
 	</div>
 	<div class="info">
 		<div class="title" style="font-size: 10px">
-			<p>成果名称：细胞分析</p>
+			<p> 名称：细胞分析</p>
 			<p>分&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp类：产学研</p>
 			<p>团队名称：生物学实验组</p>
 			<p>完成时间：2006-12-22</p>

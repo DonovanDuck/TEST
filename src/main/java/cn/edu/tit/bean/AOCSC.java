@@ -23,6 +23,8 @@ public class AOCSC {
 	private Date finishTime;//完成时间
 	private Timestamp uploadTime;//提交时间
 	private AchievementAccessory achievementAccessory;//大学生竞赛成果附件
+	private String firstPicture;//第一张图片
+	private Integer browseVolume;//浏览量
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -113,6 +115,18 @@ public class AOCSC {
 	public void setAchievementAccessory(AchievementAccessory achievementAccessory) {
 		this.achievementAccessory = achievementAccessory;
 	}
+	public String getFirstPicture() {
+		return firstPicture;
+	}
+	public void setFirstPicture(String firstPicture) {
+		this.firstPicture = firstPicture;
+	}
+	public Integer getBrowseVolume() {
+		return browseVolume;
+	}
+	public void setBrowseVolume(Integer browseVolume) {
+		this.browseVolume = browseVolume;
+	}
 	@Override
 	public String toString() {
 		return "AOCSC [achievementId=" + achievementId + ", achievementName=" + achievementName
@@ -120,12 +134,14 @@ public class AOCSC {
 				+ ", introduction=" + introduction + ", achievementDetail=" + achievementDetail + ", guidanceTeacher="
 				+ guidanceTeacher + ", member=" + member + ", compere=" + compere + ", teamName=" + teamName
 				+ ", level=" + level + ", feature=" + feature + ", finishTime=" + finishTime + ", uploadTime="
-				+ uploadTime + ", achievementAccessory=" + achievementAccessory + "]";
+				+ uploadTime + ", achievementAccessory=" + achievementAccessory + ", firstPicture=" + firstPicture
+				+ ", browseVolume=" + browseVolume + "]";
 	}
 	public AOCSC(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
 			String member, String compere, String teamName, String level, String feature, Date finishTime,
-			Timestamp uploadTime, AchievementAccessory achievementAccessory) {
+			Timestamp uploadTime, AchievementAccessory achievementAccessory, String firstPicture,
+			Integer browseVolume) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -142,6 +158,8 @@ public class AOCSC {
 		this.finishTime = finishTime;
 		this.uploadTime = uploadTime;
 		this.achievementAccessory = achievementAccessory;
+		this.firstPicture = firstPicture;
+		this.browseVolume = browseVolume;
 	}
 	public AOCSC() {
 		super();

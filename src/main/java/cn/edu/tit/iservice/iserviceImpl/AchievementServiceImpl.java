@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import cn.edu.tit.bean.AOCSC;
-import cn.edu.tit.bean.Achievement;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementPicture;
 import cn.edu.tit.bean.CourseExpand;
@@ -299,5 +298,60 @@ public class AchievementServiceImpl implements IAchievementService{
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Override
+	public IURP queryIURPById(String achievementId) throws Exception {
+		IURP iu = new IURP();
+		try {
+			iu = achievementDao.queryIURPById(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return iu;
+	}
+
+	@Override
+	public AOCSC queryAOCSCById(String achievementId) throws Exception {
+		AOCSC iu = new AOCSC();
+		try {
+			iu = achievementDao.queryAOCSCById(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return iu;
+	}
+
+	@Override
+	public CourseExpand queryCourseExpandById(String achievementId) throws Exception {
+		CourseExpand iu = new CourseExpand();
+		try {
+			iu = achievementDao.queryCourseExpandById(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return iu;
+	}
+
+	@Override
+	public GDFCS queryGDFCSById(String achievementId) throws Exception {
+		GDFCS iu = new GDFCS();
+		try {
+			iu = achievementDao.queryGDFCSById(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return iu;
+	}
+
+	@Override
+	public SIAE querySIAEById(String achievementId) {
+		SIAE iu = new SIAE();
+		try {
+			iu = achievementDao.querySIAEById(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return iu;
 	}
 }

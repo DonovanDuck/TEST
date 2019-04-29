@@ -4,21 +4,26 @@
 	height: 100%;
 }
 
+.body {
+	background-color: #E8EBF0;
+}
+
 .rightSearch {
 	margin: 0;
 }
 
 .bottomColumn {
-	margin-top:1%;
+	margin-top: 1%;
 }
 
-.infoContent{
+.infoContent {
 	font-size: 14px;
-	color:black;
+	color: black;
 }
-.infoContent p{
-	margin:0px;
-	padding:0px;
+
+.infoContent p {
+	margin: 0px;
+	padding: 0px;
 }
 
 .footer {

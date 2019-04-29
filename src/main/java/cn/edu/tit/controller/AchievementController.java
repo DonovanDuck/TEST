@@ -1,27 +1,30 @@
 package cn.edu.tit.controller;
 
-
 import java.io.File;
+import java.sql.Date;
 import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import cn.edu.tit.bean.Achievement;
-import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.AOCSC;
+import cn.edu.tit.bean.AchievementAccessory;
+import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.CourseExpand;
+import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
-import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.SIAE;
+import cn.edu.tit.bean.Student;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAchievementService;
-import cn.edu.tit.iservice.ITeacherService;
 
 @RequestMapping("/achievement")
 @Controller
@@ -37,12 +40,21 @@ public class AchievementController {
 	@RequestMapping(value="toAchievementMainPage")
 	public ModelAndView toAchievementMainPage(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
-		List<Achievement> achievementList =new ArrayList<>();
+		List<AOCSC> aocscList =new ArrayList<>();
+		List<CourseExpand> courseExpandList =new ArrayList<>();
+		List<GDFCS> gdfcsList =new ArrayList<>();
+		List<SIAE> siaeList =new ArrayList<>();
 		List<IURP> iURPList =new ArrayList<>();
 		try {
-			achievementList = iAchievementService.queryAchievement();
+			aocscList = iAchievementService.queryAOCSC();
+			courseExpandList = iAchievementService.queryCourseExpand();
+			gdfcsList = iAchievementService.queryGDFCS();
+			siaeList = iAchievementService.querySIAE();
 			iURPList = iAchievementService.queryIURP();
-			mv.addObject("achievementList",achievementList);
+			mv.addObject("aocscList",aocscList);
+			mv.addObject("courseExpandList",courseExpandList);
+			mv.addObject("gdfcsList",gdfcsList);
+			mv.addObject("siaeList",siaeList);
 			mv.addObject("iURPList",iURPList);
 			mv.setViewName("/jsp/AchievementJsp/achievementMain");
 		} catch (Exception e) {
@@ -67,24 +79,6 @@ public class AchievementController {
 		return mv;
 	}
 
-	/**
-	 * 跳转到成果详情页
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping(value="toDetailAchievement")
-	public ModelAndView toDetailAchievement(HttpServletRequest request,@RequestParam(value="achievementId") String achievementId){
-		ModelAndView mv = new ModelAndView();
-		try {
-			Achievement ac = new Achievement();
-			ac = iAchievementService.queryAchievementById(achievementId);
-			mv.addObject("achievement",ac);
-			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		return mv;
-	}
 
 	/**
 	 * 类别选择
@@ -95,33 +89,39 @@ public class AchievementController {
 	 * 3.大学生竞赛
 	 * 4.毕设
 	 * 5.产学研
+	 * @throws Exception 
 	 */
 	@RequestMapping(value="selectCategory")
-	public ModelAndView selectCategory(HttpServletRequest request,@RequestParam(value="category") String category){
+	public ModelAndView selectCategory(HttpServletRequest request,@RequestParam(value="category") String category) throws Exception{
 		ModelAndView mv = new ModelAndView();
-		List<Achievement> achievementList =new ArrayList<>();
-		switch (category) {
-		case "1":category = "课程拓展";
-		break;
-		case "2":category = "大学生创新创业";
-		break;
-		case "3":category = "大学生竞赛";
-		break;
-		case "4":category = "毕设";
-		break;
-		case "5":category = "产学研";
-		break;
-		}
+		List<AOCSC> aocscList =new ArrayList<>();
+		List<CourseExpand> courseExpandList =new ArrayList<>();
+		List<GDFCS> gdfcsList =new ArrayList<>();
+		List<SIAE> siaeList =new ArrayList<>();
 		List<IURP> iURPList =new ArrayList<>();
-		try {
-			if(category.equals("产学研"))
-			{
-				iURPList = iAchievementService.queryIURP();
-				mv.addObject("iURPList",iURPList);
-			}else {
-				achievementList = iAchievementService.queryAchievementByCategory(category);
-				mv.addObject("achievementList",achievementList);
-			}		
+		switch (category) {
+		case "AOCSC":
+			aocscList = iAchievementService.queryAOCSC();
+			break;
+		case "CourseExpand":
+			courseExpandList = iAchievementService.queryCourseExpand();
+			break;
+		case "GDFCS":
+			gdfcsList = iAchievementService.queryGDFCS();
+			break;
+		case "SIAE":			
+			siaeList = iAchievementService.querySIAE();
+			break;
+		case "IURP":	
+			iURPList = iAchievementService.queryIURP();
+			break;
+		}
+		try {		
+			mv.addObject("aocscList",aocscList);
+			mv.addObject("courseExpandList",courseExpandList);
+			mv.addObject("gdfcsList",gdfcsList);
+			mv.addObject("siaeList",siaeList);
+			mv.addObject("iURPList",iURPList);
 			mv.setViewName("/jsp/AchievementJsp/achievementMain");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -138,22 +138,41 @@ public class AchievementController {
 	@RequestMapping(value="toSearch")
 	public ModelAndView toSearch(HttpServletRequest request,@RequestParam(value="search") String search){
 		ModelAndView mv = new ModelAndView();
-		List<Achievement> achievementList =new ArrayList<>();
-		List<Achievement> achievementListTeam =new ArrayList<>();
+		List<AOCSC> aocscList =new ArrayList<>();
+		List<AOCSC> aocscListAuthor =new ArrayList<>();
+		List<CourseExpand> courseExpandList =new ArrayList<>();
+		List<CourseExpand> courseExpandListAuthor =new ArrayList<>();
+		List<GDFCS> gdfcsList =new ArrayList<>();
+		List<GDFCS> gdfcsListAuthor =new ArrayList<>();
+		List<SIAE> siaeList =new ArrayList<>();
+		List<SIAE> siaeListAuthor =new ArrayList<>();
 		List<IURP> iURPList =new ArrayList<>();
 		List<IURP> iURPListAuthor =new ArrayList<>();
 		try {
-			achievementList = iAchievementService.queryAchievementByName(search);
-			achievementListTeam = iAchievementService.queryAchievementByTeam(search);
-			achievementList.removeAll(achievementListTeam);
-			achievementList.addAll(achievementListTeam);
-			mv.addObject("achievementList",achievementList);
-			mv.setViewName("/jsp/AchievementJsp/achievementMain");
-
+			aocscList = iAchievementService.queryAOCSCByName(search);
+			aocscListAuthor = iAchievementService.queryAOCSCByAuthor(search);
+			aocscList.removeAll(aocscListAuthor);
+			aocscList.addAll(aocscListAuthor);	
+			courseExpandList = iAchievementService.queryCourseExpandByName(search);
+			courseExpandListAuthor = iAchievementService.queryCourseExpandByAuthor(search);
+			courseExpandList.removeAll(courseExpandListAuthor);
+			courseExpandList.addAll(courseExpandListAuthor);		
+			gdfcsList = iAchievementService.queryGDFCSByName(search);
+			gdfcsListAuthor = iAchievementService.queryGDFCSByAuthor(search);
+			gdfcsList.removeAll(gdfcsListAuthor);
+			gdfcsList.addAll(gdfcsListAuthor);
+			siaeList = iAchievementService.querySIAEByName(search);
+			siaeListAuthor = iAchievementService.querySIAEByAuthor(search);
+			siaeList.removeAll(siaeListAuthor);
+			siaeList.addAll(siaeListAuthor);
 			iURPList = iAchievementService.queryIURPByName(search);
 			iURPListAuthor = iAchievementService.queryIURPByAuthor(search);
 			iURPList.removeAll(iURPListAuthor);
 			iURPList.addAll(iURPListAuthor);
+			mv.addObject("aocscList",aocscList);
+			mv.addObject("courseExpandList",courseExpandList);
+			mv.addObject("gdfcsList",gdfcsList);
+			mv.addObject("siaeList",siaeList);
 			mv.addObject("iURPList",iURPList);
 			mv.setViewName("/jsp/AchievementJsp/achievementMain");
 		} catch (Exception e) {
@@ -163,54 +182,76 @@ public class AchievementController {
 		return mv;
 	}
 
+	@SuppressWarnings("unused")
+	private Date ConverDate(String string) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = new java.util.Date();//util.Date
+		Date sqlDate = new java.sql.Date(sdf.parse(string).getTime());
+		return sqlDate;
+	}
+
 	/**
 	 * 发布成果信息
 	 * @return
 	 */
-	@RequestMapping(value="publishAchievement")
+	@RequestMapping(value="publishIURP")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView publishAchievement(HttpServletRequest request){
+	public ModelAndView publishIURP(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		try {
-			String achievementId = Common.uuid();
-			Object[] obj = Common.fileFactory(request,achievementId);
+			//Student stu = (Student) request.getSession().getAttribute("Student");
+			String projectId = Common.uuid();
+			Object[] obj = Common.fileFactory(request,projectId);
 			List<File> files = (List<File>) obj[0];	// 获取课程图片
 			Map<String, Object> formdata = (Map<String, Object>) obj[1]; // 获取课程内容
-			Achievement ac = new Achievement();
-			ac.setAchievementAccessory(null);//附件
-			ac.setAchievementCategory((String)formdata.get("selectCategory"));//种类
-			ac.setAchievementDetail((String)formdata.get("detail"));//详情
-			ac.setAchievementId(achievementId);//ID
-			ac.setAchievementName((String)formdata.get("name"));//成果名
-			for(File f : files){ // 集合中只有一张图片,配置图片路径到数据库
-				ac.setAchievementPhoto(Common.readProperties("path")+"/"+f.getName());
+			IURP i = new IURP();
+			i.setCompere((String)formdata.get("compere"));
+			i.setCooperator((String)formdata.get("cooperator"));
+			i.setEndTime(ConverDate((String)formdata.get("endTime")));
+			i.setIntroduction((String)formdata.get("introduction"));
+			i.setIsshare((String)formdata.get("isShare"));
+			i.setMember((String)formdata.get("memberContent"));
+			i.setPrice(Float.parseFloat((String)formdata.get("price")));
+			i.setProjectCategory("产学研");
+			i.setProjectDetail((String)formdata.get("detail"));
+			i.setProjectId(projectId);
+			i.setProjectName((String)formdata.get("name"));
+			i.setStartTime(ConverDate((String)formdata.get("startTime")));
+			i.setStatus(null);
+			/**
+			 * 文件的处理
+			 * */
+			i.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());//获取图片的第一个图片
+			List<AchievementPicture> pictureList = new ArrayList<>();
+			AchievementPicture pi;
+			for(int j = 0;j<files.size()-1;j++){
+				File f = files.get(j);
+				String accessoryId = Common.uuid();
+				pi = new AchievementPicture();
+				pi.setAccessoryId(accessoryId);
+				pi.setAccessoryName(f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+				pi.setAchievementId(projectId);
+				pi.setAuthorId(null);
+				pi.setDeleteFlag(null);
+				pictureList.add(pi);
 			}
-			ac.setApprovalTime(null);//批准时间
-			ac.setCompere(null);//这是什么属性，不知道
-			ac.setFeature(null);//特点
-			ac.setFinishTime(null);//完成时间
-			ac.setFund(null);//资金，售价
-			ac.setGuidanceTeacher(null);//指导教师
-			ac.setIsShare(null);//是否分享
-			ac.setSharedValue(null);//分享价值
-			ac.setLevel(null);//等级：省级，校级，....
-			String teamMemberOne = "";
-			String teamMemberTwo = "";
-			String teamMemberThree = "";
-			String teamMemberFour = "";
-			if((String)formdata.get("teamMemberOne")!=""||(String)formdata.get("teamMemberOne")!=null)
-			{ teamMemberOne= (String)formdata.get("teamMemberOne");}
-			if((String)formdata.get("teamMemberTwo")!=""||(String)formdata.get("teamMemberTwo")!=null)
-			{ teamMemberTwo= (String)formdata.get("teamMemberTwo");}
-			if((String)formdata.get("teamMemberThree")!=""||(String)formdata.get("teamMemberThree")!=null)
-			{teamMemberThree = (String)formdata.get("teamMemberThree");}	
-			if((String)formdata.get("teamMemberFour")!=""||(String)formdata.get("teamMemberFour")!=null)
-			{teamMemberFour = (String)formdata.get("teamMemberFour");}
-			String member = teamMemberOne+teamMemberTwo+teamMemberThree+teamMemberFour;
-			ac.setMember(member);//团队成员
-			ac.setTeamName((String)formdata.get("teamName"));//团队名
-			ac.setTurnover(null);//成交量
-			iAchievementService.publishAchievement(ac);
+			AchievementAccessory aa = new AchievementAccessory();
+			List<AchievementAccessory> aaList = new ArrayList<>();
+			String accessoryId = Common.uuid();
+			aa.setAccessoryId(accessoryId);
+			aa.setAccessoryName(files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+			aa.setAchievementId(projectId);
+			aa.setAuthorId(null);
+			aa.setDeleteFlag(null);
+			aaList.add(aa);
+			/**文件处理结束***/
+			iAchievementService.insertAchievementAccessory(aaList);
+			iAchievementService.insertAchievementPicture(pictureList);
+			iAchievementService.insertIURP(i);
 			return mv = toAchievementMainPage(request);
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -218,5 +259,112 @@ public class AchievementController {
 			return mv = toUploadAchievement(request);
 		}
 	}
+
+
+	/******************************************详情页*********************************************************/
+	/**
+	 * 跳转到产学研成果详情页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toDetailIURP")
+	public ModelAndView toDetailIURP(HttpServletRequest request,@RequestParam(value="achievementId") String achievementId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			IURP iu = new IURP();
+			iu = iAchievementService.queryIURPById(achievementId);
+			List<AchievementPicture> piList = new ArrayList<>();
+			piList = iAchievementService.queryAchievementPicture(achievementId);
+			mv.addObject("pictureList",piList);
+			mv.addObject("IURP",iu);
+			mv.setViewName("/jsp/AchievementJsp/detailIURP");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+
+	/**
+	 * 跳转到课程拓展成果详情页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toDetailCourseExpand")
+	public ModelAndView toDetailCourseExpand(HttpServletRequest request,@RequestParam(value="achievementId") String achievementId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			CourseExpand ce =  new CourseExpand();
+			ce = iAchievementService.queryCourseExpandById(achievementId);
+			List<AchievementPicture> piList = new ArrayList<>();
+			piList = iAchievementService.queryAchievementPicture(achievementId);
+			mv.addObject("pictureList",piList);
+			mv.addObject("Achievement", ce);
+			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}/**
+	 * 跳转到大学生毕设成果详情页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toDetailGDFCS")
+	public ModelAndView toDetailGDFCS(HttpServletRequest request,@RequestParam(value="achievementId") String achievementId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			GDFCS gd = new GDFCS();
+			gd = iAchievementService.queryGDFCSById(achievementId);
+			List<AchievementPicture> piList = new ArrayList<>();
+			piList = iAchievementService.queryAchievementPicture(achievementId);
+			mv.addObject("pictureList",piList);
+			mv.addObject("Achievement", gd);
+			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}/**
+	 * 跳转到大学身创新创业成果详情页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toDetailSIAE")
+	public ModelAndView toDetailSIAE(HttpServletRequest request,@RequestParam(value="achievementId") String achievementId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			SIAE si = new SIAE();
+			si = iAchievementService.querySIAEById(achievementId);
+			List<AchievementPicture> piList = new ArrayList<>();
+			piList = iAchievementService.queryAchievementPicture(achievementId);
+			mv.addObject("pictureList",piList);
+			mv.addObject("Achievement", si);
+			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}/**
+	 * 跳转到大学生竞赛成果详情页
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toDetailAOCSC")
+	public ModelAndView toDetailAOCSC(HttpServletRequest request,@RequestParam(value="achievementId") String achievementId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			AOCSC ao = new AOCSC();
+			ao = iAchievementService.queryAOCSCById(achievementId);
+			List<AchievementPicture> piList = new ArrayList<>();
+			piList = iAchievementService.queryAchievementPicture(achievementId);
+			mv.addObject("pictureList",piList);
+			mv.addObject("Achievement", ao);
+			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	/******************************************详情页结束*********************************************************/
 
 }

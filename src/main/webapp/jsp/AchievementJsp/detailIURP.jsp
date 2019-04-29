@@ -75,14 +75,13 @@
 							<li data-target="#carousel-example-generic" data-slide-to="0"
 								class="active"></li>
 							<c:forEach items="${pictureList }" var="item" varStatus="status">
-								<li data-target="#carousel-example-generic"
-									data-slide-to="${requestScope.offset+status.index+1}"></li>
+								<li data-target="#carousel-example-generic" data-slide-to="${requestScope.offset+status.index+1}"></li>
 							</c:forEach>
 						</ol>
 						<div class="carousel-inner" role="listbox">
 							<div class="item active">
 								<img alt="" style="width: 100%; height: 400px;"
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${Achievement.firstPicture }" />
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${IURP.firstPicture }" />
 							</div>
 							<c:forEach items="${pictureList }" var="item">
 								<div class="item">
@@ -106,15 +105,19 @@
 					<div class="col-md-12">
 						<div class="col-md-12" style="padding: 0px">
 							<h3 style="margin-top: 10px">
-								<b>${Achievement.achievementName }</b>
+								<b>${IURP.projectName }</b>
 							</h3>
-							<span style="float:right;font-size:10px">浏览量:${Achievement.browseVolume }</span>
+							<span style="float:right;font-size:10px">浏览量:${IURP.browseVolume }</span>
 						</div>
 						<div class="col-md-12" style="padding: 3%">
-							<span style="margin-left: 4%; color: #999">${Achievement.introduction }</span>
+							<span style="margin-left: 4%; color: #999">${IURP.introduction }</span>
 						</div>
 						<div class="col-md-12" style="padding: 0%; color: #999">
-							<h5>负责人：${Achievement.compere }&nbsp&nbsp&nbsp&nbsp团队成员：秦始皇,刘邦,项羽</h5>
+							<h5>负责人：${IURP.compere }&nbsp&nbsp&nbsp&nbsp团队成员：秦始皇,刘邦,项羽</h5>
+						</div>
+						<div class="col-md-12" style="padding: 0%">
+							<span style="color: #999">价格：￥</span><span
+								style="color: #f60; font-size: 40px">${IURP.price }</span>
 						</div>
 					</div>
 				</div>
@@ -133,12 +136,12 @@
 					<div class="col-md-12 detailContent" id="detailContent"
 						style="display: block; padding: 0%">
 						<div class="col-md-12 startTimeAndEndTime">
-							<h3>项目上传时间</h3>
-							<div class="col-md-12">${Achievement.uploadTime }</div>
+							<h3>项目开始时间-项目截止时间</h3>
+							<div class="col-md-12">${IURP.startTime }——${IURP.endTime }</div>
 						</div>
 						<div class="col-md-12">
 							<h3>项目详情</h3>
-							<div class="col-md-12">${Achievement.achievementDetail }</div>
+							<div class="col-md-12">${IURP.projectDetail }</div>
 						</div>
 					</div>
 					<div class="col-md-12 commentContent" id="commentContent"

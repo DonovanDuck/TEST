@@ -16,25 +16,14 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `achievement_graduation_design_for_college_students`
+-- Dumping data for table `achievement_graduation_design_for_college_students`
 --
 
-DROP TABLE IF EXISTS `achievement_graduation_design_for_college_students`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `achievement_graduation_design_for_college_students` (
-  `achievement_id` varchar(255) NOT NULL,
-  `achievement_name` varchar(255) DEFAULT NULL,
-  `achievement_category` varchar(255) DEFAULT NULL,
-  `introduction` varchar(255) DEFAULT NULL,
-  `achievement_detail` varchar(255) DEFAULT NULL,
-  `guidance_teacher` varchar(255) DEFAULT NULL,
-  `compere` varchar(255) DEFAULT NULL COMMENT '项目负责人',
-  `finish_time` varchar(255) DEFAULT NULL,
-  `upload_time` date DEFAULT NULL,
-  PRIMARY KEY (`achievement_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+LOCK TABLES `achievement_graduation_design_for_college_students` WRITE;
+/*!40000 ALTER TABLE `achievement_graduation_design_for_college_students` DISABLE KEYS */;
+INSERT INTO `achievement_graduation_design_for_college_students` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','毕业设计作品','毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品',NULL,NULL,NULL,'2019-01-10 00:52:28',NULL,'/home/menahemli/Desktop/2121.jpg',2323232);
+/*!40000 ALTER TABLE `achievement_graduation_design_for_college_students` ENABLE KEYS */;
+UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -45,4 +34,4 @@ CREATE TABLE `achievement_graduation_design_for_college_students` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-22 21:48:01
+-- Dump completed on 2019-04-29 12:31:08
