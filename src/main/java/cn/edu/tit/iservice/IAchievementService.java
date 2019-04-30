@@ -4,6 +4,7 @@ import java.util.List;
 
 import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
+import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
@@ -20,6 +21,7 @@ public interface IAchievementService {
 	public List<IURP> queryIURPByAuthor(String search)throws Exception;
 	public void insertIURP(IURP iu)throws Exception;
 	public IURP queryIURPById(String achievementId)throws Exception;
+	public void updateIURPBrowseVolume(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
@@ -30,7 +32,8 @@ public interface IAchievementService {
 	public List<AOCSC> queryAOCSCByAuthor(String search)throws Exception;
 	public void insertAOCSC(AOCSC iu)throws Exception;
 	public AOCSC queryAOCSCById(String achievementId)throws Exception;
-	
+	public void updateAOCSCBrowseVolume(String achievementId)throws Exception;
+
 	/**
 	 * @author LiMing
 	 * 课程拓展作品
@@ -40,7 +43,8 @@ public interface IAchievementService {
 	public List<CourseExpand> queryCourseExpandByAuthor(String search)throws Exception;
 	public void insertCourseExpand(CourseExpand iu)throws Exception;
 	public CourseExpand queryCourseExpandById(String achievementId)throws Exception;
-	
+	public void updateCourseExpandBrowseVolume(String achievementId)throws Exception;
+
 	/**
 	 * @author LiMing
 	 * 大学生毕业设计
@@ -50,7 +54,8 @@ public interface IAchievementService {
 	public List<GDFCS> queryGDFCSByAuthor(String search)throws Exception;
 	public void insertGDFCS(GDFCS gdfcs)throws Exception;
 	public GDFCS queryGDFCSById(String achievementId)throws Exception;
-	
+	public void updateGDFCSBrowseVolume(String achievementId)throws Exception;
+
 	/**
 	 * @author LiMing
 	 * 大学生创新创业
@@ -60,19 +65,24 @@ public interface IAchievementService {
 	public List<SIAE> querySIAEByAuthor(String search)throws Exception;
 	public void insertSIAE(SIAE siae)throws Exception;
 	public SIAE querySIAEById(String achievementId);
-	
+	public void updateSIAEBrowseVolume(String achievementId)throws Exception;
+
 	/**
 	 * @author LiMing
 	 * 附件图片操作
 	 */
 	public List<AchievementPicture> queryAchievementPicture(String achievementId) throws Exception;
 	public void insertAchievementPicture(List<AchievementPicture> ap)throws Exception;
-	
+
 	/**
 	 * @author LiMing
 	 * 附件操作
 	 */
 	public List<AchievementAccessory> queryAchievementAccessory(String achievementId) throws Exception;
 	public void insertAchievementAccessory(List<AchievementAccessory> ap)throws Exception;
+	/**
+	 * 查找评论
+	 * */
+	public List<AchievementComment> queryComment(String achievementId,String category)throws Exception;
 
 }

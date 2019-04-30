@@ -73,7 +73,7 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												产学研推荐&nbsp&nbsp<span class="publishTime">发布于：${item.endTime }</span>
+												<b>产学研</b>推荐&nbsp&nbsp<span class="publishTime">发布于：${item.endTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
 										</div>
@@ -105,7 +105,7 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
 													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
@@ -137,7 +137,7 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
 													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
@@ -169,7 +169,7 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
 													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
@@ -201,7 +201,7 @@
 											</h3>
 											<p class="description">${item.introduction }</p>
 											<p class="description">
-												${item.achievementCategory }推荐&nbsp&nbsp<span
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
 													class="publishTime">发布于：${item.finishTime }</span>
 											</p>
 											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>

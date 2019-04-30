@@ -17,6 +17,51 @@
 	margin-top: 2%;
 }
 
+.relative {
+	margin-top: 1%;
+	margin-left: 1%;
+	padding: 1%;
+}
+
+.bottomColumn {
+	padding: 0%;
+	width: 74%;
+	margin-top: 1%
+}
+
+.commentUserName {
+	color: #B9B9B9;
+	margin-top: 5%;
+}
+
+.detailContent {
+	display: block;
+	padding: 0%
+}
+
+.commentTime {
+	margin: 0px;
+	margin-top: 10%;
+	font-size: 10px;
+	color: #B9B9B9;
+}
+
+.commentContentTwo {
+	font-size: 12px;
+	letter-spacing: 1px;
+	line-height: 23px;
+}
+
+.relativeContent {
+	padding: 2%;
+	color: #999
+}
+
+.relativeContent p {
+	margin-bottom: 4px;
+	font-size: 10px;
+}
+
 .footer {
 	overflow: hidden;
 	width: 100%;

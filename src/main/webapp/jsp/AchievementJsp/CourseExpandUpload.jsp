@@ -48,6 +48,17 @@
 				<h2>课程拓展成果上传</h2>
 			</div>
 			<div class="form-group">
+				<label for="name">所属课程</label>
+				<div>
+					<input type="text" style="width: 80%; float: left"
+						class="form-control" id="name" name="name" placeholder="课程名称">
+					<a href="${pageContext.request.contextPath}/.." target="parent">
+						<button type="button" class="btn btn-primary btn-primary"
+							style="float: left">选择课程</button>
+					</a>
+				</div>
+			</div>
+			<div class="form-group" style="margin-top:7%;">
 				<label for="name">成果名称</label> <input type="text"
 					class="form-control" id="name" name="name" placeholder="成果名称">
 			</div>
@@ -81,15 +92,15 @@
 			<div class="form-group">
 				<label for="introduction">项目简介</label> <input type="text"
 					class="form-control" id="introduction" name="introduction"
-					placeholder="项目简介">
+					placeholder="项目简介(字数限制50)" maxlength="50">
 			</div>
 			<div class="form-group">
 				<label for="detail">项目详情</label> <input type="text"
 					class="form-control" id="detail" name="detail" placeholder="项目详情">
 			</div>
 			<div class="form-group">
-				<label for="finishTime">项目结束时间</label> <input type="date"
-					class="form-control" id="finishTime" name="endTime"
+				<label for="finishTime">项目完成时间</label> <input type="date"
+					class="form-control" id="finishTime" name="finishTime"
 					placeholder="项目结束时间">
 			</div>
 			<div class="form-group">
@@ -100,11 +111,12 @@
 				<label for="exampleInputFile">成果附件</label> <input type="file"
 					name="accessory" id="exampleInputFile">
 			</div>
-			<div class="form-group"  style="margin-top:8%">
+			<div class="form-group" style="margin-top: 8%">
 				<input class="btn btn-primary" type="button" value="上传"
-					onclick="submitButton()" style="margin-left:20%"> <a href=”#”
-					onClick=”javascript:history.back(-1)”><button
-						class="btn btn-primary pull-right" style="margin-right:20%">取消</button> </a>
+					onclick="submitButton()" style="margin-left: 20%"> <a
+					href=”#” onClick=”javascript:history.back(-1)”><button
+						class="btn btn-primary pull-right" style="margin-right: 20%">取消</button>
+				</a>
 			</div>
 		</div>
 	</form>

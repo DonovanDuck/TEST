@@ -113,6 +113,17 @@
 		<result column="achievement_id" property="achievementId" />
 		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
+	<!--评论映射 -->
+	<resultMap type="cn.edu.tit.bean.AchievementComment" id="AchievementCommentMap">
+		<id column="comment_id" property="commentId" />
+		<result column="author_id" property="authorId" />
+		<result column="achievement_id" property="achievemendId" />
+		<result column="comment_content" property="commentContent" />
+		<result column="uploadTime" property="uploadTime" />
+		<result column="achievement_category" property="category" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="author_name" property="authorName" />
+	</resultMap>
 
 
 	<!-- 关于IURP产学研表的查询 -->
@@ -182,7 +193,14 @@
 		#{iurp.price}
 		);
 	</insert>
-
+	<update id="updateIURPBrowseVolume" parameterType="java.lang.String">
+		update achievement_industry_university_research_project set
+		browse_volume = browse_volume+1
+		<where>
+			project_id = #{achievementId}
+		</where>
+		;
+	</update>
 
 	<!-- 大学生竞赛成果的查询 -->
 	<select id="queryAOCSC" resultMap="AOCSCMap">
@@ -249,6 +267,15 @@
 		#{iu.firstPicture}
 		);
 	</insert>
+	<update id="updateAOCSCBrowseVolume" parameterType="java.lang.String">
+		update achievements_of_college_students_competition set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
 
 	<!-- 课程拓展作品的查询 -->
 	<select id="queryCourseExpand" resultMap="CourseExpandMap">
@@ -296,7 +323,8 @@
 		team_name,
 		finish_time,
 		upload_time,
-		first_picture
+		first_picture,
+		browse_volume
 		)
 		VALUES
 		(#{iu.achievementId},
@@ -311,10 +339,19 @@
 		#{iu.teamName},
 		#{iu.finishTime},
 		#{iu.uploadTime},
-		#{iu.firstPicture}
+		#{iu.firstPicture},
+		#{iu.browseVolume}
 		);
 	</insert>
-
+	<update id="updateCourseExpandBrowseVolume" parameterType="java.lang.String">
+		update achievement_course_expand set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
 
 	<!-- 大学生毕业设计的查询 -->
 	<select id="queryGDFCS" resultMap="GDFCSMap">
@@ -373,6 +410,15 @@
 		#{gdfcs.firstPicture}
 		);
 	</insert>
+	<update id="updateGDFCSBrowseVolume" parameterType="java.lang.String">
+		update achievement_graduation_design_for_college_students set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
 
 
 	<!-- 大学生创新创业的查询 -->
@@ -449,6 +495,15 @@
 		#{siae.firstPicture}
 		);
 	</insert>
+	<update id="updateSIAEBrowseVolume" parameterType="java.lang.String">
+		update achievement_student_innovation_and_entrepreneurship set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
 
 	<!-- 附件图片操作 -->
 	<select id="queryAchievementPicture" resultMap="AchievementPictureMap">
@@ -511,4 +566,12 @@
 		</foreach>
 		;
 	</insert>
+
+	<!-- 评论查询 -->
+	<select id="queryComment" parameterType="java.lang.String"
+		resultMap="AchievementCommentMap">
+		SELECT * FROM achievment_comment where achievement_id =
+		#{achievementId} and achievement_category = #{category};
+	</select>
+
 </mapper>

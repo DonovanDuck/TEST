@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
+import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
@@ -353,5 +354,62 @@ public class AchievementServiceImpl implements IAchievementService{
 			e.printStackTrace();
 		}
 		return iu;
+	}
+
+	@Override
+	public void updateIURPBrowseVolume(String achievementId) throws Exception {
+		try {
+		  achievementDao.updateIURPBrowseVolume(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+
+	@Override
+	public void updateAOCSCBrowseVolume(String achievementId) throws Exception {
+		try {
+			  achievementDao.updateAOCSCBrowseVolume(achievementId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+	}
+
+	@Override
+	public void updateCourseExpandBrowseVolume(String achievementId) throws Exception {
+		try {
+			  achievementDao.updateCourseExpandBrowseVolume(achievementId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+	}
+
+	@Override
+	public void updateGDFCSBrowseVolume(String achievementId) throws Exception {
+		try {
+			  achievementDao.updateGDFCSBrowseVolume(achievementId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+	}
+
+	@Override
+	public void updateSIAEBrowseVolume(String achievementId) throws Exception {
+		try {
+			  achievementDao.updateSIAEBrowseVolume(achievementId);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}			
+	}
+
+	@Override
+	public List<AchievementComment> queryComment(String achievementId,String category) throws Exception {
+		List<AchievementComment> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryComment(achievementId,category);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
 	}
 }

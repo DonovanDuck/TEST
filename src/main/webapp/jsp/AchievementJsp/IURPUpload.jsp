@@ -76,7 +76,7 @@
 			<div class="form-group">
 				<label for="introduction">项目简介</label> <input type="text"
 					class="form-control" id="introduction" name="introduction"
-					placeholder="项目简介">
+					placeholder="项目简介(字数限制50)" maxlength="50" >
 			</div>
 			<div class="form-group">
 				<label for="detail">项目详情</label> <input type="text"

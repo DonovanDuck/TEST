@@ -108,19 +108,24 @@
 							<h3 style="margin-top: 10px">
 								<b>${Achievement.achievementName }</b>
 							</h3>
-							<span style="float:right;font-size:10px">浏览量:${Achievement.browseVolume }</span>
+							<span style="float: right; font-size: 10px">浏览量:${Achievement.browseVolume }</span>
 						</div>
 						<div class="col-md-12" style="padding: 3%">
 							<span style="margin-left: 4%; color: #999">${Achievement.introduction }</span>
 						</div>
 						<div class="col-md-12" style="padding: 0%; color: #999">
-							<h5>负责人：${Achievement.compere }&nbsp&nbsp&nbsp&nbsp团队成员：秦始皇,刘邦,项羽</h5>
+							<h5>
+								负责人：${Achievement.compere }&nbsp&nbsp&nbsp&nbsp
+								<c:if test="${not empty memberList}">团队成员：<c:forEach
+										items="${memberList }" var="li">${li }</c:forEach>
+								</c:if>
+							</h5>
 						</div>
 					</div>
 				</div>
 			</div>
-			<div class="col-md-12 bottomColumn panel panel-default"
-				style="padding: 0%; margin-top: 1%">
+			<div class="col-md-9 bottomColumn panel panel-default"
+				style="padding: 0%; margin-top: 1%; width: 74%">
 				<div class="panel-heading">
 					<h3 class="panel-title">
 						<button type="button" class="btn btn-default"
@@ -143,76 +148,48 @@
 					</div>
 					<div class="col-md-12 commentContent" id="commentContent"
 						style="display: none; padding: 0%">
-						<div class="col-md-12 panel panel-default" style="padding: 0%">
-							<div class="col-md-3 text-center" style="">
-								<img style="width: 110px; height: 110px"
-									src="${pageContext.request.contextPath}/images/touxiang_13.png"
-									alt="..." class="img-circle"> <br>
-								<div class="col-md-12 ">用户：卡里的就是福利卡</div>
+						<c:forEach items="${comment }" var="item" varStatus="states">
+							<div class="col-md-12 panel panel-default" style="padding: 2%">
+								<div class="col-md-3 text-center" style="">
+									<img style="width: 80px; height: 80px;"
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.authorPicture }"
+										alt="..." class="img-circle"> <br>
+									<div class="col-md-12 " style="color: #B9B9B9; margin-top: 5%">${item.authorName }</div>
+								</div>
+								<div class="col-md-9"
+									style="font-size: 12px; letter-spacing: 1px; line-height: 23px;">
+									<div style="width: 100%; height: 100%">${item.commentContent }</div>
+								</div>
+								<p
+									style="margin: 0px; margin-top: 10%; font-size: 10px; color: #B9B9B9;"
+									class="text-right">${item.uploadTime }</p>
 							</div>
-							<div class="col-md-9">
-								地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方
-							</div>
-						</div>
-
-
-						<div class="col-md-12 panel panel-default" style="padding: 0%">
-							<div class="col-md-3 text-center" style="">
-								<img style="width: 110px; height: 110px"
-									src="${pageContext.request.contextPath}/images/touxiang_12.png"
-									alt="..." class="img-circle"> <br>
-								<div class="col-md-12 ">用户：卡里的就是福利卡</div>
-							</div>
-							<div class="col-md-9">
-								地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方
-							</div>
-						</div>
-						<div class="col-md-12 panel panel-default" style="padding: 0%">
-							<div class="col-md-3 text-center" style="">
-								<img style="width: 110px; height: 110px"
-									src="${pageContext.request.contextPath}/images/touxiang_13.png"
-									alt="..." class="img-circle"> <br>
-								<div class="col-md-12 ">用户：卡里的就是福利卡</div>
-							</div>
-							<div class="col-md-9">
-								地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方
-							</div>
-						</div>
-						<div class="col-md-12 panel panel-default" style="padding: 0%">
-							<div class="col-md-3 text-center" style="">
-								<img style="width: 110px; height: 110px"
-									src="${pageContext.request.contextPath}/images/touxiang_13.png"
-									alt="..." class="img-circle"> <br>
-								<div class="col-md-12 ">用户：卡里的就是福利卡</div>
-							</div>
-							<div class="col-md-9">
-								地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方
-							</div>
-						</div>
-						<div class="col-md-12 panel panel-default" style="padding: 0%">
-							<div class="col-md-3 text-center" style="">
-								<img style="width: 110px; height: 110px"
-									src="${pageContext.request.contextPath}/images/touxiang_13.png"
-									alt="..." class="img-circle"> <br>
-								<div class="col-md-12 ">用户：卡里的就是福利卡</div>
-							</div>
-							<div class="col-md-9">
-								地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方
-							</div>
-						</div>
-						<div class="col-md-12 panel panel-default" style="padding: 0%">
-							<div class="col-md-3 text-center" style="">
-								<img style="width: 110px; height: 110px"
-									src="${pageContext.request.contextPath}/images/touxiang_13.png"
-									alt="..." class="img-circle"> <br>
-								<div class="col-md-12 ">用户：卡里的就是福利卡</div>
-							</div>
-							<div class="col-md-9">
-								地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方爱丽丝；刚进来的方式看过了第三方机构贷款；分类结果了；客服点击；老公就是；的分类结果看了多少房间观看了；地方
-							</div>
-						</div>
+						</c:forEach>
+						<div class="publishComment col-md-12"></div>
 					</div>
 				</div>
+			</div>
+			<div class="relative col-md-3 panel panel-default"
+				style="margin-top: 1%; margin-left: 1%; padding: 1%">
+				<c:forEach items="${listAchievement }" var="item" begin="0" end="2"
+					varStatus="states">
+					<a
+						href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.achievementId }">
+						<div class="col-md-12 " style="padding: 0px; margin-top: 2%">
+							<div class="relativeImg col-md-8" style="padding: 0px">
+								<img alt=""
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }"
+									style="width: 100%; height: 100%">
+							</div>
+							<div class="relativeContent col-md-4" style="padding: 3px">
+								<p>${item.achievementName }</p>
+								<p
+									style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-x: hidden; overflow-y: hidden; word-break: break-all; text-overflow: ellipsis; -webkit-line-clamp: 1; color: gray;">${item.introduction }</p>
+								<p>${item.compere }</p>
+							</div>
+						</div>
+					</a>
+				</c:forEach>
 			</div>
 		</div>
 		<div class="footer"></div>

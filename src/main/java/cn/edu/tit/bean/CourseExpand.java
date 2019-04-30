@@ -23,6 +23,8 @@ public class CourseExpand {
 	private String firstPicture;//第一张图片
 	private AchievementAccessory achievementAccessory;//课程拓展附件
 	private Integer browseVolume;//浏览量
+	
+	
 	public String getAchievementId() {
 		return achievementId;
 	}

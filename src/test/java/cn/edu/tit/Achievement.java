@@ -21,16 +21,17 @@ public class Achievement {
 	private IAchievementService iAchievementService;
 	@Test
 	public void Test() throws Exception {
-		AchievementAccessory aa = new AchievementAccessory();
-		aa.setAccessoryId("id");
-		aa.setAccessoryName("name");
-		aa.setAccessoryPath("path");
-		aa.setAccessoryTime(null);
-		aa.setAchievementId("achievementId");
-		aa.setAuthorId("authorId");
-		aa.setDeleteFlag(1);
-		List<AchievementAccessory> list = new ArrayList<>();
-		list.add(aa);
-		iAchievementService.insertAchievementAccessory(list);
+		//		AchievementAccessory aa = new AchievementAccessory();
+		//		aa.setAccessoryId("id");
+		//		aa.setAccessoryName("name");
+		//		aa.setAccessoryPath("path");
+		//		aa.setAccessoryTime(null);
+		//		aa.setAchievementId("achievementId");
+		//		aa.setAuthorId("authorId");
+		//		aa.setDeleteFlag(1);
+		//		List<AchievementAccessory> list = new ArrayList<>();
+		//		list.add(aa);
+		//		iAchievementService.insertAchievementAccessory(list);
+		iAchievementService.updateAOCSCBrowseVolume("09708A3B8D8942929FE777E4D9DC5397");
 	}
 }
