@@ -21,7 +21,7 @@
 
 LOCK TABLES `achievement_course_expand` WRITE;
 /*!40000 ALTER TABLE `achievement_course_expand` DISABLE KEYS */;
-INSERT INTO `achievement_course_expand` VALUES ('09708A3B8D8942929FE777E4D9DC5397','09708A3B8D8942929FE777E4D9DC5397','阿斯顿发作品','课程拓展','这是一个简介，关于课程拓展课程拓展课程拓展的简介','','',NULL,NULL,NULL,'2019-01-10',NULL,'/home/menahemli/Desktop/1313.jpg',5656565);
+INSERT INTO `achievement_course_expand` VALUES ('09708A3B8D8942929FE777E4D9DC5397','09708A3B8D8942929FE777E4D9DC5397','阿斯顿发作品','课程拓展','这是一个简介，关于课程拓展课程拓展课程拓展的简介','','','项目成员,项目成,','项目负责人',NULL,'2019-01-10',NULL,'/home/menahemli/Desktop/1313.jpg',5656579),('336C822B3A6A4584AA6FA2B9F01E4CB4',NULL,'成果名称','课程拓展','项目简介','项目详情','指导教师','项目成员,项目成,','项目负责人',NULL,'2019-01-01','2019-04-30','/home/menahemli/Desktop/1.jpg',27);
 /*!40000 ALTER TABLE `achievement_course_expand` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-29 12:31:08
+-- Dump completed on 2019-05-01 17:08:48

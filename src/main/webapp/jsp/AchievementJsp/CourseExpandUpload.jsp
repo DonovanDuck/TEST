@@ -6,7 +6,7 @@
 			+ path + "/";
 %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="background-color: white;">
 <head>
 <meta charset="UTF-8">
 <title></title>
@@ -38,15 +38,12 @@
 	})
 </script>
 </head>
-<body class="body">
+<body class="body" style="margin-top: -3%">
 	<form id="formContent"
 		action="${pageContext.request.contextPath}/achievement/publishCourseExpand"
 		method="post" enctype="multipart/form-data">
 		<div class="col-md-12 IURP panel panel-default"
-			style="min-height: 400px; margin-top: 2%; padding: 1%; display: block">
-			<div class="form-group text-center" style="margin-bottom: 30px">
-				<h2>课程拓展成果上传</h2>
-			</div>
+			style="margin-top: 2%; padding: 3%; display: block">
 			<div class="form-group">
 				<label for="name">所属课程</label>
 				<div>
@@ -58,10 +55,7 @@
 					</a>
 				</div>
 			</div>
-			<div class="form-group" style="margin-top:7%;">
-				<label for="name">成果名称</label> <input type="text"
-					class="form-control" id="name" name="name" placeholder="成果名称">
-			</div>
+			<br>
 			<div class="form-group">
 				<label for="compere">项目负责人</label> <input type="text"
 					class="form-control" id="compere" name="compere"
@@ -95,21 +89,26 @@
 					placeholder="项目简介(字数限制50)" maxlength="50">
 			</div>
 			<div class="form-group">
-				<label for="detail">项目详情</label> <input type="text"
-					class="form-control" id="detail" name="detail" placeholder="项目详情">
+				<label for="detail">项目详情</label>
+				<textarea class="form-control" id="detail" rows="10" name="detail"
+					style="resize: none; height: 30%" placeholder="项目详情"></textarea>
+			</div>
+			<div>
+				<div class="form-group" style="width: 50%; float: left">
+					<label for="picture"
+						style="float: left; margin-top: 1%; margin-right: 4%;">成果图片</label>
+					<input type="file" id="picture" name="img" multiple="multiple" />
+				</div>
+				<div class="form-group" style="width: 50%; float: left">
+					<label for="exampleInputFile"
+						style="float: left; margin-top: 1%; margin-right: 4%;">成果附件</label>
+					<input type="file" name="accessory" id="exampleInputFile">
+				</div>
 			</div>
 			<div class="form-group">
 				<label for="finishTime">项目完成时间</label> <input type="date"
 					class="form-control" id="finishTime" name="finishTime"
 					placeholder="项目结束时间">
-			</div>
-			<div class="form-group">
-				<label for="picture">成果图片</label> <input type="file" id="picture"
-					name="img" multiple="multiple" />
-			</div>
-			<div class="form-group">
-				<label for="exampleInputFile">成果附件</label> <input type="file"
-					name="accessory" id="exampleInputFile">
 			</div>
 			<div class="form-group" style="margin-top: 8%">
 				<input class="btn btn-primary" type="button" value="上传"

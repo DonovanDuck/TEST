@@ -9,6 +9,10 @@
 	height: 100%;
 }
 
+.category li{
+	padding:0%;
+}
+
 .introduceContent {
 	margin-top: 0%;
 }

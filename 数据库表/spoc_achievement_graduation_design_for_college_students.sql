@@ -21,7 +21,7 @@
 
 LOCK TABLES `achievement_graduation_design_for_college_students` WRITE;
 /*!40000 ALTER TABLE `achievement_graduation_design_for_college_students` DISABLE KEYS */;
-INSERT INTO `achievement_graduation_design_for_college_students` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','毕业设计作品','毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品',NULL,NULL,NULL,'2019-01-10 00:52:28',NULL,'/home/menahemli/Desktop/2121.jpg',2323232);
+INSERT INTO `achievement_graduation_design_for_college_students` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','毕业设计作品','毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品',NULL,NULL,'主持人','2019-01-10 00:52:28',NULL,'/home/menahemli/Desktop/2121.jpg',2323251);
 /*!40000 ALTER TABLE `achievement_graduation_design_for_college_students` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-29 12:31:08
+-- Dump completed on 2019-05-01 17:08:48

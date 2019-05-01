@@ -9,7 +9,6 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>发布成果页</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
@@ -115,7 +114,8 @@
 						</div>
 						<div class="col-md-12" style="padding: 0%; color: #999">
 							<h5>
-								负责人：${IURP.compere }&nbsp&nbsp&nbsp&nbsp团队成员：<c:forEach items="${memberList }" var="li" >${li }
+								负责人：${IURP.compere }&nbsp&nbsp&nbsp&nbsp团队成员：
+								<c:forEach items="${memberList }" var="li">${li }
 								</c:forEach>
 							</h5>
 						</div>
@@ -160,7 +160,10 @@
 								</div>
 								<div class="col-md-9"
 									style="font-size: 12px; letter-spacing: 1px; line-height: 23px;">
-									<div style="width: 100%; height: 100%">${item.commentContent }</div>
+									<div style="width: 105%; height: 100%">
+										<span
+											style="word-wrap: break-word; word-break: break-all; overflow: hidden;">${item.commentContent }</span>
+									</div>
 								</div>
 								<p
 									style="margin: 0px; margin-top: 10%; font-size: 10px; color: #B9B9B9;"

@@ -60,6 +60,14 @@
 		setIframeHeight(document.getElementById('iframeContent'));
 	};
 </script>
+<script type="text/javascript">
+	$(function() {
+		$("ul li").on("click", function() {
+			$("ul li").removeClass("active");
+			$(this).addClass("active");
+		});
+	})
+</script>
 </head>
 <body class="body">
 	<div class="main">
@@ -67,7 +75,7 @@
 			<jsp:include page="/jsp/top.jsp" flush="true" />
 		</div>
 		<div class="content">
-			<div class="col-md-12 topColumn" style="padding: 0%">
+			<%-- 	<div class="col-md-12 topColumn" style="padding: 0%">
 				<div class="input-group col-md-4">
 					<span class="input-group-btn">
 						<button class="btn btn-default" type="button">类别</button>
@@ -93,13 +101,32 @@
 						href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"><Button
 							id="CourseExpand"></Button></a>
 				</div>
+			</div> --%>
+			<div class="form-group">
+				<label for="detail">成果名称</label> <input type="text"
+					class="form-control" id="name" name="name" placeholder="成果名称">
 			</div>
-			<iframe id="iframeContent" name="iframeContent"
-				style="width: 100%; min-height: 1000px" ;height:
-				auto;
-                frameborder="no" border="0" scrolling="no"
-				src="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"
-				onload="setIframeHeight(this)"></iframe>
+			<ul class="nav nav-tabs nav-justified" style="margin-top:5%">
+				<li role="presentation" class="active"><a
+					target="iframeContent"
+					href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload">课程拓展</a></li>
+				<li role="presentation"><a target="iframeContent"
+					href="${pageContext.request.contextPath}/achievement/toSIAEUpload">大学生创新创业</a></li>
+				<li role="presentation"><a target="iframeContent"
+					href="${pageContext.request.contextPath}/achievement/toAOCSCUpload">大学生竞赛</a></li>
+				<li role="presentation"><a target="iframeContent"
+					href="${pageContext.request.contextPath}/achievement/toGDFCSUpload">毕业设计</a></li>
+				<li role="presentation"><a target="iframeContent"
+					href="${pageContext.request.contextPath}/achievement/toIURPUpload">产学研</a></li>
+			</ul>
+			<div class="form-group">
+				<iframe id="iframeContent" name="iframeContent" style="width: 100%;"
+					;height: auto;
+                frameborder="no" border="0"
+					scrolling="no"
+					src="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"
+					onload="setIframeHeight(this)"></iframe>
+			</div>
 		</div>
 	</div>
 	<div class="footer"></div>

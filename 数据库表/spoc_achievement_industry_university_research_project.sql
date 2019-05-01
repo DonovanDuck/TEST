@@ -21,7 +21,7 @@
 
 LOCK TABLES `achievement_industry_university_research_project` WRITE;
 /*!40000 ALTER TABLE `achievement_industry_university_research_project` DISABLE KEYS */;
-INSERT INTO `achievement_industry_university_research_project` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','这是产学研','未知','liming',200,'合作单位','2019-01-10 00:52:28','2019-01-10 00:52:28','2','/home/menahemli/Desktop/fire.png','1','a','这是一款具有轻打功能的游戏，锻炼大脑，锻炼情绪等等好多好多实用的功能',2330,20.5),('518BA1058A0347C2831D94AB76DF13EB','成果名称','项目详情','项目负责人','项目成员 ,',NULL,'合作单位','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/2.jpg','否','产学研','项目简介',NULL,123);
+INSERT INTO `achievement_industry_university_research_project` VALUES ('10E778F0D0C74817801B749C4D141209','成果名称','项目详情','项目负责人','项目成员,项目成,',NULL,'合作单位','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/2121.jpg','是','产学研','项目简介项目简介项目简介项目简介项目简介项目简项目简介项目简介项目简介项目简介项目简介项目简介介',82,55555);
 /*!40000 ALTER TABLE `achievement_industry_university_research_project` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-29 12:31:08
+-- Dump completed on 2019-05-01 17:08:48

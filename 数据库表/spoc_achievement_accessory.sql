@@ -16,13 +16,13 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Dumping data for table `achievements_of_college_students_competition`
+-- Dumping data for table `achievement_accessory`
 --
 
-LOCK TABLES `achievements_of_college_students_competition` WRITE;
-/*!40000 ALTER TABLE `achievements_of_college_students_competition` DISABLE KEYS */;
-INSERT INTO `achievements_of_college_students_competition` VALUES ('09708A3B8D8942929FE777E4D9DC5397','大学生竞赛成果作品','大学生竞赛','作品简介大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品','',NULL,'项目成员,项目成,','主持人',NULL,NULL,NULL,'2019-01-10','2019-01-10','/home/menahemli/Desktop/1.jpg',10);
-/*!40000 ALTER TABLE `achievements_of_college_students_competition` ENABLE KEYS */;
+LOCK TABLES `achievement_accessory` WRITE;
+/*!40000 ALTER TABLE `achievement_accessory` DISABLE KEYS */;
+INSERT INTO `achievement_accessory` VALUES ('8083FC39CCD94ED0A598A2CB07713313',NULL,'考研资料机构规划书.doc','/home/menahemli/Desktop/考研资料机构规划书.doc','2019-04-29','7CA2D46C03774C7DBE85D1201CFF945A',NULL),('D4DB1C157B0447CF8BBA8D00B42C42B2',NULL,'1313.jpg','/home/menahemli/Desktop/1313.jpg','2019-04-30','336C822B3A6A4584AA6FA2B9F01E4CB4',NULL),('DE7588C344F949F0B7E4F40DB672B262',NULL,'拟录取.jpg','/home/menahemli/Desktop/拟录取.jpg','2019-04-30','6FEAA399AF5F4F2CB36717C620ECAAA8',NULL),('id','authorId','name','path',NULL,'achievementId',1);
+/*!40000 ALTER TABLE `achievement_accessory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 

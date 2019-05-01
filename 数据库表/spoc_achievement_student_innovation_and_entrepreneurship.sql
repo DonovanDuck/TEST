@@ -21,7 +21,7 @@
 
 LOCK TABLES `achievement_student_innovation_and_entrepreneurship` WRITE;
 /*!40000 ALTER TABLE `achievement_student_innovation_and_entrepreneurship` DISABLE KEYS */;
-INSERT INTO `achievement_student_innovation_and_entrepreneurship` VALUES ('09708A3B8D8942929FE777E4D9DC5397','大学生创新创业成果作品','大学生创新创业','简介大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品','简介大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品',NULL,NULL,NULL,NULL,NULL,NULL,'2019-01-10',NULL,NULL,NULL,NULL,NULL,'2019-01-10','/home/menahemli/Desktop/1212.jpg',5555);
+INSERT INTO `achievement_student_innovation_and_entrepreneurship` VALUES ('09708A3B8D8942929FE777E4D9DC5397','大学生创新创业成果作品','大学生创新创业','简介大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品','简介大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品大学生创新创业成果作品',NULL,'项目成员,项目成,','主持人',NULL,NULL,NULL,'2019-01-10',NULL,NULL,NULL,NULL,NULL,'2019-01-10','/home/menahemli/Desktop/1212.jpg',5556);
 /*!40000 ALTER TABLE `achievement_student_innovation_and_entrepreneurship` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +34,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-04-29 12:31:08
+-- Dump completed on 2019-05-01 17:08:48

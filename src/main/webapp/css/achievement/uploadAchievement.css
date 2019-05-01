@@ -1,29 +1,13 @@
 .content {
-	margin-left: 25%;
-	width: 50%;
+	margin-left: 20%;
+	width: 60%;
+	padding:2%;
 	height: 100%;
+	background-color: white;
 }
 
 .body {
 	background-color: #E8EBF0;
-}
-
-.rightSearch {
-	margin: 0;
-}
-
-.bottomColumn {
-	margin-top: 1%;
-}
-
-.infoContent {
-	font-size: 14px;
-	color: black;
-}
-
-.infoContent p {
-	margin: 0px;
-	padding: 0px;
 }
 
 .footer {
