@@ -16,6 +16,8 @@ public class SIAE {
 	private String achievementDetail; // 大学生创新创业详情
 	private String guidanceTeacher; //大学生创新创业指导教师
 	private String member; //团队成员
+	private String memberNum;//成员学号
+	private String uploadAuthorId;//上传者ID
 	private String compere; //主持人
 	private String teamName; //团队名
 	private String level;//获奖情况
@@ -77,6 +79,18 @@ public class SIAE {
 	}
 	public void setMember(String member) {
 		this.member = member;
+	}
+	public String getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(String memberNum) {
+		this.memberNum = memberNum;
+	}
+	public String getUploadAuthorId() {
+		return uploadAuthorId;
+	}
+	public void setUploadAuthorId(String uploadAuthorId) {
+		this.uploadAuthorId = uploadAuthorId;
 	}
 	public String getCompere() {
 		return compere;
@@ -167,17 +181,19 @@ public class SIAE {
 		return "SIAE [achievementId=" + achievementId + ", achievementName=" + achievementName
 				+ ", achievementCategory=" + achievementCategory + ", achievementPhoto=" + achievementPhoto
 				+ ", introduction=" + introduction + ", achievementDetail=" + achievementDetail + ", guidanceTeacher="
-				+ guidanceTeacher + ", member=" + member + ", compere=" + compere + ", teamName=" + teamName
-				+ ", level=" + level + ", feature=" + feature + ", finishTime=" + finishTime + ", achievementAccessory="
-				+ achievementAccessory + ", plan=" + plan + ", status=" + status + ", declaration=" + declaration
-				+ ", midreply=" + midreply + ", concludingRreport=" + concludingRreport + ", uploadTime=" + uploadTime
-				+ ", firstPicture=" + firstPicture + ", browseVolume=" + browseVolume + "]";
+				+ guidanceTeacher + ", member=" + member + ", memberNum=" + memberNum + ", uploadAuthorId="
+				+ uploadAuthorId + ", compere=" + compere + ", teamName=" + teamName + ", level=" + level + ", feature="
+				+ feature + ", finishTime=" + finishTime + ", achievementAccessory=" + achievementAccessory + ", plan="
+				+ plan + ", status=" + status + ", declaration=" + declaration + ", midreply=" + midreply
+				+ ", concludingRreport=" + concludingRreport + ", uploadTime=" + uploadTime + ", firstPicture="
+				+ firstPicture + ", browseVolume=" + browseVolume + "]";
 	}
 	public SIAE(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
-			String member, String compere, String teamName, String level, String feature, Date finishTime,
-			AchievementAccessory achievementAccessory, String plan, String status, String declaration, String midreply,
-			String concludingRreport, Timestamp uploadTime, String firstPicture, Integer browseVolume) {
+			String member, String memberNum, String uploadAuthorId, String compere, String teamName, String level,
+			String feature, Date finishTime, AchievementAccessory achievementAccessory, String plan, String status,
+			String declaration, String midreply, String concludingRreport, Timestamp uploadTime, String firstPicture,
+			Integer browseVolume) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -187,6 +203,8 @@ public class SIAE {
 		this.achievementDetail = achievementDetail;
 		this.guidanceTeacher = guidanceTeacher;
 		this.member = member;
+		this.memberNum = memberNum;
+		this.uploadAuthorId = uploadAuthorId;
 		this.compere = compere;
 		this.teamName = teamName;
 		this.level = level;

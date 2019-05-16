@@ -19,7 +19,7 @@
 	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<script type="text/javascript">
+<!-- <script type="text/javascript">
 	$(function() {
 		$("#selectCategory").change(function() {
 			var selected = $(this).children('option:selected').val();
@@ -47,6 +47,7 @@
 
 	// document.domain = "caibaojian.com";
 	function setIframeHeight(iframe) {
+		var iframe = document.getElementById('iframeContent');
 		if (iframe) {
 			var iframeWin = iframe.contentWindow
 					|| iframe.contentDocument.parentWindow;
@@ -57,16 +58,25 @@
 		}
 	};
 	window.onload = function() {
-		setIframeHeight(document.getElementById('iframeContent'));
+		//重复执行某个方法,动态刷新高度 
+		var t1 = window.setInterval(setIframeHeight, 500);
+		var t2 = window.setInterval("setIframeHeight()", 500);
+		window.clearInterval(t1);
 	};
-</script>
+</script> -->
 <script type="text/javascript">
 	$(function() {
-		$("ul li").on("click", function() {
-			$("ul li").removeClass("active");
-			$(this).addClass("active");
-		});
-	})
+		/* 		$("ul li").on("click", function() {
+		 $("ul li").removeClass("active");
+		 $(this).addClass("active");
+		 }); */
+
+		$("#categoryButton").click();
+	});
+
+	function selectCategory() {
+		$("#categoryButton").click();
+	}
 </script>
 </head>
 <body class="body">
@@ -102,11 +112,7 @@
 							id="CourseExpand"></Button></a>
 				</div>
 			</div> --%>
-			<div class="form-group">
-				<label for="detail">成果名称</label> <input type="text"
-					class="form-control" id="name" name="name" placeholder="成果名称">
-			</div>
-			<ul class="nav nav-tabs nav-justified" style="margin-top:5%">
+			<%-- 	<ul class="nav nav-tabs nav-justified" style="margin-top: 5%">
 				<li role="presentation" class="active"><a
 					target="iframeContent"
 					href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload">课程拓展</a></li>
@@ -118,17 +124,96 @@
 					href="${pageContext.request.contextPath}/achievement/toGDFCSUpload">毕业设计</a></li>
 				<li role="presentation"><a target="iframeContent"
 					href="${pageContext.request.contextPath}/achievement/toIURPUpload">产学研</a></li>
-			</ul>
-			<div class="form-group">
+			</ul> --%>
+			<button type="button" class="btn btn-primary" data-toggle="modal"
+				data-target=".bs-example-modal-sm" id="categoryButton"
+				style="display: none"></button>
+			<h3 class="text-center" style="margin: 0px; margin-bottom: 1%">上传作品</h3>
+			<button type="button" class="btn btn-primary"
+				onclick="selectCategory()" data-dismiss="modal"
+				style="margin-left: 43%">作品类别选择</button>
+			<div class="modal fade bs-example-modal-sm" tabindex="-1"
+				role="dialog" aria-labelledby="mySmallModalLabel">
+				<div class="modal-dialog modal-lg" style="margin-top: 15%"
+					role="document">
+					<div class="modal-content" style="padding: 28px">
+						<h3 class="text-center" style="margin: 0px; margin-bottom: 1%">选择上传成果类别</h3>
+						<div class="btn-group btn-group-justified" role="group"
+							aria-label="...">
+							<div class="btn-group" role="group">
+								<a target="iframeContent"
+									href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"><button
+										type="button" class="btn btn-default">课程拓展</button></a>
+							</div>
+							<div class="btn-group" role="group">
+								<a target="iframeContent"
+									href="${pageContext.request.contextPath}/achievement/toSIAEUpload"><button
+										type="button" class="btn btn-default">大学生创新创业</button></a>
+							</div>
+							<div class="btn-group" role="group">
+								<a target="iframeContent"
+									href="${pageContext.request.contextPath}/achievement/toAOCSCUpload"><button
+										type="button" class="btn btn-default">大学生竞赛</button></a>
+							</div>
+							<div class="btn-group" role="group">
+								<a target="iframeContent"
+									href="${pageContext.request.contextPath}/achievement/toGDFCSUpload"><button
+										type="button" class="btn btn-default">毕业设计</button></a>
+							</div>
+							<div class="btn-group" role="group">
+								<a target="iframeContent"
+									href="${pageContext.request.contextPath}/achievement/toIURPUpload"><button
+										type="button" class="btn btn-default">产学研</button></a>
+							</div>
+						</div>
+						<div class="modal-footer"
+							style="padding: 0px; padding-right: 6%; padding-top: 2%">
+							<button type="button" class="btn btn-primary"
+								data-dismiss="modal">确认</button>
+						</div>
+
+						<%-- 						<ul class="nav nav-tabs nav-justified" style="margin-top: 5%">
+							<li role="presentation" class="active"><a
+								target="iframeContent"
+								href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload">课程拓展</a></li>
+							<li role="presentation"><a target="iframeContent"
+								href="${pageContext.request.contextPath}/achievement/toSIAEUpload">大学生创新创业</a></li>
+							<li role="presentation"><a target="iframeContent"
+								href="${pageContext.request.contextPath}/achievement/toAOCSCUpload">大学生竞赛</a></li>
+							<li role="presentation"><a target="iframeContent"
+								href="${pageContext.request.contextPath}/achievement/toGDFCSUpload">毕业设计</a></li>
+							<li role="presentation"><a target="iframeContent"
+								href="${pageContext.request.contextPath}/achievement/toIURPUpload">产学研</a></li>
+						</ul> --%>
+					</div>
+				</div>
+			</div>
+
+
+
+			<%-- <div class="form-group">
 				<iframe id="iframeContent" name="iframeContent" style="width: 100%;"
 					;height: auto;
                 frameborder="no" border="0"
 					scrolling="no"
 					src="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"
 					onload="setIframeHeight(this)"></iframe>
-			</div>
+
+				<iframe id="iframeContent" name="iframeContent" style="width: 100%;"
+					height: auto;
+                frameborder="no" border="0"
+					scrolling="no" onload="setIframeHeight(this)"></iframe>
+			</div> --%>
 		</div>
 	</div>
 	<div class="footer"></div>
+	<script type="text/javascript">
+		$(function() {
+			$(".Modal").modal({
+				backdrop : 'static',
+				keyboard : false
+			});
+		});
+	</script>
 </body>
 </html>

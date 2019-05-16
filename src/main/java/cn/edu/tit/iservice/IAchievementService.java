@@ -2,6 +2,8 @@ package cn.edu.tit.iservice;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
@@ -83,6 +85,7 @@ public interface IAchievementService {
 	/**
 	 * 查找评论
 	 * */
+	public void insertAchievementComment(AchievementComment comment)throws Exception;
 	public List<AchievementComment> queryComment(String achievementId,String category)throws Exception;
 
 }

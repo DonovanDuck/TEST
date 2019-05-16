@@ -170,7 +170,23 @@
 									class="text-right">${item.uploadTime }</p>
 							</div>
 						</c:forEach>
-						<div class="publishComment col-md-12"></div>
+						<form
+							action="${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId=${IURP.projectId }&category=产学研"
+							method="post">
+							<h4>我的评论</h4>
+							<div class="publishComment col-md-12 "
+								style="padding: 0px; margin: 0px;">
+								<div class="col-md-12"
+									style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
+									<textarea onfocus="commentFocus()" class="form-control"
+										id="commentContent" rows="5" name="commentContent"
+										style="resize: none; height: 30%" placeholder="添加评论"></textarea>
+									<button type="submit"
+										class="btn btn-default btn-sm active pull-right"
+										style="position: relative; left: -20px; top: -40px;">发表</button>
+								</div>
+							</div>
+						</form>
 					</div>
 				</div>
 			</div>
@@ -203,7 +219,7 @@
 		$(function() {
 			$(".carousel").carousel({
 				interval : 200
-			})
+			});
 		})
 	</script>
 </body>

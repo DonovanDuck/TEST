@@ -18,6 +18,8 @@
 		<result column="is_share" property="isshare" />
 		<result column="project_category" property="projectCategory" />
 		<result column="first_picture" property="firstPicture" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
 		<result column="browse_volume" property="browseVolume" />
 		<result column="price" property="price" />
 	</resultMap>
@@ -34,6 +36,8 @@
 		<result column="team_name" property="teamName" />
 		<result column="level" property="level" />
 		<result column="feature" property="feature" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
 		<result column="finish_time" property="finishTime" />
 		<result column="upload_time" property="uploadTime" />
 		<result column="first_picture" property="firstPicture" />
@@ -49,6 +53,8 @@
 		<result column="achievement_detail" property="achievementDetail" />
 		<result column="guidance_teacher" property="guidanceTeacher" />
 		<result column="member" property="member" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
 		<result column="compere" property="compere" />
 		<result column="team_name" property="teamName" />
 		<result column="finish_time" property="finishTime" />
@@ -65,6 +71,8 @@
 		<result column="achievement_detail" property="achievementDetail" />
 		<result column="guidance_teacher" property="guidanceTeacher" />
 		<result column="compere" property="compere" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
 		<result column="finish_time" property="finishTime" />
 		<result column="upload_time" property="uploadTime" />
 		<result column="first_picture" property="firstPicture" />
@@ -80,6 +88,8 @@
 		<result column="guidance_teacher" property="guidanceTeacher" />
 		<result column="member" property="member" />
 		<result column="compere" property="compere" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
 		<result column="team_name" property="teamName" />
 		<result column="level" property="level" />
 		<result column="feature" property="feature" />
@@ -173,7 +183,10 @@
 		project_category,
 		introduction,
 		browse_volume,
-		price)
+		price,
+		member_num,
+		upload_author
+		)
 		VALUES
 		(#{iurp.projectId},
 		#{iurp.projectName},
@@ -190,7 +203,9 @@
 		#{iurp.projectCategory},
 		#{iurp.introduction},
 		#{iurp.browseVolume},
-		#{iurp.price}
+		#{iurp.price},
+		#{iurp.memberNum},
+		#{iurp.uploadAuthorId}
 		);
 	</insert>
 	<update id="updateIURPBrowseVolume" parameterType="java.lang.String">
@@ -324,7 +339,9 @@
 		finish_time,
 		upload_time,
 		first_picture,
-		browse_volume
+		browse_volume,
+		member_num,
+		upload_author
 		)
 		VALUES
 		(#{iu.achievementId},
@@ -340,7 +357,9 @@
 		#{iu.finishTime},
 		#{iu.uploadTime},
 		#{iu.firstPicture},
-		#{iu.browseVolume}
+		#{iu.browseVolume},
+		#{iu.memberNum},
+		#{iu.uploadAuthorId}
 		);
 	</insert>
 	<update id="updateCourseExpandBrowseVolume" parameterType="java.lang.String">
@@ -395,7 +414,9 @@
 		compere,
 		finish_time,
 		upload_time,
-		first_picture
+		first_picture,
+		member_num,
+		upload_author
 		)
 		VALUES
 		(#{gdfcs.achievementId},
@@ -407,7 +428,9 @@
 		#{gdfcs.compere},
 		#{gdfcs.finishTime},
 		#{gdfcs.uploadTime},
-		#{gdfcs.firstPicture}
+		#{gdfcs.firstPicture},
+		#{gdfcs.memberNum},
+		#{gdfcs.uploadAuthorId}
 		);
 	</insert>
 	<update id="updateGDFCSBrowseVolume" parameterType="java.lang.String">
@@ -471,7 +494,9 @@
 		midreply,
 		concluding_report,
 		upload_time,
-		first_picture
+		first_picture,
+		member_num,
+		upload_author
 		)
 		VALUES
 		(#{siae.achievementId},
@@ -492,7 +517,9 @@
 		#{siae.midreply},
 		#{siae.concludingRreport},
 		#{siae.uploadTime},
-		#{siae.firstPicture}
+		#{siae.firstPicture},
+		#{siae.memberNum},
+		#{siae.uploadAuthorId}
 		);
 	</insert>
 	<update id="updateSIAEBrowseVolume" parameterType="java.lang.String">
@@ -573,5 +600,27 @@
 		SELECT * FROM achievment_comment where achievement_id =
 		#{achievementId} and achievement_category = #{category};
 	</select>
-
+	<insert id="insertAchievementComment" parameterType="cn.edu.tit.bean.AchievementComment">
+		INSERT
+		INTO
+		achievment_comment
+		(comment_id,
+		achievement_id,
+		author_id,
+		comment_content,
+		uploadTime,
+		achievement_category,
+		author_picture,
+		author_name)
+		VALUES
+		(#{comment.commentId},
+		#{comment.achievemendId},
+		#{comment.authorId},
+		#{comment.commentContent},
+		#{comment.uploadTime},
+		#{comment.category},
+		#{comment.authorPicture},
+		#{comment.authorName}
+		)
+	</insert>
 </mapper>

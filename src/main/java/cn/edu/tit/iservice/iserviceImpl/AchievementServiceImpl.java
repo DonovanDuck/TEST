@@ -412,4 +412,13 @@ public class AchievementServiceImpl implements IAchievementService{
 			}		
 		return list;
 	}
+
+	@Override
+	public void insertAchievementComment(AchievementComment comment) throws Exception {
+		try {
+			  achievementDao.insertAchievementComment(comment);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+	}
 }

@@ -56,5 +56,6 @@ public interface IAchievementDao {
 	public List<AchievementAccessory> queryAchievementAccessory(@Param("achievementId")String achievementId)throws Exception;
 	public void insertAchievementAccessory(@Param("list")List<AchievementAccessory> list)throws Exception;
 	
+	public void insertAchievementComment(@Param("comment")AchievementComment comment)throws Exception;
 	public List<AchievementComment> queryComment(@Param("achievementId")String achievementId,@Param("category")String category);
 }

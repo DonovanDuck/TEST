@@ -16,15 +16,15 @@ public class CourseExpand {
 	private String achievementDetail; // 课程拓展详情
 	private String guidanceTeacher; //课程拓展指导教师
 	private String member; //团队成员
+	private String memberNum;//成员学号
+	private Integer browseVolume;//浏览量
+	private String uploadAuthorId;//上传者ID
 	private String compere; //项目负责人
 	private String teamName; //团队名
 	private Date finishTime;//完成时间时间
 	private Timestamp uploadTime;//上传时间
 	private String firstPicture;//第一张图片
 	private AchievementAccessory achievementAccessory;//课程拓展附件
-	private Integer browseVolume;//浏览量
-	
-	
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -79,6 +79,24 @@ public class CourseExpand {
 	public void setMember(String member) {
 		this.member = member;
 	}
+	public String getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(String memberNum) {
+		this.memberNum = memberNum;
+	}
+	public Integer getBrowseVolume() {
+		return browseVolume;
+	}
+	public void setBrowseVolume(Integer browseVolume) {
+		this.browseVolume = browseVolume;
+	}
+	public String getUploadAuthorId() {
+		return uploadAuthorId;
+	}
+	public void setUploadAuthorId(String uploadAuthorId) {
+		this.uploadAuthorId = uploadAuthorId;
+	}
 	public String getCompere() {
 		return compere;
 	}
@@ -115,26 +133,21 @@ public class CourseExpand {
 	public void setAchievementAccessory(AchievementAccessory achievementAccessory) {
 		this.achievementAccessory = achievementAccessory;
 	}
-	public Integer getBrowseVolume() {
-		return browseVolume;
-	}
-	public void setBrowseVolume(Integer browseVolume) {
-		this.browseVolume = browseVolume;
-	}
 	@Override
 	public String toString() {
 		return "CourseExpand [achievementId=" + achievementId + ", courseId=" + courseId + ", achievementName="
 				+ achievementName + ", achievementCategory=" + achievementCategory + ", achievementPhoto="
 				+ achievementPhoto + ", introduction=" + introduction + ", achievementDetail=" + achievementDetail
-				+ ", guidanceTeacher=" + guidanceTeacher + ", member=" + member + ", compere=" + compere + ", teamName="
-				+ teamName + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime + ", firstPicture="
-				+ firstPicture + ", achievementAccessory=" + achievementAccessory + ", browseVolume=" + browseVolume
-				+ "]";
+				+ ", guidanceTeacher=" + guidanceTeacher + ", member=" + member + ", memberNum=" + memberNum
+				+ ", browseVolume=" + browseVolume + ", uploadAuthorId=" + uploadAuthorId + ", compere=" + compere
+				+ ", teamName=" + teamName + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime
+				+ ", firstPicture=" + firstPicture + ", achievementAccessory=" + achievementAccessory + "]";
 	}
 	public CourseExpand(String achievementId, String courseId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
-			String member, String compere, String teamName, Date finishTime, Timestamp uploadTime, String firstPicture,
-			AchievementAccessory achievementAccessory, Integer browseVolume) {
+			String member, String memberNum, Integer browseVolume, String uploadAuthorId, String compere,
+			String teamName, Date finishTime, Timestamp uploadTime, String firstPicture,
+			AchievementAccessory achievementAccessory) {
 		super();
 		this.achievementId = achievementId;
 		this.courseId = courseId;
@@ -145,17 +158,20 @@ public class CourseExpand {
 		this.achievementDetail = achievementDetail;
 		this.guidanceTeacher = guidanceTeacher;
 		this.member = member;
+		this.memberNum = memberNum;
+		this.browseVolume = browseVolume;
+		this.uploadAuthorId = uploadAuthorId;
 		this.compere = compere;
 		this.teamName = teamName;
 		this.finishTime = finishTime;
 		this.uploadTime = uploadTime;
 		this.firstPicture = firstPicture;
 		this.achievementAccessory = achievementAccessory;
-		this.browseVolume = browseVolume;
 	}
 	public CourseExpand() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 }

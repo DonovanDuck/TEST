@@ -16,6 +16,8 @@ public class AOCSC {
 	private String achievementDetail; // 大学生竞赛成果详情
 	private String guidanceTeacher; //大学生竞赛成果指导教师
 	private String member; //团队成员
+	private String memberNum;//成员学号
+	private String uploadAuthorId;//上传者ID
 	private String compere; //主持人
 	private String teamName; //团队名
 	private String level;//获奖情况
@@ -72,6 +74,18 @@ public class AOCSC {
 	}
 	public void setMember(String member) {
 		this.member = member;
+	}
+	public String getMemberNum() {
+		return memberNum;
+	}
+	public void setMemberNum(String memberNum) {
+		this.memberNum = memberNum;
+	}
+	public String getUploadAuthorId() {
+		return uploadAuthorId;
+	}
+	public void setUploadAuthorId(String uploadAuthorId) {
+		this.uploadAuthorId = uploadAuthorId;
 	}
 	public String getCompere() {
 		return compere;
@@ -132,16 +146,16 @@ public class AOCSC {
 		return "AOCSC [achievementId=" + achievementId + ", achievementName=" + achievementName
 				+ ", achievementCategory=" + achievementCategory + ", achievementPhoto=" + achievementPhoto
 				+ ", introduction=" + introduction + ", achievementDetail=" + achievementDetail + ", guidanceTeacher="
-				+ guidanceTeacher + ", member=" + member + ", compere=" + compere + ", teamName=" + teamName
-				+ ", level=" + level + ", feature=" + feature + ", finishTime=" + finishTime + ", uploadTime="
-				+ uploadTime + ", achievementAccessory=" + achievementAccessory + ", firstPicture=" + firstPicture
-				+ ", browseVolume=" + browseVolume + "]";
+				+ guidanceTeacher + ", member=" + member + ", memberNum=" + memberNum + ", uploadAuthorId="
+				+ uploadAuthorId + ", compere=" + compere + ", teamName=" + teamName + ", level=" + level + ", feature="
+				+ feature + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime + ", achievementAccessory="
+				+ achievementAccessory + ", firstPicture=" + firstPicture + ", browseVolume=" + browseVolume + "]";
 	}
 	public AOCSC(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
-			String member, String compere, String teamName, String level, String feature, Date finishTime,
-			Timestamp uploadTime, AchievementAccessory achievementAccessory, String firstPicture,
-			Integer browseVolume) {
+			String member, String memberNum, String uploadAuthorId, String compere, String teamName, String level,
+			String feature, Date finishTime, Timestamp uploadTime, AchievementAccessory achievementAccessory,
+			String firstPicture, Integer browseVolume) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -151,6 +165,8 @@ public class AOCSC {
 		this.achievementDetail = achievementDetail;
 		this.guidanceTeacher = guidanceTeacher;
 		this.member = member;
+		this.memberNum = memberNum;
+		this.uploadAuthorId = uploadAuthorId;
 		this.compere = compere;
 		this.teamName = teamName;
 		this.level = level;

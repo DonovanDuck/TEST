@@ -24,6 +24,7 @@ import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAchievementService;
 
@@ -192,15 +193,23 @@ public class AchievementController {
 	}
 	/**************************************发布信息功能部分****************************************/
 	/**
-	 * 发布成果信息
+	 * 总体设计与数据描述
+	 * 每个类别上传时均要上传人的ID,为此提供专门的方法 getSeesionUserId()
+	 * 
+	 * memberNumContent 内容描述,由一群字符串组成,每个字符串之间由","分开。第一个字符串为作品负责人的工（学）号，之后开始为成员学（工）号
+	 * member 为成员信息，不包含 负责人信息
+	 * 
+	 * 文件：第一个文件为第一张图片，之后为剩下图片（除去最后一个文件）。最后一个为作品附件。
+	 * */
+	
+	/**
+	 * 发布产学研成果信息
 	 * @return
 	 */
 	@RequestMapping(value="publishIURP")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView publishIURP(HttpServletRequest request){
-		ModelAndView mv = new ModelAndView();
+	public String publishIURP(HttpServletRequest request){
 		try {
-			//Student stu = (Student) request.getSession().getAttribute("Student");
 			String projectId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,projectId);
 			List<File> files = (List<File>) obj[0];	// 获取课程图片
@@ -216,6 +225,8 @@ public class AchievementController {
 			i.setProjectCategory("产学研");
 			i.setProjectDetail((String)formdata.get("detail"));
 			i.setProjectId(projectId);
+			i.setUploadAuthorId(GetSessionUserId(request));
+			i.setMemberNum((String)formdata.get("memberNumContent"));
 			i.setProjectName((String)formdata.get("name"));
 			i.setStartTime(ConverDate((String)formdata.get("startTime")));
 			i.setStatus(null);
@@ -236,7 +247,7 @@ public class AchievementController {
 				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(projectId);
-				pi.setAuthorId(null);
+				pi.setAuthorId(GetSessionUserId(request));
 				pi.setDeleteFlag(null);
 				pictureList.add(pi);
 			}
@@ -250,27 +261,27 @@ public class AchievementController {
 			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(projectId);
-			aa.setAuthorId(null);
+			aa.setAuthorId(GetSessionUserId(request));
 			aa.setDeleteFlag(null);
 			aaList.add(aa);
 			iAchievementService.insertAchievementAccessory(aaList);
 			/**文件处理结束***/
-			return mv = toAchievementMainPage(request);
+			return "redirect:/achievement/toAchievementMainPage"; 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return mv = toUploadAchievement(request);
+			return "redirect:/achievement/toUploadAchievement"; 
 		}
 	}
 
 	/**
-	 * 发布成果信息
+	 * 发布课程拓展成果信息
 	 * @return
 	 */
 	@RequestMapping(value="publishCourseExpand")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public ModelAndView publishCourseExpand(HttpServletRequest request){
-		ModelAndView mv = new ModelAndView();
+	public String publishCourseExpand(HttpServletRequest request){
+		
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -283,13 +294,23 @@ public class AchievementController {
 			ce.setBrowseVolume(1);
 			ce.setAchievementCategory("课程拓展");
 			ce.setCompere((String)formdata.get("compere"));
-			ce.setCourseId(null);
+			String courseName = null;
+			courseName = (String)formdata.get("courseName");
+			if(!courseName.isEmpty())
+			{
+				ce.setCourseId(courseName);
+			}
+			else {
+				ce.setCourseId(null);
+			}
 			ce.setFinishTime(ConverDate((String)formdata.get("finishTime")));
 			ce.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
 			ce.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			ce.setIntroduction((String)formdata.get("introduction"));
 			ce.setMember((String)formdata.get("member"));
 			ce.setTeamName((String)formdata.get("teamName"));
+			ce.setUploadAuthorId(GetSessionUserId(request));
+			ce.setMemberNum((String)formdata.get("memberNumContent"));
 			ce.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertCourseExpand(ce);
 			/**
@@ -306,7 +327,7 @@ public class AchievementController {
 				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(achievementId);
-				pi.setAuthorId(null);
+				pi.setAuthorId(GetSessionUserId(request));
 				pi.setDeleteFlag(null);
 				pictureList.add(pi);
 			}
@@ -320,16 +341,239 @@ public class AchievementController {
 			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(achievementId);
-			aa.setAuthorId(null);
+			aa.setAuthorId(GetSessionUserId(request));
 			aa.setDeleteFlag(null);
 			aaList.add(aa);
 			iAchievementService.insertAchievementAccessory(aaList);
 			/**文件处理结束***/
-			return mv = toAchievementMainPage(request);
+			return "redirect:/achievement/toAchievementMainPage"; 
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			return mv = toUploadAchievement(request);
+			return "redirect:/achievement/toUploadAchievement"; 
+		}
+	}
+	
+	/**
+	 * 发布大学生竞赛成果信息
+	 * @return
+	 */
+	@RequestMapping(value="publishAOCSC")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String publishAOCSC(HttpServletRequest request){
+		
+		try {
+			String achievementId = Common.uuid();
+			Object[] obj = Common.fileFactory(request,achievementId);
+			List<File> files = (List<File>) obj[0];
+			Map<String, Object> formdata = (Map<String, Object>) obj[1]; 
+			AOCSC ao = new AOCSC();
+			ao.setAchievementCategory("大学生竞赛");
+			ao.setAchievementDetail((String)formdata.get("detail"));
+			ao.setAchievementId(achievementId);
+			ao.setAchievementName((String)formdata.get("name"));
+			ao.setBrowseVolume(1);
+			ao.setCompere((String)formdata.get("compere"));
+			ao.setFeature((String)formdata.get("feature"));
+			ao.setFinishTime(ConverDate((String)formdata.get("finishTime")));
+			ao.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			ao.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
+			ao.setIntroduction((String)formdata.get("introduction"));
+			ao.setLevel((String)formdata.get("levelContent"));
+			ao.setMember((String)formdata.get("member"));
+			ao.setMemberNum((String)formdata.get("memberNumContent"));
+			ao.setTeamName((String)formdata.get("teamName"));
+			ao.setUploadAuthorId(GetSessionUserId(request));
+			ao.setUploadTime(new Timestamp(System.currentTimeMillis()));
+			iAchievementService.insertAOCSC(ao);
+			/**
+			 * 文件的处理
+			 * */
+			List<AchievementPicture> pictureList = new ArrayList<>();
+			AchievementPicture pi;
+			for(int j = 0;j<files.size()-1;j++){
+				File f = files.get(j);
+				String accessoryId = Common.uuid();
+				pi = new AchievementPicture();
+				pi.setAccessoryId(accessoryId);
+				pi.setAccessoryName(f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+				pi.setAchievementId(achievementId);
+				pi.setAuthorId(GetSessionUserId(request));
+				pi.setDeleteFlag(null);
+				pictureList.add(pi);
+			}
+			pictureList.remove(0);//第一张图片存至对象中，剩下图片放置入图片库
+			iAchievementService.insertAchievementPicture(pictureList);
+			AchievementAccessory aa = new AchievementAccessory();
+			List<AchievementAccessory> aaList = new ArrayList<>();
+			String accessoryId = Common.uuid();
+			aa.setAccessoryId(accessoryId);
+			aa.setAccessoryName(files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+			aa.setAchievementId(achievementId);
+			aa.setAuthorId(GetSessionUserId(request));
+			aa.setDeleteFlag(null);
+			aaList.add(aa);
+			iAchievementService.insertAchievementAccessory(aaList);
+			/**文件处理结束***/
+			return "redirect:/achievement/toAchievementMainPage"; 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "redirect:/achievement/toUploadAchievement"; 
+		}
+	}
+	
+	
+	/**
+	 * 发布大学生竞赛成果信息
+	 * @return
+	 */
+	@RequestMapping(value="publishGDFCS")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String publishGDFCS(HttpServletRequest request){
+		
+		try {
+			String achievementId = Common.uuid();
+			Object[] obj = Common.fileFactory(request,achievementId);
+			List<File> files = (List<File>) obj[0];
+			Map<String, Object> formdata = (Map<String, Object>) obj[1]; 			
+			GDFCS gd = new GDFCS();
+			gd.setAchievementCategory("毕业设计");
+			gd.setAchievementId(achievementId);
+			gd.setAchievementName((String)formdata.get("name"));
+			gd.setBrowseVolume(1);
+			gd.setAchievementDetail((String)formdata.get("detail"));
+			gd.setCompere((String)formdata.get("compere"));
+			gd.setFinishTime(ConverDate((String)formdata.get("finishTime")));
+			gd.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			gd.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
+			gd.setIntroduction((String)formdata.get("introduction"));
+			gd.setMemberNum((String)formdata.get("memberNumContent"));
+			gd.setUploadAuthorId(GetSessionUserId(request));
+			gd.setUploadTime(new Timestamp(System.currentTimeMillis()));
+			iAchievementService.insertGDFCS(gd);
+			/**
+			 * 文件的处理
+			 * */
+			List<AchievementPicture> pictureList = new ArrayList<>();
+			AchievementPicture pi;
+			for(int j = 0;j<files.size()-1;j++){
+				File f = files.get(j);
+				String accessoryId = Common.uuid();
+				pi = new AchievementPicture();
+				pi.setAccessoryId(accessoryId);
+				pi.setAccessoryName(f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+				pi.setAchievementId(achievementId);
+				pi.setAuthorId(GetSessionUserId(request));
+				pi.setDeleteFlag(null);
+				pictureList.add(pi);
+			}
+			pictureList.remove(0);//第一张图片存至对象中，剩下图片放置入图片库
+			iAchievementService.insertAchievementPicture(pictureList);
+			AchievementAccessory aa = new AchievementAccessory();
+			List<AchievementAccessory> aaList = new ArrayList<>();
+			String accessoryId = Common.uuid();
+			aa.setAccessoryId(accessoryId);
+			aa.setAccessoryName(files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+			aa.setAchievementId(achievementId);
+			aa.setAuthorId(GetSessionUserId(request));
+			aa.setDeleteFlag(null);
+			aaList.add(aa);
+			iAchievementService.insertAchievementAccessory(aaList);
+			/**文件处理结束***/
+			return "redirect:/achievement/toAchievementMainPage"; 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "redirect:/achievement/toUploadAchievement"; 
+		}
+	}
+	
+	
+	
+	/**
+	 * 发布大学生创新创业成果信息
+	 * @return
+	 */
+	@RequestMapping(value="publishSIAE")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String publishSIAE(HttpServletRequest request){
+		
+		try {
+			String achievementId = Common.uuid();
+			Object[] obj = Common.fileFactory(request,achievementId);
+			List<File> files = (List<File>) obj[0];
+			Map<String, Object> formdata = (Map<String, Object>) obj[1]; 
+			SIAE si = new SIAE();
+			si.setAchievementCategory("创新创业");
+			si.setAchievementDetail((String)formdata.get("detail"));
+			si.setAchievementId(achievementId);
+			si.setAchievementName((String)formdata.get("name"));
+			si.setBrowseVolume(1);
+			si.setCompere((String)formdata.get("compere"));
+			//si.setConcludingRreport(concludingRreport);
+			//si.setDeclaration(declaration);
+			si.setFeature((String)formdata.get("feature"));
+			si.setFinishTime(ConverDate((String)formdata.get("finishTime")));
+			si.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			si.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
+			si.setIntroduction((String)formdata.get("introduction"));
+			si.setLevel((String)formdata.get("levelContent"));
+			si.setMember((String)formdata.get("levelContent"));
+			si.setMemberNum((String)formdata.get("memberContent"));
+			//si.setMidreply(midreply);
+			si.setPlan((String)formdata.get("plan"));
+			//si.setStatus(status);
+			si.setTeamName((String)formdata.get("teamName"));
+			si.setUploadAuthorId(GetSessionUserId(request));
+			si.setUploadTime(new Timestamp(System.currentTimeMillis()));
+			iAchievementService.insertSIAE(si);
+			/**
+			 * 文件的处理
+			 * */
+			List<AchievementPicture> pictureList = new ArrayList<>();
+			AchievementPicture pi;
+			for(int j = 0;j<files.size()-1;j++){
+				File f = files.get(j);
+				String accessoryId = Common.uuid();
+				pi = new AchievementPicture();
+				pi.setAccessoryId(accessoryId);
+				pi.setAccessoryName(f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+				pi.setAchievementId(achievementId);
+				pi.setAuthorId(GetSessionUserId(request));
+				pi.setDeleteFlag(null);
+				pictureList.add(pi);
+			}
+			pictureList.remove(0);//第一张图片存至对象中，剩下图片放置入图片库
+			iAchievementService.insertAchievementPicture(pictureList);
+			AchievementAccessory aa = new AchievementAccessory();
+			List<AchievementAccessory> aaList = new ArrayList<>();
+			String accessoryId = Common.uuid();
+			aa.setAccessoryId(accessoryId);
+			aa.setAccessoryName(files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
+			aa.setAchievementId(achievementId);
+			aa.setAuthorId(GetSessionUserId(request));
+			aa.setDeleteFlag(null);
+			aaList.add(aa);
+			iAchievementService.insertAchievementAccessory(aaList);
+			/**文件处理结束***/
+			return "redirect:/achievement/toAchievementMainPage"; 
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return "redirect:/achievement/toUploadAchievement"; 
 		}
 	}
 	/**************************************发布信息功能部分结束****************************************/
@@ -589,5 +833,53 @@ public class AchievementController {
 		}
 		return mv;}
 	/******************************************页面跳转的结束 iframe*********************************************************/
+	/******************************************评论操作部分开始*********************************************************/
+	/**
+	 * 大学生创新创业
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="insertAchievementComment")
+	public AchievementComment insertAchievementComment(HttpServletRequest request,@RequestParam(value="commentContent") String commentContent,@RequestParam(value="category") String category,@RequestParam(value="achievementId") String achievementId){
+		AchievementComment ac = new AchievementComment();
+		Student stu = (Student) request.getSession().getAttribute("student");
+		String commentId = Common.uuid();
+		try {
+			ac.setAchievemendId(achievementId);
+			ac.setAuthorId(stu.getStudentId());
+			ac.setAuthorName(stu.getStudentName());
+			ac.setAuthorPicture(stu.getFaceImg());
+			ac.setCategory(category);
+			ac.setCommentContent(commentContent);
+			ac.setCommentId(commentId);
+			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
+			iAchievementService.insertAchievementComment(ac);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return ac;}
+	/**
+	 * 获取session中的用户信息ID
+	 * */
+	private String GetSessionUserId(HttpServletRequest request) {
+		String userId = null;
+		try {
+			Student stu = null;
+			stu = (Student) request.getSession().getAttribute("student");
+			Teacher tea = null;
+			tea = (Teacher) request.getSession().getAttribute("teacher");
+			if(stu!=null)
+			{
+				userId = stu.getStudentId();
+			}
+			if(tea!=null)
+			{
+				userId = tea.getEmployeeNum();
+			}
+		} catch (Exception e) {
+			userId = null;;
+		}
+		return userId;
+	}
 }
 
