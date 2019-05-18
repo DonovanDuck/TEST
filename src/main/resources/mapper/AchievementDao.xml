@@ -148,6 +148,13 @@
 		</where>
 		;
 	</select>
+	<select id="queryIURPByAuthorId" resultMap="IURPMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_industry_university_research_project
+		<where>
+			upload_author = #{authorId}
+		</where>
+		;
+	</select>
 	<select id="queryIURPByName" resultMap="IURPMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
@@ -238,6 +245,13 @@
 		</where>
 		;
 	</select>
+	<select id="queryAOCSCByAuthorId" resultMap="AOCSCMap" parameterType="java.lang.String">
+		SELECT * FROM achievements_of_college_students_competition
+		<where>
+			upload_author = #{authorId}
+		</where>
+		;
+	</select>
 	<select id="queryAOCSCByAuthor" resultMap="AOCSCMap"
 		parameterType="java.lang.String">
 		SELECT * FROM achievements_of_college_students_competition
@@ -263,7 +277,8 @@
 		feature,
 		finish_time,
 		upload_time,
-		first_picture
+		first_picture,
+		browse_volume
 		)
 		VALUES
 		(#{iu.achievementId},
@@ -279,7 +294,8 @@
 		#{iu.feature},
 		#{iu.finishTime},
 		#{iu.uploadTime},
-		#{iu.firstPicture}
+		#{iu.firstPicture},
+		#{iu.browseVolume}
 		);
 	</insert>
 	<update id="updateAOCSCBrowseVolume" parameterType="java.lang.String">
@@ -311,6 +327,13 @@
 		SELECT * FROM achievement_course_expand
 		<where>
 			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="queryCourseExpandByAuthorId" resultMap="CourseExpandMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_course_expand
+		<where>
+			upload_author = #{authorId}
 		</where>
 		;
 	</select>
@@ -386,6 +409,13 @@
 		</where>
 		;
 	</select>
+	<select id="queryGDFCSByAuthorId" resultMap="GDFCSMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_graduation_design_for_college_students
+		<where>
+			upload_author = #{authorId}
+		</where>
+		;
+	</select>
 	<select id="queryGDFCSById" resultMap="GDFCSMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_graduation_design_for_college_students
 		<where>
@@ -416,7 +446,8 @@
 		upload_time,
 		first_picture,
 		member_num,
-		upload_author
+		upload_author,
+		browse_volume
 		)
 		VALUES
 		(#{gdfcs.achievementId},
@@ -430,7 +461,8 @@
 		#{gdfcs.uploadTime},
 		#{gdfcs.firstPicture},
 		#{gdfcs.memberNum},
-		#{gdfcs.uploadAuthorId}
+		#{gdfcs.uploadAuthorId},
+		#{gdfcs.browseVolume}
 		);
 	</insert>
 	<update id="updateGDFCSBrowseVolume" parameterType="java.lang.String">
@@ -461,6 +493,13 @@
 		SELECT * FROM achievement_student_innovation_and_entrepreneurship
 		<where>
 			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="querySIAEByAuthorId" resultMap="SIAEMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_student_innovation_and_entrepreneurship
+		<where>
+			upload_author = #{authorId}
 		</where>
 		;
 	</select>
@@ -496,7 +535,8 @@
 		upload_time,
 		first_picture,
 		member_num,
-		upload_author
+		upload_author,
+		browse_volume
 		)
 		VALUES
 		(#{siae.achievementId},
@@ -519,7 +559,8 @@
 		#{siae.uploadTime},
 		#{siae.firstPicture},
 		#{siae.memberNum},
-		#{siae.uploadAuthorId}
+		#{siae.uploadAuthorId},
+		#{siae.browseVolume}
 		);
 	</insert>
 	<update id="updateSIAEBrowseVolume" parameterType="java.lang.String">

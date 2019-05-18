@@ -1,6 +1,7 @@
 package cn.edu.tit.controller;
 
 import java.io.File;
+import java.io.IOException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -8,12 +9,18 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.alibaba.fastjson.JSONObject;
 
 import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
@@ -22,11 +29,13 @@ import cn.edu.tit.bean.AchievementPicture;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
+import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAchievementService;
+import net.sf.json.JSONArray;
 
 @RequestMapping("/achievement")
 @Controller
@@ -201,7 +210,7 @@ public class AchievementController {
 	 * 
 	 * 文件：第一个文件为第一张图片，之后为剩下图片（除去最后一个文件）。最后一个为作品附件。
 	 * */
-	
+
 	/**
 	 * 发布产学研成果信息
 	 * @return
@@ -281,7 +290,7 @@ public class AchievementController {
 	@RequestMapping(value="publishCourseExpand")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishCourseExpand(HttpServletRequest request){
-		
+
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -353,7 +362,7 @@ public class AchievementController {
 			return "redirect:/achievement/toUploadAchievement"; 
 		}
 	}
-	
+
 	/**
 	 * 发布大学生竞赛成果信息
 	 * @return
@@ -361,7 +370,7 @@ public class AchievementController {
 	@RequestMapping(value="publishAOCSC")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishAOCSC(HttpServletRequest request){
-		
+
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -426,8 +435,8 @@ public class AchievementController {
 			return "redirect:/achievement/toUploadAchievement"; 
 		}
 	}
-	
-	
+
+
 	/**
 	 * 发布大学生竞赛成果信息
 	 * @return
@@ -435,7 +444,7 @@ public class AchievementController {
 	@RequestMapping(value="publishGDFCS")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishGDFCS(HttpServletRequest request){
-		
+
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -496,9 +505,9 @@ public class AchievementController {
 			return "redirect:/achievement/toUploadAchievement"; 
 		}
 	}
-	
-	
-	
+
+
+
 	/**
 	 * 发布大学生创新创业成果信息
 	 * @return
@@ -506,7 +515,7 @@ public class AchievementController {
 	@RequestMapping(value="publishSIAE")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishSIAE(HttpServletRequest request){
-		
+
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -839,25 +848,70 @@ public class AchievementController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="insertAchievementComment")
-	public AchievementComment insertAchievementComment(HttpServletRequest request,@RequestParam(value="commentContent") String commentContent,@RequestParam(value="category") String category,@RequestParam(value="achievementId") String achievementId){
+	@RequestMapping(value="insertAchievementComment",produces = "application/json; charset=utf-8")
+	public void insertAchievementComment(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="addCommentContent") String commentContent,@RequestParam(value="category") String category,@RequestParam(value="achievementId") String achievementId){
 		AchievementComment ac = new AchievementComment();
 		Student stu = (Student) request.getSession().getAttribute("student");
+		Teacher tea = (Teacher) request.getSession().getAttribute("teacher");
 		String commentId = Common.uuid();
 		try {
 			ac.setAchievemendId(achievementId);
-			ac.setAuthorId(stu.getStudentId());
-			ac.setAuthorName(stu.getStudentName());
-			ac.setAuthorPicture(stu.getFaceImg());
+			if(stu!=null) {
+				ac.setAuthorId(stu.getStudentId());
+				ac.setAuthorName(stu.getStudentName());
+				ac.setAuthorPicture(stu.getFaceImg());
+			}
+			if(tea!=null) {
+				ac.setAuthorId(tea.getEmployeeNum());
+				ac.setAuthorName(tea.getTeacherName());
+				ac.setAuthorPicture(tea.getFaceImg());
+			}
 			ac.setCategory(category);
 			ac.setCommentContent(commentContent);
 			ac.setCommentId(commentId);
 			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertAchievementComment(ac);
+			
+			
+			
+			List<AchievementComment> list = new ArrayList<AchievementComment>();
+//			try {
+//				list = iAchievementService.queryComment(achievementId, category);
+//
+//			//	JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
+//				//String result = json.toString();
+//				((ServletRequest) response).setCharacterEncoding("utf-8");
+//				response.getWriter().print(result);
+//			} catch (Exception e) {
+//				e.printStackTrace();
+//			}
+			
+			list = iAchievementService.queryComment(achievementId, category);
+			JSONArray json = new JSONArray();
+            for (AchievementComment achievementComment : list) {
+            	 JSONObject jo = new JSONObject();
+	                jo.put("commentId", achievementComment.getCommentId());
+	                jo.put("achievemendId",  achievementComment.getAchievemendId());
+	                jo.put("authorId",  achievementComment.getAuthorId());
+	                jo.put("category",  achievementComment.getCategory());
+	                jo.put("commentContent",  achievementComment.getCommentContent());
+	                jo.put("uploadTime",  achievementComment.getUploadTime());
+	                jo.put("authorPicture",  achievementComment.getAuthorPicture());
+	                jo.put("authorName",  achievementComment.getAuthorName());
+	                json.put(jo);
+			}
+            try {
+            	response.getWriter().write(json.toString());
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		return ac;}
+	}
+
+
+
 	/**
 	 * 获取session中的用户信息ID
 	 * */

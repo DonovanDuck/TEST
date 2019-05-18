@@ -41,7 +41,7 @@
 		<div class="images">
 			<img
 				src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }"
-				style="width: 100%; height: 100%;" alt="" />
+				style="width: 100%; height: 100%;"/>
 		</div>
 		<div class="message">
 			&nbsp;&nbsp;
@@ -67,6 +67,15 @@
 						<img
 							src="${pageContext.request.contextPath}/images/studentCenterImg/b1.png"
 							alt="" />我的班级
+					</p>
+				</div>
+			</a> <a
+				href="${pageContext.request.contextPath}/student/toStudentCenter_MyAchievement">
+				<div class="nav1">
+					<p>
+						<img
+							src="${pageContext.request.contextPath}/images/studentCenterImg/t1.png"
+							alt="" />我的成果
 					</p>
 				</div>
 			</a> <a

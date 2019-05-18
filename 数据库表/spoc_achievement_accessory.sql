@@ -16,12 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `achievement_accessory`
+--
+
+DROP TABLE IF EXISTS `achievement_accessory`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `achievement_accessory` (
+  `accessory_id` varchar(255) NOT NULL COMMENT '附件id',
+  `author_id` varchar(255) DEFAULT NULL COMMENT '作者id',
+  `accessory_name` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '附件名',
+  `accessory_path` varchar(255) CHARACTER SET utf8 COLLATE utf8_bin DEFAULT NULL COMMENT '附件保存路径',
+  `accessory_time` date DEFAULT NULL COMMENT '附件提交时间',
+  `achievement_id` varchar(255) NOT NULL,
+  `delete_flag` int(11) DEFAULT NULL,
+  PRIMARY KEY (`accessory_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Dumping data for table `achievement_accessory`
 --
 
 LOCK TABLES `achievement_accessory` WRITE;
 /*!40000 ALTER TABLE `achievement_accessory` DISABLE KEYS */;
-INSERT INTO `achievement_accessory` VALUES ('8083FC39CCD94ED0A598A2CB07713313',NULL,'考研资料机构规划书.doc','/home/menahemli/Desktop/考研资料机构规划书.doc','2019-04-29','7CA2D46C03774C7DBE85D1201CFF945A',NULL),('D4DB1C157B0447CF8BBA8D00B42C42B2',NULL,'1313.jpg','/home/menahemli/Desktop/1313.jpg','2019-04-30','336C822B3A6A4584AA6FA2B9F01E4CB4',NULL),('DE7588C344F949F0B7E4F40DB672B262',NULL,'拟录取.jpg','/home/menahemli/Desktop/拟录取.jpg','2019-04-30','6FEAA399AF5F4F2CB36717C620ECAAA8',NULL),('id','authorId','name','path',NULL,'achievementId',1);
+INSERT INTO `achievement_accessory` VALUES ('096A7090724D4AAB962CA61F61D90D45',NULL,'教师成果用例图.png','/home/menahemli/Desktop/教师成果用例图.png','2019-05-16','246C4AD67A8C47A9B53C0A783D4C592E',NULL),('20C4EE04B767476F8C2061E3BAADF2C9',NULL,'fire.png','/home/menahemli/Desktop/fire.png','2019-05-16','ECBAEBF269734884B60C8D911F4DB3EB',NULL),('296B7F229E464235B4BA91E2F4F3323C',NULL,'教师成果用例图.png','/home/menahemli/Desktop/教师成果用例图.png','2019-05-15','74524D5EADDB4F4FB50CAE4EEAD4B42C',NULL),('6966CF38FA284848A7CEC6C4A780172C',NULL,'用例图.drawio','/home/menahemli/Desktop/用例图.drawio','2019-05-16','EDADAD05E2BD4EC6A5A24AC99A851109',NULL),('6F39BC1F5FA44E4F85FBF7B4124AFD5E',NULL,'教师成果用例图.png','/home/menahemli/Desktop/教师成果用例图.png','2019-05-16','4B43C63589494D7AA0E503F362AE668A',NULL),('8083FC39CCD94ED0A598A2CB07713313',NULL,'考研资料机构规划书.doc','/home/menahemli/Desktop/考研资料机构规划书.doc','2019-04-29','7CA2D46C03774C7DBE85D1201CFF945A',NULL),('8F3354C054C64504A930B57D1BCE8E61',NULL,'用例图.drawio','/home/menahemli/Desktop/用例图.drawio','2019-05-16','6995F7035C91406BA18FEA4ADF093AC4',NULL),('97008CCEA16447E88D2294734630E028',NULL,'教师成果用例图.drawio','/home/menahemli/Desktop/教师成果用例图.drawio','2019-05-16','92B73AEA9FB846B1B675BD7C86D125B3',NULL),('C060A814564B400989332DC5EA732E30',NULL,'成果管理员用例图.png','/home/menahemli/Desktop/成果管理员用例图.png','2019-05-15','CEFC99BABEBB456F973929E76A230DD2',NULL),('D4DB1C157B0447CF8BBA8D00B42C42B2',NULL,'1313.jpg','/home/menahemli/Desktop/1313.jpg','2019-04-30','336C822B3A6A4584AA6FA2B9F01E4CB4',NULL),('DE7588C344F949F0B7E4F40DB672B262',NULL,'拟录取.jpg','/home/menahemli/Desktop/拟录取.jpg','2019-04-30','6FEAA399AF5F4F2CB36717C620ECAAA8',NULL),('E3955D684A7F4E9CBC23A213913E9D8B',NULL,'成果管理员用例图.png','/home/menahemli/Desktop/成果管理员用例图.png','2019-05-15','422A68FA41374BFBBF6BFDBFB66B69BB',NULL),('FEA8A246F0E94DEF977E19D8D3BDD8EB',NULL,'用例图.drawio','/home/menahemli/Desktop/用例图.drawio','2019-05-16','FB5F47F110B344F98031F1819619C959',NULL),('id','authorId','name','path',NULL,'achievementId',1);
 /*!40000 ALTER TABLE `achievement_accessory` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -34,4 +53,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-01 17:08:48
+-- Dump completed on 2019-05-18 20:53:29

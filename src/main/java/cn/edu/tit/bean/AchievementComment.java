@@ -9,9 +9,13 @@ public class AchievementComment {
 	private String authorId;//作者id
 	private String category;//评论所属成果的类别
 	private String commentContent;//评论内容
-	private Timestamp uploadTime;//上传时间
+	private Timestamp uploadTime;//上传时间	
 	private String authorPicture;//评论者头像 方便前台使用设置
-	private String authorName;//评论者头像 方便前台使用设置
+	private String authorName;//评论者名字 方便前台使用设置
+	
+	
+	
+	
 	public String getCommentId() {
 		return commentId;
 	}

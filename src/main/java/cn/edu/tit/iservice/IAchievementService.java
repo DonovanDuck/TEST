@@ -22,6 +22,7 @@ public interface IAchievementService {
 	public List<IURP> queryIURPByName(String search)throws Exception;
 	public List<IURP> queryIURPByAuthor(String search)throws Exception;
 	public void insertIURP(IURP iu)throws Exception;
+	public List<IURP> queryIURPByAuthorId(String authorId)throws Exception;
 	public IURP queryIURPById(String achievementId)throws Exception;
 	public void updateIURPBrowseVolume(String achievementId)throws Exception;
 
@@ -33,6 +34,7 @@ public interface IAchievementService {
 	public List<AOCSC> queryAOCSCByName(String search)throws Exception;
 	public List<AOCSC> queryAOCSCByAuthor(String search)throws Exception;
 	public void insertAOCSC(AOCSC iu)throws Exception;
+	public List<AOCSC> queryAOCSCByAuthorId(String authorId)throws Exception;
 	public AOCSC queryAOCSCById(String achievementId)throws Exception;
 	public void updateAOCSCBrowseVolume(String achievementId)throws Exception;
 
@@ -44,6 +46,7 @@ public interface IAchievementService {
 	public List<CourseExpand> queryCourseExpandByName(String search)throws Exception;
 	public List<CourseExpand> queryCourseExpandByAuthor(String search)throws Exception;
 	public void insertCourseExpand(CourseExpand iu)throws Exception;
+	public List<CourseExpand> queryCourseExpandByAuthorId(String authorId)throws Exception;
 	public CourseExpand queryCourseExpandById(String achievementId)throws Exception;
 	public void updateCourseExpandBrowseVolume(String achievementId)throws Exception;
 
@@ -55,6 +58,7 @@ public interface IAchievementService {
 	public List<GDFCS> queryGDFCSByName(String search)throws Exception;
 	public List<GDFCS> queryGDFCSByAuthor(String search)throws Exception;
 	public void insertGDFCS(GDFCS gdfcs)throws Exception;
+	public List<GDFCS> queryGDFCSByAuthorId(String authorId)throws Exception;
 	public GDFCS queryGDFCSById(String achievementId)throws Exception;
 	public void updateGDFCSBrowseVolume(String achievementId)throws Exception;
 
@@ -67,6 +71,7 @@ public interface IAchievementService {
 	public List<SIAE> querySIAEByAuthor(String search)throws Exception;
 	public void insertSIAE(SIAE siae)throws Exception;
 	public SIAE querySIAEById(String achievementId);
+	public List<SIAE> querySIAEByAuthorId(String authorId)throws Exception;
 	public void updateSIAEBrowseVolume(String achievementId)throws Exception;
 
 	/**

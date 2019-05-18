@@ -421,4 +421,64 @@ public class AchievementServiceImpl implements IAchievementService{
 				e.printStackTrace();
 			}
 	}
+
+	@Override
+	public List<IURP> queryIURPByAuthorId(String authorId) throws Exception {
+		List<IURP> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryIURPByAuthorId(authorId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
+
+	@Override
+	public List<AOCSC> queryAOCSCByAuthorId(String authorId) throws Exception {
+		List<AOCSC> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryAOCSCByAuthorId(authorId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
+
+	@Override
+	public List<CourseExpand> queryCourseExpandByAuthorId(String authorId) throws Exception {
+		List<CourseExpand> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryCourseExpandByAuthorId(authorId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
+
+	@Override
+	public List<GDFCS> queryGDFCSByAuthorId(String authorId) throws Exception {
+		List<GDFCS> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryGDFCSByAuthorId(authorId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
+
+	@Override
+	public List<SIAE> querySIAEByAuthorId(String authorId) throws Exception {
+		List<SIAE> list = new ArrayList<>();
+		try {
+			 list = achievementDao.querySIAEByAuthorId(authorId);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
 }

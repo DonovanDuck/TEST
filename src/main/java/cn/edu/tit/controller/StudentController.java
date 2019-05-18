@@ -19,15 +19,22 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+
+import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.CourseExpand;
+import cn.edu.tit.bean.GDFCS;
+import cn.edu.tit.bean.IURP;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.ResourceType;
+import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
+import cn.edu.tit.iservice.IAchievementService;
 import cn.edu.tit.iservice.IAdminService;
 import cn.edu.tit.iservice.IResourceService;
 import cn.edu.tit.iservice.IStudentService;
@@ -49,6 +56,8 @@ public class StudentController {
 	private IStudentService studentService;
 	@Autowired
 	public MainController mainController;
+	@Autowired
+	private IAchievementService iAchievementService;
 
 	@RequestMapping(value="LoginStudent")
 	public ModelAndView LoginStudent(@RequestParam(value="employeeNum") String employeeNum,@RequestParam(value="password") String password,HttpServletRequest request) {			
@@ -190,6 +199,39 @@ public class StudentController {
 	public ModelAndView toStudentCenter_MyDiscuss(HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/jsp/StudentJsp/studentCenter_MyDiscuss");//设置返回页面
+		return mv;
+	}
+
+	/**
+	 * @author LiMing
+	 * 跳转到我的讨论(个人信息中心页面)
+	 * @throws Exception 
+	 * */
+	@RequestMapping(value="toStudentCenter_MyAchievement")
+	public ModelAndView toStudentCenter_MyAchievement(HttpServletRequest request) {	
+		Student stu = (Student) request.getSession().getAttribute("student");
+		ModelAndView mv = new ModelAndView();
+		List<AOCSC> aocscList =new ArrayList<>();
+		List<CourseExpand> courseExpandList =new ArrayList<>();
+		List<GDFCS> gdfcsList =new ArrayList<>();
+		List<SIAE> siaeList =new ArrayList<>();
+		List<IURP> iURPList =new ArrayList<>();
+		try {
+			aocscList = iAchievementService.queryAOCSCByAuthorId(stu.getStudentId());
+			courseExpandList = iAchievementService.queryCourseExpandByAuthorId(stu.getStudentId());
+			gdfcsList = iAchievementService.queryGDFCSByAuthorId(stu.getStudentId());
+			siaeList = iAchievementService.querySIAEByAuthorId(stu.getStudentId());
+			iURPList = iAchievementService.queryIURPByAuthorId(stu.getStudentId());
+			mv.addObject("aocscList",aocscList);
+			mv.addObject("courseExpandList",courseExpandList);
+			mv.addObject("gdfcsList",gdfcsList);
+			mv.addObject("siaeList",siaeList);
+			mv.addObject("iURPList",iURPList);
+			mv.setViewName("/jsp/AchievementJsp/achievementMain");
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		mv.setViewName("/jsp/StudentJsp/studentCenter_MyAchievement");//设置返回页面
 		return mv;
 	}
 

@@ -96,7 +96,7 @@
 				</div>
 				<div class="form-group">
 					<label for="finishTime">作品结束时间</label> <input type="date"
-						class="form-control" id="finishTime" name="endTime"
+						class="form-control" id="finishTime" name="finishTime"
 						placeholder="作品结束时间">
 				</div>
 				<div class="form-group" style="margin-top: 8%">

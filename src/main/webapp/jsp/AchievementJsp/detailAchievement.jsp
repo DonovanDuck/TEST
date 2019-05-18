@@ -57,7 +57,12 @@
 		g1.style.display = "none";
 		g2.style.display = "block";
 	}
+	function submitComment() {
+		alert("11111");
+		//alert($.isEmptyObject($.session._cookieCache));
+	}
 </script>
+
 </head>
 <body class="body">
 	<div class="main">
@@ -115,9 +120,10 @@
 						</div>
 						<div class="col-md-12" style="padding: 0%; color: #999">
 							<h5>
-								负责人：${Achievement.compere }&nbsp&nbsp&nbsp&nbsp
+								负&nbsp&nbsp责&nbsp&nbsp人：${Achievement.compere
+								}&nbsp&nbsp&nbsp&nbsp<br> <br>
 								<c:if test="${not empty memberList}">团队成员：<c:forEach
-										items="${memberList }" var="li">${li }</c:forEach>
+										items="${memberList }" var="li">${li }&nbsp&nbsp&nbsp</c:forEach>
 								</c:if>
 							</h5>
 						</div>
@@ -165,7 +171,48 @@
 									class="text-right">${item.uploadTime }</p>
 							</div>
 						</c:forEach>
-						<div class="publishComment col-md-12"></div>
+						<div class="publishComment col-md-12">
+							<c:if test="${not empty comment }">
+								<c:forEach items="${comment }" var="item" varStatus="states">
+									<div class="col-md-12 panel panel-default" style="padding: 2%">
+										<div class="col-md-3 text-center" style="">
+											<img style="width: 80px; height: 80px;"
+												src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.authorPicture }"
+												alt="..." class="img-circle"> <br>
+											<div class="col-md-12 "
+												style="color: #B9B9B9; margin-top: 5%">${item.authorName }</div>
+										</div>
+										<div class="col-md-9"
+											style="font-size: 12px; letter-spacing: 1px; line-height: 23px;">
+											<div style="width: 105%; height: 100%">
+												<span
+													style="word-wrap: break-word; word-break: break-all; overflow: hidden;">${item.commentContent }</span>
+											</div>
+										</div>
+										<p
+											style="margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;"
+											class="text-right">${item.uploadTime }</p>
+									</div>
+								</c:forEach>
+							</c:if>
+							<form
+								action="${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId=${IURP.projectId }&category=产学研"
+								method="post" Onsubmit="submitComment()">
+								<h4>我的评论</h4>
+								<div class="publishComment col-md-12 "
+									style="padding: 0px; margin: 0px;">
+									<div class="col-md-12"
+										style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
+										<textarea class="form-control"
+											id="commentContent" rows="5" name="commentContent"
+											style="resize: none; height: 30%" placeholder="添加评论"></textarea>
+										<button type="submit"
+											class="btn btn-default btn-sm active pull-right"
+											style="position: relative; left: -20px; top: -40px;">发表</button>
+									</div>
+								</div>
+							</form>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -175,8 +222,10 @@
 					varStatus="states">
 					<a
 						href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.achievementId }">
-						<div class="col-md-12 " style="padding: 0px; margin-top: 2%">
-							<div class="relativeImg col-md-8" style="padding: 0px">
+						<div class="col-md-12 "
+							style="padding: 0px; margin-top: 2%; height: 100px">
+							<div class="relativeImg col-md-8"
+								style="padding: 0px; height: 100%">
 								<img alt=""
 									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }"
 									style="width: 100%; height: 100%">
@@ -198,7 +247,7 @@
 		$(function() {
 			$(".carousel").carousel({
 				interval : 200
-			})
+			});
 		})
 	</script>
 </body>

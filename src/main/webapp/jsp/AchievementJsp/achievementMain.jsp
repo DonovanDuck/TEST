@@ -57,7 +57,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px;margin-top: 1%;">
+								style="padding: 8px; height: 350px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -89,7 +89,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px;margin-top: 1%;">
+								style="padding: 8px; height: 350px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -121,7 +121,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailGDFCS?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px;margin-top: 1%;">
+								style="padding: 8px; height: 350px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -185,7 +185,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px;margin-top: 1%;">
+								style="padding: 8px; height: 350px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -215,9 +215,6 @@
 			</div>
 		</div>
 	</div>
-	<a class="btn btn-primary"
-		href="${pageContext.request.contextPath}/achievement/toUploadAchievement"
-		role="button">上传新作品</a>
 	<div class="footer"></div>
 </body>
 <%-- 备份代码

@@ -78,7 +78,16 @@
 							alt="" />我的班级
 					</p>
 				</div>
-			</a> <a
+			</a>  <a
+				href="${pageContext.request.contextPath}/student/toStudentCenter_MyAchievement">
+				<div class="nav1">
+					<p>
+						<img
+							src="${pageContext.request.contextPath}/images/studentCenterImg/t1.png"
+							alt="" />我的成果
+					</p>
+				</div>
+			</a><a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyDiscuss">
 				<div class="nav1">
 					<p>
