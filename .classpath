@@ -32,6 +32,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ueditor-1.1.2.jar"/>
 	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
@@ -45,5 +46,10 @@
 		</attributes>
 	</classpathentry>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/ueditor-1.1.2.jar"/>
+	<classpathentry kind="lib" path="src/main/webapp/WEB-INF/lib/json.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v9.0"/>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

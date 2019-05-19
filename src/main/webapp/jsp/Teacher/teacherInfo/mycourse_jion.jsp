@@ -14,10 +14,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <div  id="k2">
 <<<<<<< HEAD
+<<<<<<< HEAD
 <c:forEach items="${courseList }" var="course" varStatus="status">
 =======
 <c:forEach items="${courseList }" var="course">
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+<c:forEach items="${courseList }" var="course" varStatus="status">
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     <a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }" target="_top">
         <div class="lesson">
             <div class="lesson_l">
@@ -30,10 +34,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 ${teacher.teacherName }
                 </c:forEach> </p>
 <<<<<<< HEAD
+<<<<<<< HEAD
                 <p>创课时间：${publishTime[status.index]  }</p>
 =======
                 <p>创课时间：${course.publishTime }</p>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+                <p>创课时间：${publishTime[status.index]  }</p>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
             </div>
         </div>
     </a>

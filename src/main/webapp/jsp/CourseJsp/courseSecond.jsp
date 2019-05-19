@@ -19,6 +19,7 @@
 	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 <style>
 	small{
@@ -66,16 +67,45 @@
 			});
 		});
 	});
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
-</script>
+<style>
+	small{
+		color: #000;
+	}
+</style>
 </head>
 <body class="body">
+<<<<<<< HEAD
 	<jsp:include page="/jsp/top.jsp" flush="true"/>
 	<div class="searchAndButton">
 		<input class="search" id="search" type="search" placeholder="请输入关键词">
 		<button class="search-button" id="searchButton">搜索</button>
 	</div>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	<jsp:include page="/jsp/top.jsp" flush="true" />
+	<%-- <div style="height: 96px;width: 350px;float: left;padding: 11px;background: #f3f3f3;border-radius: 6px;">
+						<img style="height: 74px; width: 74px;margin-right: 10px;border-radius: 6px;float: left;" src="${pageContext.request.contextPath}/images/tu9.jpg">
+						<label class="re_name" style="    position: relative;
+    top: -2px;">c++基础知识应用</label>
+     <div><span>c++基础知识应用,利用c++基础语法知识与算法原理完成关卡中所给题目。</span></div>
+     <div>15题</div><div>2010.1.1</div>
+					</div> --%>
+					
+	<form action="${pageContext.request.contextPath}/teacher/toCourseSecondSearch">
+		<div class="form-group">
+    <input style="width: 23%;float: left;margin-right: 13px;margin-left: 61%;"  
+    class="form-control"  name="search" placeholder="请输入关键词">
+  </div>
+  <button type="submit" class="btn btn-default" >搜索</button>
+		<!-- <div class="searchAndButton" style="margin-right: 4%">
+			<input class="search" id="search" name="search" placeholder="请输入关键词">
+			<button class="search-button" id="searchButton" type="submit">搜索</button>
+		</div> -->
+	</form>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	<%-- <a href="${pageContext.request.contextPath}/teacher/toCreateCourse" style="position: relative;top: -26px;left:269px"><button class="btn btn-default" >创建课程</button></a> --%>
 
 	<div class="banner">
@@ -85,21 +115,28 @@
 					<li>
 						<div class="div1">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 							<a href="${pageContext.request.contextPath}/teacher/readCourseInfoByCategory/${category.categoryId }"
 								class="div1" style="font-size: 20px" target="">
 								<button style="width: 136px;" type="button" class="btn btn-default">${category.categoryName }</button>
 								</a>
+<<<<<<< HEAD
 =======
 							<a
 								href="${pageContext.request.contextPath}/teacher/readCourseInfoByCategory/${category.categoryId }"
 								class="div1" style="font-size: 20px" target="course">${category.categoryName }</a>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 						</div>
 					</li>
 				</c:forEach>
 			</ul>
 		</div>
 	</div>
+<<<<<<< HEAD
 <<<<<<< HEAD
 	<div class="courses" style="margin-left: 13%">
 		<c:forEach items="${courseList }" var="courseListItems"
@@ -124,19 +161,36 @@
 						<li><small>创建时间：${publishTime[status.index]  }</small></li>
 =======
 	<div class="courses" style=" margin-left: 10%">
+=======
+	<div class="courses" style="margin-left: 13%">
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		<c:forEach items="${courseList }" var="courseListItems"
 			varStatus="status">
-			<a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
-				<div class="course" >
-				<div style="width: 228px;height: 165px;">
-					<img alt="" style="width: 100%;height: 100%" src = "${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />
-				</div>
+			<a
+				href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
+				<div class="course">
+					<div style="width: 228px; height: 165px;">
+						<img alt="" style="width: 100%; height: 100%"
+							src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />
+					</div>
 
 					<ul class="courseInfo">
+<<<<<<< HEAD
 						<li><small>课程名：${courseListItems.courseName }</small></li>
 						<li><small>创建教师：${teacherNames[status.index]}</small></li>
 						<li><small>创建时间：${courseListItems.publishTime }</small></li>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+						<li><small>${courseListItems.courseName }</small></li>
+						<li><small>
+							教师团队：
+                                      	<c:forEach items="${courseListItems.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                              
+						</small></li>
+						<li><small>创建时间：${publishTime[status.index]  }</small></li>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 						<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
 					</ul>
 				</div>
@@ -144,11 +198,15 @@
 		</c:forEach>
 	</div>
 <<<<<<< HEAD
+<<<<<<< HEAD
 	<div class="footer"></div>
 =======
 	<div class="footer">
 	
 	</div>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	<div class="footer"></div>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 </body>
 </html>

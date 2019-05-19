@@ -78,6 +78,9 @@ public interface IStudentService {
 	 */
 	public Term readTermById(String termId);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * 获取标志位，查学生manager
 	 * @return
@@ -90,6 +93,9 @@ public interface IStudentService {
 	 * @param getEmployeeNum
 	 */
 	public void studentExitAttentionCourse(String courseId, String studentId);
+<<<<<<< HEAD
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 }

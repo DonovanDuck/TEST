@@ -210,6 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="hidden" name="_csrf" value="<%=_csrf %>" />
 						<div class="Login-footer">
 							<!-- <span class="Login-qrcode">
+<<<<<<< HEAD
 =======
 						<button id="login" type="button" class="submit" >登录</button>
 						<!-- <button id="virtualClick" type="button" class="btn btn-primary" data-toggle="modal"
@@ -226,6 +227,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<div class="Login-footer">
 							<span class="Login-qrcode">
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 								<button type="button" class="Button Button--plain">二维码登录</button>
 							</span> <span class="Login-footerSeparate Login-qrcodeSeparate">
 								· </span> <span class="Login-aboardPhone">
@@ -236,10 +239,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<button id="entrance" type="button"
 									class="Button Login-socialButtonEntrance Button--plain">社交帐号登录
 <<<<<<< HEAD
+<<<<<<< HEAD
 								</button> -->
 =======
 								</button>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+								</button> -->
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 								<div id="entrance_content" style="display: none;">
 									<span
 										class="Login-socialButtonGroup Login-socialButtonGroup--hidden">

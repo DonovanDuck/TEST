@@ -252,10 +252,14 @@ public interface ITeacherDao {
 	 * @return
 	 */
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId,@Param(value="manager")int manager);
 =======
 	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId,@Param(value="manager")int manager);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	
 	/**
 	 * 根据时间获取前十二个课程信息到首页
@@ -284,6 +288,9 @@ public interface ITeacherDao {
 	public String getVirtualClassNumByVidAndRid(@Param(value="realClassNum")String realClassNum,@Param(value="virtualClassNum")String virtualClassNum);
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * 取消关注
 	 * @param courseId
@@ -320,6 +327,7 @@ public interface ITeacherDao {
 	 * 根据任务类型和课程查询该课程下的任务
 	 */
 	public List<Task> getTaskByPointAndCourse(@Param(value="taskCategory")String taskCategory,@Param(value="courseId")String courseId);
+<<<<<<< HEAD
 =======
 	public List<Prize> prizeList();
 	public List<TeacherProject> teacherProjectList();
@@ -394,4 +402,6 @@ public interface ITeacherDao {
 	 */
 	public Timestamp getTaskEndTime(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 }

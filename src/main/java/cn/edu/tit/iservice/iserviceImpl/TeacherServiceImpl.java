@@ -45,8 +45,12 @@ import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
+<<<<<<< HEAD
 
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+import cn.edu.tit.idao.IResourceDao;
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.ITeacherService;
 
@@ -59,11 +63,17 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Autowired
 	private  ITeacherDao teacherDao ;
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 	@Autowired
 	private  IResourceDao resourceDao ;
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	
+	@Autowired
+	private  IResourceDao resourceDao ;
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * @author wenli
@@ -834,10 +844,14 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getImgpathByCourseId(courseId);
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	@Override
 =======
 		@Override
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	@Override
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	public List<String> getTaskCategory() throws Exception {
 		try {
 			return teacherDao.getTaskCategory();
@@ -846,6 +860,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("teacherDao层getTaskCategory出问题");
 			return null;
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 
 	}
@@ -1025,103 +1040,147 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 =======
 		
+=======
+
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	}
 
-		@Override
-		public int getResourceTypeId(String resourceTye) {
-			// TODO Auto-generated method stub
-			try {
-				return teacherDao.getResourceTypeId(resourceTye);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return 0;
-			}
-			
+	@Override
+	public int getResourceTypeId(String resourceTye) {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.getResourceTypeId(resourceTye);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return 0;
 		}
-		
-		/**
-		 * @author LiMing
-		 * @param 添加的资源
-		 * */
+	}
 		@Override
-		public void addResource(Resource resource) throws Exception {
-			try {
-				teacherDao.addResource(resource);
-				System.out.println("createResource------Dao 层执行成功");
-			} catch (Exception e) {
-				System.out.println("createResource------Dao 层执行失败");
-				e.printStackTrace();
-			}
+		public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager) {
+			// TODO Auto-generated method stub
+			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId, manager);
 		}
 
-		@Override
-		public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
+	/**
+	 * @author LiMing
+	 * @param 添加的资源
+	 * */
+	@Override
+	public void addResource(Resource resource) throws Exception {
+		try {
+			teacherDao.addResource(resource);
+			System.out.println("createResource------Dao 层执行成功");
+		} catch (Exception e) {
+			System.out.println("createResource------Dao 层执行失败");
+			e.printStackTrace();
 		}
+	}
 
-		@Override
-		public VirtualClass getVirtualById(String virtualClassNum) {
-			// TODO Auto-generated method stub
-			return teacherDao.getVirtualById(virtualClassNum);
-		}
+/*	@Override
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
+	}*/
 
-		@Override
-		public List<Course> getCourseByLimit() {
-			
-			return teacherDao.getCourseByLimit();
-		}
-		@Override
-		public List<VirtualClass> getVirtualClassByCreatorId(String creatorId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getVirtualClassByCreatorId(creatorId);
-		}
+	@Override
+	public VirtualClass getVirtualById(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getVirtualById(virtualClassNum);
+	}
 
-		@Override
-		public List<String> searchRealClassIdList(String virtualClassNum) {
-			// TODO Auto-generated method stub
-			return teacherDao.searchRealClassIdList(virtualClassNum);
-		}
+	@Override
+	public List<Course> getCourseByLimit() {
 
-		@Override
-		public String getCategoryById(String categoryId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getCategoryById(categoryId);
-		}
+		return teacherDao.getCourseByLimit();
+	}
+	@Override
+	public List<VirtualClass> getVirtualClassByCreatorId(String creatorId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getVirtualClassByCreatorId(creatorId);
+	}
 
-		@Override
-		public void teacherAttentionCourse(String courseId, String employeeNum) {
-			// TODO Auto-generated method stub
-			teacherDao.teacherAttentionCourse(courseId, employeeNum);
-		}
+	@Override
+	public List<String> searchRealClassIdList(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.searchRealClassIdList(virtualClassNum);
+	}
 
-		@Override
-		public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId) {
-			try {
-				// 查询课程所有虚拟班
-				List<VirtualClass> virtualClassList = teacherDao.virtualsForCourse(courseId);
-				String virtualClassNum = "";
-				//通过课程虚拟班集合和学生所属自然班查自然班虚拟班关联表，找出学生所在虚拟班id
-				if(virtualClassList != null && !virtualClassList.isEmpty()){
-					for(VirtualClass v : virtualClassList){
-						 virtualClassNum = teacherDao.getVirtualClassNumByVidAndRid(realClassNum,v.getVirtualClassNum());
-						if(!("".equals(virtualClassNum)) && virtualClassNum != null){
-							break;
-						}
+	@Override
+	public String getCategoryById(String categoryId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getCategoryById(categoryId);
+	}
+
+	@Override
+	public void teacherAttentionCourse(String courseId, String employeeNum) {
+		// TODO Auto-generated method stub
+		teacherDao.teacherAttentionCourse(courseId, employeeNum);
+	}
+
+	@Override
+	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId) {
+		try {
+			// 查询课程所有虚拟班
+			List<VirtualClass> virtualClassList = teacherDao.virtualsForCourse(courseId);
+			String virtualClassNum = "";
+			//通过课程虚拟班集合和学生所属自然班查自然班虚拟班关联表，找出学生所在虚拟班id
+			if(virtualClassList != null && !virtualClassList.isEmpty()){
+				for(VirtualClass v : virtualClassList){
+					virtualClassNum = teacherDao.getVirtualClassNumByVidAndRid(realClassNum,v.getVirtualClassNum());
+					if(!("".equals(virtualClassNum)) && virtualClassNum != null){
+						break;
 					}
 				}
-				// 通过虚拟班id查出虚拟班信息
-				VirtualClass virtualClass = teacherDao.getVirtualById(virtualClassNum);
-				return virtualClass;
-			} catch (Exception e) {
-				// TODO: handle exception
-				e.printStackTrace();
-				return null;
 			}
-			
-			
+			// 通过虚拟班id查出虚拟班信息
+			VirtualClass virtualClass = teacherDao.getVirtualById(virtualClassNum);
+			return virtualClass;
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
 		}
+
+
+	}
+
+	/**
+	 * @author LiMing
+	 * @param 模糊查询的数据
+	 * @return 返回查询到的课程集合
+	 * 模糊查询课程
+	 * */
+	@Override
+	public List<Course> searchCourse(String courseName) {
+		List<Course> list = new ArrayList<Course>();
+		try {
+			list = teacherDao.searchCourse(courseName);
+			System.out.println("searchCourse------Dao 层执行成功");
+		} catch (Exception e) {
+			list = null;
+			e.printStackTrace();
+			System.out.println("searchCourse------Dao 层执行失败");
+		}
+		return list;
+	}
+
+	/**
+	 *@author LiMing
+	 * @param realClass
+	 * @return 实体班级的集合
+	 * 实体班级的模糊查询
+	 */
+	@Override
+	public List<RealClass> readRealClassToSelect(String realClass) {
+		List<RealClass> list = new ArrayList<RealClass>();
+		try {
+			list = teacherDao.readRealClassToSelect(realClass);
+			System.out.println("readRealClassToSelect------Dao 层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("readRealClassToSelect------Dao 层执行失败");
+		}
+<<<<<<< HEAD
 
 		@Override
 		public List<Prize> prizeList() {
@@ -1237,4 +1296,44 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		return list;
+	}
+	
+	@Override
+	public void teacherExitAttentionCourse(String courseId, String employeeNum) {
+		// TODO Auto-generated method stub
+		teacherDao.teacherExitAttentionCourse(courseId, employeeNum);
+	}
+
+	@Override
+	public List<Teacher> vagueSearchTeachers(String employeeNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.vagueSearchTeachers(employeeNum);
+	}
+	/**
+	 *@author LiMing
+	 * @param 任务分类
+	 * @return 返回任务列表
+	 * 根据任务类型查询任务
+	 */
+	@Override
+	public List<Task> getTaskByPointAndCourse(String taskCategory,String courseId){
+		List<Task> list = new ArrayList<Task>();
+		try {
+			list = teacherDao.getTaskByPointAndCourse(taskCategory,courseId);
+			System.out.println("getTaskByPointAndCourse------Dao 层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getTaskByPointAndCourse------Dao 层执行失败");
+		}
+		return list;
+	}
+
+	@Override
+	public void updateResource(Resource re) {
+		// TODO Auto-generated method stub
+		resourceDao.updateResource(re);
+	}
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 }

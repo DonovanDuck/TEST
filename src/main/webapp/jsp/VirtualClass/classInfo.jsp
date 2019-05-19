@@ -27,6 +27,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				catch (ex) { } 
 			};
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			/* $("ul li").click(function() {
 				   alert("sdfghj");
 				     $(this).siblings('li').removeClass('active');  
@@ -35,6 +38,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 
 			 
+<<<<<<< HEAD
 =======
 			$("ul li").click(function() {
 				   alert("sdfghj");
@@ -45,6 +49,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 			
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	
 		
 
@@ -55,6 +61,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="rTitle">
 				<ul id="ls"  style="background-color: #fff;margin-right: 10px" class=" nav nav-pills  nav-stacked">
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 				  <li role="presentation" class="active"  ><a id="als" target="lcontent"   href="${pageContext.request.contextPath}/teacher/toteacherTaskList">全部</a></li>
 				  <li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList">考勤</a></li>
 				  <li role="presentation"><a  target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskListByTaskCategory?taskCategory=work">作业</a></li>
@@ -62,6 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  <li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskListByTaskCategory?taskCategory=trial">实验</a></li>
 				<li role="presentation"><a  target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskListByTaskCategory?taskCategory=trial">翻转</a></li>
 				<li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/jsp/challenge/content.jsp">挑战</a></li>
+<<<<<<< HEAD
 =======
 				  <li role="presentation" class="active"  ><a id="als" target="lcontent"   href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all">全部</a></li>
 				  <li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList">考勤</a></li>
@@ -71,6 +81,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li role="presentation"><a  target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">翻转</a></li>
 				<li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">挑战</a></li>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 				<c:if test="${identify eq 'teacher' }">
 				<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">成绩分析</a></li>
 					<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布作业</a></li>
@@ -83,10 +95,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="lContent">
 <<<<<<< HEAD
+<<<<<<< HEAD
 				<iframe id="lcontent" name="lcontent" src="" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="reinitIframe()">
 =======
 				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="reinitIframe()">
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+				<iframe id="lcontent" name="lcontent" src="" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="reinitIframe()">
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 					
 				</iframe>
 			</div>

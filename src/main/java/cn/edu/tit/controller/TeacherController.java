@@ -95,10 +95,14 @@ public class TeacherController {
 
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public ModelAndView teacherLogin(@RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 =======
 	public ModelAndView teacherLogin( @RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	public ModelAndView teacherLogin(@RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		request.getSession().setAttribute("teacherId", null);
@@ -146,6 +150,7 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		categories = teacherService.readCategory();
 		List<Course> list = new ArrayList<Course>();
+<<<<<<< HEAD
 <<<<<<< HEAD
 		List<String> publishTime = new ArrayList<>();
 		List<Teacher> teacherList = new ArrayList<>();
@@ -195,21 +200,69 @@ public class TeacherController {
 			System.out.println(course.toString());
 			teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		List<String> publishTime = new ArrayList<>();
+		List<Teacher> teacherList = new ArrayList<>();
+		list = teacherService.readCourse(null);
+		if(!list.isEmpty()) {
+			for (Course course : list) 
+			{
+				teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+				course.setTeacherList(teacherList);
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
+			}
+		}
+		mv.addObject("categories", categories);
+		mv.addObject("courseList", list);
+		mv.addObject("publishTime",publishTime);
+		mv.addObject("teacherList", teacherList);
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
+		return mv;
+	}
+
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 * 课程二级页面查询
+	 */
+	@RequestMapping(value="toCourseSecondSearch")
+	public ModelAndView toCourseSecondSearch(HttpServletRequest request,@RequestParam("search")String search) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		categories = teacherService.readCategory();
+		List<Course> list = new ArrayList<Course>();
+		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
+		list = teacherService.searchCourse(search);
+		if(!list.isEmpty()) {
+			for (Course course : list) 
+			{
+				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
+			}
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		}
 		mv.addObject("categories", categories);
 		mv.addObject("courseList", list);
 		mv.addObject("teacherNames", teacherNames);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.addObject("publishTime",publishTime);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
 
+<<<<<<< HEAD
 =======
 		mv.setViewName("/jsp/CourseJsp/courseSecond");
 		return mv;
 	}
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * 跳转到教师的课程详细页面
 	 * @param request
@@ -226,9 +279,13 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 <<<<<<< HEAD
+<<<<<<< HEAD
 		
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		// 查询教师圈教师信息
 		List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
 		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
@@ -237,6 +294,7 @@ public class TeacherController {
 		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
 		if(teacher != null){
 			//查manager
+<<<<<<< HEAD
 <<<<<<< HEAD
 			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId,1);
 			request.setAttribute("manager", manager);
@@ -247,9 +305,19 @@ public class TeacherController {
 
 =======
 			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId);
+=======
+			Integer manager = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId,1);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			request.setAttribute("manager", manager);
+			//查当前用户是否关注课程
+			Integer attention = teacherService.getManagerByEmployeeNum(teacher.getEmployeeNum(), courseId,2);
+			request.setAttribute("attention", attention);
 		}
+<<<<<<< HEAD
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		//查操作者是否是学生
 		Student student = (Student) request.getSession().getAttribute("student");
 		if(student != null){
@@ -257,15 +325,22 @@ public class TeacherController {
 			VirtualClass virtualClass = teacherService.getVirtualClassByRidAndCid(student.getClassNum(), courseId);
 			request.setAttribute("virtualClass", virtualClass);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			//查当前用户是否关注课程
 			Integer attention = studentService.getManagerByStudentId(student.getStudentId(), courseId,2);
 			request.setAttribute("attention", attention);
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			//查当前用户是否关注课程
+			Integer attention = studentService.getManagerByStudentId(student.getStudentId(), courseId,2);
+			request.setAttribute("attention", attention);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		}
 		request.setAttribute("student", student);
 		//查询课程类别名
 		String category = teacherService.getCategoryById(course.getCourseCategory());
+<<<<<<< HEAD
 <<<<<<< HEAD
 		course.setCourseCategory(category);
 		request.setAttribute("category", category);
@@ -308,6 +383,45 @@ public class TeacherController {
 		request.setAttribute("category", category);
 		request.getSession().setAttribute("course", course);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		course.setCourseCategory(category);
+		request.setAttribute("category", category);
+		request.getSession().setAttribute("course", course);
+		//修改课程创建时间格式
+		String publishTime = course.getPublishTime().toString().substring(0, 10);
+		request.setAttribute("publishTime", publishTime);
+		
+		try {
+			//获取多媒体资源
+			List<Resource> mediaRList = resourceService.showResourceByCourse(courseId);
+			for (Resource resource : mediaRList) {
+				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+			}
+			if(!mediaRList.isEmpty())
+				request.setAttribute("resource", mediaRList);//返回信息
+			
+			//作业库
+			List<Task> taskList = teacherService.getTaskByPointAndCourse("work",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			if(!taskList.isEmpty())
+				request.setAttribute("taskList", taskList);//返回信息
+			
+			//实验库
+			List<Task> trialList = teacherService.getTaskByPointAndCourse("trial",courseId);
+			for (Task task : trialList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			if(!trialList.isEmpty())
+				request.setAttribute("taskList", trialList);//返回信息
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -342,10 +456,15 @@ public class TeacherController {
 	public void ajaxGetTeachers(HttpServletRequest request, HttpServletResponse response){
 		try {
 <<<<<<< HEAD
+<<<<<<< HEAD
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=UTF-8");
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			List<Teacher> teacherList = new ArrayList<>();
 			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
 			String employeeNum = teach.getEmployeeNum();
@@ -362,6 +481,7 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
+<<<<<<< HEAD
 <<<<<<< HEAD
 	
 	/**
@@ -389,23 +509,36 @@ public class TeacherController {
 			// TODO: handle exception
 =======
 
+=======
+	
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
-	 * @author LiMing
-	 * 通过ajax获取班级列表
+	 * 通过ajax查找教师列表
 	 */
-	@RequestMapping(value="ajaxGetRealClass")
-	public void ajaxGetRealClass(HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value="ajaxSearchTeachers")
+	public void ajaxSearchTeachers(HttpServletRequest request, HttpServletResponse response){
 		try {
-			List<RealClass> realClassList = new ArrayList<RealClass>();
-			realClassList = teacherService.readRealClass(null);
-			for (RealClass realClass : realClassList) {
-				System.out.println(realClass.toString());
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+			String employee = request.getParameter("employeeNum"); //获取查询关键字
+			List<Teacher> teachers = teacherService.vagueSearchTeachers(employee);
+			List<Teacher> teacherList = new ArrayList<>();
+			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
+			String employeeNum = teach.getEmployeeNum();
+			for(Teacher teacher : teachers){
+				if(!employeeNum.equals(teacher.getEmployeeNum())){ // 在选择的教师中过滤掉当前的操作者
+					teacherList.add(teacher);
+				}
 			}
-			JSONArray  json  =  JSONArray.fromObject(realClassList); //将获取的List集合存入 JSONArray中
+			JSONArray  json  =  JSONArray.fromObject(teacherList); 
 			String result = json.toString();
 			response.getWriter().print(result);
 		} catch (Exception e) {
+<<<<<<< HEAD
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			// TODO: handle exception
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			e.printStackTrace();
 		}
 	}
@@ -419,16 +552,23 @@ public class TeacherController {
 	public void ajaxAttentionCourse(HttpServletRequest request, HttpServletResponse response){
 		String result = "";
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		//判断是否登录
 		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
 		Student student = (Student) request.getSession().getAttribute("student");
 		String courseId = request.getParameter("courseId");
+<<<<<<< HEAD
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=UTF-8");
 			//,@RequestParam(value="courseId")String courseId
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 			String courseId = request.getParameter("courseId");
@@ -436,6 +576,8 @@ public class TeacherController {
 			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
 			Student student = (Student) request.getSession().getAttribute("student");
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			if(teacher == null && student == null){
 				result = JSONObject.toJSONString("请先登录");
 			}
@@ -454,6 +596,9 @@ public class TeacherController {
 			// TODO: handle exception
 			e.printStackTrace();
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			if(teacher != null){
 				teacherService.teacherExitAttentionCourse(courseId, teacher.getEmployeeNum()); 
 			}
@@ -461,9 +606,12 @@ public class TeacherController {
 				studentService.studentExitAttentionCourse(courseId, student.getStudentId());
 			}
 			result = JSONObject.toJSONString("取消关注成功！");
+<<<<<<< HEAD
 =======
 			result = JSONObject.toJSONString("请不要重复关注！");
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		}
 		try {
 			response.getWriter().println(result);
@@ -473,6 +621,7 @@ public class TeacherController {
 		}
 	}
 
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
 	/**
@@ -536,6 +685,8 @@ public class TeacherController {
 		return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
 	}
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * @author LiMing
@@ -564,12 +715,15 @@ public class TeacherController {
 		mv.addObject("courseList", courseList);
 		mv.addObject("course",course);
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 		System.out.println(course.getCourseName()+"=========");
 		for (Course courses : courseList) {
 			System.out.println(courses.getCourseName());
 		}
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.addObject("listTerm",listTerm);
 		mv.addObject("listRealClass", listRealClass);
 		mv.setViewName("/jsp/CourseJsp/createVirtualClass");
@@ -654,10 +808,14 @@ public class TeacherController {
 			course.setPublisherId(employeeNum);
 			for(File f : files){ // 集合中只有一张图片
 <<<<<<< HEAD
+<<<<<<< HEAD
 				course.setFaceImg(f.getPath());
 =======
 				course.setFaceImg(Common.readProperties("path")+"/"+f.getName());
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+				course.setFaceImg(f.getPath());
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			}
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
@@ -668,10 +826,14 @@ public class TeacherController {
 				}
 			}
 <<<<<<< HEAD
+<<<<<<< HEAD
 			return toMyCreateCourse(request);
 =======
 			return toCourseSecond(request);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			return toMyCreateCourse(request);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -681,6 +843,9 @@ public class TeacherController {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * @author LiMing
 	 * 创建虚拟班级
@@ -803,9 +968,12 @@ public class TeacherController {
 	//	} 
 	//	return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
 	//}
+<<<<<<< HEAD
 =======
 
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * 修改课程
@@ -987,11 +1155,16 @@ public class TeacherController {
 		try {
 			teacherService.createTask(task);		//创建任务
 <<<<<<< HEAD
+<<<<<<< HEAD
 			if(!"".equals(task.getVirtualClassNum()) || task.getVirtualClassNum() != null)
 				teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
 =======
 			teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			if(!"".equals(task.getVirtualClassNum()) || task.getVirtualClassNum() != null)
+				teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -1029,6 +1202,7 @@ public class TeacherController {
 				e.printStackTrace();
 			}
 		}
+<<<<<<< HEAD
 <<<<<<< HEAD
 		request.getSession().removeAttribute("courseId");
 		return "redirect:/teacher/toPublishTask";
@@ -1119,6 +1293,8 @@ public class TeacherController {
 =======
 
 
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		request.getSession().removeAttribute("courseId");
 		return "redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
 
@@ -1140,14 +1316,97 @@ public class TeacherController {
 		return "redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
 
 	}
-	@RequestMapping(value="toPublishResource")
+
+	/**
+	 * 跳转到修改资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toUpdateResource/{resourceId}")
+	public ModelAndView toUpdateResource(HttpServletRequest request,@PathVariable String resourceId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获得对应的资源
+			List<Resource> resource = resourceService.showResource(resourceId);
+			//mv.addObject("category", category);
+			if(!resource.isEmpty() && resource != null)
+				mv.addObject("resource", resource.get(0));
+				mv.setViewName("/jsp/Teacher/teacher-update-resource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
+	 * 修改资源
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="updateResource")
 	@SuppressWarnings({ "unused", "unchecked" })
+<<<<<<< HEAD
 	public String toPublishResource(HttpServletRequest request) {
 		Course course;
 		course = (Course) request.getSession().getAttribute("course");
 		request.getSession().setAttribute("courseId", course.getCourseId());
 		return "/jsp/Teacher/teacher-release-resource";
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	public ModelAndView updateResource(HttpServletRequest request) {
+		Resource resource = new Resource();
+		try {
+			Object[] obj = Common.fileFactory(request,null);
+			Map<String, Object> formdata = (Map<String, Object>) obj[1];
+			List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+			
+			resource.setResourceId((String) formdata.get("resourceId"));
+			resource.setCourseId((String) formdata.get("courseId"));
+			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+			resource.setResourceDetail((String) formdata.get("resourceDetail"));
+			resource.setResourceName((String) formdata.get("resourceName"));
+			resource.setResourceTypeId(Integer.parseInt((String) formdata.get("resourceType")));
+			if(!returnFileList.isEmpty())
+			{
+				resource.setResourcePath(returnFileList.get(0).getPath());
+				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
+			}
+			teacherService.updateResource(resource);
+			return toCourseResource(request, "3");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return null;
+
+	}
+
+	@RequestMapping(value="toPublishResource/{category}/{courseId}")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String toPublishResource(HttpServletRequest request,@PathVariable String courseId, @PathVariable String category) {
+		String path = "/jsp/Teacher/teacher-release-resource";
+		try {
+			//接收类型
+			// category  = (String)request.getAttribute("category");
+			request.setAttribute("category", category);
+			if("work".equals(category) || "trial".equals(category))
+				path = "/jsp/Teacher/teacher-release-resourceTask";
+			//String courseId = (String)request.getAttribute("courseId");
+			Course course = new Course();
+			if(!"".equals(courseId) && courseId != null)
+				course = teacherService.getCourseById(courseId);
+			request.setAttribute("course", course);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return path;
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	}
 
 	@RequestMapping(value="publishResource")
@@ -1161,26 +1420,36 @@ public class TeacherController {
 			Resource resource = new Resource();
 			resource.setResourceId(resourceId);
 <<<<<<< HEAD
+<<<<<<< HEAD
 			resource.setCourseId((String) formdata.get("courseId"));
 =======
 			resource.setCourseId((String) request.getSession().getAttribute("courseId"));
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			resource.setCourseId((String) formdata.get("courseId"));
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
 			resource.setResourceDetail((String) formdata.get("resourceDetail"));
 			resource.setResourceName((String) formdata.get("resourceName"));
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			resource.setResourceTypeId(Integer.parseInt((String) formdata.get("resourceType")));
 			if(!returnFileList.isEmpty())
 			{
 				resource.setResourcePath(returnFileList.get(0).getPath());
 				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
 			}
+<<<<<<< HEAD
 =======
 			resource.setResourcePath(returnFileList.get(0).getPath());
 			resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
 			resource.setResourceTypeId(Common.fileType(returnFileList.get(0).getName(), teacherService));//需要判断文件类型
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			teacherService.addResource(resource);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -1517,9 +1786,13 @@ public class TeacherController {
 	public ModelAndView toMyClass(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.setViewName("/jsp/Teacher/teacherInfo/teacher_class_iframe");
 		return mv;
 	}
@@ -1538,9 +1811,13 @@ public class TeacherController {
 		List<Teacher> teacherList = null;
 		List<String> teacherNames = new ArrayList<String>();
 <<<<<<< HEAD
+<<<<<<< HEAD
 		List<String> publishTime = new ArrayList<>();
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		List<String> publishTime = new ArrayList<>();
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
 			courseIdListByOthers =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
@@ -1551,9 +1828,13 @@ public class TeacherController {
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
 <<<<<<< HEAD
+<<<<<<< HEAD
 					publishTime.add(course.getPublishTime().toString().substring(0,10));
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 				}
 				for (Course course : courseListByOthers) {
 					teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
@@ -1566,9 +1847,13 @@ public class TeacherController {
 		}
 		mv.addObject("teacherNames",teacherNames);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		mv.addObject("publishTime",publishTime);
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		mv.addObject("publishTime",publishTime);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.addObject("courseList", courseListByOthers);
 		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_jion");
 		return mv;
@@ -1588,9 +1873,13 @@ public class TeacherController {
 		List<Course> courseListByOthers = null;		//别人课程实体
 		List<Teacher> teacherList = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		List<String> publishTime = new ArrayList<>();
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		List<String> publishTime = new ArrayList<>();
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		List<String> teacherNames = new ArrayList<String>();
 		System.out.println(request.getSession().getAttribute("teacherId"));
 		try {
@@ -1602,9 +1891,13 @@ public class TeacherController {
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
 <<<<<<< HEAD
+<<<<<<< HEAD
 					publishTime.add(course.getPublishTime().toString().substring(0,10));
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 				}
 				for (Course course : courseListByOthers) {
 					teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
@@ -1616,9 +1909,13 @@ public class TeacherController {
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListByOthers);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		mv.addObject("publishTime",publishTime);
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		mv.addObject("publishTime",publishTime);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_interest");
 		return mv;
 	}
@@ -1637,9 +1934,13 @@ public class TeacherController {
 		List<Course> courseListforMe = null ;		//自己课程实体
 		Teacher teacher = null;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		List<String> publishTime = new ArrayList<>();
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		List<String> publishTime = new ArrayList<>();
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		List<String> teacherIdList = null;
 		List<Teacher> teacherList = null;
 		//创建老师集合的目的是：课程与创建者的匹配
@@ -1653,9 +1954,13 @@ public class TeacherController {
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
 <<<<<<< HEAD
+<<<<<<< HEAD
 					publishTime.add(course.getPublishTime().toString().substring(0,10));
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 				}
 				for (int i = 0; i < courseListforMe.size(); i++) {
 					teacher = (Teacher) request.getSession().getAttribute("teacher");
@@ -1669,9 +1974,13 @@ public class TeacherController {
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListforMe);
 <<<<<<< HEAD
+<<<<<<< HEAD
 		mv.addObject("publishTime",publishTime);
 =======
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		mv.addObject("publishTime",publishTime);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_create");
 		return mv;
 	}
@@ -1880,6 +2189,9 @@ public class TeacherController {
 	 */
 	@RequestMapping("/resourceDownload")
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName) throws IOException {
 		ResponseEntity<byte[]> entity;
 //		File file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
@@ -1894,6 +2206,7 @@ public class TeacherController {
 		entity = new ResponseEntity<byte[]>(body, headers, statusCode);
 		return entity;
 	}
+<<<<<<< HEAD
 
 	/**
 	 * @author wenli
@@ -1920,6 +2233,20 @@ public class TeacherController {
 		}
 		System.out.println("文件名"+file.getName());
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
+	 */
+	@RequestMapping("/downLoadResorce")
+	public ResponseEntity<byte[]> resourceDownload(HttpServletRequest request,@RequestParam(value="path")String path) throws IOException {
+		ResponseEntity<byte[]> entity;
+		File file = new File(path);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		byte[] body = null;
 		InputStream is = new FileInputStream(file);
 		body = new byte[is.available()];
@@ -1928,10 +2255,14 @@ public class TeacherController {
 		headers.add("Content-Disposition", "attchement;filename=" + file.getName());
 		HttpStatus statusCode = HttpStatus.OK;
 <<<<<<< HEAD
+<<<<<<< HEAD
 		entity = new ResponseEntity<byte[]>(body, headers, statusCode);
 =======
 		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		return entity;
 	}
 
@@ -1942,6 +2273,7 @@ public class TeacherController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/toResourceMain")
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public ModelAndView toResourceMain(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -2040,6 +2372,57 @@ public class TeacherController {
 		}
 		mv.addObject("resourceCategories", resourceCategories);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	public ModelAndView toResourceMain(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		//	List<ResourceType> resourceList = new ArrayList<ResourceType>();
+		//	resourceList = teacherService.readResourceCategoried();
+		//	Map<Integer,String> resourceCategories = new HashMap<Integer, String>();
+		// Course course = teacherService.getCourseById(courseId);
+		//		String resourceName = null;
+		//		for (ResourceType resourceType : resourceList) {
+		//			if(resourceType.getResourceType().equals("word"))
+		//			{
+		//				resourceName = "文档";
+		//			}
+		//			if(resourceType.getResourceType().equals("audio"))
+		//			{
+		//				resourceName = "音频";
+		//			}
+		//			if(resourceType.getResourceType().equals("video"))
+		//			{
+		//				resourceName = "视频";
+		//			}
+		//			if(resourceType.getResourceType().equals("photo"))
+		//			{
+		//				resourceName = "图片";
+		//			}
+		//			if(resourceType.getResourceType().equals("excel"))
+		//			{
+		//				resourceName = "表格";
+		//			}
+		//			if(resourceType.getResourceType().equals("ppt"))
+		//			{
+		//				resourceName = "PPT";
+		//			}
+		//			if(resourceType.getResourceType().equals("pdf"))
+		//			{
+		//				resourceName = "PDF";
+		//			}
+		//			if(resourceType.getResourceType().equals("compressed"))
+		//			{
+		//				resourceName = "压缩文件";
+		//			}
+		//			if(resourceType.getResourceType().equals("other"))
+		//			{
+		//				resourceName = "其他";
+		//			}
+		//			resourceCategories.put(resourceType.getResourceTypeId(),resourceName);
+		//		}
+		//		mv.addObject("resourceCategories", resourceCategories);
+		Course course = (Course) request.getSession().getAttribute("course");
+		mv.addObject("course", course);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		mv.setViewName("/jsp/Teacher/managerResourceList");
 		return mv; 
 	}
@@ -2068,6 +2451,9 @@ public class TeacherController {
 	 * @throws Exception 
 	 */
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 //	@SuppressWarnings("unchecked")
 //	@RequestMapping("/toUpdateResource/{resourceId}")
 //	public ModelAndView toUpdateResource(HttpServletRequest request,@PathVariable("resourceId")String resourceId) throws Exception {
@@ -2096,6 +2482,7 @@ public class TeacherController {
 //		mv = toResourceMain(request);
 //		return mv; 
 //	}
+<<<<<<< HEAD
 =======
 	@RequestMapping("/toUpdateResource/{resourceId}")
 	public ModelAndView toUpdateResource(@PathVariable String resourceId,@RequestParam(value="resourceName")String resourceName,@RequestParam(value="resourceDetail")String resourceDetail) throws Exception {
@@ -2105,6 +2492,8 @@ public class TeacherController {
 		return mv; 
 	}
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * @author LiMing
@@ -2113,6 +2502,7 @@ public class TeacherController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/toDeleteResource/{resourceId}")
+<<<<<<< HEAD
 <<<<<<< HEAD
 	public void toDeleteResource(HttpServletResponse response,@PathVariable String resourceId) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -2139,11 +2529,17 @@ public class TeacherController {
 	//	}
 =======
 	public String toDeleteResource(@PathVariable String resourceId) throws Exception {
+=======
+	public void toDeleteResource(HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		String msg = null;
 		msg  = resourceService.deleteResourceById(resourceId);
-		return msg;
+		String result = JSONObject.toJSONString(msg);
+		response.getWriter().println(result);
 	}
 
+<<<<<<< HEAD
 	/**
 	 * @author LiMing
 	 * @param request
@@ -2160,6 +2556,23 @@ public class TeacherController {
 		response.getWriter().print(result);
 	}
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	//	/**
+	//	 * @author LiMing
+	//	 * @param request
+	//	 * 返回需要更新的资源，将对象显示在模态框(抛弃的更新资源方法)
+	//	 * @throws Exception 
+	//	 */
+	//	@RequestMapping("/toModalResource/{resourceId}")
+	//	public void tomodalResource(HttpServletRequest request, HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+	//		String msg = null;
+	//		List<Resource> list = new ArrayList<Resource>();
+	//		list  = resourceService.showResource(resourceId);//此时resourceId 不为空，将按照条件查询。返回只有一个对象的集合
+	//		JSONArray  json  =  JSONArray.fromObject(list); 
+	//		String result = json.toString();
+	//		response.getWriter().print(result);
+	//	}
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * 跳转到教师主页
@@ -2183,6 +2596,9 @@ public class TeacherController {
 		return mv;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * 跳转到资源更新页
@@ -2238,9 +2654,12 @@ public class TeacherController {
 
 
 
+<<<<<<< HEAD
 =======
 	
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * 退出
 	 * @param request
@@ -2260,6 +2679,9 @@ public class TeacherController {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * @author LiMing
 	 * @param request
@@ -2446,6 +2868,7 @@ public class TeacherController {
 				//修改时间格式
 				String publishTime = re.getPublishTime().toString().substring(0, 10);
 				timeList.add(publishTime);
+<<<<<<< HEAD
 			}
 		}
 		else if(!taskList.isEmpty()){
@@ -2543,9 +2966,11 @@ public class TeacherController {
 				e.printStackTrace();
 				mv.addObject("readResult", "异常");//返回信息
 				mv = toResourceMain();
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			}
-			return mv;
 		}
+<<<<<<< HEAD
 		@RequestMapping("/toteacherTaskList")
 		public ModelAndView toteacherTaskList(HttpServletRequest request,@RequestParam(value="taskCategory") String taskCategory) {
 			ModelAndView mv = new ModelAndView();
@@ -2772,4 +3197,80 @@ public class TeacherController {
 		}
 		
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		else if(!taskList.isEmpty()){
+			for(Task ta:taskList){
+				// 获取发布者姓名
+				publisherList.add(teacherService.getTeacherNameById(ta.getPublisherId()));
+				//修改时间格式
+				String publishTime = ta.getPublishTime().toString().substring(0, 10);
+				timeList.add(publishTime);
+			}
+		}
+		mv.addObject("publisher", publisherList);
+		mv.addObject("time", timeList);
+		mv.setViewName("/jsp/Teacher/courseResource");
+		mv.addObject("course", course);//返回信息
+		return mv;
+	}
+	
+	//	
+	//	/**
+	//	 * @author LiMing
+	//	 * @param request
+	//	 * @throws Exception 
+	//	 * 模糊查询实体班级
+	//	 * @return 返回对应资源
+	//	 */
+	//	@RequestMapping("/readRealClassToSelect/{realClass}")
+	//	public ModelAndView readRealClassToSelect(@RequestParam(value="realClass") String realClass,HttpServletRequest request,@PathVariable String category) throws Exception{
+	//		ModelAndView mv = new ModelAndView();
+	//		List<RealClass> list = new ArrayList<RealClass>();
+	//		try {
+	//			list = teacherService.readRealClassToSelect(realClass);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//		mv.addObject("listRealClass",list);//返回信息
+	//		return mv;
+	//	}
+
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @throws Exception 
+	 * 模糊查询实体班级
+	 * @return 返回对应资源
+	 */
+	@RequestMapping("/readRealClassToSelect/{realClass}")
+	public void readRealClassToSelect( HttpServletResponse response,@PathVariable(value="realClass") String realClass,HttpServletRequest request) throws Exception{
+		List<RealClass> list = new ArrayList<RealClass>();
+		try {
+			list = teacherService.readRealClassToSelect(realClass);
+			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	//	/**
+	//	 * @author LiMing
+	//	 * 通过ajax获取班级列表
+	//	 */
+	//	@RequestMapping(value="ajaxGetRealClass")
+	//	public void ajaxGetRealClass(HttpServletRequest request, HttpServletResponse response){
+	//		try {
+	//			List<RealClass> realClassList = new ArrayList<RealClass>();
+	//			realClassList = teacherService.readRealClass(null);
+	//			JSONArray  json  =  JSONArray.fromObject(realClassList); //将获取的List集合存入 JSONArray中
+	//			String result = json.toString();
+	//			response.getWriter().print(result);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//	}
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 }

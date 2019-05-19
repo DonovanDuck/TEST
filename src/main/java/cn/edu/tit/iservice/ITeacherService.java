@@ -95,10 +95,14 @@ public interface ITeacherService {
 	 * 根据courseid查课程
 	 * @param courseId
 <<<<<<< HEAD
+<<<<<<< HEAD
 	 * @return 返回课程信息（注意：数据库中存储为分类ID，但是读取过程中修改为分类名）
 =======
 	 * @return
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	 * @return 返回课程信息（注意：数据库中存储为分类ID，但是读取过程中修改为分类名）
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	 */
 	public Course getCourseById(String courseId)throws Exception;
 	/**
@@ -478,6 +482,7 @@ public interface ITeacherService {
 	public void addResource(Resource resource)throws Exception;
 	
 <<<<<<< HEAD
+<<<<<<< HEAD
 	public void updateResource(Resource re);
 	
 	/**
@@ -486,12 +491,20 @@ public interface ITeacherService {
 	 */
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager);
 =======
+=======
+	public void updateResource(Resource re);
+	
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
-	 * 获取标志位，查老师是否是课程创建者
+	 * 获取标志位，查老师manager
 	 * @return
 	 */
+<<<<<<< HEAD
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * @author wenli
 	 * 根据虚拟班号查虚拟班
@@ -527,6 +540,9 @@ public interface ITeacherService {
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	
 	/**
 	 * 取消关注
@@ -568,6 +584,7 @@ public interface ITeacherService {
 	 * 	 trial  实验
 	 */
 	public List<Task> getTaskByPointAndCourse(String taskCategory,String courseId);
+<<<<<<< HEAD
 =======
 	/**
 	 * @author wenli
@@ -630,5 +647,7 @@ public interface ITeacherService {
 	 */
 	public Timestamp getTaskEndTime(String virtualClassNum,String taskId);
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 }

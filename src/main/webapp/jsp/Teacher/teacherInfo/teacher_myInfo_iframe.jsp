@@ -12,6 +12,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
@@ -80,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	UE.getEditor('4');
 	
 </script>
+<<<<<<< HEAD
 =======
 
     
@@ -123,3 +127,5 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </body>
 </html>
 >>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818

@@ -81,6 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         
     </div>
 		
+<<<<<<< HEAD
 	</div>
 </body>
 =======
@@ -135,6 +136,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	</div>
 </body>
 </html>
