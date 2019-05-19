@@ -1,0 +1,54 @@
+.head{
+	width: 1520px;
+	height: 250px;
+	text-align:center;
+	margin:0 auto;
+	background-color: #FFA500;
+	
+}
+.contentInfo{
+	width: 1200px;
+	height: 100%;
+	text-align:center;
+	margin:0 auto;
+	background-color: #FFA500;
+	
+}
+.rTitle{
+	width: 300px;
+	height: 100%;
+	float: left;
+
+}
+.lContent{
+
+	float: right;
+}
+.asty{
+	width: 300px;
+	height: 50px;
+	background-color: #00FFFF;
+}
+.fragtitle{
+	width: 100%;
+	height: 50px;
+	background-color: #FFFFFF;
+	font-size: 30px;
+	padding-left: 20px;
+	padding-top: 10px;
+}
+.contentlist{
+	width: 100%;
+	height: 100%;
+	background-color: #FFFFFF;
+}
+
+.liststate{
+	color: red;
+	float: right;
+	margin-right: 400px;
+}
+.statefiframe{
+	width: 900px;
+	height: 100%;
+}

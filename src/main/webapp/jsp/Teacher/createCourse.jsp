@@ -69,6 +69,25 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 	})
 </script>
 
+<script>
+function checkboxOnclick(checkbox){
+	if(checkbox.checked == true){
+		var value = checkbox.value;
+		$("#back_up_ul").append("<li class='"+checkbox.value+"back back_up_li' style='float:left;margin-right: 18px;'><input class='back_up_input' type='checkbox' onclick='checkboxOnclick2(this)' checked='checked' value='"+checkbox.value+"'>"+checkbox.value+"</li>")
+		$("."+checkbox.value+"teach").remove();	 
+	}
+}
+</script>
+
+<script>
+function checkboxOnclick2(checkbox){
+	if(checkbox.checked == false){
+		$("#teacherul").append("<li class='"+checkbox.value+"teach teacher' style='float:left;margin-right: 18px;'><input class='back_up_input' type='checkbox' onclick='checkboxOnclick(this)' value='"+checkbox.value+"'>"+checkbox.value+"</li>")
+		$("."+checkbox.value+"back").remove();	 
+	}
+}
+</script>
+
 <script type="text/javascript">
 	$(function(){
 		$("#pull").click(function(){
@@ -83,9 +102,17 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					success:function(result) {
 						//alert(result);
 						 var arr = eval(result);
+						 var backarr = $(".back_up_input");
 						for(var i = 0; i < arr.length; i++){
 							//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
-							$("#teacherul").append("<li id='teacher' class='teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
+							var flag = true;
+							backarr.each(function(){
+								if(this.value == arr[i].employeeNum){
+									flag = false;
+								}
+							});
+							if(flag)
+							$("#teacherul").append("<li class='"+arr[i].employeeNum+"teach teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' onclick='checkboxOnclick(this)' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
 						} 
 					}
 				});
@@ -111,15 +138,25 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					success:function(result) {
 						//alert(result);
 						 var arr = eval(result);
+						 var backarr = $(".back_up_input");
+						 
 						for(var i = 0; i < arr.length; i++){
 							//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
-							$("#teacherul").append("<li id='teacher' class='teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
+							var flag = true;
+							backarr.each(function(){
+								if(this.value == arr[i].employeeNum){
+									flag = false;
+								}
+							});
+							if(flag)
+							$("#teacherul").append("<li name='teacher' class='"+arr[i].employeeNum+"teach teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' onclick='checkboxOnclick(this)' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
 						} 
 					}
 				});
 		});
 	});
 </script>
+
 
  <script type="text/javascript">
 	$(function() {
@@ -141,6 +178,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 																				+ "<span>教师:</span><input value='"+items+"' name='selectedTeacherContent' style='width: 50%;' id='selectedTeacherContent'/></li>");
 
 											});
+							$(".teacher").remove();
 						});
 	});
 </script> 
@@ -196,8 +234,8 @@ $(function() {
 		$("#close").click(function(){
 			//拟态框每次关闭要清除之前信息，否则会叠加
 			$(".teacher").remove();
+			//$(".back_up_li").remove();
 			$("#employeeNum").val("");
-			$(".selectedTeachers").remove();//将页面显示的教师全部移除
 			//清除后要留一空li,以保证下次成功动态加载
 			$("#teacherul").append(" <li id="+"teacher"+">"+"</li>");
 		});
@@ -284,11 +322,19 @@ $(function() {
 									 </div>
 									 <button id="search" type="button" class="btn btn-default">搜索</button>
 								</div>
-								<div style="">
+								<div style="height: auto; width: auto;min-height: 42px;">
 									<ul id="teacherul" style="list-style-type:none;margin-left: 17px;min-height: 15px;height: auto;">
 									<!-- <li id="teacher"></li> -->
 									
 								</ul>
+								</div>
+								<div class="back_up" style="height: auto; width: auto;min-height: 42px;">
+									<input type="hidden" class="back_up_input" /> 
+									<ul id="back_up_ul" style="list-style-type:none;margin-left: 17px;min-height: 15px;height: auto;">
+									 
+									
+								</ul>
+									
 								</div>
 								<div style="clear:both"></div>
 								<div class="modal-footer">

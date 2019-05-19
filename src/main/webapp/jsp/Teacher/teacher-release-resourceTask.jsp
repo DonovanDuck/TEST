@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function submitButton() {
 		var selectType = ${category };//获取选择的类型
 		var path;
-		if(selectType == "work" || selectType=="trial"){
+		if(selectType == "work" || selectType="trial"){
 			path = "${pageContext.request.contextPath}/teacher/publishTask";//任务的请求路径
 		}
 		else
@@ -98,19 +98,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="main_b">
 <div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;margin-bottom: 55px;">
-		发布${resourceName }资源：
+		${resourceName }发布作业资源：
 	</div>
 	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 22%;">
-	<form action="${pageContext.request.contextPath}/teacher/publishResource" enctype="multipart/form-data" method="post" id="resourceForm">
+	<form action="${pageContext.request.contextPath}/teacher/publishTask" enctype="multipart/form-data" method="post" id="resourceForm">
 	<div class="form-group">
     <label for="exampleInputName2" style="float: left;padding-left: 13px;margin-right: 5px;">资源名：</label>
-    <input type="text" class="form-control" id="exampleInputName2" name="resourceName" style="width: 663px;">
-    <input type="hidden" name="resourceType" value="${category }">
-    <input type="hidden" name="courseId" value="${course.courseId }">
+    <input type="text" class="form-control" id="exampleInputName2" name="taskTitle" style="width: 663px;">
+    <input type="hidden" name="taskCategory" value="${category }">
   </div>
 		<div class="form-group">
 					<label for="exampleInputName2">资源介绍：</label>
-					<textarea id="resourceDetail" name="resourceDetail" type="text" placeholder=""
+					<textarea id="taskDetail" name="taskDetail" type="text" placeholder=""
 						style="width:700px; height: 200px; float: left; margin-left: 9%;margin-bottom: 31px;" ></textarea>
 		</div>
 		<div class="form-group">
@@ -132,7 +131,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </body>
 <script type="text/javascript" charset="utf-8">
-	UE.getEditor('resourceDetail');
+	UE.getEditor('taskDetail');
 	
 </script>
 </html>

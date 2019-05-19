@@ -9,11 +9,11 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>courseCreate</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/Course/create_lesson.css"
+	href="${pageContext.request.contextPath}/css/create_lesson.css"
 	type="text/css">
 <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/Course/common.css">
+	href="${pageContext.request.contextPath}/css/common.css">
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -155,7 +155,7 @@
 				</div>
 				<div class="teacher-friend">
 					<span>开设班级：</span>
-					<div class="friend" style="display: none">
+					<div class="friend" style="">
 						<p>已选班级：</p>
 						<ul id="selectedRealClassUI" name="selectedRealClassUI"
 							class="selectedRealClassUI">

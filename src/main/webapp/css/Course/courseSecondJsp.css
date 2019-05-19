@@ -49,9 +49,9 @@ a {
 
 .banner {
 	width: 76%;
-	margin-left: 10%;
+	margin-left: 13%;
 	margin-top: 1%;
-	border: 1px solid orange;
+	border: 1px solid #ccc;
 	padding: 1%;
 }
 

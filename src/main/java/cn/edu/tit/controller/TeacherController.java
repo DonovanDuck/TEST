@@ -183,6 +183,7 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		// 查询教师圈教师信息
 		List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
 		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
@@ -217,6 +218,37 @@ public class TeacherController {
 		//修改课程创建时间格式
 		String publishTime = course.getPublishTime().toString().substring(0, 10);
 		request.setAttribute("publishTime", publishTime);
+		
+		try {
+			//获取多媒体资源
+			List<Resource> mediaRList = resourceService.showResourceByCourse(courseId);
+			for (Resource resource : mediaRList) {
+				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+			}
+			if(!mediaRList.isEmpty())
+				request.setAttribute("resource", mediaRList);//返回信息
+			
+			//作业库
+			List<Task> taskList = teacherService.getTaskByPointAndCourse("work",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			if(!taskList.isEmpty())
+				request.setAttribute("taskList", taskList);//返回信息
+			
+			//实验库
+			List<Task> trialList = teacherService.getTaskByPointAndCourse("trial",courseId);
+			for (Task task : trialList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			if(!trialList.isEmpty())
+				request.setAttribute("taskList", trialList);//返回信息
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -725,7 +757,6 @@ public class TeacherController {
 		task.setTaskTitle((String) formdata.get("taskTitle"));
 		task.setTaskDetail((String) formdata.get("taskDetail"));
 		task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
-		task.setTaskType((String) formdata.get("taskType"));
 		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum((String) request.getSession().getAttribute("virtualClassNum"));
@@ -735,7 +766,8 @@ public class TeacherController {
 
 		try {
 			teacherService.createTask(task);		//创建任务
-			teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
+			if(!"".equals(task.getVirtualClassNum()) || task.getVirtualClassNum() != null)
+				teacherService.mapClassTask(task.getVirtualClassNum(), taskId);		//映射班级任务表
 
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -775,11 +807,87 @@ public class TeacherController {
 
 	}
 
-
-	@RequestMapping(value="toPublishResource")
+	/**
+	 * 跳转到修改资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toUpdateResource/{resourceId}")
+	public ModelAndView toUpdateResource(HttpServletRequest request,@PathVariable String resourceId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获得对应的资源
+			List<Resource> resource = resourceService.showResource(resourceId);
+			//mv.addObject("category", category);
+			if(!resource.isEmpty() && resource != null)
+				mv.addObject("resource", resource.get(0));
+				mv.setViewName("/jsp/Teacher/teacher-update-resource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
+	 * 修改资源
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="updateResource")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public String toPublishResource(HttpServletRequest request) {
-		return "/jsp/Teacher/teacher-release-resource";
+	public ModelAndView updateResource(HttpServletRequest request) {
+		Resource resource = new Resource();
+		try {
+			Object[] obj = Common.fileFactory(request,null);
+			Map<String, Object> formdata = (Map<String, Object>) obj[1];
+			List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+			
+			resource.setResourceId((String) formdata.get("resourceId"));
+			resource.setCourseId((String) formdata.get("courseId"));
+			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+			resource.setResourceDetail((String) formdata.get("resourceDetail"));
+			resource.setResourceName((String) formdata.get("resourceName"));
+			resource.setResourceTypeId(Integer.parseInt((String) formdata.get("resourceType")));
+			if(!returnFileList.isEmpty())
+			{
+				resource.setResourcePath(returnFileList.get(0).getPath());
+				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
+			}
+			teacherService.updateResource(resource);
+			return toCourseResource(request, "3");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			return null;
+
+	}
+
+	@RequestMapping(value="toPublishResource/{category}/{courseId}")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public String toPublishResource(HttpServletRequest request,@PathVariable String courseId, @PathVariable String category) {
+		String path = "/jsp/Teacher/teacher-release-resource";
+		try {
+			//接收类型
+			// category  = (String)request.getAttribute("category");
+			request.setAttribute("category", category);
+			if("work".equals(category) || "trial".equals(category))
+				path = "/jsp/Teacher/teacher-release-resourceTask";
+			//String courseId = (String)request.getAttribute("courseId");
+			Course course = new Course();
+			if(!"".equals(courseId) && courseId != null)
+				course = teacherService.getCourseById(courseId);
+			request.setAttribute("course", course);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		
+		return path;
 	}
 
 	@RequestMapping(value="publishResource")
@@ -792,16 +900,16 @@ public class TeacherController {
 			List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 			Resource resource = new Resource();
 			resource.setResourceId(resourceId);
-			resource.setCourseId((String) request.getSession().getAttribute("courseId"));
+			resource.setCourseId((String) formdata.get("courseId"));
 			resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
 			resource.setResourceDetail((String) formdata.get("resourceDetail"));
 			resource.setResourceName((String) formdata.get("resourceName"));
+			resource.setResourceTypeId(Integer.parseInt((String) formdata.get("resourceType")));
 			if(!returnFileList.isEmpty())
 			{
 				resource.setResourcePath(returnFileList.get(0).getPath());
 				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
-				resource.setResourceTypeId(Common.fileType(returnFileList.get(0).getName(), teacherService));//需要判断文件类型	
 			}
 			teacherService.addResource(resource);
 		} catch (Exception e) {
@@ -1316,9 +1424,10 @@ public class TeacherController {
 	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
 	 */
 	@RequestMapping("/resourceDownload")
-	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id) throws IOException {
+	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName) throws IOException {
 		ResponseEntity<byte[]> entity;
-		File file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
+//		File file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
+		File file = new File(fileName);
 		byte[] body = null;
 		InputStream is = new FileInputStream(file);
 		body = new byte[is.available()];
@@ -1435,34 +1544,34 @@ public class TeacherController {
 	 * 更新资源
 	 * @throws Exception 
 	 */
-	@SuppressWarnings("unchecked")
-	@RequestMapping("/toUpdateResource/{resourceId}")
-	public ModelAndView toUpdateResource(HttpServletRequest request,@PathVariable("resourceId")String resourceId) throws Exception {
-		ModelAndView mv = new ModelAndView();
-		//		Resource resource = new Resource();
-		//		try {
-		//			Object[] obj = Common.fileFactory(request,resourceId);
-		//			Map<String, Object> formdata = (Map<String, Object>) obj[1];
-		//			List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
-		//			resource.setResourceId(resourceId);
-		//			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
-		//			resource.setResourceDetail((String) formdata.get("resourceDetail"));
-		//			resource.setResourceName((String) formdata.get("resourceName"));
-		//			if(!returnFileList.isEmpty())
-		//			{
-		//				resource.setResourcePath(returnFileList.get(0).getPath());
-		//				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
-		//				resource.setResourceTypeId(Common.fileType(returnFileList.get(0).getName(), teacherService));//需要判断文件类型	
-		//			}
-		//			teacherService.addResource(resource);
-		//		} catch (Exception e) {
-		//			// TODO Auto-generated catch block
-		//			e.printStackTrace();
-		//		}
-		//		resourceService.updateResource(resourceId, resourceName, resourceDetail, null, null, null, null, null, null, null, null, null);
-		mv = toResourceMain(request);
-		return mv; 
-	}
+//	@SuppressWarnings("unchecked")
+//	@RequestMapping("/toUpdateResource/{resourceId}")
+//	public ModelAndView toUpdateResource(HttpServletRequest request,@PathVariable("resourceId")String resourceId) throws Exception {
+//		ModelAndView mv = new ModelAndView();
+//		//		Resource resource = new Resource();
+//		//		try {
+//		//			Object[] obj = Common.fileFactory(request,resourceId);
+//		//			Map<String, Object> formdata = (Map<String, Object>) obj[1];
+//		//			List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+//		//			resource.setResourceId(resourceId);
+//		//			resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+//		//			resource.setResourceDetail((String) formdata.get("resourceDetail"));
+//		//			resource.setResourceName((String) formdata.get("resourceName"));
+//		//			if(!returnFileList.isEmpty())
+//		//			{
+//		//				resource.setResourcePath(returnFileList.get(0).getPath());
+//		//				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
+//		//				resource.setResourceTypeId(Common.fileType(returnFileList.get(0).getName(), teacherService));//需要判断文件类型	
+//		//			}
+//		//			teacherService.addResource(resource);
+//		//		} catch (Exception e) {
+//		//			// TODO Auto-generated catch block
+//		//			e.printStackTrace();
+//		//		}
+//		//		resourceService.updateResource(resourceId, resourceName, resourceDetail, null, null, null, null, null, null, null, null, null);
+//		mv = toResourceMain(request);
+//		return mv; 
+//	}
 
 	/**
 	 * @author LiMing
@@ -1471,10 +1580,12 @@ public class TeacherController {
 	 * @throws Exception 
 	 */
 	@RequestMapping("/toDeleteResource/{resourceId}")
-	public String toDeleteResource(@PathVariable String resourceId) throws Exception {
+	public void toDeleteResource(HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
 		String msg = null;
 		msg  = resourceService.deleteResourceById(resourceId);
-		return msg;
+		String result = JSONObject.toJSONString(msg);
+		response.getWriter().println(result);
 	}
 
 	//	/**
@@ -1673,6 +1784,124 @@ public class TeacherController {
 		mv.addObject("course", course);//返回信息
 		return mv;
 	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @throws Exception 
+	 * 资源分类跳转，用于资源更新时的按照分类查找资源
+	 * 1.教案库
+	 * 2.教学资源库
+	 * 3.多媒体资源
+	 * 4.作业库
+	 * 5.实验库
+	 * 6.课程设计库
+	 * 7.全部资源
+	 * @return 返回对应资源
+	 */
+	@RequestMapping("/toCourseResource/{category}")
+	public ModelAndView toCourseResource(HttpServletRequest request,@PathVariable String category) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		Course course = (Course) request.getSession().getAttribute("course");
+		String courseId = "";
+		List<Teacher> teacherList = new ArrayList<>();
+		boolean isThisTeacher = false;
+		Teacher user =  (Teacher) request.getSession().getAttribute("teacher");
+		if(course != null){
+			courseId = course.getCourseId();
+			//通过courseid查询教师圈id
+			teacherList = teacherService.getTeachersByCourseId(courseId);
+		}
+		//比较此时的用户是否是点开的课程的教师
+		if(!teacherList.isEmpty() && user != null){
+			for(Teacher t : teacherList){
+				if(t.getEmployeeNum().equals(user.getEmployeeNum())){
+					isThisTeacher = true;
+					break;
+				}
+			}
+		}
+		if(isThisTeacher){
+			request.setAttribute("isTeacher", 1);
+		}
+		List<Resource> resourceList = new ArrayList<>();//返回前台数据
+		List<Task> taskList = new ArrayList<>();//返回前台数据
+		//查询信息switch
+		switch (category) {
+		case "1":{
+			//教案库
+			mv.addObject("resourceName", "教案");
+			break;
+		}
+		case "2":{
+			//教学资源库
+			mv.addObject("resourceName", "教学资源");
+			break;
+		}
+		case "3":{
+			//多媒体资源
+			resourceList = resourceService.showResourceByCourse(courseId);
+			for (Resource resource : resourceList) {
+				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+			}
+			mv.addObject("resource", resourceList);//返回信息
+			
+			
+			mv.addObject("resourceName", "多媒体资源");
+			break;
+		}
+		case "4":{
+			//作业库
+			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			mv.addObject("taskList", taskList);//返回信息
+			mv.addObject("resourceName", "作业");
+			break;
+		}
+		case "5"://实验库
+			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			mv.addObject("taskList", taskList);//返回信息
+			mv.addObject("resourceName", "实验");
+			break;
+		case "6"://课程设计库
+			mv.addObject("resourceName", "课程设计");
+			break;
+		default:
+			break;
+		}
+		
+		List<String> publisherList = new ArrayList<>();
+		List<String> timeList = new ArrayList<>();
+		if(!resourceList.isEmpty()){
+			for(Resource re:resourceList){
+				// 获取发布者姓名
+				publisherList.add(teacherService.getTeacherNameById(re.getPublisherId()));
+				//修改时间格式
+				String publishTime = re.getPublishTime().toString().substring(0, 10);
+				timeList.add(publishTime);
+			}
+		}
+		else if(!taskList.isEmpty()){
+			for(Task ta:taskList){
+				// 获取发布者姓名
+				publisherList.add(teacherService.getTeacherNameById(ta.getPublisherId()));
+				//修改时间格式
+				String publishTime = ta.getPublishTime().toString().substring(0, 10);
+				timeList.add(publishTime);
+			}
+		}
+		mv.addObject("publisher", publisherList);
+		mv.addObject("time", timeList);
+		mv.setViewName("/jsp/Teacher/courseResource");
+		mv.addObject("course", course);//返回信息
+		return mv;
+	}
+	
 	//	
 	//	/**
 	//	 * @author LiMing

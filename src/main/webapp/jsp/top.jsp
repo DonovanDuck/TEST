@@ -14,7 +14,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     header{
     width: 100%;
     height: 120px;
-    background: url("../img/head.png") no-repeat;
     background-size: cover;
     position: relative;
 }
@@ -118,6 +117,7 @@ header nav li a{
     </script>
 </head>
 <body>
+	<div style="width: 100%;height: 120px;background-size: cover;">
       <header style="background: url('${pageContext.request.contextPath}/images/head.png') no-repeat;">
           <span>
               <li class="li1"><a href="">微信端</a>
@@ -167,6 +167,6 @@ header nav li a{
               </ul>
           </nav>
       </header>
-      
+      </div>
 </body>
 </html>

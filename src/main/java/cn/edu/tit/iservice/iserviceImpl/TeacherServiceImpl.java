@@ -24,6 +24,7 @@ import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
+import cn.edu.tit.idao.IResourceDao;
 import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.ITeacherService;
 
@@ -35,6 +36,9 @@ import cn.edu.tit.iservice.ITeacherService;
 public class TeacherServiceImpl implements ITeacherService{
 	@Autowired
 	private  ITeacherDao teacherDao ;
+	
+	@Autowired
+	private  IResourceDao resourceDao ;
 
 	/**
 	 * @author wenli
@@ -971,5 +975,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("getTaskByPointAndCourse------Dao 层执行失败");
 		}
 		return list;
+	}
+
+	@Override
+	public void updateResource(Resource re) {
+		// TODO Auto-generated method stub
+		resourceDao.updateResource(re);
 	}
 }

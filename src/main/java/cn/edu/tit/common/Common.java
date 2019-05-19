@@ -142,7 +142,7 @@ public  class  Common {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
 			String path = readProperties("path");
-			if(!"".equals(id) || id != null){
+			if(!"".equals(id) && id != null && !id.isEmpty()){
 				path +="/"+id;
 			}
 			// 创建工厂

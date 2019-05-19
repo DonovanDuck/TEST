@@ -448,6 +448,8 @@ public interface ITeacherService {
 	 * */
 	public void addResource(Resource resource)throws Exception;
 	
+	public void updateResource(Resource re);
+	
 	/**
 	 * 获取标志位，查老师manager
 	 * @return
