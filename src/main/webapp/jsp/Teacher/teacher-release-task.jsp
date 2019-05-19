@@ -35,7 +35,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="width:10%;height:30px;float:left">
 	            <select id ="taskCategory" name="taskCategory" >
 	            	<c:forEach items="${taskCategoryList }" var="taskCategory">
-								<option <c:if test="${taskCategory=='work'}"> selected="selected" </c:if> >${taskCategory }</option>
+								<option <c:if test="${taskCategory eq 'work'}"> selected="selected" </c:if> >${taskCategory }</option>
 							</c:forEach>
 	            </select>
             </div>

@@ -9,6 +9,13 @@
 		<result column="category_detail" property="categoryDetail" />
 		<result column="category_num" property="categoryNum" />
 	</resultMap>
+	<resultMap type="cn.edu.tit.bean.Accessory" id="accessoryMap">
+		<id column="pub_accessroy_id" property="accessoryId" />
+		<result column="pub_accessory_name" property="accessoryName" />
+		<result column="pub_accessory_path" property="accessoryPath" />
+		<result column="pub_accessory_time" property="accessoryTime" />
+		<result column="task_id" property="taskId" />
+	</resultMap>
 	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
@@ -104,16 +111,21 @@
 		up_accessory_name, up_accessory_path,
 		up_accessory_time,task_id,student_id)
 		values
-		<foreach item="upaccessory" collection="list" separator=",">
+		<foreach item="upaccessory" collection="accessories" separator=",">
 			(
-			#{upaccessory.accessoryName,jdbcType=VARCHAR},
-			#{upaccessory.accessoryPath,jdbcType=VARCHAR},
-			#{upaccessory.accessoryTime,jdbcType=VARCHAR},
-			#{upaccessory.taskId,jdbcType=VARCHAR},
+			#{upaccessory.accessoryName},
+			#{upaccessory.accessoryPath},
+			#{upaccessory.accessoryTime},
+			#{upaccessory.taskId},
 			#{studentId}
 			)
 		</foreach>
 	</insert>
+	
+	<select id="getUpAccessories"  resultType="java.lang.String">
+		select up_accessory_name from up_accessory where task_id = #{taskId} and student_id=#{studentId};
+	</select>
+	
 	<select id="searchTaskId" parameterType="java.lang.String"
 		resultType="java.lang.String">
 		select task_id from class_task where virtual_class_num =
@@ -128,6 +140,29 @@
 		<result column="task_end_time" property="taskEndTime" />
 		<result column="status" property="status" />
 	</resultMap>
+	<resultMap type="cn.edu.tit.bean.UpTask" id="upTaskMap">
+		<id column="task_id" property="taskId" />
+		<id column="student_id" property="studentId" />
+		<result column="up_task_detail" property="upTaskDetail" />
+		<result column="term" property="term" />
+		<result column="grade" property="grade" />
+	</resultMap>
+	
+	
+	<insert id="upTaskThis"  parameterType="cn.edu.tit.bean.UpTask">
+		insert into up_task (
+		task_id, student_id,up_task_detail,term)
+		values (
+		#{taskId}, #{studentId}, #{upTaskDetail}, #{term})
+	</insert>
+	
+	<select id="getUpTaskDetail" resultType="java.lang.String">
+		select up_task_detail from up_task where task_id = #{taskId} and student_id=#{studentId}
+	</select>
+	<update id="countUpTaskNum">
+		update class_task set up_student_num = up_student_num +1 where virtual_class_num=#{virtualClassNum} and task_id=#{taskId}
+	</update>
+	
 	<select id="TaskList" parameterType="java.util.List"
 		resultMap="taskMap">
 		select * from task where task_id in

@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 <div id="t5">
                 <p>工号：${teacher.employeeNum }</p>
-                <span>密码：${teacher.password }</span>     <span class="span">修改</span> <br/>
+                <span>密码：${teacher.teacherPassword }</span>     <span class="span">修改</span> <br/>
                 <span>头像：</span>  <img src="../images/add.png" alt=""/> <br/>
             </div>
 

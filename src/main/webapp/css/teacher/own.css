@@ -104,7 +104,7 @@ main{
     background:white;
     float:right;
     margin-right:1px;
-    display:none;
+   
 }
 #r2 table tr{
     border:1px solid #f2f2f2;
@@ -116,7 +116,6 @@ main{
     background:white;
     float:right;
     margin-right:1px;
-    display:none;
 }
 
 #r4{
@@ -126,7 +125,6 @@ main{
     background:white;
     float:right;
     margin-right:1px;
-    display:none;
 }
 #r5{
     width:82%;
@@ -135,7 +133,7 @@ main{
     background:white;
     float:right;
     margin-right:1px;
-    display:none;
+    
 }
 .main_b_r_t{
     width:100%;
@@ -302,7 +300,6 @@ main{
     padding-top: 2%;
     font-size: 17px;
     line-height: 40px;
-    display: none;
 }
 #t6 .bj{
     width: 10%;
@@ -318,7 +315,7 @@ main{
 }
 #t7{
     padding-top: 2%;
-    display: none;
+  
 }
 #t7 .xiangmu{
     width: 96%;

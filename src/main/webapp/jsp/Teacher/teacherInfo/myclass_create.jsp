@@ -9,8 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="UTF-8">
 <title></title>
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/teacher/table.css">
+
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -31,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
 	}
 </script>
-</html>
+</head>
 <body>
 	<div id="r2">
 		<div class="sx">
@@ -84,3 +83,4 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</div>
 </body>
+</html>

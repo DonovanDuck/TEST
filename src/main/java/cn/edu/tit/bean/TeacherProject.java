@@ -9,6 +9,7 @@ public class TeacherProject {
 	private String teacherProjectName;
 	private String teacherProjectDetail;
 	private Timestamp declareTime;
+	private Timestamp approvalTime;
 	private Timestamp finishTime;
 	private String approvalOrganization;
 	private Integer fund;
@@ -37,6 +38,12 @@ public class TeacherProject {
 	}
 	public void setDeclareTime(Timestamp declareTime) {
 		this.declareTime = declareTime;
+	}
+	public Timestamp getApprovalTime() {
+		return approvalTime;
+	}
+	public void setApprovalTime(Timestamp approvalTime) {
+		this.approvalTime = approvalTime;
 	}
 	public Timestamp getFinishTime() {
 		return finishTime;
@@ -69,13 +76,14 @@ public class TeacherProject {
 		this.teacherProjectCategory = teacherProjectCategory;
 	}
 	public TeacherProject(String teacherProjectId, String teacherProjectName, String teacherProjectDetail,
-			Timestamp declareTime, Timestamp finishTime, String approvalOrganization, Integer fund, String level,
-			String teacherProjectCategory) {
+			Timestamp declareTime, Timestamp approvalTime, Timestamp finishTime, String approvalOrganization,
+			Integer fund, String level, String teacherProjectCategory) {
 		super();
 		this.teacherProjectId = teacherProjectId;
 		this.teacherProjectName = teacherProjectName;
 		this.teacherProjectDetail = teacherProjectDetail;
 		this.declareTime = declareTime;
+		this.approvalTime = approvalTime;
 		this.finishTime = finishTime;
 		this.approvalOrganization = approvalOrganization;
 		this.fund = fund;
@@ -86,6 +94,7 @@ public class TeacherProject {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	
 	
 }

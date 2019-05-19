@@ -1,6 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -196,23 +199,33 @@ $(function() {
 
 </head>
 <body>
-	<div class="wrapper"></div>
+
+	<div class="wrapper" ></div>
+
 		<jsp:include page="/jsp/top.jsp" flush="true"/>
+			
 		<div class="main">
+		
 			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
-				<input type="hidden" name="publisherId" value="${teacher.employeeNum }">
-				<div class="input1">
-					<span>课程名称：</span> <input name="courseName" type="text"
-						placeholder="请输入课程名称："
-						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
+		
+				<input type="hidden" name="publisherId" value="${teacher.employeeNum }"/>
+					
+				<div class="input3">
+	
+					<span>课程名称：</span> 
+					
+					<input name="courseName"  type="text"  placeholder="请输入课程名称："  style="width: 60%; height: 30px; float: left; margin-left: 2%;"/>
+					
 				</div>
+				
 				<div class="input1">
+				
 					<ul class="phoneUl">
 					<span style="float: left;" >添加图片：</span> 
 					<label for="faceImg" style="cursor: pointer">
 						<li>
 							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
-								name="faceImg">
+								name="faceImg"/>
 						</li>
 						<li><img id="photos" src="" width="100" height="100" /></li>
 					</label>
@@ -283,10 +296,10 @@ $(function() {
 		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 		
 		<!-- bootstrup -->
-		
-</body>
-<script type="text/javascript" charset="utf-8">
+		<script type="text/javascript" charset="utf-8">
 	UE.getEditor('courseDetail');
 	
 </script>
+</body>
+
 </html>

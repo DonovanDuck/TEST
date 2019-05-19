@@ -14,12 +14,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 
-	
-</html>
+</head>
 <body>
-	<div id="r2">
+	<div id="r2" >
 		<div class="main_b_r_t">
-			<div class="word1" id="w1">
+			<div class="word1"  id="w1">
 				<p>
 					<a target="myclass"
 						href="${pageContext.request.contextPath}/teacher/toMyClassList"
@@ -31,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="word2" id="w4" style="margin-left: -2%">
 				<p>
 					<a target="_parent"
-						href="${pageContext.request.contextPath}/teacher/ttoCreateVirtualClass"
+						href="${pageContext.request.contextPath}/teacher/toCreateVirtualClass"
 						id="p4">创建班级</a>
 				</p>
 			</div>

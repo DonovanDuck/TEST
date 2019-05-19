@@ -8,17 +8,27 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Achievement;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.IndustryUniversityResearchProject;
+import cn.edu.tit.bean.Paper;
+import cn.edu.tit.bean.Prize;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Resource;
 import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 public interface ITeacherService {
+	public List<Prize> prizeList();
+	public List<TeacherProject> teacherProjectList();
+	public List<IndustryUniversityResearchProject> industryUniversityResearchProjectList();
+	public List<Achievement> achievementList();
+	public List<Paper> paperList();
 	/**
 	 * @author wenli
 	 * @param virtualClassNum
@@ -151,7 +161,7 @@ public interface ITeacherService {
 	 * @param taskId
 	 * 把任务映射到班级任务表中
 	 */
-	public void mapClassTask(String virtualClassNum,String taskId)throws Exception;	//把任务映射到班级任务表中
+	public void mapClassTask(String virtualClassNum,String taskId,Timestamp taskEndTime)throws Exception;	//把任务映射到班级任务表中
 	/**
 	 * @author wenli
 	 * @param accessoris
@@ -487,5 +497,65 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
+	/**
+	 * @author wenli
+	 * @return
+	 * 获得已提交作业的所有学生
+	 */
+	public List<Student> getStudentListOfUped(String taskId);
+	/**
+	 * @author wenli
+	 * @param taskId
+	 * @return
+	 * 获得未提交作业的所有学生
+	 */
+	public List<Student> getStudentListOfNotUp(String taskId,String virtualClassNum)throws Exception;
+	/**
+	 * @author wenli
+	 * @param virtualClassNum
+	 * @param taskId
+	 * @return
+	 * 获取虚拟班中已经提交作业的人数
+	 */
+	public Integer getUpNum(String virtualClassNum,String taskId);
+	/**
+	 * @author wenli
+	 * @param comment
+	 * @param grade
+	 * 设置作业的评语和分数
+	 */
+	public void setGradeAndComment(String comment,Integer grade,String studentId,String taskId);
+	/**
+	 * @author wenli
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 * 获得学生作业的分数
+	 */
+	public Integer getGrade(String taskId,String studentId);
+	/**
+	 * @author wenli
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 * 获得学生作业的评语
+	 */
+	public String getComment(String taskId,String studentId);
+	/**
+	 * @author WENLI
+	 * @param courseId
+	 * @param taskCategory
+	 * @return
+	 * 用于教师选择发布作业模块，根据课程和类型查找作业
+	 */
+	public List<Task> getTaskListPage(String courseId,String taskCategory);
+	/**
+	 * @author WENLI
+	 * @param VirtualClassNum
+	 * @param taskId
+	 * @return
+	 * 在class_task表中获得任务截至时间
+	 */
+	public Timestamp getTaskEndTime(String virtualClassNum,String taskId);
 
 }

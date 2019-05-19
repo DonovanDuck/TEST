@@ -1,7 +1,3 @@
-/**
- * 任务（作业、实验、课程设计）相关附件 
- *
- */
 package cn.edu.tit.bean;
 
 import java.io.File;

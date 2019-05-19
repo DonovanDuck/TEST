@@ -153,8 +153,8 @@
 							</div>
 						</div>
 						<button id="login" type="button" class="submit" >登录</button>
-						<button id="virtualClick" type="button" class="btn btn-primary" data-toggle="modal"
-							data-target=".bs-example-modal-sm">登录</button>
+						<!-- <button id="virtualClick" type="button" class="btn btn-primary" data-toggle="modal"
+							data-target=".bs-example-modal-sm">登录</button> -->
 
 						<div class="modal fade bs-example-modal-sm" tabindex="-1"
 							role="dialog" aria-labelledby="mySmallModalLabel">

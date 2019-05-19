@@ -34,7 +34,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <a><div class="nav1" onclick="d()"><p><img src="../images/j1.png" alt=""/><span>教师团队</span></p></div></a>
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyInfo"><div class="nav1" ><p><img src="../images/g1.png" alt=""/><span>个人信息</span></p></div></a>
         </div>
-        <div class="main_b_r">
+        <div class="main_b_r" style="width: 83%;float: left;height: 100%">
         <iframe  id="iframeContent" name="iframeContent"
                  style="width: 100%;height: 100%"
                 frameborder="no" border="0" scrolling="no"
