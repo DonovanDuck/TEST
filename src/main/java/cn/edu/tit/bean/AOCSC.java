@@ -27,6 +27,7 @@ public class AOCSC {
 	private AchievementAccessory achievementAccessory;//大学生竞赛成果附件
 	private String firstPicture;//第一张图片
 	private Integer browseVolume;//浏览量
+	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -141,6 +142,12 @@ public class AOCSC {
 	public void setBrowseVolume(Integer browseVolume) {
 		this.browseVolume = browseVolume;
 	}
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 	@Override
 	public String toString() {
 		return "AOCSC [achievementId=" + achievementId + ", achievementName=" + achievementName
@@ -149,13 +156,14 @@ public class AOCSC {
 				+ guidanceTeacher + ", member=" + member + ", memberNum=" + memberNum + ", uploadAuthorId="
 				+ uploadAuthorId + ", compere=" + compere + ", teamName=" + teamName + ", level=" + level + ", feature="
 				+ feature + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime + ", achievementAccessory="
-				+ achievementAccessory + ", firstPicture=" + firstPicture + ", browseVolume=" + browseVolume + "]";
+				+ achievementAccessory + ", firstPicture=" + firstPicture + ", browseVolume=" + browseVolume
+				+ ", deleteFlag=" + deleteFlag + "]";
 	}
 	public AOCSC(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
 			String member, String memberNum, String uploadAuthorId, String compere, String teamName, String level,
 			String feature, Date finishTime, Timestamp uploadTime, AchievementAccessory achievementAccessory,
-			String firstPicture, Integer browseVolume) {
+			String firstPicture, Integer browseVolume, Integer deleteFlag) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -176,6 +184,7 @@ public class AOCSC {
 		this.achievementAccessory = achievementAccessory;
 		this.firstPicture = firstPicture;
 		this.browseVolume = browseVolume;
+		this.deleteFlag = deleteFlag;
 	}
 	public AOCSC() {
 		super();

@@ -22,6 +22,7 @@
 		<result column="upload_author" property="uploadAuthorId" />
 		<result column="browse_volume" property="browseVolume" />
 		<result column="price" property="price" />
+		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 	<!--大学生竞赛成果映射 -->
 	<resultMap type="cn.edu.tit.bean.AOCSC" id="AOCSCMap">
@@ -42,6 +43,7 @@
 		<result column="upload_time" property="uploadTime" />
 		<result column="first_picture" property="firstPicture" />
 		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 	<!--课程拓展作品成果映射 -->
 	<resultMap type="cn.edu.tit.bean.CourseExpand" id="CourseExpandMap">
@@ -61,6 +63,7 @@
 		<result column="upload_time" property="uploadTime" />
 		<result column="first_picture" property="firstPicture" />
 		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 	<!--大学生毕业设计成果映射 -->
 	<resultMap type="cn.edu.tit.bean.GDFCS" id="GDFCSMap">
@@ -77,6 +80,7 @@
 		<result column="upload_time" property="uploadTime" />
 		<result column="first_picture" property="firstPicture" />
 		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 	<!--大学生创新创业成果映射 -->
 	<resultMap type="cn.edu.tit.bean.SIAE" id="SIAEMap">
@@ -102,6 +106,7 @@
 		<result column="upload_time" property="uploadTime" />
 		<result column="first_picture" property="firstPicture" />
 		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 	<!--成果图片映射 -->
 	<resultMap type="cn.edu.tit.bean.AchievementPicture" id="AchievementPictureMap">
@@ -139,8 +144,19 @@
 	<!-- 关于IURP产学研表的查询 -->
 	<select id="queryIURP" resultMap="IURPMap">
 		SELECT * FROM
+		achievement_industry_university_research_project where delete_flag &lt;&gt; 0;
+	</select>
+	<select id="queryAllIURP" resultMap="IURPMap">
+		SELECT * FROM
 		achievement_industry_university_research_project;
 	</select>
+	<update id="deleteIURP" parameterType="java.lang.String">
+		update
+		achievement_industry_university_research_project set delete_flag =
+		0
+		where
+		project_id = #{achievementId};
+	</update>
 	<select id="queryIURPById" resultMap="IURPMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
@@ -148,10 +164,11 @@
 		</where>
 		;
 	</select>
-	<select id="queryIURPByAuthorId" resultMap="IURPMap" parameterType="java.lang.String">
+	<select id="queryIURPByAuthorId" resultMap="IURPMap"
+		parameterType="java.lang.String">
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
-			upload_author = #{authorId}
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -159,7 +176,7 @@
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
 			project_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -168,7 +185,7 @@
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -192,7 +209,8 @@
 		browse_volume,
 		price,
 		member_num,
-		upload_author
+		upload_author,
+		delete_flag
 		)
 		VALUES
 		(#{iurp.projectId},
@@ -212,7 +230,8 @@
 		#{iurp.browseVolume},
 		#{iurp.price},
 		#{iurp.memberNum},
-		#{iurp.uploadAuthorId}
+		#{iurp.uploadAuthorId},
+		#{iurp.deleteFlag}
 		);
 	</insert>
 	<update id="updateIURPBrowseVolume" parameterType="java.lang.String">
@@ -227,14 +246,26 @@
 	<!-- 大学生竞赛成果的查询 -->
 	<select id="queryAOCSC" resultMap="AOCSCMap">
 		SELECT * FROM
+		achievements_of_college_students_competition where delete_flag
+		&lt;&gt; 0;
+	</select>
+	<select id="queryAllAOCSC" resultMap="AOCSCMap">
+		SELECT * FROM
 		achievements_of_college_students_competition;
 	</select>
+	<update id="deleteAOCSC" parameterType="java.lang.String">
+		update
+		achievements_of_college_students_competition set delete_flag =
+		0
+		where
+		achievement_id = #{achievementId};
+	</update>
 	<select id="queryAOCSCByName" resultMap="AOCSCMap"
 		parameterType="java.lang.String">
 		SELECT * FROM achievements_of_college_students_competition
 		<where>
 			achievement_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -245,10 +276,11 @@
 		</where>
 		;
 	</select>
-	<select id="queryAOCSCByAuthorId" resultMap="AOCSCMap" parameterType="java.lang.String">
+	<select id="queryAOCSCByAuthorId" resultMap="AOCSCMap"
+		parameterType="java.lang.String">
 		SELECT * FROM achievements_of_college_students_competition
 		<where>
-			upload_author = #{authorId}
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -257,7 +289,7 @@
 		SELECT * FROM achievements_of_college_students_competition
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -278,7 +310,8 @@
 		finish_time,
 		upload_time,
 		first_picture,
-		browse_volume
+		browse_volume,
+		delete_flag
 		)
 		VALUES
 		(#{iu.achievementId},
@@ -295,7 +328,8 @@
 		#{iu.finishTime},
 		#{iu.uploadTime},
 		#{iu.firstPicture},
-		#{iu.browseVolume}
+		#{iu.browseVolume},
+		#{iu.deleteFlag}
 		);
 	</insert>
 	<update id="updateAOCSCBrowseVolume" parameterType="java.lang.String">
@@ -303,7 +337,7 @@
 		browse_volume =
 		browse_volume+1
 		<where>
-			achievement_id = #{achievementId}
+			achievement_id = #{achievementId} 
 		</where>
 		;
 	</update>
@@ -311,14 +345,26 @@
 	<!-- 课程拓展作品的查询 -->
 	<select id="queryCourseExpand" resultMap="CourseExpandMap">
 		SELECT * FROM
+		achievement_course_expand where delete_flag &lt;&gt; 0;
+	</select>
+	<select id="queryAllCourseExpand" resultMap="CourseExpandMap">
+		SELECT * FROM
 		achievement_course_expand;
 	</select>
+	<update id="deleteCourseExpand" parameterType="java.lang.String">
+		update
+		achievement_course_expand set delete_flag =
+		0
+		where achievement_id =
+		#{achievementId};
+	</update>
 	<select id="queryCourseExpandByName" resultMap="CourseExpandMap"
 		parameterType="java.lang.String">
 		SELECT * FROM achievement_course_expand
 		<where>
 			achievement_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -330,10 +376,11 @@
 		</where>
 		;
 	</select>
-	<select id="queryCourseExpandByAuthorId" resultMap="CourseExpandMap" parameterType="java.lang.String">
+	<select id="queryCourseExpandByAuthorId" resultMap="CourseExpandMap"
+		parameterType="java.lang.String">
 		SELECT * FROM achievement_course_expand
 		<where>
-			upload_author = #{authorId}
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -342,7 +389,8 @@
 		SELECT * FROM achievement_course_expand
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -364,7 +412,8 @@
 		first_picture,
 		browse_volume,
 		member_num,
-		upload_author
+		upload_author,
+		delete_flag
 		)
 		VALUES
 		(#{iu.achievementId},
@@ -382,7 +431,8 @@
 		#{iu.firstPicture},
 		#{iu.browseVolume},
 		#{iu.memberNum},
-		#{iu.uploadAuthorId}
+		#{iu.uploadAuthorId},
+		#{iu.deleteFlag}
 		);
 	</insert>
 	<update id="updateCourseExpandBrowseVolume" parameterType="java.lang.String">
@@ -398,21 +448,34 @@
 	<!-- 大学生毕业设计的查询 -->
 	<select id="queryGDFCS" resultMap="GDFCSMap">
 		SELECT * FROM
+		achievement_graduation_design_for_college_students where delete_flag
+		&lt;&gt; 0;
+	</select>
+	<select id="queryAllGDFCS" resultMap="GDFCSMap">
+		SELECT * FROM
 		achievement_graduation_design_for_college_students;
 	</select>
+	<update id="deleteGDFCS" parameterType="java.lang.String">
+		update
+		achievement_graduation_design_for_college_students set delete_flag =
+		0
+		where achievement_id = #{achievementId};
+	</update>
 	<select id="queryGDFCSByName" resultMap="GDFCSMap"
 		parameterType="java.lang.String">
 		SELECT * FROM achievement_graduation_design_for_college_students
 		<where>
 			achievement_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
-	<select id="queryGDFCSByAuthorId" resultMap="GDFCSMap" parameterType="java.lang.String">
+	<select id="queryGDFCSByAuthorId" resultMap="GDFCSMap"
+		parameterType="java.lang.String">
 		SELECT * FROM achievement_graduation_design_for_college_students
 		<where>
-			upload_author = #{authorId}
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -428,7 +491,8 @@
 		SELECT * FROM achievement_graduation_design_for_college_students
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -447,7 +511,8 @@
 		first_picture,
 		member_num,
 		upload_author,
-		browse_volume
+		browse_volume,
+		delete_flag
 		)
 		VALUES
 		(#{gdfcs.achievementId},
@@ -462,7 +527,8 @@
 		#{gdfcs.firstPicture},
 		#{gdfcs.memberNum},
 		#{gdfcs.uploadAuthorId},
-		#{gdfcs.browseVolume}
+		#{gdfcs.browseVolume},
+		#{gdfcs.deleteFlag}
 		);
 	</insert>
 	<update id="updateGDFCSBrowseVolume" parameterType="java.lang.String">
@@ -479,13 +545,24 @@
 	<!-- 大学生创新创业的查询 -->
 	<select id="querySIAE" resultMap="SIAEMap">
 		SELECT * FROM
+		achievement_student_innovation_and_entrepreneurship where delete_flag
+		&lt;&gt; 0;
+	</select>
+	<select id="queryAllSIAE" resultMap="SIAEMap">
+		SELECT * FROM
 		achievement_student_innovation_and_entrepreneurship;
 	</select>
+	<update id="deleteSIAE" parameterType="java.lang.String">
+		update
+		achievement_student_innovation_and_entrepreneurship set delete_flag =
+		0 where achievement_id = #{achievementId};
+	</update>
 	<select id="querySIAEByName" resultMap="SIAEMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_student_innovation_and_entrepreneurship
 		<where>
 			achievement_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -496,10 +573,11 @@
 		</where>
 		;
 	</select>
-	<select id="querySIAEByAuthorId" resultMap="SIAEMap" parameterType="java.lang.String">
+	<select id="querySIAEByAuthorId" resultMap="SIAEMap"
+		parameterType="java.lang.String">
 		SELECT * FROM achievement_student_innovation_and_entrepreneurship
 		<where>
-			upload_author = #{authorId}
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -508,7 +586,8 @@
 		SELECT * FROM achievement_student_innovation_and_entrepreneurship
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%")
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -536,7 +615,8 @@
 		first_picture,
 		member_num,
 		upload_author,
-		browse_volume
+		browse_volume,
+		delete_flag
 		)
 		VALUES
 		(#{siae.achievementId},
@@ -560,7 +640,8 @@
 		#{siae.firstPicture},
 		#{siae.memberNum},
 		#{siae.uploadAuthorId},
-		#{siae.browseVolume}
+		#{siae.browseVolume},
+		#{siae.deleteFlag}
 		);
 	</insert>
 	<update id="updateSIAEBrowseVolume" parameterType="java.lang.String">

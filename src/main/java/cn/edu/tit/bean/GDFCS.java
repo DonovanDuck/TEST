@@ -23,16 +23,7 @@ public class GDFCS {
 	private AchievementAccessory achievementAccessory;//大学生毕业设计附件
 	private String firstPicture;//第一张图片
 	private Integer browseVolume;//浏览量
-	@Override
-	public String toString() {
-		return "GDFCS [achievementId=" + achievementId + ", achievementName=" + achievementName
-				+ ", achievementCategory=" + achievementCategory + ", achievementPhoto=" + achievementPhoto
-				+ ", introduction=" + introduction + ", achievementDetail=" + achievementDetail + ", guidanceTeacher="
-				+ guidanceTeacher + ", compere=" + compere + ", memberNum=" + memberNum + ", uploadAuthorId="
-				+ uploadAuthorId + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime
-				+ ", achievementAccessory=" + achievementAccessory + ", firstPicture=" + firstPicture
-				+ ", browseVolume=" + browseVolume + "]";
-	}
+	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -123,10 +114,26 @@ public class GDFCS {
 	public void setBrowseVolume(Integer browseVolume) {
 		this.browseVolume = browseVolume;
 	}
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
+	@Override
+	public String toString() {
+		return "GDFCS [achievementId=" + achievementId + ", achievementName=" + achievementName
+				+ ", achievementCategory=" + achievementCategory + ", achievementPhoto=" + achievementPhoto
+				+ ", introduction=" + introduction + ", achievementDetail=" + achievementDetail + ", guidanceTeacher="
+				+ guidanceTeacher + ", compere=" + compere + ", memberNum=" + memberNum + ", uploadAuthorId="
+				+ uploadAuthorId + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime
+				+ ", achievementAccessory=" + achievementAccessory + ", firstPicture=" + firstPicture
+				+ ", browseVolume=" + browseVolume + ", deleteFlag=" + deleteFlag + "]";
+	}
 	public GDFCS(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
 			String compere, String memberNum, String uploadAuthorId, Date finishTime, Timestamp uploadTime,
-			AchievementAccessory achievementAccessory, String firstPicture, Integer browseVolume) {
+			AchievementAccessory achievementAccessory, String firstPicture, Integer browseVolume, Integer deleteFlag) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -143,12 +150,12 @@ public class GDFCS {
 		this.achievementAccessory = achievementAccessory;
 		this.firstPicture = firstPicture;
 		this.browseVolume = browseVolume;
+		this.deleteFlag = deleteFlag;
 	}
 	public GDFCS() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 	
 }

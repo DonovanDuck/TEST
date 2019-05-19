@@ -202,6 +202,7 @@
 				</div>
 			</div>
 			<div class="hr"></div>
+			<div id="barcon" name="barcon">
 			<div class="main_b_r_b" id="k1">
 				<div class="iurpContent" id="iurpContent" style="display: none">
 					<c:if test="${!empty iURPList}">
@@ -374,6 +375,7 @@
 						</c:forEach>
 					</c:if>
 				</div>
+			</div>
 			</div>
 		</div>
 	</main>

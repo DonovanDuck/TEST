@@ -481,4 +481,109 @@ public class AchievementServiceImpl implements IAchievementService{
 			}		
 		return list;
 	}
+
+	@Override
+	public List<IURP> queryAllIURP() throws Exception {
+		List<IURP> list = new ArrayList<>();
+		try {
+			list =achievementDao.queryAllIURP();
+		} catch (Exception e) {
+			list = null;
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void deleteIURP(String achievementId) throws Exception {
+		try {
+		    achievementDao.deleteIURP(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<AOCSC> queryAllAOCSC() throws Exception {
+		List<AOCSC> list = new ArrayList<>();
+		try {
+			list =achievementDao.queryAllAOCSC();
+		} catch (Exception e) {
+			list = null;
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void deleteAOCSC(String achievementId) throws Exception {
+		try {
+		    achievementDao.deleteAOCSC(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public List<CourseExpand> queryAllCourseExpand() throws Exception {
+		List<CourseExpand> list = new ArrayList<>();
+		try {
+			list =achievementDao.queryAllCourseExpand();
+		} catch (Exception e) {
+			list = null;
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void deleteCourseExpand(String achievementId) throws Exception {
+		try {
+		    achievementDao.deleteCourseExpand(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}		
+	}
+
+	@Override
+	public List<GDFCS> queryAllGDFCS() throws Exception {
+		List<GDFCS> list = new ArrayList<>();
+		try {
+			list =achievementDao.queryAllGDFCS();
+		} catch (Exception e) {
+			list = null;
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void deleteGDFCS(String achievementId) throws Exception {
+		try {
+		    achievementDao.deleteGDFCS(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
+
+	@Override
+	public List<SIAE> queryAllSIAE() throws Exception {
+		List<SIAE> list = new ArrayList<>();
+		try {
+			list =achievementDao.queryAllSIAE();
+		} catch (Exception e) {
+			list = null;
+			e.printStackTrace();
+		}
+		return list;
+	}
+
+	@Override
+	public void deleteSIAE(String achievementId) throws Exception {
+		try {
+		    achievementDao.deleteSIAE(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
+	}
 }

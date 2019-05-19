@@ -33,7 +33,35 @@
 		$("#memberContent").val(member);
 		if (window != top)
 			top.location.href = location.href;
-		$("#formContent").submit();
+		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
+		 $("#content").find("input[type='text']").each(function(){
+                 if($(this).val()==""){
+                	 if($(this).attr("placeholder")!="课程名称"){
+    			         alert($(this).attr("placeholder")+"    不可为空")
+    			         judge = false;		 
+                	 }
+					 }
+					 });
+		 $("#content").find("input[type='file']").each(function(){
+					 if($(this).val()==""){
+					 alert($(this).attr("placeholder")+"    不可为空")
+					 judge = false;
+					 }
+					 });
+		
+		 $("#content").find("input[type='date']").each(function(){
+					 if($(this).val()==""){
+					 alert($(this).attr("placeholder")+"    不可为空")
+					 judge = false;
+					 }
+					 });
+		 if(judge)
+			 {
+			 $("#formContent").submit();
+			 }
+		 else{
+			 alert("信息补全再次提交");
+		 }
 	}
 </script>
 <script type="text/javascript">
@@ -63,7 +91,7 @@
 		<jsp:include page="/jsp/top.jsp" flush="true" />
 	</div>
 	<div class="content" id="content">
-	<h3 class="text-center" style="margin: 0px; margin-bottom: 1%">课程拓展作品上传</h3>
+		<h3 class="text-center" style="margin: 0px; margin-bottom: 1%">课程拓展作品上传</h3>
 		<form id="formContent"
 			action="${pageContext.request.contextPath}/achievement/publishCourseExpand"
 			method="post" enctype="multipart/form-data">
@@ -142,18 +170,20 @@
 					<div class="form-group" style="width: 50%; float: left">
 						<label for="picture"
 							style="float: left; margin-top: 1%; margin-right: 4%;">作品图片</label>
-						<input type="file" id="picture" name="img" multiple="multiple" />
+						<input type="file" id="picture" name="img" multiple="multiple"
+							placeholder="作品图片" />
 					</div>
 					<div class="form-group" style="width: 50%; float: left">
 						<label for="exampleInputFile"
 							style="float: left; margin-top: 1%; margin-right: 4%;">作品附件</label>
-						<input type="file" name="accessory" id="exampleInputFile">
+						<input type="file" name="accessory" id="exampleInputFile"
+							placeholder="作品附件">
 					</div>
 				</div>
 				<div class="form-group">
 					<label for="finishTime">作品完成时间</label> <input type="date"
 						class="form-control" id="finishTime" name="finishTime"
-						placeholder="作品结束时间">
+						placeholder="作品完成时间">
 				</div>
 				<div class="form-group" style="margin-top: 8%">
 					<input class="btn btn-primary" type="button" value="上传"

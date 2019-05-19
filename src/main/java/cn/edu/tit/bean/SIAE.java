@@ -26,12 +26,13 @@ public class SIAE {
 	private AchievementAccessory achievementAccessory;//大学生创新创业附件
 	private String plan;//计划
 	private String status;//状态
-	private String declaration;//申报书
+	private String declaration;//申报书:附件
 	private String midreply;//中期检查
-	private String concludingRreport;//结题报告
+	private String concludingRreport;//结题报告：附件
 	private Timestamp uploadTime;//成果上传时间
 	private String firstPicture;//第一张图片
 	private Integer browseVolume;//浏览量
+	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -176,6 +177,12 @@ public class SIAE {
 	public void setBrowseVolume(Integer browseVolume) {
 		this.browseVolume = browseVolume;
 	}
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 	@Override
 	public String toString() {
 		return "SIAE [achievementId=" + achievementId + ", achievementName=" + achievementName
@@ -186,14 +193,14 @@ public class SIAE {
 				+ feature + ", finishTime=" + finishTime + ", achievementAccessory=" + achievementAccessory + ", plan="
 				+ plan + ", status=" + status + ", declaration=" + declaration + ", midreply=" + midreply
 				+ ", concludingRreport=" + concludingRreport + ", uploadTime=" + uploadTime + ", firstPicture="
-				+ firstPicture + ", browseVolume=" + browseVolume + "]";
+				+ firstPicture + ", browseVolume=" + browseVolume + ", deleteFlag=" + deleteFlag + "]";
 	}
 	public SIAE(String achievementId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
 			String member, String memberNum, String uploadAuthorId, String compere, String teamName, String level,
 			String feature, Date finishTime, AchievementAccessory achievementAccessory, String plan, String status,
 			String declaration, String midreply, String concludingRreport, Timestamp uploadTime, String firstPicture,
-			Integer browseVolume) {
+			Integer browseVolume, Integer deleteFlag) {
 		super();
 		this.achievementId = achievementId;
 		this.achievementName = achievementName;
@@ -219,6 +226,7 @@ public class SIAE {
 		this.uploadTime = uploadTime;
 		this.firstPicture = firstPicture;
 		this.browseVolume = browseVolume;
+		this.deleteFlag = deleteFlag;
 	}
 	public SIAE() {
 		super();

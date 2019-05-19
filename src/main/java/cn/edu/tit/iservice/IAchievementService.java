@@ -19,60 +19,70 @@ public interface IAchievementService {
 	 * 产学研的操作
 	 */
 	public List<IURP> queryIURP() throws Exception;
+	public List<IURP> queryAllIURP() throws Exception;
 	public List<IURP> queryIURPByName(String search)throws Exception;
 	public List<IURP> queryIURPByAuthor(String search)throws Exception;
 	public void insertIURP(IURP iu)throws Exception;
 	public List<IURP> queryIURPByAuthorId(String authorId)throws Exception;
 	public IURP queryIURPById(String achievementId)throws Exception;
 	public void updateIURPBrowseVolume(String achievementId)throws Exception;
+	public void deleteIURP(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
 	 * 大学生竞赛成果
 	 */
 	public List<AOCSC> queryAOCSC() throws Exception;
+	public List<AOCSC> queryAllAOCSC() throws Exception;
 	public List<AOCSC> queryAOCSCByName(String search)throws Exception;
 	public List<AOCSC> queryAOCSCByAuthor(String search)throws Exception;
 	public void insertAOCSC(AOCSC iu)throws Exception;
 	public List<AOCSC> queryAOCSCByAuthorId(String authorId)throws Exception;
 	public AOCSC queryAOCSCById(String achievementId)throws Exception;
 	public void updateAOCSCBrowseVolume(String achievementId)throws Exception;
+	public void deleteAOCSC(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
 	 * 课程拓展作品
 	 */
 	public List<CourseExpand> queryCourseExpand() throws Exception;
+	public List<CourseExpand> queryAllCourseExpand() throws Exception;
 	public List<CourseExpand> queryCourseExpandByName(String search)throws Exception;
 	public List<CourseExpand> queryCourseExpandByAuthor(String search)throws Exception;
 	public void insertCourseExpand(CourseExpand iu)throws Exception;
 	public List<CourseExpand> queryCourseExpandByAuthorId(String authorId)throws Exception;
 	public CourseExpand queryCourseExpandById(String achievementId)throws Exception;
 	public void updateCourseExpandBrowseVolume(String achievementId)throws Exception;
+	public void deleteCourseExpand(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
 	 * 大学生毕业设计
 	 */
 	public List<GDFCS> queryGDFCS() throws Exception;
+	public List<GDFCS> queryAllGDFCS() throws Exception;
 	public List<GDFCS> queryGDFCSByName(String search)throws Exception;
 	public List<GDFCS> queryGDFCSByAuthor(String search)throws Exception;
 	public void insertGDFCS(GDFCS gdfcs)throws Exception;
 	public List<GDFCS> queryGDFCSByAuthorId(String authorId)throws Exception;
 	public GDFCS queryGDFCSById(String achievementId)throws Exception;
 	public void updateGDFCSBrowseVolume(String achievementId)throws Exception;
+	public void deleteGDFCS(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
 	 * 大学生创新创业
 	 */
 	public List<SIAE> querySIAE() throws Exception;
+	public List<SIAE> queryAllSIAE() throws Exception;
 	public List<SIAE> querySIAEByName(String search)throws Exception;
 	public List<SIAE> querySIAEByAuthor(String search)throws Exception;
 	public void insertSIAE(SIAE siae)throws Exception;
 	public SIAE querySIAEById(String achievementId);
 	public List<SIAE> querySIAEByAuthorId(String authorId)throws Exception;
 	public void updateSIAEBrowseVolume(String achievementId)throws Exception;
+	public void deleteSIAE(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing

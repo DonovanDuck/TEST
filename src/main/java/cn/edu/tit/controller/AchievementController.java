@@ -528,8 +528,6 @@ public class AchievementController {
 			si.setAchievementName((String)formdata.get("name"));
 			si.setBrowseVolume(1);
 			si.setCompere((String)formdata.get("compere"));
-			//si.setConcludingRreport(concludingRreport);
-			//si.setDeclaration(declaration);
 			si.setFeature((String)formdata.get("feature"));
 			si.setFinishTime(ConverDate((String)formdata.get("finishTime")));
 			si.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
@@ -538,19 +536,24 @@ public class AchievementController {
 			si.setLevel((String)formdata.get("levelContent"));
 			si.setMember((String)formdata.get("levelContent"));
 			si.setMemberNum((String)formdata.get("memberContent"));
-			//si.setMidreply(midreply);
 			si.setPlan((String)formdata.get("plan"));
-			//si.setStatus(status);
+			si.setStatus((String)formdata.get("status"));
 			si.setTeamName((String)formdata.get("teamName"));
 			si.setUploadAuthorId(GetSessionUserId(request));
 			si.setUploadTime(new Timestamp(System.currentTimeMillis()));
+			//si.setDeclaration(declaration);申报书的设置
+			si.setDeclaration(Common.readProperties("path")+"/"+files.get(files.size()-3).getName());
+			//si.setMidreply(midreply);中期检查
+			si.setMidreply(Common.readProperties("path")+"/"+files.get(files.size()-2).getName());
+			//si.setConcludingRreport(concludingRreport);结题报告
+			si.setConcludingRreport(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
 			iAchievementService.insertSIAE(si);
 			/**
 			 * 文件的处理
 			 * */
 			List<AchievementPicture> pictureList = new ArrayList<>();
 			AchievementPicture pi;
-			for(int j = 0;j<files.size()-1;j++){
+			for(int j = 0;j<files.size()-4;j++){
 				File f = files.get(j);
 				String accessoryId = Common.uuid();
 				pi = new AchievementPicture();
@@ -569,8 +572,8 @@ public class AchievementController {
 			List<AchievementAccessory> aaList = new ArrayList<>();
 			String accessoryId = Common.uuid();
 			aa.setAccessoryId(accessoryId);
-			aa.setAccessoryName(files.get(files.size()-1).getName());
-			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryName(files.get(files.size()-4).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-4).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(achievementId);
 			aa.setAuthorId(GetSessionUserId(request));

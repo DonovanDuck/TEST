@@ -25,6 +25,7 @@ public class CourseExpand {
 	private Timestamp uploadTime;//上传时间
 	private String firstPicture;//第一张图片
 	private AchievementAccessory achievementAccessory;//课程拓展附件
+	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
 	public String getAchievementId() {
 		return achievementId;
 	}
@@ -133,6 +134,12 @@ public class CourseExpand {
 	public void setAchievementAccessory(AchievementAccessory achievementAccessory) {
 		this.achievementAccessory = achievementAccessory;
 	}
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 	@Override
 	public String toString() {
 		return "CourseExpand [achievementId=" + achievementId + ", courseId=" + courseId + ", achievementName="
@@ -141,13 +148,14 @@ public class CourseExpand {
 				+ ", guidanceTeacher=" + guidanceTeacher + ", member=" + member + ", memberNum=" + memberNum
 				+ ", browseVolume=" + browseVolume + ", uploadAuthorId=" + uploadAuthorId + ", compere=" + compere
 				+ ", teamName=" + teamName + ", finishTime=" + finishTime + ", uploadTime=" + uploadTime
-				+ ", firstPicture=" + firstPicture + ", achievementAccessory=" + achievementAccessory + "]";
+				+ ", firstPicture=" + firstPicture + ", achievementAccessory=" + achievementAccessory + ", deleteFlag="
+				+ deleteFlag + "]";
 	}
 	public CourseExpand(String achievementId, String courseId, String achievementName, String achievementCategory,
 			AchievementPicture achievementPhoto, String introduction, String achievementDetail, String guidanceTeacher,
 			String member, String memberNum, Integer browseVolume, String uploadAuthorId, String compere,
 			String teamName, Date finishTime, Timestamp uploadTime, String firstPicture,
-			AchievementAccessory achievementAccessory) {
+			AchievementAccessory achievementAccessory, Integer deleteFlag) {
 		super();
 		this.achievementId = achievementId;
 		this.courseId = courseId;
@@ -167,6 +175,7 @@ public class CourseExpand {
 		this.uploadTime = uploadTime;
 		this.firstPicture = firstPicture;
 		this.achievementAccessory = achievementAccessory;
+		this.deleteFlag = deleteFlag;
 	}
 	public CourseExpand() {
 		super();

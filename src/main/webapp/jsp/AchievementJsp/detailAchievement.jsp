@@ -119,12 +119,15 @@
 							<span style="margin-left: 4%; color: #999">${Achievement.introduction }</span>
 						</div>
 						<div class="col-md-12" style="padding: 0%; color: #999">
-							<h5>
-								负&nbsp&nbsp责&nbsp&nbsp人：${Achievement.compere
+							<h5>作品类别：${Achievement.achievementCategory }作品
+								<br> <br>负&nbsp&nbsp责&nbsp&nbsp人：${Achievement.compere
 								}&nbsp&nbsp&nbsp&nbsp<br> <br>
 								<c:if test="${not empty memberList}">团队成员：<c:forEach
 										items="${memberList }" var="li">${li }&nbsp&nbsp&nbsp</c:forEach>
+									<br>
+									<br>
 								</c:if>
+								指导教师：${Achievement.guidanceTeacher}
 							</h5>
 						</div>
 					</div>
@@ -203,9 +206,9 @@
 									style="padding: 0px; margin: 0px;">
 									<div class="col-md-12"
 										style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
-										<textarea class="form-control"
-											id="commentContent" rows="5" name="commentContent"
-											style="resize: none; height: 30%" placeholder="添加评论"></textarea>
+										<textarea class="form-control" id="commentContent" rows="5"
+											name="commentContent" style="resize: none; height: 30%"
+											placeholder="添加评论"></textarea>
 										<button type="submit"
 											class="btn btn-default btn-sm active pull-right"
 											style="position: relative; left: -20px; top: -40px;">发表</button>
@@ -217,24 +220,30 @@
 				</div>
 			</div>
 			<div class="relative col-md-3 panel panel-default"
-				style="margin-top: 1%; margin-left: 1%; padding: 1%">
+				style="margin-top: 1%; margin-left: 1%; padding: 6px">
+				<h4 style="margin: 0px; margin-top: 1%;">优秀作品</h4>
+				<hr style="margin: 0px; margin-top: 1%; margin-bottom: 2%">
 				<c:forEach items="${listAchievement }" var="item" begin="0" end="2"
 					varStatus="states">
 					<a
 						href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.achievementId }">
-						<div class="col-md-12 "
-							style="padding: 0px; margin-top: 2%; height: 100px">
-							<div class="relativeImg col-md-8"
-								style="padding: 0px; height: 100%">
-								<img alt=""
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }"
-									style="width: 100%; height: 100%">
-							</div>
-							<div class="relativeContent col-md-4" style="padding: 3px">
-								<p>${item.achievementName }</p>
-								<p
-									style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-x: hidden; overflow-y: hidden; word-break: break-all; text-overflow: ellipsis; -webkit-line-clamp: 1; color: gray;">${item.introduction }</p>
-								<p>${item.compere }</p>
+						<div class="col-md-12 panel panel-default"
+							style="padding: 4px; margin: 0%; height: 180px; margin-top: 2%">
+							<div class="outer">
+								<div class="img" style="width: 100%">
+
+									<img
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }"
+										alt="" style="width: 100%; height: 130px; min-width: 100%;" />
+									<div class="zhezhao">
+										<p class="p1">${item.introduction }</p>
+									</div>
+								</div>
+								<div class="text">
+									<p>
+										项目名：${item.achievementName }<br />负责人：${item.compere }
+									</p>
+								</div>
 							</div>
 						</div>
 					</a>

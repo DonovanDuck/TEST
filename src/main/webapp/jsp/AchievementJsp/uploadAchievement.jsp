@@ -70,7 +70,8 @@
 		 $("ul li").removeClass("active");
 		 $(this).addClass("active");
 		 }); */
-
+		var height = document.body.clientHeight;
+		 $("#content").height(height);
 		$("#categoryButton").click();
 	});
 
@@ -84,7 +85,7 @@
 		<div class="top">
 			<jsp:include page="/jsp/top.jsp" flush="true" />
 		</div>
-		<div class="content">
+		<div class="content" id="content">
 			<%-- 	<div class="col-md-12 topColumn" style="padding: 0%">
 				<div class="input-group col-md-4">
 					<span class="input-group-btn">
@@ -128,10 +129,10 @@
 			<button type="button" class="btn btn-primary" data-toggle="modal"
 				data-target=".bs-example-modal-sm" id="categoryButton"
 				style="display: none"></button>
-			<h3 class="text-center" style="margin: 0px; margin-bottom: 1%">上传作品</h3>
+			<h3 class="text-center" style="margin: 0px; margin-bottom: 1%;margin-top:1%">上传作品</h3>
 			<button type="button" class="btn btn-primary"
 				onclick="selectCategory()" data-dismiss="modal"
-				style="margin-left: 43%">作品类别选择</button>
+				style="margin-left: 43%;margin-top:4%">作品类别选择</button>
 			<div class="modal fade bs-example-modal-sm" tabindex="-1"
 				role="dialog" aria-labelledby="mySmallModalLabel">
 				<div class="modal-dialog modal-lg" style="margin-top: 15%"

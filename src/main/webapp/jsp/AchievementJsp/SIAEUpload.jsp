@@ -35,7 +35,38 @@
 			level = level + $(this).val() + ",";
 		});
 		$("#levelContent").val(level);
-		$("#formContent").submit();
+		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
+		 $("#content").find("input[type='text']").each(function(){
+                 if($(this).val()==""){
+			         alert($(this).attr("placeholder")+"    不可为空")
+			         judge = false;
+					 }
+					 });
+		 var detail = $("#detail").val();
+		 if(detail=="")
+			 {
+			 alert("作品详情    不可为空")
+	         judge = false;
+			 }
+		 $("#content").find("input[type='file']").each(function(){
+					 if($(this).val()==""){
+					 alert($(this).attr("placeholder")+"    不可为空")
+					 judge = false;
+					 }
+					 });
+		 $("#content").find("input[type='date']").each(function(){
+					 if($(this).val()==""){
+					 alert($(this).attr("placeholder")+"    不可为空")
+					 judge = false;
+					 }
+					 });
+		 if(judge)
+			 {
+			 $("#formContent").submit();
+			 }
+		 else{
+			 alert("信息补全再次提交");
+		 }
 	}
 </script>
 <script type="text/javascript">
@@ -45,7 +76,7 @@
 				$("#ulContent").append(mode);
 		});
 		$("#addLevelButton").click(function() {
-			var mode = "<li style='padding: 0%; margin-bottom: 1%;width: 80%;'><input type='text' class='form-control' id='level' name='level' placeholder='获奖内容'style='width: 100%;'></li>"		
+			var mode = "<li style='padding: 0%; margin-bottom: 1%;width: 82%;'><input type='text' class='form-control' id='level' name='level' placeholder='获奖内容'style='width: 100%;'></li>"		
 			$("#ulLevelContent").append(mode);
 		});
 	})
@@ -95,7 +126,7 @@
 						<input type="text" class="form-control" id="compere"
 							name="compere" style="float: left; width: 41%"
 							placeholder="作品负责人"><input type="text"
-							class="form-control" id="compereNum" name="compereNum"
+							class="form-control" id="memberNum" name="memberNum"
 							placeholder="学号"
 							style="width: 58%; float: left; margin-left: 1%;">
 					</div>
@@ -137,11 +168,12 @@
 					<ul class="col-md-12" style="padding: 0; list-style: none"
 						id="ulLevelContent">
 						<li id="liContent"
-							style="padding: 0%; margin-bottom: 1%; float: left; width: 80%;"><input
+							style="padding: 0%; margin-bottom: 1%; float: left; width: 82%;"><input
 							type="text" class="form-control" id="level" name="level"
 							placeholder="获奖内容" style="width: 100%;"></li>
 						<li class="text-center"
-							style="padding: 0%; margin-bottom: 1%; float: left" id="liButton">
+							style="padding: 0%; margin-bottom: 1%; float: left; margin-left: 3%"
+							id="liButton">
 							<button type="button" class="btn btn-primary btn-primary"
 								id="addLevelButton">添加奖项</button>
 						</li>
@@ -168,32 +200,35 @@
 					<div class="form-group" style="width: 50%; float: left">
 						<label for="picture"
 							style="float: left; margin-top: 1%; margin-right: 4%;">作品图片</label>
-						<input type="file" id="picture" name="img" multiple="multiple" />
+						<input type="file" id="picture" name="img" multiple="multiple"
+							placeholder="作品图片" />
 					</div>
 					<div class="form-group" style="width: 50%; float: left">
 						<label for="exampleInputFile"
 							style="float: left; margin-top: 1%; margin-right: 4%;">作品附件</label>
-						<input type="file" name="accessory" id="exampleInputFile">
+						<input type="file" name="accessory" id="exampleInputFile"
+							placeholder="作品附件">
 					</div>
 				</div>
 				<div class="form-group">
-					<label for="plan">作品计划</label> <input type="text"
-						class="form-control" id="plan" name="plan" placeholder="作品计划">
+					<label for="plan">作品计划</label>
+					<textarea class="form-control" id="plan" rows="10" name="plan"
+						style="resize: none; height: 30%" placeholder="作品计划"></textarea>
 				</div>
-				<div class="form-group">
-					<label for="declaration">申报书</label> <input type="text"
-						class="form-control" id="declaration" name="declaration"
-						placeholder="申报书">
-				</div>
-				<div class="form-group">
-					<label for="midreply">中期检查</label> <input type="text"
-						class="form-control" id="midreply" name="midreply"
-						placeholder="中期检查">
-				</div>
-				<div class="form-group">
-					<label for="concludingRreport">结题报告</label> <input type="text"
-						class="form-control" id="concludingRreport"
-						name="concludingRreport" placeholder="结题报告">
+				<div>
+					<div class="form-group" style="width: 32%; float: left">
+						<label for="declaration">申报书</label> <input type="file"
+							id="declaration" name="declaration" placeholder="申报书">
+					</div>
+					<div class="form-group" style="width: 32%; float: left">
+						<label for="midreply">中期检查</label> <input type="file"
+							id="midreply" name="midreply" placeholder="中期检查">
+					</div>
+					<div class="form-group"  style="width: 32%; float: left">
+						<label for="concludingRreport">结题报告</label> <input type="file"
+							id="concludingRreport" name="concludingRreport"
+							placeholder="结题报告">
+					</div>
 				</div>
 				<div class="form-group">
 					<label for="endTime">作品完成时间</label> <input type="date"

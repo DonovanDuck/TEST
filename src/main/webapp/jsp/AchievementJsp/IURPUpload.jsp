@@ -30,7 +30,38 @@
 		});
 		$("#memberContent").val(member);
 		$("#memberNumContent").val(memberNum);
-		$("#formContent").submit();
+		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
+		 $("#content").find("input[type='text']").each(function(){
+                if($(this).val()==""){
+			         alert($(this).attr("placeholder")+"    不可为空")
+			         judge = false;
+					 }
+					 });
+		 $("#content").find("input[type='file']").each(function(){
+					 if($(this).val()==""){
+					 alert($(this).attr("placeholder")+"    不可为空")
+					 judge = false;
+					 }
+					 });
+		 $("#content").find("input[type='number']").each(function(){
+			 if($(this).val()==""){
+			 alert($(this).attr("placeholder")+"    不可为空")
+			 judge = false;
+			 }
+			 });
+		 $("#content").find("input[type='date']").each(function(){
+					 if($(this).val()==""){
+					 alert($(this).attr("placeholder")+"    不可为空")
+					 judge = false;
+					 }
+					 });
+		 if(judge)
+			 {
+			 $("#formContent").submit();
+			 }
+		 else{
+			 alert("信息补全再次提交");
+		 }
 	}
 </script>
 <script type="text/javascript">
@@ -125,12 +156,14 @@
 					<div class="form-group" style="width: 50%; float: left">
 						<label for="picture"
 							style="float: left; margin-top: 1%; margin-right: 4%;">作品图片</label>
-						<input type="file" id="picture" name="img" multiple="multiple" />
+						<input type="file" id="picture" name="img" multiple="multiple"
+							placeholder="作品图片" />
 					</div>
 					<div class="form-group" style="width: 50%; float: left">
 						<label for="exampleInputFile"
 							style="float: left; margin-top: 1%; margin-right: 4%;">作品附件</label>
-						<input type="file" name="accessory" id="exampleInputFile">
+						<input type="file" name="accessory" id="exampleInputFile"
+							placeholder="作品附件">
 					</div>
 				</div>
 				<div class="form-group">

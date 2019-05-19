@@ -27,6 +27,7 @@ public class IURP {
 	private String projectCategory;//项目类别
 	private String firstPicture;//第一张图片
 	private Integer browseVolume;//浏览量
+	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
 	public String getProjectId() {
 		return projectId;
 	}
@@ -147,6 +148,12 @@ public class IURP {
 	public void setBrowseVolume(Integer browseVolume) {
 		this.browseVolume = browseVolume;
 	}
+	public Integer getDeleteFlag() {
+		return deleteFlag;
+	}
+	public void setDeleteFlag(Integer deleteFlag) {
+		this.deleteFlag = deleteFlag;
+	}
 	@Override
 	public String toString() {
 		return "IURP [projectId=" + projectId + ", projectName=" + projectName + ", introduction=" + introduction
@@ -155,17 +162,13 @@ public class IURP {
 				+ collectTheAmount + ", cooperator=" + cooperator + ", startTime=" + startTime + ", endTime=" + endTime
 				+ ", status=" + status + ", projectPhoto=" + projectPhoto + ", accessory=" + accessory + ", isshare="
 				+ isshare + ", projectCategory=" + projectCategory + ", firstPicture=" + firstPicture
-				+ ", browseVolume=" + browseVolume + "]";
-	}
-	public IURP() {
-		super();
-		// TODO Auto-generated constructor stub
+				+ ", browseVolume=" + browseVolume + ", deleteFlag=" + deleteFlag + "]";
 	}
 	public IURP(String projectId, String projectName, String introduction, String projectDetail, String compere,
 			String member, Float price, String memberNum, String uploadAuthorId, Integer collectTheAmount,
 			String cooperator, Date startTime, Date endTime, String status, AchievementPicture projectPhoto,
 			AchievementAccessory accessory, String isshare, String projectCategory, String firstPicture,
-			Integer browseVolume) {
+			Integer browseVolume, Integer deleteFlag) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -187,6 +190,11 @@ public class IURP {
 		this.projectCategory = projectCategory;
 		this.firstPicture = firstPicture;
 		this.browseVolume = browseVolume;
+		this.deleteFlag = deleteFlag;
+	}
+	public IURP() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 	
 	

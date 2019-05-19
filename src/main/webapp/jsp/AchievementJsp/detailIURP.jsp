@@ -70,10 +70,10 @@
 					traditional : true,
 					dataType : "json",
 					success : function(result) {
-						
+
 						var arr = eval(result);
 						alert(result);
-						
+
 						$("#commentContent").empty();
 						for (var i = 0; i < arr.length; i++) {
 							var msg = "<div class='col-md-12 panel panel-default' style='padding: 2%'><div class='col-md-3 text-center'><img style='width: 80px; height: 80px;' src='${pageContext.request.contextPath}/jsp/showImg.jsp?path="
@@ -85,7 +85,7 @@
 									+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>arr[i].uploadTime</p></div>";
 							$("#commentContent").append(msg);
 						}
-						
+
 					},
 					error : function() {
 					}
@@ -93,10 +93,6 @@
 	}
 </script>
 </head>
-
-
-
-
 <body class="body">
 	<div class="main">
 		<div class="top">
@@ -154,9 +150,13 @@
 						<div class="col-md-12" style="padding: 0%; color: #999">
 							<h5>
 								负&nbsp&nbsp责&nbsp&nbsp人：${IURP.compere }&nbsp&nbsp&nbsp&nbsp <br>
-								<br> 团队成员：
-								<c:forEach items="${memberList }" var="li">${li }
-								</c:forEach>
+								<br>
+								<c:if test="${not empty memberList}">团队成员：<c:forEach
+										items="${memberList }" var="li">${li }&nbsp&nbsp&nbsp</c:forEach>
+									<br>
+									<br>
+								</c:if>
+								作品类别：产学研作品
 							</h5>
 						</div>
 						<div class="col-md-12" style="padding: 0%">
@@ -188,14 +188,6 @@
 							<div class="col-md-12">${IURP.projectDetail }</div>
 						</div>
 					</div>
-					
-					
-					
-					
-					
-					
-					
-					
 					<div class="col-md-12 commentContent" id="commentContent"
 						style="display: none; padding: 0%">
 						<c:if test="${not empty comment }">
@@ -238,37 +230,35 @@
 									style="position: relative; left: -20px; top: -40px;">发表</button>
 							</div>
 						</div>
-						
-						
-						
-						
-						
-						
-						
-						
 						<!--   </form> -->
 					</div>
 				</div>
 			</div>
 			<div class="relative col-md-3 panel panel-default"
-				style="margin-top: 1%; margin-left: 1%; padding: 1%">
+				style="margin-top: 1%; margin-left: 1%; padding: 6px">
+				<h4 style="margin: 0px; margin-top: 1%;">优秀作品</h4>
+				<hr style="margin: 0px; margin-top: 1%; margin-bottom: 2%">
 				<c:forEach items="${listIURP }" var="item" begin="0" end="2"
 					varStatus="states">
 					<a
 						href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
-						<div class="col-md-12 "
-							style="padding: 0px; margin-top: 2%; height: 100px">
-							<div class="relativeImg col-md-8"
-								style="padding: 0px; height: 100%">
-								<img alt=""
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }"
-									style="width: 100%; height: 100%">
-							</div>
-							<div class="relativeContent col-md-4" style="padding: 3px">
-								<p>${item.projectName }</p>
-								<p
-									style="display: -webkit-box; -webkit-box-orient: vertical; overflow: hidden; overflow-x: hidden; overflow-y: hidden; word-break: break-all; text-overflow: ellipsis; -webkit-line-clamp: 1; color: gray;">${item.introduction }</p>
-								<p>${item.compere }</p>
+						<div class="col-md-12 panel panel-default"
+							style="padding: 4px; margin: 0%; height: 180px; margin-top: 2%">
+							<div class="outer">
+								<div class="img" style="width: 100%">
+
+									<img
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }"
+										alt="" style="width: 100%; height: 130px; min-width: 100%;" />
+									<div class="zhezhao">
+										<p class="p1">${item.introduction }</p>
+									</div>
+								</div>
+								<div class="text">
+									<p>
+										项目名：${item.projectName }<br />负责人：${item.compere }
+									</p>
+								</div>
 							</div>
 						</div>
 					</a>
