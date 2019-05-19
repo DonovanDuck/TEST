@@ -129,10 +129,17 @@ $(function() {
 				<div class="input3">
 					<span>开设学期：</span> <select name="selectTerm" id="selectTerm">
 						<c:forEach items="${listTerm }" var="listTerm">
+<<<<<<< HEAD
 							<option>${listTerm.startYear }/${listTerm.endYear }${listTerm.term
 								}</option>
 							<%-- <option>${listTerm.startYear }/${listTerm.endYear }&nbsp&nbsp${listTerm.term
 								}</option> --%>
+=======
+							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.termOne
+								}</option>
+							<option>${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.termTwo
+								}</option>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						</c:forEach>
 					</select>
 				</div>

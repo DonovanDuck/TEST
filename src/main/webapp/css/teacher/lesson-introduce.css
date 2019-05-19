@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /***************common style***************/
 *{
     margin:0;
@@ -18,4 +19,26 @@ main{
     width:80%;
 }
 
+=======
+/***************common style***************/
+*{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+.clear{
+    clear: both;
+}
+/***************common style***************/
+/***************main style***************/
+main{
+    width:80%;
+}
+
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 /***************main style***************/

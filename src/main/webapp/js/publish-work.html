@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html  ng-app="app" >
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="css/fileinput.min.css"/>
+		<link rel="stylesheet" type="text/css" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" crossorigin="anonymous">
+		
+		<link rel="stylesheet" type="text/css" href="css/wui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<link rel="stylesheet" type="text/css" href="css/bootstrap-table.min.css"/>
+		<script src="jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/plugins/piexif.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/plugins/sortable.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/fileinput.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap-table.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/bootstrap-table-zh-CN.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/locales/zh.js" type="text/javascript" charset="utf-8"></script>
+		<script src="themes/fas/theme.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="themes/explorer-fa/theme.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="js/angular.min.js"></script>
+		<script type="text/javascript" src="js/wui-date.js" charset="utf-8"></script>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				$("#editTime .wui-date-editor input").attr("name","task");
+				
+			});
+			 var $table;
+			 function InitMainTable () {
+			$table=$('#taskListTable').bootstrapTable({
+					url: 'data1.json',
+			        columns: [{
+			            checkbox: true,  
+			            visible: true                  //是否显示复选框  
+			        }, {
+			            field: 'taskTitle',
+			            title: '任务标题',
+			           
+			        }, {
+			            field: 'taskDeatil',
+			            title: '任务描述',
+			           
+			        }, {
+			            field: 'publisher',
+			            title: '发布者',
+			           
+			        }, {
+			            field: 'taskCategory',
+			            title: '分类',
+			            
+			        }, {
+			            field: 'courseId',
+			            title: '课程'
+			        }, {
+			            field: 'useNum',
+			            title: '使用次数'
+			           
+			        },]
+			       
+			    });
+					
+			};	
+				
+				
+			
+			var autoTextarea = function(elem, extra, maxHeight) {
+				extra = extra || 0;
+				var isFirefox = !!document.getBoxObjectFor || 'mozInnerScreenX' in window,
+					isOpera = !!window.opera && !!window.opera.toString().indexOf('Opera'),
+					addEvent = function(type, callback) {
+						elem.addEventListener ?
+							elem.addEventListener(type, callback, false) :
+							elem.attachEvent('on' + type, callback);
+					},
+					getStyle = elem.currentStyle ? function(name) {
+						var val = elem.currentStyle[name];
+						if (name === 'height' && val.search(/px/i) !== 1) {
+							var rect = elem.getBoundingClientRect();
+							return rect.bottom - rect.top -
+								parseFloat(getStyle('paddingTop')) -
+								parseFloat(getStyle('paddingBottom')) + 'px';
+						};
+						return val;
+					} : function(name) {
+						return getComputedStyle(elem, null)[name];
+					},
+					minHeight = parseFloat(getStyle('height'));
+				elem.style.resize = 'none';
+				var change = function() {
+					var scrollTop, height,
+						padding = 0,
+						style = elem.style;
+					if (elem._length === elem.value.length) return;
+					elem._length = elem.value.length;
+					if (!isFirefox && !isOpera) {
+						padding = parseInt(getStyle('paddingTop')) + parseInt(getStyle('paddingBottom'));
+					};
+					scrollTop = document.body.scrollTop || document.documentElement.scrollTop;
+					elem.style.height = minHeight + 'px';
+					if (elem.scrollHeight > minHeight) {
+						if (maxHeight && elem.scrollHeight > maxHeight) {
+							height = maxHeight - padding;
+							style.overflowY = 'auto';
+						} else {
+							height = elem.scrollHeight - padding;
+							style.overflowY = 'hidden';
+						};
+						style.height = height + extra + 'px';
+						scrollTop += parseInt(style.height) - elem.currHeight;
+						document.body.scrollTop = scrollTop;
+						document.documentElement.scrollTop = scrollTop;
+						elem.currHeight = parseInt(style.height);
+					};
+				};
+				addEvent('propertychange', change);
+				addEvent('input', change);
+				addEvent('focus', change);
+				change();
+			};
+
+			function selectfunction() {
+
+				$(".selectTaskButton").css("background-color", "#015293");
+				$(".selectTaskButton").css("color", "#fff");
+				$(".editTaskButton").css("background-color", "#fff");
+				$(".editTaskButton").css("color", "#000000");
+				$(".editTask").css("display","none");
+				$(".selectTask").css("display","block");
+			};
+
+			function editfunction() {
+				$(".editTaskButton").css("background-color", "#015293");
+				$(".editTaskButton").css("color", "#fff");
+				$(".selectTaskButton").css("background-color", "#fff");
+				$(".selectTaskButton").css("color", "#000000");
+				$(".editTask").css("display","block");
+				$(".selectTask").css("display","none");
+			};
+			function testud(){
+				
+				var startTime= $(".wui-date-editor input").val()
+				
+				$("#publishTime").val(startTime);
+			
+			};
+			 function load(){ 　　 
+				
+				$("#textarea").val('');
+				$("#input-id").css("data-show-preview",true);
+			 }; 　　
+			/*用window.onload调用myfun()*/
+
+
+
+
+			// $(".selectTaskButton").click(function(){
+			// 	
+			// 	 $(".selectTaskButton").css("background-color","#015293");
+			// 	$(".selectTaskButton").css("color","#fff");
+			// 	$(".editTaskButton").css("background-color","#fff");
+			// 	$(".editTaskButton").css("background-color","#000000"); */
+			// });
+			//  $(".editTaskButton").click(function(){
+			// 	$(".editTaskButton").css("background-color","#015293");
+			// 	$(".editTaskButton").css("color","#fff");
+			// 	$(".selectTaskButton").css("background-color","#fff");
+			// 	$(".selectTaskButton").css("color","#000000");
+			// })
+			
+			
+	
+			 
+
+		</script>
+
+	</head>
+	<body style="background-color: #F1F3F4;" onload="InitMainTable();">
+		<div style="width: 80%;height: 50px;margin: 0 auto;background-color: #fff;">
+			<div style="width: 20px;height: 50px;background: #015293;">
+
+			</div>
+		</div>
+		<div class="selectstyle" style="width: 80%;height: 50px;margin: 10px auto;background-color: #fff;">
+			<div class="selectTaskButton" onclick="selectfunction()" style="width: 50%;height: 50px;float: left;background-color: #015293;text-align: center;color: #fff;">
+				<span style="line-height: 50px;font-size: 16px;">选择作业</span>
+			</div>
+			<div class="editTaskButton" onclick="editfunction()" style="width: 50%;height: 50px;float: left;text-align: center;color: #000000;">
+				<span style="line-height: 50px;font-size: 16px;">自定义作业</span>
+			</div>
+
+		</div>
+
+
+		<div class="editTask" style="width: 80%;height: 100%;margin: 20px auto;background-color: #fff;padding: 30px 0;display: none;">
+			<div class="editTaskContent" style="margin: 30px 50px;">
+				<div style="height: 1px;width: 100%;">
+					<div class="input-group" style="float: left;width: 68%;margin-right: 2%;">
+						<span class="input-group-addon" id="basic-addon3" style="font-size: 20px;padding: 0 50px;font-weight: bold;">作业标题</span>
+						<input type="text" class="form-control" id="basic-url" aria-describedby="basic-addon3">
+					</div>
+					<div class="input-group" style="float: left;width: 30%;">
+						<span class="input-group-addon" id="basic-addon3" style="font-size: 20px;padding: 0 50px;font-weight: bold;">作业类型</span>
+						<div class="btn-group">
+							<button id="basic-url" type="button" class=" form-control btn btn-primary  dropdown-toggle" data-toggle="dropdown"
+							 aria-haspopup="true" aria-expanded="false">
+								<span style="font-size: 18px;margin-left: ;">Action</span> <span class="caret"></span>
+							</button>
+							<ul class="dropdown-menu">
+								<li><a href="#">Action</a></li>
+								<li><a href="#">Another action</a></li>
+								<li><a href="#">Something else here</a></li>
+
+								<li><a href="#">Separated link</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="taskdetail" style="width: 100%;padding-top: 40px;margin-top: 10px;">
+					<div class="panel panel-primary">
+						<div class="panel-heading">
+							<h3 class="panel-title">编辑作业</h3>
+						</div>
+
+						<textarea id="textarea" class="form-control" style="width: 100%;height: 100px;resize:none;" placeholder="编辑作业"></textarea>
+
+					</div>
+				</div>
+
+				<div class="form-group">
+				    <div class="file-loading">
+				        <input id="input-id" class="file" type="file" multiple  data-show-preview="false" data-show-caption="true">
+				    </div>
+				</div>
+				
+				<div id="editTime" class="input-group" style="width: 68%;margin-right: 2%;">
+					<span class="input-group-addon" id="basic-addon3" style="font-size: 20px;padding: 0 50px;font-weight: bold;">截至时间</span>
+					<wui-date 
+						format="yyyy-mm-dd hh:mm:ss" 
+						placeholder="请选择或输入日期" 
+						id="date4" 
+						btns="{'ok':'确定','now':'此刻'}" 
+						ng-model="date4"
+					>
+					</wui-date>
+				</div>
+				
+				<!-- <div class="wui-content">
+					<div class="wui-area">
+						<h4 class="h4">选择年月日 时分秒</h4>
+						<button onclick="testud()">测试</button>
+						<p>输出格式yyyy-mm-dd hh:mm:ss</p>
+						<wui-date 
+							format="yyyy-mm-dd hh:mm:ss" 
+							placeholder="请选择或输入日期" 
+							id="date4" 
+							btns="{'ok':'确定','now':'此刻'}" 
+							ng-model="date4"
+						>
+						</wui-date>
+					</div> -->
+					<input type="text" hidden="hidden" name="publishTime" id="publishTime" value="" />
+				<div class="toSubmit" style="width: 100%;height: 50px;margin-top: 50px;">
+					<div style="width: 20%;height: 50px;margin: 0 auto;">
+						<input class="btn btn-primary" type="submit" value="提交" style="float: left;margin-right: 25%;">
+						<input class="btn btn-default" type="submit" value="取消" style="float: left;">
+					</div>
+					
+				</div>
+				
+			</div>
+		</div>
+
+		<div class="selectTask" style="width: 80%;height: 100%;margin: 20px auto;background-color: #fff;padding: 30px 0;">
+			<div class="selectTaskContent" style="margin: 30px 50px;">
+				<span>这是一个快速发布优质作业的重要途径，当然您也可以选择点击右侧自定义标签自定义作业</span>
+				<div class="input-group" style="float: left;width: 30%;">
+					<span class="input-group-addon" id="basic-addon3" style="font-size: 20px;padding: 0 50px;font-weight: bold;">作业类型</span>
+					<div class="btn-group">
+						<button id="basic-url" type="button" class=" form-control btn btn-primary  dropdown-toggle" data-toggle="dropdown"
+						 aria-haspopup="true" aria-expanded="false">
+							<span style="font-size: 18px;margin-left: ;">Action</span> <span class="caret"></span>
+						</button>
+						<ul class="dropdown-menu">
+							<li><a href="#">Action</a></li>
+							<li><a href="#">Another action</a></li>
+							<li><a href="#">Something else here</a></li>
+				
+							<li><a href="#">Separated link</a></li>
+						</ul>
+					</div>
+				</div>
+				<div class="selectTaskList" style="margin-top: 20px;">
+					<table id="taskListTable"></table>
+				</div>
+				<div class="input-group" style="width: 68%;margin-right: 2%;">
+					<span class="input-group-addon" id="basic-addon3" style="font-size: 20px;padding: 0 50px;font-weight: bold;">截至时间</span>
+					<wui-date 
+						format="yyyy-mm-dd hh:mm:ss" 
+						placeholder="请选择或输入日期" 
+						id="date4" 
+						btns="{'ok':'确定','now':'此刻'}" 
+						ng-model="date4"
+					>
+					</wui-date>
+				</div>
+				<div class="toSubmit" style="width: 100%;height: 50px;margin-top: 50px;">
+					<div style="width: 20%;height: 50px;margin: 0 auto;">
+						<input class="btn btn-primary" type="submit" value="提交" style="float: left;margin-right: 25%;">
+						<input class="btn btn-default" type="submit" value="取消" style="float: left;">
+					</div>
+					
+				</div>
+			</div>
+
+		</div>
+
+
+		<script>
+			var text = document.getElementById("textarea");
+			autoTextarea(text); // 调用
+		</script>
+		<script type="text/javascript">
+			var app = angular.module('app',["wui.date"]);
+		</script>
+	</body>
+</html>

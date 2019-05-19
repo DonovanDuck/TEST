@@ -53,7 +53,11 @@ li{
 .teacher-friend span{
     font-weight: bold;
     font-size: 20px;
+<<<<<<< HEAD
  
+=======
+    float: left;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
     margin-left: 8%;
 }
 .main .input3 select{

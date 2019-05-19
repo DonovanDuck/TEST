@@ -21,6 +21,10 @@ public class Task {
 	private Integer taskPoint; //任务对应的积分
 	private Integer useNum; // 使用次数
 	private Integer watchNum; //查看次数
+<<<<<<< HEAD
+=======
+	private Integer upNum;//提交人数，用于在每次封装对象时使用，在数据库不需要建立
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	private List<Accessory> accessoryList; // 任务对应附件
 	public String getTaskId() {
 		return taskId;
@@ -64,6 +68,15 @@ public class Task {
 	public void setVirtualClassNum(String virtualClassNum) {
 		this.virtualClassNum = virtualClassNum;
 	}
+<<<<<<< HEAD
+=======
+	public String getCourseId() {
+		return courseId;
+	}
+	public void setCourseId(String courseId) {
+		this.courseId = courseId;
+	}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	public String getTaskType() {
 		return taskType;
 	}
@@ -82,6 +95,7 @@ public class Task {
 	public void setTaskPoint(Integer taskPoint) {
 		this.taskPoint = taskPoint;
 	}
+<<<<<<< HEAD
 	public List<Accessory> getAccessoryList() {
 		return accessoryList;
 	}
@@ -97,6 +111,8 @@ public class Task {
 	}
 	
 	
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	public Integer getUseNum() {
 		return useNum;
 	}
@@ -109,6 +125,7 @@ public class Task {
 	public void setWatchNum(Integer watchNum) {
 		this.watchNum = watchNum;
 	}
+<<<<<<< HEAD
 	@Override
 	public String toString() {
 		return "Task [taskId=" + taskId + ", taskTitle=" + taskTitle + ", taskDetail=" + taskDetail + ", publishTime="
@@ -120,6 +137,23 @@ public class Task {
 	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
 			String publisherId, String virtualClassNum, String courseId, String taskType, Integer status,
 			Integer taskPoint, Integer useNum, Integer watchNum, List<Accessory> accessoryList) {
+=======
+	public Integer getUpNum() {
+		return upNum;
+	}
+	public void setUpNum(Integer upNum) {
+		this.upNum = upNum;
+	}
+	public List<Accessory> getAccessoryList() {
+		return accessoryList;
+	}
+	public void setAccessoryList(List<Accessory> accessoryList) {
+		this.accessoryList = accessoryList;
+	}
+	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
+			String publisherId, String virtualClassNum, String courseId, String taskType, Integer status,
+			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, List<Accessory> accessoryList) {
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
@@ -134,6 +168,10 @@ public class Task {
 		this.taskPoint = taskPoint;
 		this.useNum = useNum;
 		this.watchNum = watchNum;
+<<<<<<< HEAD
+=======
+		this.upNum = upNum;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		this.accessoryList = accessoryList;
 	}
 	public Task() {
@@ -141,5 +179,8 @@ public class Task {
 		// TODO Auto-generated constructor stub
 	}
 	
+<<<<<<< HEAD
 	
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 }

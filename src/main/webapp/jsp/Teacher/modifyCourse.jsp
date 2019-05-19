@@ -47,6 +47,7 @@
 		float:left;
 		margin-left: 170px;
 	}
+<<<<<<< HEAD
 	.modifyCourse{
 		width: 182px;
 		font-size: 10px;
@@ -54,6 +55,8 @@
 		top: 10px;
 		left: -181px;
 	}
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 </style>
 <script>
 $('#exampleModal').on('show.bs.modal', function (event) {
@@ -153,16 +156,23 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 <body>
 	<div class="wrapper">
 		<jsp:include page="/jsp/top.jsp" flush="true"/>
+<<<<<<< HEAD
 		<div class="modifyCourse">
 			<h2>修改课程信息</h2>
 		</div>
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		<div class="main" style="height: auto;min-height: 780px;">
 			<form action="${pageContext.request.contextPath}/teacher/modifyCourse/${course.courseId}"  method="post"  enctype="multipart/form-data">
 				<input type="hidden" name="publisherId" value="${employeeNum }">
 				<div class="input1">
 					<span>课程名称：</span> <input name="courseName" type="text"
 						placeholder="" value="${course.courseName }"
+<<<<<<< HEAD
 						style="width: 60%; height: 30px; float: left; margin-left: 2%;font-size: 20px;">
+=======
+						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 				</div>
 				<div class="input1">
 					<ul class="phoneUl">

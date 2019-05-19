@@ -9967,7 +9967,11 @@ var LocalStorage = UE.LocalStorage = (function () {
 UE.plugins['defaultfilter'] = function () {
     var me = this;
     me.setOpt({
+<<<<<<< HEAD
         'allowDivTransToP':false,
+=======
+        'allowDivTransToP':true,
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
         'disabledTableInTable':true
     });
     //默认的过滤处理

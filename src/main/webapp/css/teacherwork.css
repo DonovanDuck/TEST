@@ -1,0 +1,59 @@
+.worktitle{
+	width: 80%;
+	height: 50px;
+	text-align:center;
+	margin:0 auto;
+	background-color: #FFFFFF;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+.workdiv{
+	width: 80%;
+	height: 100%;
+	text-align:center;
+	margin:0 auto;
+	background-color: #FFFFFF;
+	padding: 20px 30px;
+}
+.workcontent{
+	width: 100%;
+	height: 100%;
+	text-align:center;
+	margin:0 auto;
+}
+.accessorylist{
+	clear: both;
+	padding-top: 10px;
+}
+
+.publishdiv{
+	width: 80%;
+	height: 100%;
+	margin:10px auto;
+	background-color: #FFFFFF;
+	padding: 20px 30px;
+}
+.publishcontent{
+	
+	width: 100%;
+	height: 100%;
+	margin:0 auto;
+}
+.publishstaus{
+	height: 20px;
+	width: 100%;
+}
+.published{
+	margin-left: 10px;
+	text-decoration:none;
+	color: #000000;
+}
+.unpublish{
+	text-decoration:none;
+	margin-left: 30px;
+	color: #000000;
+}
+.studentinfo{
+	height: 100px;
+	width: 100%;
+}
