@@ -12,11 +12,23 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
+<<<<<<< HEAD
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+=======
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
@@ -141,9 +153,20 @@ public  class  Common {
 		try {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
+<<<<<<< HEAD
 			String path = readProperties("path");
 			if(!"".equals(id) && id != null && !id.isEmpty()){
 				path +="/"+id;
+=======
+			String studentId = (String) request.getSession().getAttribute("studentId");
+			String path = readProperties("path");
+			if(!"".equals(id) || id != null){
+				if(studentId==null||studentId.equals("")) {
+					path +="/"+id;
+				}else {
+					path +="/"+id+"/"+studentId;
+				}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 			}
 			// 创建工厂
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -451,5 +474,78 @@ public  class  Common {
         }
         return include;
     }
+<<<<<<< HEAD
+=======
+
+	/**
+     * 判断当前时间是否在[startTime, endTime]区间，注意时间格式要一致
+     * 
+     * @param nowTime 当前时间
+     * @param startTime 开始时间
+     * @param endTime 结束时间
+     * @return
+     * @author wenli
+	 * @throws ParseException 
+     */
+    public static boolean isEffectiveDate(Timestamp now, Timestamp start, Timestamp ended) throws ParseException {
+    	String format = "yyyy-MM-dd HH:mm:ss";
+    	Date nowTime = new java.util.Date(now.getTime());
+    	Date startTime = new java.util.Date(start.getTime());
+    	Date endTime = new java.util.Date(ended.getTime());
+    	DateFormat df=new SimpleDateFormat(format);
+    	nowTime=df.parse(df.format(nowTime )) ;
+    	startTime=df.parse(df.format(startTime )) ;
+    	endTime=df.parse(df.format(endTime )) ;
+        if (nowTime.getTime() == startTime.getTime()
+                || nowTime.getTime() == endTime.getTime()) {
+            return true;
+        }
+
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+
+        Calendar begin = Calendar.getInstance();
+        begin.setTime(startTime);
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTime);
+
+        if (date.after(begin) && date.before(end)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    /**
+     * @author wenli
+     * @return
+     * 计算时间差
+     */
+    public static String timeDifference(Timestamp now,Timestamp end) {
+    		String timeEnd="";
+			DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			try { 
+			    Date d2 = df.parse(Common.getTimeStampNumberFormat(now)); 
+			    Date d1 = df.parse(Common.getTimeStampNumberFormat(end)); 
+			    long date = d1.getTime() - d2.getTime(); 
+			    long day = date / (1000 * 60 * 60 * 24);  
+			    long hour = (date / (1000 * 60 * 60) - day * 24);  
+			    long min = ((date / (60 * 1000)) - day * 24 * 60 - hour * 60);
+			    long s = (date/1000 - day*24*60*60 - hour*60*60 - min*60);
+			    System.out.println(""+day+"天"+hour+"小时"+min+"分"+s+"秒"); 
+			    timeEnd=day+"天"+hour+"小时";
+			}catch (Exception e) {
+				System.out.println("时间差出错了");
+			}
+			return timeEnd;
+    }
+    static String getTimeStampNumberFormat(Timestamp formatTime) {
+        SimpleDateFormat mFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return mFormat.format(formatTime);
+    }
+    
+    
+
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	
 }

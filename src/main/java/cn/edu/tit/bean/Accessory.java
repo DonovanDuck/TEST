@@ -1,7 +1,10 @@
+<<<<<<< HEAD
 /**
  * 任务（作业、实验、课程设计）相关附件 
  *
  */
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 package cn.edu.tit.bean;
 
 import java.io.File;

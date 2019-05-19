@@ -11,14 +11,27 @@ import org.springframework.stereotype.Repository;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Accessory;
+<<<<<<< HEAD
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+=======
+import cn.edu.tit.bean.Achievement;
+import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.IndustryUniversityResearchProject;
+import cn.edu.tit.bean.Paper;
+import cn.edu.tit.bean.Prize;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Resource;
 import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+<<<<<<< HEAD
+=======
+import cn.edu.tit.bean.TeacherProject;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 
@@ -33,6 +46,10 @@ public interface ITeacherDao {
 	public List<Course>	 courseList(List<String> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表1
 	public Course searchCourseById(String courseId); // 根据courseId查询
 	public List<Student> studentList(List<String> classNums)throws Exception;		//学生列表模块1
+<<<<<<< HEAD
+=======
+	
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块1
 	public List<String> searchRealClassNum(String virtualClassNum)throws Exception;		//查询虚拟班级对应的自然班列表模块1
 	public void mapVirtualRealClass(@Param("realClassNum")String realClassNum,@Param("virtualClassNum")String virtualClassNum)throws Exception;	//创建虚拟班和自然班映射模块1
@@ -46,7 +63,11 @@ public interface ITeacherDao {
 	public void UpdateTeacher(Teacher teacher)throws Exception;
 	
 	public void createTask(Task task)throws Exception;	//创建任务1
+<<<<<<< HEAD
 	public void mapClassTask(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId)throws Exception;	//1把任务映射到班级任务表中
+=======
+	public void mapClassTask(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId,@Param("taskEndTime")Timestamp taskEndTime)throws Exception;	//1把任务映射到班级任务表中
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	
 	public void stopTask(String taskId)throws Exception;	//截止任务1
 	public void restartTask(String taskId)throws Exception;	//重新启动任务，任务未过期1
@@ -57,7 +78,11 @@ public interface ITeacherDao {
 	
 	public List<String> searchTaskId(String virtualClassNum)throws Exception;//查找班级对应的taskid号1
 	public List<Task> TaskList(List<String> taskIds)throws Exception;	//显示所有任务列表1
+<<<<<<< HEAD
 	public List<Task> teacherTaskAssortmentList(@Param("taskIds")List<String> taskId,@Param("taskCategory")String taskCategory)throws Exception;//根据不同任务类型显示作业列表
+=======
+	public List<Task> teacherTaskAssortmentList(@Param("taskIds")List<String> taskIds,@Param("taskCategory")String taskCategory)throws Exception;//根据不同任务类型显示作业列表
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情1
 	public Integer searchTaskPoint(String taskCategory)throws Exception;	//根据任务类型查找分值
@@ -226,7 +251,11 @@ public interface ITeacherDao {
 	 * 获取标志位，查老师是否是课程创建者
 	 * @return
 	 */
+<<<<<<< HEAD
 	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId,@Param(value="manager")int manager);
+=======
+	public Integer getManagerByEmployeeNum(@Param(value="employeeNum")String employeeNum, @Param(value="courseId")String courseId);
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	
 	/**
 	 * 根据时间获取前十二个课程信息到首页
@@ -254,6 +283,7 @@ public interface ITeacherDao {
 	 */
 	public String getVirtualClassNumByVidAndRid(@Param(value="realClassNum")String realClassNum,@Param(value="virtualClassNum")String virtualClassNum);
 	
+<<<<<<< HEAD
 	/**
 	 * 取消关注
 	 * @param courseId
@@ -290,4 +320,78 @@ public interface ITeacherDao {
 	 * 根据任务类型和课程查询该课程下的任务
 	 */
 	public List<Task> getTaskByPointAndCourse(@Param(value="taskCategory")String taskCategory,@Param(value="courseId")String courseId);
+=======
+	public List<Prize> prizeList();
+	public List<TeacherProject> teacherProjectList();
+	public List<IndustryUniversityResearchProject> industryUniversityResearchProjectList();
+	public List<Achievement> achievementList();
+	public List<Paper> paperList();
+	/**
+	 * @author wenli
+	 * @return
+	 * 获得已提交作业的所有学生的学号集合
+	 */
+	public List<String> getStudentIdListOfUped(@Param("taskId")String taskId);
+	/**
+	 * @author wenli
+	 * @return
+	 * 获得已提交作业的所有学生的实体
+	 */
+	public List<Student> getStudentListOfUped(@Param("studentIdList")List<String> studentIdList);
+	/**
+	 * @author wenli
+	 * @param classNums
+	 * @param studentIds
+	 * @return
+	 * 获得未提交作业的所有学生的实体
+	 */
+	public List<Student> getStudentListOfNotUp(@Param("classNums")List<String> classNums,@Param("studentIds")List<String> studentIds);
+	/**
+	 * @author wenli
+	 * @param virtualClassNum
+	 * @param taskId
+	 * @return
+	 * 获取虚拟班中已经提交作业的人数
+	 */
+	public Integer getUpNum(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);
+	/**
+	 * @author wenli
+	 * @param comment
+	 * @param grade
+	 * 设置作业的评语和分数
+	 */
+	public void setGradeAndComment(@Param("comment")String comment,@Param("grade")Integer grade,@Param("studentId")String studentId,@Param("taskId")String taskId);
+	/**
+	 * @author wenli
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 * 获得学生作业的分数
+	 */
+	public Integer getGrade(@Param("taskId")String taskId,@Param("studentId")String studentId);
+	/**
+	 * @author wenli
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 * 获得学生作业的评语
+	 */
+	public String getComment(@Param("taskId")String taskId,@Param("studentId")String studentId);
+	/**
+	 * @author WENLI
+	 * @param courseId
+	 * @param taskCategory
+	 * @return
+	 * 用于教师选择发布作业模块，根据课程和类型查找作业
+	 */
+	public List<Task> getTaskListPage(@Param("courseId")String courseId,@Param("taskCategory")String taskCategory);
+	/**
+	 * @author WENLI
+	 * @param VirtualClassNum
+	 * @param taskId
+	 * @return
+	 * 在class_task表中获得任务截至时间
+	 */
+	public Timestamp getTaskEndTime(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 }

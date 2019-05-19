@@ -1,6 +1,15 @@
+<<<<<<< HEAD
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+=======
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -40,8 +49,13 @@
 	.confirm_close{
 	   width: 100%;
     height: 50px;
+<<<<<<< HEAD
             top: 25px;
     left: 98px;
+=======
+            top: -7px;
+    left: 195px;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
     position: relative;
 	}
 	.confirm_close ul li{
@@ -49,6 +63,7 @@
 		float:left;
 		margin-left: 170px;
 	}
+<<<<<<< HEAD
 	.createCourse{
 		width: 182px;
 		font-size: 10px;
@@ -56,6 +71,8 @@
 		top: 10px;
 		left: 165px;
 	}
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 </style>
 <script>
 $('#exampleModal').on('show.bs.modal', function (event) {
@@ -69,6 +86,7 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 	})
 </script>
 
+<<<<<<< HEAD
 <script>
 function checkboxOnclick(checkbox){
 	if(checkbox.checked == true){
@@ -153,10 +171,31 @@ function checkboxOnclick2(checkbox){
 						} 
 					}
 				});
+=======
+<script type="text/javascript">
+	$(function(){
+		$("#pull").click(function(){
+			$.ajax({
+				async:false,
+				cache:false,
+				url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers",
+				type:"POST",
+				dataType:"json",
+				success:function(result) {
+					//alert(result);
+					 var arr = eval(result);
+					for(var i = 0; i < arr.length; i++){
+						//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+						$("#teacher").append("<input id='teacher' type='checkbox' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName);
+					} 
+				}
+			});
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		});
 	});
 </script>
 
+<<<<<<< HEAD
 
  <script type="text/javascript">
 	$(function() {
@@ -179,6 +218,33 @@ function checkboxOnclick2(checkbox){
 
 											});
 							$(".teacher").remove();
+=======
+ <script type="text/javascript">
+	$(function() {
+		//定义两个全局变量
+		var checked = [];//点击确认后获取的多选框的值
+		var new_arr = []; //经过筛选后的多选框的值，无重复值
+		$("#confirm")
+				.click(
+						function() {
+							$('input:checkbox:checked')
+									.each(
+											function() {
+												checked.push($(this).val()); //获取到多选框的一个值
+												for (var i = 0; i < checked.length; i++) {
+													var items = checked[i];
+													if ($.inArray(items,
+															new_arr) == -1) {
+														new_arr.push(items);//判断元素是否已在new_arr
+														$("#selectedRealClassUI")
+																.append(
+																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;width: 30%;'>"
+																				+ "<span>教师:</span><input value='"+items+"' name='selectedTeacherContent' style='width: 50%;' id='selectedTeacherContent'/></li>");
+													}
+												}
+
+											});
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						});
 	});
 </script> 
@@ -233,11 +299,17 @@ $(function() {
 	$(function(){
 		$("#close").click(function(){
 			//拟态框每次关闭要清除之前信息，否则会叠加
+<<<<<<< HEAD
 			$(".teacher").remove();
 			//$(".back_up_li").remove();
 			$("#employeeNum").val("");
 			//清除后要留一空li,以保证下次成功动态加载
 			$("#teacherul").append(" <li id="+"teacher"+">"+"</li>");
+=======
+			$("#teacher").remove();
+			//清除后要留一空li,以保证下次成功动态加载
+			$("#teacherUl").append(" <li id="+"teacher"+">"+"</li>");
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		});
 	});
 </script>
@@ -268,6 +340,7 @@ $(function() {
 
 </head>
 <body>
+<<<<<<< HEAD
 	<div class="wrapper"></div>
 		<%-- <jsp:include page="/jsp/top.jsp" flush="true"/> --%>
 		<div class="createCourse">
@@ -282,12 +355,39 @@ $(function() {
 						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
 				</div>
 				<div class="input1">
+=======
+
+	<div class="wrapper" ></div>
+
+		<jsp:include page="/jsp/top.jsp" flush="true"/>
+			
+		<div class="main">
+		
+			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
+		
+				<input type="hidden" name="publisherId" value="${teacher.employeeNum }"/>
+					
+				<div class="input3">
+	
+					<span>课程名称：</span> 
+					
+					<input name="courseName"  type="text"  placeholder="请输入课程名称："  style="width: 60%; height: 30px; float: left; margin-left: 2%;"/>
+					
+				</div>
+				
+				<div class="input1">
+				
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 					<ul class="phoneUl">
 					<span style="float: left;" >添加图片：</span> 
 					<label for="faceImg" style="cursor: pointer">
 						<li>
 							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
+<<<<<<< HEAD
 								name="faceImg">
+=======
+								name="faceImg"/>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						</li>
 						<li><img id="photos" src="" width="100" height="100" /></li>
 					</label>
@@ -312,6 +412,7 @@ $(function() {
 		
 				
 				<!-- 拟态框star -->
+<<<<<<< HEAD
 					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
 	  					<div class="modal-dialog" role="document">
 							<div class="modal-content">
@@ -337,6 +438,14 @@ $(function() {
 									
 								</div>
 								<div style="clear:both"></div>
+=======
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+	  					<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<ul id="teacherul" style="list-style-type:none;">
+									<li id="teacher"></li>
+								</ul>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 								<div class="modal-footer">
 									<button id="close" type="button" class="btn btn-default"
 										data-dismiss="modal">关闭</button>
@@ -351,11 +460,19 @@ $(function() {
 					<h3>教师圈：</h3>
 					<div class="friend">
 						<ul id="selectedRealClassUI" style="list-style-type: none;">
+<<<<<<< HEAD
 							<%-- <li id="selectedTeachers" name=selectedTeachers
 								style="float: left; margin-left: 2%; width: 30%;">
 									<span>教师:</span>
 									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
 								</li> --%>
+=======
+							<li id="selectedTeachers" name=selectedTeachers
+								style="float: left; margin-left: 2%; width: 30%;">
+									<span>教师:</span>
+									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
+								</li>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						</ul>
 						<div class="add">
 							<button type="button" id="pull" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">拉入教师</button>
@@ -374,6 +491,7 @@ $(function() {
 			</form>
 		</div>
 		
+<<<<<<< HEAD
 		<%-- <jsp:include page="/jsp/footer.jsp" flush="true"/> --%>
 		
 		<!-- bootstrup -->
@@ -383,4 +501,15 @@ $(function() {
 	UE.getEditor('courseDetail');
 	
 </script>
+=======
+		<jsp:include page="/jsp/footer.jsp" flush="true"/>
+		
+		<!-- bootstrup -->
+		<script type="text/javascript" charset="utf-8">
+	UE.getEditor('courseDetail');
+	
+</script>
+</body>
+
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 </html>

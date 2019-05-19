@@ -21,6 +21,10 @@ import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Term;
+<<<<<<< HEAD
+=======
+import cn.edu.tit.bean.UpTask;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.VirtualClass;
 
 @Service
@@ -299,6 +303,7 @@ public class StudentServiceImpl implements IStudentService{
 	}
 
 	@Override
+<<<<<<< HEAD
 	public Integer getManagerByStudentId(String studentId, String courseId, int manager) {
 		// TODO Auto-generated method stub
 		return studentDao.getManagerByStudentId(studentId, courseId, manager);
@@ -309,4 +314,26 @@ public class StudentServiceImpl implements IStudentService{
 		// TODO Auto-generated method stub
 		studentDao.studentExitAttentionCourse(courseId, studentId);
 	}
+=======
+	public void upTask(UpTask upTask,String virtualClassNum) {
+		// TODO Auto-generated method stub
+		studentDao.upTaskThis(upTask);
+		studentDao.countUpTaskNum(upTask.getTaskId(),virtualClassNum);
+	}
+
+	@Override
+	public String getUpTaskDetail(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpTaskDetail(taskId, studentId);
+	}
+
+	@Override
+	public List<String> getUpAccessories(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpAccessories(taskId, studentId);
+	}
+
+	
+	
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 }

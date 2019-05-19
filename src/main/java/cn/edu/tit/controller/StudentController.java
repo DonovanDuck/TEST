@@ -8,6 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+<<<<<<< HEAD
+=======
+import java.util.Map;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +23,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+<<<<<<< HEAD
+=======
+
+import cn.edu.tit.bean.Accessory;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
@@ -26,6 +35,10 @@ import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
+<<<<<<< HEAD
+=======
+import cn.edu.tit.bean.UpTask;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
@@ -170,9 +183,16 @@ public class StudentController {
 		if(virtualList!=null) {
 			for (VirtualClass virtualClass : virtualList) {
 				term = studentService.readTermById(virtualClass.getTerm());
+<<<<<<< HEAD
 				if(term != null){
 					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
 				}
+=======
+				if(term!=null) {
+					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+				}
+				
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 			}
 		}
 		mv.addObject("listTerm", termList);//返回信息
@@ -278,4 +298,72 @@ public class StudentController {
 		mv.setViewName("/jsp/StudentJsp/studentCenter_MyClass");//设置返回页面
 		return mv;
 	}
+<<<<<<< HEAD
+=======
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 跳转到班级详情页
+	 * @throws Exception 
+	 */
+	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
+	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		String identify = "student";
+		request.getSession().setAttribute("identify", identify);
+		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
+		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);
+		Course course  = teacherService.getCourseById(virtualClass.getCourseId());
+		request.getSession().setAttribute("virtualClassName", virtualClassName);
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		Student student = (Student) request.getSession().getAttribute("student");
+		request.setAttribute("teacher", teacher);
+		request.setAttribute("student", student);
+		request.getSession().setAttribute("course", course);
+		mv.addObject("virtualClassName",virtualClassName);
+		mv.addObject("identify", identify);
+		mv.setViewName("/jsp/VirtualClass/classInfo");
+		return mv;
+	}
+	@RequestMapping(value="toUpTask/{taskId}")
+	public String toUpTask(HttpServletRequest request,@PathVariable String taskId) {
+		ModelAndView mv = new ModelAndView();
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
+		String term = teacherService.getVirtualById(virtualClassNum).getTerm();
+		Object[] obj = Common.fileFactory(request,taskId);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		// 创建list集合用于获取文件上传返回路径名
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		UpTask upTask = new UpTask();
+		upTask.setTaskId(taskId);
+		upTask.setStudentId(studentId);
+		upTask.setTerm(term);
+		upTask.setUpTaskDetail((String) formdata.get("upTaskDetail"));
+		studentService.upTask(upTask, virtualClassNum);
+		
+		if(!returnFileList.isEmpty()) {
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				accessory.setAccessoryName(file.getName());
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId(taskId);
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+			}
+			try {
+				studentService.upAccessory(accessories, studentId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		return "redirect:/student/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
+	}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 }

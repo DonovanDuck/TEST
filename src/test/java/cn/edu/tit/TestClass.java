@@ -53,11 +53,18 @@ public class TestClass {
 	
 	@Test
 	public void searchResourceByType(){
+<<<<<<< HEAD
 //		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByType(1);
 //		for(cn.edu.tit.bean.Resource r : resourceList){
 //			System.out.println(r.getPublishTime());
 //		}
 		System.out.println("7777-77-77 88".substring(0,10));
+=======
+		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByType(1);
+		for(cn.edu.tit.bean.Resource r : resourceList){
+			System.out.println(r.getPublishTime());
+		}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	}
 	@Test
 	public void searchResourcePathById(){
@@ -96,6 +103,10 @@ public class TestClass {
 	
 	@Test
 	public void getSignPoint() throws Exception{
+<<<<<<< HEAD
 		System.out.println(teacherDao.vagueSearchTeachers("1"));
+=======
+		System.out.println(teacherDao.getManagerByEmployeeNum("1", "1"));
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	}
 }

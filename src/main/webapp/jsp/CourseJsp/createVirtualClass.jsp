@@ -9,11 +9,19 @@
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>courseCreate</title>
 <link rel="stylesheet"
+<<<<<<< HEAD
 	href="${pageContext.request.contextPath}/css/create_lesson.css"
 	type="text/css">
 <link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
 <link rel="stylesheet" type="text/css"
 	href="${pageContext.request.contextPath}/css/common.css">
+=======
+	href="${pageContext.request.contextPath}/css/Course/create_lesson.css"
+	type="text/css">
+<link href="http://www.tit.edu.cn/images/logo.ico" rel="Shortcut Icon">
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/css/Course/common.css">
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 
 <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
 	rel="stylesheet">
@@ -27,6 +35,7 @@
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
+<<<<<<< HEAD
 <script type="text/javascript">
 	$(function() {
 		$("#realClassContent")
@@ -106,12 +115,103 @@
 				check = check + $(this).val() + ",";
 			});
 			$("#realClassToController").val(check);
+=======
+<script>
+	$('#exampleModal').on('show.bs.modal', function(event) {
+		var button = $(event.relatedTarget) // Button that triggered the modal
+		var recipient = button.data('whatever') // Extract info from data-* attributes
+		// If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+		// Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+		var modal = $(this)
+		modal.find('.modal-title').text('New message to ' + recipient)
+		modal.find('.modal-body input').val(recipient)
+	})
+</script>
+<script type="text/javascript">
+	$(function() {
+		$("#pull")
+				.click(
+
+						function() {
+							$
+									.ajax({
+										async : false,
+										cache : false,
+										url : "${pageContext.request.contextPath}/teacher/ajaxGetRealClass",
+										type : "POST",
+										dataType : "json",
+										success : function(result) {
+											var arr = eval(result);
+											for (var i = 0; i < arr.length; i++) {
+												$("#realClassLi")
+														.append(
+																"<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
+																		+ arr[i].realClassNum);
+											}
+										}
+									});
+						});
+	});
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		$("#close").click(
+				function() {
+					//拟态框每次关闭要清除之前信息，否则会叠加
+					$("#realClass").remove();
+					//清除后要留一空li,以保证下次成功动态加载
+					$("#realClassUl").append(
+							" <li id="+"realClass"+">"
+									+ "<input type='hidden' name='test'/>"
+									+ "</li>");
+				});
+	});
+</script>
+<script type="text/javascript">
+	$(function() {
+		//定义两个全局变量
+		var checked = [];//点击确认后获取的多选框的值
+		var new_arr = []; //经过筛选后的多选框的值，无重复值
+		$("#modalConfirm")
+				.click(
+						function() {
+							$('input:checkbox:checked')
+									.each(
+											function() {
+												checked.push($(this).val()); //获取到多选框的一个值
+												for (var i = 0; i < checked.length; i++) {
+													var items = checked[i];
+													if ($.inArray(items,
+															new_arr) == -1) {
+														new_arr.push(items);//判断元素是否已在new_arr
+														$("#selectedRealClass")
+																.append(
+																		"<li id='selectedRealClass' name='selectedRealClass' style='float: left;margin-left:2%;'>"
+																				+ "<input value='"+items+"' name='selectedRealClassContent' id='selectedRealClassContent'/></li>");
+													}
+												}
+
+											});
+						});
+	});
+</script>
+<script type="text/javascript">
+	$(function() {
+		$("#adsf").click(function() {
+			var check = ",";
+			$("input[name='realClass']:checked").each(function(i) {
+				check = check + $(this).val() + ",";
+			});
+			$("#realClassContent").val(check);
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		});
 	})
 </script>
 </head>
 <body>
 	<div class="wrapper">
+<<<<<<< HEAD
 		<%-- <jsp:include page="/jsp/top.jsp" flush="true" /> --%>
 		<div class="main_top" style="text-align: center;">
 			<h2 style="margin: 0; padding: 0;">创建新班级</h2>
@@ -125,10 +225,23 @@
 						style="width: 40%; height: 30px; float: left; margin-left: 4%;" id="courseName" name="courseName">
 						<c:forEach items="${courseList }" var="courses">
 							<option value="${courses.courseName }">${courses.courseName }</option>
+=======
+		<jsp:include page="/jsp/top.jsp" flush="true" />
+		<div class="main">
+			<form
+				action="${pageContext.request.contextPath}/teacher/createVirtualClass?courseId=null"
+				method="post">
+				<div class="input3">
+					<span>开设学期：</span> <select name="selectTerm" id="selectTerm">
+						<c:forEach items="${listTerm }" var="listTerm">
+							<option value="${listTerm.termId }">${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}</option>
+							
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						</c:forEach>
 					</select>
 				</div>
 				<div class="input1">
+<<<<<<< HEAD
 					<span>班级名称：</span> <input name="className" id="className"
 						style="width: 40%; height: 30px; float: left; margin-left: 2%;"
 						placeholder="班级名称">
@@ -173,13 +286,53 @@
 									id="realClassCheckbox" class="realClassCheckbox" />${item.realClassNum }</li>
 							</c:forEach>
 						</ul>
+=======
+					<!-- <span>开设课程：</span> 
+					
+					<input name="courseName" id="courseName"
+						value="${course.courseName }"
+						style="width: 40%; height: 30px; float: left; margin-left: 2%;"
+						readonly="readonly">
+						 -->
+						<span>开设课程:</span>
+            <select placeholder="" style="width: 40%; height: 30px; float: left; margin-left: 2%;" >
+            	<c:forEach items="${courseList }" var="courses">
+            	 	<option value="${courses.courseName }"
+            	 		 <c:if test="${!empty course && courses.courseName eq course.courseName }"> selected="selected" </c:if> >${courses.courseName }</option>
+            	</c:forEach>
+            </select>
+         
+				</div>
+				<div class="input1">
+					<span>班级名称：</span> <input name="className" id="className"
+						style="width: 40%; height: 30px; float: left; margin-left: 2%;">
+				</div>
+				<div class="teacher-friend">
+					<span>开设班级：</span>
+					<div class="friend">
+						<ul id="selectedRealClassUI" style="list-style-type: none;">
+							<li id="selectedRealClass" name=“selectedRealClass”
+								style="float: left; margin-left: 2%;"></li>
+						</ul>
+						<div class="add">
+							<button type="button" id="pull" class="btn btn-primary"
+								data-toggle="modal" data-target="#exampleModal"
+								data-whatever="@mdo">选择班级</button>
+						</div>
+						<input value="" name='realClassContent' id='realClassContent'
+							type="hidden" />
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 					</div>
 				</div>
 				<hr>
 				<div class="button">
 					<div class="create">
 						<span style="color: white;">
+<<<<<<< HEAD
 							<button type="onSubmit" id="submitButton" class="btn btn-primary">确定</button>
+=======
+							<button type="onSubmit" id="adsf" class="btn btn-primary">确定</button>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						</span>
 					</div>
 					<div class="delete">
@@ -188,12 +341,39 @@
 					</div>
 				</div>
 			</form>
+<<<<<<< HEAD
 		</div>
 		<!-- <div class="footer">
 			<div class="container">
 				row End
 				<div class="foot-bq">
 					版权内容请在本组件"内容配置-版权"处填写
+=======
+			<!-- 拟态框star -->
+			<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+				aria-labelledby="exampleModalLabel">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<ul id="realClassUl" style="list-style-type: none;">
+							<li id="realClassLi"><input type="hidden" name="test" /></li>
+						</ul>
+						<div class="modal-footer">
+							<button id="close" type="button" class="btn btn-default"
+								data-dismiss="modal">关闭</button>
+							<button type="button" class="btn btn-primary" id="modalConfirm"
+								data-dismiss="modal">确定</button>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- 拟态框end -->
+		</div>
+		<div class="footer">
+			<div class="container">
+				<!--row End-->
+				<div class="foot-bq">
+					<!-- 版权内容请在本组件"内容配置-版权"处填写 -->
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 					<div
 						style="width: 900px; text-align: center; float: left; position: relative; left: 135px; top: 8px;">
 						<p>地址：山西省太原市尖草坪区新兰路31号&nbsp;&nbsp;&nbsp;&nbsp;邮编：030008</p>
@@ -203,7 +383,11 @@
 					</div>
 				</div>
 			</div>
+<<<<<<< HEAD
 		</div> -->
+=======
+		</div>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	</div>
 </body>
 
