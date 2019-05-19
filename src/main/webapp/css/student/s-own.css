@@ -1,0 +1,342 @@
+/***************common style***************/
+* {
+	margin: 0;
+	padding: 0;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	color: black;
+	text-decoration: none;
+}
+
+.clear {
+	clear: both;
+}
+/***************common style***************/
+/***************header style***************/
+header {
+	width: 100%;
+	height: 100px;
+	background-image: url("../../images/head.png");
+}
+/***************header style***************/
+/***************main style***************/
+main {
+	width: 80%;
+	height: 830px;
+	margin: 0 auto;
+	background: #f2f2f2;
+}
+/***************main_t style***************/
+.main_t {
+	width: 100%;
+	height: 190px;
+	margin-top: 10px;
+}
+
+.images {
+	width: 15%;
+	height: 190px;
+	float: left;
+	overflow: hidden;
+}
+
+.message {
+	width: 85%;
+	height: 120px;
+	float: right;
+	margin-top: 4%;
+	background: white;
+}
+/***************main_t style***************/
+/***************main_b style***************/
+.main_b {
+	width: 100%;
+	height: 630px;
+}
+
+.main_b_l {
+	width: 16%;
+	height: 630px;
+	background: white;
+	margin-top: 10px;
+	margin-left: 1px;
+	float: left;
+}
+
+.nav1 {
+	width: 100%;
+	height: 60px;
+	margin-bottom: 2px;
+	text-align: center;
+	line-height: 60px;
+	position: relative;
+}
+
+.nav1 p img {
+	position: absolute;
+	top: 10px;
+	left: 18px;
+}
+
+.main_b_r {
+	width: 82%;
+	margin-top: 10px;
+	background: white;
+	float: right;
+	margin-right: 10px;
+}
+
+#k2 {
+	display: none;
+}
+
+#r2 {
+	width: 82%;
+	height: 630px;
+	margin-top: 10px;
+	background: white;
+	float: right;
+	margin-right: 1px;
+	display: none;
+}
+
+#r2 table tr {
+	border: 1px solid #f2f2f2;
+}
+
+#r3122. {
+	width: 82%;
+	height: 630px;
+	margin-top: 10px;
+	background: white;
+	float: right;
+	margin-right: 1px;
+	display: none;
+}
+
+#t2 {
+	display: none;
+}
+
+#t3 {
+	display: none;
+}
+
+#t4 {
+	display: none;
+}
+
+#r5 {
+	width: 82%;
+	height: 630px;
+	margin-top: 10px;
+	background: white;
+	float: right;
+	margin-right: 1px;
+	display: none;
+}
+
+#g2 {
+	width: 100%;
+	height: 630px;
+	background: white;
+	display: none;
+}
+
+.outer {
+	width: 100%;
+	height: 30px;
+	/*background:green;*/
+}
+
+.qr {
+	width: 70px;
+	height: 30px;
+	float: left;
+	text-align: center;
+	line-height: 30px;
+	background: orange;
+	color: white;
+}
+
+.qx {
+	width: 70px;
+	height: 30px;
+	float: left;
+	text-align: center;
+	line-height: 30px;
+	margin-left: 70px;
+	background: orange;
+	color: white;
+}
+
+.main_b_r_t {
+	width: 100%;
+	height: 58px;
+}
+
+.word1 {
+	width: 120px;
+	height: 58px;
+	text-align: center;
+	line-height: 58px;
+	float: left;
+	background: #00bc9b;
+}
+
+.word1 a {
+	color: white;
+}
+
+.word2 {
+	width: 120px;
+	height: 58px;
+	text-align: center;
+	line-height: 58px;
+	float: left
+}
+
+.word3 {
+	width: 150px;
+	height: 58px;
+	text-align: center;
+	line-height: 58px;
+	float: left
+}
+
+.word4 {
+	width: 120px;
+	height: 58px;
+	text-align: center;
+	line-height: 58px;
+	float: left
+}
+
+.hr {
+	width: 100%;
+	height: 2px;
+	background: #00bc9b;
+}
+
+.main_b_r_b {
+	width: 100%;
+	height: 540px;
+}
+
+.lesson {
+	width: 100%;
+	height: 125px;
+	margin-top: 10px;
+	border: 1px solid black;
+	margin-top:2%;
+}
+
+.lesson_l {
+	width: 25%;
+	height: 100%;
+	float: left;
+}
+
+.lesson_r {
+	width: 72%;
+	height: 130px;
+	float: right;
+}
+
+.lesson_r p {
+	margin-top: 3px;
+}
+
+.note {
+	width: 100%;
+	height: 100px;
+	background: #fffbf4;
+	margin-top: 10px;
+}
+
+.note_l {
+	width: 9%;
+	height: 90px;
+	float: left;
+	padding-top: 10px;
+	padding-left: 1%;
+}
+
+.note_r {
+	width: 90%;
+	height: 100px;
+	float: right;
+}
+
+.note_r p {
+	margin-top: 3px;
+}
+
+.r5_t {
+	width: 100%;
+	height: 60px;
+}
+
+.r5_t .h3 {
+	width: 30%;
+	height: 60px;
+	text-align: center;
+	line-height: 60px;
+	float: left;
+}
+
+.r5_t .h3 p {
+	font-size:24px;
+    font-weight: bold;
+}
+
+.r5_t .bj {
+	width: 15%;
+    height: 40px;
+    margin-right: 10px;
+    background: #00bc9b;
+    float: right;
+    text-align: center;
+    line-height: 40px;
+    margin-top: 10px;
+    border-radius: 5%;
+}
+
+.r5_t .bj p {
+	color: white;
+}
+
+.r5_b {
+	width: 100%;
+	height: 480px;
+	margin: 0 auto;
+}
+.r5_b_body{
+	margin-left:20%;
+}
+
+.r5_b p {
+    line-height: 30px;
+    margin-top: 1%;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+td{
+	text-align:center;
+}
+/***************main_b style***************/
+/***************main style***************/
+/***************footer style***************/
+footer {
+	overflow: hidden;
+	width: 100%;
+	height: 110px;
+	background-image: url("../../images/bottom.png");
+	margin-top: 1%;
+}
+/***************footer style***************/

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tit.idao.IAdminDao">
+
+	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
+		<id column="employee_num" property="employeeNum" />
+		<result column="teacher_name" property="teacherName" />
+		<result column="teacher_passwoed" property="teacherPassword" />
+		<result column="teacher_gender" property="teacherGender" />
+		<result column="education_background"
+			property="educationBackground" />
+		<result column="teacher_nickname" property="teacherNickName" />
+		<result column="professional_titles"
+			property="professionalTitles" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="teacher_category" property="teacherCategory" />
+	</resultMap>
+
+   <!-- 被抛弃的方法，备份。原目的：查询教师，添加管理员-->
+	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
+		<id column="employee_num" property="adminId" />
+		<result column="teacher_password" property="adminPassword" />
+		<result column="teacher_name" property="adminUsername" />
+	</resultMap>
+
+	<resultMap type="cn.edu.tit.bean.Admin" id="admin">
+		<id column="adminId" property="adminId" />
+		<result column="adminUsername" property="adminUsername" />
+		<result column="adminPassword" property="adminPassword" />
+	</resultMap>
+
+	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+		<id column="student_id" property="studentId" />
+		<result column="student_name" property="studentName" />
+		<result column="student_nickname" property="studentNickName" />
+		<result column="student_gender" property="studentGender" />
+		<result column="student_password" property="studentPassword" />
+		<result column="class_num" property="classNum" />
+		<result column="professional" property="professional" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="student_note" property="studentNote" />
+	</resultMap>
+
+	<resultMap type="cn.edu.tit.bean.Category" id="categoryMap">
+		<id column="category_id" property="categoryId" />
+		<result column="category_name" property="categoryName" />
+		<result column="category_detail" property="categoryDetail" />
+		<result column="category_num" property="categoryNum" />
+	</resultMap>
+
+	<!-- 增加教师信息 -->
+	<insert id="addTeacherInfo"
+		parameterType="cn.edu.tit.bean.Teacher">
+		INSERT ignore INTO teacher
+		(employee_num,
+		teacher_name,
+		teacher_password,
+		teacher_gender,
+		education_background,
+		professional_titles,
+		telephone,
+		email,
+		face_img,
+		teacher_nickname,
+		status,
+		teacher_category
+		)
+		values
+		<foreach item="teacher" collection="list" separator=",">
+			(
+			#{teacher.employeeNum,jdbcType=VARCHAR},
+			#{teacher.teacherName,jdbcType=VARCHAR},
+			#{teacher.teacherPassword,jdbcType=VARCHAR},
+			#{teacher.teacherGender,jdbcType=VARCHAR},
+			#{teacher.educationBackground,jdbcType=VARCHAR},
+			#{teacher.professionalTitles,jdbcType=VARCHAR},
+			#{teacher.telephone,jdbcType=VARCHAR},
+			#{teacher.email,jdbcType=VARCHAR},
+			#{teacher.faceImg,jdbcType=VARCHAR},
+			#{teacher.teacherNickName,jdbcType=VARCHAR},
+			#{teacher.status,jdbcType=VARCHAR},
+			#{teacher.teacherCategory,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!-- 增加学生信息 -->
+	<insert id="addStudentInfo"
+		parameterType="cn.edu.tit.bean.Student">
+		INSERT ignore INTO student
+		(student_id,
+		student_name,
+		student_gender,
+		student_password,
+		real_class_num,
+		professional,
+		telephone,
+		email,
+		face_img,
+		student_nickname,
+		status,
+		student_note,
+		student_category
+		)
+		VALUES
+		<foreach item="student" collection="list" separator=",">
+			(
+			#{student.studentId,jdbcType=VARCHAR},
+			#{student.studentName,jdbcType=VARCHAR},
+			#{student.studentGender,jdbcType=VARCHAR},
+			#{student.studentPassword,jdbcType=VARCHAR},
+			#{student.classNum,jdbcType=VARCHAR},
+			#{student.professional,jdbcType=VARCHAR},
+			#{student.telephone,jdbcType=VARCHAR},
+			#{student.email,jdbcType=VARCHAR},
+			#{student.faceImg,jdbcType=VARCHAR},
+			#{student.studentNickName,jdbcType=VARCHAR},
+			#{student.status,jdbcType=VARCHAR},
+			#{student.studentNote,jdbcType=VARCHAR},
+			#{student.studentCategory,jdbcType=VARCHAR}
+			)
+		</foreach>
+	</insert>
+
+	<!--读取教师信息 -->
+	<select id="readTeacherInfo" resultMap="teacherMap">
+		select * from teacher;
+	</select>
+
+	<!--读取学生信息 -->
+	<select id="readStudentInfo" resultMap="studentMap">
+		select * from student;
+	</select>
+
+	<!-- 增加管理员信息 -->
+	<insert id="addAdmin">
+		insert into admin (adminPassword, adminUsername) values
+		<foreach item="admin" collection="list" separator=",">
+			(#{admin.adminPassword},#{admin.adminUsername})
+		</foreach>
+	</insert>
+
+	<!-- 增加分类信息 -->
+	<insert id="addCategory">
+		insert into category
+		(category_id,category_name,category_detail,category_num)
+		values
+		<foreach item="categories" collection="list" separator=",">
+			(#{categories.categoryId},#{categories.categoryName},#{categories.categoryDetail},#{categories.categoryNum})
+		</foreach>
+	</insert>
+
+	<!--读取系部信息 -->
+	<select id="readCategory" resultMap="categoryMap">
+		select * from category ORDER BY category_num;
+	</select>
+
+	<!-- 更新分类信息 -->
+	<update id="updateCategory">
+		update category set
+		category_name =
+		#{categoryName},
+		category_detail =
+		#{categoryDetail}
+		where category_num =
+		#{categoryNum}
+	</update>
+
+	<!-- 增加课程类别信息 被抛弃功能 <insert id="addCourseKinds"> INSERT INTO course (course_id, 
+		course_name, course_detail, course_category, publisher_id, face_img) VALUES 
+		<foreach item="courseList" collection="list" separator=","> (#{courseList.courseId,jdbcType=VARCHAR}, 
+		#{courseList.courseName,jdbcType=VARCHAR}, #{courseList.courseDetail,jdbcType=VARCHAR}, 
+		#{courseList.courseCategory,jdbcType=VARCHAR}, #{courseList.publisherId,jdbcType=VARCHAR}, 
+		#{courseList.faceImg,jdbcType=VARCHAR}) </foreach> </insert> -->
+
+	<!-- 增加实体班级信息信息 -->
+	<insert id="addRealClass"
+		parameterType="java.util.List">
+		INSERT ignore INTO real_class
+		(real_class_num,
+		real_class_category,
+		real_person_num
+		)
+		VALUES
+		<foreach item="realClass" collection="list" separator=",">
+			(
+			#{realClass.realClassNum},
+			#{realClass.realClassCategory},
+			#{realClass.realPersonNum}
+			)
+		</foreach>
+	</insert>
+
+	<!--删除管理员信息 -->
+	<delete id="deleteAdmin">
+		DELETE FROM admin
+		<foreach item="adminList" collection="list" separator=",">
+			where
+			adminId = #{adminList.adminId};
+		</foreach>
+	</delete>
+	
+	<!--管理员登陆查询信息 -->
+	<select id="loginAdmin" resultMap="admin">
+		select * from admin where
+		adminUsername = #{adminUsername};
+	</select>
+
+	<!--更新老师信息 -->
+	<update id="updateTeacherInfo"
+		parameterType="cn.edu.tit.bean.Teacher">
+		UPDATE teacher
+		<set>
+			<if test="teacherName != null">teacher_name = #{teacherName},</if>
+			<if test="teacherPassword != null">teacher_password = #{teacherPassword},</if>
+			<if test="teacherGender != null">teacher_gender =#{teacherGender},</if>
+			<if test="educationBackground != null">education_background = #{educationBackground},</if>
+			<if test="professionalTitles != null">professional_titles = #{professionalTitles},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="faceImg != null">face_img = #{faceImg},</if>
+			<if test="teacherNickName != null">teacher_nickname = #{teacherNickName}</if>
+			<if test="status != null">status = #{status}</if>
+			<if test="teacherCategory != null">teacher_category = #{teacherCategory}</if>
+		</set>
+		WHERE employee_num = #{employeeNum}
+	</update>
+
+	<!--更新学生信息 -->
+	<update id="updateStudentInfo"
+		parameterType="cn.edu.tit.bean.Student">
+		UPDATE student
+		<set>
+			<if test="studentName != null">student_name = #{studentName},</if>
+			<if test="studentPassword != null">student_password = #{studentPassword},</if>
+			<if test="studentGender != null">student_gender =#{studentGender},</if>
+			<if test="classNum != null">class_num = #{classNum},</if>
+			<if test="professional != null">professional = #{professional},</if>
+			<if test="telephone != null">telephone = #{telephone},</if>
+			<if test="email != null">email = #{email},</if>
+			<if test="faceImg != null">face_img = #{faceImg},</if>
+			<if test="studentNickName != null">student_nickname = #{studentNickName}</if>
+			<if test="status != null">status = #{status}</if>
+			<if test="studentNote != null">student_note = #{studentNote}</if>
+			<if test="studentCategory != null">student_category = #{studentCategory}</if>
+		</set>
+		WHERE student_id = #{studentId}
+	</update>
+
+	<!--更新管理员信息 -->
+	<update id="updateAdmin" parameterType="cn.edu.tit.bean.Admin">
+		UPDATE admin
+		<set>
+			<if test="teacherName != null">adminUsername = #{adminUsername},</if>
+			<if test="teacherPassword != null">adminPassword = #{adminPassword}</if>
+		</set>
+		WHERE adminId = #{adminId}
+	</update>
+	<!-- 跟新实体班级学生人数 -->
+	<update id="updateStudentNumInRealClass" parameterType="java.lang.String">
+		update real_class set real_person_num=real_person_num+1 where real_class_num = #{realClassNum}
+	</update>
+</mapper>

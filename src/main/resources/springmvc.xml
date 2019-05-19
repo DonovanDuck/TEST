@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/context/spring-context.xsd
+http://www.springframework.org/schema/mvc
+http://www.springframework.org/schema/mvc/spring-mvc.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop.xsd">
+
+
+	<!--激活各种标签注解 -->
+	<!-- 启用Spring基于annotation的DI, 使用户可以在Spring MVC中使用Spring的强大功能。 激活 @Required -->
+	<!-- @Autowired,JSR 250's @PostConstruct, @PreDestroy and @Resource 等标注 -->
+	<context:annotation-config />
+
+
+	<!-- 使用组件扫描的方式可以一次扫描多个Controller -->
+	<context:component-scan
+		base-package="cn.edu.tit.controller,cn.edu.tit.controller.wxController">
+	</context:component-scan>
+
+	 <mvc:annotation-driven />
+	<!-- 注解请求映射 -->
+	<!-- <bean id="CsrfInterceptor" class="cn.edu.tit.interceptor.CsrfInterceptor"/>
+	 <bean id = "LoginInterceptor" class="cn.edu.tit.interceptor.LoginInterceptor"/>
+	<bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping">        
+        <property name="interceptors">
+            <list>  
+            	<ref bean="LoginInterceptor"/> 
+                <ref bean="CsrfInterceptor"/> 
+            </list>        
+        </property>        
+    </bean>      
+    <bean class="org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter">
+        <property name="messageConverters">  
+            <list>  
+                <ref bean="byteArray_hmc" />  
+                <ref bean="string_hmc" />  
+                <ref bean="resource_hmc" />  
+                <ref bean="source_hmc" />  
+                <ref bean="xmlAwareForm_hmc" />  
+                <ref bean="jaxb2RootElement_hmc" />  
+                <ref bean="jackson_hmc" />  
+            </list>  
+        </property>  
+    </bean>   -->
+    
+	<!-- <mvc:resources location="/img/" mapping="/img/**" /> -->
+	<!-- 配置视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!-- 使用前缀和后缀 -->
+		<property name="prefix" value="/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 自定义参数类型绑定 --><!-- @DateTimeFormat && @NumberFormat 进行类型转换 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<!-- <property name="converters"> <list> </list> </property> -->
+
+	</bean>
+
+
+	<!-- 访问静态资源文件 -->
+	<mvc:default-servlet-handler/> <!-- 需要在web.xml中配置 -->
+
+
+	<mvc:resources mapping="/images/**" location="/images/" />
+	<mvc:resources mapping="/css/**" location="/css/" />
+	<mvc:resources mapping="/js/**" location="/js/" />
+	<mvc:resources mapping="/imgdata/**" location="/imgdata/" />
+
+	<!-- 定义拦截器 -->
+	<!-- <mvc:interceptors>
+		在此声明拦截器位置,此处为公共拦截类
+		<bean class="cn.edu.tit.interceptor.CsrfInterceptor"/> <bean class="cn.edu.tit.interceptor.LoginInterceptor" 
+			/>
+
+		<mvc:interceptor>
+			对登陆进行csrf攻击拦截
+			<mvc:mapping path="/teacher/teacherLogin" />
+			<bean class="cn.edu.tit.interceptor.CsrfInterceptor" />
+		</mvc:interceptor>
+		<mvc:interceptor>
+			对登陆进行拦截
+			<mvc:mapping path="/teacher/courseList" />
+			<bean class="cn.edu.tit.interceptor.LoginInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors> -->
+	<!--配置上传文件数据解析器 -->
+	<!-- <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> 
+		<property name="maxUploadSize"> <value>9242880</value> </property> <property 
+		name="maxInMemorySize"> <value>-1</value> </property> </bean> -->
+
+	<!-- 定义全局异常处理器 -->
+	<!-- 只有一个全局异常处理器起作用 -->
+	<!-- springmvc提供的简单异常处理器 -->
+	<!-- <bean class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver"> 
+		定义默认的异常处理页面 <property name="defaultErrorView" value="/WEB-INF/jsp/error.jsp" 
+		/> 定义异常处理页面用来获取异常信息的变量名，也可不定义，默认名为exception <property name="exceptionAttribute" 
+		value="ex" /> 定义需要特殊处理的异常，这是重要点 <property name="exceptionMappings"> <props> 
+		<prop key="ssm.exception.CustomException">/WEB-INF/jsp/custom_error.jsp</prop> 
+		</props> 还可以定义其他的自定义异常 </property> </bean> -->
+	<!-- <bean id="exceptionResolver" class="exception.OverallExceptionResolver"></bean> -->
+
+
+</beans>

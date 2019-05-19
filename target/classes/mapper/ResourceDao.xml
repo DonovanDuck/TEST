@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="cn.edu.tit.idao.IResourceDao">
+	<!-- 结果集映射 -->
+	<resultMap type="cn.edu.tit.bean.Resource" id="resource">
+		<id column="resource_id" property="resourceId" />
+		<result column="resource_name" property="resourceName" />
+		<result column="resource_detail" property="resourceDetail" />
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="resource_type_id" property="resourceTypeId"/>
+		<result column="resource_path" property="resourcePath" />
+		<result column="course_id" property="courseId" />
+		<result column="size" property="size" />
+		<result column="time_size" property="timeSize" />
+		<result column="watch_num" property="watchNum" />
+		<result column="use_num" property="useNum" />
+	</resultMap> 
+	
+	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
+		<id column="task_id" property="taskId" />
+		<result column="task_title" property="taskTitle" />
+		<result column="task_detail" property="taskDetail" />
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="task_end_time" property="taskEndTime" />
+		<result column="task_end_time" property="courseId" />
+		<result column="status" property="status" />
+		<result column="task_category" property="taskType" />
+	</resultMap>
+
+	<!-- 添加资源到资源库 -->
+	<insert id = "addResourceToLib" parameterType="java.util.List">
+		insert into resource(resource_id, resource_name, resource_detail, publish_time, publisher_id, course_id, resource_path,resource_type_id,size,time_size,watch_num,use_num) values
+		<foreach collection="list" item="item" index="index"  separator="," >
+		(#{item.resourceId}, #{item.resourceName}, #{item.resourceDetail}, #{item.publishTime}, #{item.publisherId}, #{item.courseId}, #{item.resourcePath},
+			#{item.resourceTypeId},#{item.size},#{item.timeSize},#{item.watchNum},#{item.useNum})
+		</foreach>
+	</insert>
+	
+	<!-- 按班级查询资源 -->	
+	<select id="searchResourceByCourse" parameterType="java.lang.String" resultMap="resource">
+		select * from resource where course_id = #{courseId} order by publish_time DESC;
+	</select>
+	
+	<!-- 按id查询资源 -->	
+	<select id="showResource" parameterType="java.lang.String" resultMap="resource">
+		select * from resource 
+		<if test="null!=resourceId">
+			where resource_id = #{resourceId} 
+		</if>
+		order by publish_time DESC;
+	</select>
+	
+	<!-- 按类型查询资源 -->
+	<select id="searchResourceByType" parameterType="int" resultMap="resource">
+		select * from resource 
+		<if test="null!=resourceTypeId">
+			where resource_type_id = #{resourceTypeId} 
+		</if>
+		order by publish_time DESC;
+	</select>
+	
+	<!-- 通过id查询资源路径 -->
+	<select id="searchResourcePathById" parameterType="String" resultType="String">
+		select resource_path from resource where resource_id = #{resourceId};
+	</select>
+	
+	<!-- 通过资源名查找 -->
+	<select id="searchResourceByName" parameterType="String" resultMap="resource">
+		select * from resource where resource_name = #{resourceName} order by publish_time DESC;
+	</select>
+	
+	<!-- 通过知识点查询 -->
+	<select id="searchResourceByKnow" parameterType="String" resultMap="resource">
+		select * from resource where resource_detail like CONCAT('%',#{knowledgePoint}, '%') order by publish_time DESC;
+	</select>
+	
+	<!-- 绑定资源和班级 -->
+	<insert id="bandResourceAndClass" parameterType="java.lang.String">
+		insert into class_resource(virtual_class_num, resource_id) values (#{virtualClassNum}, #{resourceId});
+	</insert>
+	
+	<!-- 通过id查询资源 -->
+	<select id="searchResourceById" parameterType="String" resultMap="resource">
+		select * from resource where resource_id = #{resourceId};
+	</select>
+	
+	<!-- 通过虚拟班级号查询相关联的资源id -->
+	<select id="searchResourceIdByClass" parameterType="String" resultType="String">
+		select resource_id from class_resource where virtual_class_num = #{virtualClassNum};
+	</select>
+	
+	<!-- 通过课程id查询相应类型的任务资源 -->
+	<select id="searchTaskByTypeAndCid" resultMap="taskMap">
+		select * from task where task_category = #{taskType} and course_id = #{courseId} order by publish_time DESC;
+	</select>
+	
+	<!-- 通过课程id查询相应类型的教学资源 -->
+	<select id="searchResourceByTypeAndCid" resultMap="resource">
+		select * from resource where resource_type_id = #{resourceTypeId} and course_id = #{courseId} order by publish_time DESC;
+	</select>
+	
+	<!-- 根据ID 删除资源-->
+	<delete id="deleteResourceById" parameterType="java.lang.String">
+		DELETE FROM resource WHERE resource_id = #{resourceId};
+	</delete>
+	
+	<!--更新老师信息 -->
+	<update id="updateResource"
+		parameterType="cn.edu.tit.bean.Resource">
+		UPDATE resource
+		<set>
+			<if test="resourceName != null">resource_name = #{resourceName},</if>
+			<if test="resourceDetail != null">resource_detail = #{resourceDetail},</if>
+			<if test="publishTime != null">publish_time =#{publishTime},</if>
+			<if test="publisherId != null">publisher_id = #{publisherId},</if>
+			<if test="resourceTypeId != null">resource_type_id = #{resourceTypeId},</if>
+			<if test="resourcePath != null">resource_path = #{resourcePath},</if>
+			<if test="courseId != null">course_id = #{courseId},</if>
+			<if test="size != null">size = #{size},</if>
+			<if test="timeSize != null">time_size = #{timeSize},</if>
+			<if test="watchNum != null">watch_num = #{watchNum},</if>
+			<if test="useNum != null">use_num = #{useNum}</if>
+		</set>
+		WHERE resource_id = #{resourceId}
+	</update>
+</mapper>
