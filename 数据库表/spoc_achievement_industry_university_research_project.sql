@@ -41,6 +41,7 @@ CREATE TABLE `achievement_industry_university_research_project` (
   `price` float DEFAULT NULL,
   `member_num` varchar(255) DEFAULT NULL,
   `upload_author` varchar(255) DEFAULT NULL,
+  `delete_flag` int(11) DEFAULT NULL,
   PRIMARY KEY (`project_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -51,7 +52,7 @@ CREATE TABLE `achievement_industry_university_research_project` (
 
 LOCK TABLES `achievement_industry_university_research_project` WRITE;
 /*!40000 ALTER TABLE `achievement_industry_university_research_project` DISABLE KEYS */;
-INSERT INTO `achievement_industry_university_research_project` VALUES ('10E778F0D0C74817801B749C4D141209','成果名称','项目详情','项目负责人','项目成员,项目成,',NULL,'合作单位','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/2121.jpg','是','产学研','项目简介项目简介项目简介项目简介项目简介项目简项目简介项目简介项目简介项目简介项目简介项目简介介',245,55555,NULL,'1'),('246C4AD67A8C47A9B53C0A783D4C592E','产学研2','详情','负责人','项目成员 ,项目成,',NULL,'太原工业学院','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/fire.png','是','产学研','项目简介',2,8888890,'456,123,123,','1'),('EDADAD05E2BD4EC6A5A24AC99A851109','','产学研作品详情','黎明','黎明,项目成,',NULL,'太原工业学院','2019-01-01 00:00:00','2018-12-31 00:00:00',NULL,'/home/menahemli/Desktop/学生成果用例图.png','是','产学研','产学研作品简介',2,56,NULL,'1');
+INSERT INTO `achievement_industry_university_research_project` VALUES ('10E778F0D0C74817801B749C4D141209','成果名称','项目详情','项目负责人','项目成员,项目成,',NULL,'合作单位','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/2121.jpg','是','产学研','项目简介项目简介项目简介项目简介项目简介项目简项目简介项目简介项目简介项目简介项目简介项目简介介',357,55555,NULL,'1',0),('246C4AD67A8C47A9B53C0A783D4C592E','产学研2','详情','负责人','项目成员 ,项目成,',NULL,'太原工业学院','2019-01-01 00:00:00','2019-12-31 00:00:00',NULL,'/home/menahemli/Desktop/fire.png','是','产学研','项目简介',3,8888890,'456,123,123,','1',0),('EDADAD05E2BD4EC6A5A24AC99A851109','张教师65','产学研作品详情','黎明','黎明,项目成,',NULL,'太原工业学院','2019-01-01 00:00:00','2018-12-31 00:00:00',NULL,'/home/menahemli/Desktop/学生成果用例图.png','是','产学研','产学研作品简介',3,56,NULL,'1',1);
 /*!40000 ALTER TABLE `achievement_industry_university_research_project` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -64,4 +65,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-18 20:53:30
+-- Dump completed on 2019-05-19 19:38:02

@@ -36,6 +36,7 @@ CREATE TABLE `achievement_graduation_design_for_college_students` (
   `browse_volume` int(11) DEFAULT NULL,
   `member_num` varchar(255) DEFAULT NULL COMMENT '学生学号',
   `upload_author` varchar(255) DEFAULT NULL,
+  `delete_flag` int(11) DEFAULT NULL,
   PRIMARY KEY (`achievement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -46,7 +47,7 @@ CREATE TABLE `achievement_graduation_design_for_college_students` (
 
 LOCK TABLES `achievement_graduation_design_for_college_students` WRITE;
 /*!40000 ALTER TABLE `achievement_graduation_design_for_college_students` DISABLE KEYS */;
-INSERT INTO `achievement_graduation_design_for_college_students` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','毕业设计作品','毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品',NULL,NULL,'主持人','2019-01-10 00:52:28',NULL,'/home/menahemli/Desktop/2121.jpg',2323252,NULL,'1'),('4B43C63589494D7AA0E503F362AE668A','毕业设计2','毕业设计','项目简介','大沙发的沙发是的发生地方都是','指导教师','项目负责人','2019-01-01','2019-05-16','/home/menahemli/Desktop/2121.jpg',10,'','1');
+INSERT INTO `achievement_graduation_design_for_college_students` VALUES ('09708A3B8D8942929FE777E4D9DC5397','贪吃蛇大战奥特曼小游戏','毕业设计作品','毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品毕业设计作品',NULL,'张教师','主持人','2019-01-10 00:52:28',NULL,'/home/menahemli/Desktop/2121.jpg',2323254,NULL,'1',0),('4B43C63589494D7AA0E503F362AE668A','毕业设计2','毕业设计','项目简介','大沙发的沙发是的发生地方都是','指导教师','项目负责人','2019-01-01','2019-05-16','/home/menahemli/Desktop/2121.jpg',12,'','1',1);
 /*!40000 ALTER TABLE `achievement_graduation_design_for_college_students` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -59,4 +60,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-18 20:53:29
+-- Dump completed on 2019-05-19 19:38:00

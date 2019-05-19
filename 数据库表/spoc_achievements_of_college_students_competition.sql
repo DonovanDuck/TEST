@@ -40,6 +40,7 @@ CREATE TABLE `achievements_of_college_students_competition` (
   `browse_volume` int(11) DEFAULT NULL,
   `member_num` varchar(255) DEFAULT NULL,
   `upload_author` varchar(45) DEFAULT NULL,
+  `delete_flag` int(11) DEFAULT NULL,
   PRIMARY KEY (`achievement_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -50,7 +51,7 @@ CREATE TABLE `achievements_of_college_students_competition` (
 
 LOCK TABLES `achievements_of_college_students_competition` WRITE;
 /*!40000 ALTER TABLE `achievements_of_college_students_competition` DISABLE KEYS */;
-INSERT INTO `achievements_of_college_students_competition` VALUES ('09708A3B8D8942929FE777E4D9DC5397','大学生竞赛成果作品','大学生竞赛','作品简介大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品','',NULL,'项目成员,项目成,','主持人',NULL,NULL,NULL,'2019-01-10','2019-01-10','/home/menahemli/Desktop/1.jpg',10,NULL,'1'),('ECBAEBF269734884B60C8D911F4DB3EB','大学生竞赛作品2','大学生竞赛','作品简介','这里是作品详情','赵四','张五','张三负责','大学生竞赛团队名','山西一等奖,山西二等见,','这是一个好的作品，特点很足','2019-02-01','2019-05-16','/home/menahemli/Desktop/2121.jpg',26,NULL,'1');
+INSERT INTO `achievements_of_college_students_competition` VALUES ('09708A3B8D8942929FE777E4D9DC5397','大学生竞赛成果作品','大学生竞赛','作品简介大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品大学生竞赛成果作品','张教师张教师张教师张教师张教师张教师张教师','张教师','项目成员,项目成,','主持人',NULL,NULL,NULL,'2019-01-10','2019-01-10','/home/menahemli/Desktop/1.jpg',11,NULL,'1',0),('ECBAEBF269734884B60C8D911F4DB3EB','大学生竞赛作品2','大学生竞赛','作品简介','这里是作品详情','赵四','张五','张三负责','大学生竞赛团队名','山西一等奖,山西二等见,','这是一个好的作品，特点很足','2019-02-01','2019-05-16','/home/menahemli/Desktop/2121.jpg',26,NULL,'1',1);
 /*!40000 ALTER TABLE `achievements_of_college_students_competition` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -63,4 +64,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-18 20:53:29
+-- Dump completed on 2019-05-19 19:38:01
