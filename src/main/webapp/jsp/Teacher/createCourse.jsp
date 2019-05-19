@@ -1,9 +1,15 @@
+<<<<<<< HEAD
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+=======
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html lang="en">
 <head>
@@ -43,8 +49,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	.confirm_close{
 	   width: 100%;
     height: 50px;
+<<<<<<< HEAD
+<<<<<<< HEAD
+            top: 25px;
+    left: 98px;
+=======
             top: -7px;
     left: 195px;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+            top: 25px;
+    left: 98px;
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     position: relative;
 	}
 	.confirm_close ul li{
@@ -52,6 +68,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		float:left;
 		margin-left: 170px;
 	}
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	.createCourse{
+		width: 182px;
+		font-size: 10px;
+		position: relative;
+		top: 10px;
+		left: 165px;
+	}
+<<<<<<< HEAD
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 </style>
 <script>
 $('#exampleModal').on('show.bs.modal', function (event) {
@@ -65,6 +97,96 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 	})
 </script>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+<script>
+function checkboxOnclick(checkbox){
+	if(checkbox.checked == true){
+		var value = checkbox.value;
+		$("#back_up_ul").append("<li class='"+checkbox.value+"back back_up_li' style='float:left;margin-right: 18px;'><input class='back_up_input' type='checkbox' onclick='checkboxOnclick2(this)' checked='checked' value='"+checkbox.value+"'>"+checkbox.value+"</li>")
+		$("."+checkbox.value+"teach").remove();	 
+	}
+}
+</script>
+
+<script>
+function checkboxOnclick2(checkbox){
+	if(checkbox.checked == false){
+		$("#teacherul").append("<li class='"+checkbox.value+"teach teacher' style='float:left;margin-right: 18px;'><input class='back_up_input' type='checkbox' onclick='checkboxOnclick(this)' value='"+checkbox.value+"'>"+checkbox.value+"</li>")
+		$("."+checkbox.value+"back").remove();	 
+	}
+}
+</script>
+
+<<<<<<< HEAD
+<script type="text/javascript">
+	$(function(){
+		$("#pull").click(function(){
+			//alert($("#teacher").text());
+			if($("#teacher").text() == ""){
+				$.ajax({
+					async:false,
+					cache:false,
+					url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers",
+					type:"POST",
+					dataType:"json",
+					success:function(result) {
+						//alert(result);
+						 var arr = eval(result);
+						 var backarr = $(".back_up_input");
+						for(var i = 0; i < arr.length; i++){
+							//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+							var flag = true;
+							backarr.each(function(){
+								if(this.value == arr[i].employeeNum){
+									flag = false;
+								}
+							});
+							if(flag)
+							$("#teacherul").append("<li class='"+arr[i].employeeNum+"teach teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' onclick='checkboxOnclick(this)' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
+						} 
+					}
+				});
+			}
+			
+		});
+	});
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		$("#search").click(function(){
+			//alert($("#employeeNum").val());
+			var employeeNum = $("#employeeNum").val();
+			$(".teacher").remove();  //将模态框现有选项全部清除
+				$.ajax({   // 获取搜索结果
+					async:false,
+					cache:false,
+					url:"${pageContext.request.contextPath}/teacher/ajaxSearchTeachers",
+					type:"POST",
+					data:{"employeeNum" : employeeNum},
+					dataType:"json",
+					success:function(result) {
+						//alert(result);
+						 var arr = eval(result);
+						 var backarr = $(".back_up_input");
+						 
+						for(var i = 0; i < arr.length; i++){
+							//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+							var flag = true;
+							backarr.each(function(){
+								if(this.value == arr[i].employeeNum){
+									flag = false;
+								}
+							});
+							if(flag)
+							$("#teacherul").append("<li name='teacher' class='"+arr[i].employeeNum+"teach teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' onclick='checkboxOnclick(this)' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
+						} 
+					}
+				});
+=======
 <script type="text/javascript">
 	$(function(){
 		$("#pull").click(function(){
@@ -83,35 +205,131 @@ $('#exampleModal').on('show.bs.modal', function (event) {
 					} 
 				}
 			});
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+<script type="text/javascript">
+	$(function(){
+		$("#pull").click(function(){
+			//alert($("#teacher").text());
+			if($("#teacher").text() == ""){
+				$.ajax({
+					async:false,
+					cache:false,
+					url:"${pageContext.request.contextPath}/teacher/ajaxGetTeachers",
+					type:"POST",
+					dataType:"json",
+					success:function(result) {
+						//alert(result);
+						 var arr = eval(result);
+						 var backarr = $(".back_up_input");
+						for(var i = 0; i < arr.length; i++){
+							//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+							var flag = true;
+							backarr.each(function(){
+								if(this.value == arr[i].employeeNum){
+									flag = false;
+								}
+							});
+							if(flag)
+							$("#teacherul").append("<li class='"+arr[i].employeeNum+"teach teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' onclick='checkboxOnclick(this)' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
+						} 
+					}
+				});
+			}
+			
 		});
 	});
 </script>
 
+<script type="text/javascript">
+	$(function(){
+		$("#search").click(function(){
+			//alert($("#employeeNum").val());
+			var employeeNum = $("#employeeNum").val();
+			$(".teacher").remove();  //将模态框现有选项全部清除
+				$.ajax({   // 获取搜索结果
+					async:false,
+					cache:false,
+					url:"${pageContext.request.contextPath}/teacher/ajaxSearchTeachers",
+					type:"POST",
+					data:{"employeeNum" : employeeNum},
+					dataType:"json",
+					success:function(result) {
+						//alert(result);
+						 var arr = eval(result);
+						 var backarr = $(".back_up_input");
+						 
+						for(var i = 0; i < arr.length; i++){
+							//alert(arr[i].employeeNum);//通过ajax动态加载教师列表后，动态在拟态框里添加列表
+							var flag = true;
+							backarr.each(function(){
+								if(this.value == arr[i].employeeNum){
+									flag = false;
+								}
+							});
+							if(flag)
+							$("#teacherul").append("<li name='teacher' class='"+arr[i].employeeNum+"teach teacher' style='float:left;margin-right: 18px;'><input id='teacher' type='checkbox' onclick='checkboxOnclick(this)' value='"+arr[i].employeeNum+"' name='teacher'/>"+arr[i].teacherName+"</li>");
+						} 
+					}
+				});
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+		});
+	});
+</script>
+
+<<<<<<< HEAD
+<<<<<<< HEAD
+
  <script type="text/javascript">
 	$(function() {
-		//定义两个全局变量
 		var checked = [];//点击确认后获取的多选框的值
-		var new_arr = []; //经过筛选后的多选框的值，无重复值
 		$("#confirm")
 				.click(
 						function() {
+							$(".selectedTeachers").remove();//将页面显示的教师全部移除
+							checked = []; //清空旧的集合
 							$('input:checkbox:checked')
-									.each(
+									.each( //循环遍历
 											function() {
-												checked.push($(this).val()); //获取到多选框的一个值
-												for (var i = 0; i < checked.length; i++) {
-													var items = checked[i];
-													if ($.inArray(items,
-															new_arr) == -1) {
-														new_arr.push(items);//判断元素是否已在new_arr
-														$("#selectedRealClassUI")
+												checked.push($(this).val()); //遍历获取到多选框的值
+												//alert(checked.length+"  "+checked[checked.length-1]);
+													var items = checked[checked.length-1];
+														$("#selectedRealClassUI")  //重新显示在页面
 																.append(
-																		"<li id='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;width: 30%;'>"
+																		"<li id='selectedTeachers' class='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;width: 30%;'>"
 																				+ "<span>教师:</span><input value='"+items+"' name='selectedTeacherContent' style='width: 50%;' id='selectedTeacherContent'/></li>");
-													}
-												}
 
 											});
+							$(".teacher").remove();
+=======
+=======
+
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+ <script type="text/javascript">
+	$(function() {
+		var checked = [];//点击确认后获取的多选框的值
+		$("#confirm")
+				.click(
+						function() {
+							$(".selectedTeachers").remove();//将页面显示的教师全部移除
+							checked = []; //清空旧的集合
+							$('input:checkbox:checked')
+									.each( //循环遍历
+											function() {
+												checked.push($(this).val()); //遍历获取到多选框的值
+												//alert(checked.length+"  "+checked[checked.length-1]);
+													var items = checked[checked.length-1];
+														$("#selectedRealClassUI")  //重新显示在页面
+																.append(
+																		"<li id='selectedTeachers' class='selectedTeachers' name='selectedTeachers' style='float: left;margin-left:2%;width: 30%;'>"
+																				+ "<span>教师:</span><input value='"+items+"' name='selectedTeacherContent' style='width: 50%;' id='selectedTeacherContent'/></li>");
+
+											});
+<<<<<<< HEAD
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+							$(".teacher").remove();
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 						});
 	});
 </script> 
@@ -166,9 +384,25 @@ $(function() {
 	$(function(){
 		$("#close").click(function(){
 			//拟态框每次关闭要清除之前信息，否则会叠加
+<<<<<<< HEAD
+<<<<<<< HEAD
+			$(".teacher").remove();
+			//$(".back_up_li").remove();
+			$("#employeeNum").val("");
+			//清除后要留一空li,以保证下次成功动态加载
+			$("#teacherul").append(" <li id="+"teacher"+">"+"</li>");
+=======
 			$("#teacher").remove();
 			//清除后要留一空li,以保证下次成功动态加载
 			$("#teacherUl").append(" <li id="+"teacher"+">"+"</li>");
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			$(".teacher").remove();
+			//$(".back_up_li").remove();
+			$("#employeeNum").val("");
+			//清除后要留一空li,以保证下次成功动态加载
+			$("#teacherul").append(" <li id="+"teacher"+">"+"</li>");
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 		});
 	});
 </script>
@@ -199,6 +433,22 @@ $(function() {
 
 </head>
 <body>
+<<<<<<< HEAD
+	<div class="wrapper"></div>
+		<%-- <jsp:include page="/jsp/top.jsp" flush="true"/> --%>
+		<div class="createCourse">
+			<h2>创建课程</h2>
+		</div>
+		<div class="main">
+			<form action="${pageContext.request.contextPath}/teacher/createCourse"  method="post"  enctype="multipart/form-data">
+				<input type="hidden" name="publisherId" value="${teacher.employeeNum }">
+				<div class="input1">
+					<span>课程名称：</span> <input name="courseName" type="text"
+						placeholder="请输入课程名称："
+						style="width: 60%; height: 30px; float: left; margin-left: 2%;">
+				</div>
+				<div class="input1">
+=======
 
 	<div class="wrapper" ></div>
 
@@ -220,12 +470,17 @@ $(function() {
 				
 				<div class="input1">
 				
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 					<ul class="phoneUl">
 					<span style="float: left;" >添加图片：</span> 
 					<label for="faceImg" style="cursor: pointer">
 						<li>
 							<input type="file" id="faceImg" style="display: none;" onchange="chan(this)"
+<<<<<<< HEAD
+								name="faceImg">
+=======
 								name="faceImg"/>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						</li>
 						<li><img id="photos" src="" width="100" height="100" /></li>
 					</label>
@@ -250,12 +505,66 @@ $(function() {
 		
 				
 				<!-- 拟态框star -->
-					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+<<<<<<< HEAD
+<<<<<<< HEAD
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
 	  					<div class="modal-dialog" role="document">
 							<div class="modal-content">
-								<ul id="teacherul" style="list-style-type:none;">
-									<li id="teacher"></li>
+								<div class="search_teacher" style="height: 50px;">
+									<div class="form-group">
+									    <input type="text" class="form-control" id="employeeNum" placeholder="教师工号" style="width: 174px;
+    											margin-right: 18px;margin-left: 16px;float: left;">
+									 </div>
+									 <button id="search" type="button" class="btn btn-default">搜索</button>
+								</div>
+								<div style="height: auto; width: auto;min-height: 42px;">
+									<ul id="teacherul" style="list-style-type:none;margin-left: 17px;min-height: 15px;height: auto;">
+									<!-- <li id="teacher"></li> -->
+									
 								</ul>
+								</div>
+								<div class="back_up" style="height: auto; width: auto;min-height: 42px;">
+									<input type="hidden" class="back_up_input" /> 
+									<ul id="back_up_ul" style="list-style-type:none;margin-left: 17px;min-height: 15px;height: auto;">
+									 
+									
+								</ul>
+									
+								</div>
+								<div style="clear:both"></div>
+=======
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+=======
+					<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" data-backdrop="static">
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	  					<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="search_teacher" style="height: 50px;">
+									<div class="form-group">
+									    <input type="text" class="form-control" id="employeeNum" placeholder="教师工号" style="width: 174px;
+    											margin-right: 18px;margin-left: 16px;float: left;">
+									 </div>
+									 <button id="search" type="button" class="btn btn-default">搜索</button>
+								</div>
+								<div style="height: auto; width: auto;min-height: 42px;">
+									<ul id="teacherul" style="list-style-type:none;margin-left: 17px;min-height: 15px;height: auto;">
+									<!-- <li id="teacher"></li> -->
+									
+								</ul>
+								</div>
+								<div class="back_up" style="height: auto; width: auto;min-height: 42px;">
+									<input type="hidden" class="back_up_input" /> 
+									<ul id="back_up_ul" style="list-style-type:none;margin-left: 17px;min-height: 15px;height: auto;">
+									 
+									
+								</ul>
+<<<<<<< HEAD
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+									
+								</div>
+								<div style="clear:both"></div>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 								<div class="modal-footer">
 									<button id="close" type="button" class="btn btn-default"
 										data-dismiss="modal">关闭</button>
@@ -270,11 +579,27 @@ $(function() {
 					<h3>教师圈：</h3>
 					<div class="friend">
 						<ul id="selectedRealClassUI" style="list-style-type: none;">
+<<<<<<< HEAD
+<<<<<<< HEAD
+							<%-- <li id="selectedTeachers" name=selectedTeachers
+								style="float: left; margin-left: 2%; width: 30%;">
+									<span>教师:</span>
+									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
+								</li> --%>
+=======
 							<li id="selectedTeachers" name=selectedTeachers
 								style="float: left; margin-left: 2%; width: 30%;">
 									<span>教师:</span>
 									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
 								</li>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+							<%-- <li id="selectedTeachers" name=selectedTeachers
+								style="float: left; margin-left: 2%; width: 30%;">
+									<span>教师:</span>
+									<input value="${teacher.employeeNum }" name="selectedTeacherContent" style='width: 50%;' id="selectedTeacherContent"/>
+								</li> --%>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 						</ul>
 						<div class="add">
 							<button type="button" id="pull" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo">拉入教师</button>
@@ -293,6 +618,20 @@ $(function() {
 			</form>
 		</div>
 		
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+		<%-- <jsp:include page="/jsp/footer.jsp" flush="true"/> --%>
+		
+		<!-- bootstrup -->
+		
+</body>
+<script type="text/javascript" charset="utf-8">
+	UE.getEditor('courseDetail');
+	
+</script>
+=======
 		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 		
 		<!-- bootstrup -->
@@ -302,4 +641,5 @@ $(function() {
 </script>
 </body>
 
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 </html>

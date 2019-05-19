@@ -29,15 +29,43 @@ public class MainController {
 	public ModelAndView toMain(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		try {
-			//按时间查询前12个课程信息
+<<<<<<< HEAD
+<<<<<<< HEAD
+			//按时间查询前8个课程信息
 			List<Course> courseList = teacherService.getCourseByLimit();
-			//获取创课教师
-			List<String> teacherNameList = new ArrayList<>();
+			List<String> publishTime = new ArrayList<>();
+			//获取教师团队
+			List<Teacher> teacherList = new ArrayList<>();
 			for(Course course : courseList){
-				teacherNameList.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+				course.setTeacherList(teacherList);
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
 			}
 			mv.addObject("courseList",courseList);
+			mv.addObject("publishTime",publishTime);
+			mv.addObject("teacherList",teacherList);
+=======
+			//按时间查询前12个课程信息
+=======
+			//按时间查询前8个课程信息
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+			List<Course> courseList = teacherService.getCourseByLimit();
+			List<String> publishTime = new ArrayList<>();
+			//获取教师团队
+			List<Teacher> teacherList = new ArrayList<>();
+			for(Course course : courseList){
+				teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+				course.setTeacherList(teacherList);
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
+			}
+			mv.addObject("courseList",courseList);
+<<<<<<< HEAD
 			mv.addObject("teacherNameList",teacherNameList);
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+			mv.addObject("publishTime",publishTime);
+			mv.addObject("teacherList",teacherList);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			mv.setViewName("/jsp/main");
 			mv.addObject("teacher",request.getSession().getAttribute("teacher"));
 			mv.addObject("student",request.getSession().getAttribute("student"));

@@ -33,6 +33,14 @@ import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
+<<<<<<< HEAD
+<<<<<<< HEAD
+import cn.edu.tit.iservice.IResourceService;
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+import cn.edu.tit.iservice.IResourceService;
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
 import net.sf.json.JSONArray;
@@ -53,6 +61,16 @@ public class WxTeacherController {
 
 	@Autowired
 	private IStudentService studentService;
+<<<<<<< HEAD
+<<<<<<< HEAD
+	@Autowired
+	private IResourceService resourceService;
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	@Autowired
+	private IResourceService resourceService;
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * 微信端登录
@@ -605,6 +623,45 @@ public class WxTeacherController {
 		}
 		return ret;
 	}
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	
+	/**
+	 * 获取课程资源
+	 * @param request
+	 * @param courseId
+	 * @return
+	 */
+	@RequestMapping(value="toTeachResource")
+	public Map<String, Object> toTeachResource(HttpServletRequest request,  @Param(value="courseId") String courseId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//通过课程id查询音频类型资源
+			Object[] obj = resourceService.showResourceByTypeAndCId(2, courseId);
+			ret.put("audioresourceList", obj[0]);
+			ret.put("audioteacherNames", obj[1]);
+			//通过课程id查询视频类型资源
+			Object[] obj2 = resourceService.showResourceByTypeAndCId(3, courseId);
+			ret.put("videoresourceList", obj2[0]);
+			ret.put("videoteacherNames", obj2[1]);
+			//通过课程id查询图片类型资源
+			Object[] obj3 = resourceService.showResourceByTypeAndCId(4, courseId);
+			ret.put("imgresourceList", obj3[0]);
+			ret.put("imgteacherNames", obj3[1]);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+			return ret;
+		
+	}
+<<<<<<< HEAD
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 	/**
 	 * @author LiMing

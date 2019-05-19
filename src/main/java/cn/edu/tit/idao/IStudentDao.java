@@ -12,7 +12,10 @@ import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
+<<<<<<< HEAD
+=======
 import cn.edu.tit.bean.UpTask;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.VirtualClass;
 
 @Component
@@ -36,11 +39,16 @@ public interface IStudentDao {
 	public List<String> searchRealClassNum(String virtualClassNum)throws Exception;		//查询虚拟班级对应的自然班列表模块
 	public Student searchStudent(String studentId)throws Exception;		//查看学生信息模块
 	public List<Student> studentList(List<String> classNum)throws Exception;	//查询班级学生列表
+<<<<<<< HEAD
+
+
+=======
 	public void upTaskThis(UpTask upTask);//提交作业
 	public void countUpTaskNum(@Param("taskId")String taskId,@Param("virtualClassNum") String virtualClassNum);//提交作业时提交人数+1
 	public void upAccessories(List<Accessory> accessoris); //提交作业中的附件
 	public String getUpTaskDetail(@Param("taskId")String taskId,@Param("studentId")String studentId);//根据作业号和学号找提交的作业内容
 	public List<String> getUpAccessories(@Param("taskId")String taskId, @Param("studentId")String studentId);//根据作业号和学号找提交的附件
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	/**
 	 * @author LiMing
 	 * 更新学生操作
@@ -73,4 +81,29 @@ public interface IStudentDao {
 	 * @return 返回学期信息
 	 */
 	public Term readTermById(@Param(value="termId")String termId);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	
+	/**
+	 * 获取标志位，查学生manager
+	 * @return
+	 */
+	public Integer getManagerByStudentId(@Param(value="studentId")String studentId, @Param(value="courseId")String courseId,@Param(value="manager")int manager);
+	
+	/**
+	 * 取消关注
+	 * @param courseId
+	 * @param getEmployeeNum
+	 */
+	public void studentExitAttentionCourse(@Param(value="courseId")String courseId, @Param(value="studentId")String studentId);
+
+
+
+<<<<<<< HEAD
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 }

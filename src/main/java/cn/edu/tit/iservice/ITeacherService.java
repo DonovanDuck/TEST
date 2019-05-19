@@ -8,18 +8,28 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.web.multipart.MultipartFile;
 
 import cn.edu.tit.bean.Accessory;
+<<<<<<< HEAD
+import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Course;
+=======
 import cn.edu.tit.bean.Achievement;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
 import cn.edu.tit.bean.Paper;
 import cn.edu.tit.bean.Prize;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Resource;
 import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+<<<<<<< HEAD
+import cn.edu.tit.bean.Term;
+import cn.edu.tit.bean.VirtualClass;
+public interface ITeacherService {
+=======
 import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
@@ -29,6 +39,7 @@ public interface ITeacherService {
 	public List<IndustryUniversityResearchProject> industryUniversityResearchProjectList();
 	public List<Achievement> achievementList();
 	public List<Paper> paperList();
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	/**
 	 * @author wenli
 	 * @param virtualClassNum
@@ -83,7 +94,15 @@ public interface ITeacherService {
 	/**
 	 * 根据courseid查课程
 	 * @param courseId
+<<<<<<< HEAD
+<<<<<<< HEAD
+	 * @return 返回课程信息（注意：数据库中存储为分类ID，但是读取过程中修改为分类名）
+=======
 	 * @return
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	 * @return 返回课程信息（注意：数据库中存储为分类ID，但是读取过程中修改为分类名）
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	 */
 	public Course getCourseById(String courseId)throws Exception;
 	/**
@@ -161,7 +180,11 @@ public interface ITeacherService {
 	 * @param taskId
 	 * 把任务映射到班级任务表中
 	 */
+<<<<<<< HEAD
+	public void mapClassTask(String virtualClassNum,String taskId)throws Exception;	//把任务映射到班级任务表中
+=======
 	public void mapClassTask(String virtualClassNum,String taskId,Timestamp taskEndTime)throws Exception;	//把任务映射到班级任务表中
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	/**
 	 * @author wenli
 	 * @param accessoris
@@ -458,11 +481,30 @@ public interface ITeacherService {
 	 * */
 	public void addResource(Resource resource)throws Exception;
 	
+<<<<<<< HEAD
+<<<<<<< HEAD
+	public void updateResource(Resource re);
+	
 	/**
-	 * 获取标志位，查老师是否是课程创建者
+	 * 获取标志位，查老师manager
 	 * @return
 	 */
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager);
+=======
+=======
+	public void updateResource(Resource re);
+	
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	/**
+	 * 获取标志位，查老师manager
+	 * @return
+	 */
+<<<<<<< HEAD
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId);
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager);
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	/**
 	 * @author wenli
 	 * 根据虚拟班号查虚拟班
@@ -497,6 +539,53 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	
+	/**
+	 * 取消关注
+	 * @param courseId
+	 * @param getEmployeeNum
+	 */
+	public void teacherExitAttentionCourse(String courseId, String getEmployeeNum);
+	
+	 /**@author LiMing
+	 * @param 课程名
+	 * @return 返回查询到的课程信息
+	 * 课程二级页面的搜索功能，模糊查询
+	 */
+	public List<Course> searchCourse(String courseName);
+	
+	/**
+	 *@author LiMing
+	 * @param realClass
+	 * @return 实体班级的集合
+	 * 实体班级的模糊查询
+	 */
+	public List<RealClass> readRealClassToSelect(String realClass);
+	
+	/**
+	 * 通过教师工号模糊查找教师列表
+	 * @param employeeNum
+	 * @return
+	 */
+	public List<Teacher> vagueSearchTeachers(String employeeNum);
+	
+
+	/**@author LiMing
+	 * @param 任务分类
+	 * @param 课程ID
+	 * @return 返回任务列表
+	 * 根据任务类型和课程查询该课程下的任务
+	 * 类型有（暂时2019.02.15）
+	 *   work  作业   
+	 * 	 trial  实验
+	 */
+	public List<Task> getTaskByPointAndCourse(String taskCategory,String courseId);
+<<<<<<< HEAD
+=======
 	/**
 	 * @author wenli
 	 * @return
@@ -557,5 +646,8 @@ public interface ITeacherService {
 	 * 在class_task表中获得任务截至时间
 	 */
 	public Timestamp getTaskEndTime(String virtualClassNum,String taskId);
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 
 }

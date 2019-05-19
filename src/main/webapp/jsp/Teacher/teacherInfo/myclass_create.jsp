@@ -9,11 +9,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="UTF-8">
 <title></title>
+<<<<<<< HEAD
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/table.css">
+<link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css" />
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script >
+=======
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	function termSelect() {
 		if($('#select option:selected').val()==''){
             var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
@@ -30,6 +37,54 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         }
 	}
 </script>
+<<<<<<< HEAD
+	
+</html>
+<body>
+	<div id="r2">
+	 <div class="sx">
+        <div class="sx_r">
+            <p><span>开课学期:</span>
+            <select placeholder="" style="width: 70%;height: 24px;float: right;" onchange="termSelect()">
+            	<c:forEach items="${termList }" var="term">
+            	 	<option value="term.termId" <c:if test="${term.startYear=='2019'}&&${term.term=='第一学期' }"> selected="selected" </c:if> >${term.startYear }-${term.endYear } ${term.term }</option>
+            	</c:forEach>
+            </select>
+            </p>
+        </div>
+    </div>
+    <!--放筛选学期-->
+    <div class="table">
+    <c:forEach items="${virtualClassList }" var="virtualClass"
+				varStatus="status">
+				<a target=" _blank"
+					href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClass.virtualClassNum }&virtualClassName=${virtualClass.virtualClassName }">
+					
+        <div class="b1">
+            <div class="b1_l">
+                <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${virtualClass.faceImg }" alt="" style="height: 100%;width: 100%"/>
+            </div>
+            <div class="b1_r">
+                <p class="h">${virtualClass.virtualClassName }</p>
+                <p class="p1">授课班级：<c:forEach items="${virtualClass.realClassList }"
+								var="realClass">
+	            	${realClass.realClassNum }<span>&nbsp;&nbsp;&nbsp;</span>
+							</c:forEach></p>
+                <p class="p1">课程名称：${virtualClass.virtualCourseName }</p>
+                
+                <p class="p2" id ="term">开课学期：&nbsp;${virtualClass.term }</p>
+            </div>
+        </div>
+        <hr/>
+        </a>
+        </c:forEach>
+        
+    </div>
+		
+<<<<<<< HEAD
+	</div>
+</body>
+=======
 </head>
 <body>
 	<div id="r2">
@@ -81,6 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		</div>
 
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	</div>
 </body>
 </html>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76

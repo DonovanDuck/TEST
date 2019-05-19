@@ -8,7 +8,10 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+<<<<<<< HEAD
+=======
 import java.util.Map;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +23,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+<<<<<<< HEAD
+=======
 
 import cn.edu.tit.bean.Accessory;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
@@ -29,7 +35,10 @@ import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
+<<<<<<< HEAD
+=======
 import cn.edu.tit.bean.UpTask;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAdminService;
@@ -174,10 +183,22 @@ public class StudentController {
 		if(virtualList!=null) {
 			for (VirtualClass virtualClass : virtualList) {
 				term = studentService.readTermById(virtualClass.getTerm());
+<<<<<<< HEAD
+<<<<<<< HEAD
+				if(term != null){
+					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+				}
+=======
 				if(term!=null) {
 					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
 				}
 				
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+				if(term != null){
+					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+				}
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 			}
 		}
 		mv.addObject("listTerm", termList);//返回信息
@@ -283,6 +304,8 @@ public class StudentController {
 		mv.setViewName("/jsp/StudentJsp/studentCenter_MyClass");//设置返回页面
 		return mv;
 	}
+<<<<<<< HEAD
+=======
 	/**
 	 * @author wenli
 	 * @param request
@@ -348,4 +371,5 @@ public class StudentController {
 		
 		return "redirect:/student/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
 	}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 }

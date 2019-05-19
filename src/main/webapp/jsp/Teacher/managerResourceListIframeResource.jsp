@@ -6,6 +6,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,30 +68,34 @@
 			</div>
 			<div class="col-md-8" style="height: 100%">
 				<div class="resource_name col-md-12" style="height: 20%">
-					<label class="col-md-3 text-center">资源名:</label> <label
-						class="col-md-9 text-left" style="margin-left: -1%">${list.resourceName }</label>
+					<label class="col-md-3 text-center" style="padding-left: 0%">资&nbsp&nbsp源&nbsp&nbsp名:</label>
+					<label class="col-md-9 text-left" style="margin-left: -8%">${list.resourceName }</label>
 				</div>
 				<div class="resource_name col-md-12" style="height: 20%">
-					<label class="col-md-3 text-center" style="padding-left: 0%">发布时间:</label>
-					<label class="col-md-9 text-left" style="margin-left: -1%">${list.publishTime }</label>
+					<label class="col-md-3 text-center" style="padding-left: 0%">资源介绍:</label>
+					<label class="col-md-9 text-left" style="margin-left: -8%">${list.resourceDetail }</label>
 				</div>
-				<div class="resourse_Info" style="height: 80%">
-					<div class="col-md-3 text-right">
-						<label class="col-md-12 text-center" style="padding-left: -4%">资源介绍:</label>
-					</div>
-					<div class="col-md-9 text-left">
-						<b><textarea readonly
-								style="width: 100%; height: 70px; border: 0px; outline: none;">${list.resourceDetail }</textarea></b>
-					</div>
+				<div class="resource_name col-md-12" style="height: 20%">
+					<label class="col-md-3 text-center" style="padding-left: 0%">作&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp者:</label>
+					<label class="col-md-9 text-left" style="margin-left: -8%">${list.publisherId }</label>
+				</div>
+				<div class="resource_name col-md-12" style="height: 20%">
+					<label class="col-md-3 text-center" style="padding-left: 0%">上传时间:</label>
+					<label class="col-md-9 text-left" style="margin-left: -8%"><fmt:formatDate value="${list.publishTime }" pattern="yyyy年MM月dd日" /></label>
+				</div>
+				<div class="resource_name col-md-12" style="height: 20%">
+					<label class="col-md-3 text-center" style="padding-left: 0%">引用次数:</label>
+					<label class="col-md-9 text-left" style="margin-left: -8%">${list.useNum }</label>
 				</div>
 			</div>
 			<div class="col-md-1">
 				<button class="btn btn-default" id="deleteInfo" name="deleteInfo"
 					value="${list.resourceId }" style="margin-top: 30%"
 					onclick="deleteInfo()">删除</button>
-				<a target="_parent" href="${pageContext.request.contextPath}/teacher/toUpdateResourcePage/${list.resourceId }"><button class="btn btn-default" style="margin-top: 46%"
-						id="updateInfo" name="updateInfo" value="${list.resourceId }"
-						onclick="">修改</button></a>
+				<a target="_parent"
+					href="${pageContext.request.contextPath}/teacher/toUpdateResourcePage/${list.resourceId }"><button
+						class="btn btn-default" style="margin-top: 46%" id="updateInfo"
+						name="updateInfo" value="${list.resourceId }" onclick="">修改</button></a>
 			</div>
 		</div>
 	</c:forEach>

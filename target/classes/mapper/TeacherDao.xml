@@ -42,6 +42,10 @@
 	<select id="readTerm" resultMap="termMap">
 		select * from term
 	</select>
+<<<<<<< HEAD
+
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	<!-- 创建资源 -->
 	<insert id="addResource"
 		parameterType="cn.edu.tit.bean.Resource">
@@ -73,7 +77,15 @@
 		#{watchNum},
 		#{useNum});
 	</insert>
+<<<<<<< HEAD
+<<<<<<< HEAD
+
+=======
 	
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	<!-- 拉教师入课程（教师圈） -->
 	<insert id="addOtherToMyCourse">
 		insert into
@@ -167,7 +179,15 @@
 	<select id="courseIdList" resultType="java.lang.String">
 		select course_id from
 		teacher_course where employee_num = #{employeeNum} and manager =
+<<<<<<< HEAD
+<<<<<<< HEAD
+		#{manager};
+=======
 		#{manager}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		#{manager};
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	</select>
 
 	<select id="courseList" parameterType="java.util.List"
@@ -224,7 +244,11 @@
 		<result column="student_nickname" property="studentNickName" />
 		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
+<<<<<<< HEAD
+		<result column="class_num" property="classNum" />
+=======
 		<result column="real_class_num" property="classNum" />
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
@@ -236,7 +260,11 @@
 
 	<select id="studentList" parameterType="java.util.List"
 		resultMap="studentMap">
+<<<<<<< HEAD
+		select * from student where class_num in
+=======
 		select * from student where real_class_num in
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		<foreach collection="list" item="classNum" open="("
 			separator="," close=")" index="index">
 			#{classNum}
@@ -246,12 +274,21 @@
 	<select id="searchStudent" parameterType="java.lang.String"
 		resultMap="studentMap">
 		select * from student where
+<<<<<<< HEAD
+		student_id =
+		#{studentId}
+=======
 		student_id =#{studentId}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	</select>
 
 	<select id="searchRealClassNum" parameterType="java.lang.String"
 		resultType="java.lang.String">
+<<<<<<< HEAD
+		select * from real_virtual_class where
+=======
 		select real_class_num from real_virtual_class where
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		virtual_class_num =
 		#{virtualClassNum}
 	</select>
@@ -273,6 +310,20 @@
 		</foreach>
 	</select>
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+	<select id="getTaskByPointAndCourse" parameterType="java.util.List"
+		resultMap="taskMap">
+		select * from task where task_category =  #{taskCategory} and course_id = #{courseId};
+	</select>
+
+<<<<<<< HEAD
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
 		id="virtualClassMap">
 		<id column="virtual_class_num" property="virtualClassNum" />
@@ -340,12 +391,24 @@
 		<result column="publish_time" property="publishTime" />
 		<result column="publisher_id" property="publisherId" />
 		<result column="task_end_time" property="taskEndTime" />
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+		<result column="status" property="status" />
+		<result column="course_id" property="courseId" />
+		<result column="task_category" property="taskType" />
+		<result column="use_num" property="useNum" />
+		<result column="watch_num" property="watchNum" />
+	</resultMap>
+=======
 		<result column="course_id" property="courseId" />
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
 		<result column="use_num" property="useNum" />
 	</resultMap>
 	
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
@@ -357,10 +420,17 @@
 	</insert>
 
 	<insert id="mapClassTask">
+<<<<<<< HEAD
+		insert into class_task ( virtual_class_num, task_id)
+		values
+		(
+		#{virtualClassNum}, #{taskId})
+=======
 		insert into class_task ( virtual_class_num, task_id,up_student_num,task_end_time)
 		values
 		(
 		#{virtualClassNum}, #{taskId},0,#{taskEndTime})
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	</insert>
 
 	<update id="stopTaskByEndTime" parameterType="java.lang.String">
@@ -406,7 +476,11 @@
 
 
 	<select id="teacherTaskAssortmentList" resultMap="taskMap">
+<<<<<<< HEAD
+		select * from task where task_category = #{taskCategory} and task_id
+=======
 		select * from task where task_category=#{taskCategory} and task_id
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 		in
 		<foreach collection="taskIds" item="taskId" open="("
 			separator="," close=")" index="index">
@@ -601,7 +675,15 @@
 	<select id="getManagerByEmployeeNum" resultType="int">
 		select manager
 		from teacher_course where employee_num = #{employeeNum} and course_id
+<<<<<<< HEAD
+<<<<<<< HEAD
+		= #{courseId} and manager = #{manager};
+=======
 		= #{courseId} and manager = 1;
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		= #{courseId} and manager = #{manager};
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	</select>
 
 	<!-- 根据时间获取前十二个课程信息到首页 -->
@@ -621,6 +703,40 @@
 	<insert id="teacherAttentionCourse">
 		insert into
 		teacher_course(employee_num,course_id,manager) values
+<<<<<<< HEAD
+<<<<<<< HEAD
+		(#{employeeNum},#{courseId},2);
+	</insert>
+
+	<!-- 取消关注 -->
+	<delete id="teacherExitAttentionCourse">
+		delete from teacher_course where employee_num =
+		#{employeeNum} and course_id = #{courseId} and manager = 2;
+	</delete>
+
+	<select id="searchCourse" resultMap="courseMap"
+		parameterType="java.lang.String">
+		select * from course
+		<where>
+			course_name
+			LIKE CONCAT(CONCAT("%", #{courseName}), "%")
+		</where>
+	</select>
+
+
+	<select id="readRealClassToSelect" resultMap="realCLassMap"
+		parameterType="java.lang.String">
+		select * from real_class
+		<where>
+			real_class_num
+			LIKE CONCAT(CONCAT("%", #{realClass}), "%")
+		</where>
+	</select>
+	
+	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
+	</select> 
+=======
 		(#{employeeNum},#{courseId},2)
 	</insert>
 	<resultMap type="cn.edu.tit.bean.Achievement" id="achievementMap">
@@ -782,4 +898,38 @@
 		resultType="java.sql.Timestamp">
 		select task_end_time from class_task where virtual_class_num=#{virtualClassNum} and task_id=#{taskId};
 	</select>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+		(#{employeeNum},#{courseId},2);
+	</insert>
+
+	<!-- 取消关注 -->
+	<delete id="teacherExitAttentionCourse">
+		delete from teacher_course where employee_num =
+		#{employeeNum} and course_id = #{courseId} and manager = 2;
+	</delete>
+
+	<select id="searchCourse" resultMap="courseMap"
+		parameterType="java.lang.String">
+		select * from course
+		<where>
+			course_name
+			LIKE CONCAT(CONCAT("%", #{courseName}), "%")
+		</where>
+	</select>
+
+
+	<select id="readRealClassToSelect" resultMap="realCLassMap"
+		parameterType="java.lang.String">
+		select * from real_class
+		<where>
+			real_class_num
+			LIKE CONCAT(CONCAT("%", #{realClass}), "%")
+		</where>
+	</select>
+	
+	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
+	</select> 
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 </mapper>

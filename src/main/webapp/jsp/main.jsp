@@ -11,6 +11,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <meta charset="UTF-8">
     <title>太原工业学院</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+    <%-- <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
+	rel="stylesheet" /> --%>
+    <style>
+    	.title p{
+    		font-size: 10px;
+    		opacity: 0.7;
+    	}
+    </style>
+<<<<<<< HEAD
+=======
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
     <script type="text/javascript">
         $(function (){
@@ -28,8 +45,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </script>
 </head>
 <body>
+<<<<<<< HEAD
+<<<<<<< HEAD
+      <jsp:include page="/jsp/top.jsp" flush="true" />
+=======
       <jsp:include page="/jsp/top.jsp" flush="true"/>
       <%-- <iframe frameborder="0" src="<c:url value='/jsp/top.jsp'/>" name="top"></iframe> --%>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+      <jsp:include page="/jsp/top.jsp" flush="true" />
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
       <div class="banner">
           <div class="banner-img">
               <img src="${pageContext.request.contextPath}/images/banner_img01.jpg" alt="" style="width: 1400px;height:600px;overflow: hidden;"/>
@@ -56,12 +81,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <td>
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li">
+<<<<<<< HEAD
+<<<<<<< HEAD
+                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="info">
+                                  <div class="title">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p>教师团队：
+                                      	<c:forEach items="${course.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                                      </p>
+                                      <p>创建时间：${publishTime[status.index] }</p>
+=======
                               <div class="rel-img"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
                                       <p>课程名：${course.courseName }</p>
                                       <p>创建教师：${teacherNameList[status.index] }</p>
                                       <p>创建时间：${course.publishTime }</p>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="info">
+                                  <div class="title">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p>教师团队：
+                                      	<c:forEach items="${course.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                                      </p>
+                                      <p>创建时间：${publishTime[status.index] }</p>
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
                                       <p>课程人数：${course.courseStudentNum }</p>
                                   </div>
                               </div>
@@ -118,9 +169,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               <div class="rel-img"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">课程名：${course.courseName }</p>
+                                      <p>教师团队：
+                                      	<c:forEach items="${course.teacherList }" var="teacher">
+                							${teacher.teacherName }
+                						</c:forEach>
+                                      </p>
+                                      <p>创建时间：${publishTime[status.index] }</p>
+<<<<<<< HEAD
+=======
                                       <p>课程名：${course.courseName }</p>
                                       <p>创建教师：${teacherNameList[status.index] }</p>
                                       <p>创建时间：${course.publishTime }</p>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
                                       <p>课程人数：${course.courseStudentNum }</p>
                                   </div>
                               </div>
