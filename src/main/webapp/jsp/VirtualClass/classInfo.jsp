@@ -12,20 +12,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/classInfo.css"/>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
-		<script type="text/javascript">
-			function reinitIframe() { 
-				var iframe = document.getElementById("lcontent");
-				 try 
-				{ 
-				var bHeight = iframe.contentWindow.document.body.scrollHeight; 
-				/* 
-				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
-				var height = Math.max(bHeight, dHeight); 
-				iframe.height = height; */ 
-				iframe.height = bHeight; 
-				} 
-				catch (ex) { } 
+		<script src="${pageContext.request.contextPath}/js/iframeResizer.min.js" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript">
+	
+		//window.iFrameResize({ sizeHeight: true }, '#lcontent');
+		function reinitIframe(){
+            //window.parent.document.getElementById("lcontent").height=document.body.scrollHeight;
+			var iframe = document.getElementById("lcontent");
+					
+					 try 
+					{ 
+					var bHeight = iframe.contentWindow.document.body.scrollHeight; 
+					/* 
+					var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+					var height = Math.max(bHeight, dHeight); 
+					iframe.height = height; */ 
+					iframe.height = bHeight; 
+				//
+					} 
+					catch (ex) { } 
+		}
+		 
+			function setIframeHeight() {
+				var iframe = document.getElementById('lcontent');
+				if (iframe) {
+					var iframeWin = iframe.contentWindow
+							|| iframe.contentDocument.parentWindow;
+					if (iframeWin.document.body) {
+						iframe.height = iframeWin.document.documentElement.scrollHeight
+								|| iframeWin.document.body.scrollHeight;
+					}
+				}
 			};
+			window.onload = function() {
+				//重复执行某个方法,动态刷新高度 
+				var t1 = window.setInterval(setIframeHeight, 500);
+				var t2 = window.setInterval("setIframeHeight()", 500);
+				window.clearInterval(t1);
+			};
+
+		/* $(document).ajaxStart(function(){})
+		.ajaxComplete(function(){
+			alert("sdfghjkl")
+			reinitIframe();
+		}).ajaxStop(function(){}); */
+
+		 		//function reinitIframe() { 
+					//var iframe = document.getElementById("lcontent");
+					
+					// try 
+					//{ 
+					//var bHeight = iframe.contentWindow.document.body.scrollHeight; 
+					/* 
+					var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+					var height = Math.max(bHeight, dHeight); 
+					iframe.height = height; */ 
+					//iframe.height = bHeight; 
+					//alert(bHeight);
+					//} 
+					//catch (ex) { } 
+				//};
 			$("ul li").click(function() {
 				   alert("sdfghj");
 				    /* $(this).siblings('li').removeClass('active');  
@@ -52,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">挑战</a></li>
 				<c:if test="${identify eq 'teacher' }">
 				<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">成绩分析</a></li>
-					<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布作业</a></li>
+					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布作业</a></li>
 				</c:if>
 				<c:if test="${identify eq 'student' }">
 				<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">个人成就</a></li>
@@ -61,7 +107,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</ul>
 			</div>
 			<div class="lContent">
-				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="reinitIframe()">
+				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="setIframeHeight()">
 					
 				</iframe>
 			</div>

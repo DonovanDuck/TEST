@@ -44,8 +44,7 @@
 				.click(
 
 						function() {
-							$
-									.ajax({
+							$.ajax({
 										async : false,
 										cache : false,
 										url : "${pageContext.request.contextPath}/teacher/ajaxGetRealClass",

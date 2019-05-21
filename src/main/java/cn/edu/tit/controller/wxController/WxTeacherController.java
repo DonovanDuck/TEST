@@ -767,6 +767,41 @@ public class WxTeacherController {
 		return ret;
 	}
 	
-	
-
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 到班级作业列表页
+	 */
+	@RequestMapping("/toteacherTaskListContent")
+	public Map<String, Object> toteacherTaskListContent(HttpServletRequest request ) {
+		Map<String, Object> ret = new HashMap<>();
+		Integer upNum =0;
+		List<String> taskIdList;
+		List<Task> taskList=new ArrayList<Task>();
+		String readResult =null;
+		Integer point=0;
+		String upTaskDetail = null;
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		HashMap<String, String> upTaskDetail2taskList = new HashMap<String, String>();
+		HashMap<String, List<String>> accessoriesName2taskList  = new HashMap<String, List<String>>();
+		HashMap<String, Integer> grade2taskList  = new HashMap<String, Integer>();
+		HashMap<String, Boolean> isEnd2taskList = new HashMap<String, Boolean>();
+		HashMap<String, String> timeEnd2taskList = new HashMap<String, String>();//计算时间差
+		List<String> accessoriesName = new ArrayList<String>();
+		//upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
+		//accessoriesName = studentService.getUpAccessories(taskId, studentId);
+		String virtualClassNum = (String) request.getAttribute("virtualClassNum");//获取当前虚拟班级
+		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);//获取虚拟班级实体
+		Integer studentNum = virtualClass.getClassStuentNum();	//获取班级总人数
+		try {
+			taskIdList = teacherService.searchTaskId(virtualClassNum);//根据虚拟班级号获得任务列表
+			taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
+			ret.put("taskList", taskList);
+		}catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return ret;
+	}
 }

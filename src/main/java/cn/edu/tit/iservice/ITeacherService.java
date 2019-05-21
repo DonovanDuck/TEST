@@ -617,6 +617,11 @@ public interface ITeacherService {
 	 * 在class_task表中获得任务截至时间
 	 */
 	public Timestamp getTaskEndTime(String virtualClassNum,String taskId);
-
+	/**
+	 * @author WENLI
+	 * @param taskId
+	 * 当以选择形式发布作业时，作业引用次数+1
+	 */
+	public void addUseNum(String taskId);
 
 }
