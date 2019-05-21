@@ -29,6 +29,7 @@ import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
@@ -463,7 +464,7 @@ public class WxTeacherController {
 			ret.put("attentionCourse", attentionCourse);
 			ret.put("status", "OK");
 			return ret;
-		} catch (Exception e) {
+		} catch (Exception e) {  
 			// TODO: handle exception
 			e.printStackTrace();
 			ret.put("status", "ERROR");
@@ -586,6 +587,20 @@ public class WxTeacherController {
 		}
 	}
 
+	/**
+	*直接一次性查出所有的数据,返回给前端
+	*/
+	@RequestMapping("/getTaskListPage")
+	@ResponseBody
+	public  Map<String, Object> getTaskListPage(HttpServletRequest request,@RequestParam(value = "taskCategory")String taskCategory){
+		Map<String, Object> ret = new HashMap<>();
+		List<Task> list = new ArrayList<Task>();
+		String courseId = (String) request.getSession().getAttribute("courseId");
+		list = teacherService.getTaskListPage(courseId, taskCategory);
+		ret.put("taskList", list);
+		return ret;
+	} 
+	
 	/**
 	 * 提供课程详细
 	 * 
