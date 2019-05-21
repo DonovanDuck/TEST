@@ -1,0 +1,129 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+%>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/teacherwork.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/cssbootstrap.min.css"/>
+		<script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="${pageContext.request.contextPath}/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body style="background-color: #f8f8f8;">
+		<div id="header">
+		</div>
+		<div class="worktitle">
+			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
+			<h4 style="float: left;line-height: 170%;margin-left: 20px;">第一次作业</h4>
+		</div>
+		<div class="workdiv">
+			<div class="workcontent">
+				<div style="height: 30px;">
+					<div style="float: left;"><h4>任务详情</h4></div>
+					<div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div>
+				</div>
+				<hr >
+				<div style="text-align:left ;">
+					<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">fsdfsafsdfsdfgdsfghjhgfdsfghjhgfdfghjhgfdfghjhgfdfghjkhgfdfghjkhgfdfghjkhgfdfghjhgfdfghjkjhgfdfghjkjhgfdfghjkhgfdfghjhgfdsfghjkhgfdsfghjkjhgbvcvnbm,mbvbcnbvhjyuhgfgthjyhgvbhnjumkujnhbgvfhbtyjuyhgvfhbnjukhbgvvgfbhnyjumkjhgvfgvthyjuk</span>
+				</div>
+				<div style="height: 90px;margin-top: 20px;">
+					<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">2个附件</button>
+					
+					<div class="accessorylist">
+						<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">文件一</button>
+						<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">文件二</button>
+					</div>
+				</div>
+				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
+					<h8>发布时间：2018-09-15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：2019-05-09</h8>
+				</div>
+			</div>
+			
+		</div>
+		<div class="publishdiv">
+			<div class="publishcontent">
+				<div class="publishstaus">
+					<a  class="published"  href="" onclick="published()">已提交</a> <a class="unpublish"  href="" onclick="unpublished()">未提交</a>
+				</div>
+				<hr >
+				
+				<div id="publishedlist" style="display: block;"  class="publishedlist" >
+					<div class="studentinfo">
+						<img src="下载.svg" alt="" class="img-circle" style="float: left;width: 100px;height: 100px;">
+						<div class="" style="float: left;margin: 10px 30px;">
+							<div class="classnum"> <h4>172056140</h4> </div>
+							<div class="studentname"> <h3>刘音</h3> </div>
+						</div>
+						<div style="width: 150px;height: 100px;margin-left: 30%;line-height: 620%;float: left;">
+							提交时间：2019-06-13
+						</div>
+						<div style="width: 150px;height: 100px;margin-left: 30%;;line-height: 620%;float: left;">
+							<a style="font-size: 20px;" href="">查看作业</a>
+						</div>
+						
+					</div>
+					<hr>
+				</div>
+				
+				<div id="unpublishedlist"  style="display: none;" class="unpublishedlist" >
+					<div class="studentinfo">
+						<img src="下载.svg" alt="" class="img-circle" style="float: left;width: 100px;height: 100px;">
+						<div class="" style="float: left;margin: 10px 30px;">
+							<div class="classnum"> <h4>172056140</h4> </div>
+							<div class="studentname"> <h3>刘音</h3> </div>
+						</div>
+						<div style="width: 150px;height: 100px;margin-left: 30%;line-height: 620%;float: left;">
+						</div>
+						<div style="width: 150px;height: 100px;margin-left: 30%;;line-height: 620%;float: left;">
+							<a style="font-size: 20px;" href="">提醒提交</a>
+						</div>
+					</div>
+					<hr>
+				</div>
+				
+			</div>
+		</div>
+		<script type="text/javascript">
+			// $(document).ready(function(){
+			// 	$("#publishedlist").css('display','none'); 
+			// 	$("#publishedlist").css('display','none'); 
+			// 	
+			// });
+			// $(function(){     
+			// 	$(".published").click(function(){
+			// 		$('#publishedlist').show(); 
+			// 		$('.published').css('color','blue'); 
+			// 		$('#unpublishedlist').hide(); 
+			// 		$('.unpublish').css('color','#000'); 
+			// 	});
+			// 	$(".unpublish").click(function(){
+			// 		$('#publishedlist').hide(); 
+			// 		$('.published').css('color','#000'); 
+			// 		$('#unpublishedlist').show(); 
+			// 		var show =$('#publishedlist').css('display'); 
+			// 		alert(show);
+			// 		$('.unpublish').css('color','blue'); 
+			// 	});
+			// })
+			function published(){
+				alert("published");
+				var published = document.getElementById('publishedlist');
+				var unpublished = document.getElementById('unpublishedlist');
+				published.style.display="block";
+				unpublished.style.display="none";
+			};
+			function unpublished(){
+				alert("unpublished");
+				var published = document.getElementById('publishedlist');
+				var unpublished = document.getElementById('unpublishedlist');
+				published.style.display="none";
+				unpublished.style.display="block";
+			}
+		</script>
+	</body>
+</html>

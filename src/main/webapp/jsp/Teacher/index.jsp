@@ -2,8 +2,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -17,47 +18,83 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	session.setAttribute("_csrf", _csrf);
 %>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script>
-        $(document).ready(function () {
+	$(function() {
+		function checkInput(){
+		
+			 //判断用户名
+		        if($("input[name=employeeNum]").val() == null || $("input[name=employeeNum]").val() == ""){
+		            $("#messageContext").html("用户名不能为空");
+		            $("#messageContext").css("color", "red");
+		            $('#virtualClick').click();
+		            $("input[name=employeeNum]").focus();
+		            return false;
+		        }
+		        //判断密码
+		        if($("input[name=password]").val() == null || $("input[name=password]").val() == ""){
+		        	$("#messageContext").html("密码不能为空");
+		        	 $("#messageContext").css("color", "red");
+		            $('#virtualClick').click();
+		            $("input[name=password]").focus();
+		            return false;
+		        }
+		        return true;
+		        
+		 }
+		$("#login").click(function(){
+			
+		       if(checkInput()) {
+		    	  
+		    	   addForm.submit();
+		       }else{
+		           return false;
+		       }
+		});
+		 
+	})
+	$(document).ready(function() {
 
-            var entrance=document.getElementById('entrance');
-            var entrance_content=document.getElementById('entrance_content');
-            entrance.onclick=function(){
-                entrance_content.style.display='inline';
-                entrance.style.display='none';
-            }
-        });
-        function gradeChange(){
-            if($('#select option:selected').val()=='teacher'){
-                var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
-                $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-            }
-            if($('#select option:selected').val()=='student'){
-                var newUrl = '${pageContext.request.contextPath}/student/LoginStudent';    //设置新提交地址
-                $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-            }
-            if($('#select option:selected').val()=='manager'){
-                var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
-                $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
+		var entrance = document.getElementById('entrance');
+		var entrance_content = document.getElementById('entrance_content');
+		entrance.onclick = function() {
+			entrance_content.style.display = 'inline';
+			entrance.style.display = 'none';
+		}
+	});
+	function message() {
 
-            }
-        }
-         function CheckPost (){
-      		if (addForm.employeeNum.value == "")
-      		{
-          		alert("请填写用户名！");
-          		addForm.username.focus();
-          		return false;
-      		}
-      		if (addForm.password.value == "")
-      		{
-          		alert("请填写密码！");
-          		addForm.username.focus();
-          		return false;
-      		}
-     		return true;
-   		}
-    </script>
+	}
+	
+	function gradeChange() {
+		if ($('#select option:selected').val() == 'teacher') {
+			var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin'; //设置新提交地址
+			$("#myform").attr('action', newUrl); //通过jquery为action属性赋值
+		}
+		if ($('#select option:selected').val() == 'student') {
+			var newUrl = '${pageContext.request.contextPath}/student/LoginStudent'; //设置新提交地址
+			$("#myform").attr('action', newUrl); //通过jquery为action属性赋值
+		}
+		if ($('#select option:selected').val() == 'manager') {
+			var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin'; //设置新提交地址
+			$("#myform").attr('action', newUrl); //通过jquery为action属性赋值
+
+		}
+	}
+	function CheckPost() {
+		if (addForm.employeeNum.value == "") {
+			alert("请填写用户名！");
+			addForm.username.focus();
+			return false;
+		}
+		if (addForm.password.value == "") {
+			alert("请填写密码！");
+			addForm.username.focus();
+			return false;
+		}
+		return true;
+	}
+</script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/login.css" type="text/css">
 <link rel="stylesheet"
@@ -80,7 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="login_form_area">
 					<form id="myform"
 						action="${pageContext.request.contextPath}/teacher/teacherLogin"
-						name="addForm" class="login_form" onsubmit="return CheckPost();">
+						name="addForm" class="login_form" >
 						<div class="login-account">
 							<div class="id_select">
 								<select id="select" onchange="gradeChange()">
@@ -115,8 +152,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<a href="">忘记密码</a>
 							</div>
 						</div>
-						<button type="submit" class="submit">登录</button>
-						<input type="hidden" name="_csrf" value="<%=_csrf %>" />
+						<button id="login" type="button" class="submit" >登录</button>
+						<!-- <button id="virtualClick" type="button" class="btn btn-primary" data-toggle="modal"
+							data-target=".bs-example-modal-sm">登录</button> -->
+
+						<div class="modal fade bs-example-modal-sm" tabindex="-1"
+							role="dialog" aria-labelledby="mySmallModalLabel">
+							<div class="modal-dialog modal-sm" role="document">
+								<div id="messageContext" class="modal-content">${readResult }</div>
+							</div>
+						</div>
+						<input type="hidden" name="_csrf" value="<%=_csrf%>" />
+						<!--
 						<div class="Login-footer">
 							<span class="Login-qrcode">
 								<button type="button" class="Button Button--plain">二维码登录</button>
@@ -188,7 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</span>
 								</div>
 							</span>
-						</div>
+						</div>   -->
 					</form>
 				</div>
 			</div>

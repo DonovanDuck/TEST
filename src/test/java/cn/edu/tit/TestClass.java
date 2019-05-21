@@ -53,11 +53,10 @@ public class TestClass {
 	
 	@Test
 	public void searchResourceByType(){
-//		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByType(1);
-//		for(cn.edu.tit.bean.Resource r : resourceList){
-//			System.out.println(r.getPublishTime());
-//		}
-		System.out.println("7777-77-77 88".substring(0,10));
+		List<cn.edu.tit.bean.Resource> resourceList = resourceDao.searchResourceByType(1);
+		for(cn.edu.tit.bean.Resource r : resourceList){
+			System.out.println(r.getPublishTime());
+		}
 	}
 	@Test
 	public void searchResourcePathById(){
@@ -88,17 +87,7 @@ public class TestClass {
 		}
 	}
 	
-	@Test
-	public void searchResourceById(){
-		cn.edu.tit.bean.Resource resource = resourceDao.searchResourceById("F57A64F45C4C4F0DBE38E27302B7349C");
-		System.out.println(resource.getPublisherId());
-	}
-	
-	@Test
-	public void getSignPoint() throws Exception{
-		studentDao.studentExitAttentionCourse("09708A3B8D8942929FE777E4D9DC5397", "1");
-		System.out.println(common.eccryptMD5("1"));
-	}
+
 	
 	
 }
