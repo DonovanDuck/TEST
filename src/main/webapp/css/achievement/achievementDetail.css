@@ -1,0 +1,132 @@
+.body {
+	padding: 0px;
+	background-color: #E8EBF0;
+}
+
+.content {
+	margin-left: 10%;
+	width: 80%;
+	height: 100%;
+}
+
+.category li {
+	padding: 0%;
+}
+
+.introduceContent {
+	margin-top: 0%;
+}
+
+.bottomColumn {
+	margin-top: 2%;
+}
+
+.relative {
+	margin-top: 1%;
+	margin-left: 1%;
+	padding: 1%;
+}
+
+.bottomColumn {
+	padding: 0%;
+	width: 74%;
+	margin-top: 1%
+}
+
+.commentUserName {
+	color: #B9B9B9;
+	margin-top: 5%;
+}
+
+.detailContent {
+	display: block;
+	padding: 0%
+}
+
+.commentTime {
+	margin: 0px;
+	margin-top: 10%;
+	font-size: 10px;
+	color: #B9B9B9;
+}
+
+.commentContentTwo {
+	font-size: 12px;
+	letter-spacing: 1px;
+	line-height: 23px;
+}
+
+.relativeContent {
+	padding: 2%;
+	color: #999
+}
+
+.relativeContent p {
+	margin-bottom: 4px;
+	font-size: 10px;
+}
+
+.footer {
+	overflow: hidden;
+	width: 100%;
+	height: 117px;
+	background-image: url("../../images/bottom.png");
+	margin-top: 1%;
+}
+
+/**优秀作品详情页*/
+* {
+	margin: 0 auto;
+}
+
+a {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
+.outer {
+	width: 100%;
+	position: relative;
+}
+
+.img {
+	position: absolute;
+	
+}
+
+.zhezhao {
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	top: 0px;
+	background: rgba(0, 0, 0, 0.2);
+	display: none;
+}
+
+.img:hover .zhezhao {
+	display: block;
+}
+
+hr {
+	margin: 0px;
+	margin-top: 1%;
+	margin-bottom: 2%;
+}
+
+.text {
+	width: 100%;
+	height: 50px;
+	position: absolute;
+	top: 130px;
+	left: 0px;
+}
+
+.p1 {
+	line-height: 30px;
+	text-align: center;
+	color: white;
+}
+/**优秀作品详情页*/

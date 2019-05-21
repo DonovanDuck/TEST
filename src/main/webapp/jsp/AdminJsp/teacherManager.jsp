@@ -170,6 +170,10 @@
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
 					</li>
 					<li class="text-left"><a
+						href="${pageContext.request.contextPath}/admin/toAchievementManager"
+						class="waves-effect waves-dark" style="font-size: 20px">学生成果管理</a>
+					</li>
+					<li class="text-left"><a
 						href="${pageContext.request.contextPath}/admin/readRealClass"
 						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
 					</li>
@@ -226,7 +230,6 @@
 												<td class="text-center">${teacher.teacherGender }</td>
 												<td class="text-center">${teacher.teacherCategory }</td>
 												<!--教师系部-->
-
 												<td class="text-center">${teacher.status }</td>
 												<!--教师状态-->
 												<td class="text-center"><a

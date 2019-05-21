@@ -87,14 +87,7 @@ public class TestClass {
 		}
 	}
 	
-	@Test
-	public void searchResourceById(){
-		cn.edu.tit.bean.Resource resource = resourceDao.searchResourceById("F57A64F45C4C4F0DBE38E27302B7349C");
-		System.out.println(resource.getPublisherId());
-	}
+
 	
-	@Test
-	public void getSignPoint() throws Exception{
-		System.out.println(teacherDao.getManagerByEmployeeNum("1", "1"));
-	}
+	
 }

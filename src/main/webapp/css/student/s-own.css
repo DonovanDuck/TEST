@@ -41,14 +41,14 @@ main {
 }
 
 .images {
-	width: 15%;
+	width: 16%;
 	height: 190px;
 	float: left;
 	overflow: hidden;
 }
 
 .message {
-	width: 85%;
+	width: 83%;
 	height: 120px;
 	float: right;
 	margin-top: 4%;
