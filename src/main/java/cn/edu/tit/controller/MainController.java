@@ -29,18 +29,27 @@ public class MainController {
 	public ModelAndView toMain(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
 		try {
+
+			//按时间查询前12个课程信息
+
 			//按时间查询前8个课程信息
+
 			List<Course> courseList = teacherService.getCourseByLimit();
 			List<String> publishTime = new ArrayList<>();
-			//获取创课教师
-			List<String> teacherNameList = new ArrayList<>();
+			//获取教师团队
+			List<Teacher> teacherList = new ArrayList<>();
 			for(Course course : courseList){
-				teacherNameList.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+				course.setTeacherList(teacherList);
 				publishTime.add(course.getPublishTime().toString().substring(0,10));
 			}
 			mv.addObject("courseList",courseList);
+
+			//mv.addObject("teacherNameList",teacherNameList);
+
 			mv.addObject("publishTime",publishTime);
-			mv.addObject("teacherNameList",teacherNameList);
+			mv.addObject("teacherList",teacherList);
+
 			mv.setViewName("/jsp/main");
 			mv.addObject("teacher",request.getSession().getAttribute("teacher"));
 			mv.addObject("student",request.getSession().getAttribute("student"));

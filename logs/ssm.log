@@ -674,6 +674,8 @@ Caused by: java.lang.IllegalArgumentException: Mapped Statements collection alre
 [INFO] [2019-02-01 19:11:20][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@4fe767f3: startup date [Fri Feb 01 19:11:19 CST 2019]; root of context hierarchy
 >>>>>>> liming
 <<<<<<< HEAD
+=======
+<<<<<<< HEAD
 [INFO] [2019-02-11 16:11:38][org.springframework.test.context.support.DefaultTestContextBootstrapper]Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener]
 [INFO] [2019-02-11 16:11:38][org.springframework.test.context.support.DefaultTestContextBootstrapper]Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@77cd7a0, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@204f30ec, org.springframework.test.context.support.DependencyInjectionTestExecutionListener@e25b2fe, org.springframework.test.context.support.DirtiesContextTestExecutionListener@754ba872, org.springframework.test.context.transaction.TransactionalTestExecutionListener@146ba0ac, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener@4dfa3a9d]
 [INFO] [2019-02-11 16:11:38][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [applicationContext.xml]
@@ -923,3 +925,4 @@ Caused by: org.springframework.beans.factory.NoSuchBeanDefinitionException: No q
 [INFO] [2019-04-30 13:05:57][org.springframework.beans.factory.xml.XmlBeanDefinitionReader]Loading XML bean definitions from class path resource [applicationContext.xml]
 [INFO] [2019-04-30 13:05:58][org.springframework.context.support.GenericApplicationContext]Refreshing org.springframework.context.support.GenericApplicationContext@6e0e048a: startup date [Tue Apr 30 13:05:58 CST 2019]; root of context hierarchy
 [INFO] [2019-04-30 13:06:00][org.springframework.context.support.GenericApplicationContext]Closing org.springframework.context.support.GenericApplicationContext@6e0e048a: startup date [Tue Apr 30 13:05:58 CST 2019]; root of context hierarchy
+>>>>>>> cf144135cd235cff3b850b5d06711dcfbb9a7e17

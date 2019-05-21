@@ -12,17 +12,39 @@ li{
     clear: both;
 }
 /*------------------------------head  start ----------------------------------------*/
+<<<<<<< HEAD
+<<<<<<< HEAD
 /* header{
+=======
+header{
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+/* header{
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     width: 100%;
     height: 120px;
     background: url("../img/head.png") no-repeat;
     background-size: cover;
     margin-top: 1%;
     position: relative;
+<<<<<<< HEAD
+<<<<<<< HEAD
 } */
 
 /*---------------登录------------------*/
 /* header span{
+=======
+}
+
+/*---------------登录------------------*/
+header span{
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+} */
+
+/*---------------登录------------------*/
+/* header span{
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     width: 30%;
     float: right;
     text-align: center;
@@ -43,7 +65,15 @@ header span li a{
 }
 header span li:nth-child(1){
     position: relative;
+<<<<<<< HEAD
+<<<<<<< HEAD
 } */
+=======
+}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+} */
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 .erweima{
     width: 130px;
     position: absolute;
@@ -55,16 +85,73 @@ header span li:nth-child(1){
 .li1:hover .erweima{
     display: block;
 }
+<<<<<<< HEAD
+<<<<<<< HEAD
 /* header span li a:hover{
+=======
+header span li a:hover{
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+/* header span li a:hover{
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
     text-decoration: underline;
 }
 header span li:nth-child(5){
     position: relative;
+<<<<<<< HEAD
+<<<<<<< HEAD
 } */
 
 
 /*--------------导航---------------*/
 
+=======
+}
+.h_span_li2 {
+    width: 120px;
+    position: absolute;
+    padding: 1%;
+    box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+    display: none;
+}
+.h_span_li2 li{
+    width: 100%;
+    height: 30px;
+    font-size: 16px;
+}
+.li2:hover .h_span_li2{
+    display: block;
+}
+
+/*--------------导航---------------*/
+header nav {
+    width: 40%;
+    float: right;
+    line-height: 30px;
+    right: 3%;
+    bottom: 6%;
+    position: absolute;
+   
+}
+header nav li{
+    float: left;
+    margin-left: 4%;
+    margin-right: 4%;
+}
+header nav li a:hover{
+    color: blue;
+}
+header nav li a{
+    color: white;
+}
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+=======
+} */
+
+
+/*--------------导航---------------*/
+
+>>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 /*------------------------------head  end ----------------------------------------*/
 /*------------------------------banner start ----------------------------------------*/
 .banner{

@@ -35,7 +35,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div style="width:10%;height:30px;float:left">
 	            <select id ="taskCategory" name="taskCategory" >
 	            	<c:forEach items="${taskCategoryList }" var="taskCategory">
+<<<<<<< HEAD
 								<option <c:if test="${taskCategory=='work'}"> selected="selected" </c:if> >${taskCategory }</option>
+=======
+								<option <c:if test="${taskCategory eq 'work'}"> selected="selected" </c:if> >${taskCategory }</option>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 							</c:forEach>
 	            </select>
             </div>
@@ -50,7 +54,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <input name="file" type="file"  multiple="multiple"  />
                 上传附件
                 
+<<<<<<< HEAD
                 <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right; margin-right: 20%;">上传并发布</button>
+=======
+                <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right; margin-right: 20%;" type="submit">上传并发布</button>
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
                 <button style="padding-left: 1%;padding-right: 1%;font-size: 16px;float: right;margin-right: -30%;">定时发布</button>
             </div>
             </form>

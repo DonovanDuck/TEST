@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
 	margin: 0;
 	padding: 0;
@@ -148,3 +149,155 @@ a {
 	margin-top: 1.2%;
 }
 
+=======
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+li {
+	list-style: none;
+}
+
+a {
+	text-decoration: none;
+}
+
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
+.homework_description{
+	width: 85%;
+	height: auto;
+	background: gray;
+	margin-left: 7.5%;
+}
+.description_detail{
+	width: 90%;
+	background: lightyellow;
+	margin-left: 5%;
+	padding: 2%;
+}
+.more{
+	height: 80px;
+}
+.more li{
+	padding-left: 5%;
+}
+.more li img{
+	border-radius: 50%;
+}
+.homework_submit{
+	width: 85%;
+	height: auto;
+	background: gray;
+	margin-left: 7.5%;
+	margin-top: 20px;
+}
+.submit_title{
+	margin-left: 7%;
+	font-size: 18px;
+	margin-bottom: 0.5%;
+}
+.change_situation{
+	margin-left: 7%;
+	height: 50px;	
+}
+.change_situation li{
+	margin-right: 4%;
+	background: lightcyan;
+	border-radius: 6px;
+	height: 30px;
+	line-height: 30px;
+}
+.change_situation li:hover{
+	cursor: pointer;
+}
+#submit_detail{
+	margin-left: 7.5%;
+	width: 85%;
+	background: lightgrey;
+}
+.sbumit_detail_li{
+	width: 90%;
+	margin-left: 5%;
+	background: lightgoldenrodyellow;
+	margin-bottom: 15px;
+}
+.photo{
+	width: 50px;
+	display: inline;
+	margin-left: 1%;
+}
+.photo img{
+	height: 50px;
+	width: 50px;
+	border-radius: 50%;
+}
+.information{
+	margin-top: -50px;
+	margin-left: 6.5%;
+	margin-bottom: 10px;
+}
+.information span{
+	font-size: 18px;
+}
+.submit_content{
+	width: 86%;
+	margin-left: 7%;
+	background: lightgrey;
+	padding: 1%;
+}
+.addition{
+	background: whitesmoke;
+	width: 85%;
+	margin-left: 7.5%;
+	padding: 2%;
+}
+.addition p{
+	margin-bottom: 1%;
+}
+.addition ul{
+	height: 80px;
+}
+.addition ul li{
+	padding-left: 2%;
+	padding-right: 2%;
+}
+.p{
+	margin-left: 7.5%;
+}
+#list{
+	display: none;
+}
+#li{
+	background: whitesmoke;
+	width: 85%;
+	margin-left: 7.5%;
+	border-bottom: 1px solid lightblue;
+}
+#li ul{
+	height: 50px;
+}
+#li img{
+	height: 40px;
+	width: 40px;
+	border-radius: 50%;
+}
+#li ul li{
+	padding-left: 2%;
+}
+.classnum{
+	margin-top: 1.2%;
+}
+.name{
+	margin-top: 1.2%;
+}
+
+>>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76

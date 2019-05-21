@@ -5,122 +5,173 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>资源更新页面</title>
-<link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/css/common.css">
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<title>修改资源</title>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/teacher/teacher-release-resource.css"
-	type="text/css">
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/scaffolding.less">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/course3.css">
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
-<script type="text/javascript">
-	UE.getEditor('resourceDetail');
-</script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
-<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet" />
-<script
-	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
-<script type="text/javascript">
-	function submitButton() {
-		var path = "${pageContext.request.contextPath}/teacher/updateResource/${resource.resourceId }";
-		alert(path);
-	}
-</script>
 </head>
 <body>
-	<jsp:include page="/jsp/top.jsp" flush="true" />
-	<div class="mian_top"
-		style="margin-bottom: 1%; text-align: center; margin: 0px">
-		<h2 style="margin-bottom: 4px; margin: 0;">课程名:&nbsp&nbsp${course.courseName
-			}</h2>
-		<h3 style="width: 22%; float: left; margin: 0; margin-top: 1%;">类型:&nbsp&nbsp${course.courseCategory
-			}</h3>
-		<h3
-			style="width: 57%; float: left; margin: 0; margin-bottom: 1%; margin-top: 1%;">
-			课程创建时间:&nbsp&nbsp
-			<fmt:formatDate value="${course.publishTime }" pattern="yyyy年MM月dd日" />
-		</h3>
-		<h3 style="width: 20%; float: left; margin: 0; margin-top: 1%;">
-			<a
-				href="${pageContext.request.contextPath}/teacher/toPublishResource"
-				target="_parent">
-				<button type="button" class="btn btn-primary">发布资源</button>
-			</a>
-		</h3>
+<head>
+<div class="container-fluid">
+	<nav>
+		<ul class="nav nav-pills">
+			<li role="presentation" class="active"><a href="#">首页</a></li>
+			<li role="presentation"><a href="#">课程</a></li>
+			<li role="presentation"><a href="#">讨论区</a></li>
+			<li role="presentation"><a href="#">学生成果</a></li>
+			<li role="presentation"><a href="#">产学研项目</a></li>
+		</ul>
+	</nav>
+</div>
+</head>
+
+<script type="text/javascript">
+	function attention() {
+		//alert('${course.courseId}');
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/teacher/ajaxAttentionCourse",
+					data : {
+						'courseId' : '${course.courseId}'
+					},
+					type : "POST",
+					dataType : "text",
+					success : function(result) {
+						alert(eval(result));
+						if (eval(result) == "关注成功！") {
+							$("#attention").html("已关注");
+						} else {
+							$("#attention").html("关注");
+						}
+					}
+				});
+	}
+</script>
+<script type="text/javascript">
+	function submitButton() {
+		var selectType = $
+		{
+			category
+		}
+		;//获取选择的类型
+		var path;
+		if (selectType == "work" || selectType == "trial") {
+			path = "${pageContext.request.contextPath}/teacher/publishTask";//任务的请求路径
+		} else
+			path = "${pageContext.request.contextPath}/teacher/publishResource";//资源的请求路径
+
+		$("#resourceForm").attr('action', path); //通过jquery为action属性赋值
+		$("#resourceForm").submit();
+	}
+</script>
+<script>
+	function modifyRe(){
+		$("[type=file]").click();
+		$("[type=file]").on('change', function( e ){
+	        //e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
+	        var name = e.currentTarget.files[0].name;
+	        $(".re_name").html(name);
+	    });
+	}
+</script>
+<main>
+<div class="main_t">
+	<div class="container-fluid">
+		<c:if test="${ attention != 2 }">
+			<button type="button" class="btn btn-default" id="attention"
+				onclick="attention()">关注</button>
+		</c:if>
+		<c:if test="${ attention == 2 }">
+			<button type="button" class="btn btn-default" id="attention"
+				onclick="attention()">已关注</button>
+		</c:if>
+		<h1>${course. courseName}</h1>
+		<c:if test="${course.fine != null && course.fine != '' }">
+			<div
+				style="color: red; position: relative; left: 10%; height: 50px; float: left;">
+				<span>${course.fine }</span>
+			</div>
+		</c:if>
+		<p>参与人数：${course.courseStudentNum }
+			&nbsp;&nbsp;&nbsp;创课时间：${publishTime }</p>
 	</div>
-	<div class="main_b">
-		<div class="text">
-			<form action="" enctype="multipart/form-data" method="post"
-				onSubmit="submitButton()">
-				<table class="table">
-					<tbody>
-						<tr>
-							<th style="border: 0px">名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</th>
-							<td style="border: 0px"><input type="text"
-								name="resourceName" value="${resource.resourceName }"
-								style="width: 60%; height: 30px; float: left;">
-								<div style="width: 15%; height: 30px; float: left">
-									<select id="taskCategory" name="taskCategory">
-										<option value="0">选择资源类型</option>
-										<option value="1">教案资源</option>
-										<option value="2">教学资源资源</option>
-										<option value="3">作业资源</option>
-										<option value="4">多媒体资资源</option>
-										<option value="5">实验资源</option>
-										<option value="6">课程设计资源</option>
-									</select>
-								</div></td>
-						</tr>
-						<tr>
-							<th style="border: 0px">资源介绍：</th>
-							<td style="border: 0px"><input name="resourceDetail"
-								type="text" value="${resource.resourceDetail }"
-								style="width: 80%; height: 70px;" maxlength="100"></td>
-						</tr>
-						<c:if test="${empty resource.resourcePath }">
-							<tr class="isEmpty">
-								<th style="border: 0px">附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</th>
-								<td style="border: 0px"><input style="margin-top: 1%;"
-									name="file" type="file" class="isEmpty" multiple="multiple"></td>
-							</tr>
-						</c:if>
-						<c:if test="${!empty resource.resourcePath }">
-							<tr class="notEmpty">
-								<th style="border: 0px; padding-top: 16px">原始附件：</th>
-								<td style="border: 0px"><a
-									href="${pageContext.request.contextPath}/teacher/downLoadResorce?path=${resource.resourcePath }">
-										<button type="button" class="btn btn-xs"
-											style="margin-top: 1%;">${resource.resourceName }</button>
-								</a>
-									<button type="button" class="btn btn-xs"
-										style="margin-top: 1%;">更新附件</button></td>
-							</tr>
-						</c:if>
-						<tr>
-							<th style="border: 0px"></th>
-							<td style="border: 0px">
-								<button class="btn btn-primary btn-xs"
-									style="font-size: 16px; float: right; margin-right: 20%;">修改</button>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</form>
-		</div>
+</div>
+
+<div class="main_b">
+	<div
+		style="font-size: 30px; font-weight: 600; margin-left: 140px; margin-top: 20px; margin-bottom: 55px;">
+		修改${resourceName }资源：</div>
+	<div
+		style="width: 800px; height: auto; min-height: 500px; margin-left: 22%;">
+		<form
+			action="${pageContext.request.contextPath}/teacher/updateResource"
+			enctype="multipart/form-data" method="post" id="resourceForm">
+			<div class="form-group">
+				<label for="exampleInputName2"
+					style="float: left; padding-left: 13px; margin-right: 5px;">资源名：</label>
+				<input type="text" class="form-control" id="exampleInputName2"
+					name="resourceName" style="width: 663px;"
+					value="${resource.resourceName }"> <input type="hidden"
+					name="resourceType" value="${resource.resourceTypeId }">
+					<input type="hidden"
+					name="resourceId" value="${resource.resourceId }">
+					 <input
+					type="hidden" name="courseId" value="${course.courseId }">
+			</div>
+			<div class="form-group">
+				<label for="exampleInputName2">资源介绍：</label>
+				<textarea id="resourceDetail" name="resourceDetail" type="text"
+					placeholder=""
+					style="width: 700px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
+					value="">${resource.resourceDetail }</textarea>
+			</div>
+			
+				
+					
+				 <label for="exampleInputName2"
+					style="float: left; margin-right: 5px;">修改附件：</label>
+					<div style="height: 96px;width: 274px;float: left;padding: 15px;background: #fff;border-radius: 11px;">
+						<img style="height: 50px; width: 50px;margin-right: 10px;" src="${pageContext.request.contextPath}/images/file.jpg">
+						<label class="re_name">${resource.resourceName }</label>
+						<span style="color: #c9302c;position: absolute;top: 145%;left: 43%;cursor: pointer;" onclick="modifyRe()">修改</span>
+					</div>
+					
+					 <input style="margin-top: 6%;position: relative;left: 5%;top: 27px;display:none;" name="file" type="file" multiple="multiple" >
+			<div
+				style=" height: 35px; min-height: 35px; padding-left: 38%; margin-top: 60%; margin-bottom: 13%;">
+				<div style="float: left; margin-right: 131px;">
+					<button type="submit" class="btn btn-info">确认</button>
+				</div>
+				<div>
+					<button type="button" class="btn btn-danger">取消</button>
+				</div>
+			</div>
+		</form>
 	</div>
-	<jsp:include page="/jsp/footer.jsp" flush="true" />
+
+
+</div>
 </body>
+<script type="text/javascript" charset="utf-8">
+	UE.getEditor('resourceDetail');
+	
+</script>
 </html>

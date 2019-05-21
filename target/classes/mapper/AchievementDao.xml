@@ -272,7 +272,7 @@
 	<select id="queryAOCSCById" resultMap="AOCSCMap" parameterType="java.lang.String">
 		SELECT * FROM achievements_of_college_students_competition
 		<where>
-			achievement_id = #{achievementId} and delete_flag &lt;&gt; 0
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -372,7 +372,7 @@
 		parameterType="java.lang.String">
 		SELECT * FROM achievement_course_expand
 		<where>
-			achievement_id = #{achievementId} and delete_flag &lt;&gt; 0
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -482,7 +482,7 @@
 	<select id="queryGDFCSById" resultMap="GDFCSMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_graduation_design_for_college_students
 		<where>
-			achievement_id = #{achievementId} and delete_flag &lt;&gt; 0
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>
@@ -569,7 +569,7 @@
 	<select id="querySIAEById" resultMap="SIAEMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_student_innovation_and_entrepreneurship
 		<where>
-			achievement_id = #{achievementId} and delete_flag &lt;&gt; 0
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</select>

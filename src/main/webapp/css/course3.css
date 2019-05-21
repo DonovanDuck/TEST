@@ -1,0 +1,174 @@
+/*全局样式*/
+*{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+}
+body{
+    background-color: #F0F0F0;
+}
+.container{
+    width:80%;
+}
+/*全局样式*/
+/*header样式*/
+.container-fluid
+{
+    background-color:#015293;
+    height:100px;
+}
+.container-fluid nav
+{
+    width:650px;
+    height:42px;
+    float:right;
+    margin-top:50px;
+}
+/*header样式*/
+/*main样式*/
+main .main_t .container-fluid
+{
+    height:240px;
+    background:url("../images/main_t.jpg");
+}
+main .main_t .container-fluid h1
+{
+    color:white;
+    margin-left:130px;
+    margin-top:60px;
+}
+main .main_t .container-fluid p
+{
+    color:white;
+    margin-left:130px;
+    margin-top:40px;
+}
+main .main_t .container-fluid button
+{
+    float: left;
+    margin-top: 60px;
+    outline: none;
+    position: relative;
+    left: 400px;
+}
+main .main_m .container
+{
+    height:50px;
+    background-color: white;
+    margin-top:5px;
+    line-height:50px;
+}
+main .main_m .container li
+{
+    float:left;
+    margin-right:20px;
+}
+main .main_b .main_b_t .container{
+    height:400px;
+    padding:0;
+    margin-top:10px;
+}
+main .main_b .main_b_t .container .container_left
+{
+    width:70%;
+    height:400px;
+    background-color:white;
+    float:left;
+    overflow: auto;
+}
+main .main_b .main_b_t .container .container_left::-webkit-scrollbar{
+    display:none;
+}
+
+main .main_b .main_b_t .container .container_left h3{
+    margin-left:10px;
+}
+main .main_b .main_b_t .container .container_left p{
+    margin-left:10px;
+}
+
+main .main_b .main_b_t .container .container_right
+{
+    width:29%;
+    height:400px;
+    background-color:white;
+    float:right;
+}
+main .main_b .main_b_t .container .container_right h3{
+    margin-left:10px;
+}
+
+main .main_b .main_b_t .container .container_right .teacher .img{
+    width: 28%;
+    height: 90px;
+    float: left;
+    margin-left:10%;
+}
+
+main .main_b .main_b_m .container{
+    height:430px;
+    background-color:white;
+    margin-top:10px;
+    padding:0;
+}
+main .main_b .main_b_m .container .brother
+{
+    width:30%;
+    height:180px;
+    float:left;
+    margin-right:2%;
+    margin-top:2%;
+}
+main .main_b .main_b_m .container .brother a{
+    float:right;
+    margin-right:20px;
+    margin-top:20px;
+    color:white;
+}
+main .main_b .main_b_m .container .brother h3{
+    color:white;
+    margin-left:10px;
+}
+main .main_b .main_b_m .container .brother p{
+    color:white;
+    margin-left:10px;
+}
+main .main_b .main_b_m .container .brother:hover
+{
+    box-shadow: 0 0 3px blue;
+}
+main .main_b .main_b_m .container .brother:nth-child(1){
+    margin-left:3%;
+    background:#FC6E31;
+}
+main .main_b .main_b_m .container .brother:nth-child(2)
+{
+  background:#FF99FF;
+}
+main .main_b .main_b_m .container .brother:nth-child(3){
+    background:#FF99CD;
+}
+main .main_b .main_b_m .container .brother:nth-child(4)
+{
+    margin-left: 3%;
+    background:#01FFFF;
+
+}
+main .main_b .main_b_m .container .brother:nth-child(5)
+{
+    background:#32FFCD;
+}
+main .main_b .main_b_m .container .brother:nth-child(6){
+    background:#FF3232;
+}
+main .main_b .main_b_b .container{
+    height:350px;
+    background:white;
+    margin-top:10px;
+}
+/*main样式 */

@@ -10,8 +10,6 @@
 <title></title>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
-<link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
 <link rel="stylesheet"
@@ -127,12 +125,12 @@
 				<c:forEach items="${virtualClassList }" var="item"
 					varStatus="status">
 					<a
-						href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
+						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
 						<div class="b1" style="border: 1px solid #000">
 							<div class="b1_l">
 								<img
 									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
-									alt="" style="width: 100%; height: 100%;" />
+									alt="" />
 							</div>
 							<div class="b1_r">
 								<p class="h">${item.virtualCourseName }</p>

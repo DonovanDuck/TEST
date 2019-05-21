@@ -21,6 +21,7 @@ import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Term;
+import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 
 @Service
@@ -309,4 +310,24 @@ public class StudentServiceImpl implements IStudentService{
 		// TODO Auto-generated method stub
 		studentDao.studentExitAttentionCourse(courseId, studentId);
 	}
+	public void upTask(UpTask upTask,String virtualClassNum) {
+		// TODO Auto-generated method stub
+		studentDao.upTaskThis(upTask);
+		studentDao.countUpTaskNum(upTask.getTaskId(),virtualClassNum);
+	}
+
+	@Override
+	public String getUpTaskDetail(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpTaskDetail(taskId, studentId);
+	}
+
+	@Override
+	public List<String> getUpAccessories(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpAccessories(taskId, studentId);
+	}
+
+	
+	
 }
