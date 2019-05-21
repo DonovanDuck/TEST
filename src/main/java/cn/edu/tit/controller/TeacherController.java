@@ -770,6 +770,7 @@ public class TeacherController {
 		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum(virtualClassNum);
+		task.setUseNum(1);//设置使用次数为1
 		task.setCourseId((String) request.getSession().getAttribute("courseId"));
 		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
 		task.setTaskType((String) formdata.get("taskCategory"));
@@ -827,6 +828,7 @@ public class TeacherController {
 		String taskEndTime = request.getParameter("taskEndTime");
 		try {
 			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+			teacherService.addUseNum(taskId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1578,7 +1580,7 @@ public class TeacherController {
 		System.out.println(fileName);
 		String studentId = (String) request.getSession().getAttribute("studentId");
 		File file=null;
-		if(studentId.equals("")) {
+		if("".equals(studentId)||studentId==null) {
 			file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
 		}else {
 			file = new File(Common.readProperties("path")+"/"+id+"/"+studentId+"/"+fileName);
@@ -2252,6 +2254,7 @@ public class TeacherController {
 			}
 			accessoriesName = studentService.getUpAccessories(taskId, studentId);
 			mv.addObject("upTaskDetail", upTaskDetail);
+			mv.addObject("accessoriesName", accessoriesName);
 			mv.setViewName("/jsp/VirtualClass/gradeWork");
 			return mv;
 		}
@@ -2346,4 +2349,21 @@ public class TeacherController {
 	//			e.printStackTrace();
 	//		}
 	//	}
+	@RequestMapping("ajaxGetTaskPerview")
+	public void ajaxGetTaskPerview(HttpServletRequest request,HttpServletResponse response,@RequestParam("taskId")String taskId) {
+		Task task = new Task();
+		
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+			task = teacherService.searchTask(taskId);
+			task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
+			JSONArray json = JSONArray.fromObject(task);
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 }

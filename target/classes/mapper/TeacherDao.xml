@@ -782,4 +782,9 @@
 		resultType="java.sql.Timestamp">
 		select task_end_time from class_task where virtual_class_num=#{virtualClassNum} and task_id=#{taskId};
 	</select>
+	
+	<update id="addUseNum">
+		UPDATE task set use_num = use_num+1
+		WHERE task_id = #{taskId}
+	</update>
 </mapper>

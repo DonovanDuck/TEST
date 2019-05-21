@@ -14,7 +14,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/classInfo.css"/>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 	</head>
-	<body style="background-color:#F8F8F8; ">
+	<body style="background-color:#F8F8F8;">
+	<div style="width: 100%;height: 20px;background-color: #fff"></div>
 	<c:forEach items="${taskList }" var="task">
 		<div class="contentlist" style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;">
 			<div class="row  col-lg-24">

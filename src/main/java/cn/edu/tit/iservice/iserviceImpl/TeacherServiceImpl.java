@@ -1106,4 +1106,10 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		resourceDao.updateResource(re);
 	}
+
+	@Override
+	public void addUseNum(String taskId) {
+		// TODO Auto-generated method stub
+		teacherDao.addUseNum(taskId);
+	}
 }
