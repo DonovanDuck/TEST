@@ -28,12 +28,18 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.CourseExpand;
+import cn.edu.tit.bean.GDFCS;
+import cn.edu.tit.bean.IURP;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
+import cn.edu.tit.iservice.IAchievementService;
 import cn.edu.tit.iservice.IAdminService;
 import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
@@ -51,6 +57,8 @@ public class AdminController {
 	private ITeacherService iTeacherService;
 	@Autowired
 	private IStudentService iStudentService;
+	@Autowired
+	private IAchievementService iAchievementService;
 
 
 	/**
@@ -73,7 +81,7 @@ public class AdminController {
 		File file = new File("");
 		for(FileItem fi : items) {
 			File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
-			file = new File("/home/wenruo/Desktop/userInfo", fullFile.getName()); // 为文件设置存储路径
+			file = new File(Common.readProperties("path"), fullFile.getName()); // 为文件设置存储路径
 			fi.write(file);
 		}
 		FileInputStream fileInputStream = new FileInputStream(file);
@@ -113,7 +121,7 @@ public class AdminController {
 		File file = new File("");
 		for(FileItem fi : items) {
 			File fullFile = new File(new String(fi.getName().getBytes(), "utf-8")); // 解决文件名乱码问题,获得文件内容
-			file = new File("/home/wenruo/Desktop/userInfo", fullFile.getName()); // 为文件设置存储路径
+			file = new File(Common.readProperties("path"), fullFile.getName()); // 为文件设置存储路径
 			fi.write(file);
 		}
 		FileInputStream fileInputStream = new FileInputStream(file);
@@ -195,7 +203,7 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
 		return mv;
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * 更新分类
@@ -388,7 +396,7 @@ public class AdminController {
 	}
 
 	/**
-     * @author LiMing
+	 * @author LiMing
 	 * 更新教师信息
 	 * @throws Exception 
 	 * */
@@ -442,7 +450,7 @@ public class AdminController {
 		}
 		response.getWriter().print(msg);
 	}
-	
+
 	/**
 	 *@author LiMing
 	 * 更新学生信息
@@ -470,7 +478,7 @@ public class AdminController {
 		mv = readStudentInfo();
 		return mv;
 	}
-	
+
 	/**
 	 * @author LiMing
 	 * 查询学号是否重复
@@ -489,5 +497,37 @@ public class AdminController {
 			msg = "学号已存在";			
 		}
 		response.getWriter().print(msg);
+	}
+
+	/**
+	 * @author LiMing
+	 * 跳转成果管理
+	 * @throws Exception 
+	 * */
+	@RequestMapping(value="toAchievementManager")
+	public ModelAndView toAchievementManager(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();		
+		List<AOCSC> aocscList =new ArrayList<>();
+		List<CourseExpand> courseExpandList =new ArrayList<>();
+		List<GDFCS> gdfcsList =new ArrayList<>();
+		List<SIAE> siaeList =new ArrayList<>();
+		List<IURP> iURPList =new ArrayList<>();
+		try {
+			aocscList = iAchievementService.queryAllAOCSC();
+			courseExpandList = iAchievementService.queryAllCourseExpand();
+			gdfcsList = iAchievementService.queryAllGDFCS();
+			siaeList = iAchievementService.queryAllSIAE();
+			iURPList = iAchievementService.queryAllIURP();
+			mv.addObject("aocscList",aocscList);
+			mv.addObject("courseExpandList",courseExpandList);
+			mv.addObject("gdfcsList",gdfcsList);
+			mv.addObject("siaeList",siaeList);
+			mv.addObject("iURPList",iURPList);
+			mv.setViewName("/jsp/AchievementJsp/achievementMain");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv.setViewName("/jsp/AdminJsp/achievementManager");
+		return mv;
 	}
 }

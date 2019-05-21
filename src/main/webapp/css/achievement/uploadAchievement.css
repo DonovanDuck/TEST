@@ -1,0 +1,19 @@
+.content {
+	margin-left: 20%;
+	width: 60%;
+	padding:2%;
+	height: 100%;
+	background-color: white;
+}
+
+.body {
+	background-color: #E8EBF0;
+}
+
+.footer {
+	overflow: hidden;
+	width: 100%;
+	height: 117px;
+	background-image: url("../../images/bottom.png");
+	margin-top: 1%;
+}
