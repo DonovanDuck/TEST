@@ -18,6 +18,12 @@
 	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 <script type="text/javascript">
 	function submitButton() {
 		var member = "";
@@ -89,6 +95,11 @@
 			var t2 = window.setInterval("setIframeHeight()", 500);
 			window.clearInterval(t1);
 		};
+</script>
+<script type="text/javascript" charset="utf-8">
+$(function (){
+	UE.getEditor('#detail');
+})
 </script>
 </head>
 <body class="body">

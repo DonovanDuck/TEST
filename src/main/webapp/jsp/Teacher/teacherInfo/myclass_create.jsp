@@ -1,8 +1,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,19 +16,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script>
 	function termSelect() {
-		if($('#select option:selected').val()==''){
-            var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
-            $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-        }
-        if($('#select option:selected').val()=='student'){
-            var newUrl = '${pageContext.request.contextPath}/student/LoginStudent';    //设置新提交地址
-            $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-        }
-        if($('#select option:selected').val()=='manager'){
-            var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
-            $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
+		if ($('#select option:selected').val() == '') {
+			var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin'; //设置新提交地址
+			$("#myform").attr('action', newUrl); //通过jquery为action属性赋值
+		}
+		if ($('#select option:selected').val() == 'student') {
+			var newUrl = '${pageContext.request.contextPath}/student/LoginStudent'; //设置新提交地址
+			$("#myform").attr('action', newUrl); //通过jquery为action属性赋值
+		}
+		if ($('#select option:selected').val() == 'manager') {
+			var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin'; //设置新提交地址
+			$("#myform").attr('action', newUrl); //通过jquery为action属性赋值
 
-        }
+		}
 	}
 </script>
 </head>
@@ -37,14 +38,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="sx_r">
 				<p>
 					<span>开课学期:</span> <select placeholder=""
-						style="width: 70%; height: 24px; float: right;"
+						tyle="width: 70%; height: 24px; float: right;"
 						onchange="termSelect()">
 						<c:forEach items="${termList }" var="term">
 							<option value="term.termId"
-								<c:if test="${term.startYear=='2019'}&&${term.term=='第一学期' }"> selected="selected" </c:if>>${term.startYear }-${term.endYear }
-								${term.term }</option>
-						</c:forEach>
-					</select>
+								<c:if test="${term.startYear=='2019'}&&${term.term=='第一学期' }"> selected="selected" </c:if>${term.startYear }-${term.endYear }${term.term }</option></c:forEach></select>
 				</p>
 			</div>
 		</div>
@@ -78,9 +76,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<hr />
 				</a>
 			</c:forEach>
-
 		</div>
-
+	</div>
 	</div>
 </body>
 </html>

@@ -41,33 +41,7 @@
 <script
 	src="${pageContext.request.contextPath}/js/Admin/materialize.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/js/Admin/dataTables/jquery.dataTables.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/Admin/dataTables/dataTables.bootstrap.js"></script>
-<script
-	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
-	
-</script>
-<script
 	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/Admin/moment-with-locales.min.js"></script>
-<script>
-	$(document).ready(function() {
-		$('#dataTables-example').dataTable();
-	});
-</script>
-<script type="text/javascript">
-$(function(){
-	function deleteAchievement(achievementId){
-		alert("删除");
-	}
-
-	function restore(achievementId){
-		alert("恢复");
-	}
-})
-</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -170,17 +144,13 @@ $(function(){
 																<small>查看</small>
 															</button>
 													</a> <c:if test="${item.deleteFlag == 1 }">
-															<button type="button" class="btn btn-danger"
+															<button class="btn btn-danger"
 																onclick='deleteAchievement(${item.projectId })'
-																style='padding-top: 2%;'>
-																<small>删除</small>
-															</button>
+																style='padding-top: 2%;'>删除</button>
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
-															<button type="button" class="btn btn-success"
+															<button class="btn btn-success"
 																onclick="restore(${item.projectId })"
-																style="padding-top: 2%;">
-																<small>恢复</small>
-															</button>
+																style="padding-top: 2%;">恢复</button>
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -326,5 +296,16 @@ $(function(){
 			</div>
 		</div>
 	</div>
+	<script type="text/javascript">
+$(function(){
+	function deleteAchievement(achievementId){
+		alert("删除");
+	}
+
+	function restore(achievementId){
+		alert("恢复");
+	}
+})
+</script>
 </body>
 </html>
