@@ -6,6 +6,7 @@ encoding//src/main/java=UTF-8
 encoding//src/main/resources/jdbc.properties=UTF-8
 encoding//src/main/resources/log4j.properties=UTF-8
 encoding//src/main/resources/mapper/AdminDao.xml=UTF-8
+encoding//src/main/webapp/jsp/AchievementJsp/CourseExpandUpload.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/academicManager.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/categoryManager.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/studentManager.jsp=UTF-8

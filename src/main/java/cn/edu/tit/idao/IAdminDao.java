@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.stereotype.Component;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
-import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;

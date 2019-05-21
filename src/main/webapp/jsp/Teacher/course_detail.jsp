@@ -34,6 +34,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </head>
 
+<style>
+	.a
+{
+	width:313px;
+	height:0;
+	background-color:#f0f0f0;
+	opacity: 0;
+	transition:height 0.2s linear,opacity 0.2s linear;
+	-webkit-transition:height 0.2s linear,opacity 0.2s linear; /* Safari */
+	
+	
+	
+	
+}
+.b{
+	width:187px;
+	min-height:77px;
+	height: auto;
+	position: relative;
+}
+
+.b:hover .a
+{
+	height:100px;
+	
+	opacity: 1;
+	
+}
+</style>
+
 <script type="text/javascript">
 	function attention(){
 		//alert('${course.courseId}');
@@ -110,13 +140,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="container_right">
 				<h3>教师圈</h3>
-				<ul style="list-style: none;">
 					<c:forEach items="${teacherList }" var="teacher">
-					<li>
-						<div>
+						<div class="b">
+							
 							<ul style="list-style: none;">
 								<li style="float: left;">
-									<div
+									<div 
 										style="width: 60px; height: 60px; margin-left: 10px; margin-top: 10px;">
 										<img style="border-radius: 50%; width: 100%; height: 100%"
 											src="${pageContext.request.contextPath}/images/t2.png" alt="" />
@@ -131,12 +160,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</div>
 								</li>
 							</ul>
+							<div style="clear: both;"></div>
+							<div class="a">
+							<div>学历：${teacher.educationBackground }</div>
+							<div>电话：${teacher.telephone }</div>
+							<div>邮箱：${teacher.email }</div>
+							</div>
 						</div>
-					</li>
 					<!-- 清除浮动 -->
-					<div style="clear: both;"></div>
+					 <div style="clear: both;"></div>
 					</c:forEach>
-					<li>
+					<%--<li>
 						<div>
 							<ul style="list-style: none;">
 								<li style="float: left;">
@@ -157,14 +191,44 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							</ul>
 						</div>
 					</li>
-				</ul>
+				</ul> --%>
 
 			</div>
 		</div>
 	</div>
 	<div class="main_b_m">
-		<div class="container">
-			<div class="brother">
+		 <div class="container">
+		 <div class="main_b_t">
+				<nav>
+					<ul style="    margin-top: 25px;margin-left: 38px;">
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}"
+							target="target">教案库</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/resource/toTeacherResource/${course.courseId}"
+							target="target">教学资源库</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/jsp/Teacher/teacher-resource-expansion-task.jsp"
+							target="target">多媒体资源库</a>
+						 <li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/jsp/Teacher/teacher-release-task.jsp"
+							target="_blank">作业库</a></li> 
+						 <li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toPublishResource"
+							target="_blank">实验库</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toResourceMain"
+							target="_blank">课程设计库</a></li> 
+					</ul>
+				</nav>
+			</div>
+			<div style="clear: both;"></div>
+				<div style="width: 100%;height: 372px;">
+				<iframe style="margin-left: 28px;margin-top: 12px;"
+					src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}"
+					name="target" frameborder="0" width="93%" height="100%"
+					scrolling="auto"></iframe></div>
+			<%--<div class="brother">
 				<a href="#">更多</a>
 				<h3>教案库</h3>
 				
@@ -219,8 +283,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<p>2、简单的JAVA程序</p>
 				<p>3、数据运算、流控制和数组</p>
 				<p>4、类、包和接口</p>
-			</div>
-		</div>
+			</div>--%>
+		</div> 
 	</div>
 	<div class="main_b_b">
 		<div class="container">

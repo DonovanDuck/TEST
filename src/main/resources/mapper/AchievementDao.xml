@@ -1,0 +1,748 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tit.idao.IAchievementDao">
+	<!-- 产学研映射关系 -->
+	<resultMap type="cn.edu.tit.bean.IURP" id="IURPMap">
+		<id column="project_id" property="projectId" />
+		<result column="project_name" property="projectName" />
+		<result column="project_detail" property="projectDetail" />
+		<result column="introduction" property="introduction" />
+		<result column="compere" property="compere" />
+		<result column="member" property="member" />
+		<result column="collect_the_amount" property="collectTheAmount" />
+		<result column="cooperator" property="cooperator" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="status" property="status" />
+		<result column="is_share" property="isshare" />
+		<result column="project_category" property="projectCategory" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
+		<result column="browse_volume" property="browseVolume" />
+		<result column="price" property="price" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--大学生竞赛成果映射 -->
+	<resultMap type="cn.edu.tit.bean.AOCSC" id="AOCSCMap">
+		<id column="achievement_id" property="achievementId" />
+		<result column="achievement_name" property="achievementName" />
+		<result column="achievement_category" property="achievementCategory" />
+		<result column="achievement_introduction" property="introduction" />
+		<result column="ahievement_detail" property="achievementDetail" />
+		<result column="guidance_teacher" property="guidanceTeacher" />
+		<result column="member" property="member" />
+		<result column="compere" property="compere" />
+		<result column="team_name" property="teamName" />
+		<result column="level" property="level" />
+		<result column="feature" property="feature" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
+		<result column="finish_time" property="finishTime" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--课程拓展作品成果映射 -->
+	<resultMap type="cn.edu.tit.bean.CourseExpand" id="CourseExpandMap">
+		<id column="achievement_id" property="achievementId" />
+		<result column="course_id" property="courseId" />
+		<result column="achievement_name" property="achievementName" />
+		<result column="achievement_category" property="achievementCategory" />
+		<result column="introduction" property="introduction" />
+		<result column="achievement_detail" property="achievementDetail" />
+		<result column="guidance_teacher" property="guidanceTeacher" />
+		<result column="member" property="member" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
+		<result column="compere" property="compere" />
+		<result column="team_name" property="teamName" />
+		<result column="finish_time" property="finishTime" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--大学生毕业设计成果映射 -->
+	<resultMap type="cn.edu.tit.bean.GDFCS" id="GDFCSMap">
+		<id column="achievement_id" property="achievementId" />
+		<result column="achievement_name" property="achievementName" />
+		<result column="achievement_category" property="achievementCategory" />
+		<result column="introduction" property="introduction" />
+		<result column="achievement_detail" property="achievementDetail" />
+		<result column="guidance_teacher" property="guidanceTeacher" />
+		<result column="compere" property="compere" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
+		<result column="finish_time" property="finishTime" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--大学生创新创业成果映射 -->
+	<resultMap type="cn.edu.tit.bean.SIAE" id="SIAEMap">
+		<id column="achievement_id" property="achievementId" />
+		<result column="achievement_name" property="achievementName" />
+		<result column="achievement_category" property="achievementCategory" />
+		<result column="introduction" property="introduction" />
+		<result column="achievement_detail" property="achievementDetail" />
+		<result column="guidance_teacher" property="guidanceTeacher" />
+		<result column="member" property="member" />
+		<result column="compere" property="compere" />
+		<result column="member_num" property="memberNum" />
+		<result column="upload_author" property="uploadAuthorId" />
+		<result column="team_name" property="teamName" />
+		<result column="level" property="level" />
+		<result column="feature" property="feature" />
+		<result column="finish_time" property="finishTime" />
+		<result column="plan" property="plan" />
+		<result column="status" property="status" />
+		<result column="declaration" property="declaration" />
+		<result column="midreply" property="midreply" />
+		<result column="concluding_report" property="concludingRreport" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="first_picture" property="firstPicture" />
+		<result column="browse_volume" property="browseVolume" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--成果图片映射 -->
+	<resultMap type="cn.edu.tit.bean.AchievementPicture" id="AchievementPictureMap">
+		<id column="accessory_id" property="accessoryId" />
+		<result column="author_id" property="authorId" />
+		<result column="accessory_name" property="accessoryName" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="accessory_time" property="accessoryTime" />
+		<result column="achievement_id" property="achievementId" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--成果附件映射 -->
+	<resultMap type="cn.edu.tit.bean.AchievementAccessory" id="AchievementAccessoryMap">
+		<id column="accessory_id" property="accessoryId" />
+		<result column="author_id" property="authorId" />
+		<result column="accessory_name" property="accessoryName" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="accessory_time" property="accessoryTime" />
+		<result column="achievement_id" property="achievementId" />
+		<result column="delete_flag" property="deleteFlag" />
+	</resultMap>
+	<!--评论映射 -->
+	<resultMap type="cn.edu.tit.bean.AchievementComment" id="AchievementCommentMap">
+		<id column="comment_id" property="commentId" />
+		<result column="author_id" property="authorId" />
+		<result column="achievement_id" property="achievemendId" />
+		<result column="comment_content" property="commentContent" />
+		<result column="uploadTime" property="uploadTime" />
+		<result column="achievement_category" property="category" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="author_name" property="authorName" />
+	</resultMap>
+
+
+	<!-- 关于IURP产学研表的查询 -->
+	<select id="queryIURP" resultMap="IURPMap">
+		SELECT * FROM
+		achievement_industry_university_research_project where delete_flag &lt;&gt; 0;
+	</select>
+	<select id="queryAllIURP" resultMap="IURPMap">
+		SELECT * FROM
+		achievement_industry_university_research_project;
+	</select>
+	<update id="deleteIURP" parameterType="java.lang.String">
+		update
+		achievement_industry_university_research_project set delete_flag =
+		0
+		where
+		project_id = #{achievementId};
+	</update>
+	<select id="queryIURPById" resultMap="IURPMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_industry_university_research_project
+		<where>
+			project_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="queryIURPByAuthorId" resultMap="IURPMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_industry_university_research_project
+		<where>
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryIURPByName" resultMap="IURPMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_industry_university_research_project
+		<where>
+			project_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryIURPByAuthor" resultMap="IURPMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_industry_university_research_project
+		<where>
+			compere
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<insert id="insertIURP" parameterType="cn.edu.tit.bean.IURP">
+		INSERT INTO
+		achievement_industry_university_research_project
+		(project_id,
+		project_name,
+		project_detail,
+		compere,
+		member,
+		collect_the_amount,
+		cooperator,
+		start_time,
+		end_time,
+		status,
+		first_picture,
+		is_share,
+		project_category,
+		introduction,
+		browse_volume,
+		price,
+		member_num,
+		upload_author,
+		delete_flag
+		)
+		VALUES
+		(#{iurp.projectId},
+		#{iurp.projectName},
+		#{iurp.projectDetail},
+		#{iurp.compere},
+		#{iurp.member},
+		#{iurp.collectTheAmount},
+		#{iurp.cooperator},
+		#{iurp.startTime},
+		#{iurp.endTime},
+		#{iurp.status},
+		#{iurp.firstPicture},
+		#{iurp.isshare},
+		#{iurp.projectCategory},
+		#{iurp.introduction},
+		#{iurp.browseVolume},
+		#{iurp.price},
+		#{iurp.memberNum},
+		#{iurp.uploadAuthorId},
+		#{iurp.deleteFlag}
+		);
+	</insert>
+	<update id="updateIURPBrowseVolume" parameterType="java.lang.String">
+		update achievement_industry_university_research_project set
+		browse_volume = browse_volume+1
+		<where>
+			project_id = #{achievementId}
+		</where>
+		;
+	</update>
+
+	<!-- 大学生竞赛成果的查询 -->
+	<select id="queryAOCSC" resultMap="AOCSCMap">
+		SELECT * FROM
+		achievements_of_college_students_competition where delete_flag
+		&lt;&gt; 0;
+	</select>
+	<select id="queryAllAOCSC" resultMap="AOCSCMap">
+		SELECT * FROM
+		achievements_of_college_students_competition;
+	</select>
+	<update id="deleteAOCSC" parameterType="java.lang.String">
+		update
+		achievements_of_college_students_competition set delete_flag =
+		0
+		where
+		achievement_id = #{achievementId};
+	</update>
+	<select id="queryAOCSCByName" resultMap="AOCSCMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievements_of_college_students_competition
+		<where>
+			achievement_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryAOCSCById" resultMap="AOCSCMap" parameterType="java.lang.String">
+		SELECT * FROM achievements_of_college_students_competition
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="queryAOCSCByAuthorId" resultMap="AOCSCMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievements_of_college_students_competition
+		<where>
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryAOCSCByAuthor" resultMap="AOCSCMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievements_of_college_students_competition
+		<where>
+			compere
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<insert id="insertAOCSC" parameterType="cn.edu.tit.bean.AOCSC">
+		INSERT INTO
+		achievements_of_college_students_competition
+		(achievement_id,
+		achievement_name,
+		achievement_category,
+		achievement_introduction,
+		ahievement_detail,
+		guidance_teacher,
+		member,
+		compere,
+		team_name,
+		level,
+		feature,
+		finish_time,
+		upload_time,
+		first_picture,
+		browse_volume,
+		delete_flag
+		)
+		VALUES
+		(#{iu.achievementId},
+		#{iu.achievementName},
+		#{iu.achievementCategory},
+		#{iu.introduction},
+		#{iu.achievementDetail},
+		#{iu.guidanceTeacher},
+		#{iu.member},
+		#{iu.compere},
+		#{iu.teamName},
+		#{iu.level},
+		#{iu.feature},
+		#{iu.finishTime},
+		#{iu.uploadTime},
+		#{iu.firstPicture},
+		#{iu.browseVolume},
+		#{iu.deleteFlag}
+		);
+	</insert>
+	<update id="updateAOCSCBrowseVolume" parameterType="java.lang.String">
+		update achievements_of_college_students_competition set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId} 
+		</where>
+		;
+	</update>
+
+	<!-- 课程拓展作品的查询 -->
+	<select id="queryCourseExpand" resultMap="CourseExpandMap">
+		SELECT * FROM
+		achievement_course_expand where delete_flag &lt;&gt; 0;
+	</select>
+	<select id="queryAllCourseExpand" resultMap="CourseExpandMap">
+		SELECT * FROM
+		achievement_course_expand;
+	</select>
+	<update id="deleteCourseExpand" parameterType="java.lang.String">
+		update
+		achievement_course_expand set delete_flag =
+		0
+		where achievement_id =
+		#{achievementId};
+	</update>
+	<select id="queryCourseExpandByName" resultMap="CourseExpandMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_course_expand
+		<where>
+			achievement_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryCourseExpandById" resultMap="CourseExpandMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_course_expand
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="queryCourseExpandByAuthorId" resultMap="CourseExpandMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_course_expand
+		<where>
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryCourseExpandByAuthor" resultMap="CourseExpandMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_course_expand
+		<where>
+			compere
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
+		</where>
+		;
+	</select>
+	<insert id="insertCourseExpand" parameterType="cn.edu.tit.bean.CourseExpand">
+		INSERT INTO
+		achievement_course_expand
+		(achievement_id,
+		course_id,
+		achievement_name,
+		achievement_category,
+		introduction,
+		achievement_detail,
+		guidance_teacher,
+		member,
+		compere,
+		team_name,
+		finish_time,
+		upload_time,
+		first_picture,
+		browse_volume,
+		member_num,
+		upload_author,
+		delete_flag
+		)
+		VALUES
+		(#{iu.achievementId},
+		#{iu.courseId},
+		#{iu.achievementName},
+		#{iu.achievementCategory},
+		#{iu.introduction},
+		#{iu.achievementDetail},
+		#{iu.guidanceTeacher},
+		#{iu.member},
+		#{iu.compere},
+		#{iu.teamName},
+		#{iu.finishTime},
+		#{iu.uploadTime},
+		#{iu.firstPicture},
+		#{iu.browseVolume},
+		#{iu.memberNum},
+		#{iu.uploadAuthorId},
+		#{iu.deleteFlag}
+		);
+	</insert>
+	<update id="updateCourseExpandBrowseVolume" parameterType="java.lang.String">
+		update achievement_course_expand set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
+
+	<!-- 大学生毕业设计的查询 -->
+	<select id="queryGDFCS" resultMap="GDFCSMap">
+		SELECT * FROM
+		achievement_graduation_design_for_college_students where delete_flag
+		&lt;&gt; 0;
+	</select>
+	<select id="queryAllGDFCS" resultMap="GDFCSMap">
+		SELECT * FROM
+		achievement_graduation_design_for_college_students;
+	</select>
+	<update id="deleteGDFCS" parameterType="java.lang.String">
+		update
+		achievement_graduation_design_for_college_students set delete_flag =
+		0
+		where achievement_id = #{achievementId};
+	</update>
+	<select id="queryGDFCSByName" resultMap="GDFCSMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_graduation_design_for_college_students
+		<where>
+			achievement_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryGDFCSByAuthorId" resultMap="GDFCSMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_graduation_design_for_college_students
+		<where>
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="queryGDFCSById" resultMap="GDFCSMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_graduation_design_for_college_students
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="queryGDFCSByAuthor" resultMap="GDFCSMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_graduation_design_for_college_students
+		<where>
+			compere
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
+		</where>
+		;
+	</select>
+	<insert id="insertGDFCS" parameterType="cn.edu.tit.bean.GDFCS">
+		INSERT INTO
+		achievement_graduation_design_for_college_students
+		(achievement_id,
+		achievement_name,
+		achievement_category,
+		introduction,
+		achievement_detail,
+		guidance_teacher,
+		compere,
+		finish_time,
+		upload_time,
+		first_picture,
+		member_num,
+		upload_author,
+		browse_volume,
+		delete_flag
+		)
+		VALUES
+		(#{gdfcs.achievementId},
+		#{gdfcs.achievementName},
+		#{gdfcs.achievementCategory},
+		#{gdfcs.introduction},
+		#{gdfcs.achievementDetail},
+		#{gdfcs.guidanceTeacher},
+		#{gdfcs.compere},
+		#{gdfcs.finishTime},
+		#{gdfcs.uploadTime},
+		#{gdfcs.firstPicture},
+		#{gdfcs.memberNum},
+		#{gdfcs.uploadAuthorId},
+		#{gdfcs.browseVolume},
+		#{gdfcs.deleteFlag}
+		);
+	</insert>
+	<update id="updateGDFCSBrowseVolume" parameterType="java.lang.String">
+		update achievement_graduation_design_for_college_students set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
+
+
+	<!-- 大学生创新创业的查询 -->
+	<select id="querySIAE" resultMap="SIAEMap">
+		SELECT * FROM
+		achievement_student_innovation_and_entrepreneurship where delete_flag
+		&lt;&gt; 0;
+	</select>
+	<select id="queryAllSIAE" resultMap="SIAEMap">
+		SELECT * FROM
+		achievement_student_innovation_and_entrepreneurship;
+	</select>
+	<update id="deleteSIAE" parameterType="java.lang.String">
+		update
+		achievement_student_innovation_and_entrepreneurship set delete_flag =
+		0 where achievement_id = #{achievementId};
+	</update>
+	<select id="querySIAEByName" resultMap="SIAEMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_student_innovation_and_entrepreneurship
+		<where>
+			achievement_name
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="querySIAEById" resultMap="SIAEMap" parameterType="java.lang.String">
+		SELECT * FROM achievement_student_innovation_and_entrepreneurship
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<select id="querySIAEByAuthorId" resultMap="SIAEMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_student_innovation_and_entrepreneurship
+		<where>
+			upload_author = #{authorId} and delete_flag &lt;&gt; 0
+		</where>
+		;
+	</select>
+	<select id="querySIAEByAuthor" resultMap="SIAEMap"
+		parameterType="java.lang.String">
+		SELECT * FROM achievement_student_innovation_and_entrepreneurship
+		<where>
+			compere
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
+		</where>
+		;
+	</select>
+	<insert id="insertSIAE" parameterType="cn.edu.tit.bean.SIAE">
+		INSERT INTO
+		achievement_student_innovation_and_entrepreneurship
+		(achievement_id,
+		achievement_name,
+		achievement_category,
+		introduction,
+		achievement_detail,
+		guidance_teacher,
+		member,
+		compere,
+		team_name,
+		level,
+		feature,
+		finish_time,
+		plan,
+		status,
+		declaration,
+		midreply,
+		concluding_report,
+		upload_time,
+		first_picture,
+		member_num,
+		upload_author,
+		browse_volume,
+		delete_flag
+		)
+		VALUES
+		(#{siae.achievementId},
+		#{siae.achievementName},
+		#{siae.achievementCategory},
+		#{siae.introduction},
+		#{siae.achievementDetail},
+		#{siae.guidanceTeacher},
+		#{siae.member},
+		#{siae.compere},
+		#{siae.teamName},
+		#{siae.level},
+		#{siae.feature},
+		#{siae.finishTime},
+		#{siae.plan},
+		#{siae.status},
+		#{siae.declaration},
+		#{siae.midreply},
+		#{siae.concludingRreport},
+		#{siae.uploadTime},
+		#{siae.firstPicture},
+		#{siae.memberNum},
+		#{siae.uploadAuthorId},
+		#{siae.browseVolume},
+		#{siae.deleteFlag}
+		);
+	</insert>
+	<update id="updateSIAEBrowseVolume" parameterType="java.lang.String">
+		update achievement_student_innovation_and_entrepreneurship set
+		browse_volume =
+		browse_volume+1
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</update>
+
+	<!-- 附件图片操作 -->
+	<select id="queryAchievementPicture" resultMap="AchievementPictureMap">
+		SELECT * FROM achievement_picture
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<insert id="insertAchievementPicture" parameterType="cn.edu.tit.bean.AchievementPicture">
+		INSERT INTO
+		achievement_picture
+		(accessory_id,
+		author_id,
+		accessory_name,
+		accessory_path,
+		accessory_time,
+		achievement_id,
+		delete_flag)
+		VALUES
+		<foreach item="ap" collection="list" separator=",">
+			(#{ap.accessoryId},
+			#{ap.authorId},
+			#{ap.accessoryName},
+			#{ap.accessoryPath},
+			#{ap.accessoryTime},
+			#{ap.achievementId},
+			#{ap.deleteFlag})
+		</foreach>
+		;
+	</insert>
+
+	<!-- 附件操作 -->
+	<select id="queryAchievementAccessory" resultMap="AchievementAccessoryMap">
+		SELECT * FROM ahievement_accessory
+		<where>
+			achievement_id = #{achievementId}
+		</where>
+		;
+	</select>
+	<insert id="insertAchievementAccessory" parameterType="cn.edu.tit.bean.AchievementAccessory">
+		INSERT INTO
+		achievement_accessory
+		(accessory_id,
+		author_id,
+		accessory_name,
+		accessory_path,
+		accessory_time,
+		achievement_id,
+		delete_flag)
+		VALUES
+		<foreach item="ap" collection="list" separator=",">
+			(#{ap.accessoryId},
+			#{ap.authorId},
+			#{ap.accessoryName},
+			#{ap.accessoryPath},
+			#{ap.accessoryTime},
+			#{ap.achievementId},
+			#{ap.deleteFlag})
+		</foreach>
+		;
+	</insert>
+
+	<!-- 评论查询 -->
+	<select id="queryComment" parameterType="java.lang.String"
+		resultMap="AchievementCommentMap">
+		SELECT * FROM achievment_comment where achievement_id =
+		#{achievementId} and achievement_category = #{category};
+	</select>
+	<insert id="insertAchievementComment" parameterType="cn.edu.tit.bean.AchievementComment">
+		INSERT
+		INTO
+		achievment_comment
+		(comment_id,
+		achievement_id,
+		author_id,
+		comment_content,
+		uploadTime,
+		achievement_category,
+		author_picture,
+		author_name)
+		VALUES
+		(#{comment.commentId},
+		#{comment.achievemendId},
+		#{comment.authorId},
+		#{comment.commentContent},
+		#{comment.uploadTime},
+		#{comment.category},
+		#{comment.authorPicture},
+		#{comment.authorName}
+		)
+	</insert>
+</mapper>
