@@ -46,7 +46,6 @@
 	src="${pageContext.request.contextPath}/js/Admin/dataTables/dataTables.bootstrap.js"></script>
 <script
 	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
-	
 </script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>
@@ -166,7 +165,7 @@
 						href="${pageContext.request.contextPath}/admin/toAcademicManager"
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
 					</li>
-						<li class="text-left"><a
+					<li class="text-left"><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark" style="font-size: 20px">学生成果管理</a>
 					</li>
