@@ -10,15 +10,7 @@ encoding//src/main/webapp/jsp/AdminJsp/academicManager.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/categoryManager.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/studentManager.jsp=UTF-8
 encoding//src/main/webapp/jsp/AdminJsp/teacherManager.jsp=UTF-8
-<<<<<<< HEAD
-<<<<<<< HEAD
-encoding//src/main/webapp/jsp/CourseJsp/courseSecond(1).jsp=UTF-8
-=======
 encoding//src/main/webapp/jsp/CourseJsp/courseSecond.jsp=UTF-8
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
-encoding//src/main/webapp/jsp/CourseJsp/courseSecond(1).jsp=UTF-8
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 encoding//src/main/webapp/jsp/StudentJsp/studentCenter_MyCourse.jsp=UTF-8
 encoding//src/main/webapp/jsp/StudentJsp/studentCenter_MyDiscuss.jsp=UTF-8
 encoding//src/main/webapp/jsp/StudentJsp/studentCenter_MyInfo.jsp=UTF-8

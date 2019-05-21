@@ -2,14 +2,9 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
-<<<<<<< HEAD
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-=======
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,49 +18,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	session.setAttribute("_csrf", _csrf);
 %>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<<<<<<< HEAD
-<script>
-        $(document).ready(function () {
-
-            var entrance=document.getElementById('entrance');
-            var entrance_content=document.getElementById('entrance_content');
-            entrance.onclick=function(){
-                entrance_content.style.display='inline';
-                entrance.style.display='none';
-            }
-        });
-        function gradeChange(){
-            if($('#select option:selected').val()=='teacher'){
-                var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin';    //设置新提交地址
-                $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-            }
-            if($('#select option:selected').val()=='student'){
-                var newUrl = '${pageContext.request.contextPath}/student/LoginStudent';    //设置新提交地址
-                $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-            }
-            if($('#select option:selected').val()=='manager'){
-                var newUrl = '${pageContext.request.contextPath}/admin/LoginAdmin';    //设置新提交地址
-                $("#myform").attr('action',newUrl);    //通过jquery为action属性赋值
-
-            }
-        }
-         function CheckPost (){
-      		if (addForm.employeeNum.value == "")
-      		{
-          		alert("请填写用户名！");
-          		addForm.username.focus();
-          		return false;
-      		}
-      		if (addForm.password.value == "")
-      		{
-          		alert("请填写密码！");
-          		addForm.username.focus();
-          		return false;
-      		}
-     		return true;
-   		}
-    </script>
-=======
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 <script>
 	$(function() {
@@ -143,7 +95,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		return true;
 	}
 </script>
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/login.css" type="text/css">
 <link rel="stylesheet"
@@ -166,11 +117,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="login_form_area">
 					<form id="myform"
 						action="${pageContext.request.contextPath}/teacher/teacherLogin"
-<<<<<<< HEAD
-						name="addForm" class="login_form" onsubmit="return CheckPost();">
-=======
 						name="addForm" class="login_form" >
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 						<div class="login-account">
 							<div class="id_select">
 								<select id="select" onchange="gradeChange()">
@@ -205,13 +152,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<a href="">忘记密码</a>
 							</div>
 						</div>
-<<<<<<< HEAD
-						<button type="submit" class="submit">登录</button>
-						<input type="hidden" name="_csrf" value="<%=_csrf %>" />
-						<div class="Login-footer">
-							<!-- <span class="Login-qrcode">
-<<<<<<< HEAD
-=======
 						<button id="login" type="button" class="submit" >登录</button>
 						<!-- <button id="virtualClick" type="button" class="btn btn-primary" data-toggle="modal"
 							data-target=".bs-example-modal-sm">登录</button> -->
@@ -226,9 +166,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<!--
 						<div class="Login-footer">
 							<span class="Login-qrcode">
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 								<button type="button" class="Button Button--plain">二维码登录</button>
 							</span> <span class="Login-footerSeparate Login-qrcodeSeparate">
 								· </span> <span class="Login-aboardPhone">
@@ -238,15 +175,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								class="Login-socialLogin">
 								<button id="entrance" type="button"
 									class="Button Login-socialButtonEntrance Button--plain">社交帐号登录
-<<<<<<< HEAD
-<<<<<<< HEAD
-								</button> -->
-=======
 								</button>
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
-								</button> -->
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 								<div id="entrance_content" style="display: none;">
 									<span
 										class="Login-socialButtonGroup Login-socialButtonGroup--hidden">
@@ -306,11 +235,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									</span>
 								</div>
 							</span>
-<<<<<<< HEAD
-						</div>
-=======
 						</div>   -->
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 					</form>
 				</div>
 			</div>

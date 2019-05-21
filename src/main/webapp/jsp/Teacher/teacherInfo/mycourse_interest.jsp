@@ -12,32 +12,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
 </head>
 <body>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<div class="main_b_r_b" id="k1">
-<c:forEach items="${courseList }" var="course" varStatus="status">
-    <a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }" target="_top">
-        <div class="lesson">
-            <div class="lesson_l">
-                <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 100%;height: 100%"/>
-
-=======
 <div  id="k3">
   <c:forEach items="${courseList }" var="course">
     <a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }" target="_top">
         <div class="lesson">
             <div class="lesson_l">
                 <img src="../images/tu6.jpg" style="width: 100%;"alt=""/>
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
-<div class="main_b_r_b" id="k1">
-<c:forEach items="${courseList }" var="course" varStatus="status">
-    <a href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }" target="_top">
-        <div class="lesson">
-            <div class="lesson_l">
-                <img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 100%;height: 100%"/>
-
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
             </div>
             <div class="lesson_r">
                 <h3>${course.courseName }</h3>
@@ -45,15 +25,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 <p>教师团队：<c:forEach items="${course.teacherList }" var="teacher">
                 ${teacher.teacherName }
                 </c:forEach> </p>
-<<<<<<< HEAD
-<<<<<<< HEAD
-                <p>创课时间：${publishTime[status.index]  }</p>
-=======
                 <p>创课时间：${course.publishTime }</p>
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
-                <p>创课时间：${publishTime[status.index]  }</p>
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
             </div>
         </div>
     </a>

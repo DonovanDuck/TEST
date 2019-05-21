@@ -52,35 +52,45 @@
 	
 	$(document).ready(function() {
 		
-		$tasktype=$("#taskCategory").val();
-		$("#selectType2 li").click(function() {
+		$tasktype=$("#taskCategorySelect").val();
+		$("#selectTypeSelect li").click(function() {
 			var text = $(this).html();
 			if(text=="work"){
-				$("#typeName").html("作业");
+				$("#typeNameSelect").html("作业");
 			}
 			if(text=="trial"){
-				$("#typeName").html("实验");
+				$("#typeNameSelect").html("实验");
 			}
 			if(text=="work"){
-				$("#typeName").html("课程设计");
+				$("#typeNameSelect").html("课程设计");
 			}
-			$("#taskCategory2").val(text);
-			$tasktype=$("#taskCategory").val();
+			$("#taskCategorySelect").val(text);
+			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
 					'refresh', 
 					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype});
 		});
-		$("#selectType1 li").click(function() {
+		$("#selectTypeEdit li").click(function() {
 			var text = $(this).html();
-			$("#typeName").html(text);
-			$("#taskCategory1").val(text);
-			$tasktype=$("#taskCategory").val();
+			if(text=="work"){
+				$("#typeNameEdit").html("作业");
+			}
+			if(text=="trial"){
+				$("#typeNameEdit").html("实验");
+			}
+			if(text=="work"){
+				$("#typeNameEdit").html("课程设计");
+			}
+			
+			$("#taskCategoryEdit").val(text);
+			$tasktype=$("#taskCategoryEdit").val();
 			
 		});
 		
 		$("#editTime .wui-date-editor input").attr("name", "taskEndTime");
+		$("#editTime .wui-date-editor input").attr("id", "taskEndTimeEdit");
 		$("#selectTime .wui-date-editor input").attr("name", "taskEndTime");
-		
+		$("#selectTime .wui-date-editor input").attr("id", "taskEndTimeSelect");
 	});
 	
 	
@@ -98,7 +108,7 @@
 			sidePagination : 'client',//server:服务器端分页|client：前端分页
 			pageSize : 5,//单页记录数
 			pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
-			showRefresh : true,//刷新按钮
+			showRefresh : false,//刷新按钮
 			clickToSelect: true,                //是否启用点击选中行
 			singleSelect  : true,
 			queryParams : function(params) {//上传服务器的参数
@@ -143,22 +153,51 @@
 
 			}, ],
 			onClickRow:function (row,$element) {
-				
-				alert("dianjile "+row.taskTitle) ;  
 				$("#taskId").val(row.taskId);
-				alert($("#taskId").val());
-				var getSelectRows = $("#monthCount_Table").bootstrapTable('getSelections', function (row) {
-			          return row;
-					});
-				 console.log(getSelectRows);
-				if(getSelectRows!=null){
-					
-				}             
+				$.ajax({
+					        url:"${pageContext.request.contextPath}/teacher/ajaxIsCreated",//请求地址
+					        type:"post",//请求方式
+							async:false,
+					        data:"taskId="+row.taskId,//发送信息
+					        dataType:"text",//服务器响应信息类型，不写则为默认
+					        success:function(responseContent){  //success:function(responseContent)为回调函数   responseContent为接收响应信息
+								
+								var flag = eval(responseContent);
+								 if(flag=='true'){
+									$("#selectErrorMsg").css("display","block");
+								
+					                $("#selectErrorMsg").html("<strong>警告！</strong>该任务已经在该班级发布，如果仍然选择该任务，可能会丢失之前的任务数据。请谨慎选择")
+					            } else if(flag=='false'){
+									$("#selectErrorMsg").css("display","none");
+								}
+					        }
+				});
+				   
 			},
-			 onCheck:function(row){
-				 alert("dianjile "+row.taskTitle) ; 
+			onUncheck:function(row,$element){
+				$("#selectErrorMsg").css("display","none");
+			},
+			onCheck:function(row){
+				
 				 $("#taskId").val(row.taskId);
-				 alert($("#taskId").val());
+				 $.ajax({
+						        url:"${pageContext.request.contextPath}/teacher/ajaxIsCreated",//请求地址
+						        type:"post",//请求方式
+								async:false,
+						        data:"taskId="+row.taskId,//发送信息
+						        dataType:"text",//服务器响应信息类型，不写则为默认
+						        success:function(responseContent){  //success:function(responseContent)为回调函数   responseContent为接收响应信息
+									
+									var flag = eval(responseContent);
+									 if(flag=='true'){
+										$("#selectErrorMsg").css("display","block");
+										
+						                $("#selectErrorMsg").html("<strong>警告！</strong>该任务已经在该班级发布，如果仍然选择该任务，可能会丢失之前的任务数据。请谨慎选择")
+						            } else if(flag=='false'){
+										$("#selectErrorMsg").css("display","none");
+									}
+						        }
+					});
 		      }
 
 		});
@@ -253,8 +292,38 @@
 	function load() {
 
 		$("#textarea").val('');
-		$("#input-id").css("data-show-preview", true);
+		$("#accessory").css("data-show-preview", true);
 	};
+	function checkInputEdit(form) {
+		 if($("#taskTitleEdit").val()==""){
+			 alert("请输入任务标题");
+			 $("#taskTitleEdit").focus();
+			 return false;	 
+		 }
+		 if($("#taskDetail").val()==""&&!$('#accessory').get(0).files[0]){
+			 alert("请输入作业描述或者选择上传的任务附件");
+			 return false;	
+		 }
+		 if($("#taskEndTimeEdit").val()==""){
+			 alert("请选择任务截至时间");
+			 $("#taskEndTimeEdit").focus();
+			 return false;	
+		 }
+	};
+	function checkInputSelect(form) {
+		 if($("#taskId").val()==""){
+			 alert("请从任务库选择一个待发布的作业");
+			 return false;	 
+		 }
+	
+		 if($("#taskEndTimeSelect").val()==""){
+			 alert("请选择任务截至时间");
+			 $("#taskEndTimeSelect").focus();
+			 return false;	
+		 }
+	}
+	
+		
 	/*用window.onload调用myfun()*/
 
 	// $(".selectTaskButton").click(function(){
@@ -296,14 +365,14 @@
 		style="width: 80%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0; display: none;">
 		<div class="editTaskContent" style="margin: 30px 50px;">
 			<form action="${pageContext.request.contextPath}/teacher/publishTask"
-				id="publish" enctype="multipart/form-data" method="post">
+				id="publish" enctype="multipart/form-data" method="post" onsubmit = "return checkInputEdit(this)">
 				<div style="height: 1px; width: 100%;">
 					<div class="input-group"
 						style="float: left; width: 68%; margin-right: 2%;">
 						<span class="input-group-addon" id="basic-addon3"
 							style="font-size: 20px; padding: 0 50px; font-weight: bold;">任务标题</span>
 						<input type="text" name="taskTitle" class="form-control"
-							id="basic-url" aria-describedby="basic-addon3">
+							id="taskTitleEdit" aria-describedby="basic-addon3">
 					</div>
 					<div class="input-group" style="float: left; width: 30%;">
 						<span class="input-group-addon" id="basic-addon3"
@@ -314,10 +383,10 @@
 								class=" form-control btn btn-primary  dropdown-toggle"
 								data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
-								<span class="caret"></span><span id="typeName"
+								<span class="caret"></span><span id="typeNameEdit"
 									style="font-size: 18px; margin-left:;">作业</span>
 							</button>
-							<ul id="selectType1" class="dropdown-menu">
+							<ul id="selectTypeEdit" class="dropdown-menu">
 								<c:forEach items="${taskCategoryList }" var="taskCategory">
 									<li >${taskCategory }</li>
 
@@ -327,7 +396,7 @@
 							</ul>
 						</div>
 					</div>
-					<input type="text" id="taskCategory1" name="taskCategory"
+					<input type="text" id="taskCategoryEdit" name="taskCategory"
 						hidden="hidden" value="work" />
 				</div>
 				<div class="taskdetail"
@@ -347,7 +416,7 @@
 				<div class="form-group">
 				添加任务附件
 					<div class="file-loading">
-						<input id="input-id" name="file" class="file" type="file"
+						<input id="accessory" name="file" class="file" type="file"
 							multiple="multiple" data-show-preview="false" style="width: 70%"
 							data-show-caption="true">
 					</div>
@@ -393,7 +462,7 @@
 		style="width: 80%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0;">
 		<div class="selectTaskContent" style="margin: 30px 50px;">
 		<form action="${pageContext.request.contextPath}/teacher/selectTaskToPublish"
-				method="post">
+				method="post" onsubmit = "return checkInputSelect(this)">
 			<span>这是一个快速发布优质作业的重要途径，当然您也可以选择点击右侧自定义标签自定义作业</span>
 			<div class="input-group" style="float: left; width: 30%;">
 				<span class="input-group-addon" id="basic-addon3"
@@ -403,23 +472,25 @@
 								class=" form-control btn btn-primary  dropdown-toggle"
 								data-toggle="dropdown" aria-haspopup="true"
 								aria-expanded="false">
-								<span class="caret"></span><span id="typeName"
+								<span class="caret"></span><span id="typeNameSelect"
 									style="font-size: 18px; margin-left:;">作业 </span>
 							</button>
-							<ul id="selectType2" class="dropdown-menu">
+							<ul id="selectTypeSelect" class="dropdown-menu">
 								<c:forEach items="${taskCategoryList }" var="taskCategory">
 									<li>${taskCategory }</li>
 								</c:forEach>
 							</ul>
 				</div>
-				<input type="text" id="taskCategory2" name="taskCategory"
+				<input type="text" id="taskCategorySelect" name="taskCategory"
 						hidden="hidden" value="work" />
 				
 			</div>
+			
 			<div class="selectTaskList" style="margin-top: 20px;">
 				<!-- <iframe id="seleTaskItems" src="toselectTaskList" width="100%" height="500px">
 
 					</iframe> -->
+					<div class="alert alert-danger" id="selectErrorMsg" style="display: none" role="alert"></div>
 				<table id="taskListTable"></table>
 			</div>
 			<input name="taskId" id="taskId"  type="text" hidden="hidden" value=""/>
