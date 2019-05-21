@@ -12,13 +12,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.text.DateFormat;
-<<<<<<< HEAD
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-=======
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -28,7 +22,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
+
 import java.util.Map;
 import java.util.Properties;
 import java.util.UUID;
@@ -153,11 +147,6 @@ public  class  Common {
 		try {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
-<<<<<<< HEAD
-			String path = readProperties("path");
-			if(!"".equals(id) && id != null && !id.isEmpty()){
-				path +="/"+id;
-=======
 			String studentId = (String) request.getSession().getAttribute("studentId");
 			String path = readProperties("path");
 			if(!"".equals(id) || id != null){
@@ -166,7 +155,6 @@ public  class  Common {
 				}else {
 					path +="/"+id+"/"+studentId;
 				}
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 			}
 			// 创建工厂
 			DiskFileItemFactory factory = new DiskFileItemFactory();
@@ -474,8 +462,7 @@ public  class  Common {
         }
         return include;
     }
-<<<<<<< HEAD
-=======
+
 
 	/**
      * 判断当前时间是否在[startTime, endTime]区间，注意时间格式要一致
@@ -546,6 +533,5 @@ public  class  Common {
     
     
 
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
 	
 }

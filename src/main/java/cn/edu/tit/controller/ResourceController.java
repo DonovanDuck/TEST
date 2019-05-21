@@ -66,13 +66,6 @@ public class ResourceController {
 		}
 		return "jsp/Teacher/teacher-resource-word";
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-	
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
 	@RequestMapping(value="toTeachResource/{courseId}")
 	public String toTeachResource(HttpServletRequest request,  @PathVariable String courseId){
 		//
