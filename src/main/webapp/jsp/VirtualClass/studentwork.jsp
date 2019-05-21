@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -47,20 +48,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
-			<h4 style="float: left;line-height: 170%;margin-left: 20px;">${task.taskTitle }</h4>
+			<h4 style="float: left;line-height: 170%;margin-left: 20px;font-weight: bold;">${task.taskTitle }</h4>
 		</div>
 		<div class="workdiv">
 			<div class="workcontent">
-				<div style="height: 30px;">
-					<div style="float: left;"><h4>任务详情</h4></div>
+				<div style="height: 70px;">
+					<div style="float: left;"><h4 style="font-weight: bold;">任务详情</h4></div>
 					<!-- <div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div> -->
 				</div>
-				<hr >
-				<div style="text-align:left ;">
+				
+				<div style="text-align:left ;padding-left: 36px;">
 					<span  style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${task.taskDetail }</span>
 				</div>
-				<div style="height: 90px;margin-top: 20px;">
-					<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">附件</button>
+				<hr >
+				<div style="height: 35px;">
+					<div style="float: left;font-weight: bold;"><h4 style="font-weight: bold;">附件</h4></div>
+				</div>
+				<div style="height: 75px;padding-left: 36px;">
 					
 					<div class="accessorylist">
 						<c:forEach items="${task.accessoryList }" var="accessory"  varStatus="status">
@@ -71,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-					<h8>发布时间：${task.publishTime } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${task.taskEndTime }</h8>
+					<h8>发布时间：${fn:substring(task.publishTime,0,10)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,10)}</h8>
 				</div>
 			</div>
 			
@@ -81,23 +85,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<form action="${pageContext.request.contextPath}/student/toUpTask/${task.taskId }" enctype="multipart/form-data" method="post">
 					
 				
-					<div style="height: 30px;">
-						<div style="float: left;"><h4>作业详情</h4></div>
+					<div style="height: 70px;">
+						<div style="float: left;"><h4 style="font-weight: bold;">作业详情</h4></div>
 						
-						<c:if test="${empty upTaskDetail && empty accessoriesName }">
+						<%-- <c:if test="${empty upTaskDetail && empty accessoriesName }">
 								<div style="float: right;"><input onclick="editstaus()" class="btn btn-default butt" type="button" value="编辑" ></div>
-						</c:if>
+						</c:if> --%>
 						<input id="taskId"  name="taskId" value="${task.taskId }"  type="hidden" />
 					</div>
-					<hr >
-					<div style="text-align:left ;" style="display: block;" class="edited">
+					
+					<c:if test="${not empty upTaskDetail || not empty accessoriesName }">
+					<div style="text-align:left ;display: block;padding-left: 36px;" class="edited">
 						<span id="editedtext" style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${upTaskDetail }</span>
 					</div>
-					<div class="toedit" style="display: none;width: 100%;">
-						<textarea autofocus="autofocus"  style=" width: 100%;height: 150px;" id="TestCode" wrap="logical">${upTaskDetail }</textarea>
-					</div>
-					<input id="upTaskDetail" name="upTaskDetail" value="${upTaskDetail }"  type="hidden" />
-					<div style="height: 90px;margin-top: 20px;">
+					</c:if>
+					<c:if test="${empty upTaskDetail && empty accessoriesName }">
+						<div class="toedit" style="display: block;width: 100%;">
+							<textarea autofocus="autofocus" id="upTaskDetail" name="upTaskDetail" style=" width: 100%;height: 150px;" wrap="logical">${upTaskDetail }</textarea>
+						</div>
+					</c:if>
+					<input value="${upTaskDetail }"  type="hidden" />
+					<hr >
+				<div style="height: 35px;">
+					<div style="float: left;font-weight: bold;"><h4 style="font-weight: bold;">附件</h4></div>
+				</div>
+					<div style="height: 75px;padding-left: 36px;">
 						
 						<c:if test="${empty upTaskDetail && empty accessoriesName }">
 							<input  class="btn btn-default"  name="file" type="file"  multiple="multiple" style="border-radius: 20px;float: left;" value="上传附件" />
@@ -115,16 +127,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						  -->
 					</div>
-					<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-						<h8>发布时间：2018-09-15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：2019-05-09</h8>
-					</div>
-					<c:if test="${empty upTaskDetail && empty accessories}">
+					
+					<c:if test="${empty upTaskDetail && empty accessoriesName }">
 						<input id="trueSubmit"  style="display: block" class="btn btn-default" type="submit" value="确认提交" style="margin-left: -350px;">
-						<input  id="falseSubmit" onclick="stopSubmit()" style="display: none"  class="btn btn-default" type="button" value="确认提交" style="margin-left: -350px;">
+						<!-- <input  id="falseSubmit" onclick="stopSubmit()" style="display: none"  class="btn btn-default" type="button" value="确认提交" style="margin-left: -350px;"> -->
 					</c:if>
-					<c:if test="${not empty upTaskDetail || not empty accessories}">
+			
+					<c:if test="${not empty upTaskDetail || not empty accessoriesName }">
 						<input id="trueSubmit"  style="display: block" class="btn btn-default" type="button" disabled="disabled"  value="已提交" style="margin-left: -350px;">
-						
 					</c:if>
 				</form>
 			</div>
@@ -132,16 +142,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<c:if test="${not empty grade }">
-		<div class="workdiv" style="margin-top: 20px;">
+		<div class="workdiv" style="margin-top: 20px;overflow: hidden;">
 			<div class="workcontent">
 				<div style="height: 30px;">
-					<div style="float: left;"><h4>评分详情</h4></div>
+					<div style="float: left;"><h4 style="font-weight: bold;">评分详情</h4></div>
 					<!-- <div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div> -->
 				</div>
 				<hr >
 				<div style="text-align:left ;">
-					<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">评语：${comment }</span>
+					<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; "><strong>评语：</strong>${comment }</span>
 				</div>
+				
 				<div>
 					<h5 style="float: left;">作业成绩：</h5> <h3  style="float: left;color:red"><strong>${grade }</strong></h3>
 				</div>
