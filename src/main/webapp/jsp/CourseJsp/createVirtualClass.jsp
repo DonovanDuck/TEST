@@ -80,34 +80,42 @@
 </script>
 <!-- 图片预加载 -->
 <script>
-    function chan(i) {
-        var objUrl = getObjectURL(i.files[0]);
-        if (objUrl) {
-            $("#photos").attr("src", objUrl);
-        }
-    };
-    function getObjectURL(file) {
-        var url = null;
-        if (window.createObjectURL != undefined) {
-            url = window.createObjectURL(file);
-        } else if (window.URL != undefined) {
-            url = window.URL.createObjectURL(file);
-        } else if (window.webkitURL != undefined) {
-            url = window.webkitURL.createObjectURL(file);
-        }
-        return url;
-    } 
+	    function chan(i) {
+		var objUrl = getObjectURL(i.files[0]);
+		if (objUrl) {
+			$("#photos").attr("src", objUrl);
+		}
+	};
+	function getObjectURL(file) {
+		var url = null;
+		if (window.createObjectURL != undefined) {
+			url = window.createObjectURL(file);
+		} else if (window.URL != undefined) {
+			url = window.URL.createObjectURL(file);
+		} else if (window.webkitURL != undefined) {
+			url = window.webkitURL.createObjectURL(file);
+		}
+		return url;
+	} 
 </script>
 <script type="text/javascript">
-	$(function() {
-		$("#submitButton").click(function() {
-			var check = ",";
-			$("input[name='realClassCheckboxSelected']:checked").each(function(i) {
-				check = check + $(this).val() + ",";
-			});
-			$("#realClassToController").val(check);
-		});
-	})
+	$(
+			function() {
+				$("#submitButton")
+						.click(
+								function() {
+									var check = ",";
+									$(
+											"input[name='realClassCheckboxSelected']:checked")
+											.each(
+													function(i) {
+														check = check
+																+ $(this).val()
+																+ ",";
+													});
+									$("#realClassToController").val(check);
+								});
+			})
 </script>
 </head>
 <body>
@@ -122,7 +130,8 @@
 				method="post" enctype="multipart/form-data">
 				<div class="input1">
 					<span>课程名称:</span> <select placeholder=""
-						style="width: 40%; height: 30px; float: left; margin-left: 4%;" id="courseName" name="courseName">
+						style="width: 40%; height: 30px; float: left; margin-left: 4%;"
+						id="courseName" name="courseName">
 						<c:forEach items="${courseList }" var="courses">
 							<option value="${courses.courseName }">${courses.courseName }</option>
 						</c:forEach>
@@ -155,24 +164,28 @@
 				</div>
 				<div class="teacher-friend">
 					<span>开设班级：</span>
-					<div class="friend" style="display: none">
+					<div class="friend">
 						<p>已选班级：</p>
 						<ul id="selectedRealClassUI" name="selectedRealClassUI"
 							class="selectedRealClassUI">
 						</ul>
-						<input value="" name='realClassToController' id='realClassToController' class="realClassToController"
-							style="dispaly:none"/>
+						<input value="" name='realClassToController'
+							id='realClassToController' class="realClassToController"
+							style="dispaly: none" />
 					</div>
-					<div class="selectClassContent">
-						<input name="realClassContent" id="realClassContent" class="realClassContent"
-							placeholder="筛选班级" style="border:1px solid #969696">
-						<ul id="realClassUI" name="realClassUI">
-							<c:forEach items="${listRealClass }" var="item">
-								<li id="realClass" name=“realClass”><input type="checkbox"
-									value="${item.realClassNum }" name="realClassCheckbox"
-									id="realClassCheckbox" class="realClassCheckbox" />${item.realClassNum }</li>
-							</c:forEach>
-						</ul>
+					<div class="">
+						<input name="realClassContent" id="realClassContent"
+							class="realClassContent" placeholder="筛选班级"
+							style="border: 1px solid #969696">
+						<div class="selectClassContent">
+							<ul id="realClassUI" name="realClassUI">
+								<c:forEach items="${listRealClass }" var="item">
+									<li id="realClass" name=“realClass”><input type="checkbox"
+										value="${item.realClassNum }" name="realClassCheckbox"
+										id="realClassCheckbox" class="realClassCheckbox" />${item.realClassNum }</li>
+								</c:forEach>
+							</ul>
+						</div>
 					</div>
 				</div>
 				<hr>
