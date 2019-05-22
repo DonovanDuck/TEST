@@ -44,7 +44,7 @@
 </script>
 </head>
 <body>
-	<jsp:include page="/jsp/top.jsp" flush="true"/>
+	<jsp:include page="/jsp/top.jsp" flush="true" />
 	<main>
 	<div class="main_t">
 		<div class="images">
@@ -78,7 +78,7 @@
 							alt="" />我的班级
 					</p>
 				</div>
-			</a>  <a
+			</a> <a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyAchievement">
 				<div class="nav1">
 					<p>
@@ -122,44 +122,50 @@
 			</div>
 			<div class="hr"></div>
 			<div class="main_b_r_b" id="k1">
-				<c:forEach items="${listCourse_MyCourse }" var="course" varStatus="loop">
-				<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-					<div class="lesson">
-						<div class="lesson_l">
-							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
-								alt="" />
+				<c:forEach items="${listCourse_MyCourse }" var="course"
+					varStatus="loop">
+					<a
+						href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
+						<div class="lesson">
+							<div class="lesson_l">
+								<img
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+									alt="" />
+							</div>
+							<div class="lesson_r">
+								<h3>${course.courseName }</h3>
+								<p>创课老师：${listCourseId_MyCourse_publishName[loop.count-1]}</p>
+								<p>开课老师：王五</p>
+								<p>开课时间：2018-2019年 第二学期</p>
+							</div>
 						</div>
-						<div class="lesson_r">
-							<h3>${course.courseName }</h3>
-							<p>创课老师：${listCourseId_MyCourse_publishName[loop.count-1]}</p>
-							<p>开课老师：王五</p>
-							<p>开课时间：2018-2019年 第二学期</p>
-						</div>
-					</div>
 					</a>
 				</c:forEach>
 			</div>
 			<div class="main_b_r_b" id="k2">
-				<c:forEach items="${listCourse_Myattention }" var="course" varStatus="loop">
-				<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-					<div class="lesson">
-						<div class="lesson_l">
-							<img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
-								alt="" />
+				<c:forEach items="${listCourse_Myattention }" var="course"
+					varStatus="loop">
+					<a
+						href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
+						<div class="lesson">
+							<div class="lesson_l">
+								<img
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+									alt="" />
+							</div>
+							<div class="lesson_r">
+								<h3>${course.courseName }</h3>
+								<p>创课老师：${listCourseId_Myattention_publishName[loop.count-1]}</p>
+								<p>开课老师：王五</p>
+								<p>开课时间：2018-2019年 第二学期</p>
+							</div>
 						</div>
-						<div class="lesson_r">
-							<h3>${course.courseName }</h3>
-							<p>创课老师：${listCourseId_Myattention_publishName[loop.count-1]}</p>
-							<p>开课老师：王五</p>
-							<p>开课时间：2018-2019年 第二学期</p>
-						</div>
-					</div>
 					</a>
 				</c:forEach>
 			</div>
 		</div>
 	</div>
 	</main>
-<jsp:include page="/jsp/footer.jsp" flush="true" />
+	<jsp:include page="/jsp/footer.jsp" flush="true" />
 </body>
 </html>

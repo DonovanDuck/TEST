@@ -617,6 +617,7 @@ public interface ITeacherService {
 	 * 在class_task表中获得任务截至时间
 	 */
 	public Timestamp getTaskEndTime(String virtualClassNum,String taskId);
+	public Term getTermById(String term);
 
 
 }

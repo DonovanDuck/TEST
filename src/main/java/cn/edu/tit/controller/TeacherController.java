@@ -808,7 +808,7 @@ public class TeacherController {
 
 
 		request.getSession().removeAttribute("courseId");
-		return "redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
+		return "c?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
 
 	}
 
@@ -1008,7 +1008,7 @@ public class TeacherController {
 		request.getSession().setAttribute("course", course);
 		mv.addObject("virtualClassName",virtualClassName);
 		mv.addObject("identify", identify);
-		mv.setViewName("/jsp/VirtualClass/classInfo");
+		mv.setViewName("redirect:/jsp/VirtualClass/classInfo");
 		return mv;
 	}
 	/**
@@ -1388,6 +1388,9 @@ public class TeacherController {
 			for (VirtualClass virtualClass : virtualClassList) {
 				realClassList = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
 				virtualClass.setRealClassList(realClassList);
+				String term = virtualClass.getTerm();
+				Term  a = teacherService.getTermById(term);
+				virtualClass.setTerm(a.getStartYear()+"-"+a.getEndYear()+"    "+a.getTerm());
 			}
 		}
 		try {
@@ -2339,4 +2342,44 @@ public class TeacherController {
 	//				e.printStackTrace();
 	//			}
 	//		}
+	
+	/**
+	 * @throws Exception 
+	 * */
+	@RequestMapping(value="/selectVirtualClassByTerm/{termId}")
+	public ModelAndView selectVirtualClassByTerm(HttpServletRequest request,@PathVariable(value="termId") String termId) throws Exception {	
+		ModelAndView mv = new ModelAndView();
+		Term term = new Term();
+		List<RealClass> realClass = new ArrayList<RealClass>();
+		List<Term> termList = new ArrayList<Term>();
+		List<VirtualClass> virtualList = new ArrayList<VirtualClass>();
+		termList = teacherService.readTerm();//获取学期信息
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		virtualList = teacherService.getVirtualClassByCreatorId(teacher.getEmployeeNum());//获取虚拟班级列表
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				realClass = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
+				virtualClass.setRealClassList(realClass);
+			}
+		}
+		//去除集合中的重复部分
+		Iterator<VirtualClass> vi = virtualList.iterator();
+		while(vi.hasNext()) {
+			VirtualClass vii = vi.next();
+			if(!vii.getTerm().equals(termId))
+			{
+				vi.remove();
+			}
+		}
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				term = studentService.readTermById(virtualClass.getTerm());
+				virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+			}
+		}
+		mv.addObject("listTerm", termList);//返回信息
+		mv.addObject("virtualClassList", virtualList);//返回信息
+		mv.setViewName("/jsp/Teacher/teacherInfo/myclass_create");;//设置返回页面
+		return mv;
+	}
 }

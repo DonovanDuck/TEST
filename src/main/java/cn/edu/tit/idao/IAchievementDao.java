@@ -24,6 +24,7 @@ public interface IAchievementDao {
 	public IURP queryIURPById(@Param("achievementId")String achievementId)throws Exception;
 	public void updateIURPBrowseVolume(@Param("achievementId")String achievementId)throws Exception;
 	public void deleteIURP(@Param("achievementId")String achievementId)throws Exception;
+	public void restoreIURP(@Param("achievementId")String achievementId)throws Exception;
 	
 	public List<AOCSC> queryAOCSC()throws Exception;
 	public List<AOCSC> queryAllAOCSC()throws Exception;
@@ -34,6 +35,7 @@ public interface IAchievementDao {
 	public AOCSC queryAOCSCById(@Param("achievementId")String achievementId)throws Exception;
 	public void updateAOCSCBrowseVolume(@Param("achievementId")String achievementId)throws Exception;
 	public void deleteAOCSC(@Param("achievementId")String achievementId)throws Exception;
+	public void restoreAOCSC(@Param("achievementId")String achievementId)throws Exception;
 	
 	public List<CourseExpand> queryCourseExpand()throws Exception;
 	public List<CourseExpand> queryAllCourseExpand()throws Exception;
@@ -44,6 +46,7 @@ public interface IAchievementDao {
 	public CourseExpand queryCourseExpandById(@Param("achievementId")String achievementId)throws Exception;
 	public void updateCourseExpandBrowseVolume(@Param("achievementId")String achievementId)throws Exception;
 	public void deleteCourseExpand(@Param("achievementId")String achievementId)throws Exception;
+	public void restoreCourseExpand(@Param("achievementId")String achievementId)throws Exception;
 	
 	public List<GDFCS> queryGDFCS()throws Exception;
 	public List<GDFCS> queryAllGDFCS()throws Exception;
@@ -54,6 +57,7 @@ public interface IAchievementDao {
 	public GDFCS queryGDFCSById(@Param("achievementId")String achievementId)throws Exception;
 	public void updateGDFCSBrowseVolume(@Param("achievementId")String achievementId)throws Exception;
 	public void deleteGDFCS(@Param("achievementId")String achievementId)throws Exception;
+	public void restoreGDFCS(@Param("achievementId")String achievementId)throws Exception;
 	
 	public List<SIAE> querySIAE()throws Exception;
 	public List<SIAE> queryAllSIAE()throws Exception;
@@ -64,6 +68,7 @@ public interface IAchievementDao {
 	public SIAE querySIAEById(@Param("achievementId")String achievementId)throws Exception;
 	public void updateSIAEBrowseVolume(@Param("achievementId")String achievementId)throws Exception;
 	public void deleteSIAE(@Param("achievementId")String achievementId)throws Exception;
+	public void restoreSIAE(@Param("achievementId")String achievementId)throws Exception;
 	
 	public List<AchievementPicture> queryAchievementPicture(@Param("achievementId")String achievementId)throws Exception;
 	public void insertAchievementPicture(@Param("list")List<AchievementPicture> list)throws Exception;

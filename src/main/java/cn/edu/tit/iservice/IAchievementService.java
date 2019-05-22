@@ -27,6 +27,7 @@ public interface IAchievementService {
 	public IURP queryIURPById(String achievementId)throws Exception;
 	public void updateIURPBrowseVolume(String achievementId)throws Exception;
 	public void deleteIURP(String achievementId)throws Exception;
+	public void restoreIURP(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
@@ -41,6 +42,7 @@ public interface IAchievementService {
 	public AOCSC queryAOCSCById(String achievementId)throws Exception;
 	public void updateAOCSCBrowseVolume(String achievementId)throws Exception;
 	public void deleteAOCSC(String achievementId)throws Exception;
+	public void restoreAOCSC(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
@@ -55,6 +57,7 @@ public interface IAchievementService {
 	public CourseExpand queryCourseExpandById(String achievementId)throws Exception;
 	public void updateCourseExpandBrowseVolume(String achievementId)throws Exception;
 	public void deleteCourseExpand(String achievementId)throws Exception;
+	public void restoreCourseExpand(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
@@ -69,6 +72,7 @@ public interface IAchievementService {
 	public GDFCS queryGDFCSById(String achievementId)throws Exception;
 	public void updateGDFCSBrowseVolume(String achievementId)throws Exception;
 	public void deleteGDFCS(String achievementId)throws Exception;
+	public void restoreGDFCS(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing
@@ -83,6 +87,7 @@ public interface IAchievementService {
 	public List<SIAE> querySIAEByAuthorId(String authorId)throws Exception;
 	public void updateSIAEBrowseVolume(String achievementId)throws Exception;
 	public void deleteSIAE(String achievementId)throws Exception;
+	public void restoreSIAE(String achievementId)throws Exception;
 
 	/**
 	 * @author LiMing

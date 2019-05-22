@@ -49,7 +49,6 @@
 	src="${pageContext.request.contextPath}/js/Admin/dataTables/dataTables.bootstrap.js"></script>
 <script
 	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
-	
 </script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>

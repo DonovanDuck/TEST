@@ -42,6 +42,88 @@
 	src="${pageContext.request.contextPath}/js/Admin/materialize.min.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/dataTables/jquery.dataTables.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/dataTables/dataTables.bootstrap.js"></script>
+<script
+	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
+	
+</script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>
+<script
+	src="${pageContext.request.contextPath}/js/Admin/moment-with-locales.min.js"></script>
+<script>
+	$(document).ready(function() {
+		$('#dataTables-example').dataTable();
+	});
+</script>
+<script type="text/javascript">
+	function deleteAchievement(achievementId) {
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/admin/deleteAchievement/"
+							+ achievementId,
+					type : "POST",
+					dataType : "json",
+					success : function() {
+
+					},
+					error : function() {
+						$(this).remove();
+						var arr = achievementId.split(',');
+						var content = "";
+						switch (arr[1]) {
+						case "产学研":
+							content = "<button class='btn btn-success' onclick='restore('"
+									+ arr[0]
+									+ ",产学研')'style='padding-top: 2%;'>恢复</button>";
+							break;
+						case "课程拓展":
+							content = "<button class='btn btn-success' onclick='restore('"
+									+ arr[0]
+									+ ",课程拓展')'style='padding-top: 2%;'>恢复</button>";
+							break;
+						case "毕业设计":
+							content = "<button class='btn btn-success' onclick='restore('"
+									+ arr[0]
+									+ ",毕业设计')'style='padding-top: 2%;'>恢复</button>";
+							break;
+						case "大学生创新创业":
+							content = "<button class='btn btn-success' onclick='restore('"
+									+ arr[0]
+									+ ",大学生创新创业')'style='padding-top: 2%;'>恢复</button>";
+							break;
+						case "大学生竞赛作品":
+							content = "<button class='btn btn-success' onclick='restore('"
+									+ arr[0]
+									+ ",大学生竞赛作品')'style='padding-top: 2%;'>恢复</button>";
+							break;
+						}
+						var divP = $(this).previousSibing;
+					
+						divP.append(content);
+					}
+				});
+	}
+
+	function restore(achievementId) {
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/admin/restoreAchievement/"
+							+ achievementId,
+					type : "POST",
+					dataType : "json",
+					success : function(result) {
+					}
+				});
+	}
+</script>
 </head>
 <body>
 	<div id="wrapper">
@@ -145,11 +227,11 @@
 															</button>
 													</a> <c:if test="${item.deleteFlag == 1 }">
 															<button class="btn btn-danger"
-																onclick='deleteAchievement(${item.projectId })'
+																onclick="deleteAchievement('${item.projectId },产学研')"
 																style='padding-top: 2%;'>删除</button>
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
 															<button class="btn btn-success"
-																onclick="restore(${item.projectId })"
+																onclick="restore('${item.projectId },产学研')"
 																style="padding-top: 2%;">恢复</button>
 														</c:if></td>
 												</tr>
@@ -174,13 +256,13 @@
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
 															<button type="button" class="btn btn-danger"
-																onclick="deleteAchievement(${item.achievementId })"
+																onclick="deleteAchievement('${item.achievementId },课程拓展')"
 																style="padding-top: 2%;">
 																<small>删除</small>
 															</button>
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
 															<button type="button" class="btn btn-success"
-																onclick="restore(${item.achievementId })"
+																onclick="restore('${item.achievementId },课程拓展')"
 																style="padding-top: 2%;">
 																<small>恢复</small>
 															</button>
@@ -207,13 +289,13 @@
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
 															<button type="button" class="btn btn-danger"
-																onclick="deleteAchievement(${item.achievementId })"
+																onclick="deleteAchievement('${item.achievementId },毕业设计')"
 																style="padding-top: 2%;">
 																<small>删除</small>
 															</button>
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
 															<button type="button" class="btn btn-success"
-																onclick="restore(${item.achievementId })"
+																onclick="restore('${item.achievementId },毕业设计')"
 																style="padding-top: 2%;">
 																<small>恢复</small>
 															</button>
@@ -239,13 +321,13 @@
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
 															<button type="button" class="btn btn-danger"
-																onclick="deleteAchievement(${item.achievementId })"
+																onclick="deleteAchievement('${item.achievementId },大学生创新创业')"
 																style="padding-top: 2%;">
 																<small>删除</small>
 															</button>
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
 															<button type="button" class="btn btn-success"
-																onclick="restore(${item.achievementId })"
+																onclick="restore('${item.achievementId },大学生创新创业')"
 																style="padding-top: 2%;">
 																<small>恢复</small>
 															</button>
@@ -273,13 +355,13 @@
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
 															<button type="button" class="btn btn-danger"
-																onclick="deleteAchievement(${item.achievementId })"
+																onclick="deleteAchievement('${item.achievementId },大学生竞赛作品')"
 																style="padding-top: 2%;">
 																<small>删除</small>
 															</button>
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
 															<button type="button" class="btn btn-success"
-																onclick="restore(${item.achievementId })"
+																onclick="restore('${item.achievementId },大学生竞赛作品')"
 																style="padding-top: 2%;">
 																<small>恢复</small>
 															</button>
@@ -296,16 +378,5 @@
 			</div>
 		</div>
 	</div>
-	<script type="text/javascript">
-$(function(){
-	function deleteAchievement(achievementId){
-		alert("删除");
-	}
-
-	function restore(achievementId){
-		alert("恢复");
-	}
-})
-</script>
 </body>
 </html>

@@ -367,4 +367,5 @@ public interface ITeacherDao {
 	 * 在class_task表中获得任务截至时间
 	 */
 	public Timestamp getTaskEndTime(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);
+	public Term getTermById(@Param("termId")String termId);
 }
