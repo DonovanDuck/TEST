@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -18,21 +19,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
-			<h4 style="float: left;line-height: 170%;margin-left: 20px;">${task.taskTitle }</h4>
+			<h4 style="float: left;line-height: 170%;margin-left: 20px;font-weight: bold;">${task.taskTitle }</h4>
 		</div>
 		<div class="workdiv">
 			<div class="workcontent">
-				<div style="height: 30px;">
-					<div style="float: left;"><h4>任务详情</h4></div>
+				<div style="height: 70px;">
+					<div style="float: left;"><h4  style="font-weight: bold;">任务要求</h4></div>
 					<!-- <div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div>  -->
 				</div>
-				<hr >
-				<div style="text-align:left ;">
-					<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${task.taskDetail }</span>
+				
+				<div style="text-align:left ;  padding-left: 36px;">
+					<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; font-size: 16px">${task.taskDetail }</span>
 				</div>
-				<div style="height: 90px;margin-top: 20px;">
-					
-					
+				<hr >
+				<div style="height: 35px;">
+					<div style="float: left;font-weight: bold;"><h4 style="font-weight: bold;">附件</h4></div>
+				</div>
+				<div style="height: 75px;padding-left: 36px;">
 					<div class="accessorylist">
 						<c:forEach items="${task.accessoryList }" var="accessory"  varStatus="status">
 							<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">
@@ -42,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-					<h8>发布时间：${task.publishTime }&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${task.taskEndTime }</h8>
+					<span style="font-size: 10px">发布时间：${fn:substring(task.publishTime,0,10)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,10)}</span>
 				</div>
 			</div>
 			
@@ -63,7 +66,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="studentname"> <h3>${student1.studentName }</h3> </div>
 							</div>
 							<div style="width: 30%;height: 100px;margin: 0 auto;line-height: 620%;float: left;">
-								提交时间：2019-06-13
+								<c:if test="${empty studentTograde[student1.studentId] }"><span style="font-size: 18px">尚未评分</span></c:if>
+								<c:if test="${not empty studentTograde[student1.studentId] }">
+								<span style="font-size: 18px">获得分数：</span><span style="font-size: 18px;color: red;font-weight: bold;">${studentTograde[student1.studentId] }</span>
+								</c:if>
+								
 							</div>
 							<c:if test="${ empty studentTograde[student1.studentId]  }">
 								<div style="width: 150px;height: 100px;line-height: 620%;float: left;">
