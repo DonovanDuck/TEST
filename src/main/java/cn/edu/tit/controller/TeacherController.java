@@ -942,9 +942,9 @@ public class TeacherController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			ModelAndView mv = new ModelAndView();
-			//mv.setViewName(viewName);
+			mv.setViewName("/jsp/Teacher/teacher-release-resource");
 			e.printStackTrace();
-			return null;
+			return mv;
 		}
 		
 
@@ -1999,8 +1999,6 @@ public class TeacherController {
 		List<String> timeList = new ArrayList<>();
 		if(!resourceList.isEmpty()){
 			for(Resource re:resourceList){
-				// 获取发布者姓名
-				publisherList.add(teacherService.getTeacherNameById(re.getPublisherId()));
 				//修改时间格式
 				String publishTime = re.getPublishTime().toString().substring(0, 10);
 				timeList.add(publishTime);
@@ -2008,16 +2006,119 @@ public class TeacherController {
 		}
 		else if(!taskList.isEmpty()){
 			for(Task ta:taskList){
-				// 获取发布者姓名
-				publisherList.add(teacherService.getTeacherNameById(ta.getPublisherId()));
 				//修改时间格式
 				String publishTime = ta.getPublishTime().toString().substring(0, 10);
 				timeList.add(publishTime);
 			}
 		}
-		mv.addObject("publisher", publisherList);
 		mv.addObject("time", timeList);
 		mv.setViewName("/jsp/Teacher/courseResource");
+		mv.addObject("course", course);//返回信息
+		return mv;
+	}
+	
+	/**
+	 * 课程详细页面的列表显示
+	 * @param request
+	 * @param category
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/toCourseResourceFrame/{category}")
+	public ModelAndView toCourseResourceFrame(HttpServletRequest request,@PathVariable String category) throws Exception{
+		ModelAndView mv = new ModelAndView();
+		mv.addObject("category", category);
+		Course course = (Course) request.getSession().getAttribute("course");
+		String courseId = "";
+		List<Teacher> teacherList = new ArrayList<>();
+		boolean isThisTeacher = false;
+		Teacher user =  (Teacher) request.getSession().getAttribute("teacher");
+		if(course != null){
+			courseId = course.getCourseId();
+			//通过courseid查询教师圈id
+			teacherList = teacherService.getTeachersByCourseId(courseId);
+		}
+		//比较此时的用户是否是点开的课程的教师
+		if(!teacherList.isEmpty() && user != null){
+			for(Teacher t : teacherList){
+				if(t.getEmployeeNum().equals(user.getEmployeeNum())){
+					isThisTeacher = true;
+					break;
+				}
+			}
+		}
+		if(isThisTeacher){
+			request.setAttribute("isTeacher", 1);
+		}
+		List<Resource> resourceList = new ArrayList<>();//返回前台数据
+		List<Task> taskList = new ArrayList<>();//返回前台数据
+		//查询信息switch
+		switch (category) {
+		case "6":{
+			//教案库
+			mv.addObject("resourceName", "教案");
+			break;
+		}
+		case "7":{
+			//教学资源库
+			mv.addObject("resourceName", "教学资源");
+			break;
+		}
+		case "5":{
+			//多媒体资源
+			resourceList = resourceService.showResourceByCourse(courseId);
+			for (Resource resource : resourceList) {
+				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+			}
+			mv.addObject("resource", resourceList);//返回信息
+
+
+			mv.addObject("resourceName", "多媒体资源");
+			break;
+		}
+		case "8":{
+			//作业库
+			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			mv.addObject("taskList", taskList);//返回信息
+			mv.addObject("resourceName", "作业");
+			break;
+		}
+		case "9"://实验库
+			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+			}
+			mv.addObject("taskList", taskList);//返回信息
+			mv.addObject("resourceName", "实验");
+			break;
+		case "10"://课程设计库
+			mv.addObject("resourceName", "课程设计");
+			break;
+		default:
+			break;
+		}
+
+		List<String> publisherList = new ArrayList<>();
+		List<String> timeList = new ArrayList<>();
+		if(!resourceList.isEmpty()){
+			for(Resource re:resourceList){
+				//修改时间格式
+				String publishTime = re.getPublishTime().toString().substring(0, 10);
+				timeList.add(publishTime);
+			}
+		}
+		else if(!taskList.isEmpty()){
+			for(Task ta:taskList){
+				//修改时间格式
+				String publishTime = ta.getPublishTime().toString().substring(0, 10);
+				timeList.add(publishTime);
+			}
+		}
+		mv.addObject("time", timeList);
+		mv.setViewName("/jsp/Teacher/resource_frame");
 		mv.addObject("course", course);//返回信息
 		return mv;
 	}

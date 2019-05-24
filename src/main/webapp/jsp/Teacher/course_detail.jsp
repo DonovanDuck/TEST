@@ -20,19 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 </head>
 <body>
-<head>
-<div class="container-fluid">
-	<nav>
-		<ul class="nav nav-pills">
-			<li role="presentation" class="active"><a href="#">首页</a></li>
-			<li role="presentation"><a href="#">课程</a></li>
-			<li role="presentation"><a href="#">讨论区</a></li>
-			<li role="presentation"><a href="#">学生成果</a></li>
-			<li role="presentation"><a href="#">产学研项目</a></li>
-		</ul>
-	</nav>
-</div>
-</head>
+
 
 <style>
 	.a
@@ -85,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}); 
 	}
 </script>
-
+<jsp:include page="/jsp/top.jsp" flush="true" />
 <main>
 <div class="main_t">
 	<div class="container-fluid">
@@ -196,36 +184,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</div>
 	<div class="main_b_m">
-		 <div class="container">
+		 <div class="container" style="height: 494px;">
 		 <div class="main_b_t">
 				<nav>
 					<ul style="    margin-top: 25px;margin-left: 38px;">
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/6"
 							target="target">教案库</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/resource/toTeacherResource/${course.courseId}"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/7"
 							target="target">教学资源库</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/jsp/Teacher/teacher-resource-expansion-task.jsp"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/5"
 							target="target">多媒体资源库</a>
 						 <li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/jsp/Teacher/teacher-release-task.jsp"
-							target="_blank">作业库</a></li> 
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8"
+							target="target">作业库</a></li> 
 						 <li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toPublishResource"
-							target="_blank">实验库</a></li>
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/9"
+							target="target">实验库</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toResourceMain"
-							target="_blank">课程设计库</a></li> 
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/10"
+							target="target">课程设计库</a></li> 
 					</ul>
 				</nav>
 			</div>
 			<div style="clear: both;"></div>
-				<div style="width: 100%;height: 372px;">
+				<div style="width: 100%;height: 379px;">
 				<iframe style="margin-left: 28px;margin-top: 12px;"
-					src="${pageContext.request.contextPath}/jsp/Teacher/resource_frame.jsp"
-					name="target" frameborder="0" width="93%" height="100%"
+					src="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8"
+					name="target" frameborder="0" width="93%" height="110%"
 					scrolling="auto"></iframe></div>
 			<%--<div class="brother">
 				<a href="#">更多</a>

@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="zh-CN" style="padding-top: 25px;">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
@@ -33,86 +33,198 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <main>
 
 <div class="main_b">
-
+<div style="position: absolute;
+    top: 16px;
+    left: 931px;">
+					<a target="_blank" href='${pageContext.request.contextPath}/teacher/toCourseResource/${category}'>更多>></a>
+</div>
 <ul>
+	
+<c:if test="${taskList != null }">
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
+			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.useNum }</div>
 		</div>
 	</li>
+	</c:forEach>
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
+			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.useNum }</div>
 		</div>
 	</li>
+	</c:forEach>
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="2" end="2">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
+			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.useNum }</div>
 		</div>
 	</li>
+	</c:forEach>
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
+			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.useNum }</div>
 		</div>
 	</li>
+	</c:forEach>
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="4" end="4">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
+			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.useNum }</div>
 		</div>
 	</li>
+	</c:forEach>
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="5" end="5">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
+			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.useNum }</div>
 		</div>
 	</li>
+	</c:forEach>
+	</c:if>
+	
+	<c:if test="${resource != null }">
+	<c:forEach items="${resource }" var="re" varStatus="status" begin="0" end="0">
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div>知识点：${re.resourceDetail }</div>
+			<div>发布人：${re.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${re.useNum }</div>
+		</div>
+	</li>
+	</c:forEach>
+	<c:forEach items="${resource }" var="re" varStatus="status" begin="1" end="1">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div>知识点：${re.resourceDetail }</div>
+			<div>发布人：${re.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${re.useNum }</div>
+		</div>
+	</li>
+	</c:forEach>
+	<c:forEach items="${resource }" var="re" varStatus="status" begin="2" end="2">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div>知识点：${re.resourceDetail }</div>
+			<div>发布人：${re.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${re.useNum }</div>
+		</div>
+	</li>
+	</c:forEach>
+	<c:forEach items="${resource }" var="re" varStatus="status" begin="3" end="3">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div>知识点：${re.resourceDetail }</div>
+			<div>发布人：${re.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${re.useNum }</div>
+		</div>
+	</li>
+	</c:forEach>
+	<c:forEach items="${resource }" var="re" varStatus="status" begin="4" end="4">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div>知识点：${re.resourceDetail }</div>
+			<div>发布人：${re.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${re.useNum }</div>
+		</div>
+	</li>
+	</c:forEach>
+	<c:forEach items="${resource }" var="re" varStatus="status" begin="5" end="5">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+     	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div>知识点：${re.resourceDetail }</div>
+			<div>发布人：${re.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${re.useNum }</div>
+		</div>
+	</li>
+	</c:forEach>
+	</c:if>
 </ul>
 
 </div>
