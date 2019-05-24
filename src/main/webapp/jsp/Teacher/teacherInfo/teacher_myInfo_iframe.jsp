@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     
 </head>
-<body>
+<body style="margin-left:-21%">
 <div id="r5">
 <div class="main_b_r_t">
 		<div class="main_b_r_t">
@@ -46,9 +46,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				style="width: 100%; height: 100%" frameborder="no" border="0"
 				src="${pageContext.request.contextPath}/teacher/toMyInfoBase"></iframe>
 		</div>
-   
-    
-    
 </div>
 </body>
 </html>

@@ -530,4 +530,54 @@ public class AdminController {
 		mv.setViewName("/jsp/AdminJsp/achievementManager");
 		return mv;
 	}
+
+	@RequestMapping(value="deleteAchievement/{achievementId}")
+	public void deleteAchievement(HttpServletRequest request,@PathVariable String achievementId) throws Exception {
+		String[] myList = new String[2];
+		myList = achievementId.split(",");
+		switch (myList[1]) {
+		case "产学研":
+				iAchievementService.deleteIURP(myList[0]);
+			break;
+		case "课程拓展":
+			iAchievementService.deleteCourseExpand(myList[0]);
+			break;
+		case "毕业设计":
+			iAchievementService.deleteGDFCS(myList[0]);
+			break;
+		case "大学生创新创业":
+			iAchievementService.deleteSIAE(myList[0]);
+			break;
+		case "大学生竞赛作品":
+			iAchievementService.deleteAOCSC(myList[0]);
+			break;
+		default:
+			break;
+		}
+	}
+
+	@RequestMapping(value="restoreAchievement/{achievementId}")
+	public void restoreAchievement(HttpServletRequest request,@PathVariable String achievementId) throws Exception {
+		String[] myList = new String[2];
+		myList = achievementId.split(",");
+		switch (myList[1]) {
+		case "产学研":
+				iAchievementService.restoreIURP(myList[0]);
+			break;
+		case "课程拓展":
+			iAchievementService.restoreCourseExpand(myList[0]);
+			break;
+		case "毕业设计":
+			iAchievementService.restoreGDFCS(myList[0]);
+			break;
+		case "大学生创新创业":
+			iAchievementService.restoreSIAE(myList[0]);
+			break;
+		case "大学生竞赛作品":
+			iAchievementService.restoreAOCSC(myList[0]);
+			break;
+		default:
+			break;
+		}
+	}
 }

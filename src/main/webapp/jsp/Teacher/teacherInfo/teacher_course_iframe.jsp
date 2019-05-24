@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 	</head>
-	<body >
+	<body style="margin-left: -21%;" >
 	<div id="r1">
 		<div class="main_b_r_t">
 			<div class="word1" id="w1">

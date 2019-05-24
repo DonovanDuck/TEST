@@ -117,7 +117,7 @@ header nav li a{
     </script>
 </head>
 <body>
-	<div style="width: 100%;height: 120px;background-size: cover;">
+	<div style="width: 100%;height: 110px;background-size: cover;">
       <header style="background: url('${pageContext.request.contextPath}/images/head.png') no-repeat;">
           <span>
               <li class="li1"><a href="">微信端</a>

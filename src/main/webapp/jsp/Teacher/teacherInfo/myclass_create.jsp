@@ -11,10 +11,10 @@
 <meta charset="UTF-8">
 <title></title>
 
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/teacher/own.css" />
+<%-- <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/teacher/own.css" /> --%>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
-<script>
+<!-- <script>
 	function termSelect() {
 		if ($('#select option:selected').val() == '') {
 			var newUrl = '${pageContext.request.contextPath}/teacher/teacherLogin'; //设置新提交地址
@@ -30,10 +30,86 @@
 
 		}
 	}
+</script> -->
+
+<script type="text/javascript">
+	$(
+			function() {
+				$("#selectTerm")
+						.on(
+								"change",
+								function() {
+									var id = $(this)
+											.children('option:selected').val();
+									if (id == 0) {
+										path = "${pageContext.request.contextPath}/teacher/toMyClassList";
+									} else {
+										path = "${pageContext.request.contextPath}/teacher/selectVirtualClassByTerm/"
+												+ id;
+									}
+									$("#selectButtonA").attr("href", path);
+									;
+									$("#selectButton").click();
+								})
+			})
 </script>
+<style type="text/css">
+.b1_r p{
+margin:0px;;
+margin-top:1%;
+}
+
+</style>
 </head>
 <body>
-	<div id="r2">
+
+	<div class="main_b_r" id="r1">
+		<div class="sx" style="margin-top: 1%">
+			<div class="sx_r">
+				<p>
+					<span>开课学期:</span><select
+						style="width: 70%; height: 24px; float: right;" id="selectTerm"
+						name="selectTerm">
+						<option>选择学期</option>
+						<option value="0">全部班级</option>
+						<c:forEach items="${termList }" var="listTerm">
+							<option value="${listTerm.termId }">
+									${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}
+								</option>
+						</c:forEach>
+					</select>
+				</p>
+			</div>
+		</div>
+		<div class="table" >
+			<c:forEach items="${virtualClassList }" var="item" varStatus="status">
+				<a target="_blank"
+					href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
+					<div class="b1" style="height: 150px;margin-top:1%">
+						<div class="b1_l" style="width: 27%;float:left;height:100%">
+							<img
+								src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+								alt="" style="width: 100%; height: 100%;" />
+						</div>
+						<div class="b1_r" style="width: 55%;float:left;height: 100%;padding:2%">
+							<p class="h">${item.virtualCourseName }</p>
+							<p class="p1">授课班级：<c:forEach items="${item.realClassList }" var="realClass">${realClass.realClassNum }班<span>&nbsp;&nbsp;&nbsp;</span></c:forEach>
+							</p>
+							<p class="p1">课程名称：${item.virtualCourseName }</p>
+							<p class="p2">开课学期：${item.term }</p>
+						</div>
+					</div>
+				</a>
+			</c:forEach>
+		</div>
+	</div>
+	<a id="selectButtonA" name="selectButtonA" href="">
+		<button id="selectButton" name="selectButton" style="display: none">
+		</button>
+	</a>
+</body>
+</html>
+<%-- <div id="r2">
 		<div class="sx">
 			<div class="sx_r">
 				<p>
@@ -78,6 +154,4 @@
 			</c:forEach>
 		</div>
 	</div>
-	</div>
-</body>
-</html>
+	</div> --%>

@@ -586,4 +586,53 @@ public class AchievementServiceImpl implements IAchievementService{
 			e.printStackTrace();
 		}	
 	}
+
+	@Override
+	public void restoreIURP(String achievementId) throws Exception {
+		try {
+		    achievementDao.restoreIURP(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void restoreAOCSC(String achievementId) throws Exception {
+		try {
+		    achievementDao.restoreAOCSC(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void restoreCourseExpand(String achievementId) throws Exception {
+		try {
+		    achievementDao.restoreCourseExpand(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public void restoreGDFCS(String achievementId) throws Exception {
+		try {
+		    achievementDao.restoreGDFCS(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	@Override
+	public void restoreSIAE(String achievementId) throws Exception {
+		try {
+		    achievementDao.restoreSIAE(achievementId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 }

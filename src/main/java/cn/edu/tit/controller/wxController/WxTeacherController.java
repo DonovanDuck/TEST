@@ -25,13 +25,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
 
+import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Resource;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
+import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IResourceService;
@@ -88,6 +91,8 @@ public class WxTeacherController {
 				userPassword = Common.eccryptMD5(password);
 				if (teacher != null) {
 					if (userPassword.equals(teacher.getTeacherPassword())) {
+						request.getSession().setAttribute("user", teacher);
+						request.getSession().setAttribute("userId", teacher.getEmployeeNum());
 						ret.put("user", teacher);
 						System.out.println("ttahcer========================================");
 						return ret;
@@ -99,6 +104,8 @@ public class WxTeacherController {
 				} else if (student != null) {
 					if (userPassword.equals(student.getStudentPassword())) {
 						ret.put("user", student);
+						request.getSession().setAttribute("user", student);
+						request.getSession().setAttribute("userId", student.getStudentId());
 						System.out.println("ttahcer========================================");
 						return ret;
 
@@ -791,7 +798,8 @@ public class WxTeacherController {
 		List<String> accessoriesName = new ArrayList<String>();
 		//upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
 		//accessoriesName = studentService.getUpAccessories(taskId, studentId);
-		String virtualClassNum = (String) request.getAttribute("virtualClassNum");//获取当前虚拟班级
+		String virtualClassNum = (String) request.getParameter("virtualClassNum");//获取当前虚拟班级
+		System.out.println("virtualClassNum========="+virtualClassNum);
 		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);//获取虚拟班级实体
 		Integer studentNum = virtualClass.getClassStuentNum();	//获取班级总人数
 		try {
@@ -801,6 +809,132 @@ public class WxTeacherController {
 		}catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 发布任务
+	 */
+	@RequestMapping(value="publishTask")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public Map<String, Object> publishTask(HttpServletRequest request) {
+		
+		String taskId =  Common.uuid();	//设置任务id
+		Map<String, Object> ret = new HashMap<>();
+		Object[] obj = Common.fileFactory(request,taskId);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		String virtualClassNum = (String) formdata.get("virtualClassNum");
+		// 创建list集合用于获取文件上传返回路径名
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		List<Resource> resources = new ArrayList<Resource>();
+		Task task=new Task();
+		task.setTaskId(taskId);
+		task.setTaskTitle((String) formdata.get("taskTitle"));
+		task.setTaskDetail((String) formdata.get("taskDetail"));
+		//task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
+		//	task.setTaskType((String) formdata.get("taskType"));
+		task.setPublisherId((String) formdata.get("userId"));
+		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
+		task.setVirtualClassNum(virtualClassNum);
+		task.setUseNum(1);//设置使用次数为1
+		task.setCourseId((String) formdata.get("courseId"));
+		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
+		task.setTaskType((String) formdata.get("taskCategory"));
+		task.setStatus(0);
+
+		try {
+			teacherService.createTask(task);		//创建任务
+			teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!returnFileList.isEmpty()) {
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				accessory.setAccessoryName(file.getName());
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId(taskId);
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+//				Resource resource = new Resource();
+//				resource.setResourceId(Common.uuid());
+//				resource.setResourceName(file.getName());
+//				resource.setResourceDetail(null);
+//				resource.setPublishTime(new Timestamp(System.currentTimeMillis()));
+//				resource.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+//				resource.setResourceTypeId(Common.fileType(file.getName(), teacherService));//需要判断文件类型
+//				resource.setResourcePath(file.getPath());
+//				resource.setCourseId((String) formdata.get("courseId"));
+//				resource.setSize(file.length()/1024.0+"KB");
+//				resources.add(resource);
+			}
+			try {
+				teacherService.addAccessory(accessories);	//添加任务附件
+//				resourceService.upLoadResource(resources);//添加资源
+				ret.put("status", "OK");
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				ret.put("status", e.getMessage());
+				ret.put("s",(String) formdata.get("userId") );
+			}
+			
+		}
+		return ret;
+	}
+	
+	/**
+	 * 提交作业
+	 * @param request
+	 * @param taskId
+	 * @return
+	 */
+	@RequestMapping(value="toUpTask")
+	public Map<String, Object> toUpTask(HttpServletRequest request) {
+		Map<String, Object> ret = new HashMap<>();
+		
+		Object[] obj = Common.fileFactory(request,null);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		// 创建list集合用于获取文件上传返回路径名
+		String studentId = (String) formdata.get("studentId");
+		String virtualClassNum = (String) formdata.get("virtualClassNum");
+		String term = teacherService.getVirtualById(virtualClassNum).getTerm();
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		UpTask upTask = new UpTask();
+		upTask.setTaskId((String) formdata.get("taskId"));
+		upTask.setStudentId(studentId);
+		upTask.setTerm(term);
+		upTask.setUpTaskDetail((String) formdata.get("upTaskDetail"));
+		studentService.upTask(upTask, virtualClassNum);
+		
+		if(!returnFileList.isEmpty()) {
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				accessory.setAccessoryName(file.getName());
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId((String) formdata.get("taskId"));
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+			}
+			try {
+				studentService.upAccessory(accessories, studentId);
+				ret.put("status", "OK");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				ret.put("status", "error");
+				e.printStackTrace();
+			}
 		}
 		return ret;
 	}

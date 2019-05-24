@@ -373,4 +373,5 @@ public interface ITeacherDao {
 	 * 当以选择形式发布作业时，作业引用次数+1
 	 */
 	public void addUseNum(@Param("taskId")String taskId);
+	public Term getTermById(@Param("termId")String termId);
 }

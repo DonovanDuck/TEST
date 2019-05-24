@@ -44,19 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
 </head>
 <body>
-<head>
-    <div class="container-fluid">
-    <nav>
-    <ul class="nav nav-pills">
-        <li role="presentation" class="active"><a href="#">首页</a></li>
-        <li role="presentation"><a href="#">课程</a></li>
-        <li role="presentation"><a href="#">讨论区</a></li>
-        <li role="presentation"><a href="#">学生成果</a></li>
-        <li role="presentation"><a href="#">产学研项目</a></li>
-    </ul>
-    </nav>
-    </div>
-</head>
+<jsp:include page="/jsp/top.jsp" flush="true" />
 <main>
     <div class="main_t">
 	<div class="container-fluid">
@@ -85,7 +73,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<label style="float: left;margin-right: 76%;">${resourceName }库</label>
 		<c:if test="${isTeacher == 1 }">
 		<div>
-			<a href="${pageContext.request.contextPath}/teacher/toPublishResource/5/${course.courseId}">
+			<a href="${pageContext.request.contextPath}/teacher/toPublishResource/${category }/${course.courseId}">
 				<button type="button" class="btn btn-primary">发布资源</button>
 			</a>
 		</div>
@@ -108,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li style="text-align: center; font-size: 23px;font-weight: 600;margin-bottom: 7px;">${re.resourceName }</li>
 							<li>
 								<div style="margin-left: 42px;float: left;width: 195px;">知识点：${re.resourceDetail }</div>
-								<div>发布人：${publisher[status.index] }</div>
+								<div>发布人：${re.publisherId }</div>
 							</li>
 						</ul>
 					</div>
@@ -142,7 +130,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<li style="text-align: center; font-size: 23px;font-weight: 600;margin-bottom: 7px;">${task.taskTitle }</li>
 							<li>
 								<div style="margin-left: 42px;float: left;width: 195px;">知识点：${task.taskDetail }</div>
-								<div>发布人：${publisher[status.index] }</div>
+								<div>发布人：${task.publisherId }</div>
 							</li>
 						</ul>
 					</div>
@@ -151,9 +139,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
 							<div style="width: 100%;">已下载：${task.useNum }</div>
 						</div>
+						<c:if test="${sessionScope.student != null }">
 						<div>
 							<button type="button" class="btn btn-info" style="margin-top: 9px;">我要完成</button>
 						</div>
+						</c:if>
+						<c:if test="${isTeacher == 1 }">
+							<div>
+								<a href="${pageContext.request.contextPath}/teacher/toUpdateResource/${re.resourceId }"><button type="button" class="btn btn-info" style="margin-top: 9px;">修改资源</button></a>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</li>

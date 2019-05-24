@@ -18,12 +18,16 @@
 	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
+<!-- 加载编辑器的容器 -->
+<script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
+<!-- 配置文件 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor.config.js"></script>
+<!-- 编辑器源码文件 -->
+<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor.all.js"></script>
+<!-- 实例化编辑器 -->
+<script type="text/javascript">
+	    var ue = UE.getEditor('container');
+	</script>
 <script type="text/javascript">
 	function submitButton() {
 		var member = "";
@@ -96,11 +100,7 @@
 			window.clearInterval(t1);
 		};
 </script>
-<script type="text/javascript" charset="utf-8">
-$(function (){
-	UE.getEditor('#detail');
-})
-</script>
+
 </head>
 <body class="body">
 	<div class="top">
