@@ -2256,6 +2256,7 @@ public class TeacherController {
 		accessoriesName = studentService.getUpAccessories(taskId, studentId);
 		mv.addObject("upTaskDetail", upTaskDetail);
 		mv.addObject("taskEndTime", taskEndTime);
+		mv.addObject("accessoriesName", accessoriesName);
 		mv.setViewName("/jsp/VirtualClass/gradeWork");
 		return mv;
 	}
