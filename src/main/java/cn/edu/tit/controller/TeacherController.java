@@ -1110,6 +1110,7 @@ public class TeacherController {
 	@RequestMapping(value="toTaskDetail",method= {RequestMethod.GET})
 	public ModelAndView toTaskDetail(HttpServletRequest request,@RequestParam(value="taskId") String taskId) {
 		ModelAndView mv = new ModelAndView();
+		Timestamp taskEndTime;
 		String identify = (String) request.getSession().getAttribute("identify");
 		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
@@ -1120,6 +1121,7 @@ public class TeacherController {
 		List<String> accessoriesName = new ArrayList<String>();
 		String upTaskDetail = null ;
 		String studentId = (String) request.getSession().getAttribute("studentId");
+		
 		if(studentId!=null) {
 			upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
 		}
@@ -1129,10 +1131,11 @@ public class TeacherController {
 			point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
 			task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
 			task.setTaskPoint(point);
+			taskEndTime = teacherService.getTaskEndTime(virtualClassNum,task.getTaskId());
 			mv.addObject("task",task);
 			mv.addObject("virtualClassName",virtualClassName);
 			mv.addObject("virtualClassNum", virtualClassNum);
-
+			mv.addObject("taskEndTime", taskEndTime);
 			if(identify.equals("student")) {
 
 				accessoriesName = studentService.getUpAccessories(taskId, studentId);
@@ -2220,6 +2223,7 @@ public class TeacherController {
 		Integer grade=null;
 		String comment = null;
 		Student student = null;
+		Timestamp taskEndTime=null; 
 		comment = teacherService.getComment(taskId, studentId);
 		grade = teacherService.getGrade(taskId, studentId);
 		System.out.println("分数是："+grade);
@@ -2240,6 +2244,8 @@ public class TeacherController {
 
 			point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
 			task.setTaskPoint(point);
+			taskEndTime = teacherService.getTaskEndTime(virtualClassNum,task.getTaskId());
+
 			mv.addObject("task",task);
 			mv.addObject("virtualClassName",virtualClassName);
 			mv.addObject("virtualClassNum", virtualClassNum);
@@ -2250,8 +2256,10 @@ public class TeacherController {
 		if(studentId!=null) {
 			upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
 		}
+		
 		accessoriesName = studentService.getUpAccessories(taskId, studentId);
 		mv.addObject("upTaskDetail", upTaskDetail);
+		mv.addObject("taskEndTime", taskEndTime);
 		mv.setViewName("/jsp/VirtualClass/gradeWork");
 		return mv;
 	}

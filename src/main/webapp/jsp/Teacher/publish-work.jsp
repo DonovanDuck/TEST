@@ -89,7 +89,7 @@
 				$("#taskCategoryEdit").val("course_design");
 			}
 			
-			$("#taskCategoryEdit").val(text);
+			
 			$tasktype=$("#taskCategoryEdit").val();
 			
 		});
@@ -178,15 +178,22 @@
 
 										"<div class='workcontent' style='overflow:hidden'>"+
 											"<div style='height: 30px;'>"+
-									"<div style='float: left;text-align: center;'>"+
-										"<h4 >任务预览</h4>"+
+									"<div style='float: left;text-align: center;width:100%;margin-top: 10px;'>"+
+										"<span style='font-size:18px;font-weight: bold;'>任务预览</span>"+
 									"</div>"+
 								"</div>"+
 								"<hr>"+
-								"<div style='text-align:left ;'>"+
+								"<div style='height: 70px;padding:20px;margin-top: -30px;'>"+
+								"<div style='float: left;'><h4 style='font-weight: bold;'>任务要求</h4></div>"+
+							"</div>"+
+								"<div style='text-align:left ;padding-left:36px'>"+
 									"<span style='word-wrap:break-word; word-break:break-all; overflow: hidden; '>"+result[0].taskDetail+"</span>"+
 								"</div>"+
-								"<div style='height: 90px;margin-top: 20px;'>"+
+								"<hr>"+
+								"<div style='height: 70px;padding:20px;margin-top: -30px;'>"+
+								"<div style='float: left;'><h4 style='font-weight: bold;'>附件</h4></div>"+
+							"</div>"+
+								"<div style='height: 90px;margin-top: 20px;margin-top: -48px;'>"+
 									"<div id='autoAccessoryList' class='accessorylist'>"+
 									 
 									"</div>"+
@@ -197,7 +204,7 @@
 								for(var i=0;i<accessoryList.length;i++){
 									$("#autoAccessoryList").append(
 					                "<a href='${pageContext.request.contextPath}/teacher/resourceDownload?fileName="+accessoryList[i].accessoryName+"&id="+result[0].taskId+"'>"+
-										"<button class='btn btn-default' type='submit' style='border-radius: 20px;float: left;' >"+accessoryList[i].accessoryName+"</button>"+
+										"<button class='btn btn-default' type='submit' style='border-radius: 20px;float: left;margin-left: 10px;' >"+accessoryList[i].accessoryName+"</button>"+
 									"</a>");
 					           }
 								
@@ -524,7 +531,8 @@
 <body style="background-color: #F1F3F4;" >
 	<div
 		style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
-		<div style="width: 20px; height: 50px; background: #015293;"></div>
+		<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
+		<span style="line-height: 55px;font-size: 18px;margin-left: 20px">发布作业</span>
 	</div>
 	<div class="selectstyle"
 		style="width: 100%; height: 50px; margin: 10px auto; background-color: #fff;" >
