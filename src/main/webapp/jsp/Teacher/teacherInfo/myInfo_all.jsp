@@ -11,13 +11,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
 </head>
-<body>
+<body style="margin-left:-13%">
 <div id="t6">
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;工号：${teacher.employeeNum }</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;姓名：${teacher.teacherName }</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;昵称：${teacher.teacherNickName }</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;性别：${teacher.teacherGender }</p>
-                <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;职称：${teacher.professionalTitles }</p>
+                <p>工&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;号：${teacher.employeeNum }</p>
+                <p>姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名：${teacher.teacherName }</p>
+                <p>昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：${teacher.teacherNickName }</p>
+                <p>性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别：${teacher.teacherGender }</p>
+                <p>职&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：${teacher.professionalTitles }</p>
                 <p>出生日期：<input type="date" placeholder=""/></p>
                 <p>政治面貌：</p>
                 <p>研究方向：</p>

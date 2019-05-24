@@ -8,8 +8,7 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
-<script
-	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/student/s-own.css" />
 <link rel="stylesheet"
@@ -23,8 +22,13 @@
 								function() {
 									var id = $(this)
 											.children('option:selected').val();
-									path = "${pageContext.request.contextPath}/student/selectVirtualClassByTerm/"
-											+ id;
+									if(id==0)
+										{
+										path = "${pageContext.request.contextPath}/student/toStudentCenter_MyClass";
+										}else{
+											path = "${pageContext.request.contextPath}/student/selectVirtualClassByTerm/"
+												+ id;
+										}
 									$("#selectButtonA").attr("href", path);
 									;
 									$("#selectButton").click();
@@ -39,7 +43,7 @@
 		<div class="images">
 			<img
 				src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${student.faceImg }"
-				style="width: 100%; height: 100%;"/>
+				style="width: 100%; height: 100%;" />
 		</div>
 		<div class="message">
 			&nbsp;&nbsp;
@@ -111,8 +115,9 @@
 						<span>开课学期:</span><select
 							style="width: 70%; height: 24px; float: right;" id="selectTerm"
 							name="selectTerm">
-							<option>选择学期</option>
-							<c:forEach items="${listTerm }" var="listTerm">
+							<option value="0">选择学期</option>
+							<option value="0">全部班级</option>
+							<c:forEach items="${termList }" var="listTerm">
 								<option value="${listTerm.termId }">
 									${listTerm.startYear }-${listTerm.endYear }&nbsp&nbsp${listTerm.term}
 								</option>
@@ -126,11 +131,11 @@
 					varStatus="status">
 					<a
 						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
-						<div class="b1" style="border: 1px solid #000">
+						<div class="b1" style="border: 1px solid #F2F2F2">
 							<div class="b1_l">
 								<img
 									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
-									alt="" />
+									alt="" style="width: 100%; height: 100%;" />
 							</div>
 							<div class="b1_r">
 								<p class="h">${item.virtualClassName }</p>

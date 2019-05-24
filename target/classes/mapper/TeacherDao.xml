@@ -771,7 +771,9 @@
 		class_task where virtual_class_num=#{virtualClassNum} and
 		task_id=#{taskId};
 	</select>
-
+	<select id="getTermById" resultMap="termMap">
+		select * from term where term_id = #{termId};
+	</select>
 	<select id="readRealClassToSelect" resultMap="realCLassMap"
 		parameterType="java.lang.String">
 		SELECT * FROM real_class

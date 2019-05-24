@@ -1112,4 +1112,16 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		teacherDao.addUseNum(taskId);
 	}
+	
+	public Term getTermById(String termId) {
+		Term term = null;
+		try {
+			term = teacherDao.getTermById(termId);
+			System.out.println("getTermById------Dao 层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getTermById------Dao 层执行失败");
+		}
+		return term;
+	}
 }

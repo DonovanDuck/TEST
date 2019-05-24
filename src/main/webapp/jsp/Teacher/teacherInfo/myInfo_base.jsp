@@ -11,7 +11,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <title></title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/teacher/own.css"/>
 </head>
-<body>
+<body style="margin-left:-12%">
 <div id="t5">
                 <p>工号：${teacher.employeeNum }</p>
                 <span>密码：${teacher.teacherPassword }</span>     <span class="span">修改</span> <br/>

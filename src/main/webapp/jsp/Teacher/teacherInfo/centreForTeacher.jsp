@@ -40,9 +40,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 frameborder="no" border="0" scrolling="no"
                 src="${pageContext.request.contextPath}/teacher/toMyCourse"></iframe>
         </div>
-
-        <div id="r4"></div>
-
     </div>
 </main>
 <jsp:include page="/jsp/footer.jsp" flush="true"/>

@@ -157,6 +157,13 @@
 		where
 		project_id = #{achievementId};
 	</update>
+	<update id="restoreIURP" parameterType="java.lang.String">
+		update
+		achievement_industry_university_research_project set delete_flag =
+		1
+		where
+		project_id = #{achievementId};
+	</update>
 	<select id="queryIURPById" resultMap="IURPMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
@@ -260,6 +267,13 @@
 		where
 		achievement_id = #{achievementId};
 	</update>
+	<update id="restoreAOCSC" parameterType="java.lang.String">
+		update
+		achievements_of_college_students_competition set delete_flag =
+		1
+		where
+		achievement_id = #{achievementId};
+	</update>
 	<select id="queryAOCSCByName" resultMap="AOCSCMap"
 		parameterType="java.lang.String">
 		SELECT * FROM achievements_of_college_students_competition
@@ -358,6 +372,13 @@
 		where achievement_id =
 		#{achievementId};
 	</update>
+	<update id="restoreCourseExpand" parameterType="java.lang.String">
+		update
+		achievement_course_expand set delete_flag =
+		1
+		where achievement_id =
+		#{achievementId};
+	</update>
 	<select id="queryCourseExpandByName" resultMap="CourseExpandMap"
 		parameterType="java.lang.String">
 		SELECT * FROM achievement_course_expand
@@ -444,7 +465,6 @@
 		</where>
 		;
 	</update>
-
 	<!-- 大学生毕业设计的查询 -->
 	<select id="queryGDFCS" resultMap="GDFCSMap">
 		SELECT * FROM
@@ -459,6 +479,12 @@
 		update
 		achievement_graduation_design_for_college_students set delete_flag =
 		0
+		where achievement_id = #{achievementId};
+	</update>
+	<update id="restoreGDFCS" parameterType="java.lang.String">
+		update
+		achievement_graduation_design_for_college_students set delete_flag =
+		1
 		where achievement_id = #{achievementId};
 	</update>
 	<select id="queryGDFCSByName" resultMap="GDFCSMap"
@@ -556,6 +582,11 @@
 		update
 		achievement_student_innovation_and_entrepreneurship set delete_flag =
 		0 where achievement_id = #{achievementId};
+	</update>
+	<update id="restoreSIAE" parameterType="java.lang.String">
+		update
+		achievement_student_innovation_and_entrepreneurship set delete_flag =
+		1 where achievement_id = #{achievementId};
 	</update>
 	<select id="querySIAEByName" resultMap="SIAEMap" parameterType="java.lang.String">
 		SELECT * FROM achievement_student_innovation_and_entrepreneurship
