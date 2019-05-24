@@ -516,7 +516,7 @@
 	<select id="getVirtualClassByCreatorId" parameterType="String"
 		resultMap="virtualClassMap">
 		select * from virtual_class
-		where creator_id = #{creatorId};
+		where creator_id = #{creatorId} order by create_time desc ;
 	</select>
 	<!-- 根据虚拟班级号找到所对应的实体班级号列表 -->
 	<select id="searchRealClassIdList" parameterType="String"
@@ -783,4 +783,9 @@
 		</where>
 		;
 	</select>
+	
+	<update id="addUseNum">
+		UPDATE task set use_num = use_num+1
+		WHERE task_id = #{taskId}
+	</update>
 </mapper>

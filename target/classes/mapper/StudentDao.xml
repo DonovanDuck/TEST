@@ -160,7 +160,7 @@
 		select up_task_detail from up_task where task_id = #{taskId} and student_id=#{studentId}
 	</select>
 	<update id="countUpTaskNum">
-		update class_task set up_student_num = up_student_num +1 where virtual_class_num=#{virtualClassNum} and task_id=#{taskId}
+		update class_task set up_student_num = up_student_num+1 where virtual_class_num=#{virtualClassNum} and task_id=#{taskId}
 	</update>
 	
 	<select id="TaskList" parameterType="java.util.List"

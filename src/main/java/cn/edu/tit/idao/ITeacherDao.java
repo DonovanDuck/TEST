@@ -367,5 +367,11 @@ public interface ITeacherDao {
 	 * 在class_task表中获得任务截至时间
 	 */
 	public Timestamp getTaskEndTime(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);
+	/**
+	 * @author WENLI
+	 * @param taskId
+	 * 当以选择形式发布作业时，作业引用次数+1
+	 */
+	public void addUseNum(@Param("taskId")String taskId);
 	public Term getTermById(@Param("termId")String termId);
 }

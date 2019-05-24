@@ -195,6 +195,9 @@ public class StudentController {
 		}
 		mv.addObject("listTerm", termList);//返回信息
 		mv.addObject("virtualClassList", virtualList);//返回信息
+		for (VirtualClass virtualClass : virtualList) {
+			System.out.println("学生班级："+virtualClass.getVirtualClassName());
+		}
 		mv.setViewName("/jsp/StudentJsp/studentCenter_MyClass");//设置返回页面
 		return mv;
 	}

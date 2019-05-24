@@ -138,7 +138,7 @@
 									alt="" style="width: 100%; height: 100%;" />
 							</div>
 							<div class="b1_r">
-								<p class="h">${item.virtualCourseName }</p>
+								<p class="h">${item.virtualClassName }</p>
 								<p class="p1">
 									授课班级：
 									<c:forEach items="${item.realClassList }" var="realClass">

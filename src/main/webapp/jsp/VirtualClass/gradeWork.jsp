@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>  
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -29,21 +30,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
-			<h4 style="float: left;line-height: 170%;margin-left: 20px;">${task.taskTitle }</h4>
+			<h4 style="float: left;line-height: 170%;margin-left: 20px;font-weight: bold;">${task.taskTitle }</h4>
 		</div>
 		<div class="workdiv">
 			<div class="workcontent">
-				<div style="height: 30px;">
-					<div style="float: left;"><h4>任务详情</h4></div>
-					<!-- <div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div> -->
+				<div style="height: 70px;">
+					<div style="float: left;"><h4 style="font-weight: bold;">任务要求</h4></div>
+				</div>
+				
+				<div style="text-align:left ;    padding-left: 36px;">
+					<span  style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 16px ">${task.taskDetail }</span>
 				</div>
 				<hr >
-				<div style="text-align:left ;">
-					<span  style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${task.taskDetail }</span>
+				<div style="height: 35px;">
+					<div style="float: left;font-weight: bold;"><h4 style="font-weight: bold;">附件</h4></div>
 				</div>
-				<div style="height: 90px;margin-top: 20px;">
-					<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">2个附件</button>
-					
+				
+				<div style="height: 75px;padding-left: 36px;">
 					<div class="accessorylist">
 						<c:forEach items="${task.accessoryList }" var="accessory"  varStatus="status">
 							<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">
@@ -53,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-					<h8>发布时间：${task.publishTime } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${task.taskEndTime }</h8>
+					<span style="font-size: 10px">发布时间：${fn:substring(task.publishTime,0,10)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,10)}</span>
 				</div>
 			</div>
 			
@@ -61,7 +64,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="workdiv" style="margin-top: 20px;">
 			<div class="workcontent">
 					<div style="height: 30px;">
-						<div style="float: left;"><h4>作业详情</h4></div>
+						<div style="float: left;"><h4 style="font-weight: bold;">作业详情</h4></div>
 						
 					</div>
 					<hr >
@@ -90,7 +93,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="workcontent">
 				<form action="${pageContext.request.contextPath}/teacher/commendWork?studentId=${student.studentId }&taskId=${task.taskId}" method="post">
 					<div style="height: 30px;">
-						<div style="float: left;"><h4>评分详情</h4></div>
+						<div style="float: left;"><h4 style="font-weight: bold;">评分详情</h4></div>
 						
 						<!-- <div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div> -->
 					</div>

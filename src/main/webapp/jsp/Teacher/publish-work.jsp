@@ -46,43 +46,50 @@
 	src="${pageContext.request.contextPath}/js/angular.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/wui-date.js" charset="utf-8"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/iframeResizer.contentWindow.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 	var $table;
 	var $tasktype;
-	
 	$(document).ready(function() {
-		
 		$tasktype=$("#taskCategorySelect").val();
 		$("#selectTypeSelect li").click(function() {
-			var text = $(this).html();
-			if(text=="work"){
+			var text =$.trim( $(this).html());
+		
+			if(text=="作业"){
 				$("#typeNameSelect").html("作业");
+				$("#taskCategorySelect").val("work");
 			}
-			if(text=="trial"){
+			if(text=="实验"){
 				$("#typeNameSelect").html("实验");
+				$("#taskCategorySelect").val("trial");
 			}
-			if(text=="work"){
+			if(text=="课程设计"){
 				$("#typeNameSelect").html("课程设计");
+				$("#taskCategorySelect").val("course_design");
 			}
-			$("#taskCategorySelect").val(text);
+		
 			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
 					'refresh', 
 					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype});
 		});
 		$("#selectTypeEdit li").click(function() {
-			var text = $(this).html();
-			if(text=="work"){
+			var text =$.trim( $(this).html());
+			if(text=="作业"){
 				$("#typeNameEdit").html("作业");
+				$("#taskCategoryEdit").val("work");
 			}
-			if(text=="trial"){
+			if(text=="实验"){
 				$("#typeNameEdit").html("实验");
+				$("#taskCategoryEdit").val("trial");
 			}
-			if(text=="work"){
+			if(text=="课程设计"){
 				$("#typeNameEdit").html("课程设计");
+				$("#taskCategoryEdit").val("course_design");
 			}
 			
-			$("#taskCategoryEdit").val(text);
+			
 			$tasktype=$("#taskCategoryEdit").val();
 			
 		});
@@ -91,8 +98,184 @@
 		$("#editTime .wui-date-editor input").attr("id", "taskEndTimeEdit");
 		$("#selectTime .wui-date-editor input").attr("name", "taskEndTime");
 		$("#selectTime .wui-date-editor input").attr("id", "taskEndTimeSelect");
+		
+		
+		
+		$table = $('#taskListTable').bootstrapTable({
+			method : 'get',
+			url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype,//请求路径
+			dataType : "json",
+			striped : true, //是否显示行间隔色
+			pageNumber : 1, //初始化加载第一页
+			pagination : true,//是否分页
+			striped: true,  //是否显示行间隔色
+			sidePagination : 'client',//server:服务器端分页|client：前端分页
+			pageSize : 5,//单页记录数
+			pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
+			showRefresh : false,//刷新按钮
+			clickToSelect: true,                //是否启用点击选中行
+			singleSelect  : true,
+			queryParams : function(params) {//上传服务器的参数
+				var temp = {//如果是在服务器端实现分页，limit、offset这两个参数是必须的
+					limit : params.limit, // 每页显示数量
+					offset : params.offset // SQL语句起始索引
+					//page : (params.offset / params.limit) + 1, //当前页码 
+					/* Name : $('#search_name').val(),
+					Tel : $('#search_tel').val() */
+				};
+				return temp;
+			},
+			columns : [ {
+                checkbox: true,
+                visible: true  
+            },{
+				field : 'taskId',
+				title : '任务Id',
+				visible: false 
+			}, {
+				field : 'taskTitle',
+				title : '任务标题',
+
+			}, {
+				field : 'taskDetail',
+				title : '任务描述',
+
+			}, {
+				field : 'publisherId',
+				title : '发布者',
+
+			}, {
+				field : 'taskType',
+				title : '分类',
+
+			},/*  {
+				field : 'courseId',
+				title : '课程',
+				visible: false
+			}, */ {
+				field : 'useNum',
+				title : '使用次数'
+
+			},{
+				field : 'operate',
+				title : '预览',
+				formatter: btnGroup,    // 自定义方法，添加按钮组
+				events: {               // 注册按钮组事件
+		            'click #preview': function (event, value, row, index) {
+		               $.ajax({
+							async : false,
+							cache : false,
+							url : "${pageContext.request.contextPath}/teacher/ajaxGetTaskPerview?taskId="+row.taskId,
+							type : "POST",
+							dataType : "json",
+							success : function(result) {
+								var arr = result;
+								console.log(result);
+								
+								var accessoryList = result[0].accessoryList;
+								$("#autoCreateMoTai").empty();
+								$("#autoCreateMoTai").append(
+
+										"<div class='workcontent' style='overflow:hidden'>"+
+											"<div style='height: 30px;'>"+
+									"<div style='float: left;text-align: center;width:100%;margin-top: 10px;'>"+
+										"<span style='font-size:18px;font-weight: bold;'>任务预览</span>"+
+									"</div>"+
+								"</div>"+
+								"<hr>"+
+								"<div style='height: 70px;padding:20px;margin-top: -30px;'>"+
+								"<div style='float: left;'><h4 style='font-weight: bold;'>任务要求</h4></div>"+
+							"</div>"+
+								"<div style='text-align:left ;padding-left:36px'>"+
+									"<span style='word-wrap:break-word; word-break:break-all; overflow: hidden; '>"+result[0].taskDetail+"</span>"+
+								"</div>"+
+								"<hr>"+
+								"<div style='height: 70px;padding:20px;margin-top: -30px;'>"+
+								"<div style='float: left;'><h4 style='font-weight: bold;'>附件</h4></div>"+
+							"</div>"+
+								"<div style='height: 90px;margin-top: 20px;margin-top: -48px;'>"+
+									"<div id='autoAccessoryList' class='accessorylist'>"+
+									 
+									"</div>"+
+								"</div>"+
+							"</div>"
+										
+								);
+								for(var i=0;i<accessoryList.length;i++){
+									$("#autoAccessoryList").append(
+					                "<a href='${pageContext.request.contextPath}/teacher/resourceDownload?fileName="+accessoryList[i].accessoryName+"&id="+result[0].taskId+"'>"+
+										"<button class='btn btn-default' type='submit' style='border-radius: 20px;float: left;margin-left: 10px;' >"+accessoryList[i].accessoryName+"</button>"+
+									"</a>");
+					           }
+								
+								$("#btuClick").trigger("click");
+								/* for (var i = 0; i < arr.length; i++) {
+									$("#realClassLi")
+											.append(
+													"<input type='checkbox' value='"+arr[i].realClassNum+"' name='realClass'/>"
+															+ arr[i].realClassNum);
+								} */
+							}
+						});
+		            }
+		        }
+			}],
+			onClickRow:function (row,$element) {
+				$("#taskId").val(row.taskId);
+				$.ajax({
+					        url:"${pageContext.request.contextPath}/teacher/ajaxIsCreated",//请求地址
+					        type:"post",//请求方式
+							async:false,
+					        data:"taskId="+row.taskId,//发送信息
+					        dataType:"text",//服务器响应信息类型，不写则为默认
+					        success:function(responseContent){  //success:function(responseContent)为回调函数   responseContent为接收响应信息
+								
+								var flag = eval(responseContent);
+								 if(flag=='true'){
+									$("#selectErrorMsg").css("display","block");
+								
+					                $("#selectErrorMsg").html("<strong>警告！</strong>该任务已经在该班级发布，如果仍然选择该任务，可能会丢失之前的任务数据。请谨慎选择")
+					            } else if(flag=='false'){
+									$("#selectErrorMsg").css("display","none");
+								}
+					        }
+				});
+			},
+			onUncheck:function(row,$element){
+				$("#selectErrorMsg").css("display","none");
+			},
+			onCheck:function(row){
+				
+				 $("#taskId").val(row.taskId);
+				 $.ajax({
+						        url:"${pageContext.request.contextPath}/teacher/ajaxIsCreated",//请求地址
+						        type:"post",//请求方式
+								async:false,
+						        data:"taskId="+row.taskId,//发送信息
+						        dataType:"text",//服务器响应信息类型，不写则为默认
+						        success:function(responseContent){  //success:function(responseContent)为回调函数   responseContent为接收响应信息
+									
+									var flag = eval(responseContent);
+									 if(flag=='true'){
+										$("#selectErrorMsg").css("display","block");
+										
+						                $("#selectErrorMsg").html("<strong>警告！</strong>该任务已经在该班级发布，如果仍然选择该任务，可能会丢失之前的任务数据。请谨慎选择")
+						            } else if(flag=='false'){
+										$("#selectErrorMsg").css("display","none");
+									}
+						        }
+					});
+		      }
+
+		});
 	});
-	
+	function btnGroup () {   // 自定义方法，添加操作按钮
+	    // data-target="xxx" 为点击按钮弹出指定名字的模态框
+	    let html =
+	        '<a href="####" class="btn btn-info" id="preview" data-toggle="modal" data-target="#editrole" title="修改权限">' +
+	        '<span >预览</span></a>' 
+	    return html
+	};
 	
 	
 	function InitMainTable() {
@@ -124,11 +307,11 @@
 			columns : [ {
                 checkbox: true,
                 visible: true  
-            }, {
+            }, /* {
 				field : 'taskId',
 				title : '任务Id',
-				visible: true 
-			},{
+				visible: false 
+			}, */{
 				field : 'taskTitle',
 				title : '任务标题',
 
@@ -144,14 +327,20 @@
 				field : 'taskType',
 				title : '分类',
 
-			}, {
+			},/*  {
 				field : 'courseId',
-				title : '课程'
-			}, {
+				title : '课程',
+				visible: false
+			}, */ {
 				field : 'useNum',
 				title : '使用次数'
 
-			}, ],
+			},{
+				field : 'operate',
+				title : '预览',
+				formatter: btnGroup,    // 自定义方法，添加按钮组
+
+			},  ],
 			onClickRow:function (row,$element) {
 				$("#taskId").val(row.taskId);
 				$.ajax({
@@ -201,9 +390,6 @@
 		      }
 
 		});
-		
-		
-
 	};
 	var autoTextarea = function(elem, extra, maxHeight) {
 		extra = extra || 0;
@@ -342,13 +528,14 @@
 </script>
 
 </head>
-<body style="background-color: #F1F3F4;" onload="InitMainTable();">
+<body style="background-color: #F1F3F4;" >
 	<div
-		style="width: 80%; height: 50px; margin: 0 auto; background-color: #fff;">
-		<div style="width: 20px; height: 50px; background: #015293;"></div>
+		style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
+		<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
+		<span style="line-height: 55px;font-size: 18px;margin-left: 20px">发布作业</span>
 	</div>
 	<div class="selectstyle"
-		style="width: 80%; height: 50px; margin: 10px auto; background-color: #fff;">
+		style="width: 100%; height: 50px; margin: 10px auto; background-color: #fff;" >
 		<div class="selectTaskButton" onclick="selectfunction()"
 			style="width: 50%; height: 50px; float: left; background-color: #015293; text-align: center; color: #fff;">
 			<span style="line-height: 50px; font-size: 16px;">选择任务</span>
@@ -362,13 +549,13 @@
 
 
 	<div class="editTask"
-		style="width: 80%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0; display: none;">
+		style="width: 100%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0; display: none;">
 		<div class="editTaskContent" style="margin: 30px 50px;">
 			<form action="${pageContext.request.contextPath}/teacher/publishTask"
-				id="publish" enctype="multipart/form-data" method="post" onsubmit = "return checkInputEdit(this)">
+				id="publish" enctype="multipart/form-data" method="post" onsubmit = "return checkInputEdit(this)" target="_top">
 				<div style="height: 1px; width: 100%;">
 					<div class="input-group"
-						style="float: left; width: 68%; margin-right: 2%;">
+						style="float: left; width: 60%; margin-right: 2%;">
 						<span class="input-group-addon" id="basic-addon3"
 							style="font-size: 20px; padding: 0 50px; font-weight: bold;">任务标题</span>
 						<input type="text" name="taskTitle" class="form-control"
@@ -388,7 +575,11 @@
 							</button>
 							<ul id="selectTypeEdit" class="dropdown-menu">
 								<c:forEach items="${taskCategoryList }" var="taskCategory">
-									<li >${taskCategory }</li>
+									<li style="font-size: 18px;padding-left: 20px">
+									<c:if test="${taskCategory=='work' }">作业</c:if>
+									<c:if test="${taskCategory=='trial' }">实验</c:if>
+									<c:if test="${taskCategory=='course_design' }">课程设计</c:if>
+									</li>
 
 								</c:forEach>
 
@@ -423,7 +614,7 @@
 				</div>
 
 				<div id="editTime" class="input-group"
-					style="width: 68%; margin-right: 2%;">
+					style="width: 60%; margin-right: 2%;">
 					<span class="input-group-addon" id="basic-addon3"
 						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
 					<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
@@ -459,10 +650,10 @@
 		</div>
 	</div>
 	<div class="selectTask"
-		style="width: 80%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0;">
+		style="width: 100%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0;">
 		<div class="selectTaskContent" style="margin: 30px 50px;">
 		<form action="${pageContext.request.contextPath}/teacher/selectTaskToPublish"
-				method="post" onsubmit = "return checkInputSelect(this)">
+				method="post" onsubmit = "return checkInputSelect(this)"target="_top">
 			<span>这是一个快速发布优质作业的重要途径，当然您也可以选择点击右侧自定义标签自定义作业</span>
 			<div class="input-group" style="float: left; width: 30%;">
 				<span class="input-group-addon" id="basic-addon3"
@@ -477,7 +668,11 @@
 							</button>
 							<ul id="selectTypeSelect" class="dropdown-menu">
 								<c:forEach items="${taskCategoryList }" var="taskCategory">
-									<li>${taskCategory }</li>
+									<li style="font-size: 18px;padding-left: 20px">
+										<c:if test="${taskCategory=='work' }">作业</c:if>
+										<c:if test="${taskCategory=='trial' }">实验</c:if>
+										<c:if test="${taskCategory=='course_design' }">课程设计</c:if>
+									</li>
 								</c:forEach>
 							</ul>
 				</div>
@@ -486,7 +681,7 @@
 				
 			</div>
 			
-			<div class="selectTaskList" style="margin-top: 20px;">
+			<div class="selectTaskList" style="margin-top: 60px;">
 				<!-- <iframe id="seleTaskItems" src="toselectTaskList" width="100%" height="500px">
 
 					</iframe> -->
@@ -516,7 +711,16 @@
 		</div>
 
 	</div>
+<!-- Large modal -->
+	<button id="btuClick" style="display: none" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
 
+		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+			<div class="modal-dialog modal-lg" role="document">
+				<div id = "autoCreateMoTai" class="modal-content">
+					
+				</div>
+			</div>
+		</div>
 
 	<script>
 		var text = document.getElementById("taskDetail");

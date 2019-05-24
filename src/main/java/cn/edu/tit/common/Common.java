@@ -149,7 +149,7 @@ public  class  Common {
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
 			String studentId = (String) request.getSession().getAttribute("studentId");
 			String path = readProperties("path");
-			if(!"".equals(id) || id != null){
+			if(!"".equals(id) && id != null){
 				if(studentId==null||studentId.equals("")) {
 					path +="/"+id;
 				}else {
