@@ -43,9 +43,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	opacity: 0;
 	transition:height 0.2s linear,opacity 0.2s linear;
 	-webkit-transition:height 0.2s linear,opacity 0.2s linear; /* Safari */
-	
-	
-	
+	padding-left: 26px;
+    padding-top: 18px;
 	
 }
 .b{
@@ -225,7 +224,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div style="clear: both;"></div>
 				<div style="width: 100%;height: 372px;">
 				<iframe style="margin-left: 28px;margin-top: 12px;"
-					src="${pageContext.request.contextPath}/teacher/toCourseIntroduce/${course.courseId}"
+					src="${pageContext.request.contextPath}/jsp/Teacher/resource_frame.jsp"
 					name="target" frameborder="0" width="93%" height="100%"
 					scrolling="auto"></iframe></div>
 			<%--<div class="brother">
@@ -287,12 +286,147 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div> 
 	</div>
 	<div class="main_b_b">
-		<div class="container">
-			<h3>拓展任务</h3>
+		<div class="container" style="min-height: 350px;height: auto;">
+			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">翻转课堂</h3>
+			<ul>
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
+			<div>
+				<div style="float: left; height: 20px;"></div>
+				<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+			</div>
+			
+			<div>知识点：java类的继承</div>
+			<div>发布人：dono</div>
+			<div>发布时间：xxxxxxx</div>
+			<div>下载次数：3</div>
 		</div>
-	</div>
+	</li>
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
+			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+			<div>知识点：java类的继承</div>
+			<div>发布人：dono</div>
+			<div>发布时间：xxxxxxx</div>
+			<div>下载次数：3</div>
+		</div>
+	</li>
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
+			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+			<div>知识点：java类的继承</div>
+			<div>发布人：dono</div>
+			<div>发布时间：xxxxxxx</div>
+			<div>下载次数：3</div>
+		</div>
+	</li>
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
+			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+			<div>知识点：java类的继承</div>
+			<div>发布人：dono</div>
+			<div>发布时间：xxxxxxx</div>
+			<div>下载次数：3</div>
+		</div>
+	</li>
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
+			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+			<div>知识点：java类的继承</div>
+			<div>发布人：dono</div>
+			<div>发布时间：xxxxxxx</div>
+			<div>下载次数：3</div>
+		</div>
+	</li>
+	<li style="float: left;margin-left: 25px;margin-top: 18px;margin-bottom: 23px;">
+		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
+			<div>
+				<div style=""></div>
+			</div>
+			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+			<div>知识点：java类的继承</div>
+			<div>发布人：dono</div>
+			<div>发布时间：xxxxxxx</div>
+		</div>
+	</li>
+</ul>
 </div>
-</main>
-<footer></footer>
+</div>
+
+<div class="main_b_b">
+		<div class="container" style="min-height: 350px;height: auto;">
+			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">挑战</h3>
+			<ul>
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 171px;padding-left: 30px;padding-top: 15px;">
+			<div style="background: blue; text-align: center;border-radius: 75px;height: 75px;width: 75px;
+			position: relative;left: 10px;margin-bottom: 10px;">
+				
+			</div>
+			
+			<div>134323454 xxxx</div>
+			<div>经验值：1000</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 171px;padding-left: 30px;padding-top: 15px;">
+			<div style="background: blue; text-align: center;border-radius: 75px;height: 75px;width: 75px;
+			position: relative;left: 10px;margin-bottom: 10px;">
+				
+			</div>
+			
+			<div>134323454 xxxx</div>
+			<div>经验值：1000</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 171px;padding-left: 30px;padding-top: 15px;">
+			<div style="background: blue; text-align: center;border-radius: 75px;height: 75px;width: 75px;
+			position: relative;left: 10px;margin-bottom: 10px;">
+				
+			</div>
+			
+			<div>134323454 xxxx</div>
+			<div>经验值：1000</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 171px;padding-left: 30px;padding-top: 15px;">
+			<div style="background: blue; text-align: center;border-radius: 75px;height: 75px;width: 75px;
+			position: relative;left: 10px;margin-bottom: 10px;">
+			</div>
+			
+			<div>134323454 xxxx</div>
+			<div>经验值：1000</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 25px;margin-top: 18px;">
+		<div style="  height: 151px;width: 171px;padding-left: 30px;padding-top: 15px;">
+			<div style="background: blue; text-align: center;border-radius: 75px;height: 75px;width: 75px;
+			position: relative;left: 10px;margin-bottom: 10px;">
+				
+			</div>
+			
+			<div>134323454 xxxx</div>
+			<div>经验值：1000</div>
+			
+		</div>
+	</li>
+	
+	
+</ul>
+</div>
+</div>
+
+<div class="main_b_b">
+		<div class="container" style="min-height: 350px;height: auto;">
+			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">拓展任务</h3>
+	
+</div>
+
 </body>
 </html>

@@ -883,7 +883,7 @@ public class TeacherController {
 				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
 			}
 			teacherService.updateResource(resource);
-			return toCourseResource(request, "3");
+			return toCourseResource(request, (String) formdata.get("resourceType"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -894,7 +894,7 @@ public class TeacherController {
 
 	@RequestMapping(value="toPublishResource/{category}/{courseId}")
 	@SuppressWarnings({ "unused", "unchecked" })
-	public String toPublishResource(HttpServletRequest request,@PathVariable String courseId, @PathVariable String category) {
+	public String toPublishResource(HttpServletRequest request,@PathVariable String category,@PathVariable String courseId ) {
 		String path = "/jsp/Teacher/teacher-release-resource";
 		try {
 			//接收类型
@@ -918,7 +918,7 @@ public class TeacherController {
 	@RequestMapping(value="publishResource")
 	@SuppressWarnings({ "unused", "unchecked" })
 
-	public String publishResource(HttpServletRequest request) {
+	public ModelAndView publishResource(HttpServletRequest request) {
 		try {
 			String resourceId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,resourceId);
@@ -938,11 +938,14 @@ public class TeacherController {
 				resource.setSize(returnFileList.get(0).length()/1024.0+"KB");
 			}
 			teacherService.addResource(resource);
+			return toCourseResource(request, (String) formdata.get("resourceType"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			ModelAndView mv = new ModelAndView();
+			mv.setViewName(viewName);
 			e.printStackTrace();
 		}
-		return "redirect:/teacher/toPublishResource";
+		
 
 	}
 
@@ -1911,6 +1914,7 @@ public class TeacherController {
 	@RequestMapping("/toCourseResource/{category}")
 	public ModelAndView toCourseResource(HttpServletRequest request,@PathVariable String category) throws Exception{
 		ModelAndView mv = new ModelAndView();
+		mv.addObject("category", category);
 		Course course = (Course) request.getSession().getAttribute("course");
 		String courseId = "";
 		List<Teacher> teacherList = new ArrayList<>();
@@ -1937,17 +1941,17 @@ public class TeacherController {
 		List<Task> taskList = new ArrayList<>();//返回前台数据
 		//查询信息switch
 		switch (category) {
-		case "1":{
+		case "6":{
 			//教案库
 			mv.addObject("resourceName", "教案");
 			break;
 		}
-		case "2":{
+		case "7":{
 			//教学资源库
 			mv.addObject("resourceName", "教学资源");
 			break;
 		}
-		case "3":{
+		case "5":{
 			//多媒体资源
 			resourceList = resourceService.showResourceByCourse(courseId);
 			for (Resource resource : resourceList) {
@@ -1959,7 +1963,7 @@ public class TeacherController {
 			mv.addObject("resourceName", "多媒体资源");
 			break;
 		}
-		case "4":{
+		case "8":{
 			//作业库
 			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
 			for (Task task : taskList) {
@@ -1969,7 +1973,7 @@ public class TeacherController {
 			mv.addObject("resourceName", "作业");
 			break;
 		}
-		case "5"://实验库
+		case "9"://实验库
 			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
 			for (Task task : taskList) {
 				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
@@ -1977,7 +1981,7 @@ public class TeacherController {
 			mv.addObject("taskList", taskList);//返回信息
 			mv.addObject("resourceName", "实验");
 			break;
-		case "6"://课程设计库
+		case "10"://课程设计库
 			mv.addObject("resourceName", "课程设计");
 			break;
 		default:
