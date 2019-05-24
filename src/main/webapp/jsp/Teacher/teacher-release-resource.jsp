@@ -4,10 +4,8 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html lang="en">
+<!DOCTYPE html>
+<html lang="zh-CN">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
@@ -98,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 
-<%-- <div class="main_b">
+<div class="main_b">
 <div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;margin-bottom: 55px;">
 		发布${resourceName }资源：
 	</div>
@@ -113,39 +111,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="form-group">
 					<label for="exampleInputName2">资源介绍：</label>
 					<textarea id="resourceDetail" name="resourceDetail" type="text" placeholder=""
-						style="width:700px; height: 200px; float: left; margin-left: 9%;margin-bottom: 31px;" ></textarea> --%>
-	<div class="main_b">
-		<div class="text">
-			<form action="" enctype="multipart/form-data" method="post"
-				onSubmit="submitButton()">
-				<span><strong>名&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称：</strong></span>
-				<input type="text" name="resourceName" placeholder="请输入名称："
-					style="width: 60%; height: 30px; float: left;">
-				<div style="width: 10%; height: 30px; float: left">
-					<select id="taskCategory" name="taskCategory">
-						<option value="0">选择资源类型</option>
-						<option value="1">教案资源</option>
-						<option value="2">教学资源资源</option>
-						<option value="work">作业资源</option>
-						<option value="medio">多媒体资资源</option>
-						<option value="trial">实验资源</option>
-						<option value="6">课程设计资源</option>
-					</select>
-				</div>
-				<br> <br> <span><strong>资源介绍：</strong></span> <input
-					name="resourceDetail" type="text" placeholder="请输入资源详情：(字数100内)"
-					style="width: 80%; height: 100px; float: left;" maxlength="100">
-				<br> <br> <span style="margin-top: 1%"> <strong>附&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;件：</strong></span>
-				<ul id="accessoryUI" name="accessoryUI" style="margin-top: 4%;">
-					<li id="accessory" name="accessory"><input name="upFile"
-						type="file" id="upFile" multiple="multiple"></li>
-				</ul>
-				<div class="button">
-					<button
-						style="padding-left: 1%; padding-right: 1%; font-size: 16px; float: right; margin-right: 20%;"
-						type="submit">上传并发布</button>
-				</div>
-			</form>
+						style="width:700px; height: 200px; float: left; margin-left: 9%;margin-bottom: 31px;" ></textarea>
 		</div>
 		<div class="form-group">
     <label for="exampleInputName2" style="float: left;margin-right: 5px;">上传附件：</label>

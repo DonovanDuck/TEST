@@ -126,10 +126,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <td>
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">课程名：${course.courseName }</p>
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
                                       <p>教师团队：
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                   </div>
                               </div>
                           </div>
-                      </a>
+                       </a>
                       </td>
                   </c:forEach>
                       <!-- <td>

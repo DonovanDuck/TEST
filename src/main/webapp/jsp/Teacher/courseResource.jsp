@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<label style="float: left;margin-right: 76%;">${resourceName }库</label>
 		<c:if test="${isTeacher == 1 }">
 		<div>
-			<a href="${pageContext.request.contextPath}/teacher/toPublishResource/5/${course.courseId}">
+			<a href="${pageContext.request.contextPath}/teacher/toPublishResource/${category }/${course.courseId}">
 				<button type="button" class="btn btn-primary">发布资源</button>
 			</a>
 		</div>
