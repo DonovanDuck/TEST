@@ -42,6 +42,7 @@ public interface IAchievementDao {
 	public List<CourseExpand> queryCourseExpandByAuthorId(@Param("authorId")String authorId)throws Exception;
 	public List<CourseExpand> queryCourseExpandByName(@Param("search")String search)throws Exception;
 	public List<CourseExpand> queryCourseExpandByAuthor(@Param("search")String search)throws Exception;
+	public List<CourseExpand> getCourseExpandBycourseId(@Param("courseId")String courseId)throws Exception;
 	public void insertCourseExpand(@Param("iu")CourseExpand iu)throws Exception;
 	public CourseExpand queryCourseExpandById(@Param("achievementId")String achievementId)throws Exception;
 	public void updateCourseExpandBrowseVolume(@Param("achievementId")String achievementId)throws Exception;

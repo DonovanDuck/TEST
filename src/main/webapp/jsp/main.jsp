@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     	}
     </style>
     <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
-    <script type="text/javascript">
+    <!-- <script type="text/javascript">
         $(function (){
             var order=1;
             window.setInterval(lunbo,1000);
@@ -33,12 +33,69 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 order++;
             }
         });
-    </script>
+    </script> -->
+    <link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<script
+	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/js/adminJs/bootstrap.min.js"></script>
+	<script
+	src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 </head>
 <body>
       <jsp:include page="/jsp/top.jsp" flush="true" />
-      <div class="banner">
-          <div class="banner-img">
+      <div class="banner" style="height: 458px;">
+      	<div class="container" style="width: 100%;padding: 0;">
+					<div class="carousel slide" id="slidershow" data-ride="carousel" data-interval="2000">
+						<!--计数器-->
+						<ol class="carousel-indicators">
+							<li class="active" data-target="#slidershow" data-slide-to="0"></li>
+							<li data-target="#slidershow" data-slide-to="1"></li>
+							<li data-target="#slidershow" data-slide-to="2"></li>
+							<li data-target="#slidershow" data-slide-to="3"></li>
+						</ol>
+						<!--图片容器-->
+						<div class="carousel-inner">
+							<div class="item active">
+								<img src="${pageContext.request.contextPath}/images/banner_img01.jpg"/>
+								<!--添加对应标题和内容-->
+								
+							</div>
+							<div class="item">
+								<img src="${pageContext.request.contextPath}/images/banner_img02.jpg"/>
+								<!--添加对应标题和内容-->
+								
+							</div>
+							<div class="item">
+								<img src="${pageContext.request.contextPath}/images/banner_img03.jpg"/>
+								<!--添加对应标题和内容-->
+								
+							</div>
+							<div class="item">
+								<img src="${pageContext.request.contextPath}/images/banner_img04.jpg"/>
+								<!--添加对应标题和内容-->
+								
+							</div>
+							<!--轮播导航-->
+							<a href="#slidershow" data-slide="prev" class="left carousel-control" role="button">
+								
+							</a>
+							<a href="#slidershow" data-slide="next" class="right carousel-control" role="button">
+								
+							</a>
+						</div>
+					</div>
+				</div>
+      
+      
+      
+      
+      
+      
+          <%-- <div class="banner-img">
               <img src="${pageContext.request.contextPath}/images/banner_img01.jpg" alt="" style="width: 1400px;height:600px;overflow: hidden;"/>
               <img src="${pageContext.request.contextPath}/images/banner_img02.jpg" alt="" style="width: 1400px;height:600px;overflow: hidden;"/>
               <img src="${pageContext.request.contextPath}/images/banner_img03.jpg" alt="" style="width: 1400px;height:600px;overflow: hidden;"/>
@@ -49,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
               <div class="square1"></div>
               <div class="square1"></div>
               <div class="square1"></div>
-          </div>
+          </div> --%>
       </div>
       <main>
           <!--基地-->
@@ -63,7 +120,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <td>
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li">
-                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
                                       <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
@@ -126,7 +183,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <td>
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li">
-                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
                                       <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>

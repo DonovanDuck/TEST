@@ -938,4 +938,22 @@ public class WxTeacherController {
 		}
 		return ret;
 	}
+	
+	@RequestMapping(value="getUpTaskById")
+	public Map<String, Object> getUpTaskById(HttpServletRequest request,@RequestParam(value="studentId") String studentId,
+			@RequestParam(value="taskId") String taskId) {
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//获取提交课程
+			UpTask uptask = studentService.getUpTask(taskId, studentId);
+			//获得课程附件
+			Accessory acc = studentService.getUpAcc(taskId, studentId);
+			ret.put("uptask", uptask);
+			ret.put("acc", acc);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return ret;
+	}
 }

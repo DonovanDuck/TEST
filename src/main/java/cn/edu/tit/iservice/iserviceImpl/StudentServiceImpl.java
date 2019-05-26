@@ -328,6 +328,18 @@ public class StudentServiceImpl implements IStudentService{
 		return studentDao.getUpAccessories(taskId, studentId);
 	}
 
+	@Override
+	public UpTask getUpTask(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpTask( taskId,  studentId);
+	}
+
+	@Override
+	public Accessory getUpAcc(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpAcc( taskId,  studentId);
+	}
+
 	
 	
 }
