@@ -802,4 +802,14 @@
 		#{employeeNum} and course_id = #{courseId} and manager = 2;
 	</delete>
 	
+	
+	<select id="teacherForFuzzyQueryById" resultMap="teacherMap"
+		parameterType="java.lang.String">
+		SELECT * FROM teacher
+		<where>
+			employee_num
+			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
+		</where>
+		;
+	</select>
 </mapper>

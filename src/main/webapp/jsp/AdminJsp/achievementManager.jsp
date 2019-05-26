@@ -61,53 +61,25 @@
 </script>
 <script type="text/javascript">
 	function deleteAchievement(achievementId) {
-		$
-				.ajax({
-					async : false,
-					cache : false,
-					url : "${pageContext.request.contextPath}/admin/deleteAchievement/"
-							+ achievementId,
-					type : "POST",
-					dataType : "json",
-					success : function() {
-
-					},
-					error : function() {
-						$(this).remove();
-						var arr = achievementId.split(',');
-						var content = "";
-						switch (arr[1]) {
-						case "产学研":
-							content = "<button class='btn btn-success' onclick='restore('"
-									+ arr[0]
-									+ ",产学研')'style='padding-top: 2%;'>恢复</button>";
-							break;
-						case "课程拓展":
-							content = "<button class='btn btn-success' onclick='restore('"
-									+ arr[0]
-									+ ",课程拓展')'style='padding-top: 2%;'>恢复</button>";
-							break;
-						case "毕业设计":
-							content = "<button class='btn btn-success' onclick='restore('"
-									+ arr[0]
-									+ ",毕业设计')'style='padding-top: 2%;'>恢复</button>";
-							break;
-						case "大学生创新创业":
-							content = "<button class='btn btn-success' onclick='restore('"
-									+ arr[0]
-									+ ",大学生创新创业')'style='padding-top: 2%;'>恢复</button>";
-							break;
-						case "大学生竞赛作品":
-							content = "<button class='btn btn-success' onclick='restore('"
-									+ arr[0]
-									+ ",大学生竞赛作品')'style='padding-top: 2%;'>恢复</button>";
-							break;
-						}
-						var divP = $(this).previousSibing;
-					
-						divP.append(content);
-					}
-				});
+		var button = $(this);
+		$.ajax({
+			async : false,
+			cache : false,
+			url : "${pageContext.request.contextPath}/admin/deleteAchievement/"
+					+ achievementId,
+			type : "POST",
+			dataType : "json",
+			success : function() {
+				button.remove();
+			},
+			error : function() {
+				button.remove();
+				var arr = achievementId.split(',');
+				var content = "";
+				var divP = $(this).previousSibing;
+				divP.append(content);
+			}
+		});
 	}
 
 	function restore(achievementId) {
@@ -226,13 +198,13 @@
 																<small>查看</small>
 															</button>
 													</a> <c:if test="${item.deleteFlag == 1 }">
-															<button class="btn btn-danger"
+															<input type="button" class="btn"
 																onclick="deleteAchievement('${item.projectId },产学研')"
-																style='padding-top: 2%;'>删除</button>
+																style="padding-top: 2%;" value="删除">
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
-															<button class="btn btn-success"
+															<input type="button" class="btn"
 																onclick="restore('${item.projectId },产学研')"
-																style="padding-top: 2%;">恢复</button>
+																style="padding-top: 2%;" value="恢复">
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -255,17 +227,13 @@
 																style="padding-top: 2%;">
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
-															<button type="button" class="btn btn-danger"
+															<input type="button" class="btn"
 																onclick="deleteAchievement('${item.achievementId },课程拓展')"
-																style="padding-top: 2%;">
-																<small>删除</small>
-															</button>
+																style="padding-top: 2%;" value="删除">
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
-															<button type="button" class="btn btn-success"
+															<input type="button" class="btn"
 																onclick="restore('${item.achievementId },课程拓展')"
-																style="padding-top: 2%;">
-																<small>恢复</small>
-															</button>
+																style="padding-top: 2%;" value="恢复">
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -288,17 +256,13 @@
 																style="padding-top: 2%;">
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
-															<button type="button" class="btn btn-danger"
+															<input type="button" class="btn"
 																onclick="deleteAchievement('${item.achievementId },毕业设计')"
-																style="padding-top: 2%;">
-																<small>删除</small>
-															</button>
+																style="padding-top: 2%;" value="删除">
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
-															<button type="button" class="btn btn-success"
+															<input type="button" class="btn"
 																onclick="restore('${item.achievementId },毕业设计')"
-																style="padding-top: 2%;">
-																<small>恢复</small>
-															</button>
+																style="padding-top: 2%;" value="恢复">
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -320,17 +284,13 @@
 																style="padding-top: 2%;">
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
-															<button type="button" class="btn btn-danger"
+															<input type="button" class="btn"
 																onclick="deleteAchievement('${item.achievementId },大学生创新创业')"
-																style="padding-top: 2%;">
-																<small>删除</small>
-															</button>
+																style="padding-top: 2%;" value="删除">
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
-															<button type="button" class="btn btn-success"
+															<input type="button" class="btn"
 																onclick="restore('${item.achievementId },大学生创新创业')"
-																style="padding-top: 2%;">
-																<small>恢复</small>
-															</button>
+																style="padding-top: 2%;" value="恢复">
 														</c:if></td>
 												</tr>
 											</c:forEach>
@@ -354,17 +314,13 @@
 																style="padding-top: 2%;">
 																<small>查看</small>
 															</button></a> <c:if test="${item.deleteFlag == 1 }">
-															<button type="button" class="btn btn-danger"
+															<input type="button" class="btn"
 																onclick="deleteAchievement('${item.achievementId },大学生竞赛作品')"
-																style="padding-top: 2%;">
-																<small>删除</small>
-															</button>
+																style="padding-top: 2%;" value="删除">
 														</c:if> <c:if test="${item.deleteFlag == 0 }">
-															<button type="button" class="btn btn-success"
+															<input type="button" class="btn"
 																onclick="restore('${item.achievementId },大学生竞赛作品')"
-																style="padding-top: 2%;">
-																<small>恢复</small>
-															</button>
+																style="padding-top: 2%;" value="恢复">
 														</c:if></td>
 												</tr>
 											</c:forEach>

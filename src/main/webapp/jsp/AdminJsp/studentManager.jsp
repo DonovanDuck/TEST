@@ -196,6 +196,7 @@
 								<button type="submit" class="btn btn-default"
 									style="margin-top: 2%">提交</button>
 							</form>
+							<div>文件格式：学号、姓名、班级、性别、密码、邮箱、专业、电话</div>
 						</div>
 						<div class="card-content " style="padding-top: 0%">
 							<div class="table-responsive" style="overflow-x: hidden;">
