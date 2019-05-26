@@ -461,12 +461,10 @@ public class TeacherController {
 			Timestamp publishTime = new Timestamp(System.currentTimeMillis());
 			course.setPublishTime(publishTime);
 			String employeeNum = (String)formdata.get("publisherId");
-			String teacherStr = (String)formdata.get("teacherContent");
+			String teacherStr = (String)formdata.get("selectTeacher");
 			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
-			for(File f : files){ // 集合中只有一张图片
-				course.setFaceImg(f.getPath());
-			}
+			course.setFaceImg(files.get(0).getPath());
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
@@ -532,8 +530,12 @@ public class TeacherController {
 			vir.setVirtualClassName(className);
 			vir.setTerm(selectTerm);
 			vir.setClassStuentNum(count);
-			for(File f : files){ // 集合中只有一张图片
-				vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+f.getName());
+			if(files.isEmpty()||files==null||files.size()==0)
+			{
+				vir.setFaceImg(null);
+
+			}else {
+				vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+files.get(0).getName());
 			}
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
@@ -942,7 +944,7 @@ public class TeacherController {
 			e.printStackTrace();
 			return null;
 		}
-		
+
 
 	}
 
@@ -1118,7 +1120,7 @@ public class TeacherController {
 		List<String> accessoriesName = new ArrayList<String>();
 		String upTaskDetail = null ;
 		String studentId = (String) request.getSession().getAttribute("studentId");
-		
+
 		if(studentId!=null) {
 			upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
 		}
@@ -2256,7 +2258,7 @@ public class TeacherController {
 		if(studentId!=null) {
 			upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
 		}
-		
+
 		accessoriesName = studentService.getUpAccessories(taskId, studentId);
 		mv.addObject("upTaskDetail", upTaskDetail);
 		mv.addObject("taskEndTime", taskEndTime);
@@ -2357,7 +2359,7 @@ public class TeacherController {
 	@RequestMapping("ajaxGetTaskPerview")
 	public void ajaxGetTaskPerview(HttpServletRequest request,HttpServletResponse response,@RequestParam("taskId")String taskId) {
 		Task task = new Task();
-		
+
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("text/html;charset=UTF-8");
@@ -2410,12 +2412,12 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherInfo/myclass_create");;//设置返回页面
 		return mv;
 	}
-	
-	
+
+
 	/**
 	 * 根据教师ID的模糊查询
 	 * */
-	@RequestMapping("teacherForFuzzyQueryById")
+	@RequestMapping("teacherForFuzzyQueryById/{teacherNum}")
 	public void teacherForFuzzyQueryById(HttpServletRequest request,HttpServletResponse response,@PathVariable("teacherNum")String teacherNum) {
 		List<Teacher> list = new ArrayList<Teacher>();
 		try {

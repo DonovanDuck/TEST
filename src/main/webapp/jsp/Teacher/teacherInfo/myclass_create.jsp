@@ -10,7 +10,23 @@
 <head>
 <meta charset="UTF-8">
 <title></title>
+<style type="text/css">
+a:link {
+	color: black;
+}
 
+a:visited {
+	color: black;
+}
+
+a:hover {
+	color: black;
+}
+
+a:active {
+	color: black;
+}
+</style>
 <%-- <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" /> --%>
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -33,32 +49,29 @@
 </script> -->
 
 <script type="text/javascript">
-	$(
-			function() {
-				$("#selectTerm")
-						.on(
-								"change",
-								function() {
-									var id = $(this)
-											.children('option:selected').val();
-									if (id == 0) {
-										path = "${pageContext.request.contextPath}/teacher/toMyClassList";
-									} else {
-										path = "${pageContext.request.contextPath}/teacher/selectVirtualClassByTerm/"
-												+ id;
-									}
-									$("#selectButtonA").attr("href", path);
-									;
-									$("#selectButton").click();
-								})
-			})
+	$(function() {
+		$("#selectTerm")
+				.on(
+						"change",
+						function() {
+							var id = $(this).children('option:selected').val();
+							if (id == 0) {
+								path = "${pageContext.request.contextPath}/teacher/toMyClassList";
+							} else {
+								path = "${pageContext.request.contextPath}/teacher/selectVirtualClassByTerm/"
+										+ id;
+							}
+							$("#selectButtonA").attr("href", path);
+							;
+							$("#selectButton").click();
+						})
+	})
 </script>
 <style type="text/css">
-.b1_r p{
-margin:0px;;
-margin-top:1%;
+.b1_r p {
+	margin: 0px;;
+	margin-top: 1%;
 }
-
 </style>
 </head>
 <body>
@@ -81,19 +94,31 @@ margin-top:1%;
 				</p>
 			</div>
 		</div>
-		<div class="table" >
+		<div class="table">
 			<c:forEach items="${virtualClassList }" var="item" varStatus="status">
 				<a target="_blank"
 					href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
-					<div class="b1" style="height: 150px;margin-top:1%">
-						<div class="b1_l" style="width: 27%;float:left;height:100%">
-							<img
-								src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
-								alt="" style="width: 100%; height: 100%;" />
+					<div class="b1" style="height: 150px; margin-top: 1%">
+						<div class="b1_l" style="width: 27%; float: left; height: 90%">
+							<c:if test="${empty item.faceImg }">
+								<img
+									src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+									alt="" style="width: 100%; height: 100%;" />
+							</c:if>
+							<c:if test="${not empty item.faceImg }">
+								<img
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+									alt="" style="width: 100%; height: 90%;" />
+							</c:if>
+
 						</div>
-						<div class="b1_r" style="width: 55%;float:left;height: 100%;padding:2%">
-							<p class="h">${item.virtualCourseName }</p>
-							<p class="p1">授课班级：<c:forEach items="${item.realClassList }" var="realClass">${realClass.realClassNum }班<span>&nbsp;&nbsp;&nbsp;</span></c:forEach>
+						<div class="b1_r"
+							style="width: 55%; float: left; height: 100%; padding: 2%">
+							<p class="h">${item.virtualClassName }</p>
+							<p class="p1">
+								授课班级：
+								<c:forEach items="${item.realClassList }" var="realClass">${realClass.realClassNum }班<span>&nbsp;&nbsp;&nbsp;</span>
+								</c:forEach>
 							</p>
 							<p class="p1">课程名称：${item.virtualCourseName }</p>
 							<p class="p2">开课学期：${item.term }</p>

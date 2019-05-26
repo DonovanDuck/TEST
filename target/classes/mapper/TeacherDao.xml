@@ -788,4 +788,14 @@
 		UPDATE task set use_num = use_num+1
 		WHERE task_id = #{taskId}
 	</update>
+	
+	<select id="teacherForFuzzyQueryById" resultMap="teacherMap"
+		parameterType="java.lang.String">
+		SELECT * FROM teacher
+		<where>
+			employee_num
+			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
+		</where>
+		;
+	</select>
 </mapper>

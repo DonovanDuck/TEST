@@ -11,6 +11,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <title></title>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+	
+<script type="text/javascript"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 </head>
