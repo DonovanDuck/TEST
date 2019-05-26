@@ -124,6 +124,7 @@ public class StudentController {
 			listCourseId_MyCourse = studentService.getStudentCourse("0",student.getStudentId());
 			//获取所有加入课程ID
 			listCourseId_Myattention = studentService.getStudentCourse("1",student.getStudentId());
+			
 			//获取课程ID对应的课程
 			listCourse_MyCourse = teacherService.courseList(listCourseId_MyCourse);
 			listCourse_Myattention = teacherService.courseList(listCourseId_Myattention);
