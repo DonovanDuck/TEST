@@ -243,14 +243,10 @@ public class TeacherController {
 	@RequestMapping("toCreateCourse")
 	public String toCreateCourse(HttpServletRequest request){
 		try {
-			//查找所有系部列表
 			List<Category> categoryList =  teacherService.readCategory();
-			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
-			Student student = (Student) request.getSession().getAttribute("student");
-			request.setAttribute("teacher", teacher);
-			request.setAttribute("student", student);
-
+			List<Teacher> teacherList = teacherService.getTeachers();
 			request.getSession().setAttribute("categoryList", categoryList);
+			request.getSession().setAttribute("teacherList", teacherList);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -2414,4 +2410,21 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherInfo/myclass_create");;//设置返回页面
 		return mv;
 	}
+	
+	
+	/**
+	 * 根据教师ID的模糊查询
+	 * */
+	@RequestMapping("teacherForFuzzyQueryById")
+	public void teacherForFuzzyQueryById(HttpServletRequest request,HttpServletResponse response,@PathVariable("teacherNum")String teacherNum) {
+		List<Teacher> list = new ArrayList<Teacher>();
+		try {
+			list = teacherService.teacherForFuzzyQueryById(teacherNum);
+			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
 }

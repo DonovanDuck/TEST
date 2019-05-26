@@ -1124,4 +1124,17 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		return term;
 	}
+
+	@Override
+	public List<Teacher> teacherForFuzzyQueryById(String teacherNum) {
+		List<Teacher> list = new ArrayList<>();
+		try {
+			list = teacherDao.teacherForFuzzyQueryById(teacherNum);
+			System.out.println("getTermById------Dao 层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getTermById------Dao 层执行失败");
+		}
+		return list;
+	}
 }
