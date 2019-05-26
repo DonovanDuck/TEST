@@ -85,7 +85,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</head>
 	<body style="background-color:#F8F8F8; ">
-		<jsp:include page="/jsp/top.jsp" flush="true"/>
+		<jsp:include page="/jsp/top.jsp" flush="true" />
 		<div class="contentInfo">
 			<div class="rTitle">
 				<ul id="ls"  style="background-color: #fff;margin-right: 10px" class=" nav nav-pills  nav-stacked">

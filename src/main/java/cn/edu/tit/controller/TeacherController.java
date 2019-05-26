@@ -49,6 +49,7 @@ import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Achievement;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
 import cn.edu.tit.bean.Paper;
 import cn.edu.tit.bean.Prize;
@@ -63,6 +64,7 @@ import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.Common;
+import cn.edu.tit.iservice.IAchievementService;
 import cn.edu.tit.iservice.IAdminService;
 import cn.edu.tit.iservice.IResourceService;
 import cn.edu.tit.iservice.IStudentService;
@@ -83,6 +85,8 @@ public class TeacherController {
 	public MainController mainController;
 	@Autowired
 	private IResourceService resourceService;
+	@Autowired
+	private IAchievementService iAchievementService;
 
 	private static List<Category> categories = null;//将  分类 信息作为全局变量，避免多次定义,在首次登陆教师页面时 在  方法teacherCourseList（） 处即初始化成功
 
@@ -226,11 +230,16 @@ public class TeacherController {
 			if(!trialList.isEmpty())
 				request.setAttribute("taskList", trialList);//返回信息
 
+			//获取课程成果
+			List<CourseExpand> aocscList  = iAchievementService.queryCourseExpandByCourseId(courseId);
+			request.setAttribute("aocscList", aocscList);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 
+		
+		
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -469,7 +478,8 @@ public class TeacherController {
 			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
 			for(File f : files){ // 集合中只有一张图片
-				course.setFaceImg(f.getPath());
+				String p = Common.readProperties("pre") +f.getPath().replaceAll("\\\\", "/").substring(3);
+				course.setFaceImg(p);
 			}
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
@@ -479,7 +489,7 @@ public class TeacherController {
 					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
 				}
 			}
-			return toMyCreateCourse(request);
+			return toTeacherPage(request);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -781,7 +791,15 @@ public class TeacherController {
 		if(!returnFileList.isEmpty()) {
 			for (File file : returnFileList) {
 				Accessory accessory = new Accessory();
-				accessory.setAccessoryName(file.getName());
+				String fileName="";
+				try {
+					 fileName = new String(file.getName().getBytes("ISO-8859-1"),"UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				accessory.setAccessoryName(fileName);
+				System.out.println("name=================="+fileName);
 				accessory.setAccessoryPath(file.getPath());
 				accessory.setTaskId(taskId);
 				accessory.setAccessoryTime(Common.TimestamptoString());
@@ -809,7 +827,7 @@ public class TeacherController {
 
 
 		request.getSession().removeAttribute("courseId");
-		return "c?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
+		return "redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
 
 	}
 
@@ -1014,7 +1032,7 @@ public class TeacherController {
 		request.getSession().setAttribute("course", course);
 		mv.addObject("virtualClassName",virtualClassName);
 		mv.addObject("identify", identify);
-		mv.setViewName("redirect:/jsp/VirtualClass/classInfo");
+		mv.setViewName("/jsp/VirtualClass/classInfo");
 		return mv;
 	}
 	/**
@@ -1275,6 +1293,17 @@ public class TeacherController {
 			if(courseListByOthers!=null) {
 
 				for (Course course : courseListByOthers ) {
+					//限制显示字数
+					if(!"".equals(course.getCourseDetail())){
+						String de = course.getCourseDetail().replaceAll("<p>", "");
+						de = de.replaceAll("</p>","");
+						
+						if(course.getCourseDetail().length()>=70){
+							
+							de = de.substring(0, 63);
+						}
+						course.setCourseDetail(de);
+					}
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
 					publishTime.add(course.getPublishTime().toString().substring(0,10));
@@ -1317,6 +1346,17 @@ public class TeacherController {
 			if(courseListByOthers!=null) {
 
 				for (Course course : courseListByOthers ) {
+					//限制显示字数
+					if(!"".equals(course.getCourseDetail())){
+						String de = course.getCourseDetail().replaceAll("<p>", "");
+						de = de.replaceAll("</p>","");
+						
+						if(course.getCourseDetail().length()>=70){
+							
+							de = de.substring(0, 63);
+						}
+						course.setCourseDetail(de);
+					}
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
 					publishTime.add(course.getPublishTime().toString().substring(0,10));
@@ -1359,6 +1399,17 @@ public class TeacherController {
 			courseListforMe = teacherService.courseList(courseIdListforMe);
 			if(courseListforMe!=null) {
 				for (Course course : courseListforMe ) {
+					//限制显示字数
+					if(!"".equals(course.getCourseDetail())){
+						String de = course.getCourseDetail().replaceAll("<p>", "");
+						de = de.replaceAll("</p>","");
+						
+						if(course.getCourseDetail().length()>=70){
+							
+							de = de.substring(0, 63);
+						}
+						course.setCourseDetail(de);
+					}
 					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
 					course.setTeacherList(teacherList);
 					publishTime.add(course.getPublishTime().toString().substring(0,10));
@@ -2024,17 +2075,14 @@ public class TeacherController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/toCourseResourceFrame/{category}")
-	public ModelAndView toCourseResourceFrame(HttpServletRequest request,@PathVariable String category) throws Exception{
+	@RequestMapping("/toCourseResourceFrame/{category}/{courseId}")
+	public ModelAndView toCourseResourceFrame(HttpServletRequest request,@PathVariable String category,@PathVariable String courseId) throws Exception{
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("category", category);
-		Course course = (Course) request.getSession().getAttribute("course");
-		String courseId = "";
 		List<Teacher> teacherList = new ArrayList<>();
 		boolean isThisTeacher = false;
 		Teacher user =  (Teacher) request.getSession().getAttribute("teacher");
-		if(course != null){
-			courseId = course.getCourseId();
+		if(courseId != null){
 			//通过courseid查询教师圈id
 			teacherList = teacherService.getTeachersByCourseId(courseId);
 		}
@@ -2119,7 +2167,6 @@ public class TeacherController {
 		}
 		mv.addObject("time", timeList);
 		mv.setViewName("/jsp/Teacher/resource_frame");
-		mv.addObject("course", course);//返回信息
 		return mv;
 	}
 
@@ -2516,4 +2563,51 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherInfo/myclass_create");;//设置返回页面
 		return mv;
 	}
+	
+	/**
+	 * 跳转到课程详细简介
+	 * @param request
+	 * @param courseDetail
+	 * @return
+	 */
+	@RequestMapping(value="/toCourseIntroduceFrame/{courseId}")
+	public ModelAndView toCourseIntroduceFrame(HttpServletRequest request, @PathVariable String courseId){
+		ModelAndView mv = new ModelAndView();
+		Course course = new Course();
+		try {
+			course = teacherService.getCourseById(courseId);
+			mv.addObject("courseDetail", course.getCourseDetail());
+			mv.setViewName("/jsp/Teacher/course_detail_introduce");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
+	 * 跳转到课程详细教师圈
+	 * @param request
+	 * @param courseDetail
+	 * @return
+	 */
+	@RequestMapping(value="/toCourseTeacherFrame/{courseId}")
+	public ModelAndView toCourseTeacherFrame(HttpServletRequest request, @PathVariable String courseId){
+		ModelAndView mv = new ModelAndView();
+		// 查询教师圈教师信息
+				List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+				request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
+		try {
+			mv.addObject("teacherList", teacherList);
+			mv.setViewName("/jsp/Teacher/course_detail_teachers");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	
+	
+	
 }

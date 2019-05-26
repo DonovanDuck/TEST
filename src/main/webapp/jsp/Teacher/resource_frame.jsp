@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html lang="zh-CN" style="padding-top: 25px;">
+<html lang="zh-CN" style="background: #fff;">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
@@ -31,15 +31,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 
 <main>
-
-<div class="main_b">
+ <c:if test="${taskList != null || resource != null }">
+<div class="main_b" style="margin-bottom: 27px;">
 <div style="position: absolute;
     top: 16px;
     left: 931px;">
 					<a target="_blank" href='${pageContext.request.contextPath}/teacher/toCourseResource/${category}'>更多>></a>
 </div>
+</c:if>
+
 <ul>
-	
 <c:if test="${taskList != null }">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
@@ -228,6 +229,25 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </ul>
 
 </div>
+<%-- <c:if test="${taskList != null && resource != null }">
+<div class="main_b">
+<div style="position: absolute;
+    top: 16px;
+    left: 931px;">
+					<a target="_blank" href='${pageContext.request.contextPath}/teacher/toCourseResource/${category}'>更多>></a>
+</div>
+</c:if>
+<c:if test="${taskList == null && resource == null }">
+	<div class="main_b">
+<div style="    width: 100%;
+    height: 100%;
+    text-align: center;
+    font-size: 92px;
+    color: #fff;">
+	暂无资源
+</div>
+</div>
+</c:if> --%>
 </main>
 <footer></footer>
 </body>

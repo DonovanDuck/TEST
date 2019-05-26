@@ -793,4 +793,13 @@
 		UPDATE task set use_num = use_num+1
 		WHERE task_id = #{taskId}
 	</update>
+	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
+	</select> 
+	<!-- 取消关注 -->
+	<delete id="teacherExitAttentionCourse">
+		delete from teacher_course where employee_num =
+		#{employeeNum} and course_id = #{courseId} and manager = 2;
+	</delete>
+	
 </mapper>

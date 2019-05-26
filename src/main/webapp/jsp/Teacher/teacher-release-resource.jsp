@@ -24,17 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <head>
-<div class="container-fluid">
-	<nav>
-		<ul class="nav nav-pills">
-			<li role="presentation" class="active"><a href="#">首页</a></li>
-			<li role="presentation"><a href="#">课程</a></li>
-			<li role="presentation"><a href="#">讨论区</a></li>
-			<li role="presentation"><a href="#">学生成果</a></li>
-			<li role="presentation"><a href="#">产学研项目</a></li>
-		</ul>
-	</nav>
-</div>
+<jsp:include page="/jsp/top.jsp" flush="true" />
 </head>
 
 <script type="text/javascript">

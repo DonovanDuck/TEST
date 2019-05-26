@@ -83,6 +83,16 @@ public interface IStudentService {
 	 * @param getEmployeeNum
 	 */
 	public void studentExitAttentionCourse(String courseId, String studentId);
+	
+	/**
+	 * 获取提交的作业内容
+	 */
+	public UpTask getUpTask(String taskId,String studentId);
+	
+	/**
+	 * 获取提交的作业附件
+	 */
+	public Accessory getUpAcc(String taskId,String studentId);
 
 
 }
