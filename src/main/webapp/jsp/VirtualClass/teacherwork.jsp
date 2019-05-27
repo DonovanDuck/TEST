@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-					<span style="font-size: 10px">发布时间：${fn:substring(task.publishTime,0,10)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,10)}</span>
+					<span style="font-size: 10px">发布时间：${fn:substring(task.publishTime,0,16)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,16)}</span>
 				</div>
 			</div>
 			

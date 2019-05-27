@@ -1008,7 +1008,6 @@ public class TeacherServiceImpl implements ITeacherService{
 			List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
 			List<String > studentIdList =null;
 			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
-			
 			List<Student> studentAllList = teacherDao.studentList(classNums);//所有学生
 			
 			for (String studentId : studentIdList) {
@@ -1136,5 +1135,80 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("getTermById------Dao 层执行失败");
 		}
 		return list;
+	}
+	public int gettaskTypePublishNum(String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		//searchTaskId
+		List<String> taskIds=null;
+		try {
+			taskIds = teacherDao.searchTaskId(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return teacherDao.gettaskTypePublishNum(taskCategory,taskIds);
+	}
+
+	@Override
+	public List<Student> getStudentList(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		List<String> classNums;
+		List<Student> studentAllList=null;
+		try {
+			classNums = teacherDao.searchRealClassNum(virtualClassNum);
+			studentAllList = teacherDao.studentList(classNums);//所有学生
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return studentAllList;
+	}
+
+	@Override
+	public Integer getStudentGrade(String studentId, String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		int count =  0;
+		try {
+			//找到本班级所有任务ID
+			List<String> taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+			if (taskIdAllList.size()!=0) {
+				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+				if (taskIdListNeedList.size()!=0) {
+					List<Integer> gradeList=teacherDao.sreachGradeByStudentId(studentId, taskIdListNeedList);
+					for (Integer grade : gradeList) {
+						count+=grade;
+					}
+				}
+			}
+			//获得符合条件的ID
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	@Override
+	public Integer getStudentGradeNum(String studentId, String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		int upNum=0;
+		try {
+			//找到本班级所有任务ID
+			List<String> taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+			if (taskIdAllList.size() !=0) {
+				//获得符合条件的ID
+				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+				if (taskIdListNeedList.size()!=0) {
+					upNum=teacherDao.sreachGradeNumByStudentId(studentId, taskIdListNeedList);
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return upNum;
 	}
 }

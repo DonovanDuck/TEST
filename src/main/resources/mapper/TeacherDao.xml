@@ -404,8 +404,16 @@
 		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
 	</select>
-
-
+	<select id="searchTaskIdByCategory" 
+		resultType="java.lang.String">
+		select task_id from task where task_category =
+		#{taskCategory} and task_id in 
+		<foreach collection="taskIdAllList" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>;
+	</select>
+	
 	<select id="teacherTaskAssortmentList" resultMap="taskMap">
 		select * from task where task_category=#{taskCategory} and task_id
 		in
@@ -414,6 +422,25 @@
 			#{taskId}
 		</foreach>
 	</select>
+	
+	<select id="sreachGradeByStudentId" resultType="java.lang.Integer">
+		select grade from up_task where student_id=#{studentId} and task_id
+		in
+		<foreach collection="taskIds" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
+	
+	<select id="sreachGradeNumByStudentId" resultType="java.lang.Integer">
+		select count(*) from up_task where student_id=#{studentId} and task_id
+		in
+		<foreach collection="taskIds" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
+	
 	<select id="searchTask" parameterType="java.lang.String"
 		resultMap="taskMap">
 		select * from task where task_id = #{taskId};
@@ -811,5 +838,11 @@
 			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
 		</where>
 		;
+	<select id="gettaskTypePublishNum" resultType="int">
+		SELECT count(*) FROM task where task_category=#{taskCategory} and task_id in
+		<foreach collection="taskIds" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
 	</select>
 </mapper>
