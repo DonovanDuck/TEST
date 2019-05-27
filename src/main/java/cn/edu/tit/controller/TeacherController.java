@@ -2010,6 +2010,17 @@ public class TeacherController {
 			resourceList = resourceService.showResourceByCourse(courseId);
 			for (Resource resource : resourceList) {
 				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(resource.getResourceDetail())){
+					String de = resource.getResourceDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(resource.getResourceDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					resource.setResourceDetail(de);
+				}
 			}
 			mv.addObject("resource", resourceList);//返回信息
 
@@ -2022,6 +2033,17 @@ public class TeacherController {
 			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
 			for (Task task : taskList) {
 				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
 			}
 			mv.addObject("taskList", taskList);//返回信息
 			mv.addObject("resourceName", "作业");
@@ -2031,6 +2053,17 @@ public class TeacherController {
 			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
 			for (Task task : taskList) {
 				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
 			}
 			mv.addObject("taskList", taskList);//返回信息
 			mv.addObject("resourceName", "实验");
@@ -2113,6 +2146,17 @@ public class TeacherController {
 			resourceList = resourceService.showResourceByCourse(courseId);
 			for (Resource resource : resourceList) {
 				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(resource.getResourceDetail())){
+					String de = resource.getResourceDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(resource.getResourceDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					resource.setResourceDetail(de);
+				}
 			}
 			mv.addObject("resource", resourceList);//返回信息
 
@@ -2125,6 +2169,17 @@ public class TeacherController {
 			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
 			for (Task task : taskList) {
 				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
 			}
 			mv.addObject("taskList", taskList);//返回信息
 			mv.addObject("resourceName", "作业");
@@ -2134,6 +2189,17 @@ public class TeacherController {
 			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
 			for (Task task : taskList) {
 				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
 			}
 			mv.addObject("taskList", taskList);//返回信息
 			mv.addObject("resourceName", "实验");

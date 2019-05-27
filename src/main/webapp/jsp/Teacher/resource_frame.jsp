@@ -50,7 +50,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }</div>
+			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.useNum }</div>
@@ -65,7 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }</div>
+			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.useNum }</div>
@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }</div>
+			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.useNum }</div>
@@ -95,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }</div>
+			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.useNum }</div>
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }</div>
+			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.useNum }</div>
@@ -125,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }</div>
+			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.useNum }</div>
@@ -143,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
-			<div>知识点：${re.resourceDetail }</div>
+			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${re.useNum }</div>
@@ -158,7 +158,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
-			<div>知识点：${re.resourceDetail }</div>
+			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${re.useNum }</div>
@@ -173,7 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
-			<div>知识点：${re.resourceDetail }</div>
+			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${re.useNum }</div>
@@ -188,7 +188,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
-			<div>知识点：${re.resourceDetail }</div>
+			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${re.useNum }</div>
@@ -203,7 +203,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
-			<div>知识点：${re.resourceDetail }</div>
+			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${re.useNum }</div>
@@ -218,7 +218,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;">
 			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
-			<div>知识点：${re.resourceDetail }</div>
+			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${re.useNum }</div>
