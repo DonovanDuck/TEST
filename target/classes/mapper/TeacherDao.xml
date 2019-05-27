@@ -838,6 +838,7 @@
 			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
 		</where>
 		;
+	</select>
 	<select id="gettaskTypePublishNum" resultType="int">
 		SELECT count(*) FROM task where task_category=#{taskCategory} and task_id in
 		<foreach collection="taskIds" item="taskId" open="("
