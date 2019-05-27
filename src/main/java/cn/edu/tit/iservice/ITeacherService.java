@@ -570,6 +570,7 @@ public interface ITeacherService {
 	 * 获得未提交作业的所有学生
 	 */
 	public List<Student> getStudentListOfNotUp(String taskId,String virtualClassNum)throws Exception;
+	public List<Student> getStudentList(String virtualClassNum);
 	/**
 	 * @author wenli
 	 * @param virtualClassNum
@@ -624,6 +625,27 @@ public interface ITeacherService {
 	 */
 	public void addUseNum(String taskId);
 	public Term getTermById(String term);
-
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 获得这个任务在该班级发布过几次
+	 */
+	public int gettaskTypePublishNum(String virtualClassNum,String taskCategory);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public Integer getStudentGrade(String studentId,String virtualClassNum,String taskCategory);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public Integer getStudentGradeNum(String studentId,String virtualClassNum,String taskCategory);
 
 }

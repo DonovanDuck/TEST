@@ -43,8 +43,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<button class="proplenum" style="font-size: 10px;color: #999999;background-color: #FFFFFF;margin-left: 20px;padding: 0;   border: 1px solid #FFC900;  -moz-border-radius: 15px;-webkit-border-radius: 15px;border-radius:15px;">
 						&nbsp;&nbsp;已提交&nbsp;&nbsp;
 					</button>
-								
-								
 								<c:if test="${not empty grade2taskList[task.taskId] }">
 									<%-- 	<button type="button" class="btn btn-info"disabled="disabled" style="margin-left: 200px;float: left;">已批阅</button>
 										<button type="button" class="btn btn-info"disabled="disabled" style="margin-left: 200px;float: left;">${grade2taskList[task.taskId] } 分</button>
@@ -76,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 				  </div>
 				  <div class="listmessage" style="margin-left: 10px;font-size: 10px;margin-top: 20px;color: #999999;">
-					  发布时间：${fn:substring( task.publishTime ,0 , 10)}&nbsp;&nbsp;&nbsp;&nbsp;
+					  发布时间：${fn:substring( task.publishTime ,0 , 16)}&nbsp;&nbsp;&nbsp;&nbsp;
 					  <c:if test="${isEnd2taskList[task.taskId] }">
 					距离结束还剩 ： <span style="color:red">${timeEnd2taskList[task.taskId] }</span> 
 					  </c:if>

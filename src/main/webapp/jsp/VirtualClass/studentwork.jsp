@@ -75,7 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-					<h8>发布时间：${fn:substring(task.publishTime,0,10)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,10)}</h8>
+					<h8>发布时间：${fn:substring(task.publishTime,0,16)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,16)}</h8>
 				</div>
 			</div>
 			
@@ -99,10 +99,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<span id="editedtext" style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${upTaskDetail }</span>
 					</div>
 					</c:if>
-					<c:if test="${empty upTaskDetail && empty accessoriesName }">
-						<div class="toedit" style="display: block;width: 100%;">
-							<textarea autofocus="autofocus" id="upTaskDetail" name="upTaskDetail" style=" width: 100%;height: 150px;" wrap="logical">${upTaskDetail }</textarea>
-						</div>
+					<c:if test="${!isEnd }">
+						<c:if test="${empty upTaskDetail && empty accessoriesName }">
+							<div class="toedit" style="display: block;width: 100%;">
+								<textarea autofocus="autofocus" id="upTaskDetail"placeholder="编辑作业" name="upTaskDetail" style=" width: 100%;height: 150px;" wrap="logical">${upTaskDetail }</textarea>
+							</div>
+						</c:if>
 					</c:if>
 					<input value="${upTaskDetail }"  type="hidden" />
 					<hr >
@@ -110,9 +112,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div style="float: left;font-weight: bold;"><h4 style="font-weight: bold;">附件</h4></div>
 				</div>
 					<div style="height: 75px;padding-left: 36px;">
-						
-						<c:if test="${empty upTaskDetail && empty accessoriesName }">
-							<input  class="btn btn-default"  name="file" type="file"  multiple="multiple" style="border-radius: 20px;float: left;" value="上传附件" />
+					
+						<c:if test="${!isEnd }">
+							<c:if test="${empty upTaskDetail && empty accessoriesName }">
+								<input  class="btn btn-default"  name="file" type="file"  multiple="multiple" style="border-radius: 20px;float: left;" value="上传附件" />
+							</c:if>
 						</c:if>
 						<c:if test="${not empty upTaskDetail || not empty accessoriesName }">
 							<c:forEach items="${accessoriesName }" var="accessoriesName"  varStatus="status">
@@ -127,15 +131,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						  -->
 					</div>
-					
-					<c:if test="${empty upTaskDetail && empty accessoriesName }">
-						<input id="trueSubmit"  style="display: block" class="btn btn-default" type="submit" value="确认提交" style="margin-left: -350px;">
-						<!-- <input  id="falseSubmit" onclick="stopSubmit()" style="display: none"  class="btn btn-default" type="button" value="确认提交" style="margin-left: -350px;"> -->
+					<c:if test="${!isEnd }">
+							<c:if test="${empty upTaskDetail && empty accessoriesName }">
+								<input id="trueSubmit"  style="display: block" class="btn btn-default" type="submit" value="确认提交" style="margin-left: -350px;">
+								<!-- <input  id="falseSubmit" onclick="stopSubmit()" style="display: none"  class="btn btn-default" type="button" value="确认提交" style="margin-left: -350px;"> -->
+							</c:if>
 					</c:if>
-			
-					<c:if test="${not empty upTaskDetail || not empty accessoriesName }">
+					 <c:if test="${not empty upTaskDetail || not empty accessoriesName }">
 						<input id="trueSubmit"  style="display: block" class="btn btn-default" type="button" disabled="disabled"  value="已提交" style="margin-left: -350px;">
 					</c:if>
+	
+					
+					
+					
+					
 				</form>
 			</div>
 			

@@ -56,7 +56,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 				</div>
 				<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-					<span style="font-size: 10px">发布时间：${fn:substring(task.publishTime,0,10)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,10)}</span>
+					<span style="font-size: 10px">发布时间：${fn:substring(task.publishTime,0,16)}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;截止时间：${fn:substring(taskEndTime,0,16)}</span>
 				</div>
 			</div>
 			
@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input id="grade" name="grade" style="float: left;width: 15%;" type="text"  name="payMoney[]" onkeyup="clearNoNum(this)" value=""placeholder="请输入学生分数(纯数字)"  class="form-control" oninput="if(value>10)value=10;if(value<0)value=0">
 					</div>
 					<div class="torecommend" style="width: 100%;">
-						<textarea name="comment"  autofocus="autofocus"  style="resize:none; width: 100%;height: 150px;margin-top: 20px;" id="TestCode" wrap="logical" ></textarea>
+						<textarea name="comment"  autofocus="autofocus" placeholder="作业评语"  style="resize:none; width: 100%;height: 150px;margin-top: 20px;" id="TestCode" wrap="logical" ></textarea>
 					</div>
 					
 					<div style="margin-bottom: 50px;">
@@ -119,10 +119,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</c:if>
 					<c:if test="${not empty grade }">
 							<div style="text-align:left ;">
-								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">评语：${comment }</span>
+								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 14px;font-weight: bold; ">评语：</span><span style="font-size: 14px;">${comment }</span>
 							</div>
-							<div>
-								<h5 style="float: left;">作业成绩：</h5> <h5  style="float: left;color:red"><strong>${grade }</strong></h5>
+							<hr>
+							<div style="text-align:left ;">
+								<span style="font-size: 14px;font-weight: bold;">作业成绩：</span> <span style="font-size: 14px;color: red">${grade }</span>
 							</div>
 					</c:if>
 				</form>
