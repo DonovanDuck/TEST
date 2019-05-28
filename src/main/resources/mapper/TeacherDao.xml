@@ -349,10 +349,10 @@
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id)
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num)
 		values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId})
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1)
 	</insert>
 
 	<insert id="mapClassTask">

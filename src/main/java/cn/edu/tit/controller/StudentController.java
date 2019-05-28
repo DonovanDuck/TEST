@@ -398,5 +398,49 @@ public class StudentController {
 		
 		return "redirect:/student/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
 	}
+	//toPersonAccomplishment
+	@RequestMapping(value="toPersonAccomplishment")
+	public ModelAndView toPersonAccomplishment(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		
+		int gradeWork=0;
+		int gradeTrial=0;
+		int gradeCourseDesign=0;
+		int gradeTurnClass=0;
+		int gradeAttence=0;
+		
+		int upNumWork = 0;
+		int upNumTrial = 0;
+		int upNumCourseDesign = 0;
+		int upNumTurnClass = 0;
+		int upNumAttence = 0;
+		
+		gradeWork = teacherService.getStudentGrade(studentId, virtualClassNum, "work");
+		gradeTrial = teacherService.getStudentGrade(studentId, virtualClassNum, "trial");
+		gradeCourseDesign = teacherService.getStudentGrade(studentId, virtualClassNum, "course_design");
+		gradeTurnClass = teacherService.getStudentGrade(studentId, virtualClassNum, "turn_class");
+		gradeAttence = teacherService.getStudentGrade(studentId, virtualClassNum, "attence");
+
+		upNumWork = teacherService.getStudentGradeNum(studentId, virtualClassNum, "work");
+		upNumTrial = teacherService.getStudentGradeNum(studentId, virtualClassNum, "trial");
+		upNumCourseDesign = teacherService.getStudentGradeNum(studentId, virtualClassNum, "course_design");
+		upNumTurnClass = teacherService.getStudentGradeNum(studentId, virtualClassNum, "turn_class");
+		upNumAttence = teacherService.getStudentGradeNum(studentId, virtualClassNum, "attence");
+		
+		mv.addObject("gradeWork",gradeWork );
+		mv.addObject("gradeTrial",gradeTrial );
+		mv.addObject("gradeCourseDesign",gradeCourseDesign );
+		mv.addObject("gradeTurnClass",gradeTurnClass );
+		mv.addObject("gradeAttence",gradeAttence );
+		mv.addObject("upNumWork",upNumWork );
+		mv.addObject("upNumTrial",upNumTrial );
+		mv.addObject("upNumCourseDesign",upNumCourseDesign );
+		mv.addObject("upNumTurnClass",upNumTurnClass );
+		mv.addObject("upNumAttence",upNumAttence );
+		mv.setViewName("/jsp/Teacher/studentGradeAnalyse");
+		return mv;
+	}
 
 }

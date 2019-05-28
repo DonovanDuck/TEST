@@ -80,13 +80,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布作业</a></li>
 				</c:if>
 				<c:if test="${identify eq 'student' }">
-				<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">个人成就</a></li>
+				<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/student/toPersonAccomplishment">个人成就</a></li>
 				</c:if>
-				
 				</ul>
 			</div>
-			<div class="lContent">
-				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="setIframeHeight()">
+			<div class="lContent" style="height: 100%;overflow: hidden;">
+				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%" style="overflow: hidden;"  frameborder="no" border="0" scrolling="no" onload="setIframeHeight()">
 				</iframe>
 			</div>
 		</div>
