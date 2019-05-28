@@ -635,4 +635,11 @@ public class AchievementServiceImpl implements IAchievementService{
 		}
 		
 	}
+
+	@Override
+	public List<CourseExpand> queryCourseExpandByCourseId(String courseId) throws Exception {
+		// TODO Auto-generated method stub
+		
+		return achievementDao.getCourseExpandBycourseId(courseId);
+	}
 }

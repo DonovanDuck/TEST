@@ -30,8 +30,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="main_b_l">
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyCourse"><div class="nav1" ><p><img src="../images/k1.png" alt=""/><span>课程信息</span></p></div></a>
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>班级信息</span></p></div></a>
+<<<<<<< HEAD
             <a target="iframeContent" href="../html/teacher_talk_iframe.html"><div class="nav1" ><p><img src="../images/l1.png" alt=""/><span>参与论坛</span></p></div></a>
             <a><div class="nav1" onclick="d()"><p><img src="../images/j1.png" alt=""/><span>教师团队</span></p></div></a>
+=======
+            <a target="iframeContent" href="${pageContext.request.contextPath}/jsp/Teacher/resource_frame_null.jsp"><div class="nav1" ><p><img src="../images/l1.png" alt=""/><span>参与论坛</span></p></div></a>
+            <a target="iframeContent" href="${pageContext.request.contextPath}/jsp/Teacher/resource_frame_null.jsp"><div class="nav1" onclick="d()"><p><img src="../images/j1.png" alt=""/><span>教师团队</span></p></div></a>
+>>>>>>> f76fd799aa99ca7380e422a1484f3ef11e61e8fb
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyInfo"><div class="nav1" ><p><img src="../images/g1.png" alt=""/><span>个人信息</span></p></div></a>
         </div>
         <div class="main_b_r" style="width: 83%;float: left;height: 100%">

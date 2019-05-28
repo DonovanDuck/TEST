@@ -142,9 +142,8 @@
 							</div>
 							<div class="lesson_r">
 								<h3>${course.courseName }</h3>
-								<p>创课老师：${listCourseId_MyCourse_publishName[loop.count-1]}</p>
-								<p>开课老师：王五</p>
-								<p>开课时间：2018-2019年 第二学期</p>
+								<p>创课老师：${course.publisherId }</p>
+								<p>开课时间：${course.publishTime }</p>
 							</div>
 						</div>
 					</a>
@@ -157,15 +156,22 @@
 						href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 						<div class="lesson">
 							<div class="lesson_l">
-								<img
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
-									alt="" />
+								<c:if test="${empty course.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+								<c:if test="${not empty course.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+
 							</div>
 							<div class="lesson_r">
 								<h3>${course.courseName }</h3>
-								<p>创课老师：${listCourseId_Myattention_publishName[loop.count-1]}</p>
-								<p>开课老师：王五</p>
-								<p>开课时间：2018-2019年 第二学期</p>
+								<p>创课老师：${course.publisherId }</p>
+								<p>开课时间：${course.publishTime }</p>
 							</div>
 						</div>
 					</a>

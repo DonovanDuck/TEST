@@ -10,6 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
     <meta charset="UTF-8">
     <title>太原工业学院</title>
+    
     <style>
     header{
     width: 100%;
@@ -17,7 +18,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     background-size: cover;
     position: relative;
 }
-
+li{
+	list-style: none;
+}
 /*---------------登录------------------*/
 header span{
     width: 39%;
@@ -118,7 +121,10 @@ header nav li a{
 </head>
 <body>
 	<div style="width: 100%;height: 120px;background-size: cover;">
-      <header style="background: url('${pageContext.request.contextPath}/images/head.png') no-repeat;">
+      <header style="background: url('${pageContext.request.contextPath}/images/head.png') no-repeat;webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
           <span>
               <li class="li1"><a href="">微信端</a>
                   <div class="erweima">
@@ -158,6 +164,7 @@ header nav li a{
                   <li class="li2"><a href="">互助</a></li>
                   <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
                   <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li>
+                  <li class="li2"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li>
                   <c:if test="${teacher != null }">
                   <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 17px;">个人中心</a></li>
 	              </c:if>
