@@ -72,7 +72,7 @@
 				<div class="course">
 					<div style="width: 228px; height: 165px;">
 						<img alt="" style="width: 100%; height: 100%"
-							src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${courseListItems.faceImg }" />
+							src="${courseListItems.faceImg }" />
 					</div>
 
 					<ul class="courseInfo">

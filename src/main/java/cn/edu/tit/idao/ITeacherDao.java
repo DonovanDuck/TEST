@@ -379,6 +379,7 @@ public interface ITeacherDao {
 	 */
 	public void addUseNum(@Param("taskId")String taskId);
 	public Term getTermById(@Param("termId")String termId);
+	public List<Teacher> teacherForFuzzyQueryById(@Param("teacherNum")String teacherNum);
 	/**
 	 * @author WENLI
 	 * @param virtualClassNum

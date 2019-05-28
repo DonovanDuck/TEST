@@ -64,9 +64,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 	</head>
 	<body style="background-color:#F8F8F8; ">
+		<%-- <jsp:include page="/jsp/top.jsp" flush="true" />
+		<div class="contentInfo">
+			<div class="rTitle"> --%>
 		<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="contentInfo" style="margin-top: 10px">
 			<div class="rTitle" style="font-size: 18px;font-weight: bold;">
+			
 				<ul id="ls"  style="background-color: #fff;margin-right: 10px" class=" nav nav-pills  nav-stacked">
 				  <li role="presentation" class="active" ><a id="als" target="lcontent"   href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all">全部</a></li>
 				  <li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList">考勤</a></li>

@@ -820,6 +820,25 @@
 		UPDATE task set use_num = use_num+1
 		WHERE task_id = #{taskId}
 	</update>
+	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
+	</select> 
+	<!-- 取消关注 -->
+	<delete id="teacherExitAttentionCourse">
+		delete from teacher_course where employee_num =
+		#{employeeNum} and course_id = #{courseId} and manager = 2;
+	</delete>
+	
+	
+	<select id="teacherForFuzzyQueryById" resultMap="teacherMap"
+		parameterType="java.lang.String">
+		SELECT * FROM teacher
+		<where>
+			employee_num
+			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
+		</where>
+		;
+	</select>
 	<select id="gettaskTypePublishNum" resultType="int">
 		SELECT count(*) FROM task where task_category=#{taskCategory} and task_id in
 		<foreach collection="taskIds" item="taskId" open="("

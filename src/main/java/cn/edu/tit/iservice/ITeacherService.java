@@ -625,6 +625,12 @@ public interface ITeacherService {
 	 */
 	public void addUseNum(String taskId);
 	public Term getTermById(String term);
+	
+	/**
+	 * 关于教师Id的模糊查询
+	 * */
+	public List<Teacher> teacherForFuzzyQueryById(String teacherNum);
+
 	/**
 	 * @author WENLI
 	 * @param virtualClassNum

@@ -86,7 +86,15 @@ public interface IStudentDao {
 	 * @param getEmployeeNum
 	 */
 	public void studentExitAttentionCourse(@Param(value="courseId")String courseId, @Param(value="studentId")String studentId);
-
+	/**
+	 * 获取提交的作业内容
+	 */
+	public UpTask getUpTask(@Param(value="taskId")String taskId,@Param(value="courseId")String studentId);
+	
+	/**
+	 * 获取提交的作业附件
+	 */
+	public Accessory getUpAcc(String taskId,String studentId);
 
 
 }

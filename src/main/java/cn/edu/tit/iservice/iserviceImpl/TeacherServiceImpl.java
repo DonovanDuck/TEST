@@ -1125,6 +1125,17 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
+	public List<Teacher> teacherForFuzzyQueryById(String teacherNum) {
+		List<Teacher> list = new ArrayList<>();
+		try {
+			list = teacherDao.teacherForFuzzyQueryById(teacherNum);
+			System.out.println("getTermById------Dao 层执行成功");
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.out.println("getTermById------Dao 层执行失败");
+		}
+		return list;
+	}
 	public int gettaskTypePublishNum(String virtualClassNum, String taskCategory) {
 		// TODO Auto-generated method stub
 		//searchTaskId
