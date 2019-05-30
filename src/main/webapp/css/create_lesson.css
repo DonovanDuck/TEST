@@ -20,11 +20,8 @@ li{
 }
 /*-------------------------------------main---------------------------------------------*/
 .main{
-    width: 80%;
     float: left;
     background: #f2f2f2;
-    margin-top:3%;
-    margin-left:10%;
 }
 .main .input1{
     width: 60%;
@@ -53,16 +50,7 @@ li{
 .teacher-friend span{
     font-weight: bold;
     font-size: 20px;
-<<<<<<< HEAD
-<<<<<<< HEAD
- 
-=======
     float: left;
->>>>>>> ba23b36d13648be6805e6ab3770f5b9542927c76
-=======
- 
->>>>>>> 8b686c47d14ac368571e08f4b308c03cc9fa9818
-    margin-left: 8%;
 }
 .main .input3 select{
     width: 40%;

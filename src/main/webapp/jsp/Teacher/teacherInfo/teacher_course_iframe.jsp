@@ -13,8 +13,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
-	</head>
-	<body style="margin-left: -21%;" >
+</head>
+<body style="margin-left: -21%;">
 	<div id="r1">
 		<div class="main_b_r_t">
 			<div class="word1" id="w1">
@@ -34,12 +34,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="word2" id="w3">
 				<p>
 					<a target="mycourse"
-						href="${pageContext.request.contextPath}/teacher/toMyInterestCourse" id="p3">我关注的课程</a>
+						href="${pageContext.request.contextPath}/teacher/toMyInterestCourse"
+						id="p3">我关注的课程</a>
 				</p>
 			</div>
 			<div class="word2" id="w4" style="margin-left: -2%">
 				<p>
-					<a target="_parent"
+					<a target="mycourse"
 						href="${pageContext.request.contextPath}/teacher/toCreateCourse"
 						id="p4">创建课程</a>
 				</p>

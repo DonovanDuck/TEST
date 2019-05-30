@@ -52,6 +52,7 @@ public interface IAchievementService {
 	public List<CourseExpand> queryAllCourseExpand() throws Exception;
 	public List<CourseExpand> queryCourseExpandByName(String search)throws Exception;
 	public List<CourseExpand> queryCourseExpandByAuthor(String search)throws Exception;
+	public List<CourseExpand> queryCourseExpandByCourseId(String courseId)throws Exception;
 	public void insertCourseExpand(CourseExpand iu)throws Exception;
 	public List<CourseExpand> queryCourseExpandByAuthorId(String authorId)throws Exception;
 	public CourseExpand queryCourseExpandById(String achievementId)throws Exception;

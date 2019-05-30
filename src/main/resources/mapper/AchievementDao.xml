@@ -357,6 +357,10 @@
 	</update>
 
 	<!-- 课程拓展作品的查询 -->
+	<select id="getCourseExpandBycourseId" parameterType="String" resultMap="CourseExpandMap">
+		select * from achievement_course_expand where course_id = #{courseId} order by upload_time desc limit 6;
+	</select>
+	
 	<select id="queryCourseExpand" resultMap="CourseExpandMap">
 		SELECT * FROM
 		achievement_course_expand where delete_flag &lt;&gt; 0;

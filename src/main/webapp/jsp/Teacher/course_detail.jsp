@@ -14,6 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/scaffolding.less">
+<link
+	href="${pageContext.request.contextPath}/css/achievement/achievementMain.css"
+	rel="stylesheet" />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/course3.css">
 <script
@@ -97,12 +100,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 
+<div class="container" style="height: 62px;">
+		 <div class="main_b_t">
+				<nav>
+					<ul style="    margin-top: 25px;margin-left: -14px;">
+						<li style="float: left;margin-right: 25px"><a
+							href="#">课程介绍</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/8"
+							>资源</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href=""
+							>翻转课堂</a>
+						 <li style="float: left;margin-right: 25px"><a
+							href=""
+							>挑战</a></li> 
+						 <li style="float: left;margin-right: 25px"><a
+							href=""
+							>课程成果</a></li>
+					</ul>
+				</nav>
+			</div>
+	</div>
+
 <div class="main_b">
 	<div class="main_b_t">
 		<div class="container">
 			<div class="container_left">
 				<h3>简介</h3>
-				<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;${course.courseDetail }</p>
+				<iframe style="margin-left: 12px;margin-top: -2px;"
+					src="${pageContext.request.contextPath}/teacher/toCourseIntroduceFrame/${course.courseId }"
+					 frameborder="0" width="93%" height="100%"
+					scrolling="auto"></iframe>
 				<!-- <h3>大纲</h3>
                 <p class="inner">
                     第1部分 线性数据结构 <br>
@@ -127,58 +156,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="container_right">
 				<h3>教师圈</h3>
-					<c:forEach items="${teacherList }" var="teacher">
-						<div class="b">
-							
-							<ul style="list-style: none;">
-								<li style="float: left;">
-									<div 
-										style="width: 60px; height: 60px; margin-left: 10px; margin-top: 10px;">
-										<img style="border-radius: 50%; width: 100%; height: 100%"
-											src="${pageContext.request.contextPath}/images/t2.png" alt="" />
-									</div>
-								</li>
-								<li style="float:left; position: relative; top: 30px; left: 18px;">
-									<div style="width: 100px; height: 50px;">
-										<ul style="list-style: none;">
-											<li style="margin-right: 10px; float: left;">${teacher.teacherName }</li>
-											<li>${teacher.professionalTitles }</li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-							<div style="clear: both;"></div>
-							<div class="a">
-							<div>学历：${teacher.educationBackground }</div>
-							<div>电话：${teacher.telephone }</div>
-							<div>邮箱：${teacher.email }</div>
-							</div>
-						</div>
-					<!-- 清除浮动 -->
-					 <div style="clear: both;"></div>
-					</c:forEach>
-					<%--<li>
-						<div>
-							<ul style="list-style: none;">
-								<li style="float: left;">
-									<div
-										style="width: 60px; height: 60px; margin-left: 10px; margin-top: 10px;">
-										<img style="border-radius: 50%; width: 100%; height: 100%"
-											src="${pageContext.request.contextPath}/images/t2.png" alt="" />
-									</div>
-								</li>
-								<li style="float:left; position: relative; top: 30px; left: 18px;">
-									<div style="width: 100px; height: 50px;">
-										<ul style="list-style: none;">
-											<li style="margin-right: 10px; float: left;">嘉能可</li>
-											<li>副教授</li>
-										</ul>
-									</div>
-								</li>
-							</ul>
-						</div>
-					</li>
-				</ul> --%>
+					<iframe style="margin-left: 12px;margin-top: -2px;"
+					src="${pageContext.request.contextPath}/teacher/toCourseTeacherFrame/${course.courseId }"
+					frameborder="0" width="93%" height="87%"
+					scrolling="auto"></iframe>
 
 			</div>
 		</div>
@@ -189,30 +170,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<nav>
 					<ul style="    margin-top: 25px;margin-left: 38px;">
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/6"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/6/${course.courseId }"
 							target="target">教案库</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/7"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/7/${course.courseId }"
 							target="target">教学资源库</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/5"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/5/${course.courseId }"
 							target="target">多媒体资源库</a>
 						 <li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8/${course.courseId }"
 							target="target">作业库</a></li> 
 						 <li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/9"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/9/${course.courseId }"
 							target="target">实验库</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/10"
+							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/10/${course.courseId }"
 							target="target">课程设计库</a></li> 
 					</ul>
 				</nav>
 			</div>
 			<div style="clear: both;"></div>
 				<div style="width: 100%;height: 379px;">
-				<iframe style="margin-left: 28px;margin-top: 12px;"
-					src="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8"
+				<iframe style="margin-left: 12px;margin-top: -2px;"
+					src="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8/${course.courseId }"
 					name="target" frameborder="0" width="93%" height="110%"
 					scrolling="auto"></iframe></div>
 			<%--<div class="brother">
@@ -274,69 +255,112 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div> 
 	</div>
 	<div class="main_b_b">
-		<div class="container" style="min-height: 350px;height: auto;">
+		<div class="container" style="min-height: 412px;height: auto;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">翻转课堂</h3>
 			<ul>
-	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
-			<div>
-				<div style="float: left; height: 20px;"></div>
-				<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
+	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
 			</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
 			
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
 		</div>
 	</li>
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
-		</div>
-	</li>
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
-		</div>
-	</li>
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
-		</div>
-	</li>
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
-			<div>下载次数：3</div>
-		</div>
-	</li>
-	<li style="float: left;margin-left: 25px;margin-top: 18px;margin-bottom: 23px;">
-		<div style="  height: 151px;width: 320px;padding-left: 65px;padding-top: 15px;background: gainsboro;">
-			<div>
-				<div style=""></div>
+	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
 			</div>
-			<div style="font-weight: 400;font-size: 25px;">Java 实验一</div>
-			<div>知识点：java类的继承</div>
-			<div>发布人：dono</div>
-			<div>发布时间：xxxxxxx</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
+			
 		</div>
 	</li>
+	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
+			</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
+			</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
+			</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
+			
+		</div>
+	</li>
+	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
+			</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
+			
+		</div>
+	</li>
+	
 </ul>
 </div>
 </div>
@@ -412,9 +436,68 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">
-			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">拓展任务</h3>
+			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">课程成果</h3>
+		<%-- <a
+							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px; margin-top: 1%;">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white; height: 100%">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/images/tu1.jpg" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>成果</b>
+											</h3>
+											<p class="description">成果描述</p>
+											<p class="description">
+												<b>XXXXX</b>推荐&nbsp&nbsp<span
+													class="publishTime">发布于：2010-1-1</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:11</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a> --%>
+						<c:forEach items="${aocscList }" var="item" varStatus="status">
+						<a
+							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							<div class="chengguo-out col-md-4"
+								style="padding: 8px; height: 350px; margin-top: 1%;">
+								<div class="doorPlank"
+									style="padding: 2.5rem; background-color: white; height: 100%">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/images/tu2.jpg" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+					</c:forEach>
 	
 </div>
-
+</div>
+<jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

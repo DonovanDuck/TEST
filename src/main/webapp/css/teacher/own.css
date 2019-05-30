@@ -204,7 +204,7 @@ main{
     float:right;
 }
 .lesson_r p{
-    margin-top:3px;
+    margin-top:-10px;
 }
 .note{
     width:100%;

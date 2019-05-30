@@ -86,7 +86,55 @@ public interface IStudentDao {
 	 * @param getEmployeeNum
 	 */
 	public void studentExitAttentionCourse(@Param(value="courseId")String courseId, @Param(value="studentId")String studentId);
-
+	/**
+	 * 获取提交的作业内容
+	 */
+	public UpTask getUpTask(@Param(value="taskId")String taskId,@Param(value="courseId")String studentId);
+	
+	/**
+	 * 获取提交的作业附件
+	 */
+	public Accessory getUpAcc(String taskId,String studentId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 查找班级对应任务最高分
+	 */
+	public Integer getMaxGradeInTask(@Param(value="taskId")String taskId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 查找班级对应任务最低分
+	 */
+	public Integer getMinGradeInTask(@Param(value="taskId")String taskId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @param studentId
+	 * @return
+	 * 查看该学生是否签到
+	 */
+	public int isAttenced(@Param(value="attendanceId")String attendanceId,@Param(value="studentId")String studentId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @param studentId
+	 * @return
+	 * 查看该学生是否请假
+	 */
+	public int isLeaved(@Param(value="attendanceId")String attendanceId,@Param(value="studentId")String studentId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @param studentId
+	 * @return
+	 * 查看该学生是否旷课
+	 */
+	public int isTruancied(@Param(value="attendanceId")String attendanceId,@Param(value="studentId")String studentId);
 
 
 }

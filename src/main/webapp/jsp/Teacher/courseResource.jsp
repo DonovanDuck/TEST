@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-    <title>课程三级页面</title>
+    <title>课程资源页面</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/bootstrap.min.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/scaffolding.less">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/course3.css">
@@ -67,8 +67,33 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			&nbsp;&nbsp;&nbsp;创课时间：${publishTime }</p>
 	</div>
 </div>
+<div class="main_b_t" style="margin-bottom: 70px;margin-left: 103px;">
+				<nav>
+					<ul style="    margin-top: 25px;margin-left: 38px;">
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/6"
+							>教案库</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/7"
+							>教学资源库</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/5"
+							>多媒体资源库</a>
+						 <li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/8"
+							>作业库</a></li> 
+						 <li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/9"
+							>实验库</a></li>
+						<li style="float: left;margin-right: 25px"><a
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/10"
+							>课程设计库</a></li> 
+					</ul>
+				</nav>
+			</div>
 </main>
 <div class="main2" style="height: auto;width: auto;min-height: 800px;">
+	
 	<div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;">
 		<label style="float: left;margin-right: 76%;">${resourceName }库</label>
 		<c:if test="${isTeacher == 1 }">
@@ -210,6 +235,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</ul>
 	</div>
 </div>
-<footer></footer>
+<jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

@@ -25,7 +25,7 @@
 			function TableInit(tableid){
 				$table = $('#'+tableid).bootstrapTable({
 					method : 'get',
-					//url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype,//请求路径
+					url : "${pageContext.request.contextPath}/teacher/ajaxGetStudentTaskListPage?taskCategory=work",//请求路径
 					dataType : "json",
 					striped : true, //是否显示行间隔色
 					pageNumber : 1, //初始化加载第一页
@@ -50,18 +50,27 @@
 					columns : [{
 						field : 'taskId',
 						title : '序号',
+						formatter: function (value, row, index) {
+				            var pageSize = $('#'+tableid).bootstrapTable('getOptions').pageSize;     //通过table的#id 得到每页多少条
+				            var pageNumber = $('#'+tableid).bootstrapTable('getOptions').pageNumber; //通过table的#id 得到当前第几页
+				            return pageSize * (pageNumber - 1) + index + 1;    // 返回每条的序号： 每页条数 *（当前页 - 1 ）+ 序号
+				        }
 					
 					}, {
 						field : 'taskTitle',
 						title : '作业名称',
 						
 					}, {
-						field : 'taskDetail',
-						title : '得分',
+						field : 'mygrade',
+						title : '个人得分',
 						
 					}, {
-						field : 'publisherId',
-						title : '提交时间',
+						field : 'minGrade',
+						title : '班级最低分',
+						
+					}, {
+						field : 'maxGrade',
+						title : '班级最高分',
 						
 					}]
 						
@@ -77,9 +86,9 @@
 				$("#workTaskList").css("display","block");
 			}
 			TableInit("workTaskListTable");
-			$('#taskListTable').bootstrapTable(
+			$('#workTaskListTable').bootstrapTable(
 					'refresh', 
-					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype
+					{url : "${pageContext.request.contextPath}/student/ajaxGetStudentTaskListPage?taskCategory=work"
 					});
 		};
 		function showTrialAnalyse() {
@@ -90,9 +99,9 @@
 				$("#trialTaskList").css("display","block");
 			}
 			TableInit("trialTaskListTable");
-			$('#taskListTable').bootstrapTable(
+			$('#trialTaskListTable').bootstrapTable(
 					'refresh', 
-					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype
+					{url : "${pageContext.request.contextPath}/student/ajaxGetStudentTaskListPage?taskCategory=trial"
 					});
 		};
 		function showTurnClassAnalyse() {
@@ -103,9 +112,9 @@
 				$("#turnClassTaskList").css("display","block");
 			}
 			TableInit("turnClassTaskListTable");
-			$('#taskListTable').bootstrapTable(
+			$('#turnClassTaskListTable').bootstrapTable(
 					'refresh', 
-					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype
+					{url : "${pageContext.request.contextPath}/student/ajaxGetStudentTaskListPage?taskCategory=turn_class"
 					});
 		};
 		function showCourseDesignAnalyse() {
@@ -116,9 +125,9 @@
 				$("#courseDesignTaskList").css("display","block");
 			}
 			TableInit("courseDesignTaskListTable");
-			$('#taskListTable').bootstrapTable(
+			$('#courseDesignTaskListTable').bootstrapTable(
 					'refresh', 
-					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype
+					{url : "${pageContext.request.contextPath}/student/ajaxGetStudentTaskListPage?taskCategory=course_design"
 					});
 			
 		};
@@ -130,82 +139,74 @@
 			<span style="line-height: 55px;font-size: 18px;margin-left: 20px">个人成就</span>
 		</div>
 		<!-- 作业分析 -->
-		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;">
+		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;padding-right: 40px">
 			<div class="analyse" style="width: 100%;height: 100%;overflow: hidden;">
 				<div style="font-size: 18px;font-weight: bold;margin-bottom: 20px;margin-top: 20px;">作业</div>
 				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">得分：${gradeWork }</div>
-					<div style="float: left;">提交次数：${upNumWork }</div>
-				</div>
-				<div class="div1 clearfloat" style="clear: both;margin-bottom: 20px;"></div>
-				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">当前班级排名</div>
-					<div style="float: left;margin-right: 30px;">班级最高分</div>
-					<div style="float: left;margin-right: 30px;">班级最低分</div>
+					<div style="float: left;margin-right: 30px;">总得分：${gradeWork }</div>
+					<div style="float: left;">共提交次数：${upNumWork }</div>
 					<div style="float: right;margin-right: 100px;margin-bottom: 10px;"><button class="btn btn-default" type="submit" onclick="showWorkAnalyse()">详情</button></div>
+					
 				</div>
+				<div class="div1 clearfloat" style="clear: both;"></div>
+				
 			</div>
-			<div id="workTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;">
+			<hr>
+			<div id="workTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;margin-bottom: 30px">
 				<table id="workTaskListTable"></table>
 			</div>
 		</div>
 		<!-- 实验分析 -->
-		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;">
+		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;padding-right: 40px">
 			<div class="analyse" style="width: 100%;height: 100%;overflow: hidden;">
 				<div style="font-size: 18px;font-weight: bold;margin-bottom: 20px;margin-top: 20px;">实验</div>
 				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">得分：${gradeTrial }</div>
-					<div style="float: left;">提交次数：${upNumTrial }</div>
-				</div>
-				<div class="div1 clearfloat" style="clear: both;margin-bottom: 20px;"></div>
-				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">当前班级排名</div>
-					<div style="float: left;margin-right: 30px;">班级最高分</div>
-					<div style="float: left;margin-right: 30px;">班级最低分</div>
+					<div style="float: left;margin-right: 30px;">总得分：${gradeTrial }</div>
+					<div style="float: left;">共提交次数：${upNumTrial }</div>
 					<div style="float: right;margin-right: 100px;margin-bottom: 10px;"><button class="btn btn-default" type="submit" onclick="showTrialAnalyse()">详情</button></div>
+					
 				</div>
+				<div class="div1 clearfloat" style="clear: both;"></div>
+				
 			</div>
-			<div id="trialTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;">
+			<hr>
+			<div id="trialTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;margin-bottom: 30px">
 				<table id="trialTaskListTable"></table>
 			</div>
 		</div>
 		<!-- 翻转分析 -->
-		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;">
+		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;padding-right: 40px">
 			<div class="analyse" style="width: 100%;height: 100%;overflow: hidden;">
 				<div style="font-size: 18px;font-weight: bold;margin-bottom: 20px;margin-top: 20px;">翻转</div>
 				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">得分：${gradeTurnClass }</div>
-					<div style="float: left;">提交次数：${upNumTurnClass }</div>
-				</div>
-				<div class="div1 clearfloat" style="clear: both;margin-bottom: 20px;"></div>
-				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">当前班级排名</div>
-					<div style="float: left;margin-right: 30px;">班级最高分</div>
-					<div style="float: left;margin-right: 30px;">班级最低分</div>
+					<div style="float: left;margin-right: 30px;">总得分：${gradeTurnClass }</div>
+					<div style="float: left;">共提交次数：${upNumTurnClass }</div>
 					<div style="float: right;margin-right: 100px;margin-bottom: 10px;"><button class="btn btn-default" type="submit" onclick="showTurnClassAnalyse()">详情</button></div>
+
 				</div>
+				<div class="div1 clearfloat" style="clear: both;"></div>
+				
 			</div>
-			<div id="turnClassTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;">
+			<hr>
+			<div id="turnClassTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;margin-bottom: 30px">
 				<table id="turnClassTaskListTable"></table>
 			</div>
 		</div>
 		<!-- 课设分析 -->
-		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;">
+		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;padding-right: 40px">
 			<div class="analyse" style="width: 100%;height: 100%;overflow: hidden;">
 				<div style="font-size: 18px;font-weight: bold;margin-bottom: 20px;margin-top: 20px;">课设</div>
 				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">得分：${gradeCourseDesign }</div>
-					<div style="float: left;">提交次数：${upNumCourseDesign }</div>
-				</div>
-				<div class="div1 clearfloat" style="clear: both;margin-bottom: 20px;"></div>
-				<div style="margin-bottom: 20px;">
-					<div style="float: left;margin-right: 30px;">当前班级排名</div>
-					<div style="float: left;margin-right: 30px;">班级最高分</div>
-					<div style="float: left;margin-right: 30px;">班级最低分</div>
+					<div style="float: left;margin-right: 30px;">总得分：${gradeCourseDesign }</div>
+					<div style="float: left;">共提交次数：${upNumCourseDesign }</div>
 					<div style="float: right;margin-right: 100px;margin-bottom: 10px;"><button class="btn btn-default" type="submit" onclick="showCourseDesignAnalyse()">详情</button></div>
+
 				</div>
+				<div class="div1 clearfloat" style="clear: both;"></div>
+				
 			</div>
-			<div id="courseDesignTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;">
+			<hr>
+			<div id="courseDesignTaskList" style="height: 100%;width: 100%;overflow: hidden;background-color: #fff;margin-top: 30px;display: none;margin-bottom: 30px">
 				<table id="courseDesignTaskListTable"></table>
 			</div>
 		</div>

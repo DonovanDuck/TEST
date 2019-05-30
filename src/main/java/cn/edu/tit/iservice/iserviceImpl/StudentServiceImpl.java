@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.idao.IStudentDao;
+import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.IStudentService;
 
 /*
@@ -29,7 +30,8 @@ public class StudentServiceImpl implements IStudentService{
 
 	@Autowired
 	IStudentDao studentDao;
-	
+	@Autowired
+	private  ITeacherDao teacherDao ;
 	@Autowired
 	IStudentDao iStudentDao;
 	/**
@@ -327,6 +329,109 @@ public class StudentServiceImpl implements IStudentService{
 		// TODO Auto-generated method stub
 		return studentDao.getUpAccessories(taskId, studentId);
 	}
+
+	@Override
+	public UpTask getUpTask(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpTask( taskId,  studentId);
+	}
+
+	@Override
+	public Accessory getUpAcc(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return studentDao.getUpAcc( taskId,  studentId);
+	}
+
+	@Override
+	public Integer getMaxGradeInTask(String taskId) {
+		// TODO Auto-generated method stub
+		return studentDao.getMaxGradeInTask(taskId);
+	}
+
+	@Override
+	public Integer getMinGradeInTask(String taskId) {
+		// TODO Auto-generated method stub
+		return studentDao.getMinGradeInTask(taskId);
+	}
+
+	@Override
+	public Boolean isAttenced(String attendanceId, String studentId) {
+		// TODO Auto-generated method stub
+		int count=0;
+		count= studentDao.isAttenced(attendanceId, studentId);
+		if (count==0) {
+			return false;
+		}else {
+			return true;
+		}
+		
+	}
+
+	@Override
+	public Boolean isLeaved(String attendanceId, String studentId) {
+		// TODO Auto-generated method stub
+		int count=0;
+		count= studentDao.isLeaved(attendanceId, studentId);
+		if (count==0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+	@Override
+	public Boolean isTruancied(String attendanceId, String studentId) {
+		// TODO Auto-generated method stub
+		int count=0;
+		count= studentDao.isTruancied(attendanceId, studentId);
+		if (count==0) {
+			return false;
+		}else {
+			return true;
+		}
+	}
+
+//	@Override
+//	public Integer getMaxGradeInTask(String virtualClassNum, String taskCategory) {
+//		// TODO Auto-generated method stub
+//		int maxGrade=0;
+//		try {
+//			//找到本班级所有任务ID
+//			List<String> taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+//			if (taskIdAllList.size()!=0) {
+//				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+//				if (taskIdListNeedList.size()!=0) {
+//					maxGrade=studentDao.getMaxGradeInTask(taskIdListNeedList);
+//				}
+//			}
+//			//获得符合条件的ID
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return maxGrade;
+//	}
+//
+//	@Override
+//	public Integer getMinGradeInTask(String virtualClassNum, String taskCategory) {
+//		// TODO Auto-generated method stub
+//		int minGrade=0;
+//		try {
+//			//找到本班级所有任务ID
+//			List<String> taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+//			if (taskIdAllList.size()!=0) {
+//				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+//				if (taskIdListNeedList.size()!=0) {
+//					minGrade=studentDao.getMinGradeInTask(taskIdListNeedList);
+//				}
+//			}
+//			//获得符合条件的ID
+//		} catch (Exception e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		return minGrade;
+//	}
 
 	
 	

@@ -36,7 +36,26 @@
 		<result column="end_year" property="endYear" />
 		<result column="term" property="term" />
 	</resultMap>
-
+	<resultMap type="cn.edu.tit.bean.Attendance" id="attendanceMap">
+		<id column="attendance_id" property="attendanceId" />
+		<result column="virtual_class_num" property="virtualClassNum" />
+		<result column="index" property="index" />
+		<result column="attendance_time" property="attendanceTime" />
+		<result column="attendance_num" property="attendanceNum" />
+		<result column="total_num" property="totalNum" />
+		<result column="leave_num" property="leaveNum" />
+		<result column="truancy_num" property="truancyNum" />
+	</resultMap>
+	<select id="getAttendanceDetail" resultMap="attendanceMap">
+		select * from attendance where virtual_class_num =#{virtualClassNum}
+	</select>
+	
+	<select id="getLeaveStudentIdList" resultType="java.lang.String">
+		select student_id from `leave` where attendance_id=#{attendanceId}
+	</select>
+	<select id="getTruancyStudentIdList" resultType="java.lang.String">
+		select student_id from truancy where attendance_id=#{attendanceId}
+	</select>
 	<select id="readTerm" resultMap="termMap">
 		select * from term
 	</select>
@@ -820,6 +839,25 @@
 		UPDATE task set use_num = use_num+1
 		WHERE task_id = #{taskId}
 	</update>
+	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
+	</select> 
+	<!-- 取消关注 -->
+	<delete id="teacherExitAttentionCourse">
+		delete from teacher_course where employee_num =
+		#{employeeNum} and course_id = #{courseId} and manager = 2;
+	</delete>
+	
+	
+	<select id="teacherForFuzzyQueryById" resultMap="teacherMap"
+		parameterType="java.lang.String">
+		SELECT * FROM teacher
+		<where>
+			employee_num
+			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
+		</where>
+		;
+	</select>
 	<select id="gettaskTypePublishNum" resultType="int">
 		SELECT count(*) FROM task where task_category=#{taskCategory} and task_id in
 		<foreach collection="taskIds" item="taskId" open="("

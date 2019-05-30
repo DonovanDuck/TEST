@@ -171,6 +171,17 @@
 			#{taskId}
 		</foreach>
 	</select>
+	
+	<select id="getMaxGradeInTask" 
+		resultType="java.lang.Integer">
+		select max(grade) from up_task  where task_id=#{taskId}
+		
+	</select>
+	<select id="getMinGradeInTask" 
+		resultType="java.lang.Integer">
+		select min(grade) from up_task  where task_id=#{taskId}
+	</select>
+	
 	<select id="searchTask" parameterType="java.lang.String"
 		resultMap="taskMap">
 		select * from task where task_id = #{taskId}
@@ -244,7 +255,18 @@
 		select * from term where term_id =
 		#{termId};
 	</select>
-	
+	<!--读取签到信息 -->
+	<select id="isAttenced" resultType="int">
+		select count(*) from attence where attendance_id =#{attendanceId} and student_id=#{studentId};
+	</select>
+	<!--读取请假信息 -->
+	<select id="isLeaved" resultType="int">
+		select count(*) from `leave` where attendance_id =#{attendanceId} and student_id=#{studentId};
+	</select>
+	<!--读取旷课信息 -->
+	<select id="isTruancied" resultType="int">
+		select count(*) from truancy where attendance_id =#{attendanceId} and student_id=#{studentId};
+	</select>
 	<!-- 学生关注课程 -->
 	<insert id="studentAttentionCourse">
 		insert into student_course(student_id,course_id,manager) values (#{studentId},#{courseId},1)

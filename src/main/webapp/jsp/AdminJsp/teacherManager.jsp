@@ -199,6 +199,7 @@
 								<button type="submit" class="btn btn-default"
 									style="margin-top: 2%">提交</button>
 							</form>
+							<div>文件格式：工号、教师名、教师密码、教师性别、教育背景、教师职称、教师电话、电子邮箱</div>
 						</div>
 						<div class="card-content " style="padding-top: 0%">
 							<div class="table-responsive" style="overflow-x: hidden;">
