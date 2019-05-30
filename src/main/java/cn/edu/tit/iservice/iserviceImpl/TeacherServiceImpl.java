@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Achievement;
 import cn.edu.tit.bean.Admin;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
@@ -1222,5 +1223,44 @@ public class TeacherServiceImpl implements ITeacherService{
 	public List<Task> getTaskByUserId(String userId) {
 		// TODO Auto-generated method stub
 		return teacherDao.getTaskByUserId(userId);
+	}
+	public List<Attendance> getAttendanceDetail(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttendanceDetail(virtualClassNum);
+	}
+
+	@Override
+	public List<Student> getLeaveStudent(String attendanceId) {
+		// TODO Auto-generated method stub
+		List<String> studentLeaveStudentIdList = teacherDao.getLeaveStudentIdList(attendanceId);
+		List<Student>studentLeaveStudentList = teacherDao.getStudentListOfUped(studentLeaveStudentIdList);
+		return studentLeaveStudentList;
+	}
+
+	@Override
+	public List<Student> getTruancyStudent(String attendanceId) {
+		// TODO Auto-generated method stub
+		List<String> studentTruancyStudentIdList = teacherDao.getTruancyStudentIdList(attendanceId);
+		List<Student>studentTruancyStudentList = teacherDao.getStudentListOfUped(studentTruancyStudentIdList);
+		return studentTruancyStudentList;
+	}
+
+	@Override
+	public List<Task> getTaskByCategory(String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		List<String> taskIdAllList;
+		List<Task>taskList = new ArrayList<Task>();
+		try {
+			taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+			if (taskIdAllList.size() !=0) {
+				//获得符合条件的ID
+				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+				taskList = teacherDao.TaskList(taskIdListNeedList);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return taskList;
 	}
 }

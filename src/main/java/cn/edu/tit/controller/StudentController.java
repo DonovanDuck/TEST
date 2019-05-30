@@ -4,8 +4,11 @@
 package cn.edu.tit.controller;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 
@@ -13,6 +16,8 @@ import java.util.Map;
 
 import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,8 +28,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+
 import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
@@ -34,6 +43,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.ResourceType;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
+import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
 
@@ -404,6 +414,143 @@ public class StudentController {
 		}
 		
 		return "redirect:/student/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
+	}
+	//toPersonAccomplishment
+	@RequestMapping(value="toPersonAccomplishment")
+	public ModelAndView toPersonAccomplishment(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		
+		int gradeWork=0;
+		int gradeTrial=0;
+		int gradeCourseDesign=0;
+		int gradeTurnClass=0;
+		int gradeAttence=0;
+		
+		int upNumWork = 0;
+		int upNumTrial = 0;
+		int upNumCourseDesign = 0;
+		int upNumTurnClass = 0;
+		int upNumAttence = 0;
+		
+		gradeWork = teacherService.getStudentGrade(studentId, virtualClassNum, "work");
+		gradeTrial = teacherService.getStudentGrade(studentId, virtualClassNum, "trial");
+		gradeCourseDesign = teacherService.getStudentGrade(studentId, virtualClassNum, "course_design");
+		gradeTurnClass = teacherService.getStudentGrade(studentId, virtualClassNum, "turn_class");
+		gradeAttence = teacherService.getStudentGrade(studentId, virtualClassNum, "attence");
+
+		upNumWork = teacherService.getStudentGradeNum(studentId, virtualClassNum, "work");
+		upNumTrial = teacherService.getStudentGradeNum(studentId, virtualClassNum, "trial");
+		upNumCourseDesign = teacherService.getStudentGradeNum(studentId, virtualClassNum, "course_design");
+		upNumTurnClass = teacherService.getStudentGradeNum(studentId, virtualClassNum, "turn_class");
+		upNumAttence = teacherService.getStudentGradeNum(studentId, virtualClassNum, "attence");
+		
+		int minGradeWork = 0;
+		int maxGradeWork = 0;
+		int minGradeTrial = 0;
+		int maxGradeTrial = 0;
+		int minGradeTurnClass = 0;
+		int maxGradeTurnClass = 0;
+		int minGradeCourseDesign = 0;
+		int maxGradeCourseDesign = 0;
+		/*
+		 * minGradeWork = studentService.getMinGradeInCategory(virtualClassNum, "work");
+		 * maxGradeWork = studentService.getMinGradeInCategory(virtualClassNum, "work");
+		 * minGradeTrial = studentService.getMinGradeInCategory(virtualClassNum,
+		 * "trial"); maxGradeTrial =
+		 * studentService.getMinGradeInCategory(virtualClassNum, "trial");
+		 * minGradeTurnClass = studentService.getMinGradeInCategory(virtualClassNum,
+		 * "turn_class"); maxGradeTurnClass =
+		 * studentService.getMinGradeInCategory(virtualClassNum, "turn_class");
+		 * minGradeCourseDesign = studentService.getMinGradeInCategory(virtualClassNum,
+		 * "course_design"); maxGradeCourseDesign =
+		 * studentService.getMinGradeInCategory(virtualClassNum, "course_design");
+		 */
+		
+		mv.addObject("minGradeWork",minGradeWork );	
+		mv.addObject("maxGradeWork",maxGradeWork );	
+		mv.addObject("minGradeTrial",minGradeTrial );	
+		mv.addObject("maxGradeTrial",maxGradeTrial );	
+		mv.addObject("minGradeTurnClass",minGradeTurnClass );	
+		mv.addObject("maxGradeTurnClass",maxGradeTurnClass );	
+		mv.addObject("minGradeCourseDesign",minGradeCourseDesign );	
+		mv.addObject("maxGradeCourseDesign",maxGradeCourseDesign );		
+		mv.addObject("gradeWork",gradeWork );
+		mv.addObject("gradeTrial",gradeTrial );
+		mv.addObject("gradeCourseDesign",gradeCourseDesign );
+		mv.addObject("gradeTurnClass",gradeTurnClass );
+		mv.addObject("gradeAttence",gradeAttence );
+		mv.addObject("upNumWork",upNumWork );
+		mv.addObject("upNumTrial",upNumTrial );
+		mv.addObject("upNumCourseDesign",upNumCourseDesign );
+		mv.addObject("upNumTurnClass",upNumTurnClass );
+		mv.addObject("upNumAttence",upNumAttence );
+		mv.setViewName("/jsp/Teacher/studentGradeAnalyse");
+		
+		
+		return mv;
+	}
+	
+	@RequestMapping(value="ajaxGetStudentTaskListPage")
+	public void ajaxGetStudentTaskListPage(HttpServletRequest request,HttpServletResponse response,@RequestParam("taskCategory")String taskCategory) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		List<Task>taskList = new ArrayList<Task>();
+		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		taskList = teacherService.getTaskByCategory(virtualClassNum, taskCategory);
+		HashMap<String, Integer>studentGradeMap = new HashMap<String, Integer>();
+		HashMap<String , Integer>maxGrade = new HashMap<String, Integer>();
+		HashMap<String , Integer>minGrade = new HashMap<String, Integer>();
+		for (Task task : taskList) {
+			studentGradeMap.put(task.getTaskId(),  teacherService.getGrade(task.getTaskId(), studentId));
+			maxGrade.put(task.getTaskId(), studentService.getMaxGradeInTask(task.getTaskId()));
+			minGrade.put(task.getTaskId(), studentService.getMinGradeInTask(task.getTaskId()));
+		}
+		JSONArray arr =  new JSONArray();
+		for (Task task : taskList) {
+			JSONObject ob= new JSONObject();
+			ob.put("taskTitle", task.getTaskTitle());
+			ob.put("mygrade", studentGradeMap.get(task.getTaskId()));
+			ob.put("minGrade", minGrade.get(task.getTaskId()));
+			ob.put("maxGrade", maxGrade.get(task.getTaskId()));
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+	}
+	@RequestMapping(value="toStudentAttendance")
+	public ModelAndView toStudentAttendance(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		String virtualClassNum  = (String) request.getSession().getAttribute("virtualClassNum");
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		List<Attendance>attendanceList = new ArrayList<Attendance>();
+		attendanceList = teacherService.getAttendanceDetail(virtualClassNum);
+		HashMap<String, Boolean>leaveStudentMap = new HashMap<String, Boolean>();
+		HashMap<String, Boolean>truancyStudentMap = new HashMap<String, Boolean>();
+		HashMap<String, Boolean>attenceStudentMap = new HashMap<String, Boolean>();
+		for (Attendance attendance : attendanceList) {
+			truancyStudentMap.put(attendance.getAttendanceId(), studentService.isTruancied(attendance.getAttendanceId(), studentId));
+			attenceStudentMap.put(attendance.getAttendanceId(), studentService.isAttenced(attendance.getAttendanceId(), studentId));
+			leaveStudentMap.put(attendance.getAttendanceId(), studentService.isLeaved(attendance.getAttendanceId(), studentId));
+		}
+		mv.addObject("attendanceList", attendanceList);
+		mv.addObject("attenceStudentMap", attenceStudentMap);
+		mv.addObject("truancyStudentMap", truancyStudentMap);
+		mv.addObject("leaveStudentMap", leaveStudentMap);
+		mv.setViewName("/jsp/StudentJsp/studentAttendanceAnalyse");
+		return mv;
 	}
 
 }

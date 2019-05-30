@@ -93,8 +93,45 @@ public interface IStudentService {
 	 * 获取提交的作业附件
 	 */
 	public Accessory getUpAcc(String taskId,String studentId);
-	
-	
-
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 查找班级对应任务
+	 */
+	public Integer getMaxGradeInTask(String taskId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 查找班级对应任务
+	 */
+	public Integer getMinGradeInTask(String taskId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @param studentId
+	 * @return
+	 * 查看该学生是否签到
+	 */
+	public Boolean isAttenced(String attendanceId,String studentId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @param studentId
+	 * @return
+	 * 查看该学生是否请假
+	 */
+	public Boolean isLeaved(String attendanceId,String studentId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @param studentId
+	 * @return
+	 * 查看该学生是否旷课
+	 */
+	public Boolean isTruancied(String attendanceId,String studentId);
 
 }

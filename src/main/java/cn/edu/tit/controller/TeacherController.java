@@ -54,6 +54,7 @@ import com.alibaba.fastjson.JSONObject;
 
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Achievement;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
@@ -2291,6 +2292,35 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		mv.addObject("taskCategory", taskCategory);
 		mv.setViewName("/jsp/VirtualClass/allfragram");
+		return mv;
+
+	}
+	/**
+	 * @author WENLI
+	 * @param request
+	 * @return
+	 * 获得班级考勤详情
+	 */
+	@RequestMapping("/toteacherAttenceAnalyse")
+	public ModelAndView toteacherAttenceAnalyse(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		String virtualClassNum  = (String) request.getSession().getAttribute("virtualClassNum");
+		List<Attendance>attendanceList = new ArrayList<Attendance>();
+		HashMap<String, List<Student>>leaveStudentMap = new HashMap<String, List<Student>>();
+		HashMap<String, List<Student>>truancyStudentMap = new HashMap<String, List<Student>>();
+		attendanceList = teacherService.getAttendanceDetail(virtualClassNum);
+		for (Attendance attendance : attendanceList) {
+			List<Student>leaveStudentList = new ArrayList<Student>();
+			List<Student>truancyStudentList = new ArrayList<Student>();
+			leaveStudentList = teacherService.getLeaveStudent(attendance.getAttendanceId());
+			truancyStudentList = teacherService.getTruancyStudent(attendance.getAttendanceId());
+			leaveStudentMap.put(attendance.getAttendanceId(), leaveStudentList);
+			truancyStudentMap.put(attendance.getAttendanceId(), truancyStudentList);
+		}
+		mv.addObject("attendanceList", attendanceList);
+		mv.addObject("leaveStudentMap", leaveStudentMap);
+		mv.addObject("truancyStudentMap", truancyStudentMap);
+		mv.setViewName("/jsp/Teacher/attence");
 		return mv;
 
 	}

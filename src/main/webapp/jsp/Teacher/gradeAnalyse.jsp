@@ -37,9 +37,8 @@
 			pagination : true,//是否分页
 			striped: true,  //是否显示行间隔色
 			fixedScroll:true,
-			
 			sidePagination : 'client',//server:服务器端分页|client：前端分页
-			pageSize : 20,//单页记录数
+			pageSize : 5,//单页记录数
 			pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
 			showRefresh : false,//刷新按钮
 			clickToSelect: true,                //是否启用点击选中行

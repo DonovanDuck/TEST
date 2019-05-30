@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Achievement;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
@@ -392,4 +393,27 @@ public interface ITeacherDao {
 	public List<Task> getAllTask();
 	
 	public List<Task> getTaskByUserId(@Param("userId")String userId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @return
+	 * 获得该班级所有考勤信息
+	 */
+	public List<Attendance> getAttendanceDetail(@Param("virtualClassNum")String virtualClassNum);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得该考勤中请假的学生Id
+	 */
+	public List<String> getLeaveStudentIdList(@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得该考勤中旷课的学生Id
+	 */
+	public List<String> getTruancyStudentIdList(@Param("attendanceId")String attendanceId);
+	
 }

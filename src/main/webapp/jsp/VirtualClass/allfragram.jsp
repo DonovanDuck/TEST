@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</script>
 	</head>
-	<body style="background-color: #D3D3D3;">
+	<body style="background-color: #F8F8F8;">
 		<div class="fragtitle" style="padding-bottom: 20px">
 			<c:if test="${taskCategory  eq 'work'}">
 		作业
