@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Accessory;
 
 import cn.edu.tit.bean.Achievement;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
@@ -653,5 +654,33 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public Integer getStudentGradeNum(String studentId,String virtualClassNum,String taskCategory);
-
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @return
+	 * 获得该班级所有考勤信息
+	 */
+	public List<Attendance> getAttendanceDetail(String virtualClassNum);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得请假的学生实体
+	 */
+	public List<Student> getLeaveStudent(String attendanceId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得旷课的学生实体
+	 */
+	public List<Student> getTruancyStudent(String attendanceId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 获得指定类型的班级任务
+	 */
+	public List<Task> getTaskByCategory(String virtualClassNum,String taskCategory);
 }

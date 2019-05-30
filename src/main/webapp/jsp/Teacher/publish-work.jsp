@@ -72,7 +72,8 @@
 			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
 					'refresh', 
-					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype});
+					{url : "${pageContext.request.contextPath}/teacher/getTaskListPage?taskCategory="+$tasktype
+					});
 		});
 		$("#selectTypeEdit li").click(function() {
 			var text =$.trim( $(this).html());

@@ -158,13 +158,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<!-- <div style="float: right;"><input class="btn btn-default" type="button" value="编辑"></div> -->
 				</div>
 				<hr >
-				<div style="text-align:left ;">
-					<span style="word-wrap:break-word; word-break:break-all; overflow: hidden; "><strong>评语：</strong>${comment }</span>
-				</div>
-				
-				<div>
-					<h5 style="float: left;">作业成绩：</h5> <h3  style="float: left;color:red"><strong>${grade }</strong></h3>
-				</div>
+				<c:if test="${not empty grade }">
+							<div style="text-align:left ;">
+								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 14px;font-weight: bold; ">评语：</span><span style="font-size: 14px;">${comment }</span>
+							</div>
+							<hr>
+							<div style="text-align:left ;">
+								<span style="font-size: 14px;font-weight: bold;">作业成绩：</span> <span style="font-size: 14px;color: red">${grade }</span>
+							</div>
+					</c:if>
 				
 				
 			</div>

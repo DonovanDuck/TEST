@@ -73,24 +73,30 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 				<ul id="ls"  style="background-color: #fff;margin-right: 10px" class=" nav nav-pills  nav-stacked">
 				  <li role="presentation" class="active" ><a id="als" target="lcontent"   href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all">全部</a></li>
-				  <li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList">考勤</a></li>
+				  <c:if test="${identify eq 'student' }">
+				  	 <li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/student/toStudentAttendance">考勤</a></li>
+				  
+				  </c:if>
+				  <c:if test="${identify eq 'teacher' }">
+				  	<li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherAttenceAnalyse">考勤</a></li>
+				  
+				  </c:if>
 				  <li role="presentation"><a  target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=work">作业</a></li>
 				  <li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=course_design">课设</a></li>
 				  <li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">实验</a></li>
 				<li role="presentation"><a  target="lcontent" id="als"  href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">翻转</a></li>
 				<li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">挑战</a></li>
 				<c:if test="${identify eq 'teacher' }">
-				<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toAnalyseGrade">成绩分析</a></li>
+					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toAnalyseGrade">成绩分析</a></li>
 					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布作业</a></li>
 				</c:if>
 				<c:if test="${identify eq 'student' }">
-				<li role="presentation"><a  target="_top" href="${pageContext.request.contextPath}/teacher/toPublishTask">个人成就</a></li>
+				<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/student/toPersonAccomplishment">个人成就</a></li>
 				</c:if>
-				
 				</ul>
 			</div>
-			<div class="lContent">
-				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%"  frameborder="no" border="0" scrolling="no" onload="setIframeHeight()">
+			<div class="lContent" style="height: 100%;overflow: hidden;">
+				<iframe id="lcontent" name="lcontent" src="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all" width="900px" height="100%" style="overflow: hidden;"  frameborder="no" border="0" scrolling="no" onload="setIframeHeight()">
 				</iframe>
 			</div>
 		</div>

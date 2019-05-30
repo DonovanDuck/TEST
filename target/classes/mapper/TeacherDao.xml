@@ -36,7 +36,26 @@
 		<result column="end_year" property="endYear" />
 		<result column="term" property="term" />
 	</resultMap>
-
+	<resultMap type="cn.edu.tit.bean.Attendance" id="attendanceMap">
+		<id column="attendance_id" property="attendanceId" />
+		<result column="virtual_class_num" property="virtualClassNum" />
+		<result column="index" property="index" />
+		<result column="attendance_time" property="attendanceTime" />
+		<result column="attendance_num" property="attendanceNum" />
+		<result column="total_num" property="totalNum" />
+		<result column="leave_num" property="leaveNum" />
+		<result column="truancy_num" property="truancyNum" />
+	</resultMap>
+	<select id="getAttendanceDetail" resultMap="attendanceMap">
+		select * from attendance where virtual_class_num =#{virtualClassNum}
+	</select>
+	
+	<select id="getLeaveStudentIdList" resultType="java.lang.String">
+		select student_id from `leave` where attendance_id=#{attendanceId}
+	</select>
+	<select id="getTruancyStudentIdList" resultType="java.lang.String">
+		select student_id from truancy where attendance_id=#{attendanceId}
+	</select>
 	<select id="readTerm" resultMap="termMap">
 		select * from term
 	</select>
@@ -349,10 +368,10 @@
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id)
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num)
 		values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId})
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1)
 	</insert>
 
 	<insert id="mapClassTask">
