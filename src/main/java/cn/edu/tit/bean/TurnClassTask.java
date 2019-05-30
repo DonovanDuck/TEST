@@ -14,6 +14,7 @@ public class TurnClassTask {
 	private Timestamp endTime;//结束时间
 	private String courseId;
 	private String accessoryPath;//附件路径
+	
 	public String getTaskId() {
 		return taskId;
 	}

@@ -6,14 +6,14 @@ import java.sql.Timestamp;
  * 课堂准备
  * */
 public class TurnClassPlanForCourse {
-	private String id;
-	private String content;
-	private String authorId;
-	private String authorName;
-	private String authorPicture;
-	private String accrssoryPath;
-	private String taskId;
-	private Timestamp uploadTime;
+	private String id;//课堂准备id
+	private String content;//内容
+	private String authorId;//作者id
+	private String authorName;//作者名
+	private String authorPicture;//作者头像
+	private String accessoryPath;//作者附件路径
+	private String taskId;//任务ID
+	private Timestamp uploadTime;//上传时间
 	public String getId() {
 		return id;
 	}
@@ -44,11 +44,11 @@ public class TurnClassPlanForCourse {
 	public void setAuthorPicture(String authorPicture) {
 		this.authorPicture = authorPicture;
 	}
-	public String getAccrssoryPath() {
-		return accrssoryPath;
+	public String getaccessoryPath() {
+		return accessoryPath;
 	}
-	public void setAccrssoryPath(String accrssoryPath) {
-		this.accrssoryPath = accrssoryPath;
+	public void setaccessoryPath(String accessoryPath) {
+		this.accessoryPath = accessoryPath;
 	}
 	public String getTaskId() {
 		return taskId;
@@ -65,18 +65,18 @@ public class TurnClassPlanForCourse {
 	@Override
 	public String toString() {
 		return "TurnClassPlanForCourse [id=" + id + ", content=" + content + ", authorId=" + authorId + ", authorName="
-				+ authorName + ", authorPicture=" + authorPicture + ", accrssoryPath=" + accrssoryPath + ", taskId="
+				+ authorName + ", authorPicture=" + authorPicture + ", accessoryPath=" + accessoryPath + ", taskId="
 				+ taskId + ", uploadTime=" + uploadTime + "]";
 	}
 	public TurnClassPlanForCourse(String id, String content, String authorId, String authorName, String authorPicture,
-			String accrssoryPath, String taskId, Timestamp uploadTime) {
+			String accessoryPath, String taskId, Timestamp uploadTime) {
 		super();
 		this.id = id;
 		this.content = content;
 		this.authorId = authorId;
 		this.authorName = authorName;
 		this.authorPicture = authorPicture;
-		this.accrssoryPath = accrssoryPath;
+		this.accessoryPath = accessoryPath;
 		this.taskId = taskId;
 		this.uploadTime = uploadTime;
 	}

@@ -6,11 +6,11 @@ import java.sql.Timestamp;
  * 任务表 任务与小组的对应关系
  * */
 public class TurnClassTaskToTeam {
- private String id;
- private String teamId;
- private Timestamp acceptTaskTime;
+ private String id;//id
+ private String teamId;//团队ID 
+ private Timestamp acceptTaskTime;//任务接受时间
  private String status;//任务状态
- private String taskId;
+ private String taskId;//任务ID 
 public String getId() {
 	return id;
 }

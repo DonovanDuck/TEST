@@ -12,6 +12,7 @@ public class TurnClassCommentFromStudent {
 	private String conent;
 	private Timestamp commentTime;
 	private String taskId;//课堂翻转ID
+	
 	public String getCommentId() {
 		return commentId;
 	}

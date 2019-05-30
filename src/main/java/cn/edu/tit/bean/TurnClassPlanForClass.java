@@ -9,11 +9,11 @@ import java.sql.Timestamp;
 public class TurnClassPlanForClass {
 	private String id;
 	private String taskId;//翻转任务ID
-	private Integer planStage;
-	private Integer demandStage;
-	private Integer designStage;
-	private Integer arithmeticStage;
-	private Integer testStage;
+	private Integer planStage;//计划阶段
+	private Integer demandStage;//需求阶段
+	private Integer designStage;//设计阶段
+	private Integer arithmeticStage;//关键算法技术阶段
+	private Integer testStage;//测试阶段
 	private String authorId;
 	private String authorName;
 	private String authorPicture;

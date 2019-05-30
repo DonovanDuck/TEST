@@ -3,14 +3,15 @@ package cn.edu.tit.bean;
 import java.sql.Timestamp;
 
 public class TurnClassTeam {
-	private String teamId;
-	private String leaderId;
-	private String leaderName;
-	private String memberId;
-	private String memberName;
-	private String taskId;
-	private Timestamp acceptTime;
-	private String virtualClassId;
+	private String teamId;//小组ID 
+	private String leaderId;//小组领导者ID 
+	private String leaderName;//小组领导者名
+	private String memberId;//小组成员ID 
+	private String memberName;//成员名
+	private String taskId;//任务ID
+	private Timestamp acceptTime;//接受任务时间
+	private String virtualClassId;//虚拟班级号
+	
 	public String getTeamId() {
 		return teamId;
 	}
