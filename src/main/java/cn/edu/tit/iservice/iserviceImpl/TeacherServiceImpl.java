@@ -1211,4 +1211,16 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 		return upNum;
 	}
+
+	@Override
+	public List<Task> getAllTask() {
+		// TODO Auto-generated method stub
+		return teacherDao.getAllTask();
+	}
+
+	@Override
+	public List<Task> getTaskByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskByUserId(userId);
+	}
 }

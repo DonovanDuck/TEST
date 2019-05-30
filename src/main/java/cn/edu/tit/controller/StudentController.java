@@ -76,21 +76,28 @@ public class StudentController {
 		try {
 			student = studentService.studentLoginByEmployeeNum(employeeNum);
 			psw = Common.eccryptMD5(password);
-			if(!psw.equals(student.getStudentPassword()))
-			{
-				mv.addObject("readResult", "密码错误");//返回信息
+			 if(student == null){
+				request.getSession().setAttribute("readResult", "用户名错误");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
+			 else if(!psw.equals(student.getStudentPassword()))
+			{
+				request.getSession().setAttribute("readResult", "密码错误");//返回信息
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+			}
+			
 			else {
 				mv.addObject("readResult", readResult);//返回信息
 				request.getSession().setAttribute("studentId", student.getStudentId());
 				request.getSession().setAttribute("student", student);
 				mv=mainController.toMain(request); //去首页
+				request.getSession().setAttribute("readResult", null);
+				
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			mv.addObject("readResult", "密码错误");//返回信息
+			request.getSession().setAttribute("readResult", "服务器异常");//返回信息
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 		}
 		return mv;

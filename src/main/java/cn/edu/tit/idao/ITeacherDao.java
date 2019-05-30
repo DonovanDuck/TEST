@@ -388,4 +388,8 @@ public interface ITeacherDao {
 	 * 获得这个任务在该班级发布过几次
 	 */
 	public int gettaskTypePublishNum(@Param("taskCategory")String taskCategory,@Param("taskIds")List<String>taskIds);
+
+	public List<Task> getAllTask();
+	
+	public List<Task> getTaskByUserId(@Param("userId")String userId);
 }

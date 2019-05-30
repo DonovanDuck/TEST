@@ -112,17 +112,17 @@ public class TeacherController {
 				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
 				request.getSession().setAttribute("teacher", teacher);
 				mv=mainController.toMain(request); //去首页
-				mv.addObject("readResult", "登录成功");//返回信息
+				request.getSession().setAttribute("readResult", null);
 				mv.addObject("teacher",teacher);
 			}
 			else {
-				mv.addObject("readResult", "密码错误");//返回信息
+				request.getSession().setAttribute("readResult", "密码错误");//返回信息
 
-				//mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
 		} catch (Exception e) {
-			mv.addObject("readResult", "登录异常，请刷新本页后重新登录");//返回信息
-			//	mv.setViewName("/jsp/Teacher/index");//设置返回页面
+			request.getSession().setAttribute("readResult", "登录异常，请刷新本页后重新登录");//返回信息
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 
 			e.printStackTrace();
 		}
