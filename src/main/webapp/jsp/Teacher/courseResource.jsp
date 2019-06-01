@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</c:if>
 						<c:if test="${isTeacher == 1 }">
 							<div>
-								<a href="${pageContext.request.contextPath}/teacher/toUpdateResource/${re.resourceId }"><button type="button" class="btn btn-info" style="margin-top: 9px;">修改资源</button></a>
+								<a href="${pageContext.request.contextPath}/teacher/toUpdateResource/${task.taskId }"><button type="button" class="btn btn-info" style="margin-top: 9px;">修改资源</button></a>
 							</div>
 						</c:if>
 					</div>

@@ -800,7 +800,7 @@ public class TeacherController {
 				Accessory accessory = new Accessory();
 				String fileName="";
 				try {
-					 fileName = new String(file.getName().getBytes("ISO-8859-1"),"UTF-8");
+					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

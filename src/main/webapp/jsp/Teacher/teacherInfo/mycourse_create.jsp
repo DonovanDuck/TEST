@@ -31,7 +31,6 @@
 </style>
 </head>
 <body>
-<<<<<<< HEAD
 	<div class="main_b_r_b" id="k1">
 		<c:forEach items="${courseList }" var="course">
 			<a

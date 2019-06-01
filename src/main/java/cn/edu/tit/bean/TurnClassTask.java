@@ -1,6 +1,6 @@
 package cn.edu.tit.bean;
 
-import java.security.Timestamp;
+import java.sql.Timestamp;
 
 public class TurnClassTask {
 	private String taskId;
