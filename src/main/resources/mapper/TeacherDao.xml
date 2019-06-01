@@ -36,7 +36,26 @@
 		<result column="end_year" property="endYear" />
 		<result column="term" property="term" />
 	</resultMap>
-
+	<resultMap type="cn.edu.tit.bean.Attendance" id="attendanceMap">
+		<id column="attendance_id" property="attendanceId" />
+		<result column="virtual_class_num" property="virtualClassNum" />
+		<result column="index" property="index" />
+		<result column="attendance_time" property="attendanceTime" />
+		<result column="attendance_num" property="attendanceNum" />
+		<result column="total_num" property="totalNum" />
+		<result column="leave_num" property="leaveNum" />
+		<result column="truancy_num" property="truancyNum" />
+	</resultMap>
+	<select id="getAttendanceDetail" resultMap="attendanceMap">
+		select * from attendance where virtual_class_num =#{virtualClassNum}
+	</select>
+	
+	<select id="getLeaveStudentIdList" resultType="java.lang.String">
+		select student_id from `leave` where attendance_id=#{attendanceId}
+	</select>
+	<select id="getTruancyStudentIdList" resultType="java.lang.String">
+		select student_id from truancy where attendance_id=#{attendanceId}
+	</select>
 	<select id="readTerm" resultMap="termMap">
 		select * from term
 	</select>
@@ -266,6 +285,7 @@
 			close=")" index="index">
 			#{taskId}
 		</foreach>
+		order by task_end_time asc;
 	</select>
 	
 	<select id="getTaskByPointAndCourse" parameterType="java.util.List"
@@ -349,10 +369,10 @@
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id)
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num)
 		values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId})
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1)
 	</insert>
 
 	<insert id="mapClassTask">
@@ -404,8 +424,16 @@
 		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
 	</select>
-
-
+	<select id="searchTaskIdByCategory" 
+		resultType="java.lang.String">
+		select task_id from task where task_category =
+		#{taskCategory} and task_id in 
+		<foreach collection="taskIdAllList" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>;
+	</select>
+	
 	<select id="teacherTaskAssortmentList" resultMap="taskMap">
 		select * from task where task_category=#{taskCategory} and task_id
 		in
@@ -414,6 +442,25 @@
 			#{taskId}
 		</foreach>
 	</select>
+	
+	<select id="sreachGradeByStudentId" resultType="java.lang.Integer">
+		select grade from up_task where student_id=#{studentId} and task_id
+		in
+		<foreach collection="taskIds" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
+	
+	<select id="sreachGradeNumByStudentId" resultType="java.lang.Integer">
+		select count(*) from up_task where student_id=#{studentId} and task_id
+		in
+		<foreach collection="taskIds" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
+	
 	<select id="searchTask" parameterType="java.lang.String"
 		resultMap="taskMap">
 		select * from task where task_id = #{taskId};
@@ -473,6 +520,8 @@
 		select * from category order
 		by category_id+0 asc;
 	</select>
+	
+	
 
 	<!-- 获取所有教师 -->
 	<select id="getTeacher" resultMap="teacherMap">
@@ -811,5 +860,22 @@
 			LIKE CONCAT(CONCAT("%", #{teacherNum}), "%")
 		</where>
 		;
+	</select>
+	<select id="gettaskTypePublishNum" resultType="int">
+		SELECT count(*) FROM task where task_category=#{taskCategory} and task_id in
+		<foreach collection="taskIds" item="taskId" open="("
+			separator="," close=")" index="index">
+			#{taskId}
+		</foreach>
+	</select>
+	
+	<!-- 获得所有任务 -->
+	<select id="getAllTask" resultMap="taskMap">
+		select * from task;
+	</select>
+	
+	<!-- 老师所有任务 -->
+	<select id="getTaskByUserId" parameterType="String" resultMap="taskMap">
+		select * from task where publisher_id = #{userId} order by task_end_time asc;
 	</select>
 </mapper>

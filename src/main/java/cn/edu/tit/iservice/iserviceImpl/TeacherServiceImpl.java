@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Achievement;
 import cn.edu.tit.bean.Admin;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
@@ -1008,7 +1009,6 @@ public class TeacherServiceImpl implements ITeacherService{
 			List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
 			List<String > studentIdList =null;
 			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
-			
 			List<Student> studentAllList = teacherDao.studentList(classNums);//所有学生
 			
 			for (String studentId : studentIdList) {
@@ -1136,5 +1136,131 @@ public class TeacherServiceImpl implements ITeacherService{
 			System.out.println("getTermById------Dao 层执行失败");
 		}
 		return list;
+	}
+	public int gettaskTypePublishNum(String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		//searchTaskId
+		List<String> taskIds=null;
+		try {
+			taskIds = teacherDao.searchTaskId(virtualClassNum);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return teacherDao.gettaskTypePublishNum(taskCategory,taskIds);
+	}
+
+	@Override
+	public List<Student> getStudentList(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		List<String> classNums;
+		List<Student> studentAllList=null;
+		try {
+			classNums = teacherDao.searchRealClassNum(virtualClassNum);
+			studentAllList = teacherDao.studentList(classNums);//所有学生
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return studentAllList;
+	}
+
+	@Override
+	public Integer getStudentGrade(String studentId, String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		int count =  0;
+		try {
+			//找到本班级所有任务ID
+			List<String> taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+			if (taskIdAllList.size()!=0) {
+				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+				if (taskIdListNeedList.size()!=0) {
+					List<Integer> gradeList=teacherDao.sreachGradeByStudentId(studentId, taskIdListNeedList);
+					for (Integer grade : gradeList) {
+						count+=grade;
+					}
+				}
+			}
+			//获得符合条件的ID
+			
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return count;
+	}
+
+	@Override
+	public Integer getStudentGradeNum(String studentId, String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		int upNum=0;
+		try {
+			//找到本班级所有任务ID
+			List<String> taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+			if (taskIdAllList.size() !=0) {
+				//获得符合条件的ID
+				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+				if (taskIdListNeedList.size()!=0) {
+					upNum=teacherDao.sreachGradeNumByStudentId(studentId, taskIdListNeedList);
+				}
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return upNum;
+	}
+
+	@Override
+	public List<Task> getAllTask() {
+		// TODO Auto-generated method stub
+		return teacherDao.getAllTask();
+	}
+
+	@Override
+	public List<Task> getTaskByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskByUserId(userId);
+	}
+	public List<Attendance> getAttendanceDetail(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttendanceDetail(virtualClassNum);
+	}
+
+	@Override
+	public List<Student> getLeaveStudent(String attendanceId) {
+		// TODO Auto-generated method stub
+		List<String> studentLeaveStudentIdList = teacherDao.getLeaveStudentIdList(attendanceId);
+		List<Student>studentLeaveStudentList = teacherDao.getStudentListOfUped(studentLeaveStudentIdList);
+		return studentLeaveStudentList;
+	}
+
+	@Override
+	public List<Student> getTruancyStudent(String attendanceId) {
+		// TODO Auto-generated method stub
+		List<String> studentTruancyStudentIdList = teacherDao.getTruancyStudentIdList(attendanceId);
+		List<Student>studentTruancyStudentList = teacherDao.getStudentListOfUped(studentTruancyStudentIdList);
+		return studentTruancyStudentList;
+	}
+
+	@Override
+	public List<Task> getTaskByCategory(String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		List<String> taskIdAllList;
+		List<Task>taskList = new ArrayList<Task>();
+		try {
+			taskIdAllList = teacherDao.searchTaskId(virtualClassNum);
+			if (taskIdAllList.size() !=0) {
+				//获得符合条件的ID
+				List<String> taskIdListNeedList = teacherDao.searchTaskIdByCategory(taskCategory, taskIdAllList);
+				taskList = teacherDao.TaskList(taskIdListNeedList);
+			}
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return taskList;
 	}
 }

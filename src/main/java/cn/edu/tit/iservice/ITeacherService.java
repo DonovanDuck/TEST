@@ -1,3 +1,4 @@
+
 package cn.edu.tit.iservice;
 
 import java.sql.Timestamp;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 import cn.edu.tit.bean.Accessory;
 
 import cn.edu.tit.bean.Achievement;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
@@ -570,6 +572,7 @@ public interface ITeacherService {
 	 * 获得未提交作业的所有学生
 	 */
 	public List<Student> getStudentListOfNotUp(String taskId,String virtualClassNum)throws Exception;
+	public List<Student> getStudentList(String virtualClassNum);
 	/**
 	 * @author wenli
 	 * @param virtualClassNum
@@ -630,5 +633,68 @@ public interface ITeacherService {
 	 * */
 	public List<Teacher> teacherForFuzzyQueryById(String teacherNum);
 
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 获得这个任务在该班级发布过几次
+	 */
+	public int gettaskTypePublishNum(String virtualClassNum,String taskCategory);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public Integer getStudentGrade(String studentId,String virtualClassNum,String taskCategory);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public Integer getStudentGradeNum(String studentId,String virtualClassNum,String taskCategory);
+	
+	/**
+	 * 获得所有任务
+	 */
+	public List<Task> getAllTask();
+	
+	/**
+	 * 获取老师所有发布的任务
+	 * @param userId
+	 * @return
+	 */
+    public	List<Task> getTaskByUserId(String userId);
 
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @return
+	 * 获得该班级所有考勤信息
+	 */
+	public List<Attendance> getAttendanceDetail(String virtualClassNum);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得请假的学生实体
+	 */
+	public List<Student> getLeaveStudent(String attendanceId);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得旷课的学生实体
+	 */
+	public List<Student> getTruancyStudent(String attendanceId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 获得指定类型的班级任务
+	 */
+	public List<Task> getTaskByCategory(String virtualClassNum,String taskCategory);
 }

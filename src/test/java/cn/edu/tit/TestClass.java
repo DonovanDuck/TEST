@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
+import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.DateConverter;
@@ -48,10 +49,13 @@ public class TestClass {
 	
 	@Test
 	public void searchResourceByType(){
+		List<String> a = new ArrayList<>();
+		a.add("4A658F6B125A46CEB294137D9B7CA6B0");
+		a.add("135F5DAD9E604958A8C921A9220B3D10");
 		 try {
-			List<CourseExpand> r  = achievementDao.getCourseExpandBycourseId("09708A3B8D8942929FE777E4D9DC5397");
-			for(CourseExpand c : r){
-				System.out.println(c);
+			List<Task> t = teacherService.TaskList(a);
+			for(Task ta : t){
+				System.out.println(ta.getTaskEndTime());
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

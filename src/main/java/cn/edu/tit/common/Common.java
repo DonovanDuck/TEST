@@ -520,7 +520,7 @@ public  class  Common {
 			    long min = ((date / (60 * 1000)) - day * 24 * 60 - hour * 60);
 			    long s = (date/1000 - day*24*60*60 - hour*60*60 - min*60);
 			    System.out.println(""+day+"天"+hour+"小时"+min+"分"+s+"秒"); 
-			    timeEnd=day+"天"+hour+"小时";
+			    timeEnd=day+"天"+hour+"小时"+min+"分";
 			}catch (Exception e) {
 				System.out.println("时间差出错了");
 			}

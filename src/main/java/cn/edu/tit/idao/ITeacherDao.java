@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Achievement;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.IndustryUniversityResearchProject;
@@ -61,6 +62,11 @@ public interface ITeacherDao {
 	public void addAccessory(List<Accessory> accessoris)throws Exception;	//添加附件1
 	
 	public List<String> searchTaskId(String virtualClassNum)throws Exception;//查找班级对应的taskid号1
+	
+	public List<String> searchTaskIdByCategory(@Param("taskCategory")String taskCategory,@Param("taskIdAllList")List<String> taskIdAllList)throws Exception;//查找班级对应的taskid号1，通过作业类型
+	public List<Integer> sreachGradeByStudentId(@Param("studentId")String studentId,@Param("taskIds")List<String>taskIds);
+	public Integer sreachGradeNumByStudentId(@Param("studentId")String studentId,@Param("taskIds")List<String>taskIds);
+
 	public List<Task> TaskList(List<String> taskIds)throws Exception;	//显示所有任务列表1
 	public List<Task> teacherTaskAssortmentList(@Param("taskIds")List<String> taskIds,@Param("taskCategory")String taskCategory)throws Exception;//根据不同任务类型显示作业列表
 	
@@ -375,4 +381,39 @@ public interface ITeacherDao {
 	public void addUseNum(@Param("taskId")String taskId);
 	public Term getTermById(@Param("termId")String termId);
 	public List<Teacher> teacherForFuzzyQueryById(@Param("teacherNum")String teacherNum);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 * 获得这个任务在该班级发布过几次
+	 */
+	public int gettaskTypePublishNum(@Param("taskCategory")String taskCategory,@Param("taskIds")List<String>taskIds);
+
+	public List<Task> getAllTask();
+	
+	public List<Task> getTaskByUserId(@Param("userId")String userId);
+	/**
+	 * @author WENLI
+	 * @param virtualClassNum
+	 * @return
+	 * 获得该班级所有考勤信息
+	 */
+	public List<Attendance> getAttendanceDetail(@Param("virtualClassNum")String virtualClassNum);
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得该考勤中请假的学生Id
+	 */
+	public List<String> getLeaveStudentIdList(@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * @author WENLI
+	 * @param attendanceId
+	 * @return
+	 * 获得该考勤中旷课的学生Id
+	 */
+	public List<String> getTruancyStudentIdList(@Param("attendanceId")String attendanceId);
+	
 }

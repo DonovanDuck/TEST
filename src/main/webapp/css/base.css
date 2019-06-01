@@ -72,7 +72,6 @@ header span li:nth-child(5){
     height: 600px;
     overflow: hidden;
     position: relative;
-     top:-10px;
 }
 
 /*--------------灰色小矩形（轮播）---------------*/
@@ -107,15 +106,10 @@ main {
     font-size: 34px;
     font-weight: bold;
     padding-top: 2%;
-    padding-left: 5%;
-    padding-right: 5%;
+    padding-right: 12px;
 }
 .course span{
-    float: right;
-    font-size: 16px;
-    font-family: "微软雅黑 Light";
-    line-height: 40px;
-    margin-right: 1%;
+    
 }
 .course a{
     color: #6383bf;
