@@ -22,13 +22,12 @@
 								function() {
 									var id = $(this)
 											.children('option:selected').val();
-									if(id==0)
-										{
+									if (id == 0) {
 										path = "${pageContext.request.contextPath}/student/toStudentCenter_MyClass";
-										}else{
-											path = "${pageContext.request.contextPath}/student/selectVirtualClassByTerm/"
+									} else {
+										path = "${pageContext.request.contextPath}/student/selectVirtualClassByTerm/"
 												+ id;
-										}
+									}
 									$("#selectButtonA").attr("href", path);
 									;
 									$("#selectButton").click();
@@ -133,9 +132,16 @@
 						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
 						<div class="b1" style="border: 1px solid #F2F2F2">
 							<div class="b1_l">
-								<img
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
-									alt="" style="width: 100%; height: 100%;" />
+								<c:if test="${empty item.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+								<c:if test="${not empty item.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
 							</div>
 							<div class="b1_r">
 								<p class="h">${item.virtualClassName }</p>

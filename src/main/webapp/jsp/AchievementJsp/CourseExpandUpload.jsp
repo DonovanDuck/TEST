@@ -105,8 +105,8 @@
 					<label for="CourseName">所属课程</label>
 					<div>
 						<input type="text" style="width: 80%; float: left"
-							class="form-control" id="CourseName" name="CourseName"
-							placeholder="课程名称" readOnly> <a
+							class="form-control" id="courseName" name="courseName"
+							placeholder="课程名称" readOnly value=""> <a
 							href="${pageContext.request.contextPath}/.." target="parent">
 							<button type="button" class="btn btn-primary btn-primary"
 								style="float: left; margin-left: 1%">选择课程</button>

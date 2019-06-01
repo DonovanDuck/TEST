@@ -16,8 +16,7 @@ public class Course {
 	private String fine; // 精品课
 	private Integer	 courseStudentNum; // 每门课的总人数	
 	private List<Teacher> teacherList;//该课程对应的教师团队集合
-	
-	
+	private List<RealClass> realClass;//该课程对应的教师团队集合
 	
 	public String getCourseId() {
 		return courseId;
@@ -79,15 +78,26 @@ public class Course {
 	public void setTeacherList(List<Teacher> teacherList) {
 		this.teacherList = teacherList;
 	}
+	public List<RealClass> getRealClass() {
+		return realClass;
+	}
+	public void setRealClass(List<RealClass> realClass) {
+		this.realClass = realClass;
+	}
 	@Override
 	public String toString() {
 		return "Course [courseId=" + courseId + ", courseName=" + courseName + ", courseDetail=" + courseDetail
 				+ ", courseCategory=" + courseCategory + ", publisherId=" + publisherId + ", publishTime=" + publishTime
-				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum + "]";
+				+ ", faceImg=" + faceImg + ", fine=" + fine + ", courseStudentNum=" + courseStudentNum
+				+ ", teacherList=" + teacherList + ", realClass=" + realClass + "]";
 	}
-	
+	public Course() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 	public Course(String courseId, String courseName, String courseDetail, String courseCategory, String publisherId,
-			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum, List<Teacher> teacherList) {
+			Timestamp publishTime, String faceImg, String fine, Integer courseStudentNum, List<Teacher> teacherList,
+			List<RealClass> realClass) {
 		super();
 		this.courseId = courseId;
 		this.courseName = courseName;
@@ -99,12 +109,8 @@ public class Course {
 		this.fine = fine;
 		this.courseStudentNum = courseStudentNum;
 		this.teacherList = teacherList;
+		this.realClass = realClass;
 	}
-	public Course() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-	
 	
 	
 }
