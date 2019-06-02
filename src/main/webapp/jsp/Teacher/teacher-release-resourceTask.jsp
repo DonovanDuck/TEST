@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function submitButton() {
 		var selectType = ${category };//获取选择的类型
 		var path;
-		if(selectType == "work" || selectType="trial"){
+		if(selectType == "work" || selectType=="trial"){
 			path = "${pageContext.request.contextPath}/teacher/publishTask";//任务的请求路径
 		}
 		else
@@ -101,11 +101,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		${resourceName }发布作业资源：
 	</div>
 	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 22%;">
-	<form action="${pageContext.request.contextPath}/teacher/publishTask" enctype="multipart/form-data" method="post" id="resourceForm">
+	<form action="${pageContext.request.contextPath}/teacher/publishTaskResourse" enctype="multipart/form-data" method="post" id="resourceForm">
 	<div class="form-group">
     <label for="exampleInputName2" style="float: left;padding-left: 13px;margin-right: 5px;">资源名：</label>
     <input type="text" class="form-control" id="exampleInputName2" name="taskTitle" style="width: 663px;">
-    <input type="hidden" name="taskCategory" value="${category }">
+		<input type="hidden" name="taskCategory" value="${category } ">
+	<input type="hidden" name="courseId" value="${course.courseId }">
   </div>
 		<div class="form-group">
 					<label for="exampleInputName2">资源介绍：</label>

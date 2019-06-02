@@ -492,7 +492,7 @@ public class TeacherController {
 					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
 				}
 			}
-			return toTeacherPage(request);
+			return toMyCreateCourse(request);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -768,6 +768,7 @@ public class TeacherController {
 		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
+		
 		// 创建list集合用于获取文件上传返回路径名
 		List<String> list = new ArrayList<String>();
 		List<Accessory> accessories  = new ArrayList<Accessory>();
@@ -782,6 +783,9 @@ public class TeacherController {
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum(virtualClassNum);
 		task.setUseNum(1);//设置使用次数为1
+		//获取修改使用次数-虚拟班级人数
+		int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
+		task.setWatchNum(taskUseNum);
 		task.setCourseId((String) request.getSession().getAttribute("courseId"));
 		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
 		task.setTaskType((String) formdata.get("taskCategory"));
@@ -845,9 +849,12 @@ public class TeacherController {
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
 		String taskId = request.getParameter("taskId");
 		String taskEndTime = request.getParameter("taskEndTime");
+		//获取修改使用次数-虚拟班级人数
+		int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
 		try {
 			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
-			teacherService.addUseNum(taskId);
+			teacherService.addUseNum(taskId, taskUseNum);
+			teacherService.addWatchNum(taskId, taskUseNum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -925,8 +932,11 @@ public class TeacherController {
 			//接收类型
 			// category  = (String)request.getAttribute("category");
 			request.setAttribute("category", category);
-			if("work".equals(category) || "trial".equals(category))
+			if("8".equals(category) || "9".equals(category)|| "10".equals(category)){
 				path = "/jsp/Teacher/teacher-release-resourceTask";
+				Timestamp d = new Timestamp(System.currentTimeMillis()); 
+				request.setAttribute("taskEndTime", d);
+			}
 			//String courseId = (String)request.getAttribute("courseId");
 			Course course = new Course();
 			if(!"".equals(courseId) && courseId != null)
@@ -957,6 +967,8 @@ public class TeacherController {
 			resource.setResourceDetail((String) formdata.get("resourceDetail"));
 			resource.setResourceName((String) formdata.get("resourceName"));
 			resource.setResourceTypeId(Integer.parseInt((String) formdata.get("resourceType")));
+			resource.setUseNum(1);
+			resource.setWatchNum(0);
 			if(!returnFileList.isEmpty())
 			{
 				resource.setResourcePath(returnFileList.get(0).getPath());
@@ -972,6 +984,89 @@ public class TeacherController {
 			return mv;
 		}
 
+
+	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 发布任务资源
+	 */
+	@RequestMapping(value="publishTaskResourse")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public ModelAndView publishTaskResourse(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		String taskId =  Common.uuid();	//设置任务id
+
+		Object[] obj = Common.fileFactory(request,taskId);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		String virtualClassNum = "001";
+		
+		// 创建list集合用于获取文件上传返回路径名
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		List<Resource> resources = new ArrayList<Resource>();
+		Task task=new Task();
+		task.setTaskId(taskId);
+		task.setTaskTitle((String) formdata.get("taskTitle"));
+		task.setTaskDetail((String) formdata.get("taskDetail"));
+		//task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
+		//	task.setTaskType((String) formdata.get("taskType"));
+		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
+		task.setVirtualClassNum(virtualClassNum);
+		task.setUseNum(1);//设置使用次数为1
+		task.setCourseId((String) formdata.get("courseId"));
+		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
+		String c = (String)formdata.get("taskCategory");
+		if("8".equals(c))
+			task.setTaskType("work");
+		else if("9".equals(c))
+			task.setTaskType("trial");
+		else if("10".equals(c))
+			task.setTaskType("curriculum_design ");
+		task.setStatus(0);
+
+		try {
+			teacherService.createTask(task);		//创建任务
+			//teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!returnFileList.isEmpty()) {
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				String fileName="";
+				try {
+					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				accessory.setAccessoryName(fileName);
+				System.out.println("name=================="+fileName);
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId(taskId);
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+			}
+			try {
+				teacherService.addAccessory(accessories);	//添加任务附件
+				return toCourseResource(request, (String) formdata.get("taskCategory"));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				mv.setViewName("/jsp/Teacher/teacher-release-resourceTask");
+				
+			}
+		}
+
+		return mv;
+		
 
 	}
 
@@ -1478,7 +1573,7 @@ public class TeacherController {
 				virtualClass.setRealClassList(realClassList);
 				String term = virtualClass.getTerm();
 				Term  a = teacherService.getTermById(term);
-				virtualClass.setTerm(a.getStartYear()+"-"+a.getEndYear()+"    "+a.getTerm());
+				virtualClass.setTerm(a.getStartYear()+"-"+a.getEndYear()+" 学年"+a.getTerm());
 			}
 		}
 		try {
@@ -2043,7 +2138,7 @@ public class TeacherController {
 			for (Resource resource : resourceList) {
 				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
 				//限制显示字数
-				if(!"".equals(resource.getResourceDetail())){
+				if(!"".equals(resource.getResourceDetail()) && resource.getResourceDetail() != null){
 					String de = resource.getResourceDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
 					
@@ -2179,7 +2274,7 @@ public class TeacherController {
 			for (Resource resource : resourceList) {
 				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
 				//限制显示字数
-				if(!"".equals(resource.getResourceDetail())){
+				if(!"".equals(resource.getResourceDetail()) && resource.getResourceDetail() != null){
 					String de = resource.getResourceDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
 					

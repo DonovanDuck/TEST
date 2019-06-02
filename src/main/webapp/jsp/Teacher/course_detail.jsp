@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-<title>课程三级页面</title>
+<title>${course. courseName}</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -52,6 +52,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	opacity: 1;
 	
 }
+.xiangmu-out .rel-img img{
+    		width: 100%;
+    		height: 100%;
+    		overflow: hidden;
+    		transition:all 0.5s;
+    	}
+   .xiangmu-out:hover{
+    box-shadow: 0 0 15px grey;
+    transform: translate(0,-10px);
+}
+
+.xiangmu-out .rel-img{
+	overflow: hidden;
 </style>
 
 <script type="text/javascript">
@@ -95,7 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span>${course.fine }</span>
 			</div>
 		</c:if>
-		<p>参与人数：${course.courseStudentNum }
+		<p>类别：${category}系&nbsp;&nbsp;&nbsp; 参与人数：${course.courseStudentNum }
 			&nbsp;&nbsp;&nbsp;创课时间：${publishTime }</p>
 	</div>
 </div>
@@ -258,7 +271,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="container" style="min-height: 412px;height: auto;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">翻转课堂</h3>
 			<ul>
-	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+		<div  style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
+			<div style="float: left; height: 27px;width: 67px;
+			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
+			color: #fff;border-radius: 3px;">软件类</div>
+			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
+			<div style="clear: both;"></div>	
+			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
+			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
+				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
+			</div>
+			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
+			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
+			<div>2019-8-8</div>
+			
+		</div>
+	</li>
+	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
 			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
@@ -275,7 +305,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
-	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
 			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
@@ -292,7 +322,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
-	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
 			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
@@ -309,7 +339,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
-	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
 			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
@@ -326,24 +356,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
-	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
-		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
-			<div style="float: left; height: 27px;width: 67px;
-			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;
-			color: #fff;border-radius: 3px;">软件类</div>
-			<div><span style="font-weight: 500;font-size: 20px;position:relative;left: 25px;top: -7px;">Java 实验一</span></div>
-			<div style="clear: both;"></div>	
-			<div style="height: 52px;"><span style="font-weight: 300px;">任务简介：</span>java类的继承</div>
-			<div style="float: left;width: 20px;height: 20px;position: relative;top: -3px;left: -6px;padding-bottom: 2px;">
-				<img src="${pageContext.request.contextPath}/images/position.png" style="width: 100%";height="100%" />
-			</div>
-			<div style="margin-bottom: 6px;color: #fea552">1029391、1029348班</div>
-			<div style="float: left;margin-right: 139px;">发布人：xxxx</div>
-			<div>2019-8-8</div>
-			
-		</div>
-	</li>
-	<li style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
+	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
 			position: relative;top: -9px;left: -13px;padding-left: 12px; padding-top: 3px;background: #f1ad4e;font-weight: 600;

@@ -135,9 +135,15 @@ public class StudentController {
 		/*******************数据获取*********************/
 		try {
 			//获取所有关注课程ID
-			listCourseId_MyCourse = studentService.getStudentCourse("0",student.getStudentId());
-			//获取所有加入课程ID
 			listCourseId_Myattention = studentService.getStudentCourse("1",student.getStudentId());
+			//获取所有加入课程ID
+			List<VirtualClass> virtualList = new ArrayList<VirtualClass>();
+			String studentClass = student.getClassNum();
+			virtualList = teacherService.getVirtualClassNumByreal(studentClass);//获取虚拟班级列表
+			for(VirtualClass v : virtualList){
+				listCourseId_MyCourse.add(studentService.getCourseIdByvId(v.getVirtualClassNum()));
+			}
+			
 			//获取课程ID对应的课程
 			listCourse_MyCourse = teacherService.courseList(listCourseId_MyCourse);
 			listCourse_Myattention = teacherService.courseList(listCourseId_Myattention);

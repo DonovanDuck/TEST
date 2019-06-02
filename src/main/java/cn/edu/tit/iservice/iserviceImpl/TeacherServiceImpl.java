@@ -1108,9 +1108,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public void addUseNum(String taskId) {
+	public void addUseNum(String taskId, int taskSumNum) {
 		// TODO Auto-generated method stub
-		teacherDao.addUseNum(taskId);
+		teacherDao.addUseNum(taskId,taskSumNum);
+	}
+	
+	@Override
+	public void addWatchNum(String taskId, int taskSumNum) {
+		// TODO Auto-generated method stub
+		teacherDao.addWatchNum(taskId,taskSumNum);
 	}
 	
 	public Term getTermById(String termId) {
@@ -1262,5 +1268,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 		}
 		return taskList;
+	}
+
+	@Override
+	public int getTaskUserNum(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskUserNum(virtualClassNum);
 	}
 }

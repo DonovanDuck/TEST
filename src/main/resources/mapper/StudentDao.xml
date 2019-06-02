@@ -271,4 +271,15 @@
 	<insert id="studentAttentionCourse">
 		insert into student_course(student_id,course_id,manager) values (#{studentId},#{courseId},1)
 	</insert>
+	
+	<!-- 根据虚拟班级号找课程id -->
+	<select id="getCourseIdByvId" parameterType="String" resultType="String">
+		select course_id from virtual_class where virtual_class_num = #{virtualClassNum};
+	</select>
+	<!-- 获取标志位，查学生manager -->
+	<select id="getManagerByStudentId" resultType="int">
+		select manager
+		from student_course where student_id = #{studentId} and course_id
+		= #{courseId} and manager = #{manager};
+	</select>
 </mapper>

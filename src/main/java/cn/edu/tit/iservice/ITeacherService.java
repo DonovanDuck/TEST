@@ -623,9 +623,10 @@ public interface ITeacherService {
 	/**
 	 * @author WENLI
 	 * @param taskId
-	 * 当以选择形式发布作业时，作业引用次数+1
+	 * 当以选择形式发布作业时，作业watchnum为虚拟班级人数
 	 */
-	public void addUseNum(String taskId);
+	public void addUseNum(String taskId,int taskSumNum);
+	public void addWatchNum(String taskId,int taskSumNum);
 	public Term getTermById(String term);
 	
 	/**
@@ -697,4 +698,11 @@ public interface ITeacherService {
 	 * 获得指定类型的班级任务
 	 */
 	public List<Task> getTaskByCategory(String virtualClassNum,String taskCategory);
+	
+	/**
+	 * 获取任务引用次数--虚拟班级人数
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public int getTaskUserNum(String virtualClassNum);
 }

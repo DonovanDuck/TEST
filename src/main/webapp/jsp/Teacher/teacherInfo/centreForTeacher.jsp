@@ -8,7 +8,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>个人中心</title>
 
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
@@ -17,16 +17,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
  <jsp:include page="/jsp/top.jsp" flush="true"/>
 <main>
-    <div class="main_t">
+    <div class="main_t" style="background: #fff;">
         <div class="images">
             <img src="../images/tou.png" alt=""/>
         </div>
         <div class="message">
-            &nbsp;&nbsp;<h2>&nbsp;&nbsp;&nbsp;${teacher.teacherName }</h2>
+            &nbsp;&nbsp;<h2 style="margin-bottom: 17px;">&nbsp;&nbsp;&nbsp;${teacher.teacherName }</h2>
             <p> &nbsp;&nbsp;&nbsp;&nbsp;${teacher.professionalTitles }</p>
         </div>
     </div>
     <div class="main_b">
+    	
         <div class="main_b_l">
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyCourse"><div class="nav1" ><p><img src="../images/k1.png" alt=""/><span>课程信息</span></p></div></a>
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>班级信息</span></p></div></a>
@@ -42,7 +43,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
     </div>
 </main>
-<jsp:include page="/jsp/footer.jsp" flush="true"/>
+<jsp:include page="/jsp/footer2.jsp" flush="true"/>
 
 </body>
 </html>

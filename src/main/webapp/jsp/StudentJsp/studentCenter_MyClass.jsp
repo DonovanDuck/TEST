@@ -164,6 +164,6 @@
 			</button>
 		</a>
 	</main>
-	<jsp:include page="/jsp/footer.jsp" flush="true" />
+	<jsp:include page="/jsp/footer2.jsp" flush="true" />
 </body>
 </html>
