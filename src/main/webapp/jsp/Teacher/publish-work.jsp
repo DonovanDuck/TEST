@@ -27,8 +27,11 @@
 	type="text/javascript" charset="utf-8"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"
 	type="text/javascript" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-table.js" type="text/javascript" charset="utf-8"></script>
-<script src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js" type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap-table.js"
+	type="text/javascript" charset="utf-8"></script>
+<script
+	src="${pageContext.request.contextPath}/js/bootstrap-table-zh-CN.js"
+	type="text/javascript" charset="utf-8"></script>
 <script
 	src="${pageContext.request.contextPath}/js/plugins/piexif.min.js"
 	type="text/javascript" charset="utf-8"></script>
@@ -46,12 +49,18 @@
 	src="${pageContext.request.contextPath}/js/angular.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/wui-date.js" charset="utf-8"></script>
+<<<<<<< HEAD
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/iframeResizer.contentWindow.min.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
+=======
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/iframeResizer.contentWindow.min.js"
+	charset="utf-8"></script>
+>>>>>>> liming
 <script type="text/javascript">
 	
 	var $table;
@@ -236,7 +245,6 @@
 					        data:"taskId="+row.taskId,//发送信息
 					        dataType:"text",//服务器响应信息类型，不写则为默认
 					        success:function(responseContent){  //success:function(responseContent)为回调函数   responseContent为接收响应信息
-								
 								var flag = eval(responseContent);
 								 if(flag=='true'){
 									$("#selectErrorMsg").css("display","block");
@@ -535,14 +543,20 @@
 </script>
 
 </head>
-<body style="background-color: #F1F3F4;" >
+<body style="background-color: #F1F3F4;">
 	<div
 		style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
+<<<<<<< HEAD
 		<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
 		<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">发布任务</span>
+=======
+		<div
+			style="width: 20px; height: 50px; background: #015293; float: left;"></div>
+		<span style="line-height: 55px; font-size: 18px; margin-left: 20px">发布作业</span>
+>>>>>>> liming
 	</div>
 	<div class="selectstyle"
-		style="width: 100%; height: 50px; margin: 10px auto; background-color: #fff;" >
+		style="width: 100%; height: 50px; margin: 10px auto; background-color: #fff;">
 		<div class="selectTaskButton" onclick="selectfunction()"
 			style="width: 50%; height: 50px; float: left; background-color: #015293; text-align: center; color: #fff;">
 			<span style="line-height: 50px; font-size: 16px;">选择任务</span>
@@ -559,7 +573,8 @@
 		style="width: 100%; height: 100%; margin: 0px auto; background-color: #fff; padding: 30px 0; display: none;">
 		<div class="editTaskContent" style="margin: 30px 50px;">
 			<form action="${pageContext.request.contextPath}/teacher/publishTask"
-				id="publish" enctype="multipart/form-data" method="post" onsubmit = "return checkInputEdit(this)" target="_top">
+				id="publish" enctype="multipart/form-data" method="post"
+				onsubmit="return checkInputEdit(this)" target="_top">
 				<div style="height: 1px; width: 100%;">
 					<div class="input-group"
 						style="float: left; width: 60%; margin-right: 2%;">
@@ -571,7 +586,7 @@
 					<div class="input-group" style="float: left; width: 30%;">
 						<span class="input-group-addon" id="basic-addon3"
 							style="font-size: 20px; padding: 0 50px; font-weight: bold;">任务类型</span>
-						
+
 						<div class="btn-group">
 							<button id="basic-url" type="button"
 								class=" form-control btn btn-primary  dropdown-toggle"
@@ -582,11 +597,10 @@
 							</button>
 							<ul id="selectTypeEdit" class="dropdown-menu">
 								<c:forEach items="${taskCategoryList }" var="taskCategory">
-									<li style="font-size: 18px;padding-left: 20px">
-									<c:if test="${taskCategory=='work' }">作业</c:if>
-									<c:if test="${taskCategory=='trial' }">实验</c:if>
-									<c:if test="${taskCategory=='course_design' }">课程设计</c:if>
-									</li>
+									<li style="font-size: 18px; padding-left: 20px"><c:if
+											test="${taskCategory=='work' }">作业</c:if> <c:if
+											test="${taskCategory=='trial' }">实验</c:if> <c:if
+											test="${taskCategory=='course_design' }">课程设计</c:if></li>
 
 								</c:forEach>
 
@@ -612,7 +626,7 @@
 				</div>
 
 				<div class="form-group">
-				添加任务附件
+					添加任务附件
 					<div class="file-loading">
 						<input id="accessory" name="file" class="file" type="file"
 							multiple="multiple" data-show-preview="false" style="width: 70%"
@@ -624,9 +638,15 @@
 					style="width: 60%; margin-right: 2%;">
 					<span class="input-group-addon" id="basic-addon3"
 						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
+<<<<<<< HEAD
 					
 					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
 					
+=======
+					<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
+						id="date4" btns="{'ok':'确定','now':'此刻'}" ng-model="date4"
+						minDate="2019-05-17",> </wui-date>
+>>>>>>> liming
 				</div>
 
 				<!-- <div class="wui-content">
@@ -643,7 +663,7 @@
 						>
 						</wui-date>
 					</div> -->
-				
+
 				<div class="toSubmit"
 					style="width: 100%; height: 50px; margin-top: 50px;">
 					<div style="width: 20%; height: 50px; margin: 0 auto;">
@@ -659,6 +679,7 @@
 	<div class="selectTask"
 		style="width: 100%; height: 100%; margin: 0px auto; background-color: #fff; padding: 30px 0;">
 		<div class="selectTaskContent" style="margin: 30px 50px;">
+<<<<<<< HEAD
 		<form action="${pageContext.request.contextPath}/teacher/selectTaskToPublish"
 				method="post" onsubmit = "return checkInputSelect(this)"target="_top">
 			<span>这是一个快速发布优质作业的重要途径，当然您也可以选择点击右侧自定义标签自定义作业</span>
@@ -685,11 +706,11 @@
 				</div>
 				<input type="text" id="taskCategorySelect" name="taskCategory"
 						hidden="hidden" value="work" />
-				
-			</div>
-			
-			<div class="selectTaskList" style="margin-top: 60px;">
-				<!-- <iframe id="seleTaskItems" src="toselectTaskList" width="100%" height="500px">
+
+				</div>
+
+				<div class="selectTaskList" style="margin-top: 60px;">
+					<!-- <iframe id="seleTaskItems" src="toselectTaskList" width="100%" height="500px">
 
 					</iframe> -->
 					<div class="alert alert-danger" id="selectErrorMsg" style="display: none" role="alert"></div>
@@ -710,23 +731,45 @@
 						style="float: left; margin-right: 25%;"> <input
 						class="btn btn-default" type="submit" value="取消"
 						style="float: left;">
+					<div class="alert alert-danger" id="selectErrorMsg"
+						style="display: none" role="alert"></div>
+					<table id="taskListTable"></table>
 				</div>
+				<input name="taskId" id="taskId" type="text" hidden="hidden"
+					value="" />
+				<div id="selectTime" class="input-group"
+					style="width: 68%; margin-right: 2%;">
+					<span class="input-group-addon" id="basic-addon3"
+						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
+					<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
+						id="date4" btns="{'ok':'确定','now':'此刻'}" ng-model="date4">
+					</wui-date>
+				</div>
+				<div class="toSubmit"
+					style="width: 100%; height: 50px; margin-top: 50px;">
+					<div style="width: 20%; height: 50px; margin: 0 auto;">
+						<input class="btn btn-primary" type="submit" value="提交"
+							style="float: left; margin-right: 25%;"> <input
+							class="btn btn-default" type="submit" value="取消"
+							style="float: left;">
+					</div>
 
-			</div>
+				</div>
 			</form>
 		</div>
 
 	</div>
-<!-- Large modal -->
-	<button id="btuClick" style="display: none" type="button" class="btn btn-primary" data-toggle="modal" data-target=".bs-example-modal-lg">Large modal</button>
+	<!-- Large modal -->
+	<button id="btuClick" style="display: none" type="button"
+		class="btn btn-primary" data-toggle="modal"
+		data-target=".bs-example-modal-lg">Large modal</button>
 
-		<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-			<div class="modal-dialog modal-lg" role="document">
-				<div id = "autoCreateMoTai" class="modal-content">
-					
-				</div>
-			</div>
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div id="autoCreateMoTai" class="modal-content"></div>
 		</div>
+	</div>
 
 	<script>
 		var text = document.getElementById("taskDetail");

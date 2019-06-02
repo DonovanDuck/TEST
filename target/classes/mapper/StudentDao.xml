@@ -226,7 +226,7 @@
 			<if test="studentName != null">student_name = #{studentName},</if>
 			<if test="studentPassword != null">student_password = #{studentPassword},</if>
 			<if test="studentGender != null">student_gender =#{studentGender},</if>
-			<if test="classNum != null">class_num = #{classNum},</if>
+			<if test="classNum != null">real_class_num = #{classNum},</if>
 			<if test="professional != null">professional = #{professional},</if>
 			<if test="telephone != null">telephone = #{telephone},</if>
 			<if test="email != null">email = #{email},</if>

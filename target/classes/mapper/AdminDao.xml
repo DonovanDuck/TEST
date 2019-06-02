@@ -8,19 +8,28 @@
 		<result column="teacher_name" property="teacherName" />
 		<result column="teacher_passwoed" property="teacherPassword" />
 		<result column="teacher_gender" property="teacherGender" />
-		<result column="education_background"
-			property="educationBackground" />
+		<result column="education_background" property="educationBackground" />
 		<result column="teacher_nickname" property="teacherNickName" />
-		<result column="professional_titles"
-			property="professionalTitles" />
+		<result column="professional_titles" property="professionalTitles" />
 		<result column="telephone" property="telephone" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 		<result column="status" property="status" />
 		<result column="teacher_category" property="teacherCategory" />
 	</resultMap>
-
-   <!-- 被抛弃的方法，备份。原目的：查询教师，添加管理员-->
+	<resultMap type="cn.edu.tit.bean.Academic" id="academicMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="professional" property="professional" />
+		<result column="time" property="time" />
+		<result column="department" property="department" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.Department" id="departmentMap">
+		<id column="id" property="id" />
+		<result column="name" property="name" />
+		<result column="num" property="num" />
+	</resultMap>
+	<!-- 被抛弃的方法，备份。原目的：查询教师，添加管理员 -->
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
 		<id column="employee_num" property="adminId" />
 		<result column="teacher_password" property="adminPassword" />
@@ -33,15 +42,22 @@
 		<result column="adminPassword" property="adminPassword" />
 	</resultMap>
 
+	<resultMap type="cn.edu.tit.bean.RealClass" id="realClassMap">
+		<id column="real_class_num" property="realClassNum" />
+		<result column="real_class_category" property="realClassCategory" />
+		<result column="real_person_num" property="realPersonNum" />
+	</resultMap>
+
 	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
 		<id column="student_id" property="studentId" />
 		<result column="student_name" property="studentName" />
 		<result column="student_nickname" property="studentNickName" />
 		<result column="student_gender" property="studentGender" />
 		<result column="student_password" property="studentPassword" />
-		<result column="class_num" property="classNum" />
+		<result column="real_class_num" property="classNum" />
 		<result column="professional" property="professional" />
 		<result column="telephone" property="telephone" />
+		<result column="student_category" property="studentCategory" />
 		<result column="email" property="email" />
 		<result column="face_img" property="faceImg" />
 		<result column="status" property="status" />
@@ -56,8 +72,7 @@
 	</resultMap>
 
 	<!-- 增加教师信息 -->
-	<insert id="addTeacherInfo"
-		parameterType="cn.edu.tit.bean.Teacher">
+	<insert id="addTeacherInfo" parameterType="cn.edu.tit.bean.Teacher">
 		INSERT ignore INTO teacher
 		(employee_num,
 		teacher_name,
@@ -92,8 +107,7 @@
 	</insert>
 
 	<!-- 增加学生信息 -->
-	<insert id="addStudentInfo"
-		parameterType="cn.edu.tit.bean.Student">
+	<insert id="addStudentInfo" parameterType="cn.edu.tit.bean.Student">
 		INSERT ignore INTO student
 		(student_id,
 		student_name,
@@ -159,18 +173,21 @@
 
 	<!--读取系部信息 -->
 	<select id="readCategory" resultMap="categoryMap">
-		select * from category ORDER BY category_num;
+		select * from category ORDER
+		BY category_num;
 	</select>
 
 	<!-- 更新分类信息 -->
 	<update id="updateCategory">
 		update category set
+		category_num =
+		#{categoryNum},
 		category_name =
 		#{categoryName},
 		category_detail =
 		#{categoryDetail}
-		where category_num =
-		#{categoryNum}
+		where category_id =
+		#{categoryId}
 	</update>
 
 	<!-- 增加课程类别信息 被抛弃功能 <insert id="addCourseKinds"> INSERT INTO course (course_id, 
@@ -181,8 +198,7 @@
 		#{courseList.faceImg,jdbcType=VARCHAR}) </foreach> </insert> -->
 
 	<!-- 增加实体班级信息信息 -->
-	<insert id="addRealClass"
-		parameterType="java.util.List">
+	<insert id="addRealClass" parameterType="java.util.List">
 		INSERT ignore INTO real_class
 		(real_class_num,
 		real_class_category,
@@ -206,7 +222,7 @@
 			adminId = #{adminList.adminId};
 		</foreach>
 	</delete>
-	
+
 	<!--管理员登陆查询信息 -->
 	<select id="loginAdmin" resultMap="admin">
 		select * from admin where
@@ -214,8 +230,7 @@
 	</select>
 
 	<!--更新老师信息 -->
-	<update id="updateTeacherInfo"
-		parameterType="cn.edu.tit.bean.Teacher">
+	<update id="updateTeacherInfo" parameterType="cn.edu.tit.bean.Teacher">
 		UPDATE teacher
 		<set>
 			<if test="teacherName != null">teacher_name = #{teacherName},</if>
@@ -234,14 +249,13 @@
 	</update>
 
 	<!--更新学生信息 -->
-	<update id="updateStudentInfo"
-		parameterType="cn.edu.tit.bean.Student">
+	<update id="updateStudentInfo" parameterType="cn.edu.tit.bean.Student">
 		UPDATE student
 		<set>
 			<if test="studentName != null">student_name = #{studentName},</if>
 			<if test="studentPassword != null">student_password = #{studentPassword},</if>
 			<if test="studentGender != null">student_gender =#{studentGender},</if>
-			<if test="classNum != null">class_num = #{classNum},</if>
+			<if test="classNum != null">real_class_num = #{classNum},</if>
 			<if test="professional != null">professional = #{professional},</if>
 			<if test="telephone != null">telephone = #{telephone},</if>
 			<if test="email != null">email = #{email},</if>
@@ -265,6 +279,50 @@
 	</update>
 	<!-- 跟新实体班级学生人数 -->
 	<update id="updateStudentNumInRealClass" parameterType="java.lang.String">
-		update real_class set real_person_num=real_person_num+1 where real_class_num = #{realClassNum}
+		update
+		real_class set real_person_num=real_person_num+1 where real_class_num
+		= #{realClassNum}
+	</update>
+	<!--管理员登陆查询信息 -->
+	<select id="getRealClassByNum" parameterType="java.lang.String"
+		resultMap="realClassMap">
+		select * from real_class where
+		real_class_num =
+		#{realClassNum};
+	</select>
+
+	<select id="readAcademicInfo" resultMap="academicMap">
+		select * from academic;
+	</select>
+
+	<select id="readDepartment" resultMap="departmentMap">
+		select * from department;
+	</select>
+
+	<select id="readDepartmentByNum" parameterType="java.lang.String"
+		resultMap="departmentMap">
+		select * from department where num = #{num};
+	</select>
+
+	<!-- 增加分类信息 -->
+	<insert id="addDepartment" parameterType="cn.edu.tit.bean.Department">
+		insert into department
+		(id,name,num)
+		values
+		(#{de.id},#{de.name},#{de.num})
+	</insert>
+
+	<!-- 实体班级学生人数 -->
+	<update id="updateRealClass" parameterType="cn.edu.tit.bean.RealClass">
+		update real_class set
+		real_person_num=#{realPersonNum} and real_class_category =
+		#{realClassCategory} where real_class_num = #{realClassNum}
+	</update>
+
+	<!-- 实体班级学生人数 -->
+	<update id="updateDepartment" parameterType="cn.edu.tit.bean.Department">
+		update department
+		set
+		name = #{name} where id = #{id}
 	</update>
 </mapper>

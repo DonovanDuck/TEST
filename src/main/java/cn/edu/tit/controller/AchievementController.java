@@ -2,6 +2,7 @@ package cn.edu.tit.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -862,6 +863,13 @@ public class AchievementController {
 		AchievementComment ac = new AchievementComment();
 		Student stu = (Student) request.getSession().getAttribute("student");
 		Teacher tea = (Teacher) request.getSession().getAttribute("teacher");
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String commentId = Common.uuid();
 		try {
 			ac.setAchievemendId(achievementId);

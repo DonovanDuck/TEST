@@ -269,9 +269,7 @@
 				</div>
 			</div>
 		</div>
-		<!-- /.modal-content -->
 	</div>
-	<!-- /.modal -->
 
 	<div class="modal" id="Edit" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">

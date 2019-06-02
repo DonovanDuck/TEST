@@ -7,9 +7,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import cn.edu.tit.bean.Academic;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
@@ -146,30 +149,42 @@ public class AdminServiceImpl implements IAdminService {
 		try {
 			studentList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Student对象的studentList集合
 			iAdminDao.addStudentInfo(studentList);	//调用函数，完成写入数据库操作
-
 			for(Student s :studentList) {
 				insertResult++;
 				//以下一段是用来系统初始化所有班级时使用的，由于没有所有班级表，所以采用这种方式获得所有班级，日后，如果有了班级表，则可直接从班级表获得
-				/*
-				String classNum = s.getClassNum();
-				String catrgoryId;
-				if(s.getClassNum().substring(3,4).equals("0")) {
-					catrgoryId = s.getClassNum().substring(4, 5);
-				}else {
-					catrgoryId = s.getClassNum().substring(3, 5);
+				String realClassNum = s.getClassNum();
+				String classNum = realClassNum.substring(0,7);
+				String departmentNum = null;
+				RealClass real = null;
+				real = iAdminDao.getRealClassByNum(classNum);
+				if(real!=null)
+				{
+					iAdminDao.updateStudentNumInRealClass(classNum);
 				}
-
-				RealClass realClass = new RealClass();
-				realClass.setRealClassNum(classNum);
-				realClass.setRealClassCategory(catrgoryId);
-				realClass.setRealPersonNum(0);
-				realClasses.add(realClass);*/
-				//这一步是应该加在此处的步骤，即导入学生信息时往实体班级写入具体人数
-				String classNum = s.getClassNum();
-				iAdminDao.updateStudentNumInRealClass(classNum);
-				System.out.println(s.toString());  //输出每条插入的数据
+				if(real == null)
+				{
+					RealClass realClass = new RealClass();
+					realClass.setRealClassNum(classNum);
+					departmentNum = realClassNum.substring(4,5);
+					Department de = null;
+					de = iAdminDao.readDepartmentByNum(departmentNum);
+					if(de==null)
+					{
+						Department dee = new Department();
+						dee.setId(Common.uuid());
+						dee.setName("未命名");
+						dee.setNum(Integer.parseInt(departmentNum));
+						iAdminDao.addDepartment(dee);
+					}
+					if(de!=null)
+					{
+						realClass.setRealClassCategory(realClassNum.substring(4,5));
+					}
+					realClass.setRealPersonNum(1);	
+					realClasses.add(realClass);
+					iAdminDao.addRealClass(realClasses); 
+				}
 			}
-			//iAdminDao.addRealClass(realClasses);  添加班级信息
 			if(insertResult ==0) {
 				insertMsg = "载入数据库失败";
 			}else if(insertResult == studentList.size()){
@@ -431,5 +446,46 @@ public class AdminServiceImpl implements IAdminService {
 			e.printStackTrace();
 			System.out.println("addOneStudent-----持久层处理成功");
 		}
+	}
+
+	@Override
+	public void updateRealClass(RealClass realClass) throws Exception {
+		try {
+			iAdminDao.updateRealClass(realClass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public List<Academic> readAcademicInfo() throws Exception {
+		List<Academic> list = new ArrayList<Academic>();
+		try {
+			list = iAdminDao.readAcademicInfo();
+		} catch (Exception e) {
+			e.printStackTrace();
+			list = null;
+		}
+		return list;
+	}
+
+	@Override
+	public Department readDepartmentByNum(String num) throws Exception {
+		return iAdminDao.readDepartmentByNum(num);
+	}
+
+	@Override
+	public List<Department> readDepartment() throws Exception {
+		return iAdminDao.readDepartment();
+	}
+
+	@Override
+	public void addDepartment(Department de) throws Exception {
+		iAdminDao.addDepartment(de);
+	}
+
+	@Override
+	public void updateDepartment(Department de) throws Exception {
+		iAdminDao.updateDepartment(de);
 	}
 }

@@ -38,7 +38,7 @@
 	rel='stylesheet' type='text/css' />
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/Admin/css/cssCharts.css">
-<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 <script
 	src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <script
@@ -47,9 +47,6 @@
 	src="${pageContext.request.contextPath}/js/Admin/dataTables/jquery.dataTables.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/dataTables/dataTables.bootstrap.js"></script>
-<script
-	src="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js">
-</script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/custom-scripts.js"></script>
 <script
@@ -111,9 +108,9 @@
 <script type="text/javascript">
 	//判断字符是否为空的方法
 	function isEmpty(obj) {
-		if (obj == null||obj == "null") {
+		if (obj == null || obj == "null") {
 			return true;
-		}else{
+		} else {
 			return false;
 		}
 	}
@@ -204,6 +201,11 @@
 						<div class="card-content " style="padding-top: 0%">
 							<div class="table-responsive" style="overflow-x: hidden;">
 								<hr>
+
+
+
+
+
 								<table class="table table-striped table-bordered table-hover"
 									id="dataTables-example" style="margin-top: -3%">
 									<thead>
@@ -257,6 +259,12 @@
 										</c:forEach>
 									</tbody>
 								</table>
+
+
+
+
+
+
 							</div>
 						</div>
 					</div>
