@@ -7,6 +7,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -386,6 +387,7 @@ public class StudentController {
 		upTask.setTaskId(taskId);
 		upTask.setStudentId(studentId);
 		upTask.setTerm(term);
+		upTask.setUpTime(new Timestamp(System.currentTimeMillis()));
 		upTask.setUpTaskDetail((String) formdata.get("upTaskDetail"));
 		studentService.upTask(upTask, virtualClassNum);
 		

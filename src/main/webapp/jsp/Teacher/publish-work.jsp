@@ -48,10 +48,16 @@
 	src="${pageContext.request.contextPath}/js/wui-date.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/iframeResizer.contentWindow.min.js" charset="utf-8"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
 <script type="text/javascript">
+	
 	var $table;
 	var $tasktype;
 	$(document).ready(function() {
+		
 		$tasktype=$("#taskCategorySelect").val();
 		$("#selectTypeSelect li").click(function() {
 			var text =$.trim( $(this).html());
@@ -533,7 +539,7 @@
 	<div
 		style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
 		<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
-		<span style="line-height: 55px;font-size: 18px;margin-left: 20px">发布作业</span>
+		<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">发布任务</span>
 	</div>
 	<div class="selectstyle"
 		style="width: 100%; height: 50px; margin: 10px auto; background-color: #fff;" >
@@ -550,7 +556,7 @@
 
 
 	<div class="editTask"
-		style="width: 100%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0; display: none;">
+		style="width: 100%; height: 100%; margin: 0px auto; background-color: #fff; padding: 30px 0; display: none;">
 		<div class="editTaskContent" style="margin: 30px 50px;">
 			<form action="${pageContext.request.contextPath}/teacher/publishTask"
 				id="publish" enctype="multipart/form-data" method="post" onsubmit = "return checkInputEdit(this)" target="_top">
@@ -618,9 +624,9 @@
 					style="width: 60%; margin-right: 2%;">
 					<span class="input-group-addon" id="basic-addon3"
 						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
-					<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
-						id="date4" btns="{'ok':'确定','now':'此刻'}"  ng-model="date4" minDate="2019-05-17",>
-					</wui-date>
+					
+					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
+					
 				</div>
 
 				<!-- <div class="wui-content">
@@ -651,14 +657,14 @@
 		</div>
 	</div>
 	<div class="selectTask"
-		style="width: 100%; height: 100%; margin: 20px auto; background-color: #fff; padding: 30px 0;">
+		style="width: 100%; height: 100%; margin: 0px auto; background-color: #fff; padding: 30px 0;">
 		<div class="selectTaskContent" style="margin: 30px 50px;">
 		<form action="${pageContext.request.contextPath}/teacher/selectTaskToPublish"
 				method="post" onsubmit = "return checkInputSelect(this)"target="_top">
 			<span>这是一个快速发布优质作业的重要途径，当然您也可以选择点击右侧自定义标签自定义作业</span>
 			<div class="input-group" style="float: left; width: 30%;">
 				<span class="input-group-addon" id="basic-addon3"
-					style="font-size: 20px; padding: 0 50px; font-weight: bold;">作业类型</span>	
+					style="font-size: 20px; padding: 0 50px; font-weight: bold;">任务类型</span>	
 				<div class="btn-group">
 							<button id="basic-url" type="button"
 								class=" form-control btn btn-primary  dropdown-toggle"
@@ -694,9 +700,8 @@
 				style="width: 68%; margin-right: 2%;">
 				<span class="input-group-addon" id="basic-addon3"
 					style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
-				<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
-					id="date4" btns="{'ok':'确定','now':'此刻'}" ng-model="date4">
-				</wui-date>
+				
+				<input type="text" style="height: 30px;width: 185px" class="Wdate form-control" name="taskEndTime" id="taskEndTimeEdit" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
 			</div>
 			<div class="toSubmit"
 				style="width: 100%; height: 50px; margin-top: 50px;">

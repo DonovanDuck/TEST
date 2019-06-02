@@ -26,6 +26,7 @@ import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
+import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 
 @Component
@@ -335,12 +336,20 @@ public interface ITeacherDao {
 	 */
 	public Integer getUpNum(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId);
 	/**
+	 * @author WENLI
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 * 获得学生提交任务详情
+	 */
+	public UpTask getUpTask(@Param("taskId")String taskId,@Param("studentId")String studentId);
+	/**
 	 * @author wenli
 	 * @param comment
 	 * @param grade
 	 * 设置作业的评语和分数
 	 */
-	public void setGradeAndComment(@Param("comment")String comment,@Param("grade")Integer grade,@Param("studentId")String studentId,@Param("taskId")String taskId);
+	public void setGradeAndComment(@Param("comment")String comment,@Param("grade")Integer grade,@Param("studentId")String studentId,@Param("taskId")String taskId,@Param("commentTime")Timestamp commentTime);
 	/**
 	 * @author wenli
 	 * @param taskId

@@ -1148,6 +1148,7 @@ public class TeacherController {
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
 		Task task ;
 		HashMap<String, Integer> studentTograde= new HashMap<String, Integer>();
+		HashMap<String, UpTask> studentToUpTask= new HashMap<String, UpTask>();
 		List<Student> studentUpedList = new ArrayList<Student>();
 		List<Student> studentNotUpList = new ArrayList<Student>();
 		List<String> accessoriesName = new ArrayList<String>();
@@ -1197,11 +1198,13 @@ public class TeacherController {
 				studentUpedList = teacherService.getStudentListOfUped(taskId);
 				for (Student student : studentUpedList) {
 					studentTograde.put(student.getStudentId(), teacherService.getGrade(taskId, student.getStudentId()));
+					studentToUpTask.put(student.getStudentId(), teacherService.getUpTask(taskId, student.getStudentId()));
 				}
 				//				for (Student s : studentNotUpList) {
 				//					System.out.println(s.getStudentName());
 				//				}
 				mv.addObject("studentTograde", studentTograde);
+				mv.addObject("studentToUpTask", studentToUpTask);
 				mv.addObject("studentUpedList", studentUpedList);
 				mv.addObject("studentNotUpList", studentNotUpList);
 				mv.setViewName("/jsp/VirtualClass/teacherwork");
@@ -2542,7 +2545,9 @@ public class TeacherController {
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
 		Integer grade = Integer.parseInt( request.getParameter("grade"));
 		String comment = request.getParameter("comment");
-		teacherService.setGradeAndComment(comment, grade, studentId, taskId);
+		Timestamp commentTime = new Timestamp(System.currentTimeMillis());
+		teacherService.setGradeAndComment(comment, grade, studentId, taskId,commentTime);
+		
 		return "redirect:/teacher/toTaskDetail?taskId="+taskId;
 
 	}
