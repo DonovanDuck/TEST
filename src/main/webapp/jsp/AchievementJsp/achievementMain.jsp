@@ -24,7 +24,7 @@
 		<div class="top">
 			<jsp:include page="/jsp/top.jsp" flush="true" />
 		</div>
-		<div class="content">
+		<div class="content" style="margin-top: 1%">
 			<div class="col-md-12 topColumn">
 				<div class="col-md-8 leftSelect">
 					<a class="btn btn-default"
