@@ -88,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<li role="presentation"><a  target="lcontent"  id="als" href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=trial">挑战</a></li>
 				<c:if test="${identify eq 'teacher' }">
 					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toAnalyseGrade">成绩分析</a></li>
-					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布作业</a></li>
+					<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/teacher/toPublishTask">发布任务</a></li>
 				</c:if>
 				<c:if test="${identify eq 'student' }">
 				<li role="presentation"><a  target="lcontent" href="${pageContext.request.contextPath}/student/toPersonAccomplishment">个人成就</a></li>
@@ -100,5 +100,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</iframe>
 			</div>
 		</div>
+		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 	</body>
 </html>

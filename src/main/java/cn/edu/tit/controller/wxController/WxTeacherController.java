@@ -981,7 +981,8 @@ public class WxTeacherController {
 		try {
 			
 			Integer grade = Integer.parseInt( grad);
-			teacherService.setGradeAndComment(comment, grade, studentId, taskId);
+			Timestamp commentTime = new Timestamp(System.currentTimeMillis());
+			teacherService.setGradeAndComment(comment, grade, studentId, taskId,commentTime);
 			ret.put("status", "Ok");
 		} catch (Exception e) {
 			// TODO: handle exception
