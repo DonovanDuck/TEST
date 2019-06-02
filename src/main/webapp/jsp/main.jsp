@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>太原工业学院</title>
+    <title>spoc-mooc</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
     <link
 	href="${pageContext.request.contextPath}/css/achievement/achievementMain.css"
@@ -19,6 +19,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		font-size: 10px;
     		opacity: 0.7;
     	}
+    	
+    	.xiangmu-out .rel-img img{
+    		width: 100%;
+    		height: 100%;
+    		overflow: hidden;
+    		transition:all 0.5s;
+    	}
+   .xiangmu-out:hover{
+    box-shadow: 0 0 15px grey;
+    transform: translate(0,-10px);
+}
+
+.xiangmu-out .rel-img{
+	overflow: hidden;
+}
+
+.xiangmu-out:hover .rel-img img{
+    transform: scale(1.10);
+    
+}
+    	
     </style>
     <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
     <!-- <script type="text/javascript">
@@ -118,9 +139,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                  <div class="container" style="margin: 0;padding: 0;width: 100%">
       				 <div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="0" end="3">
-                   <div class="col-xs-3 col-md-3" style="height: 394px;">
+                   <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li" style="width: 300px;">
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 300px;">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
@@ -143,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="4" end="7">
                   <div class="col-xs-3 col-md-3" style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li" style="width: 300px;">
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 300px;">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
@@ -226,7 +247,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_09.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_09.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>刘文静</p>
@@ -237,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_10.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_10.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>蒋丽君</p>
@@ -248,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_03.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_03.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>侯品然</p>
@@ -259,7 +280,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_04.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_04.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>肖福聚</p>
@@ -270,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_05.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_05.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>吴正谢</p>
@@ -281,7 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_06.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_06.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>陈宇</p>
@@ -292,7 +313,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_07.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_07.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>唐德天</p>
@@ -303,7 +324,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_08.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_08.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>张晓玉</p>
@@ -327,11 +348,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
 							<div class="chengguo-out"
 								style="padding: 0; height: 378px; margin-top: 1%;">
-								<div class="doorPlank"
+								<div class="doorPlank xiangmu-out"
 									style="padding: 1.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
-											style="position: absolute; margin-left: 0; margin-top: 0;">
+											style="position: absolute; margin-left: 0; margin-top: 0;width: 23px;height: 23px;">
 										<img alt="" style="width: 100%; height: 150px;"
 											src="${pageContext.request.contextPath}/images/tu2.jpg" />
 									</div>
@@ -361,11 +382,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
 							<div class="chengguo-out"
 								style="padding: 0; height: 378px; margin-top: 1%;">
-								<div class="doorPlank"
+								<div class="doorPlank xiangmu-out"
 									style="padding: 1.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
-											style="position: absolute; margin-left: 0; margin-top: 0;">
+											style="position: absolute; margin-left: 0; margin-top: 0;width: 23px;height: 23px;">
 										<img alt="" style="width: 100%; height: 150px;"
 											src="${pageContext.request.contextPath}/images/tu2.jpg" />
 									</div>
@@ -393,7 +414,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
           <!--产学研项目-->
           <div class="xiangmu">
-              产学研项目
+              翻转课堂
               <span><a href="">查看全部</a></span>
               <table>
                   <tr>
@@ -581,7 +602,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <!--论坛热帖-->
-          <div class="post">
+          <div class="post" style="margin-bottom: 55px;">
               热帖
               <span><a href="">查看全部</a></span>
               <nav>

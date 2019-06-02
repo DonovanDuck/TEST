@@ -391,6 +391,14 @@ public class StudentServiceImpl implements IStudentService{
 		}
 	}
 
+	@Override
+	public String getCourseIdByvId(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return studentDao.getCourseIdByvId(virtualClassNum);
+	}
+
+	
+
 //	@Override
 //	public Integer getMaxGradeInTask(String virtualClassNum, String taskCategory) {
 //		// TODO Auto-generated method stub

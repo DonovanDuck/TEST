@@ -53,7 +53,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="publishdiv">
 			<div class="publishcontent">
 				<div class="publishstaus">
-					<button  class="published btn btn-default"    onclick="published()">已提交</button> <button class="unpublish btn btn-default"   href="" onclick="unpublished()">未提交</button>
+					<button  class="published btn btn-default active"     onclick="published()">已提交</button> <button class="unpublish btn btn-default"   href="" onclick="unpublished()">未提交</button>
 				</div>
 				<hr >
 				<div id="publishedlist" style="display: block;"  class="publishedlist" >
@@ -65,10 +65,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 								<div class="classnum"> <h4>${student1.studentId }</h4> </div>
 								<div class="studentname"> <h3>${student1.studentName }</h3> </div>
 							</div>
-							<div style="width: 30%;height: 100px;margin: 0 auto;line-height: 620%;float: left;">
-								<c:if test="${empty studentTograde[student1.studentId] }"><span style="font-size: 18px">尚未评分</span></c:if>
+							<div style="width: 50%;height: 100px;margin: 0 auto;line-height: 620%;float: left;">
+								<span style="font-size: 18px">提交时间：</span><span style="font-size: 18px;color: red;">${fn:substring(studentToUpTask[student1.studentId].upTime,0,16)}&nbsp;&nbsp;</span>
+								<c:if test="${empty studentTograde[student1.studentId] }">
+								<span style="font-size: 18px">尚未评分</span>
+								
+								</c:if>
+								
 								<c:if test="${not empty studentTograde[student1.studentId] }">
-								<span style="font-size: 18px">获得分数：</span><span style="font-size: 18px;color: red;font-weight: bold;">${studentTograde[student1.studentId] }</span>
+								<span style="font-size: 18px">获得分数：</span><span style="font-size: 18px;color: red;font-weight: bold;">${studentTograde[student1.studentId] }&nbsp;&nbsp;</span>
+								<span style="font-size: 18px">批阅时间：</span><span style="font-size: 18px;color: red;">${fn:substring(studentToUpTask[student1.studentId].commentTime,0,16)}&nbsp;&nbsp;</span>
+								
 								</c:if>
 								
 							</div>
@@ -132,10 +139,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			// 	});
 			// })
 			function published(){
+				$('.published').addClass('active');
+				$('unpublish').removeClass('active');
 				$('#publishedlist').show();
 				$('#unpublishedlist').hide();
 			}
 			function unpublished(){
+				$('.unpublish').addClass('active');
+				$('.published').removeClass('active');
 				$('#publishedlist').hide();
 				$('#unpublishedlist').show();
 			}
@@ -146,5 +157,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="glyphicon-class">返回作业列表页</span>
 			</a>
 		</div>
+		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 	</body>
 </html>

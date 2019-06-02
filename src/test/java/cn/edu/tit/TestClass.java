@@ -49,14 +49,8 @@ public class TestClass {
 	
 	@Test
 	public void searchResourceByType(){
-		List<String> a = new ArrayList<>();
-		a.add("4A658F6B125A46CEB294137D9B7CA6B0");
-		a.add("135F5DAD9E604958A8C921A9220B3D10");
 		 try {
-			List<Task> t = teacherService.TaskList(a);
-			for(Task ta : t){
-				System.out.println(ta.getTaskEndTime());
-			}
+			teacherService.addWatchNum("0F0C4B0CD1834F91837146D59BD04097", 82);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

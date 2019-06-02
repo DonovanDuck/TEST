@@ -111,14 +111,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<c:forEach items="${resource }" var="re" varStatus="status">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 25px; margin-right: 20px;">
 				<div style="height: 170px;width: 350px;">
-					<c:if test="${isTeacher == 1 }">
+					<%-- <c:if test="${isTeacher == 1 }">
 						<div id="${re.resourceId }" style="height: 20px; width: 20px;position: relative;left: 91%;top: 18%; cursor: pointer;" onclick="deleteR(this)">
 							<img style="height: 100%;width: 100%" src="${pageContext.request.contextPath}/images/timg.jpg" />
 						</div>
-					</c:if>
+					</c:if> --%>
 					<div style="height: 100px;width: 350px;background: #fff;padding-top: 23px;border: 1px solid #dadada; border-bottom: 0">
 						<ul>
-							<li style="text-align: center; font-size: 23px;font-weight: 600;margin-bottom: 7px;">${re.resourceName }</li>
+							<li style="text-align: center; font-size: 17px;font-weight: 600;margin-bottom: 7px;">${re.resourceName }</li>
 							<li>
 								<div style="margin-left: 42px;float: left;width: 195px;">知识点：${re.resourceDetail }</div>
 								<div>发布人：${re.publisherId }</div>
@@ -128,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div style="height: 70px;width: 350px;background: #f0f0f0;padding-top: 9px;border:1px solid #dadada;border-top: 0">
 						<div style="margin-left: 42px;width: 193px;padding-bottom: 8px;float: left;">
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
-							<div style="width: 100%;">已下载：${re.useNum }</div>
+							<div style="width: 100%;">已下载：${re.watchNum }</div>
 						</div>
 						<c:if test="${sessionScope.student != null }">
 						<div>
@@ -152,7 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div style="height: 170px;width: 350px;">
 					<div style="height: 100px;width: 350px;background: #fff;padding-top: 23px;border: 1px solid #dadada; border-bottom: 0">
 						<ul>
-							<li style="text-align: center; font-size: 23px;font-weight: 600;margin-bottom: 7px;">${task.taskTitle }</li>
+							<li style="text-align: center; font-size: 17px;font-weight: 600;margin-bottom: 7px;">${task.taskTitle }</li>
 							<li>
 								<div style="margin-left: 42px;float: left;width: 195px;">知识点：${task.taskDetail }</div>
 								<div>发布人：${task.publisherId }</div>
@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div style="height: 70px;width: 350px;background: #f0f0f0;padding-top: 9px;border:1px solid #dadada;border-top: 0">
 						<div style="margin-left: 42px;width: 193px;padding-bottom: 8px;float: left;">
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
-							<div style="width: 100%;">已下载：${task.useNum }</div>
+							<div style="width: 100%;">已下载：${task.watchNum }</div>
 						</div>
 						<c:if test="${sessionScope.student != null }">
 						<div>
@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</c:if>
 						<c:if test="${isTeacher == 1 }">
 							<div>
-								<a href="${pageContext.request.contextPath}/teacher/toUpdateResource/${re.resourceId }"><button type="button" class="btn btn-info" style="margin-top: 9px;">修改资源</button></a>
+								<a href="${pageContext.request.contextPath}/teacher/toUpdateResource/${task.taskId }"><button type="button" class="btn btn-info" style="margin-top: 9px;">修改资源</button></a>
 							</div>
 						</c:if>
 					</div>

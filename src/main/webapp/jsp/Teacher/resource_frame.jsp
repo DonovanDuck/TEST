@@ -26,6 +26,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     -o-background-size: cover;
    background-size: cover;
 	}
+	.xiangmu-out .rel-img img{
+    		width: 100%;
+    		height: 100%;
+    		overflow: hidden;
+    		transition:all 0.5s;
+    	}
+   .xiangmu-out:hover{
+    box-shadow: 0 0 15px grey;
+    transform: translate(0,-10px);
+}
+
+.xiangmu-out .rel-img{
+	overflow: hidden;
 </style>
 <body>
 
@@ -44,91 +57,91 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <c:if test="${taskList != null }">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.useNum }</div>
+			<div>下载次数：${task.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.useNum }</div>
+			<div>下载次数：${task.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="2" end="2">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.useNum }</div>
+			<div>下载次数：${task.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.useNum }</div>
+			<div>下载次数：${task.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="4" end="4">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.useNum }</div>
+			<div>下载次数：${task.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="5" end="5">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${task.taskTitle }</div>
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.useNum }</div>
+			<div>下载次数：${task.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
@@ -137,91 +150,91 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:if test="${resource != null }">
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div style="font-weight: 400;font-size: 20px;">${re.resourceName }</div>
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.useNum }</div>
+			<div>下载次数：${re.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="1" end="1">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div style="font-weight: 400;font-size: 20px;">${re.resourceName }</div>
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.useNum }</div>
+			<div>下载次数：${re.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="2" end="2">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div style="font-weight: 400;font-size: 20px;">${re.resourceName }</div>
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.useNum }</div>
+			<div>下载次数：${re.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div style="font-weight: 400;font-size: 20px;">${re.resourceName }</div>
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.useNum }</div>
+			<div>下载次数：${re.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="4" end="4">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div style="font-weight: 400;font-size: 20px;">${re.resourceName }</div>
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.useNum }</div>
+			<div>下载次数：${re.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="5" end="5">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-			<div style="font-weight: 400;font-size: 25px;">${re.resourceName }</div>
+			<div style="font-weight: 400;font-size: 20px;">${re.resourceName }</div>
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.useNum }</div>
+			<div>下载次数：${re.watchNum }</div>
 		</div>
 	</li>
 	</c:forEach>

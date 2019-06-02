@@ -38,19 +38,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</script>
 	</head>
 	<body style="background-color: #F8F8F8;">
-		<div class="fragtitle" style="padding-bottom: 20px">
+		
+		<div
+			style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
+			<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
 			<c:if test="${taskCategory  eq 'work'}">
-		作业
-		</c:if>
-		<c:if test="${taskCategory  eq 'course_design'}">
-		课设
-		</c:if>
-		<c:if test="${taskCategory  eq 'trial'}">
-		实验
-		</c:if>
-		<c:if test="${taskCategory  eq 'all'}">
-		全部
-		</c:if>
+			
+			<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">作业</span>
+			</c:if>
+			<c:if test="${taskCategory  eq 'course_design'}">
+			
+			<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">课程设计</span>
+			</c:if>
+			<c:if test="${taskCategory  eq 'trial'}">
+			
+			<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">实验</span>
+			</c:if>
+			<c:if test="${taskCategory  eq 'all'}">
+			
+			<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">全部</span>
+			</c:if>
+			
+			
 		</div>
 		<div style="width: 100%;height: 15px;background-color: #F8F8F8"></div>
 		<div id="statusBackcolor" class="state"  >

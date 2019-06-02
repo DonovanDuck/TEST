@@ -136,7 +136,7 @@
 	<body style="background-color: #F1F3F4;">
 		<div style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
 			<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
-			<span style="line-height: 55px;font-size: 18px;margin-left: 20px">个人成就</span>
+			<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">个人成就</span>
 		</div>
 		<!-- 作业分析 -->
 		<div class="workAnalyse" style="width: 100%;height: 100%;overflow: hidden;background-color: #fff;margin-top: 15px;padding-left: 40px;padding-right: 40px">

@@ -6,70 +6,94 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-	<head>
-		<meta charset="utf-8" />
-		<title></title>
-		<link rel="stylesheet" href="css/base.css" />
-		<link rel="stylesheet" type="text/css" href="css/index3.css"/>
-		<script src="js/jquery-1.8.0.min.js" type="text/javascript" charset="utf-8"></script>
-		
-		
-		</script>
-		<style> 
-.a
-{
-	width:222px;
-	height:0;
-	background:red;
-	opacity: 0;
-	transition:height  linear,opacity  linear;
-	-webkit-transition:height  linear,opacity  linear; /* Safari */
-	
-	
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>太原工业学院</title>
+    <style>
+    	footer{
+    width: 100%;
+    background: #333333;
+    float:left;
+    height: 271.88px;
+    margin-top: -12px;
 }
-.b{
-	width:222px;
-	min-height:100px;
-	height: auto;
-	position: relative;
+footer .footer-img{
+    width: 130px;
+    height: 130px;
+    padding-left: 9px;
+    padding-top: 9px;
+    background: white;
+    margin-top: 2%;
+    margin-bottom: 2%;
 }
+footer nav{
+    width: 90%;
+    height: 60px;
+    margin-top: 2%;
+    margin-left: 15%;
+}
+footer nav li{
+    float: left;
+    width: 11%;
+    line-height: 30px;
+}
+footer nav li a{
+    color: white;
+}
+footer nav li a:hover{
+    color: blue;
+}
+*{
+    margin: 0 auto;
+    padding: 0;
+}
+ul li a{
+    text-decoration: none;
+    
+}
+li{
+    list-style: none;
+}
+.clear{
+    clear: both;
+}
+    </style>
+    
+    <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
+    <script type="text/javascript">
+        $(function (){
+            var order=1;
+            window.setInterval(lunbo,1000);
+            function lunbo(){
+                if(order==4){
+                    order=0;
+                }
+                $(".banner-img img").eq(order).css("display","block").siblings().css("display","none");
+                $(".square .square1").eq(order).css("background-color","#FF6600").siblings().css("background-color","white");
+                order++;
+            }
+        });
+    </script>
+</head>
+<body>
 
-.b:hover .a
-{
-	height:120px;
-	opacity: 1;
-}
-</style>
-	</head>
-	<body>
-		<div class="b">
-			
-			<div style="background:#9B9B9B; position: ; top: 0;left: 0;width: 100%;height: 100px;z-index: -1;">
-				<div style="width: 60px; height: 60px; margin-left: 10px; margin-top: 10px;float: left;">
-										<img style="border-radius: 50%; width: 100%; height: 100%;"
-											src="${pageContext.request.contextPath}/images/t2.png" alt="" />
-									</div>
-				<div style="    position: relative;
-    left: 21px;
-    top: 26px;">姓名   mingzi</div>
-			</div>
-			<div class="a">
-				<div>姓名：xxxxx</div>
-				<div>姓名：xxxxx</div>
-			</div>
-		</div>
-		<div class="b">
-			<div class="a">
-				<div>姓名：xxxxx</div>
-				<div>姓名：xxxxx</div>
-			</div>
-			<div style="background: #9B9B9B; position: absolute; top: 0;left: 0;width: 100px;height: 100px;z-index: -1;">
-				<div>姓名</div>
-				<div>姓名</div>
-			</div>
-		</div>
-		
-	</body>
-		
+      <footer>
+          <div class="footer-img"><img src="${pageContext.request.contextPath}/images/erweima.png" alt=""></div>
+          <div>
+              <hr>
+              <nav>
+                  <ul>
+                      <li><a style="text-decoration: none;" href="<c:url value='/main/toMain'/>">首页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="<c:url value='/teacher/courseList'/>">课程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">讨论区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a  style="text-decoration: none;" href="">学生成果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">产学研项目&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">微信端&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                  </ul>
+              </nav>
+          </div>
+      </footer>
+</body>
 </html>

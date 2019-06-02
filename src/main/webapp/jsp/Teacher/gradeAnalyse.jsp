@@ -38,7 +38,7 @@
 			striped: true,  //是否显示行间隔色
 			fixedScroll:true,
 			sidePagination : 'client',//server:服务器端分页|client：前端分页
-			pageSize : 5,//单页记录数
+			pageSize : 20,//单页记录数
 			pageList : [ 5, 10, 20, 30 ],//可选择单页记录数
 			showRefresh : false,//刷新按钮
 			clickToSelect: true,                //是否启用点击选中行
@@ -112,7 +112,7 @@
 	<body style="background-color: #F1F3F4;">
 		<div style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
 			<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
-			<span style="line-height: 55px;font-size: 18px;margin-left: 20px">成绩分析</span>
+			<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">成绩分析</span>
 			<button id="exportJSONGrade" type="button" class="btn btn-primary" style="float: right;margin-top: 10px;margin-right: 20px;">导出总成绩表</button>
 		</div>
 		<div style="width: 100%;height: 100%;overflow: hidden;margin: 10px 0;">

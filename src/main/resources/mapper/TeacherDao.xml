@@ -90,6 +90,15 @@
 		#{useNum});
 	</insert>
 
+	<resultMap type="cn.edu.tit.bean.UpTask" id="upTaskMap">
+		<id column="task_id" property="taskId" />
+		<id column="student_id" property="studentId" />
+		<result column="up_task_detail" property="upTaskDetail" />
+		<result column="term" property="term" />
+		<result column="grade" property="grade" />
+		<result column="up_time" property="upTime" />
+		<result column="comment_time" property="commentTime" />
+	</resultMap>
 	<!-- 拉教师入课程（教师圈） -->
 	<insert id="addOtherToMyCourse">
 		insert into
@@ -363,16 +372,17 @@
 		<result column="status" property="status" />
 		<result column="task_category" property="taskType" />
 		<result column="use_num" property="useNum" />
+		<result column="watch_num" property="watchNum" />
 	</resultMap>
 
 
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num)
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num,watch_num)
 		values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1)
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1,#{watchNum})
 	</insert>
 
 	<insert id="mapClassTask">
@@ -799,22 +809,29 @@
 		grade =
 		#{grade},
 		comment =
-		#{comment}
+		#{comment},
+		comment_time=
+		#{commentTime}
 		where
 		student_id = #{studentId} and
 		task_id=#{taskId}
-
+		
 	</update>
 
 	<select id="getGrade" resultType="java.lang.Integer">
 		select grade from up_task where
 		task_id=#{taskId} and student_id=#{studentId};
 	</select>
+	
+	<select id="getUpTask" resultMap="upTaskMap">
+		select * from up_task where
+		task_id=#{taskId} and student_id=#{studentId};
+	</select>
 	<select id="getComment" resultType="java.lang.String">
 		select comment from up_task
 		where task_id=#{taskId} and student_id=#{studentId};
 	</select>
-
+	
 	<select id="getTaskListPage" resultMap="taskMap">
 		select * from task where
 		course_id=#{courseId} and task_category=#{taskCategory};
@@ -842,6 +859,12 @@
 		UPDATE task set use_num = use_num+1
 		WHERE task_id = #{taskId}
 	</update>
+	
+	<update id="addWatchNum">
+		UPDATE task set watch_num = watch_num+#{taskUseNum}
+		WHERE task_id = #{taskId}
+	</update>
+	
 	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
 		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
 	</select> 
@@ -878,4 +901,13 @@
 	<select id="getTaskByUserId" parameterType="String" resultMap="taskMap">
 		select * from task where publisher_id = #{userId} order by task_end_time asc;
 	</select>
+	
+	<!-- 获取虚拟班级学生数 -->
+	<select id="getTaskUserNum" parameterType="String" resultType="int">
+	
+	select sum(real_person_num) from real_class where real_class_num in 
+		(select real_class_num from real_virtual_class where virtual_class_num = #{virtualClassNum});
+	</select>
+	
+	
 </mapper>

@@ -28,6 +28,7 @@ import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.Term;
+import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.IResourceDao;
@@ -1042,9 +1043,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 
 		@Override
-		public void setGradeAndComment(String comment, Integer grade,String studentId,String taskId) {
+		public void setGradeAndComment(String comment, Integer grade,String studentId,String taskId,Timestamp commentTime) {
 			// TODO Auto-generated method stub
-			teacherDao.setGradeAndComment(comment, grade, studentId,taskId);
+			teacherDao.setGradeAndComment(comment, grade, studentId,taskId,commentTime);
 		}
 
 		@Override
@@ -1108,9 +1109,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public void addUseNum(String taskId) {
+	public void addUseNum(String taskId, int taskSumNum) {
 		// TODO Auto-generated method stub
-		teacherDao.addUseNum(taskId);
+		teacherDao.addUseNum(taskId,taskSumNum);
+	}
+	
+	@Override
+	public void addWatchNum(String taskId, int taskSumNum) {
+		// TODO Auto-generated method stub
+		teacherDao.addWatchNum(taskId,taskSumNum);
 	}
 	
 	public Term getTermById(String termId) {
@@ -1262,5 +1269,17 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 		}
 		return taskList;
+	}
+
+	@Override
+	public int getTaskUserNum(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskUserNum(virtualClassNum);
+	}
+		
+	@Override
+	public UpTask getUpTask(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getUpTask(taskId, studentId);
 	}
 }

@@ -116,12 +116,32 @@
 
 <script type="text/javascript">
 	function submitForm() {
+		debugger;
 		var selectClass = "";
+		var flag = true;
 		$("input[name = 'select']").each(function() {
 			selectClass = selectClass + $(this).val() + ",";
+			$("#selectTeacher").val(selectClass);
 		});
-		$("#selectTeacher").val(selectClass);
-		$("#formContent").submit();
+		if($("#courseName").val() == null || $("#courseName").val() == ''){
+			alert("课程名不能为空！");
+			flag = false;
+		}
+		if(!UE.getEditor('courseDetail').hasContents()){
+			alert("课程描述不能为空！");
+			flag = false;
+		}
+		if(selectClass == null || selectClass == ''){
+			alert("教师团队不能为空！");
+			flag = false;
+		}
+		
+		if(flag){
+			
+		 	$("#formContent").submit();
+		}else{
+			return false;
+		}
 	}
 </script>
 
@@ -132,7 +152,7 @@
 <body>
 	<div class="main" style="width: 80%; margin-left: 10%;">
 		<form action="${pageContext.request.contextPath}/teacher/createCourse"
-			id="formContent" method="post" enctype="multipart/form-data">
+			id="formContent" method="post" enctype="multipart/form-data" onsubmit="return submitForm()">
 			<input type="hidden" name="publisherId"
 				value="${teacher.employeeNum }">
 			<div class="form-group">
@@ -197,11 +217,11 @@
 							<label class="checkbox-inline" id="${item.employeeNum }"
 								style="width: 30%; margin-left: 2%; margin-top: 1%;"> <input
 								name="unSelect" type="checkbox" value="${item.employeeNum }"
-								onclick="checkboxOnclick(this)"> ${item.employeeNum }
+								onclick="checkboxOnclick(this)"> ${item.teacherName }
 							</label>
 						</c:forEach>
 					</div>
-					<button onclick="submitForm()" class="btn btn-primary btn-block">提交</button>
+					<button type="submit" class="btn btn-primary btn-block">提交</button>
 				</div>
 				<input name="selectTeacher" id="selectTeacher" style="display: none" />
 			</div>

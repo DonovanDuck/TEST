@@ -136,5 +136,10 @@ public interface IStudentDao {
 	 */
 	public int isTruancied(@Param(value="attendanceId")String attendanceId,@Param(value="studentId")String studentId);
 
-
+	/**
+	 * 根据班级号获取课程id
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public String getCourseIdByvId(String virtualClassNum);
 }

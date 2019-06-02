@@ -26,6 +26,7 @@ import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
+import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 public interface ITeacherService {
 	public List<Prize> prizeList();
@@ -587,7 +588,7 @@ public interface ITeacherService {
 	 * @param grade
 	 * 设置作业的评语和分数
 	 */
-	public void setGradeAndComment(String comment,Integer grade,String studentId,String taskId);
+	public void setGradeAndComment(String comment,Integer grade,String studentId,String taskId,Timestamp commentTime);
 	/**
 	 * @author wenli
 	 * @param taskId
@@ -596,6 +597,14 @@ public interface ITeacherService {
 	 * 获得学生作业的分数
 	 */
 	public Integer getGrade(String taskId,String studentId);
+	/**
+	 * @author WENLI
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 * 获得学生提交任务详情
+	 */
+	public UpTask getUpTask(String taskId,String studentId);
 	/**
 	 * @author wenli
 	 * @param taskId
@@ -623,9 +632,10 @@ public interface ITeacherService {
 	/**
 	 * @author WENLI
 	 * @param taskId
-	 * 当以选择形式发布作业时，作业引用次数+1
+	 * 当以选择形式发布作业时，作业watchnum为虚拟班级人数
 	 */
-	public void addUseNum(String taskId);
+	public void addUseNum(String taskId,int taskSumNum);
+	public void addWatchNum(String taskId,int taskSumNum);
 	public Term getTermById(String term);
 	
 	/**
@@ -697,4 +707,11 @@ public interface ITeacherService {
 	 * 获得指定类型的班级任务
 	 */
 	public List<Task> getTaskByCategory(String virtualClassNum,String taskCategory);
+	
+	/**
+	 * 获取任务引用次数--虚拟班级人数
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public int getTaskUserNum(String virtualClassNum);
 }

@@ -9,7 +9,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>课程二级页面</title>
+<title>全部课程</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
@@ -62,7 +62,29 @@
 	border: 0;
 	border-radius: 10%;
 	line-height: 30px;
-	margin-top: 2%;
+	margin-top: 2%;}
+	
+    	
+    	.xiangmu-out .rel-img img{
+    		width: 100%;
+    		height: 100%;
+    		overflow: hidden;
+    		transition:all 0.5s;
+    	}
+   .xiangmu-out:hover{
+    box-shadow: 0 0 15px grey;
+    transform: translate(0,-10px);
+}
+
+.xiangmu-out .rel-img{
+	overflow: hidden;
+}
+
+.xiangmu-out:hover .rel-img img{
+    transform: scale(1.10);
+    
+}
+    	
 </style>
 </head>
 <body class="body">
@@ -102,14 +124,14 @@
 				</c:forEach>
 			</ul>
 		</div>
-	<div class="courses" style="padding-left: 84px;padding-right: 84px;">
+	<div class="courses" style="padding-left: 84px;padding-right: 84px;margin-bottom: 43px;">
 	<div class="row">
 		<c:forEach items="${courseList }" var="course"
 			varStatus="status">
 			<div class="col-xs-3 col-md-3" style="height: 394px;">
 			<a
 				href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }">
-				<div  class="jidixiangmu-li">
+				<div  class="jidixiangmu-li xiangmu-out">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${pageContext.request.contextPath}/images/tu3.png" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">

@@ -146,14 +146,16 @@
 		<result column="up_task_detail" property="upTaskDetail" />
 		<result column="term" property="term" />
 		<result column="grade" property="grade" />
+		<result column="up_time" property="upTime" />
+		<result column="comment_time" property="commentTime" />
 	</resultMap>
 	
 	
 	<insert id="upTaskThis"  parameterType="cn.edu.tit.bean.UpTask">
 		insert into up_task (
-		task_id, student_id,up_task_detail,term)
+		task_id, student_id,up_task_detail,term,up_time)
 		values (
-		#{taskId}, #{studentId}, #{upTaskDetail}, #{term})
+		#{taskId}, #{studentId}, #{upTaskDetail}, #{term},#{upTime})
 	</insert>
 	
 	<select id="getUpTaskDetail" resultType="java.lang.String">
@@ -271,4 +273,15 @@
 	<insert id="studentAttentionCourse">
 		insert into student_course(student_id,course_id,manager) values (#{studentId},#{courseId},1)
 	</insert>
+	
+	<!-- 根据虚拟班级号找课程id -->
+	<select id="getCourseIdByvId" parameterType="String" resultType="String">
+		select course_id from virtual_class where virtual_class_num = #{virtualClassNum};
+	</select>
+	<!-- 获取标志位，查学生manager -->
+	<select id="getManagerByStudentId" resultType="int">
+		select manager
+		from student_course where student_id = #{studentId} and course_id
+		= #{courseId} and manager = #{manager};
+	</select>
 </mapper>

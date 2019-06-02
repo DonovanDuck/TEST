@@ -216,5 +216,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="glyphicon-class">返回作业列表页</span>
 			</a>
 		</div>
+		<jsp:include page="/jsp/footer.jsp" flush="true"/>
 	</body>
 </html>
