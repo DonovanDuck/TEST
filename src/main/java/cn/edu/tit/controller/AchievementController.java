@@ -2,6 +2,7 @@ package cn.edu.tit.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.ParseException;
@@ -218,6 +219,7 @@ public class AchievementController {
 	@RequestMapping(value="publishIURP")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishIURP(HttpServletRequest request){
+		Student stu = (Student)request.getSession().getAttribute("student");
 		try {
 			String projectId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,projectId);
@@ -234,13 +236,14 @@ public class AchievementController {
 			i.setProjectCategory("产学研");
 			i.setProjectDetail((String)formdata.get("detail"));
 			i.setProjectId(projectId);
+			i.setDeleteFlag(1);
 			i.setUploadAuthorId(GetSessionUserId(request));
 			i.setMemberNum((String)formdata.get("memberNumContent"));
 			i.setProjectName((String)formdata.get("name"));
 			i.setStartTime(ConverDate((String)formdata.get("startTime")));
 			i.setStatus(null);
 			i.setBrowseVolume(1);
-			i.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());//获取图片的第一个图片
+			i.setFirstPicture(Common.readProperties("path")+"/"+projectId+"/"+stu.getStudentId()+"/"+files.get(0).getName());//获取图片的第一个图片
 			iAchievementService.insertIURP(i);
 			/**
 			 * 文件的处理
@@ -253,7 +256,7 @@ public class AchievementController {
 				pi = new AchievementPicture();
 				pi.setAccessoryId(accessoryId);
 				pi.setAccessoryName(f.getName());
-				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+projectId+"/"+stu.getStudentId()+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(projectId);
 				pi.setAuthorId(GetSessionUserId(request));
@@ -267,7 +270,7 @@ public class AchievementController {
 			String accessoryId = Common.uuid();
 			aa.setAccessoryId(accessoryId);
 			aa.setAccessoryName(files.get(files.size()-1).getName());
-			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+projectId+"/"+stu.getStudentId()+"/"+files.get(files.size()-1).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(projectId);
 			aa.setAuthorId(GetSessionUserId(request));
@@ -290,7 +293,7 @@ public class AchievementController {
 	@RequestMapping(value="publishCourseExpand")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishCourseExpand(HttpServletRequest request){
-
+		Student stu = (Student)request.getSession().getAttribute("student");
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -305,7 +308,7 @@ public class AchievementController {
 			ce.setCompere((String)formdata.get("compere"));
 			String courseName = null;
 			courseName = (String)formdata.get("courseName");
-			if(!courseName.isEmpty())
+			if(!courseName.isEmpty()||courseName!=""||courseName!=null)
 			{
 				ce.setCourseId(courseName);
 			}
@@ -313,10 +316,11 @@ public class AchievementController {
 				ce.setCourseId(null);
 			}
 			ce.setFinishTime(ConverDate((String)formdata.get("finishTime")));
-			ce.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			ce.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			ce.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			ce.setIntroduction((String)formdata.get("introduction"));
 			ce.setMember((String)formdata.get("member"));
+			ce.setDeleteFlag(1);
 			ce.setTeamName((String)formdata.get("teamName"));
 			ce.setUploadAuthorId(GetSessionUserId(request));
 			ce.setMemberNum((String)formdata.get("memberNumContent"));
@@ -333,7 +337,7 @@ public class AchievementController {
 				pi = new AchievementPicture();
 				pi.setAccessoryId(accessoryId);
 				pi.setAccessoryName(f.getName());
-				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(achievementId);
 				pi.setAuthorId(GetSessionUserId(request));
@@ -347,7 +351,7 @@ public class AchievementController {
 			String accessoryId = Common.uuid();
 			aa.setAccessoryId(accessoryId);
 			aa.setAccessoryName(files.get(files.size()-1).getName());
-			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-1).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(achievementId);
 			aa.setAuthorId(GetSessionUserId(request));
@@ -370,7 +374,7 @@ public class AchievementController {
 	@RequestMapping(value="publishAOCSC")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishAOCSC(HttpServletRequest request){
-
+		Student stu = (Student)request.getSession().getAttribute("student");
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -382,10 +386,11 @@ public class AchievementController {
 			ao.setAchievementId(achievementId);
 			ao.setAchievementName((String)formdata.get("name"));
 			ao.setBrowseVolume(1);
+			ao.setDeleteFlag(1);
 			ao.setCompere((String)formdata.get("compere"));
 			ao.setFeature((String)formdata.get("feature"));
 			ao.setFinishTime(ConverDate((String)formdata.get("finishTime")));
-			ao.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			ao.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			ao.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			ao.setIntroduction((String)formdata.get("introduction"));
 			ao.setLevel((String)formdata.get("levelContent"));
@@ -406,7 +411,7 @@ public class AchievementController {
 				pi = new AchievementPicture();
 				pi.setAccessoryId(accessoryId);
 				pi.setAccessoryName(f.getName());
-				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(achievementId);
 				pi.setAuthorId(GetSessionUserId(request));
@@ -420,7 +425,7 @@ public class AchievementController {
 			String accessoryId = Common.uuid();
 			aa.setAccessoryId(accessoryId);
 			aa.setAccessoryName(files.get(files.size()-1).getName());
-			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-1).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(achievementId);
 			aa.setAuthorId(GetSessionUserId(request));
@@ -444,7 +449,7 @@ public class AchievementController {
 	@RequestMapping(value="publishGDFCS")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishGDFCS(HttpServletRequest request){
-
+		Student stu = (Student)request.getSession().getAttribute("student");
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -455,10 +460,11 @@ public class AchievementController {
 			gd.setAchievementId(achievementId);
 			gd.setAchievementName((String)formdata.get("name"));
 			gd.setBrowseVolume(1);
+			gd.setDeleteFlag(1);
 			gd.setAchievementDetail((String)formdata.get("detail"));
 			gd.setCompere((String)formdata.get("compere"));
 			gd.setFinishTime(ConverDate((String)formdata.get("finishTime")));
-			gd.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			gd.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			gd.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			gd.setIntroduction((String)formdata.get("introduction"));
 			gd.setMemberNum((String)formdata.get("memberNumContent"));
@@ -476,7 +482,7 @@ public class AchievementController {
 				pi = new AchievementPicture();
 				pi.setAccessoryId(accessoryId);
 				pi.setAccessoryName(f.getName());
-				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(achievementId);
 				pi.setAuthorId(GetSessionUserId(request));
@@ -490,7 +496,7 @@ public class AchievementController {
 			String accessoryId = Common.uuid();
 			aa.setAccessoryId(accessoryId);
 			aa.setAccessoryName(files.get(files.size()-1).getName());
-			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-1).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(achievementId);
 			aa.setAuthorId(GetSessionUserId(request));
@@ -515,7 +521,7 @@ public class AchievementController {
 	@RequestMapping(value="publishSIAE")
 	@SuppressWarnings({ "unused", "unchecked" })
 	public String publishSIAE(HttpServletRequest request){
-
+		Student stu = (Student)request.getSession().getAttribute("student");
 		try {
 			String achievementId = Common.uuid();
 			Object[] obj = Common.fileFactory(request,achievementId);
@@ -527,10 +533,11 @@ public class AchievementController {
 			si.setAchievementId(achievementId);
 			si.setAchievementName((String)formdata.get("name"));
 			si.setBrowseVolume(1);
+			si.setDeleteFlag(1);
 			si.setCompere((String)formdata.get("compere"));
 			si.setFeature((String)formdata.get("feature"));
 			si.setFinishTime(ConverDate((String)formdata.get("finishTime")));
-			si.setFirstPicture(Common.readProperties("path")+"/"+files.get(0).getName());
+			si.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			si.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			si.setIntroduction((String)formdata.get("introduction"));
 			si.setLevel((String)formdata.get("levelContent"));
@@ -542,11 +549,11 @@ public class AchievementController {
 			si.setUploadAuthorId(GetSessionUserId(request));
 			si.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			//si.setDeclaration(declaration);申报书的设置
-			si.setDeclaration(Common.readProperties("path")+"/"+files.get(files.size()-3).getName());
+			si.setDeclaration(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-3).getName());
 			//si.setMidreply(midreply);中期检查
-			si.setMidreply(Common.readProperties("path")+"/"+files.get(files.size()-2).getName());
+			si.setMidreply(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-2).getName());
 			//si.setConcludingRreport(concludingRreport);结题报告
-			si.setConcludingRreport(Common.readProperties("path")+"/"+files.get(files.size()-1).getName());
+			si.setConcludingRreport(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-1).getName());
 			iAchievementService.insertSIAE(si);
 			/**
 			 * 文件的处理
@@ -559,7 +566,7 @@ public class AchievementController {
 				pi = new AchievementPicture();
 				pi.setAccessoryId(accessoryId);
 				pi.setAccessoryName(f.getName());
-				pi.setAccessoryPath(Common.readProperties("path")+"/"+f.getName());
+				pi.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+f.getName());
 				pi.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 				pi.setAchievementId(achievementId);
 				pi.setAuthorId(GetSessionUserId(request));
@@ -573,7 +580,7 @@ public class AchievementController {
 			String accessoryId = Common.uuid();
 			aa.setAccessoryId(accessoryId);
 			aa.setAccessoryName(files.get(files.size()-4).getName());
-			aa.setAccessoryPath(Common.readProperties("path")+"/"+files.get(files.size()-4).getName());
+			aa.setAccessoryPath(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(files.size()-4).getName());
 			aa.setAccessoryTime(new Timestamp(System.currentTimeMillis()));
 			aa.setAchievementId(achievementId);
 			aa.setAuthorId(GetSessionUserId(request));
@@ -856,6 +863,13 @@ public class AchievementController {
 		AchievementComment ac = new AchievementComment();
 		Student stu = (Student) request.getSession().getAttribute("student");
 		Teacher tea = (Teacher) request.getSession().getAttribute("teacher");
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		String commentId = Common.uuid();
 		try {
 			ac.setAchievemendId(achievementId);
@@ -874,40 +888,40 @@ public class AchievementController {
 			ac.setCommentId(commentId);
 			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertAchievementComment(ac);
-			
-			
-			
+
+
+
 			List<AchievementComment> list = new ArrayList<AchievementComment>();
-//			try {
-//				list = iAchievementService.queryComment(achievementId, category);
-//
-//			//	JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
-//				//String result = json.toString();
-//				((ServletRequest) response).setCharacterEncoding("utf-8");
-//				response.getWriter().print(result);
-//			} catch (Exception e) {
-//				e.printStackTrace();
-//			}
-			
+			//			try {
+			//				list = iAchievementService.queryComment(achievementId, category);
+			//
+			//			//	JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
+			//				//String result = json.toString();
+			//				((ServletRequest) response).setCharacterEncoding("utf-8");
+			//				response.getWriter().print(result);
+			//			} catch (Exception e) {
+			//				e.printStackTrace();
+			//			}
+
 			list = iAchievementService.queryComment(achievementId, category);
 			JSONArray json = new JSONArray();
-            for (AchievementComment achievementComment : list) {
-            	 JSONObject jo = new JSONObject();
-	                jo.put("commentId", achievementComment.getCommentId());
-	                jo.put("achievemendId",  achievementComment.getAchievemendId());
-	                jo.put("authorId",  achievementComment.getAuthorId());
-	                jo.put("category",  achievementComment.getCategory());
-	                jo.put("commentContent",  achievementComment.getCommentContent());
-	                jo.put("uploadTime",  achievementComment.getUploadTime());
-	                jo.put("authorPicture",  achievementComment.getAuthorPicture());
-	                jo.put("authorName",  achievementComment.getAuthorName());
-	                json.put(jo);
+			for (AchievementComment achievementComment : list) {
+				JSONObject jo = new JSONObject();
+				jo.put("commentId", achievementComment.getCommentId());
+				jo.put("achievemendId",  achievementComment.getAchievemendId());
+				jo.put("authorId",  achievementComment.getAuthorId());
+				jo.put("category",  achievementComment.getCategory());
+				jo.put("commentContent",  achievementComment.getCommentContent());
+				jo.put("uploadTime",  achievementComment.getUploadTime());
+				jo.put("authorPicture",  achievementComment.getAuthorPicture());
+				jo.put("authorName",  achievementComment.getAuthorName());
+				json.put(jo);
 			}
-            try {
-            	response.getWriter().write(json.toString());
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+			try {
+				response.getWriter().write(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

@@ -18,6 +18,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
+import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.DateConverter;
@@ -49,10 +50,7 @@ public class TestClass {
 	@Test
 	public void searchResourceByType(){
 		 try {
-			List<CourseExpand> r  = achievementDao.getCourseExpandBycourseId("09708A3B8D8942929FE777E4D9DC5397");
-			for(CourseExpand c : r){
-				System.out.println(c);
-			}
+			teacherService.addWatchNum("0F0C4B0CD1834F91837146D59BD04097", 82);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.tit.idao.ITurnClassDao">
+	<resultMap type="cn.edu.tit.bean.TurnClassAccessory" id="turnClassAccessoryMap">
+		<id column="accessory_id" property="accessoryId" />
+		<result column="accessory_name" property="accessoryName" />
+		<result column="accessory_category" property="accessoryCategory" />
+		<result column="task_id" property="taskId" />
+		<result column="author_id" property="authorId" />
+		<result column="upload_time" property="uploadTime" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassAchievement" id="turnClassAchievementMap">
+		<id column="id" property="id" />
+		<result column="task_id" property="taskId" />
+		<result column="plan_stage" property="planStage" />
+		<result column="demand_stage" property="demandStage" />
+		<result column="design_stage" property="designStage" />
+		<result column="arithmetic_stage" property="arithmeticStage" />
+		<result column="test_stage" property="testStage" />
+		<result column="author_id" property="authorId" />
+		<result column="author_name" property="authorName" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="content" property="content" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassAfterModify" id="turnClassAfterModifyMap">
+		<id column="id" property="id" />
+		<result column="task_id" property="taskId" />
+		<result column="plan_stage" property="planStage" />
+		<result column="demand_stage" property="demandStage" />
+		<result column="design_stage" property="designStage" />
+		<result column="arithmetic_stage" property="arithmeticStage" />
+		<result column="test_stage" property="testStage" />
+		<result column="author_id" property="authorId" />
+		<result column="author_name" property="authorName" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="content" property="content" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassCommentFromStudent"
+		id="turnClassCommentFromStudentMap">
+		<id column="comment_id" property="commentId" />
+		<result column="author_id" property="authorId" />
+		<result column="author_name" property="authorName" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="conent" property="conent" />
+		<result column="comment_time" property="commentTime" />
+		<result column="task_id" property="taskId" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassCommentFromTeacher"
+		id="turnClassCommentFromTeacherMap">
+		<id column="comment_id" property="commentId" />
+		<result column="author_id" property="authorId" />
+		<result column="author_name" property="authorName" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="conent" property="conent" />
+		<result column="comment_time" property="commentTime" />
+		<result column="task_id" property="taskId" />
+		<result column="score" property="score" />
+		<result column="team_id" property="teamId" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassFeedback" id="turnClassFeedbackMap">
+		<id column="id" property="id" />
+		<result column="content" property="content" />
+		<result column="author_id" property="authorId" />
+		<result column="accessory_id" property="accessoryId" />
+		<result column="task_id" property="taskId" />
+		<result column="upload_time" property="uploadTime" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassPlanForClass" id="turnClassPlanForClassMap">
+		<id column="id" property="id" />
+		<result column="task_id" property="taskId" />
+		<result column="plan_stage" property="planStage" />
+		<result column="demand_stage" property="demandStage" />
+		<result column="design_stage" property="designStage" />
+		<result column="arithmetic_stage" property="arithmeticStage" />
+		<result column="test_stage" property="testStage" />
+		<result column="author_id" property="authorId" />
+		<result column="author_name" property="authorName" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="upload_time" property="uploadTime" />
+		<result column="content" property="content" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassPlanForCourse" id="turnClassPlanForCourseMap">
+		<id column="id" property="id" />
+		<result column="content" property="content" />
+		<result column="author_id" property="authorId" />
+		<result column="author_name" property="authorName" />
+		<result column="author_picture" property="authorPicture" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="task_id" property="taskId" />
+		<result column="upload_time" property="uploadTime" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassTask" id="turnClassTaskMap">
+		<id column="id" property="taskId" />
+		<result column="task_name" property="taskName" />
+		<result column="virtual_class_nun" property="virtualClassNun" />
+		<result column="task_introduction" property="taskIntroduction" />
+		<result column="task_detail" property="taskDetail" />
+		<result column="category" property="category" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="course_id" property="courseId" />
+		<result column="accessory_path" property="accessoryPath" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassTaskToTeam" id="turnClassTaskToTeamMap">
+		<id column="id" property="id" />
+		<result column="team_id" property="teamId" />
+		<result column="accept_time" property="acceptTaskTime" />
+		<result column="status" property="status" />
+		<result column="task_id" property="taskId" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassTeam" id="turnClassTeamMap">
+		<id column="team_id" property="teamId" />
+		<result column="leader_id" property="leaderId" />
+		<result column="leader_name" property="leaderName" />
+		<result column="member_id" property="memberId" />
+		<result column="member_name" property="memberName" />
+		<result column="task_id" property="taskId" />
+		<result column="accept_time" property="acceptTime" />
+		<result column="virtual_class_id" property="virtualClassId" />
+	</resultMap>
+</mapper>

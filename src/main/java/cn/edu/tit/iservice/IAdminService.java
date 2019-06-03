@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import cn.edu.tit.bean.Academic;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
@@ -130,5 +132,14 @@ public interface IAdminService {
 	 * @Param1 实体班集合
 	 */
 	public String addRealClass(List<RealClass> realCLassList) throws Exception;
+
+	public void updateRealClass(RealClass realClass) throws Exception;
+
+	public List<Academic> readAcademicInfo() throws Exception;
+	public Department readDepartmentByNum(String num) throws Exception;
+	public List<Department> readDepartment() throws Exception;
+	public void addDepartment(Department de) throws Exception;
+
+	public void updateDepartment(Department de) throws Exception;
 
 }

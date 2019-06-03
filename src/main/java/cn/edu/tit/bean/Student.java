@@ -15,7 +15,7 @@ public class Student {
 	private String faceImg; //学生头像
 	private String status; // 留级，退学
 	private String studentNote; //学生留级后  旧学号
-	private String studentCategory; //学生所属系部
+	private String studentCategory; //学生所属系部  系部表为Department
 	public String getStudentId() {
 		return studentId;
 	}

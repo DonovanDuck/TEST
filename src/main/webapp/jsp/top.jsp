@@ -133,7 +133,7 @@ header nav li a{
               </li>
               <li>|</li>
               <c:if test="${teacher == null && student == null }">
-              <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登陆</a></li>
+              <li><a href="<c:url value='/jsp/Teacher/index.jsp'/>">登录</a></li>
               </c:if>
                <c:if test="${teacher != null }">
               <li class="m" style="width: 120px;"><a href="<c:url value='/teacher/toTeacherPage'/>">欢迎:${teacher.teacherName }</a></li>
@@ -157,18 +157,19 @@ header nav li a{
               <li class="li2"><a href="">我们</a></li>
              </span>
           <!--导航-->
-          <nav>
+          <nav style="width: 55%;">
               <ul>
                   <li class="li2"><a href="<c:url value='/main/toMain'/>">首页</a></li>
                   <li class="li2"><a href="<c:url value='/teacher/courseList'/>">课程</a></li>
                   <li class="li2"><a href="">互助</a></li>
                   <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
                   <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li>
+                  <li class="li2"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li>
                   <c:if test="${teacher != null }">
-                  <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 17px;">个人中心</a></li>
+                  <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 15px;">个人中心</a></li>
 	              </c:if>
 	              <c:if test="${student != null }">
-	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 17px;">个人中心</a></li>
+	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 15px;">个人中心</a></li>
 	              </c:if>
               </ul>
           </nav>

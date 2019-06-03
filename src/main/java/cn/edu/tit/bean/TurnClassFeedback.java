@@ -1,0 +1,71 @@
+package cn.edu.tit.bean;
+
+import java.sql.Timestamp;
+
+/**
+ * 课堂反馈实体
+ * */
+public class TurnClassFeedback {
+	private String id;
+	private String content;
+	private String authorId;
+	private String accessoryId;
+	private String taskId;
+	private Timestamp uploadTime;
+	public String getId() {
+		return id;
+	}
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getContent() {
+		return content;
+	}
+	public void setContent(String content) {
+		this.content = content;
+	}
+	public String getAuthorId() {
+		return authorId;
+	}
+	public void setAuthorId(String authorId) {
+		this.authorId = authorId;
+	}
+	public String getAccessoryId() {
+		return accessoryId;
+	}
+	public void setAccessoryId(String accessoryId) {
+		this.accessoryId = accessoryId;
+	}
+	public String getTaskId() {
+		return taskId;
+	}
+	public void setTaskId(String taskId) {
+		this.taskId = taskId;
+	}
+	public Timestamp getUploadTime() {
+		return uploadTime;
+	}
+	public void setUploadTime(Timestamp uploadTime) {
+		this.uploadTime = uploadTime;
+	}
+	@Override
+	public String toString() {
+		return "TurnClassFeedback [id=" + id + ", content=" + content + ", authorId=" + authorId + ", accessoryId="
+				+ accessoryId + ", taskId=" + taskId + ", uploadTime=" + uploadTime + "]";
+	}
+	public TurnClassFeedback(String id, String content, String authorId, String accessoryId, String taskId,
+			Timestamp uploadTime) {
+		super();
+		this.id = id;
+		this.content = content;
+		this.authorId = authorId;
+		this.accessoryId = accessoryId;
+		this.taskId = taskId;
+		this.uploadTime = uploadTime;
+	}
+	public TurnClassFeedback() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+
+}

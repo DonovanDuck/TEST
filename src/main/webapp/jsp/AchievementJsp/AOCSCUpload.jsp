@@ -21,9 +21,11 @@
 <!-- 加载编辑器的容器 -->
 <script id="container" name="content" type="text/plain">这里写你的初始化内容</script>
 <!-- 配置文件 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor.config.js"></script>
 <!-- 编辑器源码文件 -->
-<script type="text/javascript" src="${pageContext.request.contextPath}/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor.all.js"></script>
 <!-- 实例化编辑器 -->
 <script type="text/javascript">
 	    var ue = UE.getEditor('container');
@@ -46,32 +48,33 @@
 		});
 		$("#levelContent").val(level);
 		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
+		var alertJudge = true;//弹框判断
 		 $("#content").find("input[type='text']").each(function(){
-                  if($(this).val()==""){
+                  if($(this).val()==""&&alertJudge==true){
 			         alert($(this).attr("placeholder")+"    不可为空")
 			         judge = false;
+			         alertJudge = false;
 					 }
 					 });
 		 $("#content").find("input[type='file']").each(function(){
-					 if($(this).val()==""){
+					 if($(this).val()==""&&alertJudge==true){
 					 alert($(this).attr("placeholder")+"    不可为空")
 					 judge = false;
+					 alertJudge = false;
 					 }
 					 });
 		
 		 $("#content").find("input[type='date']").each(function(){
-					 if($(this).val()==""){
+					 if($(this).val()==""&&alertJudge==true){
 					 alert($(this).attr("placeholder")+"    不可为空")
 					 judge = false;
+					 alertJudge = false;
 					 }
 					 });
 		 if(judge)
 			 {
 			 $("#formContent").submit();
 			 }
-		 else{
-			 alert("信息补全再次提交");
-		 }
 	}
 </script>
 <script type="text/javascript">

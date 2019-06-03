@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.iservice.IAchievementService;
 import cn.edu.tit.iservice.ITeacherService;
 
 @RequestMapping("/main")
@@ -20,6 +22,8 @@ public class MainController {
 	@Autowired
 	public ITeacherService teacherService;
 	
+	@Autowired
+	private IAchievementService iAchievementService;
 	/**
 	 * 跳转到主页
 	 * @param request
@@ -44,7 +48,9 @@ public class MainController {
 				publishTime.add(course.getPublishTime().toString().substring(0,10));
 			}
 			mv.addObject("courseList",courseList);
-
+			//获取课程成果
+			List<CourseExpand> aocscList  = iAchievementService.queryCourseExpand();
+			mv.addObject("aocscList", aocscList);
 			//mv.addObject("teacherNameList",teacherNameList);
 
 			mv.addObject("publishTime",publishTime);

@@ -16,12 +16,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     background: #333333;
     float:left;
     height: 271.88px;
-    margin-top: 54px;
+    margin-top: -12px;
 }
 footer .footer-img{
     width: 130px;
     height: 130px;
-    padding: 1%;
+    padding: 5px;
     background: white;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -47,8 +47,9 @@ footer nav li a:hover{
     margin: 0 auto;
     padding: 0;
 }
-a{
+ul li a{
     text-decoration: none;
+    
 }
 li{
     list-style: none;
@@ -82,13 +83,13 @@ li{
               <hr>
               <nav>
                   <ul>
-                      <li><a href="<c:url value='/main/toMain'/>">首页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="<c:url value='/teacher/courseList'/>">课程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">讨论区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">学生成果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">产学研项目&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">微信端&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
-                      <li><a href="">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="<c:url value='/main/toMain'/>">首页&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="<c:url value='/teacher/courseList'/>">课程&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">讨论区&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a  style="text-decoration: none;" href="">学生成果&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">产学研项目&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">微信端&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
+                      <li><a style="text-decoration: none;" href="">联系我们&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;|</a></li>
                   </ul>
               </nav>
           </div>

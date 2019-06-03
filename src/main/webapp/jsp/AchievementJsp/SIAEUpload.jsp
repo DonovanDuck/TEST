@@ -36,37 +36,35 @@
 		});
 		$("#levelContent").val(level);
 		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
+		var alertJudge = true;//弹框判断
 		 $("#content").find("input[type='text']").each(function(){
-                 if($(this).val()==""){
+                 if($(this).val()==""&&alertJudge==true){
 			         alert($(this).attr("placeholder")+"    不可为空")
-			         judge = false;
+			         judge = false;  alertJudge = false;
 					 }
 					 });
 		 var detail = $("#detail").val();
-		 if(detail=="")
+		 if(detail==""&&alertJudge==true)
 			 {
 			 alert("作品详情    不可为空")
-	         judge = false;
+	         judge = false;  alertJudge = false;
 			 }
 		 $("#content").find("input[type='file']").each(function(){
-					 if($(this).val()==""){
+					 if($(this).val()==""&&alertJudge==true){
 					 alert($(this).attr("placeholder")+"    不可为空")
-					 judge = false;
+					 judge = false;  alertJudge = false;
 					 }
 					 });
 		 $("#content").find("input[type='date']").each(function(){
-					 if($(this).val()==""){
+					 if($(this).val()==""&&alertJudge==true){
 					 alert($(this).attr("placeholder")+"    不可为空")
-					 judge = false;
+					 judge = false;  alertJudge = false;
 					 }
 					 });
 		 if(judge)
 			 {
 			 $("#formContent").submit();
 			 }
-		 else{
-			 alert("信息补全再次提交");
-		 }
 	}
 </script>
 <script type="text/javascript">
@@ -224,7 +222,7 @@
 						<label for="midreply">中期检查</label> <input type="file"
 							id="midreply" name="midreply" placeholder="中期检查">
 					</div>
-					<div class="form-group"  style="width: 32%; float: left">
+					<div class="form-group" style="width: 32%; float: left">
 						<label for="concludingRreport">结题报告</label> <input type="file"
 							id="concludingRreport" name="concludingRreport"
 							placeholder="结题报告">

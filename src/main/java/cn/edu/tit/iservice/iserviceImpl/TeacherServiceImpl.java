@@ -1109,9 +1109,15 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public void addUseNum(String taskId) {
+	public void addUseNum(String taskId, int taskSumNum) {
 		// TODO Auto-generated method stub
-		teacherDao.addUseNum(taskId);
+		teacherDao.addUseNum(taskId,taskSumNum);
+	}
+	
+	@Override
+	public void addWatchNum(String taskId, int taskSumNum) {
+		// TODO Auto-generated method stub
+		teacherDao.addWatchNum(taskId,taskSumNum);
 	}
 	
 	public Term getTermById(String termId) {
@@ -1215,6 +1221,16 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
+	public List<Task> getAllTask() {
+		// TODO Auto-generated method stub
+		return teacherDao.getAllTask();
+	}
+
+	@Override
+	public List<Task> getTaskByUserId(String userId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskByUserId(userId);
+	}
 	public List<Attendance> getAttendanceDetail(String virtualClassNum) {
 		// TODO Auto-generated method stub
 		return teacherDao.getAttendanceDetail(virtualClassNum);
@@ -1255,6 +1271,12 @@ public class TeacherServiceImpl implements ITeacherService{
 		return taskList;
 	}
 
+	@Override
+	public int getTaskUserNum(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskUserNum(virtualClassNum);
+	}
+		
 	@Override
 	public UpTask getUpTask(String taskId, String studentId) {
 		// TODO Auto-generated method stub

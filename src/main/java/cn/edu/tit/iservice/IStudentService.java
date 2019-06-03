@@ -133,5 +133,12 @@ public interface IStudentService {
 	 * 查看该学生是否旷课
 	 */
 	public Boolean isTruancied(String attendanceId,String studentId);
+	
+	/**
+	 * 根据班级号获取课程id
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public String getCourseIdByvId(String virtualClassNum);
 
 }

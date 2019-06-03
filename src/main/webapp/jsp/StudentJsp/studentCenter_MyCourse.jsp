@@ -7,7 +7,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>个人中心</title>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
@@ -60,6 +60,16 @@
 	</div>
 	<div class="main_b">
 		<div class="main_b_l">
+			 <a
+				href="${pageContext.request.contextPath}/student/toStudentCenter_MyClass">
+				<div class="nav1">
+					<p>
+						<img
+							src="${pageContext.request.contextPath}/images/studentCenterImg/b1.png"
+							alt="" />我的班级
+					</p>
+				</div>
+			</a>
 			<a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyCourse">
 				<div class="nav1">
@@ -69,16 +79,8 @@
 							alt="" />我的课程
 					</p>
 				</div>
-			</a> <a
-				href="${pageContext.request.contextPath}/student/toStudentCenter_MyClass">
-				<div class="nav1">
-					<p>
-						<img
-							src="${pageContext.request.contextPath}/images/studentCenterImg/b1.png"
-							alt="" />我的班级
-					</p>
-				</div>
-			</a> <a
+			</a> 
+			<a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyAchievement">
 				<div class="nav1">
 					<p>
@@ -128,15 +130,22 @@
 						href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 						<div class="lesson">
 							<div class="lesson_l">
-								<img
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
-									alt="" />
+								<c:if test="${empty course.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+								<c:if test="${not empty course.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+
 							</div>
 							<div class="lesson_r">
-								<h3>${course.courseName }</h3>
-								<p>创课老师：${listCourseId_MyCourse_publishName[loop.count-1]}</p>
-								<p>开课老师：王五</p>
-								<p>开课时间：2018-2019年 第二学期</p>
+								<h3 style="    margin-bottom: 13px;margin-top: 14px;">${course.courseName }</h3>
+								<p style="    margin-bottom: 10px;">创课老师：${course.publisherId }</p>
+								<p>开课时间：${course.publishTime }</p>
 							</div>
 						</div>
 					</a>
@@ -149,15 +158,22 @@
 						href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
 						<div class="lesson">
 							<div class="lesson_l">
-								<img
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
-									alt="" />
+								<c:if test="${empty course.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+								<c:if test="${not empty course.faceImg }">
+									<img
+										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+										alt="" style="width: 100%; height: 100%;" />
+								</c:if>
+
 							</div>
 							<div class="lesson_r">
-								<h3>${course.courseName }</h3>
-								<p>创课老师：${listCourseId_Myattention_publishName[loop.count-1]}</p>
-								<p>开课老师：王五</p>
-								<p>开课时间：2018-2019年 第二学期</p>
+								<h3 style="    margin-bottom: 13px;margin-top: 14px;">${course.courseName }</h3>
+								<p style="    margin-bottom: 10px;">创课老师：${course.publisherId }</p>
+								<p>开课时间：${course.publishTime }</p>
 							</div>
 						</div>
 					</a>
@@ -166,6 +182,6 @@
 		</div>
 	</div>
 	</main>
-	<jsp:include page="/jsp/footer.jsp" flush="true" />
+	<jsp:include page="/jsp/footer2.jsp" flush="true" />
 </body>
 </html>

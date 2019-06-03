@@ -1,6 +1,9 @@
 package cn.edu.tit.controller.wxController;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -13,6 +16,9 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -943,16 +949,155 @@ public class WxTeacherController {
 	public Map<String, Object> getUpTaskById(HttpServletRequest request,@RequestParam(value="studentId") String studentId,
 			@RequestParam(value="taskId") String taskId) {
 		Map<String, Object> ret = new HashMap<>();
+		String upTaskDetail = null;
+		List<String> accessoriesName = new ArrayList<String>();
 		try {
-			//获取提交课程
-			UpTask uptask = studentService.getUpTask(taskId, studentId);
-			//获得课程附件
-			Accessory acc = studentService.getUpAcc(taskId, studentId);
-			ret.put("uptask", uptask);
-			ret.put("acc", acc);
+			if(studentId!=null) {
+				upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
+			}
+			
+			accessoriesName = studentService.getUpAccessories(taskId, studentId);
+			ret.put("uptask", upTaskDetail);
+			ret.put("upacc", accessoriesName);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
+		}
+		return ret;
+	}
+	
+	/**
+	 * 老师改分，评语
+	 * @param request
+	 * @param taskId
+	 * @param studentId
+	 * @return
+	 */
+	@RequestMapping("commendWork")
+	public Map<String, Object>  commendWork(HttpServletRequest request,@RequestParam(value="taskId") String taskId,
+			@RequestParam(value="studentId") String studentId,@RequestParam(value="grade") String grad,
+			@RequestParam(value="comment") String comment) {
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			
+			Integer grade = Integer.parseInt( grad);
+			Timestamp commentTime = new Timestamp(System.currentTimeMillis());
+			teacherService.setGradeAndComment(comment, grade, studentId, taskId,commentTime);
+			ret.put("status", "Ok");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status","error");
+		}
+		return ret;
+
+	}
+	
+	/**
+	 * 获取已提交和未提交作业学生列表
+	 * @return
+	 */
+	@RequestMapping(value="getTaskSatuation")
+	public Map<String, Object> getTaskSatuation(@RequestParam(value="taskId") String taskId, @RequestParam(value="virtualClassNum") String virtualClassNum){
+		Map<String, Object> ret = new HashMap<>();
+		List<Student> studentUpedList = new ArrayList<Student>();
+		List<Student> studentNotUpList = new ArrayList<Student>();
+		try {
+			studentNotUpList =teacherService.getStudentListOfNotUp(taskId, virtualClassNum);
+			studentUpedList = teacherService.getStudentListOfUped(taskId);
+			ret.put("studentNotUpList", studentNotUpList);
+			ret.put("studentUpedList", studentUpedList);
+			ret.put("status", "success");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+		}
+		return ret;
+	}
+	
+	/**
+	 * 附件下载
+	 */
+	@RequestMapping("/resourceDownload")
+	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id) throws IOException {
+
+		System.out.println(fileName);
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		File file=null;
+		if("".equals(studentId)||studentId==null) {
+			file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
+		}else {
+			file = new File(Common.readProperties("path")+"/"+id+"/"+studentId+"/"+fileName);
+
+		}
+		System.out.println("文件名"+file.getName());
+		byte[] body = null;
+		InputStream is = new FileInputStream(file);
+		body = new byte[is.available()];
+		is.read(body);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+		HttpStatus statusCode = HttpStatus.OK;
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+		return entity;
+	}
+	
+	/**
+	 * 返回全部作业
+	 */
+	@RequestMapping("getAllTask")
+	public Map<String, Object> getAllTask(@RequestParam(value="userId")String userId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//判断是学生还是老师
+			Teacher teacher = teacherService.teacherLoginByEmployeeNum(userId);
+			Student student = studentService.studentLoginByEmployeeNum(userId);
+			if(teacher!=null){
+				//获取所有发布的课程
+				List<Task> teacher_task = teacherService.getTaskByUserId(userId);
+				ret.put("teacherTask", teacher_task);
+			}
+			else if(student != null){
+				//获得虚拟班级号
+				List<VirtualClass> virtualClass = teacherService.getVirtualClassNumByreal(student.getClassNum());
+				for(VirtualClass v : virtualClass){
+					List<String> taskId = teacherService.searchTaskId(v.getVirtualClassNum());
+					List<Task> student_task = teacherService.TaskList(taskId);
+					ret.put("studentTask", student_task);
+				}
+			}
+			else{
+				ret.put("status", "error");
+			}
+			} catch (Exception e) {
+			// TODO: handle exception
+				e.printStackTrace();
+				ret.put("status", "error");
+		}
+		return ret;
+	}
+	
+
+	
+	/**
+	 * 获得成绩和评语
+	 */
+	@RequestMapping("getcommendWork")
+	public Map<String, Object> getcommendWork(@RequestParam(value="taskId") String taskId,@RequestParam(value="studentId") String studentId){
+		Map<String, Object> ret = new HashMap<>();
+		String comment = null;
+		Integer grade=null;
+		try {
+			comment = teacherService.getComment(taskId, studentId);
+			grade = teacherService.getGrade(taskId, studentId);
+			ret.put("comment", comment);
+			ret.put("grade", grade);
+			ret.put("status", "Ok");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
 		}
 		return ret;
 	}

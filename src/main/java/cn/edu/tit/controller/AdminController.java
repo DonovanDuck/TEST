@@ -2,7 +2,11 @@ package cn.edu.tit.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -28,10 +32,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.alibaba.fastjson.JSONObject;
+
 import cn.edu.tit.bean.AOCSC;
+import cn.edu.tit.bean.Academic;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.CourseExpand;
+import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
 import cn.edu.tit.bean.RealClass;
@@ -95,7 +103,7 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv = readTeacherInfo();
+		mv = toTeacherManager();
 		mv.addObject("readResult", readResult);//返回信息
 		return mv;
 	}
@@ -135,47 +143,145 @@ public class AdminController {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv = readStudentInfo();
+		mv = toStudentManager();
 		mv.addObject("readResult", readResult);//返回信息
 		return mv;
 	}
 
+	//	/**
+	//	 * @author LiMing
+	//	 * 读取教师信息
+	//	 * */  旧版本方法
+	//	@RequestMapping(value="readTeacherInfo",method= {RequestMethod.GET})
+	//	public ModelAndView readTeacherInfo() {			
+	//		ModelAndView mv = new ModelAndView();
+	//		List<Teacher> readResult = new ArrayList<Teacher>();
+	//		try {
+	//			readResult = iAdminService.readTeacherInfo();
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//		mv.addObject("teacherList", readResult);//返回信息
+	//		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
+	//		return mv;
+	//	}
+
+	@RequestMapping(value="toTeacherManager",method= {RequestMethod.GET})
+	public ModelAndView toTeacherManager() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/managerForTeacher");//设置返回页面
+		return mv;
+	}			
+
+	@RequestMapping(value="updateDepartment",method= {RequestMethod.GET})
+	public ModelAndView updateDepartment(@RequestParam(value="editId") String editId,@RequestParam(value="editName") String editName) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Department de = new Department();
+		de.setId(editId);
+		de.setName(editName);
+		iAdminService.updateDepartment(de);
+		mv.setViewName("/jsp/AdminJsp/managerForDepartment");//设置返回页面
+		return mv;
+	}	
 	/**
 	 * @author LiMing
 	 * 读取教师信息
+	 * @throws Exception 
 	 * */
-	@RequestMapping(value="readTeacherInfo",method= {RequestMethod.GET})
-	public ModelAndView readTeacherInfo() {			
-		ModelAndView mv = new ModelAndView();
-		List<Teacher> readResult = new ArrayList<Teacher>();
+	@RequestMapping(value="getTeacherInfo",method= {RequestMethod.GET})
+	public void getTeacherInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {		
+		System.out.println("访问至后台获取教师数据");
+		List<Teacher> readResult = new ArrayList<>();
 		try {
 			readResult = iAdminService.readTeacherInfo();
-		} catch (Exception e) {
-			e.printStackTrace();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		mv.addObject("teacherList", readResult);//返回信息
-		mv.setViewName("/jsp/AdminJsp/teacherManager");//设置返回页面
-		return mv;
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Teacher teacher : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("number", teacher.getEmployeeNum());
+			ob.put("name", teacher.getTeacherName());
+			ob.put("nickName", teacher.getTeacherNickName());
+			ob.put("gender", teacher.getTeacherGender());
+			ob.put("category", teacher.getTeacherCategory());
+			ob.put("status", teacher.getStatus());
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
+
+	//	/**
+	//	 * @author LiMing
+	//	 * 读取学生信息
+	//	 * */ 旧版本方法
+	//	@RequestMapping(value="readStudentInfo",method= {RequestMethod.GET})
+	//	public ModelAndView readStudentInfo() {			
+	//		ModelAndView mv = new ModelAndView();
+	//		List<Student> readResult = new ArrayList<Student>();
+	//		try {
+	//			readResult = iAdminService.readStudentInfo();
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//		mv.addObject("studentList", readResult);//返回信息
+	//		mv.setViewName("/jsp/AdminJsp/studentManager");//设置返回页面
+	//		return mv;
+	//	}
+
+	@RequestMapping(value="toStudentManager",method= {RequestMethod.GET})
+	public ModelAndView toStudentManager() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/managerForStudent");//设置返回页面
+		return mv;
+	}	
 
 	/**
 	 * @author LiMing
-	 * 读取学生信息
+	 * 读学生信息
+	 * @throws Exception 
 	 * */
-	@RequestMapping(value="readStudentInfo",method= {RequestMethod.GET})
-	public ModelAndView readStudentInfo() {			
-		ModelAndView mv = new ModelAndView();
-		List<Student> readResult = new ArrayList<Student>();
+	@RequestMapping(value="getStudentInfo",method= {RequestMethod.GET})
+	public void getStudentInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {		
+		List<Student> readResult = new ArrayList<>();
 		try {
 			readResult = iAdminService.readStudentInfo();
-		} catch (Exception e) {
-			e.printStackTrace();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		mv.addObject("studentList", readResult);//返回信息
-		mv.setViewName("/jsp/AdminJsp/studentManager");//设置返回页面
-		return mv;
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Student student : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("number", student.getStudentId());
+			ob.put("name", student.getStudentName());
+			ob.put("nickName", student.getStudentNickName());
+			ob.put("gender", student.getStudentGender());
+			ob.put("category", student.getStudentCategory());
+			ob.put("profess", student.getProfessional());
+			ob.put("class", student.getClassNum());
+			ob.put("status", student.getStatus());
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
-
 
 	/**
 	 * @author LiMing
@@ -184,23 +290,21 @@ public class AdminController {
 	@RequestMapping(value="addCategory",method= {RequestMethod.POST})
 	public ModelAndView addCategory(@RequestParam(value="categoryNum") String categoryNum,@RequestParam(value="categoryName") String categoryName,@RequestParam(value="categoryDetail") String categoryDetail) {			
 		ModelAndView mv = new ModelAndView();
-		String readResult = null;
+
 		try {
 			Category category = new Category();
 			category.setCategoryDetail(categoryDetail);
 			category.setCategoryName(categoryName);
 			category.setCategoryNum(categoryNum);
-			category.setCategoryId(categoryNum);
-			System.out.println(category.toString());
+			category.setCategoryId(Common.uuid());
 			List<Category> categories = new ArrayList<Category>();
 			categories.add(category);
-			readResult = iAdminService.addCategory(categories);
-			mv = readCategories();
+			iAdminService.addCategory(categories);
+			mv = toCategoryManager();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv.addObject("readResult", readResult);//返回信息
-		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
+		mv.setViewName("/jsp/AdminJsp/managerForCategory");//设置返回页面
 		return mv;
 	}
 
@@ -210,14 +314,15 @@ public class AdminController {
 	 * @throws Exception 
 	 * */
 	@RequestMapping(value="updateCategory",method= {RequestMethod.POST})
-	public ModelAndView updateCategory(@RequestParam(value="editCategoryNum") String editCategoryNum,@RequestParam(value="editCategoryNumB") String editCategoryNumB,@RequestParam(value="editCategoryName") String editCategoryName,@RequestParam(value="editCategorDetail") String editCategorDetail) throws Exception {			
+	public ModelAndView updateCategory(@RequestParam(value="editCategoryNum") String editCategoryNum,@RequestParam(value="categoryId") String categoryId,@RequestParam(value="editCategoryName") String editCategoryName,@RequestParam(value="editCategorDetail") String editCategorDetail) throws Exception {			
 		ModelAndView mv = new ModelAndView();
 		Category category = new Category();
+		category.setCategoryId(categoryId);
 		category.setCategoryDetail(editCategorDetail);
 		category.setCategoryName(editCategoryName);
 		category.setCategoryNum(editCategoryNum);
-		//iAdminService.updateCategory(category);
-		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
+		iAdminService.updateCategory(category);
+		mv.setViewName("/jsp/AdminJsp/managerForCategory");//设置返回页面
 		return mv;
 	}
 
@@ -235,7 +340,8 @@ public class AdminController {
 			String password=Common.eccryptMD5(adminPassword);
 			if(password.equals(admin.getAdminPassword()))
 			{	
-				mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面
+				//mv = readTeacherInfo();//登陆成功之后调用另一个函数,进入index页面
+				mv.setViewName("/jsp/AdminJsp/mainManager");//设置返回页面
 				request.getSession().setAttribute("admin", admin);//将amdin 放入session
 			}
 			else {
@@ -254,106 +360,232 @@ public class AdminController {
 	}
 
 
-	/**
-	 * @author LiMing
-	 * 重置学生密码
-	 * */
-	@RequestMapping(value="resetStudentPassword/{studentId}",method= {RequestMethod.GET})
-	public ModelAndView resetStudentPassword(@PathVariable String studentId) {			
-		ModelAndView mv = new ModelAndView();
-		String readResult =null;
-		try {
-			readResult = iAdminService.resetStudentPassword(studentId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		mv.addObject("resetStudentPasswordMsg", readResult);//返回信息
-		mv = readStudentInfo();
-		return mv;
-	}
+	//	/**
+	//	 * @author LiMing
+	//	 * 重置学生密码
+	//	 * */   旧版本方法
+	//	@RequestMapping(value="resetStudentPassword/{studentId}",method= {RequestMethod.GET})
+	//	public ModelAndView resetStudentPassword(@PathVariable String studentId) {			
+	//		ModelAndView mv = new ModelAndView();
+	//		String readResult =null;
+	//		try {
+	//			readResult = iAdminService.resetStudentPassword(studentId);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//		mv.addObject("resetStudentPasswordMsg", readResult);//返回信息
+	//		mv = readStudentInfo();
+	//		return mv;
+	//	}
 
+	//	/**
+	//	 * @author LiMing
+	//	 * 重置老师密码
+	//	 * */               旧版本后台方法
+	//	@RequestMapping(value="resetTeacherPassword/{employeeNum}",method= {RequestMethod.GET})
+	//	public ModelAndView resetTeacherPassword(@PathVariable String employeeNum) {			
+	//		ModelAndView mv = new ModelAndView();
+	//		String readResult =null;
+	//		try {
+	//			readResult = iAdminService.resetTeacherPassword(employeeNum);
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//		mv.addObject("resetTeacherPasswordMsg", readResult);//返回信息
+	//		mv = readTeacherInfo();
+	//		return mv;
+	//	}
 
 	/**
 	 * @author LiMing
 	 * 重置老师密码
 	 * */
 	@RequestMapping(value="resetTeacherPassword/{employeeNum}",method= {RequestMethod.GET})
-	public ModelAndView resetTeacherPassword(@PathVariable String employeeNum) {			
-		ModelAndView mv = new ModelAndView();
+	public void resetTeacherPassword(HttpServletRequest request,HttpServletResponse response,@PathVariable String employeeNum) {			
 		String readResult =null;
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		try {
 			readResult = iAdminService.resetTeacherPassword(employeeNum);
+			readResult = "密码(123456)初始化成功";
 		} catch (Exception e) {
+			readResult = "密码初始化失败";
 			e.printStackTrace();
 		}
-		mv.addObject("resetTeacherPasswordMsg", readResult);//返回信息
-		mv = readTeacherInfo();
-		return mv;
+		try {
+			response.getWriter().print(readResult);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
 	 * @author LiMing
-	 * 增加系部信息
+	 * 重置学生密码
 	 * */
-	@RequestMapping(value="addCategories",method= {RequestMethod.POST})
-	public ModelAndView addCategories() {			
-		ModelAndView mv = new ModelAndView();
+	@RequestMapping(value="resetStudentPassword/{employeeNum}",method= {RequestMethod.GET})
+	public void resetStudentPassword(HttpServletRequest request,HttpServletResponse response,@PathVariable String employeeNum) {			
 		String readResult =null;
-		mv.addObject("readResult", readResult);//返回信息
-		mv.setViewName("/jsp/AdminJsp/departInformation");//设置返回页面
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		try {
+			readResult = iAdminService.resetStudentPassword(employeeNum);
+			readResult = "密码(123456)初始化成功";
+		} catch (Exception e) {
+			readResult = "密码初始化失败";
+			e.printStackTrace();
+		}
+		try {
+			response.getWriter().print(readResult);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * @author LiMing
+	 * 系部管理跳转方法
+	 * */
+	@RequestMapping(value="toCategoryManager",method= {RequestMethod.GET})
+	public ModelAndView toCategoryManager() {			
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/managerForCategory");//设置返回页面
 		return mv;
 	}
 
 	/**
 	 * @author LiMing
-	 * 读取系部信息
+	 * 读学生信息
+	 * @throws Exception 
 	 * */
-	@RequestMapping(value="readCategories",method= {RequestMethod.GET})
-	public ModelAndView readCategories() {			
-		ModelAndView mv = new ModelAndView();
-		List<Category> readResult = new ArrayList<Category>();
+	@RequestMapping(value="getCategoryInfo",method= {RequestMethod.GET})
+	public void getCategoryInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {		
+		List<Category> readResult = new ArrayList<>();
 		try {
 			readResult = iAdminService.readCategory();
-		} catch (Exception e) {
-			e.printStackTrace();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
-		for (Category category : readResult) {
-			System.out.println(category.toString());
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Category ca : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getCategoryId());
+			ob.put("categoryNum", ca.getCategoryNum());
+			ob.put("categoryName", ca.getCategoryName());
+			ob.put("categoryDetail", ca.getCategoryDetail());
+			arr.add(ob);
 		}
-		mv.addObject("categoryList", readResult);//返回信息
-		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
-		return mv;
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 	}
+	//	/**
+	//	 * @author LiMing
+	//	 * 读取系部信息
+	//	 * */  旧版本方法
+	//	@RequestMapping(value="readCategories",method= {RequestMethod.GET})
+	//	public ModelAndView readCategories() {			
+	//		ModelAndView mv = new ModelAndView();
+	//		List<Category> readResult = new ArrayList<Category>();
+	//		try {
+	//			readResult = iAdminService.readCategory();
+	//		} catch (Exception e) {
+	//			e.printStackTrace();
+	//		}
+	//		for (Category category : readResult) {
+	//			System.out.println(category.toString());
+	//		}
+	//		mv.addObject("categoryList", readResult);//返回信息
+	//		mv.setViewName("/jsp/AdminJsp/categoryManager");//设置返回页面
+	//		return mv;
+	//	}
 
 
 	/**
 	 * @author LiMing
 	 * 读取实体班级信息
 	 * */
-	@RequestMapping(value="readRealClass",method= {RequestMethod.GET})
-	public ModelAndView readRealClass() {			
+	@RequestMapping(value="toRealClassManager",method= {RequestMethod.GET})
+	public ModelAndView toRealClassManager() {			
 		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/managerForRealClass");//设置返回页面
+		return mv;
+	}
+
+	/**
+	 * @author LiMing
+	 * 读取实体班级信息
+	 * */
+	@RequestMapping(value="readRealClassInfo",method= {RequestMethod.GET})
+	public void readRealClassInfo(HttpServletRequest request,HttpServletResponse response) {			
 		List<RealClass> readResult = new ArrayList<RealClass>();
-		List<Category> categories = new ArrayList<Category>();
 		try {
 			readResult = iTeacherService.readRealClass(null);
-			categories = iTeacherService.readCategory();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		for (RealClass category : readResult) {
-			System.out.println(category.toString());
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (RealClass ca : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("number", ca.getRealClassNum());
+			ob.put("amount", ca.getRealPersonNum());
+			ob.put("category", ca.getRealClassCategory());
+			arr.add(ob);
 		}
-		mv.addObject("categories",categories);
-		mv.addObject("realClassList", readResult);
-		mv.setViewName("/jsp/AdminJsp/realClassManager");//设置返回页面
-		return mv;
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
+
+
 	/**
 	 * @author LiMing
 	 * 增加实体班级信息
 	 * */
-	@RequestMapping(value="AddRealClass",method= {RequestMethod.GET})
+	@RequestMapping(value="updateRealClass",method= {RequestMethod.GET})
+	public ModelAndView updateRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,@RequestParam("realClassPersonNum")String realClassPersonNum,HttpServletRequest request) {			
+		ModelAndView mv = new ModelAndView();
+		RealClass realClass = new RealClass();
+		realClass.setRealClassCategory(category);
+		realClass.setRealClassNum(realClassNum);
+		realClass.setRealPersonNum(Integer.parseInt(realClassPersonNum));
+		try {
+			iAdminService.updateRealClass(realClass);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv = toRealClassManager();
+		return mv;
+	}
+
+
+	/**
+	 * @author LiMing
+	 * 增加实体班级信息
+	 * */
+	@RequestMapping(value="addRealClass",method= {RequestMethod.GET})
 	public ModelAndView AddRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,@RequestParam("realClassPersonNum")String realClassPersonNum,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		RealClass realClass = new RealClass();
@@ -368,7 +600,7 @@ public class AdminController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		mv = readRealClass();
+		mv = toRealClassManager();
 		return mv;
 	}
 	/**
@@ -378,9 +610,72 @@ public class AdminController {
 	@RequestMapping(value="toAcademicManager",method= {RequestMethod.GET})
 	public ModelAndView toAcademicManager() {			
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("/jsp/AdminJsp/academicManager");
+		List<Department> departmentList = new ArrayList<>();
+		try {
+			departmentList = iAdminService.readDepartment();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("departmentList",departmentList);
+		mv.setViewName("/jsp/AdminJsp/managerForAcademic");
 		return mv;
 	}
+
+	@RequestMapping(value="getAcademicInfo",method= {RequestMethod.GET})
+	public void getAcademicInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {			
+		List<Academic> readResult = new ArrayList<Academic>();
+		try {
+			readResult = iAdminService.readAcademicInfo();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Academic ca : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getId());
+			ob.put("department", iAdminService.readDepartmentByNum(ca.getDepartment()).getName());
+			ob.put("name", ca.getName());
+			ob.put("professional", ca.getProfessional());
+			ob.put("time", ca.getTime().toString());
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value="readDepartmentInfo",method= {RequestMethod.GET})
+	public void readDepartmentInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {			
+		List<Department> readResult = new ArrayList<Department>();
+		try {
+			readResult = iAdminService.readDepartment();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Department ca : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getId());
+			ob.put("name", ca.getName());
+			ob.put("num", ca.getNum());
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
 
 	/**
 	 * @author LiMing
@@ -423,7 +718,7 @@ public class AdminController {
 			teacher.setTeacherGender(select);
 			iTeacherService.UpdateTeacher(teacher);
 		}
-		mv = readTeacherInfo();
+		mv = toTeacherManager();
 		return mv;
 	}
 
@@ -475,7 +770,7 @@ public class AdminController {
 			student.setStudentGender(studentGender);
 			iStudentService.updateStudent(student);	
 		}
-		mv = readStudentInfo();
+		mv = toStudentManager();
 		return mv;
 	}
 
@@ -507,6 +802,31 @@ public class AdminController {
 	@RequestMapping(value="toAchievementManager")
 	public ModelAndView toAchievementManager(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("/jsp/AdminJsp/managerForAchievement");
+		return mv;
+	}
+
+	@RequestMapping(value="toDepartmentManager")
+	public ModelAndView toDepartmentManager(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();		
+		mv.setViewName("/jsp/AdminJsp/managerForDepartment");
+		return mv;
+	}
+
+	/**
+	 * @author LiMing
+	 * 读学生信息
+	 * @throws Exception 
+	 * */
+	@RequestMapping(value="getAchievmentInfo",method= {RequestMethod.GET})
+	public void getAchievmentInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {		
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		List<AOCSC> aocscList =new ArrayList<>();
 		List<CourseExpand> courseExpandList =new ArrayList<>();
 		List<GDFCS> gdfcsList =new ArrayList<>();
@@ -518,26 +838,97 @@ public class AdminController {
 			gdfcsList = iAchievementService.queryAllGDFCS();
 			siaeList = iAchievementService.queryAllSIAE();
 			iURPList = iAchievementService.queryAllIURP();
-			mv.addObject("aocscList",aocscList);
-			mv.addObject("courseExpandList",courseExpandList);
-			mv.addObject("gdfcsList",gdfcsList);
-			mv.addObject("siaeList",siaeList);
-			mv.addObject("iURPList",iURPList);
-			mv.setViewName("/jsp/AchievementJsp/achievementMain");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv.setViewName("/jsp/AdminJsp/achievementManager");
-		return mv;
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (AOCSC ca : aocscList) {
+			Student stu = iStudentService.studentLoginByEmployeeNum(ca.getUploadAuthorId());
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getAchievementId());
+			ob.put("picture", ca.getFirstPicture());
+			ob.put("name", ca.getAchievementName());
+			ob.put("category", ca.getAchievementCategory());
+			ob.put("publisher", stu.getStudentName());
+			ob.put("deleteFlag", ca.getDeleteFlag());
+			ob.put("browsePath", "toDetailAOCSC?achievementId="+ca.getAchievementId());
+			ob.put("deleteOrRestore", ca.getAchievementId()+",大学生竞赛作品");
+			arr.add(ob);
+		}
+		for (CourseExpand ca : courseExpandList) {
+			Student stu = iStudentService.studentLoginByEmployeeNum(ca.getUploadAuthorId());
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getAchievementId());
+			ob.put("picture", ca.getFirstPicture());
+			ob.put("name", ca.getAchievementName());
+			ob.put("category", ca.getAchievementCategory());
+			ob.put("publisher", stu.getStudentName());
+			ob.put("deleteFlag", ca.getDeleteFlag());
+			ob.put("browsePath", "toDetailCourseExpand?achievementId="+ca.getAchievementId());
+			ob.put("deleteOrRestore", ca.getAchievementId()+",课程拓展");
+			arr.add(ob);
+		}
+		for (GDFCS ca : gdfcsList) {
+			Student stu = iStudentService.studentLoginByEmployeeNum(ca.getUploadAuthorId());
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getAchievementId());
+			ob.put("picture", ca.getFirstPicture());
+			ob.put("name", ca.getAchievementName());
+			ob.put("category", ca.getAchievementCategory());
+			ob.put("publisher", stu.getStudentName());
+			ob.put("deleteFlag", ca.getDeleteFlag());
+			ob.put("browsePath", "toDetailGDFCS?achievementId="+ca.getAchievementId());
+			ob.put("deleteOrRestore", ca.getAchievementId()+",毕业设计");
+			arr.add(ob);
+		}
+		for (SIAE ca : siaeList) {
+			Student stu = iStudentService.studentLoginByEmployeeNum(ca.getUploadAuthorId());
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getAchievementId());
+			ob.put("picture", ca.getFirstPicture());
+			ob.put("name", ca.getAchievementName());
+			ob.put("category", ca.getAchievementCategory());
+			ob.put("publisher", stu.getStudentName());
+			ob.put("deleteFlag", ca.getDeleteFlag());
+			ob.put("browsePath", "toDetailSIAE?achievementId="+ca.getAchievementId());
+			ob.put("deleteOrRestore", ca.getAchievementId()+",大学生创新创业");
+			arr.add(ob);
+		}
+		for (IURP ca : iURPList) {
+			Student stu = iStudentService.studentLoginByEmployeeNum(ca.getUploadAuthorId());
+			JSONObject ob=new JSONObject();
+			ob.put("id", ca.getProjectId());
+			ob.put("picture", ca.getFirstPicture());
+			ob.put("name", ca.getProjectName());
+			ob.put("category", ca.getProjectCategory());
+			ob.put("publisher", stu.getStudentName());
+			ob.put("deleteFlag", ca.getDeleteFlag());
+			ob.put("browsePath", "toDetailIURP?achievementId="+ca.getProjectId());
+			ob.put("deleteOrRestore", ca.getProjectId()+",产学研");
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 
 	@RequestMapping(value="deleteAchievement/{achievementId}")
-	public void deleteAchievement(HttpServletRequest request,@PathVariable String achievementId) throws Exception {
+	public void deleteAchievement(HttpServletRequest request,HttpServletResponse response,@PathVariable String achievementId) throws Exception {
 		String[] myList = new String[2];
 		myList = achievementId.split(",");
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		switch (myList[1]) {
 		case "产学研":
-				iAchievementService.deleteIURP(myList[0]);
+			iAchievementService.deleteIURP(myList[0]);
 			break;
 		case "课程拓展":
 			iAchievementService.deleteCourseExpand(myList[0]);
@@ -554,15 +945,23 @@ public class AdminController {
 		default:
 			break;
 		}
+		response.getWriter().print("删除成功");
 	}
 
 	@RequestMapping(value="restoreAchievement/{achievementId}")
-	public void restoreAchievement(HttpServletRequest request,@PathVariable String achievementId) throws Exception {
+	public void restoreAchievement(HttpServletRequest request,HttpServletResponse response,@PathVariable String achievementId) throws Exception {
 		String[] myList = new String[2];
 		myList = achievementId.split(",");
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		switch (myList[1]) {
 		case "产学研":
-				iAchievementService.restoreIURP(myList[0]);
+			iAchievementService.restoreIURP(myList[0]);
 			break;
 		case "课程拓展":
 			iAchievementService.restoreCourseExpand(myList[0]);
@@ -579,5 +978,6 @@ public class AdminController {
 		default:
 			break;
 		}
+		response.getWriter().print("恢复成功");
 	}
 }

@@ -387,7 +387,8 @@ public interface ITeacherDao {
 	 * @param taskId
 	 * 当以选择形式发布作业时，作业引用次数+1
 	 */
-	public void addUseNum(@Param("taskId")String taskId);
+	public void addUseNum(@Param("taskId")String taskId, @Param("taskUseNum")int taskUseNum);
+	public void addWatchNum(@Param("taskId")String taskId, @Param("taskUseNum")int taskUseNum);
 	public Term getTermById(@Param("termId")String termId);
 	public List<Teacher> teacherForFuzzyQueryById(@Param("teacherNum")String teacherNum);
 	/**
@@ -398,6 +399,10 @@ public interface ITeacherDao {
 	 * 获得这个任务在该班级发布过几次
 	 */
 	public int gettaskTypePublishNum(@Param("taskCategory")String taskCategory,@Param("taskIds")List<String>taskIds);
+
+	public List<Task> getAllTask();
+	
+	public List<Task> getTaskByUserId(@Param("userId")String userId);
 	/**
 	 * @author WENLI
 	 * @param virtualClassNum
@@ -420,5 +425,12 @@ public interface ITeacherDao {
 	 * 获得该考勤中旷课的学生Id
 	 */
 	public List<String> getTruancyStudentIdList(@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * 获取任务引用次数--虚拟班级人数
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public int getTaskUserNum(String virtualClassNum);
 	
 }

@@ -34,34 +34,32 @@
 		if (window != top)
 			top.location.href = location.href;
 		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
+		var alertJudge = true;//弹框判断
 		 $("#content").find("input[type='text']").each(function(){
-                 if($(this).val()==""){
+                 if($(this).val()==""&&alertJudge==true){
                 	 if($(this).attr("placeholder")!="课程名称"){
     			         alert($(this).attr("placeholder")+"    不可为空")
-    			         judge = false;		 
+    			         judge = false;		  alertJudge = false; 
                 	 }
 					 }
 					 });
 		 $("#content").find("input[type='file']").each(function(){
-					 if($(this).val()==""){
+					 if($(this).val()==""&&alertJudge==true){
 					 alert($(this).attr("placeholder")+"    不可为空")
-					 judge = false;
+					 judge = false;  alertJudge = false;
 					 }
 					 });
 		
 		 $("#content").find("input[type='date']").each(function(){
-					 if($(this).val()==""){
+					 if($(this).val()==""&&alertJudge==true){
 					 alert($(this).attr("placeholder")+"    不可为空")
-					 judge = false;
+					 judge = false;  alertJudge = false;
 					 }
 					 });
 		 if(judge)
 			 {
 			 $("#formContent").submit();
 			 }
-		 else{
-			 alert("信息补全再次提交");
-		 }
 	}
 </script>
 <script type="text/javascript">
@@ -105,8 +103,8 @@
 					<label for="CourseName">所属课程</label>
 					<div>
 						<input type="text" style="width: 80%; float: left"
-							class="form-control" id="CourseName" name="CourseName"
-							placeholder="课程名称" readOnly> <a
+							class="form-control" id="courseName" name="courseName"
+							placeholder="课程名称" readOnly value=""> <a
 							href="${pageContext.request.contextPath}/.." target="parent">
 							<button type="button" class="btn btn-primary btn-primary"
 								style="float: left; margin-left: 1%">选择课程</button>

@@ -9,15 +9,37 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>太原工业学院</title>
+    <title>spoc-mooc</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
-    <%-- <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
-	rel="stylesheet" /> --%>
+    <link
+	href="${pageContext.request.contextPath}/css/achievement/achievementMain.css"
+	rel="stylesheet" />
     <style>
     	.title p{
     		font-size: 10px;
     		opacity: 0.7;
     	}
+    	
+    	.xiangmu-out .rel-img img{
+    		width: 100%;
+    		height: 100%;
+    		overflow: hidden;
+    		transition:all 0.5s;
+    	}
+   .xiangmu-out:hover{
+    box-shadow: 0 0 15px grey;
+    transform: translate(0,-10px);
+}
+
+.xiangmu-out .rel-img{
+	overflow: hidden;
+}
+
+.xiangmu-out:hover .rel-img img{
+    transform: scale(1.10);
+    
+}
+    	
     </style>
     <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
     <!-- <script type="text/javascript">
@@ -113,92 +135,52 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--课程-->
           <div class="course">
               课程
-              <span><a href="<c:url value='/teacher/courseList' />">查看全部</a></span>
-              <table>
-                  <tr>
+              <span style="float: right;font-size: 16px;font-family: "微软雅黑 Light";line-height: 40px;margin-right: 1%;"><a href="<c:url value='/teacher/courseList' />">查看全部</a></span>
+                 <div class="container" style="margin: 0;padding: 0;width: 100%">
+      				 <div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="0" end="3">
-                  <td>
+                   <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li">
-                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 300px;">
+                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
                                       <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p>教师团队：
+                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p>创建时间：${publishTime[status.index] }</p>
-                                      <p>课程人数：${course.courseStudentNum }</p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>
                        </a>
-                      </td>
+                      </div>
                   </c:forEach>
-                      
-                      <!-- <td>
-                          <div  class="jidixiangmu-li">
-                              <div class="rel-img"><img src="../img/tu2.jpg" alt="" style="width: 300px;height: 200px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>课程名：机械原理</p>
-                                      <p>创建教师：杨华</p>
-                                      <p>创建时间：2006-12-22</p>
-                                      <p>课程人数：1080</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="jidixiangmu-li">
-                              <div class="rel-img"><img src="../img/tu33.jpg" alt="" style="width: 300px;height: 200px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>课程名：数学竞赛选讲</p>
-                                      <p>创建教师：赵小燕、李萍</p>
-                                      <p>创建时间：2006-12-22</p>
-                                      <p>课程人数：1730</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="jidixiangmu-li">
-                              <div class="rel-img"><img src="../img/tu44.jpg" alt="" style="width: 300px;height: 200px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>课程名：电磁学</p>
-                                      <p>创建教师：张宇</p>
-                                      <p>创建时间：2006-12-22</p>
-                                      <p>课程人数：1991</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td> -->
-                  </tr>
-                  <tr>
+                  </div>
+      			<div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="4" end="7">
-                  <td>
+                  <div class="col-xs-3 col-md-3" style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li">
-                              <div class="rel-img"  style="width: 300px;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 300px;">
+                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
                                       <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p>教师团队：
+                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p>创建时间：${publishTime[status.index] }</p>
-                                      <p>课程人数：${course.courseStudentNum }</p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>
                        </a>
-                      </td>
+                      </div>
                   </c:forEach>
                       <!-- <td>
                           <div  class="jidixiangmu-li">
@@ -252,8 +234,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               </div>
                           </div>
                       </td> -->
-                  </tr>
-              </table>
+                 </div>
+                 </div>
           </div>
 
           <!--明星学生-->
@@ -265,7 +247,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_09.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_09.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>刘文静</p>
@@ -276,7 +258,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_10.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_10.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>蒋丽君</p>
@@ -287,7 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_03.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_03.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>侯品然</p>
@@ -298,7 +280,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_04.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_04.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>肖福聚</p>
@@ -309,7 +291,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_05.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_05.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>吴正谢</p>
@@ -320,7 +302,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_06.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_06.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>陈宇</p>
@@ -331,7 +313,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_07.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_07.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>唐德天</p>
@@ -342,7 +324,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       <li><a href="">
                           <div class="touxiang-out">
                               <div class="touxiang-int">
-                                  <img src="${pageContext.request.contextPath}/images/touxiang_08.png" alt="">
+                                  <img style="margin-bottom: 13px;" src="${pageContext.request.contextPath}/images/touxiang_08.png" alt="">
                               </div>
                               <div class="touxiang_name">
                                   <p>张晓玉</p>
@@ -358,121 +340,81 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <div class="chengguo">
               学生成果
               <span><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">查看全部</a></span>
-              <table>
-                  <tr>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_01.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：细胞分析</p>
-                                      <p>团队名称：生物学实验组</p>
-                                      <p>指导教师：赵忠义</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_02.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：环境分析项目</p>
-                                      <p>团队名称：环境与安全实验团队</p>
-                                      <p>指导教师：周    昀</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_03.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：航天模型项目</p>
-                                      <p>团队名称：雄鹰团队</p>
-                                      <p>指导教师：陈    远</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_04.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：科学研究项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>指导教师：刘纪孔</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                  </tr>
-                  <tr>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_05.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：创新设计项目</p>
-                                      <p>团队名称：灵光一闪团队</p>
-                                      <p>指导教师：崔常山</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_06.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：科技创新项目</p>
-                                      <p>团队名称：飞扬团队</p>
-                                      <p>指导教师：陈    睿</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_07.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：创意产品项目</p>
-                                      <p>团队名称：DREAM团队</p>
-                                      <p>指导教师：刘    瑜</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                      <td>
-                          <div  class="chengguo-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chengguo_08.jpg" alt="" style="width: 227px;height: 209px;"></div>
-                              <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：创意小设计项目</p>
-                                      <p>团队名称：IDEA团队</p>
-                                      <p>指导教师：舢    板</p>
-                                      <p>完成时间：2006-12-22</p>
-                                  </div>
-                              </div>
-                          </div>
-                      </td>
-                  </tr>
-              </table>
+              
+              <div class="row">
+                  <c:forEach items="${aocscList }" var="item" varStatus="status" begin="0" end="3">
+                   <div class="col-xs-3 col-md-3">
+                  	<a
+							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							<div class="chengguo-out"
+								style="padding: 0; height: 378px; margin-top: 1%;">
+								<div class="doorPlank xiangmu-out"
+									style="padding: 1.5rem; background-color: white; height: 100%">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;width: 23px;height: 23px;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/images/tu2.jpg" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+                      </div>
+                  </c:forEach>
+                  </div>
+                  <div class="row">
+                  <c:forEach items="${aocscList }" var="item" varStatus="status" begin="4" end="7">
+                   <div class="col-xs-3 col-md-3">
+                  	<a
+							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							<div class="chengguo-out"
+								style="padding: 0; height: 378px; margin-top: 1%;">
+								<div class="doorPlank xiangmu-out"
+									style="padding: 1.5rem; background-color: white; height: 100%">
+									<div class="rel-img">
+										<img src="${pageContext.request.contextPath}/img/fire.png"
+											style="position: absolute; margin-left: 0; margin-top: 0;width: 23px;height: 23px;">
+										<img alt="" style="width: 100%; height: 150px;"
+											src="${pageContext.request.contextPath}/images/tu2.jpg" />
+									</div>
+									<div class="info" style="width: 100%; height: 80px;">
+										<div class="infoContent">
+											<h3 class="achievementTitle">
+												<b>${item.achievementName }</b>
+											</h3>
+											<p class="description">${item.introduction }</p>
+											<p class="description">
+												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
+													class="publishTime">发布于：${item.finishTime }</span>
+											</p>
+											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+										</div>
+									</div>
+								</div>
+							</div>
+						</a>
+                      </div>
+                  </c:forEach>
+                  </div>
+              
           </div>
 
           <!--产学研项目-->
           <div class="xiangmu">
-              产学研项目
+              翻转课堂
               <span><a href="">查看全部</a></span>
               <table>
                   <tr>
@@ -660,7 +602,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <!--论坛热帖-->
-          <div class="post">
+          <div class="post" style="margin-bottom: 55px;">
               热帖
               <span><a href="">查看全部</a></span>
               <nav>

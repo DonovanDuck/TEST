@@ -9,12 +9,10 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>课程二级页面</title>
+<title>全部课程</title>
 <meta name="viewport"
 	content="width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<link rel="stylesheet"
-	href="${pageContext.request.contextPath}/css/Course/courseSecondJsp.css"
-	type="text/css">
+	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
@@ -23,6 +21,70 @@
 	small{
 		color: #000;
 	}
+	.banner {
+	width: 76%;
+	margin-left: 13%;
+	margin-top: 1%;
+	border: 1px solid #ccc;
+	padding: 1%;
+}
+
+.banner span {
+	font-size: 20px;
+	float: left;
+}
+.iframe{
+	height:100%;
+	width:100%;
+}
+
+.banner_t {
+	width: 96%;
+	margin-left: 40px;
+	    height: 205px;
+	margin-top: -12px;
+	    padding-left: 77px;
+	        margin-bottom: 46px;
+}
+
+.banner_t li {
+	width: 20%;
+	height: 30px;
+	float: left;
+	margin-top: 2%;
+}
+
+.banner li .div1 {
+	height: 30px;
+	font-size: 20px;
+	color: #2b2b2b;
+	float: left;
+	border: 0;
+	border-radius: 10%;
+	line-height: 30px;
+	margin-top: 2%;}
+	
+    	
+    	.xiangmu-out .rel-img img{
+    		width: 100%;
+    		height: 100%;
+    		overflow: hidden;
+    		transition:all 0.5s;
+    	}
+   .xiangmu-out:hover{
+    box-shadow: 0 0 15px grey;
+    transform: translate(0,-10px);
+}
+
+.xiangmu-out .rel-img{
+	overflow: hidden;
+}
+
+.xiangmu-out:hover .rel-img img{
+    transform: scale(1.10);
+    
+}
+    	
 </style>
 </head>
 <body class="body">
@@ -37,7 +99,7 @@
 					
 	<form action="${pageContext.request.contextPath}/teacher/toCourseSecondSearch">
 		<div class="form-group">
-    <input style="width: 23%;float: left;margin-right: 13px;margin-left: 61%;"  
+    <input style="width: 23%;float: left;margin-right: 13px;margin-left: 63%;"  
     class="form-control"  name="search" placeholder="请输入关键词">
   </div>
   <button type="submit" class="btn btn-default" >搜索</button>
@@ -48,7 +110,6 @@
 	</form>
 	<%-- <a href="${pageContext.request.contextPath}/teacher/toCreateCourse" style="position: relative;top: -26px;left:269px"><button class="btn btn-default" >创建课程</button></a> --%>
 
-	<div class="banner">
 		<div class="banner_t">
 			<ul>
 				<c:forEach items="${categories }" var="category" varStatus="status">
@@ -63,34 +124,33 @@
 				</c:forEach>
 			</ul>
 		</div>
-	</div>
-	<div class="courses" style="margin-left: 13%">
-		<c:forEach items="${courseList }" var="courseListItems"
+	<div class="courses" style="padding-left: 84px;padding-right: 84px;margin-bottom: 43px;">
+	<div class="row">
+		<c:forEach items="${courseList }" var="course"
 			varStatus="status">
+			<div class="col-xs-3 col-md-3" style="height: 394px;">
 			<a
-				href="${pageContext.request.contextPath}/teacher/toCourseDetail/${courseListItems.courseId }">
-				<div class="course">
-					<div style="width: 228px; height: 165px;">
-						<img alt="" style="width: 100%; height: 100%"
-							src="${courseListItems.faceImg }" />
-					</div>
-
-					<ul class="courseInfo">
-						<li><small>${courseListItems.courseName }</small></li>
-						<li><small>
-							教师团队：
-                                      	<c:forEach items="${courseListItems.teacherList }" var="teacher">
+				href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }">
+				<div  class="jidixiangmu-li xiangmu-out">
+                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${pageContext.request.contextPath}/images/tu3.png" alt="" style="width: 300px;height: 200px;"></div>
+                              <div class="info">
+                                  <div class="title">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
+                                      	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
-                              
-						</small></li>
-						<li><small>创建时间：${publishTime[status.index]  }</small></li>
-						<li><small>课程人数:${courseListItems.courseStudentNum }</small></li>
-					</ul>
-				</div>
+                                      </p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
+                                  </div>
+                              </div>
+                          </div>
 			</a>
+			</div>
 		</c:forEach>
+		</div>
 	</div>
-	<div class="footer"></div>
+	<jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

@@ -2,8 +2,11 @@ package cn.edu.tit.idao;
 
 import java.util.List;
 import org.springframework.stereotype.Component;
+
+import cn.edu.tit.bean.Academic;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
+import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
@@ -106,9 +109,29 @@ public interface IAdminDao {
 	 */
 	public void addRealClass(List<RealClass> realCLassList);
 	/**
-	 * @author wenli
-	 * 更新实体班级人数
+	 * @author wenli 
+	 * 更新实体班级人数 导入学生时自动操作
 	 */
 	public void updateStudentNumInRealClass(String realClassNum);
+	/**
+	 * @author 
+	 * 更新实体班级人数  管理员操作
+	 */
+	public void updateRealClass(RealClass realClass);
+
+	/**
+	 * 根据班级num获取班级实体
+	 * */
+	public RealClass getRealClassByNum(String realClassNum);
+
+	public List<Academic> readAcademicInfo();
+
+	public Department readDepartmentByNum(String num);
+
+	public List<Department> readDepartment();
+
+	public void addDepartment(Department de);
+
+	public void updateDepartment(Department de);
 	
 }

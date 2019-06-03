@@ -47,22 +47,22 @@
 				.ajax({
 					async : false,
 					cache : false,
-					url : "${pageContext.request.contextPath}/teacher/readRealClassToSelect/"
+					url : "${pageContext.request.contextPath}/teacher/teacherForFuzzyQueryById/"
 							+ teacherNum,
 					type : "POST",
 					dataType : "json",
 					success : function(result) {
 						var arr = eval(result);
-						$("#classContent").empty();
+						$("#teacherContent").empty();
 						for (var i = 0; i < arr.length; i++) {
-							$("#classContent")
+							$("#teacherContent")
 									.append(
 											"<label class='checkbox-inline' id="
-													+ arr[i].realClassNum
+													+ arr[i].employeeNum
 													+ " style='width: 30%; margin-left: 2%; margin-top: 1%;'><input type='checkbox' name='unSelect' onclick='checkboxOnclick(this)'  value='"
-													+ arr[i].realClassNum
+													+ arr[i].employeeNum
 													+ "'>"
-													+ arr[i].realClassNum
+													+ arr[i].employeeNum
 													+ "</label>");
 						}
 					}
@@ -82,7 +82,7 @@
 				if ($(this).val() == value)
 					$("#" + value).remove();
 			});
-			$("#classSelectedContent")
+			$("#teacherSelectedContent")
 					.append(
 							"<label class='checkbox-inline' id="
 									+ value
@@ -104,7 +104,7 @@
 				if ($(this).val() == value)
 					$("#" + value).remove();
 			});
-			$("#classContent")
+			$("#teacherContent")
 					.append(
 							"<label class='checkbox-inline' id="
 									+ value
@@ -116,19 +116,43 @@
 
 <script type="text/javascript">
 	function submitForm() {
+		debugger;
 		var selectClass = "";
+		var flag = true;
 		$("input[name = 'select']").each(function() {
 			selectClass = selectClass + $(this).val() + ",";
+			$("#selectTeacher").val(selectClass);
 		});
-		$("#selectClass").val(selectClass);
-		$("#formContent").submit();
+		if($("#courseName").val() == null || $("#courseName").val() == ''){
+			alert("课程名不能为空！");
+			flag = false;
+		}
+		if(!UE.getEditor('courseDetail').hasContents()){
+			alert("课程描述不能为空！");
+			flag = false;
+		}
+		if(selectClass == null || selectClass == ''){
+			alert("教师团队不能为空！");
+			flag = false;
+		}
+		
+		if(flag){
+			
+		 	$("#formContent").submit();
+		}else{
+			return false;
+		}
 	}
+</script>
+
+<script type="text/javascript">
+
 </script>
 </head>
 <body>
 	<div class="main" style="width: 80%; margin-left: 10%;">
 		<form action="${pageContext.request.contextPath}/teacher/createCourse"
-			id="formContent" method="post" enctype="multipart/form-data">
+			id="formContent" method="post" enctype="multipart/form-data" onsubmit="return submitForm()">
 			<input type="hidden" name="publisherId"
 				value="${teacher.employeeNum }">
 			<div class="form-group">
@@ -167,7 +191,7 @@
 					</select>
 				</div>
 			</div>
-			<br> <br> <br> <br> <br>
+			<br><br><br><br><br> 
 			<div class="form-group">
 				<label class="col-sm-2 control-label text-right"
 					style="margin-top: 1%">课程介绍：</label>
@@ -193,17 +217,13 @@
 							<label class="checkbox-inline" id="${item.employeeNum }"
 								style="width: 30%; margin-left: 2%; margin-top: 1%;"> <input
 								name="unSelect" type="checkbox" value="${item.employeeNum }"
-								onclick="checkboxOnclick(this)"> ${item.employeeNum }
+								onclick="checkboxOnclick(this)"> ${item.teacherName }
 							</label>
 						</c:forEach>
 					</div>
+					<button type="submit" class="btn btn-primary btn-block">提交</button>
 				</div>
 				<input name="selectTeacher" id="selectTeacher" style="display: none" />
-			</div>
-			<div class="form-group">
-				<div class="col-sm-offset-2 col-md-6">
-					<button onclick="submitForm()" class="btn btn-primary">提交</button>
-				</div>
 			</div>
 			<%-- <div class="input1">
 					<span>课程名称：</span> <input name="courseName" type="text"
