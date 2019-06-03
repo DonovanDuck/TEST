@@ -216,21 +216,21 @@
 						href="${pageContext.request.contextPath}/admin/toCategoryManager"
 						class="waves-effect waves-dark"
 						style="font-size: 20px; background-color: #f8f8f8">课程类型管理</a></li>
-					<li><a
-						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
-					</li>
+
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
-						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a>
-					</li>
+						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
 					</li>
 					<li><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
+						class="waves-effect waves-dark" style="font-size: 20px">学术委员管理</a>
+					</li>
+					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px">系部信息管理</a>
+						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
 					</li>
 				</ul>
 			</nav>

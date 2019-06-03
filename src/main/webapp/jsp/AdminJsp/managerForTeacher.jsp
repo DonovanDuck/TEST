@@ -245,6 +245,23 @@
 		return judge;
 	}
 </script>
+
+<script type="text/javascript">
+	function addCheckInfo() {
+		$.ajax({
+			async : false,
+			cache : false,
+			url : ,
+			scriptCharset : 'UTF-8',
+			success : function(msg) {
+				if (!isEmpty(msg)) {
+					alert(msg);
+					judge = false;
+				}
+			}
+		});
+	}
+</script>
 <title>后台管理</title>
 </head>
 <body style="background-color: #f8f8f8">
@@ -290,19 +307,18 @@
 						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a>
 					</li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
-					</li>
-					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
-						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
+						class="waves-effect waves-dark" style="font-size: 20px;">自然班管理</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
+						class="waves-effect waves-dark" style="font-size: 20px">学术委员管理</a>
 					</li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px;">系部信息管理</a></li>
+						class="waves-effect waves-dark" style="font-size: 20px;">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -323,7 +339,11 @@
 						style="margin-top: 2%">提交</button>
 				</form>
 				<br>
-				<div>文件格式：工号、教师名、教师密码、教师性别、教育背景、教师职称、教师电话、电子邮箱</div>
+				<div>文件(EXCEL)格式：工号、教师名、教师密码、教师性别、教育背景、教师职称、教师电话、电子邮箱</div>
+				<button type="button" class="btn btn-primary btn-lg"
+					data-toggle="modal" data-target="#AddTeacher"
+					style="margin-top: 1%; margin-left: 1%;">添加个体教师</button>
+				<hr>
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
@@ -367,6 +387,49 @@
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal" style="margin-left: 2%">关闭</button>
 								<button type="submit" class="btn btn-primary" id="submitButton">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="AddTeacher" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加教师信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<form role="form" id="updateInfo"
+							action="${pageContext.request.contextPath}/admin/addOneTeacher">
+							<div class="form-group">
+								<label for="teacherId" class="control-label">教师工号</label> <input
+									type="text" class="form-control" id="addTeacherNum"
+									name="addTeacherNum">
+							</div>
+							<div class="form-group">
+								<label for="teacherName" class="control-label">教师姓名</label> <input
+									type="text" class="form-control" id="addTeacherName"
+									name="addTeacherName">
+							</div>
+							<div class="form-group">
+								<label class="control-label">教师性别</label> <select
+									class="form-control" id="addSelect" name="addSelect">
+									<option>男</option>
+									<option>女</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" style="margin-left: 2%">关闭</button>
+								<button class="btn btn-primary" onclick="addCheckInfo()">提交</button>
 							</div>
 						</form>
 					</div>

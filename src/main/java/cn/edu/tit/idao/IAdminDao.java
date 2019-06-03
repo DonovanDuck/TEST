@@ -129,9 +129,19 @@ public interface IAdminDao {
 	public Department readDepartmentByNum(String num);
 
 	public List<Department> readDepartment();
+	
+	public List<Department> readAllDepartment();
 
 	public void addDepartment(Department de);
 
 	public void updateDepartment(Department de);
+
+	public void resotreDepartment(String id);
+
+	public void deleteDepartment(String id);
+
+	public void updateAcademic(Academic ac);
+
+	public void addAcademic(Academic ac);
 	
 }

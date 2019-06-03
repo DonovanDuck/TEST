@@ -141,5 +141,13 @@ public interface IAdminService {
 	public void addDepartment(Department de) throws Exception;
 
 	public void updateDepartment(Department de) throws Exception;
+	public void resotreDepartment(String departmentId)throws Exception;
+	public void deleteDepartment(String departmentId)throws Exception;
+
+	public void updateAcademic(Academic ac)throws Exception;
+
+	List<Department> readAllDepartment() throws Exception;
+
+	public void addAcademic(Academic ac) throws Exception;
 
 }
