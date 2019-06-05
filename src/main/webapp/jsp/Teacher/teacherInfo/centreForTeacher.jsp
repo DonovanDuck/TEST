@@ -13,8 +13,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript">
+	function reinitIframe(){
+		var iframe = document.getElementById("iframeContent");
+				
+				 try 
+				{ 
+				var bHeight = iframe.contentWindow.document.body.scrollHeight; 
+				/* 
+				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+				var height = Math.max(bHeight, dHeight); 
+				iframe.height = height; */ 
+				iframe.height = bHeight; 
+			//
+				} 
+				catch (ex) { } 
+	};
+	function setIframeHeight() {
+		
+		var iframe = document.getElementById('iframeContent');
+		if (iframe) {
+			var iframeWin = iframe.contentWindow
+					|| iframe.contentDocument.parentWindow;
+			if (iframeWin.document.body) {
+				iframe.height = iframeWin.document.documentElement.scrollHeight
+						|| iframeWin.document.body.scrollHeight;
+			}
+		}
+	};
+	
+	</script>
 </head>
-<body>
+<body style="background-color: #F8F8F8">
  <jsp:include page="/jsp/top.jsp" flush="true"/>
 <main>
     <div class="main_t" style="background: #fff;">
@@ -37,9 +67,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         </div>
         <div class="main_b_r" style="width: 83%;float: left;height: 100%">
         <iframe  id="iframeContent" name="iframeContent"
-                 style="width: 100%;height: 100%"
+                width="900px" height="100%"
                 frameborder="no" border="0" scrolling="no"
-                src="${pageContext.request.contextPath}/teacher/toMyCourse"></iframe>
+                src="${pageContext.request.contextPath}/teacher/toMyCourse" ></iframe>
         </div>
     </div>
 </main>

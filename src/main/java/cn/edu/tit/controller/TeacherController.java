@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -100,33 +101,48 @@ public class TeacherController {
 
 	@RequestMapping(value="teacherLogin",method= {RequestMethod.GET})
 	public ModelAndView teacherLogin(@RequestParam("employeeNum")String teacherId,@RequestParam("password")String password,HttpServletRequest request) {
-
 		ModelAndView mv = new ModelAndView();
-		String readResult =null;
-		request.getSession().setAttribute("teacherId", null);
-		String teacherPassword = null;
-		try {
-			Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
-			teacherPassword = Common.eccryptMD5(password);
-			if(teacherPassword.equals(teacher.getTeacherPassword()) )
-			{	
-				request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
-				request.getSession().setAttribute("teacher", teacher);
-				mv=mainController.toMain(request); //去首页
-				request.getSession().setAttribute("readResult", null);
-				mv.addObject("teacher",teacher);
-			}
-			else {
-				request.getSession().setAttribute("readResult", "密码错误");//返回信息
+		String teacherSessionId = (String) request.getSession().getAttribute("teacherId");
+		/*
+		 * if(teacherId.equals(teacherSessionId)) {
+		 * request.getSession().setAttribute("readResult", "异地登陆异常");//返回信息
+		 * System.out.println("异地登录"); mv.setViewName("/jsp/Teacher/index");//设置返回页面
+		 * }else {
+		 */
+			request.getSession().invalidate();//顺序不能乱
+			String readResult =null;
+			request.getSession().setAttribute("teacherId", null);
+			String teacherPassword = null;
+			try {
+				Teacher teacher = teacherService.teacherLoginByEmployeeNum(teacherId);
+				teacherPassword = Common.eccryptMD5(password);
+				if(teacherPassword.equals(teacher.getTeacherPassword()) )
+				{	
+					request.getSession().setAttribute("teacherId", teacher.getEmployeeNum());
+					request.getSession().setAttribute("teacher", teacher);
+					mv=mainController.toMain(request); //去首页
+					//清空其他身份SESSION
+					request.getSession().removeAttribute("identify");
+					request.getSession().removeAttribute("student");
+					request.getSession().removeAttribute("studentId");
+					
+					request.getSession().setAttribute("readResult", null);
+					mv.addObject("teacher",teacher);
+				}
+				else {
+					request.getSession().setAttribute("readResult", "密码错误");//返回信息
 
-				mv.setViewName("/jsp/Teacher/index");//设置返回页面
-			}
-		} catch (Exception e) {
-			request.getSession().setAttribute("readResult", "登录异常，请刷新本页后重新登录");//返回信息
-				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+					mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				}
+			} catch (Exception e) {
+				request.getSession().setAttribute("readResult", "登录异常，请刷新本页后重新登录");//返回信息
+					mv.setViewName("/jsp/Teacher/index");//设置返回页面
 
-			e.printStackTrace();
-		}
+				e.printStackTrace();
+			}
+		/*
+		 * }
+		 */
 		return mv;	
 	}
 
@@ -492,7 +508,7 @@ public class TeacherController {
 					teacherService.addOtherToMyCourse(teachers[i], courseId, 0);
 				}
 			}
-			return toMyCreateCourse(request);
+			return toTeacherPage(request);
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -1119,7 +1135,7 @@ public class TeacherController {
 
 	 */
 	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
-	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ) throws Exception {
+	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName,@RequestParam(value="courseName") String courseName ) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String identify = "teacher";
 		request.getSession().setAttribute("identify", identify);
@@ -1132,7 +1148,12 @@ public class TeacherController {
 		request.setAttribute("teacher", teacher);
 		request.setAttribute("student", student);
 		request.getSession().setAttribute("course", course);
+		String teacherName = teacherService.getTeacherNameById(virtualClass.getCreatorId());
+
+		mv.addObject("courseName", courseName);
 		mv.addObject("virtualClassName",virtualClassName);
+		mv.addObject("teacherName",teacherName);
+		
 		mv.addObject("identify", identify);
 		mv.setViewName("/jsp/VirtualClass/classInfo");
 		return mv;
@@ -1982,10 +2003,17 @@ public class TeacherController {
 	 * @return
 	 */
 	@RequestMapping(value="quit")
-	public ModelAndView quit(HttpServletRequest request){
+	public ModelAndView quit(HttpServletRequest request,HttpServletResponse response){
+		request.getSession().invalidate();
+		request.getSession().removeAttribute("identify");
+		request.getSession().removeAttribute("teacher");
+		request.getSession().removeAttribute("teacherId");
+		request.getSession().removeAttribute("student");
+		request.getSession().removeAttribute("studentId");
+		
+
 		try {
-			request.getSession().setAttribute("teacher", null);
-			request.getSession().setAttribute("student", null);
+			
 			return mainController.toMain(request);
 		} catch (Exception e) {
 			// TODO: handle exception

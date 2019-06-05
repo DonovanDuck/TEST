@@ -15,6 +15,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <script type="text/javascript"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
+	<script type="text/javascript">
+	function reinitIframe(){
+		var iframe = document.getElementById("mycourse");
+				
+				 try 
+				{ 
+				var bHeight = iframe.contentWindow.document.body.scrollHeight; 
+				/* 
+				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+				var height = Math.max(bHeight, dHeight); 
+				iframe.height = height; */ 
+				iframe.height = bHeight; 
+			//
+				} 
+				catch (ex) { } 
+	};
+	function setIframeHeight() {
+		
+		var iframe = document.getElementById('mycourse');
+		if (iframe) {
+			var iframeWin = iframe.contentWindow
+					|| iframe.contentDocument.parentWindow;
+			if (iframeWin.document.body) {
+				iframe.height = iframeWin.document.documentElement.scrollHeight
+						|| iframeWin.document.body.scrollHeight;
+			}
+		}
+	};
+
+	</script>
 </head>
 <body style="margin-left: -21%;">
 	<div id="r1">
@@ -42,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			<div class="word2" id="w4" style="margin-left: -2%">
 				<p>
-					<a target="mycourse"
+					<a target="_top"
 						href="${pageContext.request.contextPath}/teacher/toCreateCourse"
 						id="p4">创建课程</a>
 				</p>
@@ -50,8 +80,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="hr"></div>
 		<div class="main_b_r_b">
-			<iframe id="mycourse" name="mycourse"
-				style="width: 100%; height: 100%" frameborder="no" border="0"
+			<iframe id="mycourse" name="mycourse" width="900px" height="100%"
+				style="overflow: hidden;"  frameborder="no" border="0" scrolling="no" "
 				src="${pageContext.request.contextPath}/teacher/toMyCreateCourse"></iframe>
 		</div>
 	</div>

@@ -32,6 +32,7 @@ import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.IResourceDao;
+import cn.edu.tit.idao.IStudentDao;
 import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
@@ -48,6 +49,8 @@ import cn.edu.tit.iservice.ITeacherService;
 public class TeacherServiceImpl implements ITeacherService{
 	@Autowired
 	private  ITeacherDao teacherDao ;
+	@Autowired
+	private  IStudentDao studentDao ;
 	@Autowired
 	private  IResourceDao resourceDao ;
 
@@ -1282,4 +1285,6 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.getUpTask(taskId, studentId);
 	}
+
+	
 }

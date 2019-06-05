@@ -29,9 +29,14 @@
 	color: black;
 }
 </style>
+<script type="text/javascript"> 
+
+</script> 
 </head>
-<body>
-	<div class="main_b_r_b" id="k1">
+<body style="height: 100%;overflow: hidden;" onload="autoHeight();">
+	<div style="height: 1px;"> 
+	</div> 
+	<div class="main_b_r_b" id="k1" style="padding-bottom: 10px;">
 		<c:forEach items="${courseList }" var="course">
 			<a
 				href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }"
