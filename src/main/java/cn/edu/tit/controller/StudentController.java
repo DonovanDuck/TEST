@@ -80,37 +80,50 @@ public class StudentController {
 	@RequestMapping(value="LoginStudent")
 	public ModelAndView LoginStudent(@RequestParam(value="employeeNum") String employeeNum,@RequestParam(value="password") String password,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
-		String readResult =null;
-		String psw = null;
-		Student student = new Student();
-		request.getSession().setAttribute("studentId", null);
-		try {
-			student = studentService.studentLoginByEmployeeNum(employeeNum);
-			psw = Common.eccryptMD5(password);
-			 if(student == null){
-				request.getSession().setAttribute("readResult", "用户名错误");//返回信息
-				mv.setViewName("/jsp/Teacher/index");//设置返回页面
-			}
-			 else if(!psw.equals(student.getStudentPassword()))
-			{
-				request.getSession().setAttribute("readResult", "密码错误");//返回信息
-				mv.setViewName("/jsp/Teacher/index");//设置返回页面
-			}
-			
-			else {
-				mv.addObject("readResult", readResult);//返回信息
-				request.getSession().setAttribute("studentId", student.getStudentId());
-				request.getSession().setAttribute("student", student);
-				mv=mainController.toMain(request); //去首页
-				request.getSession().setAttribute("readResult", null);
-				
-			}
-
-		} catch (Exception e) {
-			e.printStackTrace();
-			request.getSession().setAttribute("readResult", "服务器异常");//返回信息
+		String studentSessionId = (String) request.getSession().getAttribute("studentId");
+		if(employeeNum.equals(studentSessionId)) {
+			request.getSession().setAttribute("readResult", "您正在异地登录");//返回信息
+			System.out.println("异地登录");
 			mv.setViewName("/jsp/Teacher/index");//设置返回页面
+		}else {
+			request.getSession().invalidate();
+			String readResult =null;
+			String psw = null;
+			Student student = new Student();
+			request.getSession().setAttribute("studentId", null);
+			try {
+				student = studentService.studentLoginByEmployeeNum(employeeNum);
+				psw = Common.eccryptMD5(password);
+				 if(student == null){
+					request.getSession().setAttribute("readResult", "用户名错误");//返回信息
+					mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				}
+				 else if(!psw.equals(student.getStudentPassword()))
+				{
+					request.getSession().setAttribute("readResult", "密码错误");//返回信息
+					mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				}
+				
+				else {
+					mv.addObject("readResult", readResult);//返回信息
+					request.getSession().setAttribute("studentId", student.getStudentId());
+					request.getSession().setAttribute("student", student);
+					mv=mainController.toMain(request); //去首页
+					//清楚其他用户SESSION
+					request.getSession().removeAttribute("identify");
+					request.getSession().removeAttribute("teacher");
+					request.getSession().removeAttribute("teacherId");
+					request.getSession().setAttribute("readResult", null);
+					
+				}
+
+			} catch (Exception e) {
+				e.printStackTrace();
+				request.getSession().setAttribute("readResult", "服务器异常");//返回信息
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+			}
 		}
+		
 		return mv;
 	}
 

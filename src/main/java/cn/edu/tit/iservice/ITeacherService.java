@@ -714,4 +714,5 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	
 }

@@ -68,10 +68,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="contentInfo">
 			<div class="rTitle"> --%>
 		<jsp:include page="/jsp/top.jsp" flush="true"/>
-		<div class="contentInfo" style="margin-top: 10px">
-			<div class="rTitle" style="font-size: 18px;font-weight: bold;">
+		<div class="contentInfo" style="margin-top: 10px;height: 100%;overflow: hidden;margin-bottom: 50px;">
+			<div style="width: 100%;height: 100px;background-color: #fff;margin-bottom: 10px;text-align:left;padding-left: 20px;padding-top: 20px">
+				<div style="margin-bottom: 10px"><span style="font-size: 28px;font-weight: bold;">${courseName }</span></div>
+				<div><span style="font-size: 18px;">${virtualClassName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课教师：${teacherName }</span></div>
+			</div>
+			<div class="rTitle" style="font-size: 18px;font-weight: bold;height: 100%;overflow: hidden;">
 			
-				<ul id="ls"  style="background-color: #fff;margin-right: 10px" class=" nav nav-pills  nav-stacked">
+				<ul id="ls"  style="background-color: #fff;margin-right: 10px;height: 100%;overflow: hidden;" class=" nav nav-pills  nav-stacked">
 				  <li role="presentation" class="active" ><a id="als" target="lcontent"   href="${pageContext.request.contextPath}/teacher/toteacherTaskList?taskCategory=all">全部</a></li>
 				  <c:if test="${identify eq 'student' }">
 				  	 <li role="presentation" ><a target="lcontent" id="als"  href="${pageContext.request.contextPath}/student/toStudentAttendance">考勤</a></li>
