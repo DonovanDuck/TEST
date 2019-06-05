@@ -714,4 +714,24 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	
+	/**
+	 * 获得已打卡的学生
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public List<Student> getStuAttended(String attendanceId);
+	
+	/**
+	 * 获取某个班最近一次打卡是第几次
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public Integer getLastAttIndex(String virtualClassNum);
+	
+	/**
+	 * 添加打卡
+	 * @param att
+	 */
+	public void addAttendance(Attendance att);
 }

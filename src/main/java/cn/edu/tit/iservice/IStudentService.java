@@ -140,5 +140,20 @@ public interface IStudentService {
 	 * @return
 	 */
 	public String getCourseIdByvId(String virtualClassNum);
+	
+	/**
+	 * 获取某班某类别(作业，实验，课设)某项任务的最低成绩
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public int getMinGradeInCategory(String virtualClassNum, String taskCategory);
 
+	/**
+	 * 获取某班某类别(作业，实验，课设)某项任务的最高成绩
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public int getMaxGradeInCategory(String virtualClassNum, String taskCategory);
 }

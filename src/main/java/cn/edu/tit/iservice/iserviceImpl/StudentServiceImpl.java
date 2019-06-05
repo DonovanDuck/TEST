@@ -397,6 +397,30 @@ public class StudentServiceImpl implements IStudentService{
 		return studentDao.getCourseIdByvId(virtualClassNum);
 	}
 
+	@Override
+	public int getMinGradeInCategory(String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		try {
+			return studentDao.getMinGradeInCategory(virtualClassNum, taskCategory);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public int getMaxGradeInCategory(String virtualClassNum, String taskCategory) {
+		// TODO Auto-generated method stub
+		try {
+			return studentDao.getMaxGradeInCategory(virtualClassNum, taskCategory);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+		
+	}
+
 	
 
 //	@Override

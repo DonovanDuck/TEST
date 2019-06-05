@@ -1282,4 +1282,30 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.getUpTask(taskId, studentId);
 	}
+
+	@Override
+	public List<Student> getStuAttended(String attendanceId) {
+		// TODO Auto-generated method stub
+		
+		return teacherDao.getStuAttended(attendanceId);
+	}
+
+	@Override
+	public Integer getLastAttIndex(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.getLastAttIndex(virtualClassNum);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public void addAttendance(Attendance att) {
+		// TODO Auto-generated method stub
+		teacherDao.addAttendance(att);
+	}
 }

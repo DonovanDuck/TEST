@@ -14,7 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <style>
     header{
     width: 100%;
-    height: 120px;
+    height: 143px;
     background-size: cover;
     position: relative;
 }
@@ -87,7 +87,7 @@ header nav {
     float: right;
     line-height: 30px;
     right: 3%;
-    bottom: 6%;
+    bottom: 15%;
     position: absolute;
    
 }
@@ -120,12 +120,18 @@ header nav li a{
     </script>
 </head>
 <body>
-	<div style="width: 100%;height: 120px;background-size: cover;">
+	<div style="width: 100%;height: 143px;background-size: cover;">
       <header style="background: url('${pageContext.request.contextPath}/images/head.png') no-repeat;webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
-          <span>
+   		<c:if test="${teacher == null && student == null }">
+          <span style=" padding-left: 20%">
+         </c:if>
+         <c:if test="${teacher != null || student != null }">
+          <span style=" padding-left: 10%">
+         </c:if>
+         
               <li class="li1"><a href="">微信端</a>
                   <div class="erweima">
                       <img src="${pageContext.request.contextPath}/images/erweima.png" alt="">
@@ -153,8 +159,8 @@ header nav li a{
                         <li><a href="">我的主页</a></li>
                       </ul>
                   </div>
-              <li>|</li>
-              <li class="li2"><a href="">我们</a></li>
+              <!-- <li>|</li>
+              <li class="li2"><a href="">我们</a></li> -->
              </span>
           <!--导航-->
           <nav style="width: 55%;">
@@ -170,6 +176,9 @@ header nav li a{
 	              </c:if>
 	              <c:if test="${student != null }">
 	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 15px;">个人中心</a></li>
+	              </c:if>
+	              <c:if test="${student == null && teacher == null }">
+	              <li class="li2"><a href="<c:url value='/jsp/Teacher/index.jsp'/>" style="font-size: 15px;">个人中心</a></li>
 	              </c:if>
               </ul>
           </nav>

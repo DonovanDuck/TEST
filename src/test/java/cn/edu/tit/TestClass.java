@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.Task;
@@ -50,7 +51,22 @@ public class TestClass {
 	@Test
 	public void searchResourceByType(){
 		 try {
-			teacherService.addWatchNum("0F0C4B0CD1834F91837146D59BD04097", 82);
+			System.out.println(teacherService.getLastAttIndex("4BC2E4C97DC14B7EA73EF9DE837E0590"));
+			Attendance att = new Attendance();
+			att.setAttendanceId(Common.uuid());
+			att.setVirtualClassNum("4BC2E4C97DC14B7EA73EF9DE837E0590");
+			//设置第几次打卡
+			att.setAttIndex(teacherService.getLastAttIndex("4BC2E4C97DC14B7EA73EF9DE837E0590")+1);
+			Timestamp attTime = new Timestamp(System.currentTimeMillis());
+			att.setAttendanceTime(attTime);
+			att.setAttendanceNum(0);
+			att.setTotalNum(teacherService.getTaskUserNum("4BC2E4C97DC14B7EA73EF9DE837E0590"));
+			att.setLeaveNum(0);
+			att.setTruancyNum(0);
+			att.setPublishId("1");
+			//添加
+			teacherService.addAttendance(att);
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

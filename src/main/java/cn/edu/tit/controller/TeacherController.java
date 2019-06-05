@@ -628,6 +628,36 @@ public class TeacherController {
 	//}
 
 	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 * 课程二级页面查询
+	 */
+	@RequestMapping(value="toCourseSecondSearch")
+	public ModelAndView toCourseSecondSearch(HttpServletRequest request,@RequestParam("search")String search) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		categories = teacherService.readCategory();
+		List<Course> list = new ArrayList<Course>();
+		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
+		list = teacherService.searchCourse(search);
+		if(list !=null && !list.isEmpty()) {
+			for (Course course : list) 
+			{
+				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
+			}
+		}
+		mv.addObject("categories", categories);
+		mv.addObject("courseList", list);
+		mv.addObject("teacherNames", teacherNames);
+		mv.addObject("publishTime",publishTime);
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
+		return mv;
+	}
+	
+	/**
 	 * 修改课程
 	 * @return
 	 */
@@ -1353,7 +1383,7 @@ public class TeacherController {
 	 * 通过分类筛选 课程
 	 * */
 	@RequestMapping(value="readCourseInfoByCategory/{categoryId}",method= {RequestMethod.GET})
-	public ModelAndView readCategoryInfo(@PathVariable String categoryId) {			
+	public ModelAndView readCategoryInfo(HttpServletRequest request, @PathVariable String categoryId) {			
 		ModelAndView mv = new ModelAndView();
 		String category = categoryId;
 		List<Course> list = new ArrayList<Course>();
@@ -1368,6 +1398,7 @@ public class TeacherController {
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("categories",categories);
+		mv.addObject("categoryId",categoryId);
 		mv.addObject("courseList", list);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;

@@ -78,7 +78,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<div style="clear: both;"></div>
 							<div class="a">
 							<div>学历：${teacher.educationBackground }</div>
-							<div>电话：${teacher.telephone }</div>
+							<div>简介：${teacher.telephone }</div>
 							<div>邮箱：${teacher.email }</div>
 							</div>
 						</div>

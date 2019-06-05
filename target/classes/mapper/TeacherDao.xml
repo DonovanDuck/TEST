@@ -39,12 +39,13 @@
 	<resultMap type="cn.edu.tit.bean.Attendance" id="attendanceMap">
 		<id column="attendance_id" property="attendanceId" />
 		<result column="virtual_class_num" property="virtualClassNum" />
-		<result column="index" property="index" />
+		<result column="att_index" property="attIndex" />
 		<result column="attendance_time" property="attendanceTime" />
 		<result column="attendance_num" property="attendanceNum" />
 		<result column="total_num" property="totalNum" />
 		<result column="leave_num" property="leaveNum" />
 		<result column="truancy_num" property="truancyNum" />
+		<result column="publish_id" property="publishId" />
 	</resultMap>
 	<select id="getAttendanceDetail" resultMap="attendanceMap">
 		select * from attendance where virtual_class_num =#{virtualClassNum}
@@ -645,6 +646,15 @@
 		select * from real_class where real_class_num =
 		#{realClassNum};
 	</select>
+	
+	<select id="searchCourse" resultMap="courseMap"
+		parameterType="java.lang.String">
+		select * from course
+		<where>
+			course_name
+			LIKE CONCAT(CONCAT("%", #{courseName}), "%")
+		</where>
+	</select>
 
 	<!-- 根据课程id查图片 -->
 	<select id="getImgpathByCourseId" parameterType="String"
@@ -904,10 +914,43 @@
 	
 	<!-- 获取虚拟班级学生数 -->
 	<select id="getTaskUserNum" parameterType="String" resultType="int">
-	
-	select sum(real_person_num) from real_class where real_class_num in 
-		(select real_class_num from real_virtual_class where virtual_class_num = #{virtualClassNum});
+		select sum(real_person_num) from real_class where real_class_num in 
+			(select real_class_num from real_virtual_class where virtual_class_num = #{virtualClassNum});
 	</select>
 	
+	<!-- 获得已打卡的学生 -->
+	<select id="getStuAttended" parameterType="String" resultMap="studentMap">
+		select * from student where student_id in
+			(select student_id from attence where  attendance_id = #{attendanceId});
+	</select>
 	
+	<!--  获取某个班最近一次打卡是第几次 -->
+	<select id="getLastAttIndex" parameterType="String" resultType="Integer">
+		select max(att_index) from attendance where virtual_class_num = #{virtualClassNum}
+	</select>
+	
+	<!-- 添加打卡 -->
+	<insert id="addAttendance" parameterType="cn.edu.tit.bean.Attendance">
+		insert into attendance
+		(attendance_id,
+		 virtual_class_num,
+		 att_index,
+		 attendance_time,
+		 attendance_num,
+		 total_num,
+		 leave_num,
+		 truancy_num,
+		 is_process,
+		 publish_id) values
+		 (#{attendanceId},
+		  #{virtualClassNum},
+		  #{attIndex},
+		  #{attendanceTime},
+		  #{attendanceNum},
+		  #{totalNum},
+		  #{leaveNum},
+		  #{truancyNum},
+		  1,
+		  #{publishId});
+	</insert>
 </mapper>
