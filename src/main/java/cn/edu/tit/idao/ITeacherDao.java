@@ -31,6 +31,7 @@ import cn.edu.tit.bean.VirtualClass;
 
 @Component
 public interface ITeacherDao {
+	
 	public void createCourse(Course course) throws Exception;	//创建课程模块1
 	public void deleteCourse(String courseId)throws Exception;	//删除课程模块1
 	public void createVirtualClass(VirtualClass virtualClass)throws Exception;		//创建虚拟班级模块1

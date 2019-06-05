@@ -61,6 +61,15 @@
 	<div class="main_b">
 		<div class="main_b_l">
 			 <a
+				href="${pageContext.request.contextPath}/student/toStudentCenter_MyCourse">
+				<div class="nav1">
+					<p>
+						<img
+							src="${pageContext.request.contextPath}/images/studentCenterImg/k1.png"
+							alt="" />我的课程
+					</p>
+				</div>
+			</a> <a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyClass">
 				<div class="nav1">
 					<p>
@@ -70,16 +79,6 @@
 					</p>
 				</div>
 			</a>
-			<a
-				href="${pageContext.request.contextPath}/student/toStudentCenter_MyCourse">
-				<div class="nav1">
-					<p>
-						<img
-							src="${pageContext.request.contextPath}/images/studentCenterImg/k1.png"
-							alt="" />我的课程
-					</p>
-				</div>
-			</a> 
 			<a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyAchievement">
 				<div class="nav1">

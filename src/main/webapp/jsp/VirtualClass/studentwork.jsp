@@ -15,6 +15,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript">
+			function checkInput(form) {
+				var fileInput = $('#upfile').get(0).files[0];
+				
+				 if($("#upTaskDetail").val()==""&&!fileInput){
+					 alert("请编写作业以后再尝试提交");
+					 return false;	 
+				 }
+			
+			};
 			function editstaus(){
 				var show  = $('.edited').css('display');
 				if(show=='block'){
@@ -38,10 +47,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					$('#falseSubmit').hide();
 				}
 				
-			}
+			};
 			function stopSubmit() {
 				alert("请先结束编辑状态后再尝试提交");
-			}
+			};
 		</script>
 	</head>
 	<body style="background-color: #f8f8f8;">
@@ -82,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		<div class="workdiv" style="margin-top: 20px;">
 			<div class="workcontent">
-				<form action="${pageContext.request.contextPath}/student/toUpTask/${task.taskId }" enctype="multipart/form-data" method="post">
+				<form target="_top" action="${pageContext.request.contextPath}/student/toUpTask/${task.taskId }" enctype="multipart/form-data" method="post"  onsubmit="return checkInput(this)" >
 					
 				
 					<div style="height: 70px;">
@@ -115,7 +124,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 						<c:if test="${!isEnd }">
 							<c:if test="${empty upTaskDetail && empty accessoriesName }">
-								<input  class="btn btn-default"  name="file" type="file"  multiple="multiple" style="border-radius: 20px;float: left;" value="上传附件" />
+								<input  class="btn btn-default" id="upfile"  name="file" type="file"  multiple="multiple" style="border-radius: 20px;float: left;" value="上传附件" />
 							</c:if>
 						</c:if>
 						<c:if test="${not empty upTaskDetail || not empty accessoriesName }">
@@ -133,8 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<c:if test="${!isEnd }">
 							<c:if test="${empty upTaskDetail && empty accessoriesName }">
-								<input id="trueSubmit"  style="display: block" class="btn btn-default" type="submit" value="确认提交" style="margin-left: -350px;">
-								<!-- <input  id="falseSubmit" onclick="stopSubmit()" style="display: none"  class="btn btn-default" type="button" value="确认提交" style="margin-left: -350px;"> -->
+								<input id="trueSubmit" class="btn btn-default" type="submit" value="确认提交" >
 							</c:if>
 					</c:if>
 					 <c:if test="${not empty upTaskDetail || not empty accessoriesName }">

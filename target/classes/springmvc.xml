@@ -75,8 +75,6 @@ http://www.springframework.org/schema/aop/spring-aop.xsd">
 
 	<!-- 访问静态资源文件 -->
 	<mvc:default-servlet-handler/> <!-- 需要在web.xml中配置 -->
-
-
 	<mvc:resources mapping="/images/**" location="/images/" />
 	<mvc:resources mapping="/css/**" location="/css/" />
 	<mvc:resources mapping="/js/**" location="/js/" />

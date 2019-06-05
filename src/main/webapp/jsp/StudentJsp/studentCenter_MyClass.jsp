@@ -129,7 +129,7 @@
 				<c:forEach items="${virtualClassList }" var="item"
 					varStatus="status">
 					<a
-						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
+						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }&courseName=${item.virtualCourseName }">
 						<div class="b1" style="border: 1px solid #F2F2F2">
 							<div class="b1_l">
 								<c:if test="${empty item.faceImg }">
