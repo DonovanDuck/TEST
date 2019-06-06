@@ -55,6 +55,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	<body style="background-color: #f8f8f8;">
 			<jsp:include page="/jsp/top.jsp" flush="true"/>
+			<div style="width: 1200px;padding-top: 10px">
+			<div style="width: 100%;height: 100px;background-color: #fff;margin-bottom: 10px;text-align:left;padding-left: 20px;padding-top: 20px">
+				<div style="margin-bottom: 10px"><span style="font-size: 28px;font-weight: bold;">${courseName }</span></div>
+				<div><span style="font-size: 18px;">${virtualClassName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课教师：${teacherClassName }</span></div>
+			</div>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
 			<h4 style="float: left;line-height: 170%;margin-left: 20px;font-weight: bold;">${task.taskTitle }</h4>
@@ -181,6 +186,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		</c:if>
+	</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
@@ -219,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			}
 		</script>
 		<div class="goback" style="height: 30px;width: 60px;position: fixed;bottom: 170px;right: 70px;">
-			<a target="_top" href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${virtualClassNum }&virtualClassName=${virtualClassName }">
+			<a target="_top" href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClassNum }&virtualClassName=${virtualClassName }&courseName=${courseName }">
 				<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
 				<span class="glyphicon-class">返回作业列表页</span>
 			</a>
