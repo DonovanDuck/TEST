@@ -62,7 +62,7 @@
 													+ " style='width: 30%; margin-left: 2%; margin-top: 1%;'><input type='checkbox' name='unSelect' onclick='checkboxOnclick(this)'  value='"
 													+ arr[i].employeeNum
 													+ "'>"
-													+ arr[i].employeeNum
+													+ arr[i].teacherName
 													+ "</label>");
 						}
 					}
@@ -74,6 +74,7 @@
 	function checkboxOnclick(checkbox) {
 		if (checkbox.checked == true) {
 			var value = checkbox.value;
+			var content = $("#" + value).text();
 			$("input[name = 'select']").each(function() {
 				if ($(this).val() == value)
 					$("#" + value).remove();
@@ -87,7 +88,7 @@
 							"<label class='checkbox-inline' id="
 									+ value
 									+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input name='select' type='checkbox' checked onclick='checkboxBackclick(this)'  value='"
-									+ value + "'>" + value + "</label>");
+									+ value + "'>" +content + "</label>");
 		}
 	}
 </script>
@@ -96,6 +97,7 @@
 	function checkboxBackclick(checkbox) {
 		if (checkbox.checked == false) {
 			var value = checkbox.value;
+			var content = $("#" + value).text();
 			$("input[name = 'select']").each(function() {
 				if ($(this).val() == value)
 					$("#" + value).remove();
@@ -109,7 +111,7 @@
 							"<label class='checkbox-inline' id="
 									+ value
 									+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input  name='unSelect' onclick='checkboxOnclick(this)'  type='checkbox' value='"
-									+ value + "'>" + value + "</label>");
+									+ value + "'>" + content + "</label>");
 		}
 	}
 </script>

@@ -86,21 +86,40 @@ header nav {
     width: 49%;
     float: right;
     line-height: 30px;
-    right: 3%;
+    right: -3%;
     bottom: 15%;
     position: absolute;
    
 }
 header nav li{
     float: left;
-    margin-left: 4%;
-    margin-right: 4%;
+    margin-left: 0;
+    margin-right: 1%;
+    width: 10%;
+    text-align: center;
+    border-radius: 3px;
+        height: 34px;
+    padding-top: 2px;
 }
 header nav li a:hover{
     color: blue;
 }
 header nav li a{
     color: white;
+}
+.li3{
+	float: left;
+    margin-left: 0;
+    margin-right: 4%;
+    background: #fff;
+    width: 10%;
+    text-align: center;
+    border-radius: 3px;
+        height: 34px;
+    padding-top: 2px;
+}
+.li3 a{
+	    color: #015293;
 }
     </style>
     <script src="${pageContext.request.contextPath}/js/jquery.min%20(1).js" ></script>
@@ -118,6 +137,12 @@ header nav li a{
             }
         });
     </script>
+    <script>
+     function dianji(ob){
+    	 var topFlag = $(ob).attr("id");
+    	 HttpServletRequest.getSession().setAttribute('topFlag', topFlag);
+     };
+    </script>
 </head>
 <body>
 	<div style="width: 100%;height: 143px;background-size: cover;">
@@ -129,7 +154,7 @@ header nav li a{
           <span style=" padding-left: 20%">
          </c:if>
          <c:if test="${teacher != null || student != null }">
-          <span style=" padding-left: 10%">
+          <span style=" padding-left: 7%">
          </c:if>
          
               <li class="li1"><a href="">微信端</a>
@@ -165,20 +190,38 @@ header nav li a{
           <!--导航-->
           <nav style="width: 55%;">
               <ul>
-                  <li class="li2"><a href="<c:url value='/main/toMain'/>">首页</a></li>
-                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>">课程</a></li>
-                  <li class="li2"><a href="">互助</a></li>
-                  <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
-                  <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li>
-                  <li class="li2"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li>
+                  <li class="li2"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" id="1">首页</a></li>
+                <%--  <c:if test="${sessionScope.topFlag == '1' || sessionScope.topFlag == null}">
+                   <li class="li3"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" id="1">首页</a></li> 
+                  </c:if> --%>
+                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)" id="2">课程</a></li> 
+                  <%--  <c:if test="${sessionScope.topFlag == '2' }">
+                  <li class="li3"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)" id="2">课程</a></li> 
+                  </c:if> --%>
+                  
+             <li class="li2"><a href="">互助</a></li> 
+                  <!--  <li class="li3"><a href="">互助</a></li> -->
+                  
+                   <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
+                  <%-- <li class="li3"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li> --%>
+                  
+                 <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li>
+                  <%-- <li class="li3"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li> --%>
+                  
+              <li class="li2"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li> 
+                  <%-- <li class="li3"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li> --%>
+                  
                   <c:if test="${teacher != null }">
-                  <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 15px;">个人中心</a></li>
+                <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 15px;">个人中心</a></li> 
+                  <%-- <li class="li3"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 15px;">个人中心</a></li> --%>
 	              </c:if>
 	              <c:if test="${student != null }">
 	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 15px;">个人中心</a></li>
+	              <%-- <li class="li3"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 15px;">个人中心</a></li> --%>
 	              </c:if>
 	              <c:if test="${student == null && teacher == null }">
 	              <li class="li2"><a href="<c:url value='/jsp/Teacher/index.jsp'/>" style="font-size: 15px;">个人中心</a></li>
+	              <%-- <li class="li3"><a href="<c:url value='/jsp/Teacher/index.jsp'/>" style="font-size: 15px;">个人中心</a></li> --%>
 	              </c:if>
               </ul>
           </nav>

@@ -117,18 +117,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		 <div class="main_b_t">
 				<nav>
 					<ul style="    margin-top: 25px;margin-left: -14px;">
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="#">课程介绍</a></li>
-						<li style="float: left;margin-right: 25px"><a
-							href="${pageContext.request.contextPath}/teacher/toCourseResource/8"
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
+							href="${pageContext.request.contextPath}/teacher/toCourseResource/0"
 							>资源</a></li>
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href=""
 							>翻转课堂</a>
-						 <li style="float: left;margin-right: 25px"><a
+						 <li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href=""
 							>挑战</a></li> 
-						 <li style="float: left;margin-right: 25px"><a
+						 <li style="float: left;margin-right: 25px;margin-bottom: 2%;"><a style="font-size: 22px;"
 							href=""
 							>课程成果</a></li>
 					</ul>
@@ -138,7 +138,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <div class="main_b">
 	<div class="main_b_t">
-		<div class="container">
+		<div class="container" style="margin-bottom: 23px;">
 			<div class="container_left">
 				<h3>简介</h3>
 				<iframe style="margin-left: 12px;margin-top: -2px;"
@@ -177,27 +177,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 	</div>
+	<c:if test="${taskList != null || resource != null }">
 	<div class="main_b_m">
 		 <div class="container" style="height: 494px;">
 		 <div class="main_b_t">
 				<nav>
 					<ul style="    margin-top: 25px;margin-left: 38px;">
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/6/${course.courseId }"
 							target="target">教案库</a></li>
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/7/${course.courseId }"
 							target="target">教学资源库</a></li>
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/5/${course.courseId }"
 							target="target">多媒体资源库</a>
-						 <li style="float: left;margin-right: 25px"><a
+						 <li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/8/${course.courseId }"
 							target="target">作业库</a></li> 
-						 <li style="float: left;margin-right: 25px"><a
+						 <li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/9/${course.courseId }"
 							target="target">实验库</a></li>
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResourceFrame/10/${course.courseId }"
 							target="target">课程设计库</a></li> 
 					</ul>
@@ -267,6 +268,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>--%>
 		</div> 
 	</div>
+	</c:if>
 	<div class="main_b_b">
 		<div class="container" style="min-height: 412px;height: auto;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">翻转课堂</h3>
@@ -446,7 +448,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </ul>
 </div>
 </div>
-
+<c:if test="${aocscList != null }">
 <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">课程成果</h3>
@@ -511,6 +513,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </div>
 </div>
+</c:if>
 <jsp:include page="/jsp/footer.jsp" flush="true"/>
 </body>
 </html>

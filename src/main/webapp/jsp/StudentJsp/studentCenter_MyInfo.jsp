@@ -66,7 +66,7 @@
 					<p>
 						<img
 							src="${pageContext.request.contextPath}/images/studentCenterImg/b1.png"
-							alt="" />我的班级
+							alt="" />我的任务
 					</p>
 				</div>
 			</a>
@@ -89,7 +89,28 @@
 							alt="" />我的成果
 					</p>
 				</div>
-			</a> <a
+			</a> 
+			<a
+				href="#">
+				<div class="nav1">
+					<p>
+						<img
+							src="${pageContext.request.contextPath}/images/studentCenterImg/t1.png"
+							alt="" />我的挑战
+					</p>
+				</div>
+			</a>
+			<a
+				href="#">
+				<div class="nav1">
+					<p>
+						<img
+							src="${pageContext.request.contextPath}/images/studentCenterImg/t1.png"
+							alt="" />我的翻转
+					</p>
+				</div>
+			</a>  
+			<a
 				href="${pageContext.request.contextPath}/student/toStudentCenter_MyDiscuss">
 				<div class="nav1">
 					<p>
@@ -104,7 +125,7 @@
 					<p>
 						<img
 							src="${pageContext.request.contextPath}/images/studentCenterImg/g1.png"
-							alt="" />个人信息
+							alt="" />修改信息
 					</p>
 				</div>
 			</a>

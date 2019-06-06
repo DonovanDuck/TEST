@@ -734,4 +734,23 @@ public interface ITeacherService {
 	 * @param att
 	 */
 	public void addAttendance(Attendance att);
+	
+	/**
+	 * 通过id获取任务
+	 * @param taskId
+	 * @return
+	 */
+	public Task getTaskById(String taskId);
+	
+	/**
+	 * 修改任务
+	 * @param task
+	 */
+	public void updateTask(Task task);
+	
+	/**
+	 * 修改任务附件
+	 * @param acc
+	 */
+	public void updateAccessory(List<Accessory> acc);
 }

@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script
 	src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 </head>
-<body>
+<body style="background: #f0f0f0;">
       <jsp:include page="/jsp/top.jsp" flush="true" />
       <div class="banner" style="height: 458px;">
       	<div class="container" style="width: 100%;padding: 0;">
@@ -145,14 +145,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
+                                      <p style="font-family: 微软雅黑;margin-top:10px; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>
@@ -162,20 +162,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
       			<div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="4" end="7">
-                  <div class="col-xs-3 col-md-3" style="height: 394px;">
+                  <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
+                                      <p style="font-family: 微软雅黑;margin-top:10px; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>

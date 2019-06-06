@@ -953,4 +953,18 @@
 		  1,
 		  #{publishId});
 	</insert>
+	
+	<select id="getTaskById" resultMap="taskMap">
+		select * from task where task_id = #{taskId};
+	</select>
+	
+	<update id="updateTask" parameterType="cn.edu.tit.bean.Task">
+		update task set task_detail = #{taskDetail},task_title=#{taskTitle}
+			where task_id =#{taskId};
+	</update>
+	
+	<delete id="deleteTaskAcc" parameterType="String">
+		delete from pub_accessory where task_id = #{taskId};
+	</delete>
+	
 </mapper>

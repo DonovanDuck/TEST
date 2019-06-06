@@ -1277,7 +1277,13 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public int getTaskUserNum(String virtualClassNum) {
 		// TODO Auto-generated method stub
-		return teacherDao.getTaskUserNum(virtualClassNum);
+		try {
+			return teacherDao.getTaskUserNum(virtualClassNum);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+		
 	}
 		
 	@Override
@@ -1310,5 +1316,29 @@ public class TeacherServiceImpl implements ITeacherService{
 	public void addAttendance(Attendance att) {
 		// TODO Auto-generated method stub
 		teacherDao.addAttendance(att);
+	}
+
+	@Override
+	public Task getTaskById(String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskById(taskId);
+	}
+
+	@Override
+	public void updateTask(Task task) {
+		// TODO Auto-generated method stub
+		teacherDao.updateTask(task);
+	}
+
+	@Override
+	public void updateAccessory(List<Accessory> acc) {
+		// TODO Auto-generated method stub
+		teacherDao.deleteTaskAcc(acc.get(0).getTaskId());
+		try {
+			teacherDao.addAccessory(acc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 }

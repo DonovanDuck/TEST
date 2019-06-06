@@ -454,4 +454,24 @@ public interface ITeacherDao {
 	 */
 	public void addAttendance(Attendance att);
 	
+	/**
+	 * 通过id获取任务
+	 * @param taskId
+	 * @return
+	 */
+	public Task getTaskById(String taskId);
+	
+	/**
+	 * 修改任务
+	 * @param task
+	 */
+	public void updateTask(Task task);
+	
+	/**
+	 * 删除附件
+	 * @param taskId
+	 */
+	public void deleteTaskAcc(String taskId);
+	
+	
 }

@@ -40,8 +40,8 @@
 }
 
 .banner_t {
-	width: 93%;
-	margin-left: 9px;
+	    width: 70%;
+    margin-left: 16%;
 	    height: 205px;
 	margin-top: 14px;
 	    padding-left: 77px;
@@ -139,7 +139,7 @@ $(document).ready(function() {
 				
 			</ul>
 		</div>
-		<div style="height: 0px;width: 87%;border-bottom: 1px solid #ccc;margin-bottom: 3%;"></div>
+		<div style="height: 0px;width: 87%;border-bottom: 1px solid #ccc;margin-bottom: 3%;margin-top: 4%;"></div>
 		<form action="${pageContext.request.contextPath}/teacher/toCourseSecondSearch">
 		<div class="form-group" style="margin-top: -6px;">
     <input style="width: 23%;float: left;margin-right: 13px;margin-left: 65.5%;margin-bottom: 1%;"  
@@ -158,17 +158,17 @@ $(document).ready(function() {
 			<div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
                           <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;">
-                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${pageContext.request.contextPath}/images/chanxueyan_04.jpg"" alt="" style="height: 200px;"></div>
+                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
+                                      <p style="font-family: 微软雅黑;margin-top:10px; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>

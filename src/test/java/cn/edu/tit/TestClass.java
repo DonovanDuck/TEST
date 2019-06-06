@@ -51,7 +51,7 @@ public class TestClass {
 	@Test
 	public void searchResourceByType(){
 		 try {
-			System.out.println(teacherService.getLastAttIndex("4BC2E4C97DC14B7EA73EF9DE837E0590"));
+			/*System.out.println(teacherService.getLastAttIndex("4BC2E4C97DC14B7EA73EF9DE837E0590"));
 			Attendance att = new Attendance();
 			att.setAttendanceId(Common.uuid());
 			att.setVirtualClassNum("4BC2E4C97DC14B7EA73EF9DE837E0590");
@@ -65,7 +65,8 @@ public class TestClass {
 			att.setTruancyNum(0);
 			att.setPublishId("1");
 			//添加
-			teacherService.addAttendance(att);
+			teacherService.addAttendance(att);*/
+			 teacherDao.deleteTaskAcc("ED855615152A4DA998C580FF65363BF1");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
