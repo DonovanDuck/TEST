@@ -193,6 +193,7 @@
 									"<div style='float: left;text-align: center;width:100%;margin-top: 10px;'>"+
 										"<span style='font-size:18px;font-weight: bold;'>任务预览</span>"+
 									"</div>"+
+									"<button type='button' style='margin-top: -20px;margin-right: 20px;' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"+
 								"</div>"+
 								"<hr>"+
 								"<div style='height: 70px;padding:20px;margin-top: -30px;'>"+

@@ -1013,7 +1013,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
 			List<String > studentIdList =null;
 			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
-			List<Student> studentAllList = teacherDao.studentList(classNums);//所有学生
+			List<Student> studentAllList =new ArrayList<Student>();
+			if(classNums.size()>0) {
+				studentAllList = teacherDao.studentList(classNums);//所有学生
+			}
+			
 			
 			for (String studentId : studentIdList) {
 				System.out.println("查看已经提交的学生Id"+studentId );

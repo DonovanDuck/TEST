@@ -840,8 +840,10 @@ public class TeacherController {
 		task.setVirtualClassNum(virtualClassNum);
 		task.setUseNum(1);//设置使用次数为1
 		//获取修改使用次数-虚拟班级人数
-		int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
-		task.setWatchNum(taskUseNum);
+		/*
+		 * int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
+		 * task.setWatchNum(taskUseNum);
+		 */
 		task.setCourseId((String) request.getSession().getAttribute("courseId"));
 		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
 		task.setTaskType((String) formdata.get("taskCategory"));
@@ -894,8 +896,15 @@ public class TeacherController {
 
 
 		request.getSession().removeAttribute("courseId");
-		return "redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
-
+		String courseName = (String) request.getSession().getAttribute("courseName");
+		String url=null;
+		try {
+			url =  "redirect:/teacher/toClassDetail?virtualClassNum="+ URLEncoder.encode(virtualClassNum,"UTF-8")+"&virtualClassName="+URLEncoder.encode(virtualClassName,"UTF-8")+"&courseName="+URLEncoder.encode(courseName,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;
 	}
 	
 	/**
@@ -983,9 +992,9 @@ public class TeacherController {
 
 	@RequestMapping(value="selectTaskToPublish")
 	public String selectTaskToPublish(HttpServletRequest request) {
-
 		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
+		
 		String taskId = request.getParameter("taskId");
 		String taskEndTime = request.getParameter("taskEndTime");
 		//获取修改使用次数-虚拟班级人数
@@ -998,9 +1007,19 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		//映射班级任务表
-
-		return "redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
-
+		String courseName = (String) request.getSession().getAttribute("courseName");
+		
+		System.out.println("选择发布"+virtualClassName+"sdfghjkl;"+courseName);
+		System.out.println("redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName+"&courseName="+courseName);
+		
+		String url=null;
+		try {
+			url =  "redirect:/teacher/toClassDetail?virtualClassNum="+ URLEncoder.encode(virtualClassNum,"UTF-8")+"&virtualClassName="+URLEncoder.encode(virtualClassName,"UTF-8")+"&courseName="+URLEncoder.encode(courseName,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;
 	}
 
 	/**
@@ -1285,8 +1304,10 @@ public class TeacherController {
 	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
 	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName,@RequestParam(value="courseName") String courseName ) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		System.out.println(virtualClassName+"dsfghjkl"+courseName);
 		String identify = "teacher";
 		request.getSession().setAttribute("identify", identify);
+		request.getSession().removeAttribute("courseName");
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
 		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);
 		Course course  = teacherService.getCourseById(virtualClass.getCourseId());
@@ -1296,11 +1317,12 @@ public class TeacherController {
 		request.setAttribute("teacher", teacher);
 		request.setAttribute("student", student);
 		request.getSession().setAttribute("course", course);
-		String teacherName = teacherService.getTeacherNameById(virtualClass.getCreatorId());
-
+		String teacherClassName = teacherService.getTeacherNameById(virtualClass.getCreatorId());
+		request.getSession().setAttribute("courseName", courseName);
+		request.getSession().setAttribute("teacherClassName", teacherClassName);
 		mv.addObject("courseName", courseName);
 		mv.addObject("virtualClassName",virtualClassName);
-		mv.addObject("teacherName",teacherName);
+		mv.addObject("teacherClassName",teacherClassName);
 		
 		mv.addObject("identify", identify);
 		mv.setViewName("/jsp/VirtualClass/classInfo");
@@ -1433,10 +1455,14 @@ public class TeacherController {
 			task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
 			task.setTaskPoint(point);
 			taskEndTime = teacherService.getTaskEndTime(virtualClassNum,task.getTaskId());
+			String teacherClassName = (String) request.getSession().getAttribute("teacherClassName");
+			String courseName =  (String) request.getSession().getAttribute("courseName");
 			mv.addObject("task",task);
 			mv.addObject("virtualClassName",virtualClassName);
 			mv.addObject("virtualClassNum", virtualClassNum);
 			mv.addObject("taskEndTime", taskEndTime);
+			mv.addObject("courseName", courseName);
+			mv.addObject("teacherClassName", teacherClassName);
 			if(identify.equals("student")) {
 				Boolean isEnd=false;
 			     Calendar begin = Calendar.getInstance();
@@ -1488,6 +1514,7 @@ public class TeacherController {
 
 
 	/**
+	 * 
 	 * @author wenli
 	 * @param request
 	 * @param task_category
