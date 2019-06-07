@@ -47,50 +47,97 @@
 	function commentButton() {
 		var g1 = document.getElementById('detailContent');
 		var g2 = document.getElementById('commentContent');
+		var g3 = document.getElementById('commentContentForTeacher');
 		g1.style.display = "block";
 		g2.style.display = "none";
+		g3.style.display = "none";
 	}
 	function detailButton() {
 		var g1 = document.getElementById('detailContent');
 		var g2 = document.getElementById('commentContent');
+		var g3 = document.getElementById('commentContentForTeacher');
 		g1.style.display = "none";
 		g2.style.display = "block";
+		g3.style.display = "none";
 	}
-	function submitComment() {
-		var id = $("#IURPID").val();
-		var content = $("#addCommentContent").val();
-		var path = "${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId="
-				+ id + "&category=产学研" + "&addCommentContent=" + content;
-		$
-				.ajax({
-					async : true,
-					cache : false,
-					url : path,
-					contentType : 'application/json;charset=UTF-8',
-					traditional : true,
-					dataType : "json",
-					success : function(result) {
+	function teacherCommentButton() {
+		var g1 = document.getElementById('detailContent');
+		var g2 = document.getElementById('commentContent');
+		var g3 = document.getElementById('commentContentForTeacher');
+		g1.style.display = "none";
+		g2.style.display = "none";
+		g3.style.display = "block";
+	}
 
-						var arr = eval(result);
-						alert(result);
-
-						$("#commentContent").empty();
-						for (var i = 0; i < arr.length; i++) {
-							var msg = "<div class='col-md-12 panel panel-default' style='padding: 2%'><div class='col-md-3 text-center'><img style='width: 80px; height: 80px;' src='${pageContext.request.contextPath}/jsp/showImg.jsp?path="
-									+ arr[i].authorPicture
-									+ " class='img-circle'><br><div class='col-md-12' style='color: #B9B9B9; margin-top: 5%'>"
-									+ arr[i].authorName
-									+ "</div></div><div class='col-md-9' style='font-size: 12px; letter-spacing: 1px; line-height: 23px;'><div style='width: 105%; height: 100%'><span style='word-wrap: break-word; word-break: break-all; overflow: hidden;'>"
-									+ arr[i].commentContent
-									+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>arr[i].uploadTime</p></div>";
-							$("#commentContent").append(msg);
+	function submitCommentBut() {
+		var judge = true;
+		$.ajax({
+			async : true,
+			cache : false,
+			url : "${pageContext.request.contextPath}/achievement/loginJudge",
+			type : "get",
+			dataType : "text",
+			success : function(result) {
+				if (result.length != 0 && result != "null") {
+					alert(result);
+					judge = false;
+				}
+			}
+		});
+		if (judge = true) {
+			var id = $("#IURPID").val();
+			var content = $("#addCommentContent").val();
+			var path = "${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId="
+					+ id + "&category=产学研" + "&addCommentContent=" + content;
+			$
+					.ajax({
+						async : true,
+						cache : false,
+						url : path,
+						contentType : 'application/json;charset=UTF-8',
+						traditional : true,
+						dataType : "text",
+						success : function(result) {
+							var arr = eval(result);
+							$("#stuCommentContentList").empty();
+							for (var i = 0; i < arr.length; i++) {
+								var msg = "<div class='col-md-12 panel panel-default' style='padding: 2%'><div class='col-md-3 text-center'><img style='width: 80px; height: 80px;' src='${pageContext.request.contextPath}/jsp/showImg.jsp?path="
+										+ arr[i].authorPicture
+										+ "'class='img-circle'><br><div class='col-md-12' style='color: #B9B9B9; margin-top: 5%'>"
+										+ arr[i].authorName
+										+ "</div></div><div class='col-md-9' style='font-size: 12px; letter-spacing: 1px; line-height: 23px;'><div style='width: 105%; height: 100%'><span style='word-wrap: break-word; word-break: break-all; overflow: hidden;'>"
+										+ arr[i].commentContent
+										+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>"
+										+ arr[i].uploadTime + "</p></div>";
+								$("#stuCommentContentList").append(msg);
+							}
+							$("#addCommentContent").val("");
+						},
+						error : function() {
 						}
-
-					},
-					error : function() {
-					}
-				});
+					});
+		}
 	}
+
+	function submitCommentForTeacher() {
+
+	}
+</script>
+<script type="text/javascript">
+	function focousCommentContent() {
+		$.ajax({
+			async : true,
+			cache : false,
+			url : "${pageContext.request.contextPath}/achievement/loginJudge",
+			type : "get",
+			dataType : "text",
+			success : function(result) {
+				if (result.length != 0 && result != "null") {
+					alert(result);
+				}
+			}
+		})
+	};
 </script>
 </head>
 <body class="body">
@@ -159,10 +206,12 @@
 								作品类别：产学研作品
 							</h5>
 						</div>
-						<div class="col-md-12" style="padding: 0%">
-							<span style="color: #999">价格：￥</span><span
-								style="color: #f60; font-size: 40px">${IURP.price }</span>
-						</div>
+						<c:if test="${IURP.isshare == '是'}">
+							<div class="col-md-12" style="padding: 0%">
+								<span style="color: #999">价格：￥</span><span
+									style="color: #f60; font-size: 40px">${IURP.price }</span>
+							</div>
+						</c:if>
 					</div>
 				</div>
 			</div>
@@ -172,6 +221,8 @@
 					<h3 class="panel-title">
 						<button type="button" class="btn btn-default"
 							onclick="commentButton()">项目详情</button>
+						<button type="button" class="btn btn-default"
+							onclick="teacherCommentButton()">教师评价</button>
 						<button type="button" class="btn btn-default"
 							onclick="detailButton()">评论</button>
 					</h3>
@@ -188,49 +239,107 @@
 							<div class="col-md-12">${IURP.projectDetail }</div>
 						</div>
 					</div>
+
+					<div class="col-md-12 commentContentForTeacher"
+						id="commentContentForTeacher" style="display: none; padding: 0%">
+						<div id="teaCommentContentList">
+							<c:if test="${not empty teaComment }">
+								<c:forEach items="${teaComment }" var="item" varStatus="states">
+									<div class="col-md-12 panel panel-default" style="padding: 2%">
+										<div class="col-md-3 text-center" style="">
+											<img style="width: 80px; height: 80px;"
+												src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.authorPicture }"
+												alt="..." class="img-circle"> <br>
+											<div class="col-md-12 "
+												style="color: #B9B9B9; margin-top: 5%">${item.authorName }</div>
+										</div>
+										<div class="col-md-9"
+											style="font-size: 12px; letter-spacing: 1px; line-height: 23px;">
+											<div style="width: 105%; height: 100%">
+												<span
+													style="word-wrap: break-word; word-break: break-all; overflow: hidden;">${item.commentContent }</span>
+											</div>
+										</div>
+										<p
+											style="margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;"
+											class="text-right">${item.uploadTime }</p>
+									</div>
+								</c:forEach>
+							</c:if>
+						</div>
+						<c:if test="${teacher != null }">
+							<form id="teaComment"
+								action="${pageContext.request.contextPath}/achievement/insertAchievementCommentFormTea?achievementId=${IURP.projectId }&category=产学研"
+								method="post">
+								<h4>我的评论</h4>
+								<div class="publishComment col-md-12 "
+									style="padding: 0px; margin: 0px;">
+									<div class="col-md-12"
+										style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
+										<textarea class="form-control" id="addTeaCommentContent"
+											rows="5" name="addTeaCommentContent"
+											style="resize: none; height: 30%" placeholder="添加评论"
+											onclick="focousCommentContent();"></textarea>
+										<input type="text" style="display: none" id="TeaIURPID"
+											name="TeaIURPID" value="${IURP.projectId }"><input
+											type="number" id="achievementScore" name="achievementScore"
+											placeholder="成果得分" style="position: relative;">
+										<button class="btn btn-default btn-sm active pull-right"
+											type="button" onclick="submitTeaCommentBut();"
+											style="position: relative;">发表</button>
+									</div>
+								</div>
+							</form>
+						</c:if>
+					</div>
 					<div class="col-md-12 commentContent" id="commentContent"
 						style="display: none; padding: 0%">
-						<c:if test="${not empty comment }">
-							<c:forEach items="${comment }" var="item" varStatus="states">
-								<div class="col-md-12 panel panel-default" style="padding: 2%">
-									<div class="col-md-3 text-center" style="">
-										<img style="width: 80px; height: 80px;"
-											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.authorPicture }"
-											alt="..." class="img-circle"> <br>
-										<div class="col-md-12 " style="color: #B9B9B9; margin-top: 5%">${item.authorName }</div>
-									</div>
-									<div class="col-md-9"
-										style="font-size: 12px; letter-spacing: 1px; line-height: 23px;">
-										<div style="width: 105%; height: 100%">
-											<span
-												style="word-wrap: break-word; word-break: break-all; overflow: hidden;">${item.commentContent }</span>
+						<div id="stuCommentContentList">
+							<c:if test="${not empty comment }">
+								<c:forEach items="${comment }" var="item" varStatus="states">
+									<div class="col-md-12 panel panel-default" style="padding: 2%">
+										<div class="col-md-3 text-center" style="">
+											<img style="width: 80px; height: 80px;"
+												src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.authorPicture }"
+												alt="..." class="img-circle"> <br>
+											<div class="col-md-12 "
+												style="color: #B9B9B9; margin-top: 5%">${item.authorName }</div>
 										</div>
+										<div class="col-md-9"
+											style="font-size: 12px; letter-spacing: 1px; line-height: 23px;">
+											<div style="width: 105%; height: 100%">
+												<span
+													style="word-wrap: break-word; word-break: break-all; overflow: hidden;">${item.commentContent }</span>
+											</div>
+										</div>
+										<p
+											style="margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;"
+											class="text-right">${item.uploadTime }</p>
 									</div>
-									<p
-										style="margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;"
-										class="text-right">${item.uploadTime }</p>
-								</div>
-							</c:forEach>
-						</c:if>
-						<%-- 		<form
-							action="${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId=${IURP.projectId }&category=产学研"
-							method="post" > --%>
-						<h4>我的评论</h4>
-						<div class="publishComment col-md-12 "
-							style="padding: 0px; margin: 0px;">
-							<div class="col-md-12"
-								style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
-								<textarea class="form-control" id="addCommentContent" rows="5"
-									name="addCommentContent" style="resize: none; height: 30%"
-									placeholder="添加评论"></textarea>
-								<input type="text" style="display: none" id="IURPID"
-									name="IURPID" value="${IURP.projectId }">
-								<button onclick="submitComment()"
-									class="btn btn-default btn-sm active pull-right"
-									style="position: relative; left: -20px; top: -40px;">发表</button>
-							</div>
+								</c:forEach>
+							</c:if>
 						</div>
-						<!--   </form> -->
+						<c:if test="${student != null }">
+							<form id="stuComment"
+								action="${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId=${IURP.projectId }&category=产学研"
+								method="post">
+								<h4>我的评论</h4>
+								<div class="publishComment col-md-12 "
+									style="padding: 0px; margin: 0px;">
+									<div class="col-md-12"
+										style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
+										<textarea class="form-control" id="addCommentContent" rows="5"
+											name="addCommentContent" style="resize: none; height: 30%"
+											placeholder="添加评论" onclick="focousCommentContent();"></textarea>
+										<input type="text" style="display: none" id="IURPID"
+											name="IURPID" value="${IURP.projectId }">
+										<button class="btn btn-default btn-sm active pull-right"
+											type="button" onclick="submitCommentBut();"
+											style="position: relative; left: -20px; top: -40px;">发表</button>
+									</div>
+								</div>
+							</form>
+						</c:if>
 					</div>
 				</div>
 			</div>

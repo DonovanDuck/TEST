@@ -15,6 +15,7 @@ import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.idao.IAchievementDao;
+import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.IAchievementService;
 
 @Service
@@ -22,6 +23,8 @@ public class AchievementServiceImpl implements IAchievementService{
 
 	@Autowired
 	private IAchievementDao achievementDao; 
+	@Autowired
+	private ITeacherDao teacherDao; 
 
 	/**
 	 * @author LiMing
@@ -638,8 +641,18 @@ public class AchievementServiceImpl implements IAchievementService{
 
 	@Override
 	public List<CourseExpand> queryCourseExpandByCourseId(String courseId) throws Exception {
-		// TODO Auto-generated method stub
-		
 		return achievementDao.getCourseExpandBycourseId(courseId);
+	}
+
+	@Override
+	public Integer verifyLimitComment(String userID, String id) throws Exception {
+		Integer verify = teacherDao.verifyLimitComment(userID,id);
+		return verify;
+	}
+
+	@Override
+	public Integer verifyAlreadyComment(String userID, String id) throws Exception {
+		Integer verify = achievementDao.verifyAlreadyComment(userID,id);
+		return verify;
 	}
 }

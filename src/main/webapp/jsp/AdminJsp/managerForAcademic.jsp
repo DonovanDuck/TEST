@@ -119,9 +119,16 @@
 													document
 															.getElementById("editName").value = row.name;
 													document
-															.getElementById("editPro").value = row.professional;
+															.getElementById("editId").value = row.id;
 													document
-															.getElementById("editTime").value = row.professional;
+															.getElementById("editPro").value = row.professional;
+													$("#editSe")
+															.find(
+																	"option:contains("
+																			+ row.department
+																			+ ")")
+															.attr("selected",
+																	true);
 													$('#Edit').modal('show');
 												}
 											}
@@ -215,20 +222,18 @@
 						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a>
 					</li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark"
-						style="font-size: 20px; background-color: #f8f8f8">学术委员会管理</a></li>
-					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/toReadClassManager"
-						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
-					</li>
+						href="${pageContext.request.contextPath}/admin/toRealClassManager"
+						class="waves-effect waves-dark" style="font-size: 20px;">自然班管理</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
+						class="waves-effect waves-dark"
+						style="font-size: 20px; background-color: #f8f8f8">学术委员管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px">系部信息管理</a>
-					</li>
+						class="waves-effect waves-dark" style="font-size: 20px;">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -249,12 +254,12 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">添加学术委员会信息</h4>
+					<h4 class="modal-title" id="myModalLabel">添加学术委员信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
 						<form id="commitCategory" name="commitCategory"
-							action="${pageContext.request.contextPath}/admin/addCategory"
+							action="${pageContext.request.contextPath}/admin/addAcademic"
 							method="post">
 							<div class="form-group">
 								<label for="categoryId" class="control-label">姓名</label> <input
@@ -263,7 +268,7 @@
 							<div class="form-group">
 								<label for="selectDe" class="control-label">系部</label> <select
 									class="selectpicker show-tick form-control"
-									data-live-search="true" name=selectDe id="selectDe">
+									data-live-search="true" name=selectAdd id="selectAdd">
 									<c:forEach items="${departmentList }" var="de"
 										varStatus="status">
 										<option value="${de.num }">${de.name }</option>
@@ -272,13 +277,14 @@
 							</div>
 							<div class="form-group">
 								<label for="categoryName" class="control-label">职称</label> <input
-									type="text" class="form-control" id="addnPro" name="addPro">
+									type="text" class="form-control" id="addPro" name="addPro">
 							</div>
 							<div class="form-group">
 								<div class="row">
 									<div class='col-sm-6'>
 										<div class="form-group">
-											<label>认定时间：</label> <input type="date" value="2015-09-04" />
+											<label>认定时间：</label> <input type="date" id="addTime"
+												name="addTime" value="2015-09-04" />
 										</div>
 									</div>
 								</div>
@@ -302,7 +308,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">编辑学术委员会信息</h4>
+					<h4 class="modal-title" id="myModalLabel">编辑学术委员信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
@@ -311,6 +317,8 @@
 							<div class="form-group">
 								<label for="editName" class="control-label">姓名</label> <input
 									type="text" class="form-control" id="editName" name="editName">
+								<input type="text" class="form-control" id="editId"
+									name="editId" style="display: none">
 							</div>
 							<div class="form-group">
 								<label for="editPro" class="control-label">职称</label> <input
@@ -319,22 +327,12 @@
 							<div class="form-group">
 								<label for="selectDe" class="control-label">系部</label> <select
 									class="selectpicker show-tick form-control"
-									data-live-search="true" name="selectDe" id="selectDe">
+									data-live-search="true" name="editSe" id="editSe">
 									<c:forEach items="${departmentList }" var="de"
 										varStatus="status">
 										<option value="${de.num }">${de.name }</option>
 									</c:forEach>
 								</select>
-							</div>
-							<div class="form-group">
-								<div class="row">
-									<div class='col-sm-6'>
-										<div class="form-group">
-											<label>认定时间：</label> <input type="date" id="editTime"
-												name="editTime" value="2015-09-24" />
-										</div>
-									</div>
-								</div>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"

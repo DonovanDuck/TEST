@@ -17,16 +17,20 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 
 import cn.edu.tit.bean.AOCSC;
+import cn.edu.tit.bean.Academic;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
@@ -36,6 +40,7 @@ import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAchievementService;
+import cn.edu.tit.iservice.ITeacherService;
 import net.sf.json.JSONArray;
 
 @RequestMapping("/achievement")
@@ -43,6 +48,9 @@ import net.sf.json.JSONArray;
 public class AchievementController {
 	@Autowired
 	private IAchievementService iAchievementService;
+	@Autowired
+	private ITeacherService iTeacherService;
+
 
 	/**
 	 * 跳转到学生成果页面
@@ -307,14 +315,7 @@ public class AchievementController {
 			ce.setAchievementCategory("课程拓展");
 			ce.setCompere((String)formdata.get("compere"));
 			String courseName = null;
-			courseName = (String)formdata.get("courseName");
-			if(!courseName.isEmpty()||courseName!=""||courseName!=null)
-			{
-				ce.setCourseId(courseName);
-			}
-			else {
-				ce.setCourseId(null);
-			}
+			ce.setCourseId((String)formdata.get("selectCourseName"));
 			ce.setFinishTime(ConverDate((String)formdata.get("finishTime")));
 			ce.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			ce.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
@@ -394,7 +395,7 @@ public class AchievementController {
 			ao.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			ao.setIntroduction((String)formdata.get("introduction"));
 			ao.setLevel((String)formdata.get("levelContent"));
-			ao.setMember((String)formdata.get("member"));
+			ao.setMember((String)formdata.get("memberContent"));
 			ao.setMemberNum((String)formdata.get("memberNumContent"));
 			ao.setTeamName((String)formdata.get("teamName"));
 			ao.setUploadAuthorId(GetSessionUserId(request));
@@ -467,7 +468,7 @@ public class AchievementController {
 			gd.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			gd.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			gd.setIntroduction((String)formdata.get("introduction"));
-			gd.setMemberNum((String)formdata.get("memberNumContent"));
+			gd.setMemberNum((String)formdata.get("memberNum"));
 			gd.setUploadAuthorId(GetSessionUserId(request));
 			gd.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertGDFCS(gd);
@@ -541,8 +542,8 @@ public class AchievementController {
 			si.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			si.setIntroduction((String)formdata.get("introduction"));
 			si.setLevel((String)formdata.get("levelContent"));
-			si.setMember((String)formdata.get("levelContent"));
-			si.setMemberNum((String)formdata.get("memberContent"));
+			si.setMember((String)formdata.get("memberContent"));
+			si.setMemberNum((String)formdata.get("memberNumContent"));
 			si.setPlan((String)formdata.get("plan"));
 			si.setStatus((String)formdata.get("status"));
 			si.setTeamName((String)formdata.get("teamName"));
@@ -729,6 +730,15 @@ public class AchievementController {
 					memberList.add(me[i]);
 				}
 			}
+			String[] level = si.getLevel().split(",");
+			List<String> levelList = new ArrayList<>();
+			for (int i = 0; i < level.length; i++) {
+				if(!level[i].equals(null)||!level[i].equals(""))
+				{
+					levelList.add(level[i]);
+				}
+			}
+			mv.addObject("levelList",levelList);
 			mv.addObject("memberList",memberList);
 			listSIAE = iAchievementService.querySIAE();
 			mv.addObject("listAchievement",listSIAE);
@@ -766,7 +776,16 @@ public class AchievementController {
 					memberList.add(me[i]);
 				}
 			}
+			String[] level = ao.getLevel().split(",");
+			List<String> levelList = new ArrayList<>();
+			for (int i = 0; i < level.length; i++) {
+				if(!level[i].equals(null)||!level[i].equals(""))
+				{
+					levelList.add(level[i]);
+				}
+			}
 			mv.addObject("memberList",memberList);
+			mv.addObject("levelList",levelList);
 			listAOCSC = iAchievementService.queryAOCSC();
 			mv.addObject("listAchievement",listAOCSC);
 			mv.addObject("comment",commentList);
@@ -817,7 +836,10 @@ public class AchievementController {
 	@RequestMapping(value="toCourseExpandUpload")
 	public ModelAndView toCourseExpandUpload(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
+		List<Course> listCourse = new ArrayList<>();
 		try {
+			listCourse = iTeacherService.getAllCourse();
+			mv.addObject("courseList", listCourse);
 			mv.setViewName("/jsp/AchievementJsp/CourseExpandUpload");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -858,7 +880,7 @@ public class AchievementController {
 	 * @param request
 	 * @return
 	 */
-	@RequestMapping(value="insertAchievementComment",produces = "application/json; charset=utf-8")
+	@RequestMapping(value="insertAchievementComment")
 	public void insertAchievementComment(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="addCommentContent") String commentContent,@RequestParam(value="category") String category,@RequestParam(value="achievementId") String achievementId){
 		AchievementComment ac = new AchievementComment();
 		Student stu = (Student) request.getSession().getAttribute("student");
@@ -867,7 +889,6 @@ public class AchievementController {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("application/json;charset=UTF-8");
 		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		String commentId = Common.uuid();
@@ -888,21 +909,7 @@ public class AchievementController {
 			ac.setCommentId(commentId);
 			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertAchievementComment(ac);
-
-
-
 			List<AchievementComment> list = new ArrayList<AchievementComment>();
-			//			try {
-			//				list = iAchievementService.queryComment(achievementId, category);
-			//
-			//			//	JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
-			//				//String result = json.toString();
-			//				((ServletRequest) response).setCharacterEncoding("utf-8");
-			//				response.getWriter().print(result);
-			//			} catch (Exception e) {
-			//				e.printStackTrace();
-			//			}
-
 			list = iAchievementService.queryComment(achievementId, category);
 			JSONArray json = new JSONArray();
 			for (AchievementComment achievementComment : list) {
@@ -912,7 +919,7 @@ public class AchievementController {
 				jo.put("authorId",  achievementComment.getAuthorId());
 				jo.put("category",  achievementComment.getCategory());
 				jo.put("commentContent",  achievementComment.getCommentContent());
-				jo.put("uploadTime",  achievementComment.getUploadTime());
+				jo.put("uploadTime",  achievementComment.getUploadTime().toString());
 				jo.put("authorPicture",  achievementComment.getAuthorPicture());
 				jo.put("authorName",  achievementComment.getAuthorName());
 				json.put(jo);
@@ -952,5 +959,57 @@ public class AchievementController {
 		}
 		return userId;
 	}
-}
 
+	/*是否有权限评论判断去**/
+	@RequestMapping(value="verdictCommentForteacher/{id}",method= {RequestMethod.GET})
+	public void verdictCommentForteacher(@PathVariable String id,HttpServletRequest request,HttpServletResponse response) throws Exception {			
+		String userID = null;
+		String result = null;
+		userID = GetSessionUserId(request);
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//先确定有没有权限
+		if(userID != null) {
+			//第一层判断，是否有权限去参与评论;若评论，返回值不为0
+			int limit = iAchievementService.verifyLimitComment(userID,id);
+			if(limit>=1)
+			{//第二层判断，有权限参与评论后，有没有评论过
+				int already = iAchievementService.verifyAlreadyComment(userID,id);
+				if(already==0)
+				{
+					result = "您还未参与此成果评论";
+				}
+			}
+			try {
+				response.getWriter().print(result);
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+		}}
+
+
+
+	@RequestMapping(value="loginJudge",method= {RequestMethod.GET})
+	public void loginJudge(HttpServletRequest request,HttpServletResponse response) throws Exception {			
+		String result = null;
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		String userId = GetSessionUserId(request);
+		if(userId==null)
+		{
+			result="您还未登录，不能发布评论";
+		}
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}}

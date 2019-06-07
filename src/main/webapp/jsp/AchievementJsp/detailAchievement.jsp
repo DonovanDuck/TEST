@@ -58,11 +58,51 @@
 		g2.style.display = "block";
 	}
 	function submitComment() {
-		alert("11111");
-		//alert($.isEmptyObject($.session._cookieCache));
 	}
 </script>
-
+<script type="text/javascript">
+	$(function() {
+		var id = $("#achievementId").val();
+		$
+				.ajax({
+					async : true,
+					cache : false,
+					url : "${pageContext.request.contextPath}/achievement/verdictCommentForteacher/"
+							+ id,
+					type : "get",
+					dataType : "text",
+					success : function(result) {
+						if (result.length != 0 && result != "null") {
+							alert(result);
+						}
+					}
+				})
+	})
+</script>
+<script type="text/javascript">
+	$(
+			function() {
+				$("#commentContent")
+						.focus(
+								function() {
+									alert("123");
+									$
+											.ajax({
+												async : true,
+												cache : false,
+												url : "${pageContext.request.contextPath}/achievement/loginJudge",
+												type : "get",
+												dataType : "text",
+												success : function(result) {
+													if (result.length != 0
+															&& result != "null") {
+														alert(result);
+													}
+												}
+											})
+								});
+			})
+</script>
 </head>
 <body class="body">
 	<div class="main">
@@ -118,12 +158,19 @@
 						<div class="col-md-12" style="padding: 3%">
 							<span style="margin-left: 4%; color: #999">${Achievement.introduction }</span>
 						</div>
+						<input id="achievementId" style="display: none"
+							value="${Achievement.achievementId }">
 						<div class="col-md-12" style="padding: 0%; color: #999">
-							<h5>作品类别：${Achievement.achievementCategory }作品
-								<br> <br>负&nbsp&nbsp责&nbsp&nbsp人：${Achievement.compere
+							<h5>
+								作品类别：${Achievement.achievementCategory }作品 <br> <br>负&nbsp&nbsp责&nbsp&nbsp人：${Achievement.compere
 								}&nbsp&nbsp&nbsp&nbsp<br> <br>
 								<c:if test="${not empty memberList}">团队成员：<c:forEach
 										items="${memberList }" var="li">${li }&nbsp&nbsp&nbsp</c:forEach>
+									<br>
+									<br>
+								</c:if>
+								<c:if test="${not empty levelList}">获取奖项：<c:forEach
+										items="${levelList }" var="li">${li }&nbsp&nbsp&nbsp<br></c:forEach>
 									<br>
 									<br>
 								</c:if>
@@ -200,7 +247,7 @@
 							</c:if>
 							<form
 								action="${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId=${IURP.projectId }&category=产学研"
-								method="post" Onsubmit="submitComment()">
+								method="post">
 								<h4>我的评论</h4>
 								<div class="publishComment col-md-12 "
 									style="padding: 0px; margin: 0px;">
@@ -209,7 +256,7 @@
 										<textarea class="form-control" id="commentContent" rows="5"
 											name="commentContent" style="resize: none; height: 30%"
 											placeholder="添加评论"></textarea>
-										<button type="submit"
+										<button type="button" onclick="submitComment()"
 											class="btn btn-default btn-sm active pull-right"
 											style="position: relative; left: -20px; top: -40px;">发表</button>
 									</div>

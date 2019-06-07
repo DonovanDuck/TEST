@@ -32,6 +32,8 @@ public class Achievement {
 		//		List<AchievementAccessory> list = new ArrayList<>();
 		//		list.add(aa);
 		//		iAchievementService.insertAchievementAccessory(list);
-		iAchievementService.updateAOCSCBrowseVolume("09708A3B8D8942929FE777E4D9DC5397");
+		//iAchievementService.updateAOCSCBrowseVolume("09708A3B8D8942929FE777E4D9DC5397");
+		//iAchievementService.verifyLimitComment("1","09708A3B8D8942929FE777E4D9DC5397");
+		iAchievementService.verifyAlreadyComment("1","09708A3B8D8942929FE777E4D9DC5397");
 	}
 }

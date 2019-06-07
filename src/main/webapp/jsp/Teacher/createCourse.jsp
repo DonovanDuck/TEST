@@ -43,6 +43,13 @@
 <script type="text/javascript">
 	function OnInput() {
 		var teacherNum = $("#inputSelectTeacher").val();
+		var path = "";
+		if (teacherNum == "") {
+			path = "${pageContext.request.contextPath}/teacher/teacherForFuzzyQueryById/nullTeacherName";
+		} else {
+			path = "${pageContext.request.contextPath}/teacher/teacherForFuzzyQueryById/"
+					+ teacherNum;
+		}
 		$
 				.ajax({
 					async : false,
@@ -125,23 +132,23 @@
 			selectClass = selectClass + $(this).val() + ",";
 			$("#selectTeacher").val(selectClass);
 		});
-		if($("#courseName").val() == null || $("#courseName").val() == ''){
+		if ($("#courseName").val() == null || $("#courseName").val() == '') {
 			alert("课程名不能为空！");
 			flag = false;
 		}
-		if(!UE.getEditor('courseDetail').hasContents()){
+		if (!UE.getEditor('courseDetail').hasContents()) {
 			alert("课程描述不能为空！");
 			flag = false;
 		}
-		if(selectClass == null || selectClass == ''){
+		if (selectClass == null || selectClass == '') {
 			alert("教师团队不能为空！");
 			flag = false;
 		}
-		
-		if(flag){
-			
-		 	$("#formContent").submit();
-		}else{
+
+		if (flag) {
+
+			$("#formContent").submit();
+		} else {
 			return false;
 		}
 	};
@@ -170,7 +177,8 @@ var ue = UE.getEditor('courseDetail',{
 
 	<div class="main" style="width: 80%; margin-left: 10%;padding-bottom: 10px;margin-bottom: 50px;">
 		<form action="${pageContext.request.contextPath}/teacher/createCourse"
-			id="formContent" method="post" enctype="multipart/form-data" onsubmit="return submitForm()">
+			id="formContent" method="post" enctype="multipart/form-data"
+			onsubmit="return submitForm()">
 			<input type="hidden" name="publisherId"
 				value="${teacher.employeeNum }">
 			<div class="form-group">
@@ -209,7 +217,7 @@ var ue = UE.getEditor('courseDetail',{
 					</select>
 				</div>
 			</div>
-			<br><br><br><br><br> 
+			<br> <br> <br> <br> <br>
 			<div class="form-group">
 				<label class="col-sm-2 control-label text-right"
 					style="margin-top: 1%">课程介绍：</label>

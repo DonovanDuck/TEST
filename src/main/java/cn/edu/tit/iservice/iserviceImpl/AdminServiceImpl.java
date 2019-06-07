@@ -478,14 +478,43 @@ public class AdminServiceImpl implements IAdminService {
 	public List<Department> readDepartment() throws Exception {
 		return iAdminDao.readDepartment();
 	}
+	
+	@Override
+	public List<Department> readAllDepartment() throws Exception {
+		return iAdminDao.readAllDepartment();
+	}
 
 	@Override
 	public void addDepartment(Department de) throws Exception {
-		iAdminDao.addDepartment(de);
+		try {
+			iAdminDao.addDepartment(de);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 	@Override
 	public void updateDepartment(Department de) throws Exception {
 		iAdminDao.updateDepartment(de);
+	}
+
+	@Override
+	public void resotreDepartment(String departmentId) throws Exception {
+		iAdminDao.resotreDepartment(departmentId);		
+	}
+
+	@Override
+	public void deleteDepartment(String departmentId) throws Exception {
+		iAdminDao.deleteDepartment(departmentId);		
+	}
+
+	@Override
+	public void updateAcademic(Academic ac) throws Exception {
+		iAdminDao.updateAcademic(ac);		
+	}
+
+	@Override
+	public void addAcademic(Academic ac) throws Exception {
+		iAdminDao.addAcademic(ac);			
 	}
 }
