@@ -1302,8 +1302,16 @@ public class TeacherController {
 
 	 */
 	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
-	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName,@RequestParam(value="courseName") String courseName ) throws Exception {
+	public ModelAndView toClassDetail(HttpServletRequest request ,HttpServletResponse response, @RequestParam(value="virtualClassNum") String virtualClassNum,
+			@RequestParam(value="virtualClassName") String virtualClassName,@RequestParam(value="courseName") String courseName ) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		System.out.println(virtualClassName+"dsfghjkl"+courseName);
 		String identify = "teacher";
 		request.getSession().setAttribute("identify", identify);

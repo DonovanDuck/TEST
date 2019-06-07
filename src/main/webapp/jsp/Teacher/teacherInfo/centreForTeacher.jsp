@@ -61,9 +61,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="main_b_l">
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyCourse"><div class="nav1" ><p><img src="../images/k1.png" alt=""/><span>我的课程</span></p></div></a>
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的班级</span></p></div></a>
-            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的成果</span></p></div></a>
-            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的评价</span></p></div></a>
-            <a target="iframeContent" href="../html/teacher_talk_iframe.html"><div class="nav1" ><p><img src="../images/l1.png" alt=""/><span>我的讨论</span></p></div></a>
+            <a target="iframeContent" href="#"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的成果</span></p></div></a>
+            <a target="iframeContent" href="#"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的评价</span></p></div></a>
+            <a target="iframeContent" href="#"><div class="nav1" ><p><img src="../images/l1.png" alt=""/><span>我的讨论</span></p></div></a>
             <a><div class="nav1" onclick="d()"><p><img src="../images/j1.png" alt=""/><span>我的团队</span></p></div></a>
             <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyInfo"><div class="nav1" ><p><img src="../images/g1.png" alt=""/><span>修改信息</span></p></div></a>
         </div>

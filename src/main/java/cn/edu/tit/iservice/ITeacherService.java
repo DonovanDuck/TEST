@@ -753,4 +753,6 @@ public interface ITeacherService {
 	 * @param acc
 	 */
 	public void updateAccessory(List<Accessory> acc);
+	
+
 }

@@ -557,6 +557,9 @@ public class WxTeacherController {
 				for(int i = 0; i < virtualClassList.size(); i++){
 					// 根据虚拟班级id获取自然班级列表
 					virtualClassList.get(i).setRealClassList(teacherService.getRealClassList(virtualClassList.get(i).getVirtualClassNum()));
+					String term = virtualClassList.get(i).getTerm();
+					Term  a = teacherService.getTermById(term);
+					virtualClassList.get(i).setTerm(a.getStartYear()+"-"+a.getEndYear()+" 学年"+a.getTerm());
 				}
 			}
 			ret.put("virtualClassList", virtualClassList);
@@ -590,6 +593,11 @@ public class WxTeacherController {
 				for(int i = 0; i < virtualClassList.size(); i++){
 					// 根据虚拟班级id获取自然班级列表
 					virtualClassList.get(i).setRealClassList(teacherService.getRealClassList(virtualClassList.get(i).getVirtualClassNum()));
+					String employeeNum = virtualClassList.get(i).getCreatorId(); 
+					virtualClassList.get(i).setCreatorId(teacherService.getTeacherNameById(employeeNum));
+					String term = virtualClassList.get(i).getTerm();
+					Term  a = teacherService.getTermById(term);
+					virtualClassList.get(i).setTerm(a.getStartYear()+"-"+a.getEndYear()+" 学年"+a.getTerm());
 				}
 			}
 			ret.put("virtualClassList", virtualClassList);
@@ -796,7 +804,7 @@ public class WxTeacherController {
 		List<String> taskIdList;
 		List<Task> taskList=new ArrayList<Task>();
 		String readResult =null;
-		Integer point=0;
+		Integer poit=0;
 		String upTaskDetail = null;
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		HashMap<String, String> upTaskDetail2taskList = new HashMap<String, String>();
@@ -814,6 +822,11 @@ public class WxTeacherController {
 		try {
 			taskIdList = teacherService.searchTaskId(virtualClassNum);//根据虚拟班级号获得任务列表
 			taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
+			for(Task t : taskList){
+				upNum = teacherService.getUpNum(virtualClassNum, t.getTaskId());
+				t.setUpNum(upNum);
+				t.setTaskEndTime(teacherService.getTaskEndTime(virtualClassNum, t.getTaskId()));
+			}
 			ret.put("taskList", taskList);
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -924,6 +937,8 @@ public class WxTeacherController {
 		upTask.setTaskId((String) formdata.get("taskId"));
 		upTask.setStudentId(studentId);
 		upTask.setTerm(term);
+		Timestamp t  = new Timestamp(System.currentTimeMillis());
+		upTask.setUpTime(t);
 		upTask.setUpTaskDetail((String) formdata.get("upTaskDetail"));
 		studentService.upTask(upTask, virtualClassNum);
 		
@@ -944,6 +959,38 @@ public class WxTeacherController {
 				ret.put("status", "error");
 				e.printStackTrace();
 			}
+		}
+		return ret;
+	}
+	
+	/**
+	 * 提交作业--无附件
+	 * @param request
+	 * @param taskId
+	 * @return
+	 */
+	@RequestMapping(value="upTaskNoAcc")
+	public Map<String, Object> upTaskNoAcc(HttpServletRequest request) {
+		Map<String, Object> ret = new HashMap<>();
+		
+		try {
+			// 创建list集合用于获取文件上传返回路径名
+			String studentId = request.getParameter("studentId");
+			String virtualClassNum = request.getParameter("virtualClassNum");
+			String term = teacherService.getVirtualById(virtualClassNum).getTerm();
+			UpTask upTask = new UpTask();
+			upTask.setTaskId(request.getParameter("taskId"));
+			upTask.setStudentId(studentId);
+			upTask.setTerm(term);
+			Timestamp t  = new Timestamp(System.currentTimeMillis());
+			upTask.setUpTime(t);
+			upTask.setUpTaskDetail(request.getParameter("upTaskDetail"));
+			studentService.upTask(upTask, virtualClassNum);
+			ret.put("status", "OK");
+		} catch (Exception e) {
+			// TODO: handle exception
+			ret.put("status", "error");
+			e.printStackTrace();
 		}
 		return ret;
 	}
@@ -1059,6 +1106,8 @@ public class WxTeacherController {
 			if(teacher!=null){
 				//获取所有发布的课程
 				List<Task> teacher_task = teacherService.getTaskByUserId(userId);
+				for(Task t : teacher_task){
+				}
 				ret.put("teacherTask", teacher_task);
 			}
 			else if(student != null){
