@@ -1282,4 +1282,15 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		return teacherDao.getUpTask(taskId, studentId);
 	}
+
+	@Override
+	public List<Course> getAllCourse() {
+		return teacherDao.getAllCourse();
+	}
+
+	@Override
+	public List<Course> queryCourseByPartName(String courseName) {
+		return teacherDao.queryCourseByPartName(courseName);
+	}
+
 }

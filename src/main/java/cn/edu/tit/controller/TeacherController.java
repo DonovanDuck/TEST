@@ -123,7 +123,7 @@ public class TeacherController {
 			}
 		} catch (Exception e) {
 			request.getSession().setAttribute("readResult", "登录异常，请刷新本页后重新登录");//返回信息
-				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+			mv.setViewName("/jsp/Teacher/index");//设置返回页面
 
 			e.printStackTrace();
 		}
@@ -245,8 +245,8 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 
-		
-		
+
+
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -480,10 +480,11 @@ public class TeacherController {
 			String teacherStr = (String)formdata.get("selectTeacher");
 			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
-			for(File f : files){ // 集合中只有一张图片
+			course.setFaceImg(Common.readProperties("path")+"/"+courseId+"/"+employeeNum+"/"+files.get(0).getName());
+/*			for(File f : files){ // 集合中只有一张图片
 				String p = Common.readProperties("pre") +f.getPath().replaceAll("\\\\", "/").substring(3);
 				course.setFaceImg(p);
-			}
+			}*/
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
@@ -768,7 +769,7 @@ public class TeacherController {
 		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
-		
+
 		// 创建list集合用于获取文件上传返回路径名
 		List<String> list = new ArrayList<String>();
 		List<Accessory> accessories  = new ArrayList<Accessory>();
@@ -804,7 +805,7 @@ public class TeacherController {
 				Accessory accessory = new Accessory();
 				String fileName="";
 				try {
-					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+					fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -986,7 +987,7 @@ public class TeacherController {
 
 
 	}
-	
+
 	/**
 	 * @author wenli
 	 * @param request
@@ -1003,7 +1004,7 @@ public class TeacherController {
 		Map<String, Object> formdata = (Map<String, Object>) obj[1];
 		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 		String virtualClassNum = "001";
-		
+
 		// 创建list集合用于获取文件上传返回路径名
 		List<String> list = new ArrayList<String>();
 		List<Accessory> accessories  = new ArrayList<Accessory>();
@@ -1042,7 +1043,7 @@ public class TeacherController {
 				Accessory accessory = new Accessory();
 				String fileName="";
 				try {
-					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+					fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1061,12 +1062,12 @@ public class TeacherController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				mv.setViewName("/jsp/Teacher/teacher-release-resourceTask");
-				
+
 			}
 		}
 
 		return mv;
-		
+
 
 	}
 
@@ -1234,9 +1235,9 @@ public class TeacherController {
 		Timestamp taskEndTime;
 		String format = "yyyy-MM-dd HH:mm:ss";
 		Timestamp now = new Timestamp(System.currentTimeMillis());
-    	Date nowTime = new java.util.Date(now.getTime());
-    	DateFormat df=new SimpleDateFormat(format);
-    	try {
+		Date nowTime = new java.util.Date(now.getTime());
+		DateFormat df=new SimpleDateFormat(format);
+		try {
 			nowTime=df.parse(df.format(nowTime )) ;
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
@@ -1270,16 +1271,16 @@ public class TeacherController {
 			mv.addObject("taskEndTime", taskEndTime);
 			if(identify.equals("student")) {
 				Boolean isEnd=false;
-			     Calendar begin = Calendar.getInstance();
-			     begin.setTime(nowTime);
-			     Date endTime = new java.util.Date(taskEndTime.getTime());
-			    	
-			     endTime=df.parse(df.format(endTime )) ;
-			     Calendar end = Calendar.getInstance();
-			     end.setTime(endTime);
-			     if (begin.after(end)) {
-			    	 isEnd=true;
-			     }
+				Calendar begin = Calendar.getInstance();
+				begin.setTime(nowTime);
+				Date endTime = new java.util.Date(taskEndTime.getTime());
+
+				endTime=df.parse(df.format(endTime )) ;
+				Calendar end = Calendar.getInstance();
+				end.setTime(endTime);
+				if (begin.after(end)) {
+					isEnd=true;
+				}
 				accessoriesName = studentService.getUpAccessories(taskId, studentId);
 				String comment = null;
 				Student student = null;
@@ -1423,9 +1424,9 @@ public class TeacherController {
 					if(!"".equals(course.getCourseDetail())){
 						String de = course.getCourseDetail().replaceAll("<p>", "");
 						de = de.replaceAll("</p>","");
-						
+
 						if(course.getCourseDetail().length()>=70){
-							
+
 							de = de.substring(0, 63);
 						}
 						course.setCourseDetail(de);
@@ -1476,9 +1477,9 @@ public class TeacherController {
 					if(!"".equals(course.getCourseDetail())){
 						String de = course.getCourseDetail().replaceAll("<p>", "");
 						de = de.replaceAll("</p>","");
-						
+
 						if(course.getCourseDetail().length()>=70){
-							
+
 							de = de.substring(0, 63);
 						}
 						course.setCourseDetail(de);
@@ -1529,9 +1530,9 @@ public class TeacherController {
 					if(!"".equals(course.getCourseDetail())){
 						String de = course.getCourseDetail().replaceAll("<p>", "");
 						de = de.replaceAll("</p>","");
-						
+
 						if(course.getCourseDetail().length()>=70){
-							
+
 							de = de.substring(0, 63);
 						}
 						course.setCourseDetail(de);
@@ -2144,9 +2145,9 @@ public class TeacherController {
 				if(!"".equals(resource.getResourceDetail()) && resource.getResourceDetail() != null){
 					String de = resource.getResourceDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(resource.getResourceDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					resource.setResourceDetail(de);
@@ -2167,9 +2168,9 @@ public class TeacherController {
 				if(!"".equals(task.getTaskDetail())){
 					String de = task.getTaskDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(task.getTaskDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					task.setTaskDetail(de);
@@ -2187,9 +2188,9 @@ public class TeacherController {
 				if(!"".equals(task.getTaskDetail())){
 					String de = task.getTaskDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(task.getTaskDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					task.setTaskDetail(de);
@@ -2226,7 +2227,7 @@ public class TeacherController {
 		mv.addObject("course", course);//返回信息
 		return mv;
 	}
-	
+
 	/**
 	 * 课程详细页面的列表显示
 	 * @param request
@@ -2280,9 +2281,9 @@ public class TeacherController {
 				if(!"".equals(resource.getResourceDetail()) && resource.getResourceDetail() != null){
 					String de = resource.getResourceDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(resource.getResourceDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					resource.setResourceDetail(de);
@@ -2303,9 +2304,9 @@ public class TeacherController {
 				if(!"".equals(task.getTaskDetail())){
 					String de = task.getTaskDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(task.getTaskDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					task.setTaskDetail(de);
@@ -2323,9 +2324,9 @@ public class TeacherController {
 				if(!"".equals(task.getTaskDetail())){
 					String de = task.getTaskDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(task.getTaskDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					task.setTaskDetail(de);
@@ -2646,7 +2647,7 @@ public class TeacherController {
 		String comment = request.getParameter("comment");
 		Timestamp commentTime = new Timestamp(System.currentTimeMillis());
 		teacherService.setGradeAndComment(comment, grade, studentId, taskId,commentTime);
-		
+
 		return "redirect:/teacher/toTaskDetail?taskId="+taskId;
 
 	}
@@ -2703,8 +2704,13 @@ public class TeacherController {
 	@RequestMapping("/readRealClassToSelect/{realClass}")
 	public void readRealClassToSelect( HttpServletResponse response,@PathVariable(value="realClass") String realClass,HttpServletRequest request) throws Exception{
 		List<RealClass> list = new ArrayList<RealClass>();
-		try {
+		if("nullRealClassName".equals(realClass))
+		{
+			list = teacherService.readRealClassToSelect("");
+		}else {
 			list = teacherService.readRealClassToSelect(realClass);
+		}
+		try {
 			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
 			String result = json.toString();
 			response.getWriter().print(result);
@@ -2786,7 +2792,7 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherInfo/myclass_create");;//设置返回页面
 		return mv;
 	}
-	
+
 	/**
 	 * 跳转到课程详细简介
 	 * @param request
@@ -2807,7 +2813,7 @@ public class TeacherController {
 		}
 		return mv;
 	}
-	
+
 	/**
 	 * 跳转到课程详细教师圈
 	 * @param request
@@ -2818,8 +2824,8 @@ public class TeacherController {
 	public ModelAndView toCourseTeacherFrame(HttpServletRequest request, @PathVariable String courseId){
 		ModelAndView mv = new ModelAndView();
 		// 查询教师圈教师信息
-				List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
-				request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
+		List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		try {
 			mv.addObject("teacherList", teacherList);
 			mv.setViewName("/jsp/Teacher/course_detail_teachers");
@@ -2829,7 +2835,7 @@ public class TeacherController {
 		}
 		return mv;
 	}
-	
+
 	/**
 	 * 根据教师ID的模糊查询
 	 * */
@@ -2837,7 +2843,12 @@ public class TeacherController {
 	public void teacherForFuzzyQueryById(HttpServletRequest request,HttpServletResponse response,@PathVariable("teacherNum")String teacherNum) {
 		List<Teacher> list = new ArrayList<Teacher>();
 		try {
-			list = teacherService.teacherForFuzzyQueryById(teacherNum);
+			if("nullTeacherName".equals(teacherNum))
+			{
+				list = teacherService.teacherForFuzzyQueryById("");
+			}else {
+				list = teacherService.teacherForFuzzyQueryById(teacherNum);
+			}
 			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
 			String result = json.toString();
 			response.getWriter().print(result);
@@ -2919,59 +2930,59 @@ public class TeacherController {
 			studentTurnClassGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "turn_class"));
 			studentAttenceGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "attence"));
 		}
-	
-        int max=0;
-        System.out.println("已经进来了...");
-        //定义用于传递的JSONARRAY数组
-        com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
-      //填充JSON数组内容
-        for (Student student : studentList) {
-        	 JSONObject ob=new JSONObject();
-        	 ob.put("studentName", student.getStudentName());
-        	 ob.put("studentId", student.getStudentId());
-        	 ob.put("workGrade", studentWorkGrade.get(student.getStudentId())+"/"+studentWorkGradeNum.get(student.getStudentId()));
-        	 ob.put("trialGrade", studentTrialGrade.get(student.getStudentId())+"/"+studentTrialGradeNum.get(student.getStudentId()));
-        	 ob.put("courseDesignGrade", studentCourseDesignGrade.get(student.getStudentId())+"/"+studentCourseDesignGradeNum.get(student.getStudentId()));
-        	 ob.put("turnClassGrade", studentTurnClassGrade.get(student.getStudentId())+"/"+studentTurnClassGradeNum.get(student.getStudentId()));
-        	 ob.put("attenceGrade", studentAttenceGrade.get(student.getStudentId())+"/"+studentAttenceGradeNum.get(student.getStudentId()));
-        	 ob.put("workGradeNum", studentWorkGradeNum.get(student.getStudentId()));
-        	 ob.put("trialGradeNum", studentTrialGradeNum.get(student.getStudentId()));
-        	 ob.put("courseDesignGradeNum", studentCourseDesignGradeNum.get(student.getStudentId()));
-        	 ob.put("turnClassGradeNum", studentTurnClassGradeNum.get(student.getStudentId()));
-        	 ob.put("attenceGradeNum", studentAttenceGradeNum.get(student.getStudentId()));
-        	 ob.put("sumGrade",studentWorkGrade.get(student.getStudentId())
-        			 +studentTrialGrade.get(student.getStudentId())
-        			 +studentCourseDesignGrade.get(student.getStudentId())
-        			 +studentTurnClassGrade.get(student.getStudentId())
-        			 +studentAttenceGrade.get(student.getStudentId()));
-        	//装进数组
-             arr.add(ob);
-        }
-        //根据成绩排序
-        List<JSONObject>list = com.alibaba.fastjson.JSONArray.parseArray(arr.toJSONString(),JSONObject.class);
-        System.out.println("排序前："+arr);
-        Collections.sort(list, new Comparator<JSONObject>() {
-            @Override
-            public int compare(JSONObject o1, JSONObject o2) {
-                int a = o1.getInteger("sumGrade");
-                int b = o2.getInteger("sumGrade");
-                if (a > b) {
-                    return -1;
-                } else if(a == b) {
-                    return 0;
-                } else
-                    return 1;
-                }
-        });
-        com.alibaba.fastjson.JSONArray jsonArray = com.alibaba.fastjson.JSONArray.parseArray(list.toString());
-        System.out.println("排序后：" + jsonArray);
-        //排序完毕之后绑定学生排名
-        if(jsonArray.size()>0){
-        	  for(int i=0;i<jsonArray.size();i++){
-        	    JSONObject ob = jsonArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-        	    ob.put("studentRank", i+1);
-        	  }
-        }
+
+		int max=0;
+		System.out.println("已经进来了...");
+		//定义用于传递的JSONARRAY数组
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		//填充JSON数组内容
+		for (Student student : studentList) {
+			JSONObject ob=new JSONObject();
+			ob.put("studentName", student.getStudentName());
+			ob.put("studentId", student.getStudentId());
+			ob.put("workGrade", studentWorkGrade.get(student.getStudentId())+"/"+studentWorkGradeNum.get(student.getStudentId()));
+			ob.put("trialGrade", studentTrialGrade.get(student.getStudentId())+"/"+studentTrialGradeNum.get(student.getStudentId()));
+			ob.put("courseDesignGrade", studentCourseDesignGrade.get(student.getStudentId())+"/"+studentCourseDesignGradeNum.get(student.getStudentId()));
+			ob.put("turnClassGrade", studentTurnClassGrade.get(student.getStudentId())+"/"+studentTurnClassGradeNum.get(student.getStudentId()));
+			ob.put("attenceGrade", studentAttenceGrade.get(student.getStudentId())+"/"+studentAttenceGradeNum.get(student.getStudentId()));
+			ob.put("workGradeNum", studentWorkGradeNum.get(student.getStudentId()));
+			ob.put("trialGradeNum", studentTrialGradeNum.get(student.getStudentId()));
+			ob.put("courseDesignGradeNum", studentCourseDesignGradeNum.get(student.getStudentId()));
+			ob.put("turnClassGradeNum", studentTurnClassGradeNum.get(student.getStudentId()));
+			ob.put("attenceGradeNum", studentAttenceGradeNum.get(student.getStudentId()));
+			ob.put("sumGrade",studentWorkGrade.get(student.getStudentId())
+					+studentTrialGrade.get(student.getStudentId())
+					+studentCourseDesignGrade.get(student.getStudentId())
+					+studentTurnClassGrade.get(student.getStudentId())
+					+studentAttenceGrade.get(student.getStudentId()));
+			//装进数组
+			arr.add(ob);
+		}
+		//根据成绩排序
+		List<JSONObject>list = com.alibaba.fastjson.JSONArray.parseArray(arr.toJSONString(),JSONObject.class);
+		System.out.println("排序前："+arr);
+		Collections.sort(list, new Comparator<JSONObject>() {
+			@Override
+			public int compare(JSONObject o1, JSONObject o2) {
+				int a = o1.getInteger("sumGrade");
+				int b = o2.getInteger("sumGrade");
+				if (a > b) {
+					return -1;
+				} else if(a == b) {
+					return 0;
+				} else
+					return 1;
+			}
+		});
+		com.alibaba.fastjson.JSONArray jsonArray = com.alibaba.fastjson.JSONArray.parseArray(list.toString());
+		System.out.println("排序后：" + jsonArray);
+		//排序完毕之后绑定学生排名
+		if(jsonArray.size()>0){
+			for(int i=0;i<jsonArray.size();i++){
+				JSONObject ob = jsonArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+				ob.put("studentRank", i+1);
+			}
+		}
 		String result = jsonArray.toString();
 		try {
 			response.getWriter().print(result);
@@ -2979,8 +2990,70 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-        
-        
 	}
+
+	@RequestMapping("toMyAchievement")
+	public ModelAndView toMyAchievement() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/Teacher/teacherInfo/myAchievement");
+		return mv;
+	}	
+
+
+	@RequestMapping("queryCourseByPartName/{courseName}")
+	public void queryCourseByPartName(HttpServletRequest request,HttpServletResponse response,@PathVariable("courseName")String courseName) {
+		List<Course> list = new ArrayList<Course>();
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			if("nullCourseName".equals(courseName))
+			{
+				list = teacherService.queryCourseByPartName("");
+			}else {
+				list = teacherService.queryCourseByPartName(courseName);
+			}
+			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
+
+	@RequestMapping("getTeacherNameById/{teacherId}")
+	public void getTeacherNameById(HttpServletRequest request,HttpServletResponse response,@PathVariable("teacherId")String teacherId) {
+		String name = "";
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			name = teacherService.getTeacherNameById(teacherId);
+			response.getWriter().print(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("getStudentNameById/{studentId}")
+	public void getStudentNameById(HttpServletRequest request,HttpServletResponse response,@PathVariable("studentId")String studentId) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			Student stu = studentService.studentLoginByEmployeeNum(studentId);
+			response.getWriter().print(stu.getStudentName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
 }

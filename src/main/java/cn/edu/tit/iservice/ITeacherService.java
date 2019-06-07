@@ -83,8 +83,8 @@ public interface ITeacherService {
 	 * 根据课程ID列表查询课程实体列表
 	 */
 	public List<Course>	 courseList(List<String> courseIds)throws Exception;	//根据课程ID列表查询课程实体列表
-	
-	
+
+
 	/**
 	 * 根据courseid查课程
 	 * @param courseId
@@ -105,7 +105,7 @@ public interface ITeacherService {
 	 * @context 学生列表模块
 	 * @Param1(自然班级班号)
 	 */
-	
+
 	public List<Student> studentList(List<String> classNums)throws Exception;		//学生列表模块
 	/**
 	 * @author wenli
@@ -135,8 +135,8 @@ public interface ITeacherService {
 	 * 添加教师信息,通过Excel表导入
 	 */
 	//public String addTeacherInfo(MultipartFile file);	//创建虚拟班和自然班映射模块
-	
-	
+
+
 	/**
 	 * @author wenli
 	 * @param task
@@ -211,7 +211,7 @@ public interface ITeacherService {
 	 * @return	任务详情
 	 * 查看单个任务详情
 	 */
-	
+
 	public Task searchTask(String taskId)throws Exception;	//查看单个任务详情
 	/**
 	 * @author wenli
@@ -230,7 +230,7 @@ public interface ITeacherService {
 	 * @param 教师对象，用作更新教师信息
 	 */
 	public void UpdateTeacher(Teacher teacher)throws Exception;	//查询任务附件
-	
+
 	/**
 	 * @author wenli
 	 * @param employeeNum
@@ -238,7 +238,7 @@ public interface ITeacherService {
 	 * 拉去别人进入自己课程
 	 */
 	public void addOtherToMyCourse(String employeeNum, String CourseId, int manager)throws Exception;	//拉取别人加入自己课程
-	
+
 	/**
 	 * @author wenli
 	 * @param employeeNum
@@ -248,7 +248,7 @@ public interface ITeacherService {
 	 * 判断是否允许拉取其他人到自己课程
 	 */
 	public Integer permissionAddOthers(@Param("employeeNum")String employeeNum,@Param("courseId")String courseId)throws Exception;	//判断是否允许加入其他人到自己课程
-	
+
 	/**
 	 * @author wenli
 	 * @param employeeNum
@@ -257,7 +257,7 @@ public interface ITeacherService {
 	 * 通过职工号登录教师
 	 */
 	public Teacher teacherLoginByEmployeeNum(String employeeNum)throws Exception;	//通过职工号登录教师
-	
+
 	/**
 	 * @author wenli
 	 * @param telephone
@@ -274,7 +274,7 @@ public interface ITeacherService {
 	 * 通过邮箱登录教师
 	 */
 	public Teacher teacherLoginByEmail(String email)throws Exception;	//通过邮件登录教师
-	
+
 	/**
 	 * @author wenli
 	 * @param courseId
@@ -293,7 +293,7 @@ public interface ITeacherService {
 	 */
 	public List<VirtualClass> virtualsForCourseBycreatorId(String courseId ,String creatorId)throws Exception;//根据课程和教师id查询虚拟班级1
 
-	
+
 	/**
 	 * 通过courseId查教师圈的老师列表
 	 * @param courseId
@@ -307,7 +307,7 @@ public interface ITeacherService {
 	 * 根据创建者Id获得他创建的所有班级列表
 	 */
 	public List<VirtualClass> getVirtualClassByCreatorId(String creatorId);
-	
+
 	/**
 	 * @author wenli
 	 * @param taskCategory
@@ -323,13 +323,13 @@ public interface ITeacherService {
 	 * @throws Exception
 	 */
 	public List<Category> readCategory() throws Exception;
-	
+
 	/**
 	 * 获取所有教师
 	 * @return
 	 */
 	public List<Teacher> getTeachers();
-	 
+
 	/**
 	 * 
 	 * @param category
@@ -337,7 +337,7 @@ public interface ITeacherService {
 	 * @throws Exception
 	 */
 	public List<Course> readCourseInfoByCategory(String category) throws Exception;
-	
+
 	/**
 	 * @author LiMing
 	 * @param employeeNum
@@ -345,7 +345,7 @@ public interface ITeacherService {
 	 * @throws Exception
 	 */
 	public String getTeacherNameById(String employeeNum)throws Exception; 
-	
+
 	/**
 	 * @author LiMing
 	 * @param 条件查找的参数
@@ -353,7 +353,7 @@ public interface ITeacherService {
 	 * 查找实体班级信息,当参数不为空时，为条件查找,按照班号查找班级信息
 	 */
 	public List<RealClass> readRealClass(String realClassNum)throws Exception; 
-	
+
 	/**
 	 *@author LiMing
 	 * @return
@@ -362,7 +362,7 @@ public interface ITeacherService {
 	 *  当Course 不是空时，按照课程名查找课程,当为此情况，则取集合中第一个对象
 	 */
 	public List<Course> readCourse(String courseName)throws Exception;
-	
+
 	/**
 	 *@author LiMing
 	 * @return
@@ -371,14 +371,14 @@ public interface ITeacherService {
 	 *  当Course 不是空时，按照课程名查找课程
 	 */
 	public Course readCourseByCourseId(String courseId)throws Exception;
-	
+
 	/**
 	 *@author LiMing
 	 * @return
 	 *读取学期
 	 */
 	public List<Term> readTerm()throws Exception;
-	
+
 	/**
 	 * 通过学生的自然班级号查其所在的虚拟班级
 	 * @param realClassNum
@@ -386,7 +386,7 @@ public interface ITeacherService {
 	 * @throws Exception 
 	 */
 	public List<VirtualClass> getVirtualClassNumByreal(String realClassNum) throws Exception;
-	
+
 	/**
 	 * 通过学生id获取自然班级号
 	 * @param studentId
@@ -394,14 +394,14 @@ public interface ITeacherService {
 	 * @throws Exception 
 	 */
 	public String getrealClassNumBySid(String studentId) throws Exception;
-	
+
 	/**
 	 * 获取用户关注课程
 	 * @return
 	 * @throws Exception 
 	 */
 	public List<Course> getAttentionCourse(String id) throws Exception;
-	
+
 	/**
 	 * 获取所有课程中教师创建的班级
 	 * @param employeeNum
@@ -409,7 +409,7 @@ public interface ITeacherService {
 	 * @throws Exception 
 	 */
 	public List<VirtualClass> getTeacherCreateClass(String employeeNum) throws Exception;
-	
+
 	/**
 	 * 通过学生所在的自然班级号得到其所参与课程列表
 	 * @param realClassNum
@@ -417,22 +417,22 @@ public interface ITeacherService {
 	 * @throws Exception 
 	 */
 	public List<Course> getStudentJoinCourseByrealNum(String realClassNum) throws Exception;
-	
-	
+
+
 	/**
 	 * 通过课程名查课程
 	 * @param courseName
 	 * @return
 	 */
 	public Course getCourseByName(String courseName);
-	
+
 	/**
 	 * 通过班级名查班级
 	 * @param virtualClassName
 	 * @return
 	 */
 	public VirtualClass getClassByName(String virtualClassName);
-	
+
 	/**
 	 * 根据虚拟班级id获取自然班级列表
 	 * @param virtualClassNum
@@ -465,7 +465,7 @@ public interface ITeacherService {
 	 * 返回当前资源的id号
 	 */
 	public int getResourceTypeId(String resourceTye)throws Exception;
-	
+
 	/**
 	 * @author LiMing
 	 * @param 添加的资源
@@ -473,7 +473,7 @@ public interface ITeacherService {
 	public void addResource(Resource resource)throws Exception;
 
 	public void updateResource(Resource re);
-	
+
 	/**
 	 * 获取标志位，查老师manager
 	 * @return
@@ -481,7 +481,7 @@ public interface ITeacherService {
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager);
 
 
-	
+
 
 	/**
 	 * @author wenli
@@ -490,27 +490,27 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public VirtualClass getVirtualById(String virtualClassNum);
-	
+
 	/**
 	 * 根据时间获取前8个课程信息到首页
 	 * @return
 	 */
 	public List<Course> getCourseByLimit();
-	
+
 	/**
 	 * 根据类型id查类型
 	 * @param categoryId
 	 * @return
 	 */
 	public String getCategoryById(String categoryId);
-	
+
 	/**
 	 * 教师关注课程
 	 * @param courseId
 	 * @param employeeNum
 	 */
 	public void teacherAttentionCourse(String courseId,String employeeNum);
-	
+
 	/**
 	 * 根据学生自然班id和课程id查询所在虚拟班信息
 	 * @param studentId
@@ -518,21 +518,21 @@ public interface ITeacherService {
 	 */
 	public VirtualClass getVirtualClassByRidAndCid(String realClassNum, String courseId);
 
-	
+
 	/**
 	 * 取消关注
 	 * @param courseId
 	 * @param getEmployeeNum
 	 */
 	public void teacherExitAttentionCourse(String courseId, String getEmployeeNum);
-	
-	 /**@author LiMing
+
+	/**@author LiMing
 	 * @param 课程名
 	 * @return 返回查询到的课程信息
 	 * 课程二级页面的搜索功能，模糊查询
 	 */
 	public List<Course> searchCourse(String courseName);
-	
+
 	/**
 	 *@author LiMing
 	 * @param realClass
@@ -540,14 +540,14 @@ public interface ITeacherService {
 	 * 实体班级的模糊查询
 	 */
 	public List<RealClass> readRealClassToSelect(String realClass);
-	
+
 	/**
 	 * 通过教师工号模糊查找教师列表
 	 * @param employeeNum
 	 * @return
 	 */
 	public List<Teacher> vagueSearchTeachers(String employeeNum);
-	
+
 
 	/**@author LiMing
 	 * @param 任务分类
@@ -637,7 +637,7 @@ public interface ITeacherService {
 	public void addUseNum(String taskId,int taskSumNum);
 	public void addWatchNum(String taskId,int taskSumNum);
 	public Term getTermById(String term);
-	
+
 	/**
 	 * 关于教师Id的模糊查询
 	 * */
@@ -665,18 +665,18 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public Integer getStudentGradeNum(String studentId,String virtualClassNum,String taskCategory);
-	
+
 	/**
 	 * 获得所有任务
 	 */
 	public List<Task> getAllTask();
-	
+
 	/**
 	 * 获取老师所有发布的任务
 	 * @param userId
 	 * @return
 	 */
-    public	List<Task> getTaskByUserId(String userId);
+	public	List<Task> getTaskByUserId(String userId);
 
 	/**
 	 * @author WENLI
@@ -707,11 +707,13 @@ public interface ITeacherService {
 	 * 获得指定类型的班级任务
 	 */
 	public List<Task> getTaskByCategory(String virtualClassNum,String taskCategory);
-	
+
 	/**
 	 * 获取任务引用次数--虚拟班级人数
 	 * @param virtualClassNum
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	public List<Course> getAllCourse();
+	public List<Course> queryCourseByPartName(String courseName);
 }

@@ -432,5 +432,13 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	/**
+	 * 确定教师是否在某课程教师团队中
+	 * 若在，返回计数不为0
+	 * 若不在，返回计数为0
+	 * */
+	public Integer verifyLimitComment(@Param("userId")String userId,@Param("id")String id);
+	public List<Course> getAllCourse();
+	public List<Course> queryCourseByPartName(@Param("courseName")String courseName);
 	
 }

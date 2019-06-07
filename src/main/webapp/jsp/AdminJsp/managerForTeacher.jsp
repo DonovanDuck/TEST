@@ -245,21 +245,48 @@
 		return judge;
 	}
 </script>
-
+<script type="text/javascript">
+	function check() {
+		var uid = $("#file_excel").val();
+		if (uid == null || uid == "") {
+			alert("文件为空");
+			return false;
+		}
+		return true;
+	}
+</script>
 <script type="text/javascript">
 	function addCheckInfo() {
+		var num = $("#addTeacherNum").val();
+		var url = "${pageContext.request.contextPath}/admin/verificationTeacherId/"
+				+ num;
+		var judge = true;
+		var name = $("#addTeacherName").val()
 		$.ajax({
 			async : false,
 			cache : false,
-			url : ,
+			url : url,
+			type : "get",
+			dataType : "text",
 			scriptCharset : 'UTF-8',
 			success : function(msg) {
-				if (!isEmpty(msg)) {
+				if (msg != "null") {
 					alert(msg);
 					judge = false;
 				}
 			}
 		});
+		if (num == "" && judge) {
+			judge = false;
+			alert("工号不可为空");
+		}
+		if (name == "" && judge) {
+			judge = false;
+			alert("姓名不可为空");
+		}
+		if (judge) {
+			$("#addInfo").submit();
+		}
 	}
 </script>
 <title>后台管理</title>
@@ -368,8 +395,9 @@
 							<div class="form-group">
 								<label for="teacherId" class="control-label">教师工号</label> <input
 									type="text" class="form-control" id="teacherId"
-									name="teacherId"> <input type="text"
-									style="display: none" id="teacherIdB" name="teacherIdB" />
+									oninput="value=value.replace(/[^\d]/g,'')" name="teacherId">
+								<input type="text" style="display: none" id="teacherIdB"
+									name="teacherIdB" />
 							</div>
 							<div class="form-group">
 								<label for="teacherName" class="control-label">教师姓名</label> <input
@@ -407,12 +435,12 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form role="form" id="updateInfo"
+						<form role="form" id="addInfo"
 							action="${pageContext.request.contextPath}/admin/addOneTeacher">
 							<div class="form-group">
 								<label for="teacherId" class="control-label">教师工号</label> <input
 									type="text" class="form-control" id="addTeacherNum"
-									name="addTeacherNum">
+									oninput="value=value.replace(/[^\d]/g,'')" name="addTeacherNum">
 							</div>
 							<div class="form-group">
 								<label for="teacherName" class="control-label">教师姓名</label> <input
@@ -429,7 +457,8 @@
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal" style="margin-left: 2%">关闭</button>
-								<button class="btn btn-primary" onclick="addCheckInfo()">提交</button>
+								<button class="btn btn-primary" type="button"
+									onclick="addCheckInfo()">提交</button>
 							</div>
 						</form>
 					</div>

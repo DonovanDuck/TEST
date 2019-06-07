@@ -47,14 +47,17 @@
 		<result column="truancy_num" property="truancyNum" />
 	</resultMap>
 	<select id="getAttendanceDetail" resultMap="attendanceMap">
-		select * from attendance where virtual_class_num =#{virtualClassNum}
+		select * from
+		attendance where virtual_class_num =#{virtualClassNum}
 	</select>
-	
+
 	<select id="getLeaveStudentIdList" resultType="java.lang.String">
-		select student_id from `leave` where attendance_id=#{attendanceId}
+		select student_id
+		from `leave` where attendance_id=#{attendanceId}
 	</select>
 	<select id="getTruancyStudentIdList" resultType="java.lang.String">
-		select student_id from truancy where attendance_id=#{attendanceId}
+		select
+		student_id from truancy where attendance_id=#{attendanceId}
 	</select>
 	<select id="readTerm" resultMap="termMap">
 		select * from term
@@ -296,10 +299,11 @@
 		</foreach>
 		order by task_end_time asc;
 	</select>
-	
+
 	<select id="getTaskByPointAndCourse" parameterType="java.util.List"
 		resultMap="taskMap">
-		select * from task where task_category =  #{taskCategory} and course_id = #{courseId};
+		select * from task where task_category = #{taskCategory} and
+		course_id = #{courseId};
 	</select>
 
 	<resultMap type="cn.edu.tit.bean.VirtualClass" id="virtualClassMap">
@@ -434,16 +438,17 @@
 		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
 	</select>
-	<select id="searchTaskIdByCategory" 
-		resultType="java.lang.String">
+	<select id="searchTaskIdByCategory" resultType="java.lang.String">
 		select task_id from task where task_category =
-		#{taskCategory} and task_id in 
+		#{taskCategory} and
+		task_id in
 		<foreach collection="taskIdAllList" item="taskId" open="("
 			separator="," close=")" index="index">
 			#{taskId}
-		</foreach>;
+		</foreach>
+		;
 	</select>
-	
+
 	<select id="teacherTaskAssortmentList" resultMap="taskMap">
 		select * from task where task_category=#{taskCategory} and task_id
 		in
@@ -452,7 +457,7 @@
 			#{taskId}
 		</foreach>
 	</select>
-	
+
 	<select id="sreachGradeByStudentId" resultType="java.lang.Integer">
 		select grade from up_task where student_id=#{studentId} and task_id
 		in
@@ -461,7 +466,7 @@
 			#{taskId}
 		</foreach>
 	</select>
-	
+
 	<select id="sreachGradeNumByStudentId" resultType="java.lang.Integer">
 		select count(*) from up_task where student_id=#{studentId} and task_id
 		in
@@ -470,7 +475,7 @@
 			#{taskId}
 		</foreach>
 	</select>
-	
+
 	<select id="searchTask" parameterType="java.lang.String"
 		resultMap="taskMap">
 		select * from task where task_id = #{taskId};
@@ -530,8 +535,8 @@
 		select * from category order
 		by category_id+0 asc;
 	</select>
-	
-	
+
+
 
 	<!-- 获取所有教师 -->
 	<select id="getTeacher" resultMap="teacherMap">
@@ -580,7 +585,8 @@
 	<select id="getVirtualClassByCreatorId" parameterType="String"
 		resultMap="virtualClassMap">
 		select * from virtual_class
-		where creator_id = #{creatorId} order by create_time desc ;
+		where creator_id = #{creatorId}
+		order by create_time desc ;
 	</select>
 	<!-- 根据虚拟班级号找到所对应的实体班级号列表 -->
 	<select id="searchRealClassIdList" parameterType="String"
@@ -663,6 +669,11 @@
 	<select id="getCourseByLimit" resultMap="courseMap">
 		select * from course
 		order by publish_time DESC limit 0,8;
+	</select>
+	
+	<!-- 根据时间获取前十二个课程信息到首页 -->
+	<select id="getAllCourse" resultMap="courseMap">
+		select * from course;
 	</select>
 
 	<!-- 根据类型id查类型 -->
@@ -813,16 +824,17 @@
 		comment_time=
 		#{commentTime}
 		where
-		student_id = #{studentId} and
+		student_id = #{studentId}
+		and
 		task_id=#{taskId}
-		
+
 	</update>
 
 	<select id="getGrade" resultType="java.lang.Integer">
 		select grade from up_task where
 		task_id=#{taskId} and student_id=#{studentId};
 	</select>
-	
+
 	<select id="getUpTask" resultMap="upTaskMap">
 		select * from up_task where
 		task_id=#{taskId} and student_id=#{studentId};
@@ -831,7 +843,7 @@
 		select comment from up_task
 		where task_id=#{taskId} and student_id=#{studentId};
 	</select>
-	
+
 	<select id="getTaskListPage" resultMap="taskMap">
 		select * from task where
 		course_id=#{courseId} and task_category=#{taskCategory};
@@ -843,7 +855,8 @@
 		task_id=#{taskId};
 	</select>
 	<select id="getTermById" resultMap="termMap">
-		select * from term where term_id = #{termId};
+		select * from term where
+		term_id = #{termId};
 	</select>
 	<select id="readRealClassToSelect" resultMap="realCLassMap"
 		parameterType="java.lang.String">
@@ -854,27 +867,30 @@
 		</where>
 		;
 	</select>
-	
+
 	<update id="addUseNum">
 		UPDATE task set use_num = use_num+1
-		WHERE task_id = #{taskId}
+		WHERE task_id =
+		#{taskId}
 	</update>
-	
+
 	<update id="addWatchNum">
 		UPDATE task set watch_num = watch_num+#{taskUseNum}
 		WHERE task_id = #{taskId}
 	</update>
-	
-	<select id="vagueSearchTeachers" parameterType="String" resultMap="teacherMap">
-		select * from teacher where employee_num like CONCAT("%", #{employeeNum},"%");
-	</select> 
+
+	<select id="vagueSearchTeachers" parameterType="String"
+		resultMap="teacherMap">
+		select * from teacher where employee_num like CONCAT("%",
+		#{employeeNum},"%");
+	</select>
 	<!-- 取消关注 -->
 	<delete id="teacherExitAttentionCourse">
 		delete from teacher_course where employee_num =
 		#{employeeNum} and course_id = #{courseId} and manager = 2;
 	</delete>
-	
-	
+
+
 	<select id="teacherForFuzzyQueryById" resultMap="teacherMap"
 		parameterType="java.lang.String">
 		SELECT * FROM teacher
@@ -885,29 +901,44 @@
 		;
 	</select>
 	<select id="gettaskTypePublishNum" resultType="int">
-		SELECT count(*) FROM task where task_category=#{taskCategory} and task_id in
+		SELECT count(*) FROM task where task_category=#{taskCategory} and
+		task_id in
 		<foreach collection="taskIds" item="taskId" open="("
 			separator="," close=")" index="index">
 			#{taskId}
 		</foreach>
 	</select>
-	
+
 	<!-- 获得所有任务 -->
 	<select id="getAllTask" resultMap="taskMap">
 		select * from task;
 	</select>
-	
+
 	<!-- 老师所有任务 -->
 	<select id="getTaskByUserId" parameterType="String" resultMap="taskMap">
-		select * from task where publisher_id = #{userId} order by task_end_time asc;
+		select * from task where publisher_id = #{userId} order by
+		task_end_time asc;
 	</select>
-	
+
 	<!-- 获取虚拟班级学生数 -->
 	<select id="getTaskUserNum" parameterType="String" resultType="int">
-	
-	select sum(real_person_num) from real_class where real_class_num in 
-		(select real_class_num from real_virtual_class where virtual_class_num = #{virtualClassNum});
+
+		select sum(real_person_num) from real_class where real_class_num in
+		(select real_class_num from real_virtual_class where virtual_class_num
+		= #{virtualClassNum});
+	</select>
+	<select id="verifyLimitComment" parameterType="String" resultType="java.lang.Integer">
+		select count(*) from teacher_course where employee_num= #{userId} and
+		course_id = #{id};
 	</select>
 	
-	
+	<select id="queryCourseByPartName" resultMap="courseMap"
+		parameterType="java.lang.String">
+		SELECT * FROM course
+		<where>
+			course_name
+			LIKE CONCAT(CONCAT("%", #{courseName}), "%")
+		</where>
+		;
+	</select>
 </mapper>

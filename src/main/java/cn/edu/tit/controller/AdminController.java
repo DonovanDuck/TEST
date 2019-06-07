@@ -287,7 +287,6 @@ public class AdminController {
 	@RequestMapping(value="addCategory",method= {RequestMethod.POST})
 	public ModelAndView addCategory(@RequestParam(value="categoryNum") String categoryNum,@RequestParam(value="categoryName") String categoryName,@RequestParam(value="categoryDetail") String categoryDetail) {			
 		ModelAndView mv = new ModelAndView();
-
 		try {
 			Category category = new Category();
 			category.setCategoryDetail(categoryDetail);

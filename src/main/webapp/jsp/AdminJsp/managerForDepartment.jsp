@@ -147,13 +147,25 @@
 																				"#restore")
 																				.val(
 																						"恢复");
-																		$("#tb_departments").bootstrapTable('refresh',{url : '${pageContext.request.contextPath}/admin/readDepartmentInfo'});
+																		$(
+																				"#tb_departments")
+																				.bootstrapTable(
+																						'refresh',
+																						{
+																							url : '${pageContext.request.contextPath}/admin/readDepartmentInfo'
+																						});
 																	} else {
 																		$(
 																				"#restore")
 																				.val(
 																						"删除");
-																		$("#tb_departments").bootstrapTable('refresh',{url : '${pageContext.request.contextPath}/admin/readDepartmentInfo'});
+																		$(
+																				"#tb_departments")
+																				.bootstrapTable(
+																						'refresh',
+																						{
+																							url : '${pageContext.request.contextPath}/admin/readDepartmentInfo'
+																						});
 																	}
 																}
 															})
@@ -287,7 +299,8 @@
 						class="waves-effect waves-dark" style="font-size: 20px;">学术委员管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px; background-color: #f8f8f8">学术委员会管理</a></li>
+						class="waves-effect waves-dark"
+						style="font-size: 20px; background-color: #f8f8f8">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -323,7 +336,7 @@
 							<div class="form-group">
 								<label for="editPro" class="control-label">学术委员会编号</label> <input
 									type="text" class="form-control" id="departmentNum"
-									name="departmentNum">
+									oninput="value=value.replace(/[^\d]/g,'')" name="departmentNum">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
@@ -361,7 +374,7 @@
 							<div class="form-group">
 								<label for="editPro" class="control-label">学术委员会编号</label> <input
 									type="text" class="form-control" id="editNum" name="editNum"
-									readonly="readonly">
+									oninput="value=value.replace(/[^\d]/g,'')" readonly="readonly">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"

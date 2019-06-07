@@ -262,7 +262,7 @@
 							<div class="form-group">
 								<label for="categoryId" class="control-label">分类编号</label> <input
 									type="text" class="form-control" id="categoryNum"
-									name="categoryNum">
+									oninput="value=value.replace(/[^\d]/g,'')" name="categoryNum">
 							</div>
 							<div class="form-group">
 								<label for="categoryName" class="control-label">分类名称</label>
@@ -303,6 +303,7 @@
 							<div class="form-group">
 								<label for="editCategoryId" class="control-label">分类编号</label> <input
 									type="text" class="form-control" id="editCategoryNum"
+									oninput="value=value.replace(/[^\d]/g,'')"
 									name="editCategoryNum"> <input type="text"
 									class="form-control" style="display: none" id="categoryId"
 									name="categoryId">

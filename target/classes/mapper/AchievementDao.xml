@@ -82,6 +82,14 @@
 		<result column="browse_volume" property="browseVolume" />
 		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
+	<resultMap type="cn.edu.tit.bean.AchievementScore" id="scoreMap">
+		<id column="id" property="id" />
+		<result column="user_id" property="userId" />
+		<result column="score" property="score" />
+		<result column="achievement_id" property="achievementId" />
+		<result column="category" property="category" />
+		<result column="time" property="time" />
+	</resultMap>
 	<!--大学生创新创业成果映射 -->
 	<resultMap type="cn.edu.tit.bean.SIAE" id="SIAEMap">
 		<id column="achievement_id" property="achievementId" />
@@ -144,7 +152,8 @@
 	<!-- 关于IURP产学研表的查询 -->
 	<select id="queryIURP" resultMap="IURPMap">
 		SELECT * FROM
-		achievement_industry_university_research_project where delete_flag &lt;&gt; 0;
+		achievement_industry_university_research_project where delete_flag
+		&lt;&gt; 0;
 	</select>
 	<select id="queryAllIURP" resultMap="IURPMap">
 		SELECT * FROM
@@ -183,7 +192,8 @@
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
 			project_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -192,7 +202,8 @@
 		SELECT * FROM achievement_industry_university_research_project
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -279,7 +290,8 @@
 		SELECT * FROM achievements_of_college_students_competition
 		<where>
 			achievement_name
-			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and
+			delete_flag &lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -303,7 +315,8 @@
 		SELECT * FROM achievements_of_college_students_competition
 		<where>
 			compere
-			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag &lt;&gt; 0
+			LIKE CONCAT(CONCAT("%", #{search}), "%") and delete_flag
+			&lt;&gt; 0
 		</where>
 		;
 	</select>
@@ -325,7 +338,9 @@
 		upload_time,
 		first_picture,
 		browse_volume,
-		delete_flag
+		delete_flag,
+		member_num,
+		upload_author
 		)
 		VALUES
 		(#{iu.achievementId},
@@ -343,7 +358,9 @@
 		#{iu.uploadTime},
 		#{iu.firstPicture},
 		#{iu.browseVolume},
-		#{iu.deleteFlag}
+		#{iu.deleteFlag},
+		#{iu.memberNum},
+		#{iu.uploadAuthorId}
 		);
 	</insert>
 	<update id="updateAOCSCBrowseVolume" parameterType="java.lang.String">
@@ -351,16 +368,18 @@
 		browse_volume =
 		browse_volume+1
 		<where>
-			achievement_id = #{achievementId} 
+			achievement_id = #{achievementId}
 		</where>
 		;
 	</update>
 
 	<!-- 课程拓展作品的查询 -->
-	<select id="getCourseExpandBycourseId" parameterType="String" resultMap="CourseExpandMap">
-		select * from achievement_course_expand where course_id = #{courseId} order by upload_time desc limit 6;
+	<select id="getCourseExpandBycourseId" parameterType="String"
+		resultMap="CourseExpandMap">
+		select * from achievement_course_expand where course_id =
+		#{courseId} order by upload_time desc limit 6;
 	</select>
-	
+
 	<select id="queryCourseExpand" resultMap="CourseExpandMap">
 		SELECT * FROM
 		achievement_course_expand where delete_flag &lt;&gt; 0;
@@ -780,4 +799,10 @@
 		#{comment.authorName}
 		)
 	</insert>
+	<select id="verifyAlreadyComment" parameterType="String"
+		resultType="java.lang.Integer">
+		select count(*) from achievment_comment where author_id=
+		#{userId} and
+		achievement_id = #{id};
+	</select>
 </mapper>
