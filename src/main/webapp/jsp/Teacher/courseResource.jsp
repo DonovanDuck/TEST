@@ -29,6 +29,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 .xiangmu-out .rel-img{
 	overflow: hidden;
+}
+.daohang{
+	font-size: 17px;
+    border: 0;
+    background: #f0f0f0;
+}
   </style>
   
   <script language="javascript">
@@ -57,7 +63,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	}
   
   </script>
-  
+  <script>
+$(document).ready(function() { 
+	var cid = "${category}";
+	
+	if(cid != null && cid != "null" && cid != ""){
+		$("#"+cid).css("background","#015293");
+		$("#"+cid).css("color","#fff");
+	}
+	else{
+		$("#allSelect").css("background","#015293");
+		$("#allSelect").css("color","#fff");
+	} 
+	});
+	
+</script>
 </head>
 <body>
 <jsp:include page="/jsp/top.jsp" flush="true" />
@@ -85,28 +105,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 <div class="main_b_t" style="margin-bottom: 70px;margin-left: 103px;">
 				<nav>
-					<ul style="    margin-top: 25px;margin-left: 38px;">
+					<ul style="    margin-top: 25px;margin-left: 30px;">
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/0"
-							>全部</a></li>
+							><button id="0" class="btn btn-default daohang">全部</button></a></li>
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/6"
-							>教案库</a></li>
+							><button id="6" class="btn btn-default daohang">教案库</button></a></li>
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/7"
-							>教学资源库</a></li>
+							><button id="7" class="btn btn-default daohang">教学资源库</button></a></li>
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/5"
-							>多媒体资源库</a>
+							><button id="5" class="btn btn-default daohang">多媒体资源库</button></a>
 						 <li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/8"
-							>作业库</a></li> 
+							><button id="8" class="btn btn-default daohang">作业库</button></a></li> 
 						 <li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/9"
-							>实验库</a></li>
+							><button id="9" class="btn btn-default daohang">实验库</button></a></li>
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/10"
-							>课程设计库</a></li> 
+							><button id="10" class="btn btn-default daohang">课程设计库</button></a></li> 
 					</ul>
 				</nav>
 			</div>
@@ -114,14 +134,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="main2" style="height: auto;width: auto;min-height: 800px;">
 	
 	<div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;">
-	<c:if test="${resourceName =='全部' }">
-		<label style="float: left;margin-right: 76%;">${resourceName }</label>
-	</c:if>
-		<c:if test="${resourceName !='全部' }">
-		<label style="float: left;margin-right: 76%;">${resourceName }库</label>
-	</c:if>
 		<c:if test="${isTeacher == 1 && resourceName !='全部' }">
-		<div>
+		<div style="float: right;position: relative;left: -10%;top: -50px;">
 			<a href="${pageContext.request.contextPath}/teacher/toPublishResource/${category }/${course.courseId}">
 				<button type="button" class="btn btn-primary">发布资源</button>
 			</a>
@@ -157,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<c:if test="${sessionScope.student != null }">
 						<div>
-							<button type="button" class="btn btn-info" style="margin-top: 9px;">我要完成</button>
+							<button type="button" class="btn btn-info" style="margin-top: 9px;">查看资源</button>
 						</div>
 						</c:if>
 						<c:if test="${isTeacher == 1 }">
@@ -203,7 +217,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 						<c:if test="${sessionScope.student != null }">
 						<div>
-							<button type="button" class="btn btn-info" style="margin-top: 9px;">我要完成</button>
+							<button type="button" class="btn btn-info" style="margin-top: 9px;">查看资源</button>
 						</div>
 						</c:if>
 						<c:if test="${isTeacher == 1 }">

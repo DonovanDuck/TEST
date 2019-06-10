@@ -129,7 +129,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							href=""
 							>挑战</a></li> 
 						 <li style="float: left;margin-right: 25px;margin-bottom: 2%;"><a style="font-size: 22px;"
-							href=""
+							href="${pageContext.request.contextPath}/achievement/selectCategory?category=CourseExpand"
 							>课程成果</a></li>
 					</ul>
 				</nav>
@@ -482,7 +482,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</a> --%>
 						<c:forEach items="${aocscList }" var="item" varStatus="status">
 						<a
-							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
 								style="padding: 8px; height: 350px; margin-top: 1%;">
 								<div class="doorPlank"
