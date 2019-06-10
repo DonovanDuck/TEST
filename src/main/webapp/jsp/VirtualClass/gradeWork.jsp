@@ -66,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 		</div>
-		<div class="workdiv" style="margin-top: 20px;">
+		<div class="workdiv" style="margin-top: 10px;">
 			<div class="workcontent">
 					<div style="height: 30px;">
 						<div style="float: left;"><h4 style="font-weight: bold;">作业详情</h4></div>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 		</div>
 
-		<div class="workdiv" style="margin-top: 20px;">
+		<div class="workdiv" style="margin-top: 10px;">
 			<div class="workcontent">
 				<form action="${pageContext.request.contextPath}/teacher/commendWork?studentId=${student1.studentId }&taskId=${task.taskId}" method="post">
 					<div style="height: 30px;">
@@ -112,23 +112,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<!-- <input id="stuentgrade" type="text"onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="2" size="1"  class="form-control" style="float: left;width: 10%;"  placeholder="Jane Doe"/> -->
 						
-						<input id="grade" name="grade" style="float: left;width: 15%;" type="text"  name="payMoney[]" onkeyup="clearNoNum(this)" value=""placeholder="请输入学生分数(纯数字)"  class="form-control" oninput="if(value>10)value=10;if(value<0)value=0">
+						<input id="grade" name="grade"  style="float: left;width: 15%;" type="text"  name="payMoney[]" onkeyup="clearNoNum(this)" value="0" placeholder="请输入学生分数(纯数字)"  class="form-control" oninput="if(value>10)value=10;if(value<0)value=0">
 					</div>
 					<div class="torecommend" style="width: 100%;">
 						<textarea name="comment"  autofocus="autofocus" placeholder="作业评语"  style="resize:none; width: 100%;height: 150px;margin-top: 20px;" id="TestCode" wrap="logical" ></textarea>
 					</div>
 					
 					<div style="margin-bottom: 50px;">
-						<button type="submit" class="btn btn-default">提交</button>
+						<button type="submit" class="btn btn-primary">提交</button>
 					</div>
 					</c:if>
 					<c:if test="${not empty grade }">
 							<div style="text-align:left ;">
-								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 14px;font-weight: bold; ">评语：</span><span style="font-size: 14px;">${comment }</span>
+								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 16px;font-weight: bold; ">评语：</span><span style="font-size: 16px;">${comment }</span>
 							</div>
 							<hr>
 							<div style="text-align:left ;">
-								<span style="font-size: 14px;font-weight: bold;">作业成绩：</span> <span style="font-size: 14px;color: red">${grade }</span>
+								<span style="font-size: 16px;font-weight: bold;">作业成绩：</span> <span style="font-size: 20px;color: red;font-weight: bold; ">${grade }</span>
 							</div>
 					</c:if>
 				</form>
@@ -137,7 +137,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		</div>
-		<div style="width: 100%;height: 10px;background-color: #f8f8f8;">
+		<div style="width: 100%;height: 20px;background-color: #f8f8f8;">
 		</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
