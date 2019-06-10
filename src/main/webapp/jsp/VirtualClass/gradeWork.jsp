@@ -24,9 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 		</script>
 	</head>
-	<body style="background-color: #f8f8f8;">
+	<body style="background-color: #f8f8f8;" >
 	<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div id="header">
+		</div>
+		<div style="width: 1200px;padding-top: 10px;margin: 0 auto; margin-bottom: 10px;">
+		<div style="width: 100%;height: 100px;background-color: #fff;margin-bottom: 10px;text-align:left;padding-left: 20px;padding-top: 20px">
+				<div style="margin-bottom: 10px"><span style="font-size: 28px;font-weight: bold;">${courseName }</span></div>
+				<div><span style="font-size: 18px;">${virtualClassName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课教师：${teacherClassName }</span></div>
 		</div>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
@@ -83,7 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-						<h8>提交人：${student.studentName }</h8>
+						<h8>提交人：${student1.studentName }</h8>
 					</div>
 				</form>
 			</div>
@@ -91,7 +96,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 		<div class="workdiv" style="margin-top: 20px;">
 			<div class="workcontent">
-				<form action="${pageContext.request.contextPath}/teacher/commendWork?studentId=${student.studentId }&taskId=${task.taskId}" method="post">
+				<form action="${pageContext.request.contextPath}/teacher/commendWork?studentId=${student1.studentId }&taskId=${task.taskId}" method="post">
 					<div style="height: 30px;">
 						<div style="float: left;"><h4 style="font-weight: bold;">评分详情</h4></div>
 						
@@ -131,7 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 		</div>
-		
+		</div>
+		<div style="width: 100%;height: 10px;background-color: #f8f8f8;">
+		</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
@@ -169,5 +176,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				unpublished.style.display="block";
 			}
 		</script>
+		<jsp:include page="/jsp/footer.jsp" flush="true" />
 	</body>
 </html>

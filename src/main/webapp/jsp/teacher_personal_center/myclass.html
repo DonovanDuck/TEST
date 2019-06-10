@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/myclass.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<script type="text/javascript">
+	        function a(){
+            var r1=document.getElementById("tab1");
+            var r2=document.getElementById("tab2");
+            r1.style.display="block";
+            r2.style.display="none";
+        }
+	        function b(){
+            var r1=document.getElementById("tab1");
+            var r2=document.getElementById("tab2");
+            r1.style.display="none";
+            r2.style.display="block";
+        }
+
+</script>
+	</head>
+	<body class="row">
+		<div class="main_left col-md-3">
+			<div class="head_sculpture col-md-10">
+				<div class="head_sculpture_inner">
+					<img src="img/avatar-195x195.png" class="center-block " alt="" />
+					<p class="petname">刘杰</p>
+					<p class="title">教授</p>
+				</div>	
+			</div>	
+			<div class="head_sculpture_bottom col-md-10">   
+				<a href="#"><div class="modify_T col-md-12">
+					修改头像
+				</div>
+				</a>
+				<a href="#">
+				<div class="modify_B col-md-12 ">
+					修改个人信息	
+				</div>
+				</a>
+			</div>
+		</div>
+		<div class="main_right col-md-9">
+			<div class="nav row">
+				<div class="nav_petname col-md-2">
+					<a href="index.html">
+						<img src="img/logo.svg" alt="" />
+						<span>刘杰</span>
+					</a>
+					
+				</div>
+				<div class="nav_list col-md-10">
+					<nav>
+						<ul>
+							<li><a href="mycourse.html">我的课程</a></li>
+							<li><a href="myclass.html">我的班级</a></li>
+							<li><a href="myachievement.html">我的成果</a></li>
+							<li><a href="myappraise.html">我的评价</a></li>
+							<li><a href="mydiscussion.html">我的讨论</a></li>
+							<li><a href="myteam.html">我的团队</a></li>
+							<li><a href="index.html">我的信息</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="text">
+				<h2>我的班级</h2>			
+				<ul id="tabs">
+					<li><a href="#" class="active">我创建的班级</a></li>
+					<li><a href="#">创建班级</a></li>
+				</ul>
+				<div id="content">
+					<div id="tab1">
+			<div class="course ">
+                 <div class="img">
+                <img src="img/tu6.jpg" alt="" />
+               	</div>
+               	<div class="coursemessage col-md-8">
+               		<h3>数据结构1班</h3>
+               		<p>课程名称：数据结构</p>
+               		<p>教授班级：1820561、1820562班</p>
+               		<p>开课学期：2018-2019年第一学期</p>
+               	</div>
+               	<div class="modify_message col-md-1">
+               		<a>编辑</a>              		
+               	</div>
+               </div>
+               <hr/>
+					</div>
+					<div id="tab2">
+
+			       </div>
+
+        </div>
+	</body>
+</html>
+
+

@@ -6,6 +6,7 @@ package cn.edu.tit.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
@@ -81,11 +82,12 @@ public class StudentController {
 	public ModelAndView LoginStudent(@RequestParam(value="employeeNum") String employeeNum,@RequestParam(value="password") String password,HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
 		String studentSessionId = (String) request.getSession().getAttribute("studentId");
-		if(employeeNum.equals(studentSessionId)) {
-			request.getSession().setAttribute("readResult", "您正在异地登录");//返回信息
-			System.out.println("异地登录");
-			mv.setViewName("/jsp/Teacher/index");//设置返回页面
-		}else {
+		/*
+		 * if(employeeNum.equals(studentSessionId)) {
+		 * request.getSession().setAttribute("readResult", "您正在异地登录");//返回信息
+		 * System.out.println("异地登录"); mv.setViewName("/jsp/Teacher/index");//设置返回页面
+		 * }else {
+		 */
 			request.getSession().invalidate();
 			String readResult =null;
 			String psw = null;
@@ -122,8 +124,9 @@ public class StudentController {
 				request.getSession().setAttribute("readResult", "服务器异常");//返回信息
 				mv.setViewName("/jsp/Teacher/index");//设置返回页面
 			}
-		}
-		
+		/*
+		 * }
+		 */
 		return mv;
 	}
 
@@ -378,9 +381,10 @@ public class StudentController {
 	 * @throws Exception 
 	 */
 	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
-	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ) throws Exception {
+	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ,@RequestParam(value="courseName") String courseName) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		String identify = "student";
+		request.getSession().removeAttribute("courseName");
 		request.getSession().setAttribute("identify", identify);
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
 		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);
@@ -390,8 +394,14 @@ public class StudentController {
 		Student student = (Student) request.getSession().getAttribute("student");
 		request.setAttribute("teacher", teacher);
 		request.setAttribute("student", student);
+		String teacherClassName = teacherService.getTeacherNameById(virtualClass.getCreatorId());
+		request.getSession().setAttribute("courseName", courseName);
+		request.getSession().setAttribute("teacherClassName", teacherClassName);
 		request.getSession().setAttribute("course", course);
 		mv.addObject("virtualClassName",virtualClassName);
+		mv.addObject("courseName", courseName);
+		
+		mv.addObject("teacherClassName",teacherClassName);
 		mv.addObject("identify", identify);
 		mv.setViewName("/jsp/VirtualClass/classInfo");
 		return mv;
@@ -434,7 +444,15 @@ public class StudentController {
 			}
 		}
 		
-		return "redirect:/student/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName;
+		String courseName = (String) request.getSession().getAttribute("courseName");
+		String url=null;
+		try {
+			url =  "redirect:/student/toClassDetail?virtualClassNum="+ URLEncoder.encode(virtualClassNum,"UTF-8")+"&virtualClassName="+URLEncoder.encode(virtualClassName,"UTF-8")+"&courseName="+URLEncoder.encode(courseName,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;	
 	}
 	//toPersonAccomplishment
 	@RequestMapping(value="toPersonAccomplishment")

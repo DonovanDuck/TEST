@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<link rel="stylesheet" href="css/mycourse.css" />
+		<link rel="stylesheet" href="css/bootstrap.min.css" />
+	</head>
+<script type="text/javascript">
+	        function a(){
+            var r1=document.getElementById("tab1");
+            var r2=document.getElementById("tab2");
+            var r3=document.getElementById("tab3");
+            var r4=document.getElementById("tab4");
+            r1.style.display="block";
+            r2.style.display="none";
+            r3.style.display="none";
+            r4.style.display="none";
+        }
+	      function b(){
+            var r1=document.getElementById("tab1");
+            var r2=document.getElementById("tab2");
+            var r3=document.getElementById("tab3");
+            var r4=document.getElementById("tab4");
+            r1.style.display="none";
+            r2.style.display="block";
+            r3.style.display="none";
+            r4.style.display="none";
+        }
+	       function c(){
+            var r1=document.getElementById("tab1");
+            var r2=document.getElementById("tab2");
+            var r3=document.getElementById("tab3");
+            var r4=document.getElementById("tab4");
+            r1.style.display="none";
+            r2.style.display="none";
+            r3.style.display="block";
+            r4.style.display="none";
+        }
+	        function b(){
+            var r1=document.getElementById("tab1");
+            var r2=document.getElementById("tab2");
+            var r3=document.getElementById("tab3");
+            var r4=document.getElementById("tab4");
+            r1.style.display="none";
+            r2.style.display="none";
+            r3.style.display="none";
+            r4.style.display="block";
+        }
+</script>
+	<body class="row">
+		<div class="main_left col-md-3">
+			<div class="head_sculpture col-md-10">
+				<div class="head_sculpture_inner">
+					<img src="img/avatar-195x195.png" class="center-block " alt="" />
+					<p class="petname">刘杰</p>
+					<p class="title">教授</p>
+				</div>	
+			</div>	
+			<div class="head_sculpture_bottom col-md-10">   
+				<a href="#"><div class="modify_T col-md-12">
+					修改头像
+				</div>
+				</a>
+				<a href="#">
+				<div class="modify_B col-md-12 ">
+					修改个人信息	
+				</div>
+				</a>
+			</div>
+		</div>
+		<div class="main_right col-md-9">
+			<div class="nav row">
+				<div class="nav_petname col-md-2">
+					<a href="index.html">
+						<img src="img/logo.svg" alt="" />
+						<span>刘杰</span>
+					</a>
+					
+				</div>
+				<div class="nav_list col-md-10">
+					<nav>
+						<ul>
+							<li><a href="mycourse.html">我的课程</a></li>
+							<li><a href="myclass.html">我的班级</a></li>
+							<li><a href="myachievement.html">我的成果</a></li>
+							<li><a href="myappraise.html">我的评价</a></li>
+							<li><a href="mydiscussion.html">我的讨论</a></li>
+							<li><a href="myteam.html">我的团队</a></li>
+							<li><a href="index.html">我的信息</a></li>
+						</ul>
+					</nav>
+				</div>
+			</div>
+			<div class="text">
+				<h2>我的课程</h2>			
+				<ul id="tabs">
+					<li><a href="#" onclick="a()">我创建的课程</a></li>
+                    <li><a href="#" onclick="b()">我加入的课程</a></li>
+                    <li><a href="#" onclick="c()">我关注的课程</a></li>
+                    <li><a href="#" onclick="d()">创建课程</a></li>       
+                 </ul>
+
+           <div id="content">
+           <div id="tab1">  	
+               <div class="course">
+               	<div class="img">
+               		<img src="img/tu6.jpg" alt="" />
+               	</div>
+               	<div class="coursemessage col-md-8">
+               		<h3>数据结构</h3>
+               	    <p>课程概述：数据结构一门逻辑性联系较强的学科，在本学期的教学过程中，我将以案例为主进行教学，带领学生进行实践操作。</p>
+               		<p>教师团队：刘杰&nbsp;刘云萍</p>
+               		<p>创课时间：2019年6月9日 15:20</p>
+               	</div>
+               	<div class="modify_message col-md-1">
+               	 <a>编辑</a>              		
+               	</div>
+               </div>
+               <hr/>
+                <div class="course">
+               	<div class="img">
+                <img src="img/tu6.jpg" alt="" />
+               	</div>
+               	<div class="coursemessage col-md-8">
+               		<h3>数据结构</h3>
+               		<p>课程概述：数据结构一门逻辑性联系较强的学科，在本学期的教学过程中，我将以案例为主进行教学，带领学生进行实践操作。</p>
+               		<p>教师团队：刘杰&nbsp;刘云萍</p>
+               		<p>创课时间：2019年6月9日 15:20</p>
+               	</div>
+               	<div class="modify_message col-md-1">
+               	<a>编辑</a>               		
+               	</div>
+               </div>
+               <hr/>
+          </div>
+      <div id="tab2">
+                 <div class="course">
+                 <div class="img">
+                <img src="img/tu6.jpg" alt="" />
+               	</div>
+               	<div class="coursemessage col-md-8">
+               		<h3>数据结构</h3>
+               		<p>课程概述：数据结构一门逻辑性联系较强的学科，在本学期的教学过程中，我将以案例为主进行教学，带领学生进行实践操作。</p>
+               		<p>教师团队：刘杰&nbsp;刘云萍</p>
+               		<p>创课时间：2019年6月9日 15:20</p>
+               	</div>
+               	<div class="modify_message col-md-1">
+               		<a>编辑</a>              		
+               	</div>
+               </div>
+               <hr/>
+        </div>
+      <div id="tab3">
+                  <div class="course">
+                 <div class="img">
+                <img src="img/tu6.jpg" alt="" />
+               	</div>
+               	<div class="coursemessage col-md-8">
+               		<h3>数据结构</h3>
+               		<p>课程概述：数据结构一门逻辑性联系较强的学科，在本学期的教学过程中，我将以案例为主进行教学，带领学生进行实践操作。</p>
+               		<p>教师团队：刘杰&nbsp;刘云萍</p>
+               		<p>创课时间：2019年6月9日 15:20</p>
+               	</div>
+               	<div class="modify_message col-md-1">
+               	<a>编辑</a>               		
+               	</div>
+               </div>
+               <hr/>
+      </div>
+      <div id="tab4">
+   
+      </div>
+  </div>
+  <p id="about">&nbsp;</p>
+			</div>
+       </div>
+	</body>
+</html>
+
