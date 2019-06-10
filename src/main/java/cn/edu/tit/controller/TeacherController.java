@@ -2663,7 +2663,7 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		mv.addObject("student", student);
+		mv.addObject("student1", student);
 		String upTaskDetail = null;
 
 		try {
@@ -2686,6 +2686,10 @@ public class TeacherController {
 		}
 
 		accessoriesName = studentService.getUpAccessories(taskId, studentId);
+		String teacherClassName = (String) request.getSession().getAttribute("teacherClassName");
+		String courseName =  (String) request.getSession().getAttribute("courseName");
+		mv.addObject("courseName", courseName);
+		mv.addObject("teacherClassName", teacherClassName);
 		mv.addObject("upTaskDetail", upTaskDetail);
 		mv.addObject("taskEndTime", taskEndTime);
 		mv.addObject("accessoriesName", accessoriesName);
