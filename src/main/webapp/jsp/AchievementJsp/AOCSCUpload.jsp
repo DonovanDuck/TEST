@@ -163,24 +163,93 @@ $(function (){
 })
 </script>
 <script type="text/javascript">
-	function readMemberId(one) {
- 		var idNum = $(one).attr('id');
- 		var id = $("#"+idNum).val();
- 		var idName = parseInt(idNum)+1;
+function readMemberId(one) {
+	var judge = true;
+		var idNum = $(one).attr('id');
+		var id = $("#"+idNum).val();//正在输入的学生学号
+		var idName = parseInt(idNum)+1;
+	var memberId = "";//已输入的学生学号
+	$("input[name='memberNum']").each(function(i) {
+		memberId = $(this).val();
+		var eachId = $(this).attr('id');
+		if(id==memberId&&eachId!=idNum)
+			{
+			alert("输入学号不可重复输入");
+			judge = false;
+			}
+	});
+	if(judge)
+		{
 		$
-				.ajax({
-					async : false,
-					cache : false,
-					url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+id,
-					type : "POST",
-					dataType : "text",
-					success : function(result) {
-				$("#"+idName).val(result)
-					},
-					error:function(){
+		.ajax({
+			async : false,
+			cache : false,
+			url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+id,
+			type : "POST",
+			dataType : "text",
+			success : function(result) {
+		$("#"+idName).val(result)
+			},
+			error:function(){
+			}
+		});
+		}
+}
+</script>
+<script type="text/javascript">
+function blurStudent(one){
+	var idNum = $(one).attr('id');
+		var id = $("#"+idNum).val();//正在输入的学生学号
+		if(id!==""||id!=null||id!="null")
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+id,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+					var i = "0";
+					if(i=="0")
+						{
+						if(result==null||result==""||result=="null")
+						{
+						alert("输入错误，无法对应学生姓名");
+						i = "1";
+						}
+						}
+				},
+				error:function(){
+				}
+			});
+			}
+}
+</script>
+<script type="text/javascript">
+function blurTeacher(one){
+	var guidanceTeacherId = $("#guidanceTeacherId").val();
+		if(guidanceTeacherId!==""||guidanceTeacherId!=null||guidanceTeacherId!="null")
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+guidanceTeacherId,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+					if(result==null||result==""||result=="null")
+					{
+						$("#guidanceTeacher").val("");
+						alert("输入错误，无法对应教师姓名");
 					}
-				});
-	}
+				},
+				error:function(){
+				}
+			});
+			}
+}
 </script>
 </head>
 <body class="body">
@@ -210,9 +279,9 @@ $(function (){
 							onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
 							onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
 							name="memberNum" placeholder="学号" oninput="readCompereId()"
-							style="width: 50%; float: left;"> <input type="text"
-							class="form-control" id="compere" name="compere"
-							style="float: left; width: 48%; margin-left: 2%"
+							onblur=" blurStudent(this)" style="width: 50%; float: left;">
+						<input type="text" class="form-control" id="compere"
+							name="compere" style="float: left; width: 48%; margin-left: 2%"
 							placeholder="作品负责人" readonly="readonly">
 					</div>
 				</div>
@@ -221,6 +290,7 @@ $(function (){
 					<div style="padding: 0px; margin: 0px; width: 100%;">
 						<input type="text" class="form-control" id="guidanceTeacherId"
 							name="guidanceTeacherId" placeholder="工号"
+							onblur="blurTeacher(this) "
 							onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
 							onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
 							oninput="readGuidance(event)" style="width: 50%; float: left">
@@ -240,6 +310,7 @@ $(function (){
 								<input type="text" class="form-control" id="1" name="memberNum"
 									oninput="readMemberId(this)" placeholder="学号"
 									onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+									onblur=" blurStudent(this) "
 									onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
 									style="width: 58%; float: left;"><input type="text"
 									class="form-control" id="2" name="member" placeholder="作品成员"
@@ -303,7 +374,7 @@ $(function (){
 						type="file" name="accessory" id="exampleInputFile"
 						placeholder="作品附件">
 				</div>
-				<div class="form-group" style="margin-top:3%">
+				<div class="form-group" style="margin-top: 3%">
 					<label for="finishTime">作品完成时间</label> <input type="text"
 						style="height: 30px;" class="Wdate form-control" name="finishTime"
 						id="finishTime"

@@ -10,6 +10,7 @@ import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
@@ -654,5 +655,24 @@ public class AchievementServiceImpl implements IAchievementService{
 	public Integer verifyAlreadyComment(String userID, String id) throws Exception {
 		Integer verify = achievementDao.verifyAlreadyComment(userID,id);
 		return verify;
+	}
+
+	@Override
+	public void insertScore(AchievementScore as) throws Exception {
+		try {
+			achievementDao.insertScore(as);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
+
+	@Override
+	public AchievementScore queryAchievementScoreById(String achievementId) throws Exception {
+		return achievementDao.queryAchievementScoreById(achievementId);
+	}
+
+	@Override
+	public void updateScore(AchievementScore as) throws Exception {
+		achievementDao.updateScore(as);
 	}
 }

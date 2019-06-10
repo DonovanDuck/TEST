@@ -30,6 +30,7 @@ import cn.edu.tit.bean.Academic;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
@@ -50,7 +51,6 @@ public class AchievementController {
 	private IAchievementService iAchievementService;
 	@Autowired
 	private ITeacherService iTeacherService;
-
 
 	/**
 	 * 跳转到学生成果页面
@@ -320,7 +320,7 @@ public class AchievementController {
 			ce.setFirstPicture(Common.readProperties("path")+"/"+achievementId+"/"+stu.getStudentId()+"/"+files.get(0).getName());
 			ce.setGuidanceTeacher((String)formdata.get("guidanceTeacher"));
 			ce.setIntroduction((String)formdata.get("introduction"));
-			ce.setMember((String)formdata.get("member"));
+			ce.setMember((String)formdata.get("memberContent"));
 			ce.setDeleteFlag(1);
 			ce.setTeamName((String)formdata.get("teamName"));
 			ce.setUploadAuthorId(GetSessionUserId(request));
@@ -767,9 +767,9 @@ public class AchievementController {
 			List<AchievementComment> commentList = new ArrayList<>();
 			commentList = iAchievementService.queryComment(achievementId,"竞赛");
 			List<AOCSC> listAOCSC = new ArrayList<>();
+			List<String> memberList = new ArrayList<>();
 			String member = ao.getMember();
 			String[] me = member.split(",");
-			List<String> memberList = new ArrayList<>();
 			for (int i = 0; i < me.length; i++) {
 				if(!me[i].equals(null)||!me[i].equals(""))
 				{
@@ -875,11 +875,6 @@ public class AchievementController {
 		return mv;}
 	/******************************************页面跳转的结束 iframe*********************************************************/
 	/******************************************评论操作部分开始*********************************************************/
-	/**
-	 * 大学生创新创业
-	 * @param request
-	 * @return
-	 */
 	@RequestMapping(value="insertAchievementComment")
 	public void insertAchievementComment(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="addCommentContent") String commentContent,@RequestParam(value="category") String category,@RequestParam(value="achievementId") String achievementId){
 		AchievementComment ac = new AchievementComment();
@@ -935,7 +930,87 @@ public class AchievementController {
 	}
 
 
-
+	@SuppressWarnings("null")
+	@RequestMapping(value="insertTeaAchievementComment")
+	public void insertTeaAchievementComment(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="addCommentContent") String commentContent,@RequestParam(value="category") String category,@RequestParam(value="achievementId") String achievementId,@RequestParam(value="score") String score){
+		AchievementComment ac = new AchievementComment();
+		Student stu = (Student) request.getSession().getAttribute("student");
+		Teacher tea = (Teacher) request.getSession().getAttribute("teacher");
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String commentId = Common.uuid();
+		AchievementScore as = null;
+		try {
+			as = iAchievementService.queryAchievementScoreById(achievementId);
+		} catch (Exception e1) {
+			e1.printStackTrace();
+		}
+		try {
+			if(as!=null)
+			{	as.setId(as.getId());
+			Double sc = Double.parseDouble(score);
+			as.setScore((sc+as.getScore())/2);//计算真实成绩
+			as.setTime(new Timestamp(System.currentTimeMillis()));
+			as.setUserId(GetSessionUserId(request));
+			iAchievementService.updateScore(as);
+			}else {
+				as = new AchievementScore();
+				as.setAchievementId(achievementId);
+				as.setCategory(category);
+				as.setId(Common.uuid());
+				as.setScore(Double.parseDouble(score));
+				as.setTime(new Timestamp(System.currentTimeMillis()));
+				as.setUserId(GetSessionUserId(request));
+				iAchievementService.insertScore(as);
+			}} catch (Exception e) {
+				e.printStackTrace();
+			}
+		try {
+			ac.setAchievemendId(achievementId);
+			if(stu!=null) {
+				ac.setAuthorId(stu.getStudentId());
+				ac.setAuthorName(stu.getStudentName());
+				ac.setAuthorPicture(stu.getFaceImg());
+			}
+			if(tea!=null) {
+				ac.setAuthorId(tea.getEmployeeNum());
+				ac.setAuthorName(tea.getTeacherName());
+				ac.setAuthorPicture(tea.getFaceImg());
+			}
+			ac.setCategory(category);
+			ac.setCommentContent(commentContent);
+			ac.setCommentId(commentId);
+			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
+			iAchievementService.insertAchievementComment(ac);
+			List<AchievementComment> list = new ArrayList<AchievementComment>();
+			list = iAchievementService.queryComment(achievementId, category);
+			JSONArray json = new JSONArray();
+			for (AchievementComment achievementComment : list) {
+				JSONObject jo = new JSONObject();
+				jo.put("commentId", achievementComment.getCommentId());
+				jo.put("achievemendId",  achievementComment.getAchievemendId());
+				jo.put("authorId",  achievementComment.getAuthorId());
+				jo.put("category",  achievementComment.getCategory());
+				jo.put("commentContent",  achievementComment.getCommentContent());
+				jo.put("uploadTime",  achievementComment.getUploadTime().toString());
+				jo.put("authorPicture",  achievementComment.getAuthorPicture());
+				jo.put("authorName",  achievementComment.getAuthorName());
+				jo.put("score",  achievementComment.getAuthorName());
+				json.put(jo);
+			}
+			try {
+				response.getWriter().write(json.toString());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**
 	 * 获取session中的用户信息ID
 	 * */

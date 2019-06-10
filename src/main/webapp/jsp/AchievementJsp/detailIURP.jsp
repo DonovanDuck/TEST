@@ -69,22 +69,22 @@
 		g3.style.display = "block";
 	}
 
-	function submitCommentBut() {
+	function submitCommentButStu() {
 		var judge = true;
 		$.ajax({
-			async : true,
+			async : false,
 			cache : false,
 			url : "${pageContext.request.contextPath}/achievement/loginJudge",
 			type : "get",
 			dataType : "text",
 			success : function(result) {
 				if (result.length != 0 && result != "null") {
-					alert(result);
 					judge = false;
+					alert(result);
 				}
 			}
 		});
-		if (judge = true) {
+		if (judge) {
 			var id = $("#IURPID").val();
 			var content = $("#addCommentContent").val();
 			var path = "${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId="
@@ -109,7 +109,7 @@
 										+ arr[i].commentContent
 										+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>"
 										+ arr[i].uploadTime + "</p></div>";
-								$("#stuCommentContentList").append(msg);
+								$("#teaCommentContentList").append(msg);
 							}
 							$("#addCommentContent").val("");
 						},
@@ -119,8 +119,58 @@
 		}
 	}
 
-	function submitCommentForTeacher() {
-
+	function submitTeaCommentBut() {
+		alert("11");
+		var judge = true;
+		$.ajax({
+			async : false,
+			cache : false,
+			url : "${pageContext.request.contextPath}/achievement/loginJudge",
+			type : "get",
+			dataType : "text",
+			success : function(result) {
+				if (result.length != 0 && result != "null") {
+					judge = false;
+					alert(result);
+				}
+			}
+		});
+		alert(judge);
+		if (judge) {
+			var id = $("#IURPID").val();
+			var content = $("#addTeaCommentContent").val();
+			var score = $("#achievementScore").val();
+			var path = "${pageContext.request.contextPath}/achievement/insertTeaAchievementComment?achievementId="
+					+ id + "&category=产学研" + "&addCommentContent=" + content+"&score="+score;
+			$
+					.ajax({
+						async : true,
+						cache : false,
+						url : path,
+						contentType : 'application/json;charset=UTF-8',
+						traditional : true,
+						dataType : "text",
+						success : function(result) {
+							var arr = eval(result);
+							$("#teaCommentContentList").empty();
+							for (var i = 0; i < arr.length; i++) {
+								var msg = "<div class='col-md-12 panel panel-default' style='padding: 2%'><div class='col-md-3 text-center'><img style='width: 80px; height: 80px;' src='${pageContext.request.contextPath}/jsp/showImg.jsp?path="
+										+ arr[i].authorPicture
+										+ "'class='img-circle'><br><div class='col-md-12' style='color: #B9B9B9; margin-top: 5%'>"
+										+ arr[i].authorName
+										+ "</div></div><div class='col-md-9' style='font-size: 12px; letter-spacing: 1px; line-height: 23px;'><div style='width: 105%; height: 100%'><span style='word-wrap: break-word; word-break: break-all; overflow: hidden;'>"
+										+ arr[i].commentContent
+										+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>"
+										+ arr[i].uploadTime + "</p></div>";
+								$("#teaCommentContentList").append(msg);
+							}
+							$("#addTeaCommentContent").val("");
+							$("#achievementScore").val("");
+						},
+						error : function() {
+						}
+					});
+		}
 	}
 </script>
 <script type="text/javascript">
@@ -187,9 +237,9 @@
 					<div class="col-md-12">
 						<div class="col-md-12" style="padding: 0px">
 							<h3 style="margin-top: 10px">
-								<b>${IURP.projectName }</b>
+								<b>${IURP.projectName }</b> <span class="pull-right"
+									style="font-size: 10px; margin-top: 3%">浏览量:${IURP.browseVolume }</span>
 							</h3>
-							<span style="float: right; font-size: 10px">浏览量:${IURP.browseVolume }</span>
 						</div>
 						<div class="col-md-12" style="padding: 3%">
 							<span style="margin-left: 4%; color: #999">${IURP.introduction }</span>
@@ -231,15 +281,14 @@
 					<div class="col-md-12 detailContent" id="detailContent"
 						style="display: block; padding: 0%">
 						<div class="col-md-12 startTimeAndEndTime">
-							<h3>项目开始时间-项目截止时间</h3>
-							<div class="col-md-12">${IURP.startTime }——${IURP.endTime }</div>
+							<h3>项目完成时间</h3>
+							<div class="col-md-12">${IURP.endTime }</div>
 						</div>
 						<div class="col-md-12">
 							<h3>项目详情</h3>
 							<div class="col-md-12">${IURP.projectDetail }</div>
 						</div>
 					</div>
-
 					<div class="col-md-12 commentContentForTeacher"
 						id="commentContentForTeacher" style="display: none; padding: 0%">
 						<div id="teaCommentContentList">
@@ -267,30 +316,24 @@
 								</c:forEach>
 							</c:if>
 						</div>
-						<c:if test="${teacher != null }">
-							<form id="teaComment"
-								action="${pageContext.request.contextPath}/achievement/insertAchievementCommentFormTea?achievementId=${IURP.projectId }&category=产学研"
-								method="post">
-								<h4>我的评论</h4>
-								<div class="publishComment col-md-12 "
-									style="padding: 0px; margin: 0px;">
-									<div class="col-md-12"
-										style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
-										<textarea class="form-control" id="addTeaCommentContent"
-											rows="5" name="addTeaCommentContent"
-											style="resize: none; height: 30%" placeholder="添加评论"
-											onclick="focousCommentContent();"></textarea>
-										<input type="text" style="display: none" id="TeaIURPID"
-											name="TeaIURPID" value="${IURP.projectId }"><input
-											type="number" id="achievementScore" name="achievementScore"
-											placeholder="成果得分" style="position: relative;">
-										<button class="btn btn-default btn-sm active pull-right"
-											type="button" onclick="submitTeaCommentBut();"
-											style="position: relative;">发表</button>
-									</div>
-								</div>
-							</form>
-						</c:if>
+						<h4>我的评论</h4>
+						<div class="publishComment col-md-12 "
+							style="padding: 0px; margin: 0px;">
+							<div class="col-md-12"
+								style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
+								<textarea class="form-control" id="addTeaCommentContent"
+									rows="5" name="addTeaCommentContent"
+									style="resize: none; height: 30%" placeholder="添加评论"
+									onclick="focousCommentContent();"></textarea>
+								<input type="text" style="display: none" id="TeaIURPID"
+									name="TeaIURPID" value="${IURP.projectId }"><input
+									type="number" id="achievementScore" name="achievementScore"
+									placeholder="成果得分" style="position: relative;">
+								<button class="btn btn-default btn-sm active pull-right"
+									type="button" onclick="submitTeaCommentBut();"
+									style="position: relative;">发表</button>
+							</div>
+						</div>
 					</div>
 					<div class="col-md-12 commentContent" id="commentContent"
 						style="display: none; padding: 0%">
@@ -319,27 +362,21 @@
 								</c:forEach>
 							</c:if>
 						</div>
-						<c:if test="${student != null }">
-							<form id="stuComment"
-								action="${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId=${IURP.projectId }&category=产学研"
-								method="post">
-								<h4>我的评论</h4>
-								<div class="publishComment col-md-12 "
-									style="padding: 0px; margin: 0px;">
-									<div class="col-md-12"
-										style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
-										<textarea class="form-control" id="addCommentContent" rows="5"
-											name="addCommentContent" style="resize: none; height: 30%"
-											placeholder="添加评论" onclick="focousCommentContent();"></textarea>
-										<input type="text" style="display: none" id="IURPID"
-											name="IURPID" value="${IURP.projectId }">
-										<button class="btn btn-default btn-sm active pull-right"
-											type="button" onclick="submitCommentBut();"
-											style="position: relative; left: -20px; top: -40px;">发表</button>
-									</div>
-								</div>
-							</form>
-						</c:if>
+						<h4>我的评论</h4>
+						<div class="publishComment col-md-12 "
+							style="padding: 0px; margin: 0px;">
+							<div class="col-md-12"
+								style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
+								<textarea class="form-control" id="addCommentContentStu" rows="5"
+									name="addCommentContentStu" style="resize: none; height: 30%"
+									placeholder="添加评论" onclick="focousCommentContent();"></textarea>
+								<input type="text" style="display: none" id="IURPID"
+									name="IURPID" value="${IURP.projectId }">
+								<button class="btn btn-default btn-sm active pull-right"
+									type="button" onclick="submitCommentButStu();"
+									style="position: relative; left: -20px; top: -40px;">发表</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

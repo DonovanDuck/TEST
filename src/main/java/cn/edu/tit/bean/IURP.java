@@ -28,6 +28,7 @@ public class IURP {
 	private String firstPicture;//第一张图片
 	private Integer browseVolume;//浏览量
 	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
+	private Timestamp uploadTime;
 	public String getProjectId() {
 		return projectId;
 	}
@@ -154,6 +155,12 @@ public class IURP {
 	public void setDeleteFlag(Integer deleteFlag) {
 		this.deleteFlag = deleteFlag;
 	}
+	public Timestamp getUploadTime() {
+		return uploadTime;
+	}
+	public void setUploadTime(Timestamp uploadTime) {
+		this.uploadTime = uploadTime;
+	}
 	@Override
 	public String toString() {
 		return "IURP [projectId=" + projectId + ", projectName=" + projectName + ", introduction=" + introduction
@@ -162,13 +169,13 @@ public class IURP {
 				+ collectTheAmount + ", cooperator=" + cooperator + ", startTime=" + startTime + ", endTime=" + endTime
 				+ ", status=" + status + ", projectPhoto=" + projectPhoto + ", accessory=" + accessory + ", isshare="
 				+ isshare + ", projectCategory=" + projectCategory + ", firstPicture=" + firstPicture
-				+ ", browseVolume=" + browseVolume + ", deleteFlag=" + deleteFlag + "]";
+				+ ", browseVolume=" + browseVolume + ", deleteFlag=" + deleteFlag + ", uploadTime=" + uploadTime + "]";
 	}
 	public IURP(String projectId, String projectName, String introduction, String projectDetail, String compere,
 			String member, Float price, String memberNum, String uploadAuthorId, Integer collectTheAmount,
 			String cooperator, Date startTime, Date endTime, String status, AchievementPicture projectPhoto,
 			AchievementAccessory accessory, String isshare, String projectCategory, String firstPicture,
-			Integer browseVolume, Integer deleteFlag) {
+			Integer browseVolume, Integer deleteFlag, Timestamp uploadTime) {
 		super();
 		this.projectId = projectId;
 		this.projectName = projectName;
@@ -191,11 +198,11 @@ public class IURP {
 		this.firstPicture = firstPicture;
 		this.browseVolume = browseVolume;
 		this.deleteFlag = deleteFlag;
+		this.uploadTime = uploadTime;
 	}
 	public IURP() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 }

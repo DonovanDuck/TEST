@@ -20,6 +20,7 @@
 		<result column="first_picture" property="firstPicture" />
 		<result column="member_num" property="memberNum" />
 		<result column="upload_author" property="uploadAuthorId" />
+		<result column="upload_Time" property="uploadTime" />
 		<result column="browse_volume" property="browseVolume" />
 		<result column="price" property="price" />
 		<result column="delete_flag" property="deleteFlag" />
@@ -228,7 +229,8 @@
 		price,
 		member_num,
 		upload_author,
-		delete_flag
+		delete_flag,
+		upload_time
 		)
 		VALUES
 		(#{iurp.projectId},
@@ -249,7 +251,8 @@
 		#{iurp.price},
 		#{iurp.memberNum},
 		#{iurp.uploadAuthorId},
-		#{iurp.deleteFlag}
+		#{iurp.deleteFlag},
+		#{iurp.uploadTime}
 		);
 	</insert>
 	<update id="updateIURPBrowseVolume" parameterType="java.lang.String">
@@ -805,4 +808,37 @@
 		#{userId} and
 		achievement_id = #{id};
 	</select>
+
+
+	<insert id="insertScore" parameterType="cn.edu.tit.bean.AchievementScore">
+		INSERT INTO
+		achievement_score
+		(id,
+		user_id,
+		score,
+		achievement_id,
+		time,
+		category)
+		VALUES
+		((#{as.id},
+		#{as.userId},
+		#{as.score},
+		#{as.achievementId},
+		#{as.time},
+		#{as.category});
+	</insert>
+	<select id="queryAchievementScoreById" parameterType="String"
+		resultMap="scoreMap">
+		select * from achievement_score where achievement_id =
+		#{achievementId};
+	</select>
+	<update id="updateScore" parameterType="cn.edu.tit.bean.AchievementScore">
+		update achievement_score
+		<set>
+			<if test="score != null">score=#{score},</if>
+			<if test="time != null">time=#{time},</if>
+			<if test="userId != null">user_id=#{userId},</if>
+		</set>
+		where id= #{id}
+	</update>
 </mapper>

@@ -78,37 +78,82 @@
 <script type="text/javascript">
 	function readCompereId() {
 		var memberNum = $("#memberNum").val();
-		$
-				.ajax({
-					async : false,
-					cache : false,
-					url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+memberNum,
-					type : "POST",
-					dataType : "text",
-					success : function(result) {
+		var judge = true;
+		if(judge)
+			{
+			$
+					.ajax({
+						async : false,
+						cache : false,
+						url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+memberNum,
+						type : "POST",
+						dataType : "text",
+						success : function(result) {
+					$("#compere").val(result);
+					if(result!=null||result!=""||result!="null")
+						{judge = false;
+						}
+						},
+						error:function(){
+						}
+					});
+			}
+		if(judge)
+		{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+memberNum,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
 				$("#compere").val(result)
-					},
-					error:function(){
-					}
-				});
+				},
+				error:function(){
+				}
+			});	
+		}
 	}
 </script>
 <script type="text/javascript">
 	function readGuidance() {
 		var guidanceTeacherId = $("#guidanceTeacherId").val();
-		$
-				.ajax({
-					async : false,
-					cache : false,
-					url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+guidanceTeacherId,
-					type : "POST",
-					dataType : "text",
-					success : function(result) {
-				$("#guidanceTeacher").val(result)
-					},
-					error:function(){
-					}
-				});
+		var judge = true;
+		if(judge)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+guidanceTeacherId,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#guidanceTeacher").val(result);
+			if(result!=null||result!=""||result!="null")
+			{judge = false}
+				},
+				error:function(){
+				}
+			});
+			}
+		if(judge)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+guidanceTeacherId,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#guidanceTeacher").val(result)
+				},
+				error:function(){
+				}
+			});
+			}
 	}
 </script>
 <script type="text/javascript" charset="utf-8">
@@ -128,19 +173,51 @@ $(function (){
  		var idNum = $(one).attr('id');
  		var id = $("#"+idNum).val();
  		var idName = parseInt(idNum)+1;
-		$
-				.ajax({
-					async : false,
-					cache : false,
-					url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+id,
-					type : "POST",
-					dataType : "text",
-					success : function(result) {
-				$("#"+idName).val(result)
-					},
-					error:function(){
-					}
-				});
+		var judge = true;
+		var ST = true;
+		$("input[name='memberNum']").each(function(i) {
+			memberId = $(this).val();
+			var eachId = $(this).attr('id');
+			if(id==memberId&&eachId!=idNum)
+				{
+				alert("输入学号不可重复输入");
+				judge = false;
+				}
+		});
+		if(judge&&ST)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+id,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#"+idName).val(result);
+			if(result!=null||result!=""||result!="null")
+			{ST = false}
+				},
+				error:function(){
+				}
+			});
+			}
+		if(judge&&ST)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+id,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#guidanceTeacher").val(result)
+				},
+				error:function(){
+				}
+			});
+			}
 	}
 </script>
 <script type="text/javascript">
