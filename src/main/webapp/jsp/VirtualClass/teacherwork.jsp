@@ -66,14 +66,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 						<div class="studentinfo">
 							<img src="${pageContext.request.contextPath}/img/facedownload.jpg" alt="头像" class="img-circle" style="float: left;width: 100px;height: 100px;">
-							<div class="" style="float: left;margin: 10px 30px;width: 20%;">
+							<div class="" style="float: left;margin: -8px 30px;width: 20%;">
 								<div class="classnum"> <h4>${student1.studentId }</h4> </div>
 								<div class="studentname"> <h3>${student1.studentName }</h3> </div>
-							</div>
-							<div style="width: 50%;height: 100px;margin: 0 auto;line-height: 350%;float: left;">
-								<div style="height: 30px">
-								<span style="font-size: 18px">提交时间：</span><span style="font-size: 18px;">${fn:substring(studentToUpTask[student1.studentId].upTime,0,16)}&nbsp;&nbsp;</span>
+								<div >
+								<span style="font-size: 18px;">于&nbsp;${fn:substring(studentToUpTask[student1.studentId].upTime,0,16)}&nbsp;提交</span>
 								</div>
+							</div>
+							<div style="width: 50%;height: 100px;margin: 0 auto;line-height: 350%;float: left;padding-left: 10%">
+								
 								<c:if test="${empty studentTograde[student1.studentId] }">
 								<div style="height: 30px">
 								<span style="font-size: 18px">尚未评分</span>
@@ -127,6 +128,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div>
+		<div style="width: 100%;height: 10px;background-color: #f8f8f8;">
+		</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
@@ -169,6 +172,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<span class="glyphicon-class">返回作业列表页</span>
 			</a>
 		</div>
-		<jsp:include page="/jsp/footer.jsp" flush="true"/>
+		<jsp:include page="/jsp/footer.jsp" flush="true" />
 	</body>
 </html>

@@ -137,6 +137,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		</div>
+		<div style="width: 100%;height: 10px;background-color: #f8f8f8;">
+		</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
