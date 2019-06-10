@@ -70,16 +70,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">${teacher.teacherName }</li>
-											<li>${teacher.professionalTitles }</li>
+											<li style="margin-right: 10px; float: left;">${teacher.professionalTitles }</li>
+											<li style="margin-right: 10px; float: left;">经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：${teacher.educationBackground }</div>
 							<div>简介：${teacher.telephone }</div>
-							<div>邮箱：${teacher.email }</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->

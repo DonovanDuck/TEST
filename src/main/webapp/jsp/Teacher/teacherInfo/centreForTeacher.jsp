@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div class="main_b_r" style="width: 83%;float: left;height: 100%">
         <iframe  id="iframeContent" name="iframeContent"
                 width="900px" height="100%"
-                frameborder="no" border="0" scrolling="no"
+                frameborder="no" border="0"scrolling="auto"
                 src="${pageContext.request.contextPath}/teacher/toMyCourse" ></iframe>
         </div>
     </div>

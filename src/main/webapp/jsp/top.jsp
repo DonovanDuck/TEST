@@ -190,11 +190,11 @@ header nav li a{
           <!--导航-->
           <nav style="width: 55%;">
               <ul>
-                  <li class="li2"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" id="1">首页</a></li>
+                  <li class="li2"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" >首页</a></li>
                 <%--  <c:if test="${sessionScope.topFlag == '1' || sessionScope.topFlag == null}">
                    <li class="li3"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" id="1">首页</a></li> 
                   </c:if> --%>
-                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)" id="2">课程</a></li> 
+                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)">课程</a></li> 
                   <%--  <c:if test="${sessionScope.topFlag == '2' }">
                   <li class="li3"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)" id="2">课程</a></li> 
                   </c:if> --%>

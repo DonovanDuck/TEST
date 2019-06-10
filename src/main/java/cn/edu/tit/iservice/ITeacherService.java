@@ -757,4 +757,11 @@ public interface ITeacherService {
 
 	public List<Course> getAllCourse();
 	public List<Course> queryCourseByPartName(String courseName);
+	
+	/**
+	 * 修改课程学生人数
+	 * @param count
+	 * @param courseId
+	 */
+	public void updateCourseStudentNum(Integer count,String courseId);
 }

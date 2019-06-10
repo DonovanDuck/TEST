@@ -135,13 +135,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--课程-->
           <div class="course">
               课程
-              <span style="float: right;font-size: 16px;font-family: "微软雅黑 Light";line-height: 40px;margin-right: 1%;"><a href="<c:url value='/teacher/courseList' />">查看全部</a></span>
+              <span style="float: right;font-size: 16px;font-family: "微软雅黑 Light";line-height: 40px;margin-right: 1%;"><a href="<c:url value='/teacher/courseList' />">更多</a></span>
                  <div class="container" style="margin: 0;padding: 0;width: 100%">
       				 <div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="0" end="3">
                    <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;">
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;min-height: 345px;">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
@@ -164,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="4" end="7">
                   <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;">
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;min-height: 345px;">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
@@ -241,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--明星学生-->
           <div class="touxiang">
               明星学生
-              <span><a href="">查看全部</a></span>
+              <span><a href="">更多</a></span>
               <nav>
                   <ul>
                       <li><a href="">
@@ -339,7 +339,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--学生成果-->
           <div class="chengguo">
               学生成果
-              <span><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">查看全部</a></span>
+              <span><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">更多</a></span>
               
               <div class="row">
                   <c:forEach items="${aocscList }" var="item" varStatus="status" begin="0" end="3">
@@ -413,13 +413,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <!--产学研项目-->
-          <div class="xiangmu" style="padding-left: 20px;">
+          <div class="xiangmu" style="padding-left: 20px;padding-bottom: 0%">
             产学研
-              <span><a href="">查看全部</a></span>
+              <span><a href="">更多</a></span>
               <table>
                   <tr>
                       <td style="width: 31%;">
-                          <div  class="xiangmu-out" style="width: 95%;height:396px;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
                               <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_01.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
                                   <div class="title" style="margin-top: 10px;">
@@ -432,7 +432,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           </div>
                       </td>
                       <td style="width: 31%;">
-                          <div  class="xiangmu-out" style="width: 95%;height:396px;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
                               <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_02.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
                                   <div class="title" style="margin-top: 10px;">
@@ -445,7 +445,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           </div>
                       </td>
                       <td style="width: 31%;">
-                          <div  class="xiangmu-out" style="width: 95%;height:396px;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
                               <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_03.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
                                   <div class="title" style="margin-top: 10px;">
@@ -460,7 +460,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </tr>
                   <tr>
                       <td style="width: 31%;">
-                          <div  class="xiangmu-out" style="width: 95%;height:396px;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
                               <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_04.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
                                   <div class="title" style="margin-top: 10px;">
@@ -473,7 +473,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           </div>
                       </td>
                       <td style="width: 31%;">
-                          <div  class="xiangmu-out" style="width: 95%;height:396px;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
                               <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_05.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
                                   <div class="title" style="margin-top: 10px;">
@@ -486,7 +486,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                           </div>
                       </td>
                       <td style="width: 31%;">
-                          <div  class="xiangmu-out" style="width: 95%;height:396px;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
                               <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_06.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
                                   <div class="title" style="margin-top: 10px;">
@@ -503,9 +503,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <!--老师排行榜-->
-          <div class="teacher" style="height: 975px;">
+          <div class="teacher" style="height: 857px;">
               教师排行榜
-              <span><a href="">查看全部</a></span>
+              <span><a href="">更多</a></span>
               <%-- <nav>
                   <ul>
                       <li>
@@ -609,7 +609,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--论坛热帖-->
           <div class="post" style="margin-bottom: 55px;">
               热帖
-              <span><a href="">查看全部</a></span>
+              <span><a href="">更多</a></span>
               <nav>
                   <ul>
                       <li>

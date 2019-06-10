@@ -206,6 +206,7 @@
 			close=")" index="index">
 			#{courseId}
 		</foreach>
+		order by publish_time desc;
 	</select>
 
 	<!-- 根据id查课 -->
@@ -999,4 +1000,10 @@
 		</where>
 		;
 	</select>
+	
+	<update id="updateCourseStudentNum">
+		update course set course_student_num = course_student_num + #{count}
+			where course_id =#{courseId}; 
+	</update>
+	
 </mapper>

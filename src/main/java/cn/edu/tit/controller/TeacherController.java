@@ -506,11 +506,12 @@ public class TeacherController {
 			String teacherStr = (String)formdata.get("selectTeacher");
 			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
-			course.setFaceImg(Common.readProperties("path")+"/"+courseId+"/"+employeeNum+"/"+files.get(0).getName());
-/*			for(File f : files){ // 集合中只有一张图片
+			//course.setFaceImg(Common.readProperties("path")+"/"+courseId+"/"+employeeNum+"/"+files.get(0).getName());
+			for(File f : files){ // 集合中只有一张图片
 				String p = Common.readProperties("pre") +f.getPath().replaceAll("\\\\", "/").substring(3);
 				course.setFaceImg(p);
-			}*/
+			}
+			course.setCourseStudentNum(0);
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
@@ -576,12 +577,15 @@ public class TeacherController {
 			vir.setVirtualClassName(className);
 			vir.setTerm(selectTerm);
 			vir.setClassStuentNum(count);
+			//修改课程总人数
+			teacherService.updateCourseStudentNum(count,courseId);
 			if(files.isEmpty()||files==null||files.size()==0)
 			{
 				vir.setFaceImg(null);
 
 			}else {
-				vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+files.get(0).getName());
+				vir.setFaceImg(Common.readProperties("pre") +files.get(0).getPath().replaceAll("\\\\", "/").substring(3));
+				//vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+files.get(0).getName());
 			}
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
@@ -2374,7 +2378,6 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
 			//实验库
 			List<Task> trailList = teacherService.getTaskByPointAndCourse("trial",courseId);
 			for (Task task : trailList) {
@@ -2390,6 +2393,7 @@ public class TeacherController {
 					}
 					task.setTaskDetail(de);
 				}
+				taskList.add(task);
 			}
 			mv.addObject("trailList", trailList);//返回信息
 			break;
@@ -2424,7 +2428,10 @@ public class TeacherController {
 					resource.setResourceDetail(de);
 				}
 			}
-			mv.addObject("resource", resourceList);//返回信息
+			if(resourceList != null && !resourceList.isEmpty())
+				mv.addObject("resource", resourceList);//返回信息
+			else 
+				mv.addObject("resource", null);//返回信息
 			mv.addObject("resourceName", "多媒体资源");
 			break;
 		}
@@ -2445,7 +2452,10 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "作业");
 			break;
 		}
@@ -2465,7 +2475,10 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "实验");
 			break;
 		case "10"://课程设计库
@@ -2558,9 +2571,10 @@ public class TeacherController {
 					resource.setResourceDetail(de);
 				}
 			}
-			mv.addObject("resource", resourceList);//返回信息
-
-
+			if(resourceList != null && !resourceList.isEmpty())
+				mv.addObject("resource", resourceList);//返回信息
+			else 
+				mv.addObject("resource", null);//返回信息
 			mv.addObject("resourceName", "多媒体资源");
 			break;
 		}
@@ -2581,7 +2595,10 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "作业");
 			break;
 		}
@@ -2601,7 +2618,10 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "实验");
 			break;
 		case "10"://课程设计库

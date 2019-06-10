@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div class="hr"></div>
 		<div class="main_b_r_b">
 			<iframe id="mycourse" name="mycourse" width="900px" height="100%"
-				style="overflow: hidden;"  frameborder="no" border="0" scrolling="no" "
+				style="overflow: hidden;"  frameborder="no" border="0"  scrolling="auto"
 				src="${pageContext.request.contextPath}/teacher/toMyCreateCourse"></iframe>
 		</div>
 	</div>

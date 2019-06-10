@@ -69,16 +69,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">赵忠文</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->
@@ -99,16 +97,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">陈&nbsp;&nbsp;&nbsp;&nbsp;远</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->
@@ -128,16 +124,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">周&nbsp;&nbsp;&nbsp;&nbsp;昀</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->
@@ -157,16 +151,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">赵忠文</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->
@@ -186,16 +178,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">赵忠文</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->
@@ -215,16 +205,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">赵忠文</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->
@@ -244,16 +232,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">赵忠文</li>
-											<li>教授</li>
+											<li style="margin-right: 10px; float: left;">教授</li><li>经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：博士</div>
 							<div>简介：博士</div>
-							<div>邮箱：123@163.com</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->

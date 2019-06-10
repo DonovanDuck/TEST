@@ -139,7 +139,7 @@ $(document).ready(function() {
 				
 			</ul>
 		</div>
-		<div style="height: 0px;width: 87%;border-bottom: 1px solid #ccc;margin-bottom: 3%;margin-top: 4%;"></div>
+		<div style="height: 0px;width: 87%;border-bottom: 1px solid #ccc;margin-bottom: 2%;margin-top: -1%;"></div>
 		<form action="${pageContext.request.contextPath}/teacher/toCourseSecondSearch">
 		<div class="form-group" style="margin-top: -6px;">
     <input style="width: 23%;float: left;margin-right: 13px;margin-left: 65.5%;margin-bottom: 1%;"  
@@ -157,7 +157,7 @@ $(document).ready(function() {
 			varStatus="status">
 			<div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;">
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;min-height: 345px;">
                               <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">

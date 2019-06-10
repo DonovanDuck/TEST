@@ -20,7 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/course3.css">
 <script
-	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 </head>
 <body>
 
@@ -168,7 +168,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 </p> -->
 			</div>
 			<div class="container_right">
-				<h3>教师圈</h3>
+				<h3>教师团队</h3>
 					<iframe style="margin-left: 12px;margin-top: -2px;"
 					src="${pageContext.request.contextPath}/teacher/toCourseTeacherFrame/${course.courseId }"
 					frameborder="0" width="93%" height="87%"

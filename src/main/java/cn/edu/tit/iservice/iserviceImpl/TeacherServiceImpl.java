@@ -1355,4 +1355,10 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.queryCourseByPartName(courseName);
 	}
 
+	@Override
+	public void updateCourseStudentNum(Integer count, String courseId) {
+		// TODO Auto-generated method stub
+		teacherDao.updateCourseStudentNum(count, courseId);
+	}
+
 }

@@ -482,4 +482,11 @@ public interface ITeacherDao {
 	public void deleteTaskAcc(String taskId);
 	
 	
+	/**
+	 * 修改课程学生人数
+	 * @param count
+	 * @param courseId
+	 */
+	public void updateCourseStudentNum(@Param("count")Integer count,@Param("courseId")String courseId);
+	
 }

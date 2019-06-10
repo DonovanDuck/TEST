@@ -66,7 +66,7 @@ public class TestClass {
 			att.setPublishId("1");
 			//添加
 			teacherService.addAttendance(att);*/
-			 teacherDao.deleteTaskAcc("ED855615152A4DA998C580FF65363BF1");
+			teacherService.updateCourseStudentNum(100, "0657366C4E9C4E68AAA97F8986FAD341");
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
