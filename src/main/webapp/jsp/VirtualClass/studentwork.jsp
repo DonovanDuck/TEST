@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	<body style="background-color: #f8f8f8;">
 			<jsp:include page="/jsp/top.jsp" flush="true"/>
-			<div style="width: 1200px;padding-top: 10px">
+			<div style="width: 1200px;padding-top: 10px;margin-bottom: 10px;">
 			<div style="width: 100%;height: 100px;background-color: #fff;margin-bottom: 10px;text-align:left;padding-left: 20px;padding-top: 20px">
 				<div style="margin-bottom: 10px"><span style="font-size: 28px;font-weight: bold;">${courseName }</span></div>
 				<div><span style="font-size: 18px;">${virtualClassName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课教师：${teacherClassName }</span></div>
@@ -94,7 +94,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 		</div>
-		<div class="workdiv" style="margin-top: 20px;">
+		<div class="workdiv" style="margin-top: 10px;">
 			<div class="workcontent">
 				<form target="_top" action="${pageContext.request.contextPath}/student/toUpTask/${task.taskId }" enctype="multipart/form-data" method="post"  onsubmit="return checkInput(this)" >
 					
@@ -147,11 +147,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					<c:if test="${!isEnd }">
 							<c:if test="${empty upTaskDetail && empty accessoriesName }">
-								<input id="trueSubmit" class="btn btn-default" type="submit" value="确认提交" >
+								<input id="trueSubmit" class="btn btn-primary" type="submit" value="确认提交" >
 							</c:if>
 					</c:if>
 					 <c:if test="${not empty upTaskDetail || not empty accessoriesName }">
-						<input id="trueSubmit"  style="display: block" class="btn btn-default" type="button" disabled="disabled"  value="已提交" style="margin-left: -350px;">
+						<input id="trueSubmit"  style="display: block" class="btn btn-warning" type="button" disabled="disabled"  value="已提交" style="margin-left: -350px;">
 					</c:if>
 	
 					
@@ -164,7 +164,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 		
 		<c:if test="${not empty grade }">
-		<div class="workdiv" style="margin-top: 20px;overflow: hidden;">
+		<div class="workdiv" style="margin-top: 10px;overflow: hidden;">
 			<div class="workcontent">
 				<div style="height: 30px;">
 					<div style="float: left;"><h4 style="font-weight: bold;">评分详情</h4></div>
@@ -173,11 +173,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<hr >
 				<c:if test="${not empty grade }">
 							<div style="text-align:left ;">
-								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 14px;font-weight: bold; ">评语：</span><span style="font-size: 14px;">${comment }</span>
+								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 16px;font-weight: bold; ">评语：</span><span style="font-size: 14px;">${comment }</span>
 							</div>
 							<hr>
 							<div style="text-align:left ;">
-								<span style="font-size: 14px;font-weight: bold;">作业成绩：</span> <span style="font-size: 14px;color: red">${grade }</span>
+								<span style="font-size: 16px;font-weight: bold;">作业成绩：</span> <span style="font-size: 20px;color: red;font-weight: bold;">${grade }</span>
 							</div>
 					</c:if>
 				
@@ -186,7 +186,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 		</c:if>
+		<div style="width: 100%;height: 20px;background-color: #f8f8f8;">
+		</div>
 	</div>
+	
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
