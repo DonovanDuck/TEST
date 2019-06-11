@@ -406,17 +406,27 @@ public class AchievementServiceImpl implements IAchievementService{
 	}
 
 	@Override
-	public List<AchievementComment> queryComment(String achievementId,String category) throws Exception {
+	public List<AchievementComment> queryStuComment(String achievementId,String category) throws Exception {
 		List<AchievementComment> list = new ArrayList<>();
 		try {
-			 list = achievementDao.queryComment(achievementId,category);
+			 list = achievementDao.queryStuComment(achievementId,category);
 			} catch (Exception e) {
 				e.printStackTrace();
 				list = null;
 			}		
 		return list;
 	}
-
+	@Override
+	public List<AchievementComment> queryTeaComment(String achievementId,String category) throws Exception {
+		List<AchievementComment> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryTeaComment(achievementId,category);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
 	@Override
 	public void insertAchievementComment(AchievementComment comment) throws Exception {
 		try {
@@ -662,7 +672,7 @@ public class AchievementServiceImpl implements IAchievementService{
 		try {
 			achievementDao.insertScore(as);
 		} catch (Exception e) {
-			// TODO: handle exception
+			e.printStackTrace();
 		}
 	}
 

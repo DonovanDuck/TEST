@@ -108,7 +108,8 @@ public interface IAchievementService {
 	 * 查找评论
 	 * */
 	public void insertAchievementComment(AchievementComment comment)throws Exception;
-	public List<AchievementComment> queryComment(String achievementId,String category)throws Exception;
+	public List<AchievementComment> queryStuComment(String achievementId,String category)throws Exception;
+	public List<AchievementComment> queryTeaComment(String achievementId,String category)throws Exception;
 	public Integer verifyLimitComment(String userID, String id)throws Exception;
 	public Integer verifyAlreadyComment(String userID, String id)throws Exception;
 	public void insertScore(AchievementScore as)throws Exception;

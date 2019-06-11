@@ -608,7 +608,8 @@ public class AchievementController {
 		ModelAndView mv = new ModelAndView();
 		try {
 			IURP iu = new IURP();
-			List<AchievementComment> commentList = new ArrayList<>();
+			List<AchievementComment> commentListStu = new ArrayList<>();
+			List<AchievementComment> commentListTea = new ArrayList<>();
 			iu = iAchievementService.queryIURPById(achievementId);
 			List<AchievementPicture> piList = new ArrayList<>();
 			List<IURP> listIURP = new ArrayList<>();
@@ -616,7 +617,8 @@ public class AchievementController {
 			mv.addObject("listIURP",listIURP);
 			piList = iAchievementService.queryAchievementPicture(achievementId);
 			iAchievementService.updateIURPBrowseVolume(iu.getProjectId());
-			commentList = iAchievementService.queryComment(achievementId,"产学研");
+			commentListStu = iAchievementService.queryStuComment(achievementId,"产学研");
+			commentListTea = iAchievementService.queryTeaComment(achievementId,"产学研");
 			String member = iu.getMember();
 			String[] me = member.split(",");
 			List<String> memberList = new ArrayList<>();
@@ -627,7 +629,8 @@ public class AchievementController {
 				}
 			}
 			mv.addObject("memberList",memberList);
-			mv.addObject("comment",commentList);
+			mv.addObject("commentListStu",commentListStu);
+			mv.addObject("commentListTea",commentListTea);
 			mv.addObject("pictureList",piList);
 			mv.addObject("IURP",iu);
 			mv.setViewName("/jsp/AchievementJsp/detailIURP");
@@ -651,7 +654,8 @@ public class AchievementController {
 			List<AchievementPicture> piList = new ArrayList<>();
 			piList = iAchievementService.queryAchievementPicture(achievementId);
 			iAchievementService.updateCourseExpandBrowseVolume(ce.getAchievementId());
-			List<AchievementComment> commentList = new ArrayList<>();
+			List<AchievementComment> commentListStu = new ArrayList<>();
+			List<AchievementComment> commentListTea = new ArrayList<>();
 			String member = ce.getMember();
 			String[] me = member.split(",");
 			List<String> memberList = new ArrayList<>();
@@ -662,11 +666,13 @@ public class AchievementController {
 				}
 			}
 			mv.addObject("memberList",memberList);
-			commentList = iAchievementService.queryComment(achievementId,"课程拓展");
+			commentListStu = iAchievementService.queryStuComment(achievementId,"课程拓展");
+			commentListTea = iAchievementService.queryTeaComment(achievementId,"课程拓展");
 			List<CourseExpand> listCourseExpand = new ArrayList<>();
 			listCourseExpand = iAchievementService.queryCourseExpand();
 			mv.addObject("listAchievement",listCourseExpand);
-			mv.addObject("comment",commentList);
+			mv.addObject("commentListStu",commentListStu);
+			mv.addObject("commentListTea",commentListTea);
 			mv.addObject("pictureList",piList);
 			mv.addObject("Achievement", ce);
 			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
@@ -688,15 +694,18 @@ public class AchievementController {
 			List<AchievementPicture> piList = new ArrayList<>();
 			piList = iAchievementService.queryAchievementPicture(achievementId);
 			iAchievementService.updateGDFCSBrowseVolume(gd.getAchievementId());
-			List<AchievementComment> commentList = new ArrayList<>();
-			commentList = iAchievementService.queryComment(achievementId,"毕设");
+			List<AchievementComment> commentListStu = new ArrayList<>();
+			List<AchievementComment> commentListTea = new ArrayList<>();
+			commentListStu = iAchievementService.queryStuComment(achievementId,"毕设");
+			commentListTea = iAchievementService.queryTeaComment(achievementId,"毕设");
+			mv.addObject("commentListStu",commentListStu);
+			mv.addObject("commentListTea",commentListTea);
 			List<GDFCS> listGDFCS = new ArrayList<>();
 			List<String> memberList = new ArrayList<>();
 			memberList = null;
 			mv.addObject("memberList",memberList);
 			listGDFCS = iAchievementService.queryGDFCS();
 			mv.addObject("listAchievement",listGDFCS);
-			mv.addObject("comment",commentList);
 			mv.addObject("pictureList",piList);
 			mv.addObject("Achievement", gd);
 			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
@@ -718,8 +727,12 @@ public class AchievementController {
 			List<AchievementPicture> piList = new ArrayList<>();
 			piList = iAchievementService.queryAchievementPicture(achievementId);
 			iAchievementService.updateSIAEBrowseVolume(si.getAchievementId());
-			List<AchievementComment> commentList = new ArrayList<>();
-			commentList = iAchievementService.queryComment(achievementId,"创新创业");
+			List<AchievementComment> commentListStu = new ArrayList<>();
+			List<AchievementComment> commentListTea = new ArrayList<>();
+			commentListStu = iAchievementService.queryStuComment(achievementId,"创新创业");
+			commentListTea = iAchievementService.queryTeaComment(achievementId,"创新创业");
+			mv.addObject("commentListStu",commentListStu);
+			mv.addObject("commentListTea",commentListTea);
 			List<SIAE> listSIAE = new ArrayList<>();
 			String member = si.getMember();
 			String[] me = member.split(",");
@@ -742,7 +755,6 @@ public class AchievementController {
 			mv.addObject("memberList",memberList);
 			listSIAE = iAchievementService.querySIAE();
 			mv.addObject("listAchievement",listSIAE);
-			mv.addObject("comment",commentList);
 			mv.addObject("pictureList",piList);
 			mv.addObject("Achievement", si);
 			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
@@ -764,8 +776,12 @@ public class AchievementController {
 			List<AchievementPicture> piList = new ArrayList<>();
 			piList = iAchievementService.queryAchievementPicture(achievementId);
 			iAchievementService.updateAOCSCBrowseVolume(ao.getAchievementId());
-			List<AchievementComment> commentList = new ArrayList<>();
-			commentList = iAchievementService.queryComment(achievementId,"竞赛");
+			List<AchievementComment> commentListStu = new ArrayList<>();
+			List<AchievementComment> commentListTea = new ArrayList<>();
+			commentListStu = iAchievementService.queryStuComment(achievementId,"竞赛");
+			commentListTea = iAchievementService.queryTeaComment(achievementId,"竞赛");
+			mv.addObject("commentListStu",commentListStu);
+			mv.addObject("commentListTea",commentListTea);
 			List<AOCSC> listAOCSC = new ArrayList<>();
 			List<String> memberList = new ArrayList<>();
 			String member = ao.getMember();
@@ -788,7 +804,6 @@ public class AchievementController {
 			mv.addObject("levelList",levelList);
 			listAOCSC = iAchievementService.queryAOCSC();
 			mv.addObject("listAchievement",listAOCSC);
-			mv.addObject("comment",commentList);
 			mv.addObject("pictureList",piList);
 			mv.addObject("Achievement", ao);
 			mv.setViewName("/jsp/AchievementJsp/detailAchievement");
@@ -902,10 +917,11 @@ public class AchievementController {
 			ac.setCategory(category);
 			ac.setCommentContent(commentContent);
 			ac.setCommentId(commentId);
+			ac.setAuthorCategory("student");
 			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertAchievementComment(ac);
 			List<AchievementComment> list = new ArrayList<AchievementComment>();
-			list = iAchievementService.queryComment(achievementId, category);
+			list = iAchievementService.queryStuComment(achievementId, category);
 			JSONArray json = new JSONArray();
 			for (AchievementComment achievementComment : list) {
 				JSONObject jo = new JSONObject();
@@ -957,15 +973,17 @@ public class AchievementController {
 			as.setTime(new Timestamp(System.currentTimeMillis()));
 			as.setUserId(GetSessionUserId(request));
 			iAchievementService.updateScore(as);
-			}else {
-				as = new AchievementScore();
-				as.setAchievementId(achievementId);
-				as.setCategory(category);
-				as.setId(Common.uuid());
-				as.setScore(Double.parseDouble(score));
-				as.setTime(new Timestamp(System.currentTimeMillis()));
-				as.setUserId(GetSessionUserId(request));
-				iAchievementService.insertScore(as);
+			}
+			if(as == null)
+			{
+				AchievementScore a = new AchievementScore();
+				a.setAchievementId(achievementId);
+				a.setCategory(category);
+				a.setId(Common.uuid());
+				a.setScore(Double.parseDouble(score));
+				a.setTime(new Timestamp(System.currentTimeMillis()));
+				a.setUserId(GetSessionUserId(request));
+				iAchievementService.insertScore(a);
 			}} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -984,10 +1002,11 @@ public class AchievementController {
 			ac.setCategory(category);
 			ac.setCommentContent(commentContent);
 			ac.setCommentId(commentId);
+			ac.setAuthorCategory("teacher");
 			ac.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			iAchievementService.insertAchievementComment(ac);
 			List<AchievementComment> list = new ArrayList<AchievementComment>();
-			list = iAchievementService.queryComment(achievementId, category);
+			list = iAchievementService.queryTeaComment(achievementId, category);
 			JSONArray json = new JSONArray();
 			for (AchievementComment achievementComment : list) {
 				JSONObject jo = new JSONObject();
@@ -1035,36 +1054,36 @@ public class AchievementController {
 		return userId;
 	}
 
-	/*是否有权限评论判断去**/
-	@RequestMapping(value="verdictCommentForteacher/{id}",method= {RequestMethod.GET})
-	public void verdictCommentForteacher(@PathVariable String id,HttpServletRequest request,HttpServletResponse response) throws Exception {			
-		String userID = null;
-		String result = null;
-		userID = GetSessionUserId(request);
-		try {
-			request.setCharacterEncoding("utf-8");
-			response.setContentType("application/json;charset=UTF-8");
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		//先确定有没有权限
-		if(userID != null) {
-			//第一层判断，是否有权限去参与评论;若评论，返回值不为0
-			int limit = iAchievementService.verifyLimitComment(userID,id);
-			if(limit>=1)
-			{//第二层判断，有权限参与评论后，有没有评论过
-				int already = iAchievementService.verifyAlreadyComment(userID,id);
-				if(already==0)
-				{
-					result = "您还未参与此成果评论";
-				}
-			}
-			try {
-				response.getWriter().print(result);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}}
+//	/*是否有权限评论判断去**/  只做注释，不可删除
+//	@RequestMapping(value="verdictCommentForteacher/{id}",method= {RequestMethod.GET})
+//	public void verdictCommentForteacher(@PathVariable String id,HttpServletRequest request,HttpServletResponse response) throws Exception {			
+//		String userID = null;
+//		String result = null;
+//		userID = GetSessionUserId(request);
+//		try {
+//			request.setCharacterEncoding("utf-8");
+//			response.setContentType("application/json;charset=UTF-8");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		//先确定有没有权限
+//		if(userID != null) {
+//			//第一层判断，是否有权限去参与评论;若评论，返回值不为0
+//			int limit = iAchievementService.verifyLimitComment(userID,id);
+//			if(limit>=1)
+//			{//第二层判断，有权限参与评论后，有没有评论过
+//				int already = iAchievementService.verifyAlreadyComment(userID,id);
+//				if(already==0)
+//				{
+//					result = "您还未参与此成果评论";
+//				}
+//			}
+//			try {
+//				response.getWriter().print(result);
+//			} catch (IOException e1) {
+//				e1.printStackTrace();
+//			}
+//		}}
 
 
 

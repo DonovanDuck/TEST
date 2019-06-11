@@ -11,6 +11,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import cn.edu.tit.bean.AchievementAccessory;
+import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.IURP;
 import cn.edu.tit.iservice.IAchievementService;
 
@@ -34,6 +35,20 @@ public class Achievement {
 		//		iAchievementService.insertAchievementAccessory(list);
 		//iAchievementService.updateAOCSCBrowseVolume("09708A3B8D8942929FE777E4D9DC5397");
 		//iAchievementService.verifyLimitComment("1","09708A3B8D8942929FE777E4D9DC5397");
-		iAchievementService.verifyAlreadyComment("1","09708A3B8D8942929FE777E4D9DC5397");
+		//iAchievementService.verifyAlreadyComment("1","09708A3B8D8942929FE777E4D9DC5397");
+		//		try {
+		//			AchievementScore as = new AchievementScore();
+		//			as.setAchievementId("111111");
+		//			as.setCategory("555555555");
+		//			as.setId("4444444");
+		//			as.setScore(68.2);
+		//			as.setTime(null);
+		//			as.setUserId("444444444");
+		//			iAchievementService.insertScore(as);
+		//		} catch (Exception e) {
+		//			// TODO: handle exception
+		//			e.printStackTrace();
+		//		}
+
 	}
 }

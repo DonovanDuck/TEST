@@ -67,7 +67,6 @@ public class AdminServiceImpl implements IAdminService {
 		String insertMsg = "";
 		try {
 			teacherList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Teacher对象的teacherList集合
-
 			for(Teacher s :teacherList) {	
 				s.setTeacherPassword(Common.eccryptMD5(s.getTeacherPassword()));
 				insertResult++;
@@ -153,19 +152,19 @@ public class AdminServiceImpl implements IAdminService {
 				insertResult++;
 				//以下一段是用来系统初始化所有班级时使用的，由于没有所有班级表，所以采用这种方式获得所有班级，日后，如果有了班级表，则可直接从班级表获得
 				String realClassNum = s.getClassNum();
-				String classNum = realClassNum.substring(0,7);
+				//String classNum = realClassNum.substring(0,7);
 				String departmentNum = null;
 				RealClass real = null;
-				real = iAdminDao.getRealClassByNum(classNum);
+				real = iAdminDao.getRealClassByNum(realClassNum);
 				if(real!=null)
 				{
-					iAdminDao.updateStudentNumInRealClass(classNum);
+					iAdminDao.updateStudentNumInRealClass(realClassNum);
 				}
 				if(real == null)
 				{
 					RealClass realClass = new RealClass();
-					realClass.setRealClassNum(classNum);
-					departmentNum = realClassNum.substring(4,5);
+					realClass.setRealClassNum(realClassNum);
+					departmentNum = s.getStudentCategory();
 					Department de = null;
 					de = iAdminDao.readDepartmentByNum(departmentNum);
 					if(de==null)
@@ -174,6 +173,7 @@ public class AdminServiceImpl implements IAdminService {
 						dee.setId(Common.uuid());
 						dee.setName("未命名");
 						dee.setNum(Integer.parseInt(departmentNum));
+						dee.setDeleteFlag(1);
 						iAdminDao.addDepartment(dee);
 					}
 					if(de!=null)

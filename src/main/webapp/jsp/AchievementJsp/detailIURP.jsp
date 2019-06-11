@@ -120,7 +120,6 @@
 	}
 
 	function submitTeaCommentBut() {
-		alert("11");
 		var judge = true;
 		$.ajax({
 			async : false,
@@ -135,7 +134,6 @@
 				}
 			}
 		});
-		alert(judge);
 		if (judge) {
 			var id = $("#IURPID").val();
 			var content = $("#addTeaCommentContent").val();
@@ -195,7 +193,7 @@
 		<div class="top">
 			<jsp:include page="/jsp/top.jsp" flush="true" />
 		</div>
-		<div class="content">
+		<div class="content" style="margin-top:1%">
 			<div class="col-md-12 topColumn panel panel-default"
 				style="margin-bottom: 0%; padding: 1%">
 				<div class="col-md-8 picture">
@@ -292,8 +290,8 @@
 					<div class="col-md-12 commentContentForTeacher"
 						id="commentContentForTeacher" style="display: none; padding: 0%">
 						<div id="teaCommentContentList">
-							<c:if test="${not empty teaComment }">
-								<c:forEach items="${teaComment }" var="item" varStatus="states">
+							<c:if test="${not empty commentListTea }">
+								<c:forEach items="${commentListTea }" var="item" varStatus="states">
 									<div class="col-md-12 panel panel-default" style="padding: 2%">
 										<div class="col-md-3 text-center" style="">
 											<img style="width: 80px; height: 80px;"
@@ -338,8 +336,8 @@
 					<div class="col-md-12 commentContent" id="commentContent"
 						style="display: none; padding: 0%">
 						<div id="stuCommentContentList">
-							<c:if test="${not empty comment }">
-								<c:forEach items="${comment }" var="item" varStatus="states">
+							<c:if test="${not empty commentListStu }">
+								<c:forEach items="${commentListStu }" var="item" varStatus="states">
 									<div class="col-md-12 panel panel-default" style="padding: 2%">
 										<div class="col-md-3 text-center" style="">
 											<img style="width: 80px; height: 80px;"

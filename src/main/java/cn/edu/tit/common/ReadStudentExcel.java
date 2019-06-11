@@ -122,7 +122,9 @@ public class ReadStudentExcel {
 		 * 第二层循环为循环列
 		 * 
 		 * 此处对EXCEL表的格式限制为：第一行第一列开始为数据，并且列次递增数据分别为
-		 * 学号、姓名、班级、性别、密码、邮箱、专业、电话
+		 * 学号、姓名、班级、性别、密码、邮箱、专业、电话(2018年旧版本)
+		 * 
+		 * 只从表中读取学号姓名班级（2019新版本）
 		 * */
 		// 循环Excel行数
 
@@ -145,42 +147,44 @@ public class ReadStudentExcel {
 				switch (c) {
 				case 0:
 					student.setStudentId(getValue(cell) );
-					student.setClassNum(getValue(cell).substring(0,7));
+					student.setStudentPassword(Common.eccryptMD5("123456"));
+					//student.setClassNum(getValue(cell).substring(0,7));
 					break;
 				case 1:
 					student.setStudentName( getValue(cell));
 					break;
-//				case 2:
-//					student.setClassNum( getValue(cell));
+				case 2:
+					String classNum = getValue(cell);
+					student.setClassNum( getValue(cell));
+					student.setStudentCategory(classNum.substring(4,5));;
+					break;
+//				case 3:
+//					student.setStudentGender(getValue(cell) );
+//					break;	
+//				case 4:
+//					student.setStudentPassword(Common.eccryptMD5("123456"));
 //					break;
-				case 3:
-					student.setStudentGender(getValue(cell) );
-					break;	
-				case 4:
-					String ps = Common.eccryptMD5(getValue(cell));
-					student.setStudentPassword(ps);
-					break;
-				case 5:
-					student.setEmail(getValue(cell));
-					break;
-				case 6:
-					student.setProfessional(getValue(cell) );
-					break;
-				case 7:
-					student.setTelephone(getValue(cell) );
-					break;
-				case 8:
-					student.setStudentNickName( null);
-					break;
-				case 9:
-					student.setFaceImg(null);
-					break;
-				case 10:
-					student.setStatus(null);
-					break;
-				case 11:
-					student.setStudentCategory(null);
-					break;
+//				case 5:
+//					student.setEmail(getValue(cell));
+//					break;
+//				case 6:
+//					student.setProfessional(getValue(cell) );
+//					break;
+//				case 7:
+//					student.setTelephone(getValue(cell) );
+//					break;
+//				case 8:
+//					student.setStudentNickName( null);
+//					break;
+//				case 9:
+//					student.setFaceImg(null);
+//					break;
+//				case 10:
+//					student.setStatus(null);
+//					break;
+//				case 11:
+//					student.setStudentCategory(null);
+//					break;
 				default:
 					break;
 				}

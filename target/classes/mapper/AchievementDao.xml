@@ -147,8 +147,8 @@
 		<result column="achievement_category" property="category" />
 		<result column="author_picture" property="authorPicture" />
 		<result column="author_name" property="authorName" />
+		<result column="author_category" property="authorCategory" />
 	</resultMap>
-
 
 	<!-- 关于IURP产学研表的查询 -->
 	<select id="queryIURP" resultMap="IURPMap">
@@ -774,10 +774,15 @@
 	</insert>
 
 	<!-- 评论查询 -->
-	<select id="queryComment" parameterType="java.lang.String"
+	<select id="queryStuComment" parameterType="java.lang.String"
 		resultMap="AchievementCommentMap">
 		SELECT * FROM achievment_comment where achievement_id =
-		#{achievementId} and achievement_category = #{category};
+		#{achievementId} and achievement_category = #{category} and author_category = "student";
+	</select>
+	<select id="queryTeaComment" parameterType="java.lang.String"
+		resultMap="AchievementCommentMap">
+		SELECT * FROM achievment_comment where achievement_id =
+		#{achievementId} and achievement_category = #{category} and author_category = "teacher";
 	</select>
 	<insert id="insertAchievementComment" parameterType="cn.edu.tit.bean.AchievementComment">
 		INSERT
@@ -790,7 +795,8 @@
 		uploadTime,
 		achievement_category,
 		author_picture,
-		author_name)
+		author_name,
+		author_category)
 		VALUES
 		(#{comment.commentId},
 		#{comment.achievemendId},
@@ -799,7 +805,8 @@
 		#{comment.uploadTime},
 		#{comment.category},
 		#{comment.authorPicture},
-		#{comment.authorName}
+		#{comment.authorName},
+		#{comment.authorCategory}
 		)
 	</insert>
 	<select id="verifyAlreadyComment" parameterType="String"
@@ -820,12 +827,12 @@
 		time,
 		category)
 		VALUES
-		((#{as.id},
-		#{as.userId},
-		#{as.score},
-		#{as.achievementId},
-		#{as.time},
-		#{as.category});
+		(#{id},
+		#{userId},
+		#{score},
+		#{achievementId},
+		#{time},
+		#{category});
 	</insert>
 	<select id="queryAchievementScoreById" parameterType="String"
 		resultMap="scoreMap">

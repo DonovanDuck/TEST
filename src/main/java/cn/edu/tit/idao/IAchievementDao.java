@@ -79,8 +79,9 @@ public interface IAchievementDao {
 	public void insertAchievementAccessory(@Param("list")List<AchievementAccessory> list)throws Exception;
 
 	public void insertAchievementComment(@Param("comment")AchievementComment comment)throws Exception;
-	public List<AchievementComment> queryComment(@Param("achievementId")String achievementId,@Param("category")String category);
-
+	public List<AchievementComment> queryTeaComment(@Param("achievementId")String achievementId,@Param("category")String category);
+	public List<AchievementComment> queryStuComment(@Param("achievementId")String achievementId,@Param("category")String category);
+	
 	public Integer verifyAlreadyComment(@Param("userId")String userId, @Param("id")String id)throws Exception;
 	public void insertScore(AchievementScore as);
 	public AchievementScore queryAchievementScoreById(@Param("achievementId")String achievementId);

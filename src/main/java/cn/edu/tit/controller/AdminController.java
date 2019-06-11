@@ -1102,4 +1102,12 @@ public class AdminController {
 		mv = toAcademicManager();
 		return mv;
 	}
+	
+	@RequestMapping(value="logout")
+	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		request.getSession().removeAttribute("admin");
+		mv.setViewName("/jsp/main");
+		return mv;
+	}
 }
