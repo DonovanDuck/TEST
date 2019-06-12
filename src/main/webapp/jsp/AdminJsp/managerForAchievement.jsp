@@ -268,7 +268,6 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toCategoryManager"
 						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a></li>
-
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark"
@@ -277,7 +276,7 @@
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
 					</li>
-										<li><a
+					<li><a
 						href="${pageContext.request.contextPath}/admin/toTerm"
 						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
 					<li><a
