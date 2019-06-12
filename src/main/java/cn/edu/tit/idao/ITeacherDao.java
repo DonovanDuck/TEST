@@ -489,4 +489,60 @@ public interface ITeacherDao {
 	 */
 	public void updateCourseStudentNum(@Param("count")Integer count,@Param("courseId")String courseId);
 	
+	/**
+	 * 学生打卡
+	 */
+	public void attend(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId,@Param("atttime")Timestamp atttime);
+	
+	/**
+	 * 获取所有打卡记录
+	 * @return
+	 */
+	public List<Attendance> getALLAtt();
+	
+	/**
+	 * 查询某学生是否有此打卡记录
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttRecordById(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * 设置缺勤
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setTruancy(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * 设置请假
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setLeave(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+
+
+	/**
+	 * 获取打卡时间
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttTime(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

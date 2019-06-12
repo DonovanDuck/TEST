@@ -54,7 +54,7 @@
 
 	<select id="getLeaveStudentIdList" resultType="java.lang.String">
 		select student_id
-		from `leave` where attendance_id=#{attendanceId}
+		from att_leave where attendance_id=#{attendanceId}
 	</select>
 	<select id="getTruancyStudentIdList" resultType="java.lang.String">
 		select
@@ -1006,4 +1006,29 @@
 			where course_id =#{courseId}; 
 	</update>
 	
+	<!-- 学生打卡 -->
+	<insert id="attend">
+		insert into attence(student_id,attendance_id,att_time) values (#{studentId},#{attendanceId},#{atttime});
+	</insert>
+	
+	<!-- 获得所有考勤 -->
+	<select id="getALLAtt" resultMap="attendanceMap">
+		select * from attendance;
+	</select>
+	
+	<select id="getAttRecordById" resultType="String">
+		select student_id from attence where attendance_id = #{attendanceId} and student_id = #{studentId};
+	</select>
+	
+	<insert id="setTruancy">
+		insert into truancy(attendance_id,student_id) values (#{attendanceId},#{studentId});
+	</insert>
+	
+	<insert id="setLeave">
+		insert into att_leave(attendance_id,student_id) values (#{attendanceId},#{studentId});
+	</insert>
+	
+	<select id="getAttTime" resultType="String">
+		select att_time from attence where attendance_id = #{attendanceId} and student_id = #{studentId};
+	</select>
 </mapper>

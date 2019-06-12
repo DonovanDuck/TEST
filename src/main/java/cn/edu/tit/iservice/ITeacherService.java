@@ -764,4 +764,50 @@ public interface ITeacherService {
 	 * @param courseId
 	 */
 	public void updateCourseStudentNum(Integer count,String courseId);
+	
+	/**
+	 * 学生打卡
+	 */
+	public void attend(String studentId,String attendanceId,Timestamp atttime);
+	
+	/**
+	 * 获取所有打卡记录
+	 * @return
+	 */
+	public List<Attendance> getALLAtt();
+	
+	/**
+	 * 查询某学生是否有此打卡记录
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttRecordById(String studentId,String attendanceId);
+	
+	/**
+	 * 设置缺勤
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setTruancy(String studentId, String tid);
+	
+	/**
+	 * 设置请假
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setLeave(String studentId, String tid);
+	
+	
+	/**
+	 * 获取打卡时间
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttTime(String studentId,String attendanceId);
+	
+	
+	
+	
 }

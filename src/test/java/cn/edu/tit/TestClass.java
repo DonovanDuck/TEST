@@ -66,8 +66,8 @@ public class TestClass {
 			att.setPublishId("1");
 			//添加
 			teacherService.addAttendance(att);*/
-			teacherService.updateCourseStudentNum(100, "0657366C4E9C4E68AAA97F8986FAD341");
-			
+			String t = teacherService.getAttTime("2", "1");
+			System.out.println(t.toString().substring(0, 16));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

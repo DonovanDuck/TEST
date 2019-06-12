@@ -1361,4 +1361,40 @@ public class TeacherServiceImpl implements ITeacherService{
 		teacherDao.updateCourseStudentNum(count, courseId);
 	}
 
+	@Override
+	public void attend(String studentId, String attendanceId,Timestamp atttime) {
+		// TODO Auto-generated method stub
+		teacherDao.attend(studentId, attendanceId, atttime);
+	}
+
+	@Override
+	public List<Attendance> getALLAtt() {
+		// TODO Auto-generated method stub
+		return teacherDao.getALLAtt();
+	}
+
+	@Override
+	public String getAttRecordById(String studentId, String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttRecordById(studentId, attendanceId);
+	}
+
+	@Override
+	public void setTruancy(String studentId, String attid) {
+		// TODO Auto-generated method stub
+		teacherDao.setTruancy(studentId, attid);
+	}
+
+	@Override
+	public void setLeave(String studentId, String attid) {
+		// TODO Auto-generated method stub
+		teacherDao.setLeave(studentId, attid);
+	}
+
+	@Override
+	public String getAttTime(String studentId, String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttTime(studentId, attendanceId);
+	}
+
 }

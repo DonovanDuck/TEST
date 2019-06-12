@@ -12,6 +12,7 @@ import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -1402,7 +1403,7 @@ public class WxTeacherController {
 	}
 	
 	/**
-	 * 放回已打卡，和未打卡的学生
+	 * 显示已打卡，和未打卡的学生
 	 * @return
 	 */
 	@RequestMapping(value="getStuAttStituation")
@@ -1412,6 +1413,7 @@ public class WxTeacherController {
 			//获得已打卡的学生
 			List<Student> attendedList = new ArrayList<>();
 			attendedList = teacherService.getStuAttended(attendanceId);
+			Map<String, Object> attendedMap = new HashMap<>();
 			//获取未打卡的学生
 			List<Student> studentList = teacherService.getStudentList(virtualClassNum);//获取班上所有的学生
 			List<Student> disattended = new ArrayList<>();
@@ -1429,8 +1431,17 @@ public class WxTeacherController {
 						disattended.add(s);
 				}
 			}
-			
-			ret.put("attendedList", attendedList);
+			for(Student student : attendedList){
+				//获取打卡时间
+				String atttime = teacherService.getAttTime(student.getStudentId(),attendanceId);
+				if(!"".equals(atttime)&&atttime != null){
+					atttime = atttime.toString().substring(0, 16);
+					String sid = student.getStudentId();
+					student.setStudentId(atttime);
+					attendedMap.put(sid, student);
+				}
+			}
+			ret.put("attendedMap", attendedMap);
 			ret.put("disattended", disattended);
 			return ret;
 		} catch (Exception e) {
@@ -1475,7 +1486,99 @@ public class WxTeacherController {
 		
 	}
 	
+	/**
+	 * 学生打卡
+	 * @return
+	 */
+	@RequestMapping(value="attend")
+	public Map<String, Object> attend(@RequestParam(value="studentId") String studentId,
+			@RequestParam(value="attendanceId") String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			Timestamp atttime = new Timestamp(System.currentTimeMillis());
+			teacherService.attend(studentId,attendanceId,atttime);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("img", "不能重复打卡！");
+			ret.put("status", "error");
+			return ret;
+		}
+	}
 	
+	/**
+	 * 显示某学生打卡记录
+	 * @return
+	 */
+	@RequestMapping(value="showStuAtt")
+	public Map<String, Object> showStuAtt(@RequestParam(value="studentId") String studentId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//获取所有打卡记录
+			List<Attendance> attList = teacherService.getALLAtt();
+			List<Attendance> stuAtted = new ArrayList<>();
+			List<Attendance> stuNoAtted = new ArrayList<>();
+			if(attList != null && !attList.isEmpty()){
+				for(Attendance a : attList){
+					VirtualClass vclass = teacherService.getVirtualById(a.getVirtualClassNum());
+					//将打卡记录的班级号改为班级名
+					if(vclass != null)
+						a.setVirtualClassNum(vclass.getVirtualClassName());
+					String sid = teacherService.getAttRecordById(studentId,a.getAttendanceId());
+					if(!"".equals(sid) && sid != null){
+						stuAtted.add(a);
+					}
+					else{
+						stuNoAtted.add(a);
+					}
+				}
+			}
+			ret.put("stuAtted", stuAtted);
+			ret.put("stuNoAtted", stuNoAtted);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("img", "不能重复打卡！");
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+	
+	/**
+	 * 打卡结束，标记未打卡的人请假还是缺勤
+	 * @return
+	 */
+	@RequestMapping(value="signLeaveOrTruancy")
+	public Map<String, Object> signLeaveOrTruancy(@RequestParam(value="noAttMap") Map<String, String> noAttMap,
+			@RequestParam(value="attendanceId")String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			if(noAttMap != null){
+				for(Entry<String, String> en : noAttMap.entrySet()){
+					if("0".equals(en.getValue())){
+						//设置为缺勤
+						teacherService.setTruancy(en.getKey(),attendanceId);
+					}
+					else if("1".equals(en.getValue())){
+						//设置为请假
+						teacherService.setLeave(en.getKey(),attendanceId);
+					}
+				}
+			}
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+
 	
 	private JSONArray taskSort(List<Task> taskList, String studentId){
 		
