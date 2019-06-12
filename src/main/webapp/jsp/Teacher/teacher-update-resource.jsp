@@ -25,21 +25,8 @@
 	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
-</head>
-<body>
-<head>
-<div class="container-fluid">
-	<nav>
-		<ul class="nav nav-pills">
-			<li role="presentation" class="active"><a href="#">首页</a></li>
-			<li role="presentation"><a href="#">课程</a></li>
-			<li role="presentation"><a href="#">讨论区</a></li>
-			<li role="presentation"><a href="#">学生成果</a></li>
-			<li role="presentation"><a href="#">产学研项目</a></li>
-		</ul>
-	</nav>
-</div>
-</head>
+	<script
+	src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 
 <script type="text/javascript">
 	function attention() {
@@ -84,6 +71,7 @@
 </script>
 <script>
 	function modifyRe(){
+		debugger;
 		$("[type=file]").click();
 		$("[type=file]").on('change', function( e ){
 	        //e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
@@ -92,6 +80,13 @@
 	    });
 	}
 </script>
+</head>
+<body>
+<head>
+<jsp:include page="/jsp/top.jsp" flush="true" />
+</head>
+
+
 <main>
 <div class="main_t">
 	<div class="container-fluid">
@@ -115,12 +110,14 @@
 	</div>
 </div>
 
-<div class="main_b">
+<div class="main_b" style="width: 70%;margin-left: 17%; padding-top: 3%;background: #fff;height: 100%;">
 	<div
-		style="font-size: 30px; font-weight: 600; margin-left: 140px; margin-top: 20px; margin-bottom: 55px;">
-		修改${resourceName }资源：</div>
+		style="font-size: 27px;
+    font-weight: 600;
+    margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
+		修改资源</div>
 	<div
-		style="width: 800px; height: auto; min-height: 500px; margin-left: 22%;">
+		style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 		<form
 			action="${pageContext.request.contextPath}/teacher/updateResource"
 			enctype="multipart/form-data" method="post" id="resourceForm">
@@ -137,6 +134,11 @@
 					type="hidden" name="courseId" value="${course.courseId }">
 			</div>
 			<div class="form-group">
+  	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;">资源类型：</label>
+   <input type="hidden" name="resourceType" value="${resource.resourceTypeId }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源">
+  </div>
+			<div class="form-group">
 				<label for="exampleInputName2">资源介绍：</label>
 				<textarea id="resourceDetail" name="resourceDetail" type="text"
 					placeholder=""
@@ -148,10 +150,10 @@
 					
 				 <label for="exampleInputName2"
 					style="float: left; margin-right: 5px;">修改附件：</label>
-					<div style="height: 96px;width: 274px;float: left;padding: 15px;background: #fff;border-radius: 11px;">
+					<div style="height: 96px;width: 274px;float: left;padding: 15px;background: #f0f0f0;border-radius: 11px;">
 						<img style="height: 50px; width: 50px;margin-right: 10px;" src="${pageContext.request.contextPath}/images/file.jpg">
 						<label class="re_name">${resource.resourceName }</label>
-						<span style="color: #c9302c;position: absolute;top: 145%;left: 43%;cursor: pointer;" onclick="modifyRe()">修改</span>
+						<span style="color: #c9302c;position: absolute;top: 167%;left: 43%;cursor: pointer;" onclick="modifyRe()">修改</span>
 					</div>
 					
 					 <input style="margin-top: 6%;position: relative;left: 5%;top: 27px;display:none;" name="file" type="file" multiple="multiple" >

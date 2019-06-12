@@ -1,0 +1,246 @@
+body
+{
+	background-image: url(../img/background.jpg);
+	background-size: cover;
+	margin:0;
+}
+a{
+	text-decoration: none;	
+}
+li{
+	list-style: none;
+}
+/******总体布局*******/
+.row
+{
+	padding: 0,0;
+}
+.main_left
+{
+	height:600px;
+	position:relative;
+}
+.main_right
+{
+	height:auto;
+}
+/******总体布局*******/
+/******main_left布局*******/
+.head_sculpture
+{
+	background-color: #C0E3E7;;
+	height：500px;
+	position: absolute;
+	top:100px;
+	z-index: 1000;
+}
+.head_sculpture_inner
+{
+	height: 345px;
+    padding-top: 30px;
+    text-align: center;
+}
+.petname{
+	color: #010101;
+	font-family: "Quicksand", sans-serif;
+	font-size: 20px;
+    margin-top:20px;
+}
+.title{
+	color: #757575;
+	font-family: "Quicksand", sans-serif;
+    margin-top:20px;
+}
+.head_sculpture_bottom
+{
+	height: 110px;
+    background-color: #E9E9E9;
+    position:absolute;
+    top:100px;  
+    text-align: center;
+    line-height:100px;
+}
+.modify_T
+{
+	background:#000000;
+	color:white;
+	height:30px;
+	border-radius:10px;
+	line-height:30px;
+	text-align:center;
+	margin-top:15px;
+}
+.modify_B{
+	background:#000000;
+	color:white;
+	height:30px;
+	border-radius:10px;
+	line-height:30px;
+	text-align:center;
+	margin-top:15px;
+}
+/******main_left布局*******/
+/*---------------------------main_right begin-----------------------*/
+.main_right .nav{
+	width: 100%;
+	height: 90px;
+	margin-left: 10px;
+	padding-top: 20px;
+}
+/*-----------------------------pet name--------------------------------*/
+.main_right .nav .nav_petname{
+	margin-top: 20px;
+	font-family: 'Pacifico', cursive;
+}
+.main_right .nav .nav_petname a{
+	color: grey;
+}
+.nav_petname img{
+	display: inline-block;
+	vertical-align: middle;
+	margin-right: 2px;
+}
+.nav_petname span{
+	font-size: 19px;
+	color:#010101;
+}
+/*----------------------------nav_list----------------------------*/
+.main_right .nav_list{
+	width: 80%;
+	margin-top: 11px;
+	padding-right: 0;
+}
+.main_right .nav_list nav{
+	text-align: right;
+	width: 100%;
+	margin-right: -15px;
+}
+.main_right .nav_list li{
+	float: left;
+	padding-left: 22px;
+	padding-right: 22px;
+	display: inline-block;
+}
+.main_right .nav_list li:nth-child(1){
+	padding-left: 0;
+}
+.main_right .nav_list li:nth-child(7){
+	padding-right: 0;
+}
+.main_right .nav_list li a{
+	color: darkgray;
+    font-size: 1.133em;
+    font-weight: 700;
+}
+.main_right .nav_list li a:hover{
+	color: black;
+}
+/*----------------------------text(具体内容)----------------------------*/
+.main_right .text{
+	width: 100%;
+	height: auto;
+	min-height: 500px;
+	background-color: white;
+	margin-left: 24px;
+	padding: 40px 40px;
+	border: 1px solid #E6E6E6;
+}
+.main_right .text h2{
+	margin-top: 0;
+	color:#010101;
+	font-family: "Quicksand", sans-serif;
+    font-size:26px;
+	margin-bottom: 20px;
+}
+.main_right .text .nav1
+{
+	height:40px;
+	padding-left:0;
+}
+.main_right .text .nav1 ul{
+	margin-top: 0;
+    margin-bottom: 10px;
+    height: 40px;
+    padding-left: 0;
+}
+.main_right .text .nav1 li
+{
+  width：80px;
+  height:40px;
+  taxt-align:center;
+  line-height:40px;
+  margin-right:40px;
+  float:left;   
+}
+.main_right .text .nav1 li a{
+    color: #000000;
+    font-size: 16px;
+    font-family: "Quicksand", sans-serif;;
+}
+.main_right .text h4{
+	font-size: 1.35em;
+	font-weight: 400;
+	color: #757575;
+	font-family: "Quicksand", sans-serif;
+	margin-bottom: 1.571em;
+}
+.main_right .text p{
+	color: gray;
+	margin-bottom: 22px;
+	line-height: 1.875em;
+	font-family: "Quicksand", sans-serif;
+	font-size: 15px;
+}
+/*个人基本信息*/
+.main_right .text .text_personalInformation{
+	height: 185px;
+}
+.main_right .text_personalInformation .dl-horizontal{
+	padding: 0 0;
+}
+.main_right .text_personalInformation .dl-horizontal dt{
+	text-align: left;
+	width: 40%;
+	font-size: 1.1em;
+	line-height: 42px;
+	letter-spacing: 0.01em;
+	color: #797979;
+}
+.main_right .text_personalInformation .dl-horizontal dt span{
+	margin-right: 20px;
+	color: #C0E3E7;
+}
+.main_right .text_personalInformation .dl-horizontal dd{
+	text-align: left;
+	font-size: 1.1em;
+	width: 60%;
+	line-height: 42px;
+	letter-spacing: 0.01em;
+	color: #757575;
+	margin-left: 72px;
+}
+/*学习成果、产学研项目、获奖情况*/
+.main_right .text ul{
+	padding: 0 0;
+}
+.main_right .text_achievemint span{
+	color: lightseagreen;
+	margin-right: 20px;
+}
+.main_right .text_award span{
+	margin-right: 20px;
+	color: orange;
+}
+.main_right .text li{
+	line-height: 30px;
+}
+/*---------------------------main_right end-----------------------*/
+/*---------------------------footer begin-----------------------*/
+.footer{
+	height: 50px;
+	width: 100%;
+	margin-top: 10px;
+	/*background-color: aliceblue;*/
+}
+/*---------------------------footer end-----------------------*/
+/******main_right布局*******/

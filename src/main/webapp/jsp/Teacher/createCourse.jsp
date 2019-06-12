@@ -67,8 +67,9 @@
 											"<label class='checkbox-inline' id="
 													+ arr[i].employeeNum
 													+ " style='width: 30%; margin-left: 2%; margin-top: 1%;'><input type='checkbox' name='unSelect' onclick='checkboxOnclick(this)'  value='"
-													+ arr[i].employeeNum + "'>"
 													+ arr[i].employeeNum
+													+ "'>"
+													+ arr[i].teacherName
 													+ "</label>");
 						}
 					}
@@ -94,7 +95,7 @@
 							"<label class='checkbox-inline' id="
 									+ value
 									+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input name='select' type='checkbox' checked onclick='checkboxBackclick(this)'  value='"
-									+ value + "'>" + content + "</label>");
+									+ value + "'>" +content + "</label>");
 		}
 	}
 </script>
@@ -150,11 +151,31 @@
 		} else {
 			return false;
 		}
-	}
+	};
+	//进行Iframe的自动撑开,让所有父页面的Iframe都自动适应包含页高度 
+	
+</script>
+
+<script type="text/javascript">
+
+var ue = UE.getEditor('courseDetail',{
+
+    initialFrameWidth :1151,//设置编辑器宽度
+
+    initialFrameHeight:400,//设置编辑器高度
+    initialFrameMargin:0,
+
+    scaleEnabled:true
+    
+
+ });
+
 </script>
 </head>
-<body>
-	<div class="main" style="width: 80%; margin-left: 10%;">
+<body >
+ <jsp:include page="/jsp/top.jsp" flush="true"/>
+
+	<div class="main" style="width: 80%; margin-left: 10%;padding-bottom: 10px;margin-bottom: 50px;">
 		<form action="${pageContext.request.contextPath}/teacher/createCourse"
 			id="formContent" method="post" enctype="multipart/form-data"
 			onsubmit="return submitForm()">
@@ -202,7 +223,7 @@
 					style="margin-top: 1%">课程介绍：</label>
 				<div class="col-sm-10" style="padding-left: 0px; width: 75%">
 					<textarea id="courseDetail" name="courseDetail" type="text"
-						placeholder=""></textarea>
+						placeholder="" style="margin: 0"></textarea>
 				</div>
 			</div>
 			<br>
@@ -329,9 +350,7 @@
 	<%-- <jsp:include page="/jsp/footer.jsp" flush="true"/> --%>
 
 	<!-- bootstrup -->
-
+<jsp:include page="/jsp/footer2.jsp" flush="true"/>
 </body>
-<script type="text/javascript" charset="utf-8">
-	UE.getEditor('courseDetail');
-</script>
+
 </html>

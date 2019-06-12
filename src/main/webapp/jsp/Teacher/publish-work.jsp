@@ -49,18 +49,14 @@
 	src="${pageContext.request.contextPath}/js/angular.min.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/wui-date.js" charset="utf-8"></script>
-<<<<<<< HEAD
+
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/js/iframeResizer.contentWindow.min.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
-=======
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/iframeResizer.contentWindow.min.js"
-	charset="utf-8"></script>
->>>>>>> liming
+
 <script type="text/javascript">
 	
 	var $table;
@@ -197,6 +193,7 @@
 									"<div style='float: left;text-align: center;width:100%;margin-top: 10px;'>"+
 										"<span style='font-size:18px;font-weight: bold;'>任务预览</span>"+
 									"</div>"+
+									"<button type='button' style='margin-top: -20px;margin-right: 20px;' class='close' data-dismiss='modal' aria-label='Close'><span aria-hidden='true'>&times;</span></button>"+
 								"</div>"+
 								"<hr>"+
 								"<div style='height: 70px;padding:20px;margin-top: -30px;'>"+
@@ -546,14 +543,10 @@
 <body style="background-color: #F1F3F4;">
 	<div
 		style="width: 100%; height: 50px; margin: 0 auto; background-color: #fff;">
-<<<<<<< HEAD
+
 		<div style="width: 20px; height: 50px; background: #015293;float: left;"></div>
 		<span style="line-height: 55px;font-size: 18px;margin-left: 20px;font-weight: bold;">发布任务</span>
-=======
-		<div
-			style="width: 20px; height: 50px; background: #015293; float: left;"></div>
-		<span style="line-height: 55px; font-size: 18px; margin-left: 20px">发布作业</span>
->>>>>>> liming
+
 	</div>
 	<div class="selectstyle"
 		style="width: 100%; height: 50px; margin: 10px auto; background-color: #fff;">
@@ -638,15 +631,11 @@
 					style="width: 60%; margin-right: 2%;">
 					<span class="input-group-addon" id="basic-addon3"
 						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
-<<<<<<< HEAD
+
 					
 					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
 					
-=======
-					<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
-						id="date4" btns="{'ok':'确定','now':'此刻'}" ng-model="date4"
-						minDate="2019-05-17",> </wui-date>
->>>>>>> liming
+
 				</div>
 
 				<!-- <div class="wui-content">
@@ -679,9 +668,9 @@
 	<div class="selectTask"
 		style="width: 100%; height: 100%; margin: 0px auto; background-color: #fff; padding: 30px 0;">
 		<div class="selectTaskContent" style="margin: 30px 50px;">
-<<<<<<< HEAD
+
 		<form action="${pageContext.request.contextPath}/teacher/selectTaskToPublish"
-				method="post" onsubmit = "return checkInputSelect(this)"target="_top">
+				method="post" onsubmit = "return checkInputSelect(this)" target="_top">
 			<span>这是一个快速发布优质作业的重要途径，当然您也可以选择点击右侧自定义标签自定义作业</span>
 			<div class="input-group" style="float: left; width: 30%;">
 				<span class="input-group-addon" id="basic-addon3"
@@ -724,27 +713,9 @@
 				
 				<input type="text" style="height: 30px;width: 185px" class="Wdate form-control" name="taskEndTime" id="taskEndTimeEdit" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
 			</div>
-			<div class="toSubmit"
-				style="width: 100%; height: 50px; margin-top: 50px;">
-				<div style="width: 20%; height: 50px; margin: 0 auto;">
-					<input class="btn btn-primary" type="submit" value="提交"
-						style="float: left; margin-right: 25%;"> <input
-						class="btn btn-default" type="submit" value="取消"
-						style="float: left;">
-					<div class="alert alert-danger" id="selectErrorMsg"
-						style="display: none" role="alert"></div>
-					<table id="taskListTable"></table>
-				</div>
-				<input name="taskId" id="taskId" type="text" hidden="hidden"
-					value="" />
-				<div id="selectTime" class="input-group"
-					style="width: 68%; margin-right: 2%;">
-					<span class="input-group-addon" id="basic-addon3"
-						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
-					<wui-date format="yyyy-mm-dd hh:mm:ss" placeholder="请选择或输入日期"
-						id="date4" btns="{'ok':'确定','now':'此刻'}" ng-model="date4">
-					</wui-date>
-				</div>
+			
+				
+				
 				<div class="toSubmit"
 					style="width: 100%; height: 50px; margin-top: 50px;">
 					<div style="width: 20%; height: 50px; margin: 0 auto;">

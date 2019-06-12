@@ -129,7 +129,7 @@
 				<c:forEach items="${virtualClassList }" var="item"
 					varStatus="status">
 					<a
-						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
+						href="${pageContext.request.contextPath}/student/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }&courseName=${item.virtualCourseName }">
 						<div class="b1" style="border: 1px solid #F2F2F2">
 							<div class="b1_l">
 								<c:if test="${empty item.faceImg }">
@@ -139,7 +139,7 @@
 								</c:if>
 								<c:if test="${not empty item.faceImg }">
 									<img
-										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+										src="${item.faceImg }"
 										alt="" style="width: 100%; height: 100%;" />
 								</c:if>
 							</div>

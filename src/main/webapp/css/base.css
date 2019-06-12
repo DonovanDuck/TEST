@@ -234,7 +234,6 @@ main {
     float: left;
     margin-bottom:5%;
     padding: 5%;
-    background: #f6f6f6;
 }
 
 /*----------------产学研项目（table）----------------------*/
@@ -275,11 +274,11 @@ main {
     margin-top: 5%;
     float: left;
     margin-bottom:5%;
-    width: 257px;
+    width: 285px;
     min-height: 369px;
     height:auto;
     padding-left: 0;
-    background: #f6f6f6;
+    background: #fff;
 }
 
 /*---------------教师排行榜(li)-----------------*/

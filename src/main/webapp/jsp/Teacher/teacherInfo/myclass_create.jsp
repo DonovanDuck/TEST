@@ -96,8 +96,8 @@ a:active {
 		</div>
 		<div class="table">
 			<c:forEach items="${virtualClassList }" var="item" varStatus="status">
-				<a target="_blank"
-					href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }">
+				<a target="_top"
+					href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${item.virtualClassNum }&virtualClassName=${item.virtualClassName }&courseName=${item.virtualCourseName }">
 					<div class="b1" style="height: 150px; margin-top: 1%">
 						<div class="b1_l" style="width: 27%; float: left; height: 90%">
 							<c:if test="${empty item.faceImg }">
@@ -107,7 +107,7 @@ a:active {
 							</c:if>
 							<c:if test="${not empty item.faceImg }">
 								<img
-									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+									src="${item.faceImg }"
 									alt="" style="width: 100%; height: 90%;" />
 							</c:if>
 						</div>

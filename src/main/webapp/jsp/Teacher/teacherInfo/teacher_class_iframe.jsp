@@ -13,12 +13,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
+	<script type="text/javascript">
+		$(function() {
+			
+		})
+	</script>
 
 </head>
 <body>
 	<div id="r2" >
 		<div class="main_b_r_t">
-			<div class="word1"  id="w1">
+			<div class="word1"  id="w1" onclick="changeFocs()">
 				<p>
 					<a target="myclass"
 						href="${pageContext.request.contextPath}/teacher/toMyClassList"

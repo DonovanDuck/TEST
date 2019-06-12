@@ -284,4 +284,19 @@
 		from student_course where student_id = #{studentId} and course_id
 		= #{courseId} and manager = #{manager};
 	</select>
+	
+	<!-- 获取某班某类别(作业，实验，课设)某项任务的最低成绩 -->
+	<select id="getMinGradeInCategory" resultType="Integer">
+		select min(grade) from up_task where task_id in
+			(select task_id from task where task_category = #{taskCategory} and task_id in
+				(select task_id from class_task where virtual_class_num = #{virtualClassNum}));
+	</select>
+	
+	<!-- 获取某班某类别(作业，实验，课设)某项任务的最高成绩 -->
+	<select id="getMaxGradeInCategory" resultType="Integer">
+		select max(grade) from up_task where task_id in
+			(select task_id from task where task_category = #{taskCategory} and task_id in
+				(select task_id from class_task where virtual_class_num = #{virtualClassNum}));
+	</select>
+	
 </mapper>
