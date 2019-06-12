@@ -72,7 +72,7 @@ public class AdminController {
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
 	 * 使用spring的MultipartFile上传文件
 	 * */
-	@RequestMapping(value="AddTeacher",method= {RequestMethod.POST})
+	@RequestMapping(value="addTeacher",method= {RequestMethod.POST})
 	public ModelAndView DoExcelTeacher(HttpServletRequest request) throws Exception {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);

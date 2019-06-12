@@ -68,11 +68,11 @@ public class AdminServiceImpl implements IAdminService {
 		String insertMsg = "";
 		try {
 			teacherList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Teacher对象的teacherList集合
-			for(Teacher s :teacherList) {	
-				s.setTeacherPassword(Common.eccryptMD5(s.getTeacherPassword()));
-				insertResult++;
-				System.out.println(s.toString());  //输出每条插入的数据
-			}
+			//			for(Teacher s :teacherList) {	
+			//				s.setTeacherPassword(Common.eccryptMD5(s.getTeacherPassword()));
+			//				insertResult++;
+			//				System.out.println(s.toString());  //输出每条插入的数据
+			//			}
 			iAdminDao.addTeacherInfo(teacherList);	//调用函数，完成写入数据库操作
 			if(insertResult ==0) {
 				insertMsg = "载入数据库失败";
@@ -480,7 +480,7 @@ public class AdminServiceImpl implements IAdminService {
 	public List<Department> readDepartment() throws Exception {
 		return iAdminDao.readDepartment();
 	}
-	
+
 	@Override
 	public List<Department> readAllDepartment() throws Exception {
 		return iAdminDao.readAllDepartment();

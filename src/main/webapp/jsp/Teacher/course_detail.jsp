@@ -123,7 +123,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/8"
 							>资源</a></li>
 						<li style="float: left;margin-right: 25px"><a
-							href=""
+							href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage"
 							>翻转课堂</a>
 						 <li style="float: left;margin-right: 25px"><a
 							href=""

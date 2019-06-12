@@ -358,7 +358,7 @@
 				<h3>文件导入教师信息</h3>
 				<form class="form-inline" id="form_excel" name="form_excel"
 					role="form" style="margin: 0px"
-					action="${pageContext.request.contextPath}/admin/AddTeacher"
+					action="${pageContext.request.contextPath}/admin/addTeacher"
 					method="post" enctype="multipart/form-data"
 					onsubmit="return check()">
 					<div class="form-group" style="padding-top: 2%">
@@ -366,10 +366,10 @@
 							type="file" id="file_excel" name="file_excel">
 					</div>
 					<button type="submit" class="btn btn-default"
-						style="margin-top: 2%">提交</button>
+						style="margin-top: 2%">导入</button>
 				</form>
 				<br>
-				<div>文件(EXCEL)格式：工号、教师名、教师密码、教师性别、教育背景、教师职称、教师电话、电子邮箱</div>
+				<div>文件(EXCEL)格式：工号、教师名</div>
 				<button type="button" class="btn btn-primary btn-lg"
 					data-toggle="modal" data-target="#AddTeacher"
 					style="margin-top: 1%; margin-left: 1%;">添加个体教师</button>
@@ -377,7 +377,7 @@
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<table id="tb_departments"></table>
+				<table id="tb_departments" style="table-layout:fixed"></table>
 			</div>
 		</div>
 	</div>
