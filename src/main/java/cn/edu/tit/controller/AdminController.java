@@ -43,6 +43,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAchievementService;
 import cn.edu.tit.iservice.IAdminService;
@@ -1109,5 +1110,80 @@ public class AdminController {
 		request.getSession().removeAttribute("admin");
 		mv.setViewName("/jsp/main");
 		return mv;
+	}
+	
+	@RequestMapping(value="toTerm")
+	public ModelAndView toTerm() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/managerForTerm");
+		return mv;
+	}
+	
+	@RequestMapping(value="addTerm")
+	public ModelAndView addTerm(@RequestParam("addStartTerm")String addStartTerm,@RequestParam("addEndTerm")String addEndTerm,@RequestParam("selectTerm")String selectTerm) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Term te = new Term();
+		try {
+			te.setEndYear(addEndTerm);
+			te.setStartYear(addStartTerm);
+			te.setTermId(Common.uuid());
+			te.setTerm(selectTerm);
+			iAdminService.addTerm(te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv = toTerm();
+		return mv;
+	}
+	
+	@RequestMapping(value="addTermJudge")
+	public void addTermJudge(HttpServletRequest request,HttpServletResponse response,@RequestParam("addStartTerm")String addStartTerm,@RequestParam("addEndTerm")String addEndTerm,@RequestParam("selectTerm")String selectTerm) throws Exception {
+		Term te = null;
+		String result = "";
+		try {
+			te = iAdminService.judgeTerm(addStartTerm,addEndTerm,selectTerm);
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		if(te!=null)
+		{
+			result = "学期信息已经存在";
+		}
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping(value="readTerm")
+	public void readTerm(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		List<Term> readResult = new ArrayList<>();
+		try {
+			readResult = iTeacherService.readTerm();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Term t : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("id", t.getTermId());
+			ob.put("startYear", t.getStartYear());
+			ob.put("endYear", t.getEndYear());
+			ob.put("term", t.getTerm());
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

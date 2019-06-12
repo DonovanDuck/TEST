@@ -40,7 +40,7 @@
 			$('#tb_departments')
 					.bootstrapTable(
 							{
-								url : '${pageContext.request.contextPath}/admin/getAchievmentInfo', //请求后台的URL（*）
+								url : '${pageContext.request.contextPath}/admin/readTerm', //请求后台的URL（*）
 								method : 'get', //请求方式（*）
 								striped : true, //是否显示行间隔色
 								cache : true, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -52,7 +52,7 @@
 								pageNumber : 1, //初始化加载第一页，默认第一页
 								pageSize : 20, //每页的记录行数（*）
 								pageList : [ 10, 15, 20, 30, 50, 100 ], //可供选择的每页的行数（*）
-								search : true, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
+								search : false, //是否显示表格搜索，此搜索是客户端搜索，不会进服务端，所以，个人感觉意义不大
 								strictSearch : true,
 								showColumns : false, //是否显示所有的列
 								showRefresh : false, //是否显示刷新按钮
@@ -86,103 +86,45 @@
 										},
 										{
 											field : 'id',
+											align : 'center',
 											visible : false,
 										},
 										{
-											field : 'deleteOrRestore',
-											visible : false,
-										},
-										{
-											field : 'deleteFlag',
-											visible : false,
-										},
-										{
-											field : 'browsePath',
-											visible : false,
-										},
-										{
-											field : 'picture',
+											field : 'startYear',
 											align : 'center',
-											title : '成果首图',
-											formatter : function(value, row,
-													index) {
-												var s;
-												var url = "${pageContext.request.contextPath}/jsp/showImg.jsp?path="
-														+ row.picture;
-												s = '<img style="width:100px;height:100px;"  src="'+url+'" />';
-												return s;
-											}
+											title : '起始年份'
 										},
 										{
-											field : 'name',
+											field : 'endYear',
 											align : 'center',
-											title : '成果名字'
+											title : '截止年份'
 										},
 										{
-											field : 'category',
+											field : 'term',
 											align : 'center',
-											title : '成果类别'
-										},
-										{
-											field : 'publisher',
-											align : 'center',
-											title : '上传者'
+											title : '学期'
 										},
 										{
 											align : 'center',
 											title : '操作',
-											formatter : function(value, row,
-													index) {
-												var deleteFlag = row.deleteFlag;
-												var browsePath = row.browsePath;
-												var s = "<a href='${pageContext.request.contextPath}/achievement/"+browsePath+"'><button type='button' class='btn btn-default'>查看</button></a>";
-												if (deleteFlag == 1) {
-													var ss = '<input class="btn btn-default" id="restore" type="button" value="删除">'
-												} else {
-													var ss = '<input class="btn btn-default" id="restore" type="button" value="恢复">'
-												}
-												return s + ss;
-											},
+											formatter : addoperate,
 											events : {
-												'click #restore' : function(
-														event, value, row,
-														index) {
-													var id = row.deleteOrRestore;
-													var judge = row.deleteFlag;
-													var deleteFlag = row.deleteFlag;
-													var url = "";
-													if (deleteFlag == 1) {
-														url = "${pageContext.request.contextPath}/admin/deleteAchievement/"
-																+ id;
-													} else {
-														url = "${pageContext.request.contextPath}/admin/restoreAchievement/"
-																+ id;
-													}
-													$
-															.ajax({
-																async : true,
-																cache : false,
-																url : url,
-																type : "get",
-																dataType : "text",
-																success : function(
-																		result) {
-																	alert(result);
-																	if (deleteFlag == 1) {
-																		$(
-																				"#restore")
-																				.val(
-																						"恢复");
-																		//$("#tb_departments").bootstrapTable('refresh',{url : '${pageContext.request.contextPath}/admin/getAchievmentInfo'});
-																	} else {
-																		$(
-																				"#restore")
-																				.val(
-																						"删除");
-																		//$("#tb_departments").bootstrapTable('refresh',{url : '${pageContext.request.contextPath}/admin/getAchievmentInfo'});
-																	}
-																}
-															})
+												'click #edit' : function(event,
+														value, row, index) {
+													document
+															.getElementById("editName").value = row.name;
+													document
+															.getElementById("editId").value = row.id;
+													document
+															.getElementById("editPro").value = row.professional;
+													$("#editSe")
+															.find(
+																	"option:contains("
+																			+ row.department
+																			+ ")")
+															.attr("selected",
+																	true);
+													$('#Edit').modal('show');
 												}
 											}
 										} ],
@@ -224,6 +166,50 @@
 		}
 		return oInit;
 	};
+	function addoperate(value, row, index) {
+		return [
+				'<button id="edit" type="button" class="btn btn-default">编辑</button>', ]
+				.join('');
+	}
+</script>
+<script type="text/javascript">
+	$(function() {
+		var date = new Date;
+		var year = date.getFullYear();
+		$("#addStartTerm").val(year);
+		$("#addEndTerm").val(year + 1);
+	})
+
+	function addTermBut() {
+		var startTerm = $("#addStartTerm").val();
+		var endTerm = $("#addEndTerm").val();
+		var selectTerm = $("#selectTerm").val();
+		var time = endTerm - startTerm;
+		var judge = true;
+		if (judge) {
+			$.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/admin/addTermJudge?addStartTerm="+startTerm+"&addEndTerm="+endTerm+"&selectTerm="+selectTerm,
+				type : "get",
+				dataType : "text",
+				success : function(result) {
+					if (result.length != 0 && result != "null") {
+						alert(result);
+						judge  =false;	
+					}
+				}
+			})
+		}
+		if (judge) {
+			if (time != 1) {
+				alert("时间填写错误，重新填写");
+			} else {
+				$("#addTerm").submit();
+			}
+		}
+
+	}
 </script>
 <title>后台管理</title>
 </head>
@@ -245,7 +231,8 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -267,34 +254,121 @@
 					</li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toCategoryManager"
-						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a></li>
-
+						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a>
+					</li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
-						class="waves-effect waves-dark"
-						style="font-size: 20px; background-color: #f8f8f8">成果管理</a></li>
+						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
-						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
-					</li>
-										<li><a
-						href="${pageContext.request.contextPath}/admin/toTerm"
-						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
+						class="waves-effect waves-dark" style="font-size: 20px;">自然班管理</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/toTerm"
+						class="waves-effect waves-dark"
+						style="font-size: 20px; background-color: #f8f8f8">学期管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark" style="font-size: 20px">学术委员管理</a>
-					</li>
+						class="waves-effect waves-dark" style="font-size: 20px;">学术委员管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
-					</li>
+						class="waves-effect waves-dark" style="font-size: 20px;">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
-		<div class="RightContent col-md-10">
+		<div class="RightContent col-md-10" style="margin-top: 1%;">
 			<div class="panel-body"
-				style="padding-bottom: 0px; padding-top: 0px; margin-top: 1%; background-color: white;">
+				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
+				<button type="button" class="btn btn-primary btn-lg"
+					style="margin-top: 1%" data-toggle="modal" data-target="#add">添加学期信息</button>
 				<table id="tb_departments"></table>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="add" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加学期信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<form id="addTerm"
+							action="${pageContext.request.contextPath}/admin/addTerm"
+							method="post">
+							<div class="form-group">
+								<label for="categoryId" class="control-label">起始时间</label> <input
+									type="text" class="form-control" id="addStartTerm"
+									name="addStartTerm">
+							</div>
+							<div class="form-group">
+								<label for="categoryId" class="control-label">截止时间</label> <input
+									type="text" class="form-control" id="addEndTerm"
+									name="addEndTerm">
+							</div>
+							<div class="form-group">
+								<label for="categoryId" class="control-label">学期选择</label> <select
+									class="form-control" id="selectTerm" name="selectTerm">
+									<option>第一学期</option>
+									<option>第二学期</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" style="margin-left: 2%">关闭</button>
+								<button type="button" onclick="addTermBut()"
+									class="btn btn-primary">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="Edit" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">编辑学期信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<form
+							action="${pageContext.request.contextPath}/admin/updateAcademic">
+							<div class="form-group">
+								<label for="editName" class="control-label">姓名</label> <input
+									type="text" class="form-control" id="editName" name="editName">
+								<input type="text" class="form-control" id="editId"
+									name="editId" style="display: none">
+							</div>
+							<div class="form-group">
+								<label for="editPro" class="control-label">职称</label> <input
+									type="text" class="form-control" id="editPro" name="editPro">
+							</div>
+							<div class="form-group">
+								<label for="selectDe" class="control-label">系部</label> <select
+									class="selectpicker show-tick form-control"
+									data-live-search="true" name="editSe" id="editSe">
+									<c:forEach items="${departmentList }" var="de"
+										varStatus="status">
+										<option value="${de.num }">${de.name }</option>
+									</c:forEach>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" style="margin-left: 2%">关闭</button>
+								<button type="submit" class="btn btn-primary">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

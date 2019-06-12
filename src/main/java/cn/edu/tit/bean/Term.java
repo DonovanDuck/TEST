@@ -9,6 +9,7 @@ public class Term {
 	private String startYear;
 	private String endYear;
 	private String term;
+	
 	public String getTermId() {
 		return termId;
 	}
@@ -46,7 +47,6 @@ public class Term {
 	}
 	public Term() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	

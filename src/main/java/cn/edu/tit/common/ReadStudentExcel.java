@@ -148,15 +148,15 @@ public class ReadStudentExcel {
 				case 0:
 					student.setStudentId(getValue(cell) );
 					student.setStudentPassword(Common.eccryptMD5("123456"));
+					student.setClassNum(getValue(cell).substring(0,7));
+					student.setStudentCategory(getValue(cell).substring(4,5));
 					//student.setClassNum(getValue(cell).substring(0,7));
 					break;
 				case 1:
-					student.setStudentName( getValue(cell));
+					student.setStudentName(getValue(cell));
 					break;
 				case 2:
-					String classNum = getValue(cell);
-					student.setClassNum( getValue(cell));
-					student.setStudentCategory(classNum.substring(4,5));;
+					student.setProfessional(getValue(cell));
 					break;
 //				case 3:
 //					student.setStudentGender(getValue(cell) );

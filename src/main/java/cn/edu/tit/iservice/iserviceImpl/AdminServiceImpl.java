@@ -16,6 +16,7 @@ import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.ReadStudentExcel;
 import cn.edu.tit.common.ReadTeacherExcel;
@@ -180,6 +181,7 @@ public class AdminServiceImpl implements IAdminService {
 					{
 						realClass.setRealClassCategory(realClassNum.substring(4,5));
 					}
+					realClass.setRealClassCategory(realClassNum.substring(4,5));
 					realClass.setRealPersonNum(1);	
 					realClasses.add(realClass);
 					iAdminDao.addRealClass(realClasses); 
@@ -516,5 +518,15 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public void addAcademic(Academic ac) throws Exception {
 		iAdminDao.addAcademic(ac);			
+	}
+
+	@Override
+	public void addTerm(Term te) throws Exception {
+		iAdminDao.addTerm(te);			
+	}
+
+	@Override
+	public Term judgeTerm(String addStartTerm, String addEndTerm, String selectTerm) throws Exception {
+		return iAdminDao.judgeTerm(addStartTerm,addEndTerm,selectTerm);
 	}
 }
