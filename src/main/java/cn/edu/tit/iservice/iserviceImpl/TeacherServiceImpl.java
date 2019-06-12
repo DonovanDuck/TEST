@@ -32,6 +32,7 @@ import cn.edu.tit.bean.UpTask;
 import cn.edu.tit.bean.VirtualClass;
 import cn.edu.tit.common.ReadTeacherExcel;
 import cn.edu.tit.idao.IResourceDao;
+import cn.edu.tit.idao.IStudentDao;
 import cn.edu.tit.bean.TeacherProject;
 import cn.edu.tit.bean.Term;
 import cn.edu.tit.bean.VirtualClass;
@@ -48,6 +49,8 @@ import cn.edu.tit.iservice.ITeacherService;
 public class TeacherServiceImpl implements ITeacherService{
 	@Autowired
 	private  ITeacherDao teacherDao ;
+	@Autowired
+	private  IStudentDao studentDao ;
 	@Autowired
 	private  IResourceDao resourceDao ;
 
@@ -1010,7 +1013,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
 			List<String > studentIdList =null;
 			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
-			List<Student> studentAllList = teacherDao.studentList(classNums);//所有学生
+			List<Student> studentAllList =new ArrayList<Student>();
+			if(classNums.size()>0) {
+				studentAllList = teacherDao.studentList(classNums);//所有学生
+			}
+			
 			
 			for (String studentId : studentIdList) {
 				System.out.println("查看已经提交的学生Id"+studentId );
@@ -1274,7 +1281,13 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public int getTaskUserNum(String virtualClassNum) {
 		// TODO Auto-generated method stub
-		return teacherDao.getTaskUserNum(virtualClassNum);
+		try {
+			return teacherDao.getTaskUserNum(virtualClassNum);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+		
 	}
 		
 	@Override
@@ -1284,6 +1297,55 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
+	public List<Student> getStuAttended(String attendanceId) {
+		// TODO Auto-generated method stub
+		
+		return teacherDao.getStuAttended(attendanceId);
+	}
+
+	@Override
+	public Integer getLastAttIndex(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.getLastAttIndex(virtualClassNum);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public void addAttendance(Attendance att) {
+		// TODO Auto-generated method stub
+		teacherDao.addAttendance(att);
+	}
+
+	@Override
+	public Task getTaskById(String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskById(taskId);
+	}
+
+	@Override
+	public void updateTask(Task task) {
+		// TODO Auto-generated method stub
+		teacherDao.updateTask(task);
+	}
+
+	@Override
+	public void updateAccessory(List<Accessory> acc) {
+		// TODO Auto-generated method stub
+		teacherDao.deleteTaskAcc(acc.get(0).getTaskId());
+		try {
+			teacherDao.addAccessory(acc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
 	public List<Course> getAllCourse() {
 		return teacherDao.getAllCourse();
 	}
@@ -1291,6 +1353,48 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public List<Course> queryCourseByPartName(String courseName) {
 		return teacherDao.queryCourseByPartName(courseName);
+	}
+
+	@Override
+	public void updateCourseStudentNum(Integer count, String courseId) {
+		// TODO Auto-generated method stub
+		teacherDao.updateCourseStudentNum(count, courseId);
+	}
+
+	@Override
+	public void attend(String studentId, String attendanceId,Timestamp atttime) {
+		// TODO Auto-generated method stub
+		teacherDao.attend(studentId, attendanceId, atttime);
+	}
+
+	@Override
+	public List<Attendance> getALLAtt() {
+		// TODO Auto-generated method stub
+		return teacherDao.getALLAtt();
+	}
+
+	@Override
+	public String getAttRecordById(String studentId, String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttRecordById(studentId, attendanceId);
+	}
+
+	@Override
+	public void setTruancy(String studentId, String attid) {
+		// TODO Auto-generated method stub
+		teacherDao.setTruancy(studentId, attid);
+	}
+
+	@Override
+	public void setLeave(String studentId, String attid) {
+		// TODO Auto-generated method stub
+		teacherDao.setLeave(studentId, attid);
+	}
+
+	@Override
+	public String getAttTime(String studentId, String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttTime(studentId, attendanceId);
 	}
 
 }

@@ -17,6 +17,7 @@ import cn.edu.tit.bean.VirtualClass;
 
 @Component
 public interface IStudentDao {
+	
 	public Student studentLoginByEmployeeNum(String employeeNum)throws Exception;	//通过学号登录学生
 	public Student studentLoginByTelephone(String telephone)throws Exception;	//通过手机号登录学生
 	public Student studentLoginByEmail(String email)throws Exception;	//通过邮件登录学生
@@ -142,4 +143,20 @@ public interface IStudentDao {
 	 * @return
 	 */
 	public String getCourseIdByvId(String virtualClassNum);
+	
+	/**
+	 * 获取某班某类别(作业，实验，课设)某项任务的最低成绩
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public Integer getMinGradeInCategory(@Param(value="virtualClassNum")String virtualClassNum, @Param(value="taskCategory")String taskCategory);
+
+	/**
+	 * 获取某班某类别(作业，实验，课设)某项任务的最高成绩
+	 * @param virtualClassNum
+	 * @param taskCategory
+	 * @return
+	 */
+	public Integer getMaxGradeInCategory(@Param(value="virtualClassNum")String virtualClassNum, @Param(value="taskCategory")String taskCategory);
 }

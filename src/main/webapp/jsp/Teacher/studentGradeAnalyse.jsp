@@ -25,7 +25,7 @@
 			function TableInit(tableid){
 				$table = $('#'+tableid).bootstrapTable({
 					method : 'get',
-					url : "${pageContext.request.contextPath}/teacher/ajaxGetStudentTaskListPage?taskCategory=work",//请求路径
+					url : "${pageContext.request.contextPath}/student/ajaxGetStudentTaskListPage?taskCategory=work",//请求路径
 					dataType : "json",
 					striped : true, //是否显示行间隔色
 					pageNumber : 1, //初始化加载第一页

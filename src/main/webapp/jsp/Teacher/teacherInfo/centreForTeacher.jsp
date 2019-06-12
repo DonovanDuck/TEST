@@ -13,8 +13,38 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/teacher/own.css" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+<script type="text/javascript">
+	function reinitIframe(){
+		var iframe = document.getElementById("iframeContent");
+				
+				 try 
+				{ 
+				var bHeight = iframe.contentWindow.document.body.scrollHeight; 
+				/* 
+				var dHeight = iframe.contentWindow.document.documentElement.scrollHeight;
+				var height = Math.max(bHeight, dHeight); 
+				iframe.height = height; */ 
+				iframe.height = bHeight; 
+			//
+				} 
+				catch (ex) { } 
+	};
+	function setIframeHeight() {
+		
+		var iframe = document.getElementById('iframeContent');
+		if (iframe) {
+			var iframeWin = iframe.contentWindow
+					|| iframe.contentDocument.parentWindow;
+			if (iframeWin.document.body) {
+				iframe.height = iframeWin.document.documentElement.scrollHeight
+						|| iframeWin.document.body.scrollHeight;
+			}
+		}
+	};
+	
+	</script>
 </head>
-<body>
+<body style="background-color: #F8F8F8">
  <jsp:include page="/jsp/top.jsp" flush="true"/>
 <main>
     <div class="main_t" style="background: #fff;">
@@ -29,18 +59,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div class="main_b">
     	
         <div class="main_b_l">
-            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyCourse"><div class="nav1" ><p><img src="../images/k1.png" alt=""/><span>课程信息</span></p></div></a>
-            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>班级信息</span></p></div></a>
-            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyAchievement"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>成果信息</span></p></div></a>
-            <a target="iframeContent" href="../html/teacher_talk_iframe.html"><div class="nav1" ><p><img src="../images/l1.png" alt=""/><span>参与论坛</span></p></div></a>
-            <a><div class="nav1" onclick="d()"><p><img src="../images/j1.png" alt=""/><span>教师团队</span></p></div></a>
-            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyInfo"><div class="nav1" ><p><img src="../images/g1.png" alt=""/><span>个人信息</span></p></div></a>
+            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyCourse"><div class="nav1" ><p><img src="../images/k1.png" alt=""/><span>我的课程</span></p></div></a>
+            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyClass"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的班级</span></p></div></a>
+            <a target="iframeContent" href="#"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的成果</span></p></div></a>
+            <a target="iframeContent" href="#"><div class="nav1" ><p><img src="../images/b1.png" alt=""/><span>我的评价</span></p></div></a>
+            <a target="iframeContent" href="#"><div class="nav1" ><p><img src="../images/l1.png" alt=""/><span>我的讨论</span></p></div></a>
+            <a><div class="nav1" onclick="d()"><p><img src="../images/j1.png" alt=""/><span>我的团队</span></p></div></a>
+            <a target="iframeContent" href="${pageContext.request.contextPath}/teacher/toMyInfo"><div class="nav1" ><p><img src="../images/g1.png" alt=""/><span>修改信息</span></p></div></a>
         </div>
         <div class="main_b_r" style="width: 83%;float: left;height: 100%">
         <iframe  id="iframeContent" name="iframeContent"
-                 style="width: 100%;height: 100%"
-                frameborder="no" border="0" scrolling="no"
-                src="${pageContext.request.contextPath}/teacher/toMyCourse"></iframe>
+                width="900px" height="100%"
+                frameborder="no" border="0"scrolling="auto"
+                src="${pageContext.request.contextPath}/teacher/toMyCourse" ></iframe>
         </div>
     </div>
 </main>

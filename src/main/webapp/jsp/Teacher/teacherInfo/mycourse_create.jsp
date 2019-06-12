@@ -29,9 +29,14 @@
 	color: black;
 }
 </style>
+<script type="text/javascript"> 
+
+</script> 
 </head>
-<body>
-	<div class="main_b_r_b" id="k1">
+<body style="height: 100%;overflow: hidden;" onload="autoHeight();">
+	<div style="height: 1px;"> 
+	</div> 
+	<div class="main_b_r_b" id="k1" style="padding-bottom: 10px;">
 		<c:forEach items="${courseList }" var="course">
 			<a
 				href="${pageContext.request.contextPath}/teacher/toCourseDetail/${course.courseId }"
@@ -39,13 +44,13 @@
 				<div class="lesson">
 					<div class="lesson_l">
 						<c:if test="${empty course.faceImg }">
-							<img
-								src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
-								alt="" style="width: 100%; height: 100%;" />
-						</c:if>
+								<img
+									src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+									alt="" style="width: 100%; height: 100%;" />
+							</c:if>
 						<c:if test="${not empty course.faceImg }">
 							<img
-								src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+								src="${course.faceImg }"
 								alt="" style="width: 100%; height: 90%;" />
 						</c:if>
 					</div>

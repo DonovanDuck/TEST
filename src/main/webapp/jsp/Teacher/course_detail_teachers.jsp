@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html lang="zh-CN" style="background: #fff;">
+<html lang="zh-CN" style="background: #fff;overflow-x: hidden;">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
@@ -70,16 +70,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 									<div style="width: 100px; height: 50px;">
 										<ul style="list-style: none;">
 											<li style="margin-right: 10px; float: left;">${teacher.teacherName }</li>
-											<li>${teacher.professionalTitles }</li>
+											<li style="margin-right: 10px; float: left;">${teacher.professionalTitles }</li>
+											<li style="margin-right: 10px; float: left;">经验值：10</li>
 										</ul>
 									</div>
 								</li>
 							</ul>
 							<div style="clear: both;"></div>
 							<div class="a">
-							<div>学历：${teacher.educationBackground }</div>
-							<div>电话：${teacher.telephone }</div>
-							<div>邮箱：${teacher.email }</div>
+							<div>简介：${teacher.telephone }</div>
 							</div>
 						</div>
 					<!-- 清除浮动 -->

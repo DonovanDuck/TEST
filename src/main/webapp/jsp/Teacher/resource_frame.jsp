@@ -48,12 +48,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="main_b" style="margin-bottom: 27px;">
 <div style="position: absolute;
     top: 16px;
-    left: 931px;">
-					<a target="_blank" href='${pageContext.request.contextPath}/teacher/toCourseResource/${category}'>更多>></a>
+    left: 93%;">
+					<a target="_blank"  href='${pageContext.request.contextPath}/teacher/toCourseResource/${category}'>更多>></a>
 </div>
 </c:if>
 
-<ul>
+<ul style="    margin-top: 3%">
 <c:if test="${taskList != null }">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">

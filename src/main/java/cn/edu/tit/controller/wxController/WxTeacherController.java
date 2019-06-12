@@ -7,9 +7,12 @@ import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -30,8 +33,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import cn.edu.tit.bean.Accessory;
+import cn.edu.tit.bean.Attendance;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
@@ -46,8 +52,6 @@ import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IResourceService;
 import cn.edu.tit.iservice.IStudentService;
 import cn.edu.tit.iservice.ITeacherService;
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * 提供给微信的接口
@@ -554,6 +558,9 @@ public class WxTeacherController {
 				for(int i = 0; i < virtualClassList.size(); i++){
 					// 根据虚拟班级id获取自然班级列表
 					virtualClassList.get(i).setRealClassList(teacherService.getRealClassList(virtualClassList.get(i).getVirtualClassNum()));
+					String term = virtualClassList.get(i).getTerm();
+					Term  a = teacherService.getTermById(term);
+					virtualClassList.get(i).setTerm(a.getStartYear()+"-"+a.getEndYear()+" 学年"+a.getTerm());
 				}
 			}
 			ret.put("virtualClassList", virtualClassList);
@@ -587,6 +594,11 @@ public class WxTeacherController {
 				for(int i = 0; i < virtualClassList.size(); i++){
 					// 根据虚拟班级id获取自然班级列表
 					virtualClassList.get(i).setRealClassList(teacherService.getRealClassList(virtualClassList.get(i).getVirtualClassNum()));
+					String employeeNum = virtualClassList.get(i).getCreatorId(); 
+					virtualClassList.get(i).setCreatorId(teacherService.getTeacherNameById(employeeNum));
+					String term = virtualClassList.get(i).getTerm();
+					Term  a = teacherService.getTermById(term);
+					virtualClassList.get(i).setTerm(a.getStartYear()+"-"+a.getEndYear()+" 学年"+a.getTerm());
 				}
 			}
 			ret.put("virtualClassList", virtualClassList);
@@ -793,7 +805,7 @@ public class WxTeacherController {
 		List<String> taskIdList;
 		List<Task> taskList=new ArrayList<Task>();
 		String readResult =null;
-		Integer point=0;
+		Integer poit=0;
 		String upTaskDetail = null;
 		Timestamp now = new Timestamp(System.currentTimeMillis());
 		HashMap<String, String> upTaskDetail2taskList = new HashMap<String, String>();
@@ -811,6 +823,11 @@ public class WxTeacherController {
 		try {
 			taskIdList = teacherService.searchTaskId(virtualClassNum);//根据虚拟班级号获得任务列表
 			taskList = teacherService.TaskList(taskIdList);	//根据任务ID号获得任务实体
+			for(Task t : taskList){
+				upNum = teacherService.getUpNum(virtualClassNum, t.getTaskId());
+				t.setUpNum(upNum);
+				t.setTaskEndTime(teacherService.getTaskEndTime(virtualClassNum, t.getTaskId()));
+			}
 			ret.put("taskList", taskList);
 		}catch (Exception e) {
 			// TODO: handle exception
@@ -921,6 +938,8 @@ public class WxTeacherController {
 		upTask.setTaskId((String) formdata.get("taskId"));
 		upTask.setStudentId(studentId);
 		upTask.setTerm(term);
+		Timestamp t  = new Timestamp(System.currentTimeMillis());
+		upTask.setUpTime(t);
 		upTask.setUpTaskDetail((String) formdata.get("upTaskDetail"));
 		studentService.upTask(upTask, virtualClassNum);
 		
@@ -941,6 +960,38 @@ public class WxTeacherController {
 				ret.put("status", "error");
 				e.printStackTrace();
 			}
+		}
+		return ret;
+	}
+	
+	/**
+	 * 提交作业--无附件
+	 * @param request
+	 * @param taskId
+	 * @return
+	 */
+	@RequestMapping(value="upTaskNoAcc")
+	public Map<String, Object> upTaskNoAcc(HttpServletRequest request) {
+		Map<String, Object> ret = new HashMap<>();
+		
+		try {
+			// 创建list集合用于获取文件上传返回路径名
+			String studentId = request.getParameter("studentId");
+			String virtualClassNum = request.getParameter("virtualClassNum");
+			String term = teacherService.getVirtualById(virtualClassNum).getTerm();
+			UpTask upTask = new UpTask();
+			upTask.setTaskId(request.getParameter("taskId"));
+			upTask.setStudentId(studentId);
+			upTask.setTerm(term);
+			Timestamp t  = new Timestamp(System.currentTimeMillis());
+			upTask.setUpTime(t);
+			upTask.setUpTaskDetail(request.getParameter("upTaskDetail"));
+			studentService.upTask(upTask, virtualClassNum);
+			ret.put("status", "OK");
+		} catch (Exception e) {
+			// TODO: handle exception
+			ret.put("status", "error");
+			e.printStackTrace();
 		}
 		return ret;
 	}
@@ -1056,6 +1107,8 @@ public class WxTeacherController {
 			if(teacher!=null){
 				//获取所有发布的课程
 				List<Task> teacher_task = teacherService.getTaskByUserId(userId);
+				for(Task t : teacher_task){
+				}
 				ret.put("teacherTask", teacher_task);
 			}
 			else if(student != null){
@@ -1101,4 +1154,453 @@ public class WxTeacherController {
 		}
 		return ret;
 	}
+	/**
+	 * @author WENLI
+	 * @param request
+	 * @return
+	 * 分析成绩
+	 */
+	@RequestMapping("analyseGrade")
+	public Map<String, Object> analyseGrade(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="virtualClassNum") String virtualClassNum) {
+		Map<String, Object> ret = new HashMap<>();
+		int workPublishNum=0;	//作业发布次数
+		int trialPublishNum=0;	//实验发布次数
+		int courseDesignPublishNum=0;	//课设发布次数
+		int turnClassPublishNum=0;	//翻转课堂发布次数
+		int attencePublishNum=0;	//考勤发布次数
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			workPublishNum = teacherService.gettaskTypePublishNum(virtualClassNum, "work");
+			trialPublishNum = teacherService.gettaskTypePublishNum(virtualClassNum, "trial");
+			courseDesignPublishNum = teacherService.gettaskTypePublishNum(virtualClassNum, "course_design");
+			turnClassPublishNum = teacherService.gettaskTypePublishNum(virtualClassNum, "turn_class");
+			attencePublishNum = teacherService.gettaskTypePublishNum(virtualClassNum, "attence");
+			ret.put("workPublishNum", workPublishNum);
+			ret.put("trialPublishNum", trialPublishNum);
+			ret.put("courseDesignPublishNum", courseDesignPublishNum);
+			ret.put("turnClassPublishNum", turnClassPublishNum);
+			ret.put("attencePublishNum", attencePublishNum);
+			
+			//获得学生成绩
+			//定义用于成绩绑定的所有HASHMAP
+					HashMap<String, Integer> studentWorkGrade= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentTrialGrade= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentCourseDesignGrade= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentTurnClassGrade= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentAttenceGrade= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentWorkGradeNum= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentTrialGradeNum= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentCourseDesignGradeNum= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentTurnClassGradeNum= new HashMap<String, Integer>();
+					HashMap<String, Integer> studentAttenceGradeNum= new HashMap<String, Integer>();
+					List<Student> studentList = new ArrayList<Student>();
+					studentList = teacherService.getStudentList(virtualClassNum);
+					//根据学生ID绑定所有HASHMAP的值
+					for (Student student : studentList) {
+						studentWorkGrade.put(student.getStudentId(), teacherService.getStudentGrade(student.getStudentId(), virtualClassNum, "work"));
+						studentTrialGrade.put(student.getStudentId(), teacherService.getStudentGrade(student.getStudentId(), virtualClassNum, "trial"));
+						studentCourseDesignGrade.put(student.getStudentId(), teacherService.getStudentGrade(student.getStudentId(), virtualClassNum, "course_design"));
+						studentTurnClassGrade.put(student.getStudentId(), teacherService.getStudentGrade(student.getStudentId(), virtualClassNum, "turn_class"));
+						studentAttenceGrade.put(student.getStudentId(), teacherService.getStudentGrade(student.getStudentId(), virtualClassNum, "attence"));
+						studentWorkGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "work"));
+						studentTrialGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "trial"));
+						studentCourseDesignGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "course_design"));
+						studentTurnClassGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "turn_class"));
+						studentAttenceGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "attence"));
+					}
+				
+			        System.out.println("已经进来了...");
+			        //定义用于传递的JSONARRAY数组
+			        com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+			      //填充JSON数组内容
+			        for (Student student : studentList) {
+			        	 JSONObject ob=new JSONObject();
+			        	 ob.put("studentName", student.getStudentName());
+			        	 ob.put("studentId", student.getStudentId());
+			        	 ob.put("workGrade", studentWorkGrade.get(student.getStudentId())+"/"+studentWorkGradeNum.get(student.getStudentId()));
+			        	 ob.put("trialGrade", studentTrialGrade.get(student.getStudentId())+"/"+studentTrialGradeNum.get(student.getStudentId()));
+			        	 ob.put("courseDesignGrade", studentCourseDesignGrade.get(student.getStudentId())+"/"+studentCourseDesignGradeNum.get(student.getStudentId()));
+			        	 ob.put("turnClassGrade", studentTurnClassGrade.get(student.getStudentId())+"/"+studentTurnClassGradeNum.get(student.getStudentId()));
+			        	 ob.put("attenceGrade", studentAttenceGrade.get(student.getStudentId())+"/"+studentAttenceGradeNum.get(student.getStudentId()));
+			        	 ob.put("workGradeNum", studentWorkGradeNum.get(student.getStudentId()));
+			        	 ob.put("trialGradeNum", studentTrialGradeNum.get(student.getStudentId()));
+			        	 ob.put("courseDesignGradeNum", studentCourseDesignGradeNum.get(student.getStudentId()));
+			        	 ob.put("turnClassGradeNum", studentTurnClassGradeNum.get(student.getStudentId()));
+			        	 ob.put("attenceGradeNum", studentAttenceGradeNum.get(student.getStudentId()));
+			        	 ob.put("sumGrade",studentWorkGrade.get(student.getStudentId())
+			        			 +studentTrialGrade.get(student.getStudentId())
+			        			 +studentCourseDesignGrade.get(student.getStudentId())
+			        			 +studentTurnClassGrade.get(student.getStudentId())
+			        			 +studentAttenceGrade.get(student.getStudentId()));
+			        	//装进数组
+			             arr.add(ob);
+			        }
+			        //根据成绩排序
+			        List<JSONObject>list = com.alibaba.fastjson.JSONArray.parseArray(arr.toJSONString(),JSONObject.class);
+			        System.out.println("排序前："+arr);
+			        Collections.sort(list, new Comparator<JSONObject>() {
+			            @Override
+			            public int compare(JSONObject o1, JSONObject o2) {
+			                int a = o1.getInteger("sumGrade");
+			                int b = o2.getInteger("sumGrade");
+			                if (a > b) {
+			                    return -1;
+			                } else if(a == b) {
+			                    return 0;
+			                } else
+			                    return 1;
+			                }
+			        });
+			        com.alibaba.fastjson.JSONArray jsonArray = com.alibaba.fastjson.JSONArray.parseArray(list.toString());
+			        System.out.println("排序后：" + jsonArray);
+			        //排序完毕之后绑定学生排名
+			        if(jsonArray.size()>0){
+			        	  for(int i=0;i<jsonArray.size();i++){
+			        	    JSONObject ob = jsonArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+			        	    ob.put("studentRank", i+1);
+			        	  }
+			        }
+			        ret.put("grade", jsonArray);
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 学生成绩分析
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toPersonAccomplishment")
+	public Map<String, Object> toPersonAccomplishment(HttpServletRequest request,HttpServletResponse response,
+			@RequestParam(value="studentId") String studentId,@RequestParam(value="virtualClassNum") String virtualClassNum) {
+		Map<String, Object> ret = new HashMap<>();
+		int gradeWork=0;
+		int gradeTrial=0;
+		int gradeCourseDesign=0;
+		int gradeTurnClass=0;
+		int gradeAttence=0;
+		
+		int upNumWork = 0;
+		int upNumTrial = 0;
+		int upNumCourseDesign = 0;
+		int upNumTurnClass = 0;
+		int upNumAttence = 0;
+		try {
+
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			gradeWork = teacherService.getStudentGrade(studentId, virtualClassNum, "work");
+			gradeTrial = teacherService.getStudentGrade(studentId, virtualClassNum, "trial");
+			gradeCourseDesign = teacherService.getStudentGrade(studentId, virtualClassNum, "course_design");
+			gradeTurnClass = teacherService.getStudentGrade(studentId, virtualClassNum, "turn_class");
+			gradeAttence = teacherService.getStudentGrade(studentId, virtualClassNum, "attence");
+
+			upNumWork = teacherService.getStudentGradeNum(studentId, virtualClassNum, "work");
+			upNumTrial = teacherService.getStudentGradeNum(studentId, virtualClassNum, "trial");
+			upNumCourseDesign = teacherService.getStudentGradeNum(studentId, virtualClassNum, "course_design");
+			upNumTurnClass = teacherService.getStudentGradeNum(studentId, virtualClassNum, "turn_class");
+			upNumAttence = teacherService.getStudentGradeNum(studentId, virtualClassNum, "attence");
+			
+			/*int minGradeWork = 0;
+			int maxGradeWork = 0;
+			int minGradeTrial = 0;
+			int maxGradeTrial = 0;
+			int minGradeTurnClass = 0;
+			int maxGradeTurnClass = 0;
+			int minGradeCourseDesign = 0;
+			int maxGradeCourseDesign = 0;
+			
+			  minGradeWork = studentService.getMinGradeInCategory(virtualClassNum, "work");
+			  maxGradeWork = studentService.getMaxGradeInCategory(virtualClassNum, "work");
+			  minGradeTrial = studentService.getMinGradeInCategory(virtualClassNum,"trial"); 
+			  maxGradeTrial = studentService.getMaxGradeInCategory(virtualClassNum, "trial");
+			  minGradeTurnClass = studentService.getMinGradeInCategory(virtualClassNum, "turn_class"); 
+			  maxGradeTurnClass =studentService.getMaxGradeInCategory(virtualClassNum, "turn_class");
+			  minGradeCourseDesign = studentService.getMinGradeInCategory(virtualClassNum, "course_design");
+			  maxGradeCourseDesign = studentService.getMaxGradeInCategory(virtualClassNum, "course_design");
+			 
+			
+			ret.put("minGradeWork",minGradeWork );	
+			ret.put("maxGradeWork",maxGradeWork );	
+			ret.put("minGradeTrial",minGradeTrial );	
+			ret.put("maxGradeTrial",maxGradeTrial );	
+			ret.put("minGradeTurnClass",minGradeTurnClass );	
+			ret.put("maxGradeTurnClass",maxGradeTurnClass );	
+			ret.put("minGradeCourseDesign",minGradeCourseDesign );	
+			ret.put("maxGradeCourseDesign",maxGradeCourseDesign );		
+			*/
+			List<Task> workList = new ArrayList<Task>();
+			JSONArray workArr =  new JSONArray();
+			List<Task> trialList = new ArrayList<Task>();
+			JSONArray trialArr =  new JSONArray();
+			List<Task> turn_classList = new ArrayList<Task>();
+			JSONArray turn_classArr =  new JSONArray();
+			List<Task> course_designList = new ArrayList<Task>();
+			JSONArray course_designArr =  new JSONArray();
+			
+			workList = teacherService.getTaskByCategory(virtualClassNum, "work");
+			trialList = teacherService.getTaskByCategory(virtualClassNum, "trial");
+			turn_classList = teacherService.getTaskByCategory(virtualClassNum, "turn_class");
+			course_designList = teacherService.getTaskByCategory(virtualClassNum, "course_design");
+			
+			workArr = taskSort(workList, studentId);
+			trialArr = taskSort(trialList, studentId);
+			turn_classArr = taskSort(turn_classList, studentId);
+			course_designArr = taskSort(course_designList, studentId);
+			
+			
+			ret.put("gradeWork",gradeWork );
+			ret.put("gradeTrial",gradeTrial );
+			ret.put("gradeCourseDesign",gradeCourseDesign );
+			ret.put("gradeTurnClass",gradeTurnClass );
+			ret.put("gradeAttence",gradeAttence );
+			ret.put("upNumWork",upNumWork );
+			ret.put("upNumTrial",upNumTrial );
+			ret.put("upNumCourseDesign",upNumCourseDesign );
+			ret.put("upNumTurnClass",upNumTurnClass );
+			ret.put("upNumAttence",upNumAttence );
+			ret.put("work", workArr);
+			ret.put("trial", trialArr);
+			ret.put("turn_class", turn_classArr);
+			ret.put("course_design", course_designArr);
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 获取某个班级的考勤列表
+	 * @param request
+	 * @param virtualClassNum
+	 * @return
+	 */
+	@RequestMapping(value="getAttendanceByClass")
+	public Map<String, Object> getAttendanceByClass(@RequestParam(value="virtualClassNum") String virtualClassNum){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			List<Attendance> attendanceList = new ArrayList<>();
+			attendanceList = teacherService.getAttendanceDetail(virtualClassNum);
+			ret.put("attendanceList", attendanceList);
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+	
+	/**
+	 * 显示已打卡，和未打卡的学生
+	 * @return
+	 */
+	@RequestMapping(value="getStuAttStituation")
+	public Map<String, Object> getStuAttStituation(@RequestParam(value="attendanceId") String attendanceId,@RequestParam(value="virtualClassNum") String virtualClassNum){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//获得已打卡的学生
+			List<Student> attendedList = new ArrayList<>();
+			attendedList = teacherService.getStuAttended(attendanceId);
+			Map<String, Object> attendedMap = new HashMap<>();
+			//获取未打卡的学生
+			List<Student> studentList = teacherService.getStudentList(virtualClassNum);//获取班上所有的学生
+			List<Student> disattended = new ArrayList<>();
+			//做差集得到未打卡的
+			if(studentList != null && !studentList.isEmpty()){
+				for(Student s : studentList){
+					boolean flag = true;
+					for(Student stu : attendedList){
+						if(s.getStudentId().equals(stu.getStudentId())){
+							flag = false;
+							break;
+						}
+					}
+					if(flag)
+						disattended.add(s);
+				}
+			}
+			for(Student student : attendedList){
+				//获取打卡时间
+				String atttime = teacherService.getAttTime(student.getStudentId(),attendanceId);
+				if(!"".equals(atttime)&&atttime != null){
+					atttime = atttime.toString().substring(0, 16);
+					String sid = student.getStudentId();
+					student.setStudentId(atttime);
+					attendedMap.put(sid, student);
+				}
+			}
+			ret.put("attendedMap", attendedMap);
+			ret.put("disattended", disattended);
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+	
+	/**
+	 * 教师开启打卡
+	 * @return
+	 */
+	@RequestMapping(value="startAttend")
+	public Map<String, Object> startAttend(@RequestParam(value="employeeNum") String employeeNum,
+			@RequestParam(value="virtualClassNum") String virtualClassNum){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			Attendance att = new Attendance();
+			att.setAttendanceId(Common.uuid());
+			att.setVirtualClassNum(virtualClassNum);
+			//设置第几次打卡
+			att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
+			Timestamp attTime = new Timestamp(System.currentTimeMillis());
+			att.setAttendanceTime(attTime);
+			att.setAttendanceNum(0);
+			att.setTotalNum(teacherService.getTaskUserNum(virtualClassNum));
+			att.setLeaveNum(0);
+			att.setTruancyNum(0);
+			att.setPublishId(employeeNum);
+			//添加
+			teacherService.addAttendance(att);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 学生打卡
+	 * @return
+	 */
+	@RequestMapping(value="attend")
+	public Map<String, Object> attend(@RequestParam(value="studentId") String studentId,
+			@RequestParam(value="attendanceId") String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			Timestamp atttime = new Timestamp(System.currentTimeMillis());
+			teacherService.attend(studentId,attendanceId,atttime);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("img", "不能重复打卡！");
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+	
+	/**
+	 * 显示某学生打卡记录
+	 * @return
+	 */
+	@RequestMapping(value="showStuAtt")
+	public Map<String, Object> showStuAtt(@RequestParam(value="studentId") String studentId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//获取所有打卡记录
+			List<Attendance> attList = teacherService.getALLAtt();
+			List<Attendance> stuAtted = new ArrayList<>();
+			List<Attendance> stuNoAtted = new ArrayList<>();
+			if(attList != null && !attList.isEmpty()){
+				for(Attendance a : attList){
+					VirtualClass vclass = teacherService.getVirtualById(a.getVirtualClassNum());
+					//将打卡记录的班级号改为班级名
+					if(vclass != null)
+						a.setVirtualClassNum(vclass.getVirtualClassName());
+					String sid = teacherService.getAttRecordById(studentId,a.getAttendanceId());
+					if(!"".equals(sid) && sid != null){
+						stuAtted.add(a);
+					}
+					else{
+						stuNoAtted.add(a);
+					}
+				}
+			}
+			ret.put("stuAtted", stuAtted);
+			ret.put("stuNoAtted", stuNoAtted);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("img", "不能重复打卡！");
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+	
+	/**
+	 * 打卡结束，标记未打卡的人请假还是缺勤
+	 * @return
+	 */
+	@RequestMapping(value="signLeaveOrTruancy")
+	public Map<String, Object> signLeaveOrTruancy(@RequestParam(value="noAttMap") Map<String, String> noAttMap,
+			@RequestParam(value="attendanceId")String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			if(noAttMap != null){
+				for(Entry<String, String> en : noAttMap.entrySet()){
+					if("0".equals(en.getValue())){
+						//设置为缺勤
+						teacherService.setTruancy(en.getKey(),attendanceId);
+					}
+					else if("1".equals(en.getValue())){
+						//设置为请假
+						teacherService.setLeave(en.getKey(),attendanceId);
+					}
+				}
+			}
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+
+	
+	private JSONArray taskSort(List<Task> taskList, String studentId){
+		
+		HashMap<String, Integer>studentGradeMap = new HashMap<String, Integer>();
+		HashMap<String , Integer>maxGrade = new HashMap<String, Integer>();
+		HashMap<String , Integer>minGrade = new HashMap<String, Integer>();
+		for (Task task : taskList) {
+			studentGradeMap.put(task.getTaskId(),  teacherService.getGrade(task.getTaskId(), studentId));
+			maxGrade.put(task.getTaskId(), studentService.getMaxGradeInTask(task.getTaskId()));
+			minGrade.put(task.getTaskId(), studentService.getMinGradeInTask(task.getTaskId()));
+		}
+		JSONArray arr =  new JSONArray();
+		for (Task task : taskList) {
+			JSONObject ob= new JSONObject();
+			ob.put("taskId", task.getTaskId());
+			ob.put("taskTitle", task.getTaskTitle());
+			ob.put("mygrade", studentGradeMap.get(task.getTaskId()));
+			ob.put("minGrade", minGrade.get(task.getTaskId()));
+			ob.put("maxGrade", maxGrade.get(task.getTaskId()));
+			arr.add(ob);
+		}
+		return arr;
+	}
+	
 }

@@ -714,6 +714,100 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	
+	/**
+	 * 获得已打卡的学生
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public List<Student> getStuAttended(String attendanceId);
+	
+	/**
+	 * 获取某个班最近一次打卡是第几次
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public Integer getLastAttIndex(String virtualClassNum);
+	
+	/**
+	 * 添加打卡
+	 * @param att
+	 */
+	public void addAttendance(Attendance att);
+	
+	/**
+	 * 通过id获取任务
+	 * @param taskId
+	 * @return
+	 */
+	public Task getTaskById(String taskId);
+	
+	/**
+	 * 修改任务
+	 * @param task
+	 */
+	public void updateTask(Task task);
+	
+	/**
+	 * 修改任务附件
+	 * @param acc
+	 */
+	public void updateAccessory(List<Accessory> acc);
+	
+
 	public List<Course> getAllCourse();
 	public List<Course> queryCourseByPartName(String courseName);
+	
+	/**
+	 * 修改课程学生人数
+	 * @param count
+	 * @param courseId
+	 */
+	public void updateCourseStudentNum(Integer count,String courseId);
+	
+	/**
+	 * 学生打卡
+	 */
+	public void attend(String studentId,String attendanceId,Timestamp atttime);
+	
+	/**
+	 * 获取所有打卡记录
+	 * @return
+	 */
+	public List<Attendance> getALLAtt();
+	
+	/**
+	 * 查询某学生是否有此打卡记录
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttRecordById(String studentId,String attendanceId);
+	
+	/**
+	 * 设置缺勤
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setTruancy(String studentId, String tid);
+	
+	/**
+	 * 设置请假
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setLeave(String studentId, String tid);
+	
+	
+	/**
+	 * 获取打卡时间
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttTime(String studentId,String attendanceId);
+	
+	
+	
+	
 }

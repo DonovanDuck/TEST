@@ -24,9 +24,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     }
 		</script>
 	</head>
-	<body style="background-color: #f8f8f8;">
+	<body style="background-color: #f8f8f8;" >
 	<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div id="header">
+		</div>
+		<div style="width: 1200px;padding-top: 10px;margin: 0 auto; margin-bottom: 10px;">
+		<div style="width: 100%;height: 100px;background-color: #fff;margin-bottom: 10px;text-align:left;padding-left: 20px;padding-top: 20px">
+				<div style="margin-bottom: 10px"><span style="font-size: 28px;font-weight: bold;">${courseName }</span></div>
+				<div><span style="font-size: 18px;">${virtualClassName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课教师：${teacherClassName }</span></div>
 		</div>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
@@ -61,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 		</div>
-		<div class="workdiv" style="margin-top: 20px;">
+		<div class="workdiv" style="margin-top: 10px;">
 			<div class="workcontent">
 					<div style="height: 30px;">
 						<div style="float: left;"><h4 style="font-weight: bold;">作业详情</h4></div>
@@ -83,15 +88,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						</div>
 					</div>
 					<div class="timestaus" style="float: left;height: 50px;margin-top: -10px;">
-						<h8>提交人：${student.studentName }</h8>
+						<h8>提交人：${student1.studentName }</h8>
 					</div>
 				</form>
 			</div>
 		</div>
 
-		<div class="workdiv" style="margin-top: 20px;">
+		<div class="workdiv" style="margin-top: 10px;">
 			<div class="workcontent">
-				<form action="${pageContext.request.contextPath}/teacher/commendWork?studentId=${student.studentId }&taskId=${task.taskId}" method="post">
+				<form action="${pageContext.request.contextPath}/teacher/commendWork?studentId=${student1.studentId }&taskId=${task.taskId}" method="post">
 					<div style="height: 30px;">
 						<div style="float: left;"><h4 style="font-weight: bold;">评分详情</h4></div>
 						
@@ -107,23 +112,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						
 						<!-- <input id="stuentgrade" type="text"onkeyup="this.value=this.value.replace(/\D/g,'')" onafterpaste="this.value=this.value.replace(/\D/g,'')" maxlength="2" size="1"  class="form-control" style="float: left;width: 10%;"  placeholder="Jane Doe"/> -->
 						
-						<input id="grade" name="grade" style="float: left;width: 15%;" type="text"  name="payMoney[]" onkeyup="clearNoNum(this)" value=""placeholder="请输入学生分数(纯数字)"  class="form-control" oninput="if(value>10)value=10;if(value<0)value=0">
+						<input id="grade" name="grade"  style="float: left;width: 15%;" type="text"  name="payMoney[]" onkeyup="clearNoNum(this)" value="0" placeholder="请输入学生分数(纯数字)"  class="form-control" oninput="if(value>10)value=10;if(value<0)value=0">
 					</div>
 					<div class="torecommend" style="width: 100%;">
 						<textarea name="comment"  autofocus="autofocus" placeholder="作业评语"  style="resize:none; width: 100%;height: 150px;margin-top: 20px;" id="TestCode" wrap="logical" ></textarea>
 					</div>
 					
 					<div style="margin-bottom: 50px;">
-						<button type="submit" class="btn btn-default">提交</button>
+						<button type="submit" class="btn btn-primary">提交</button>
 					</div>
 					</c:if>
 					<c:if test="${not empty grade }">
 							<div style="text-align:left ;">
-								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 14px;font-weight: bold; ">评语：</span><span style="font-size: 14px;">${comment }</span>
+								<span style="word-wrap:break-word; word-break:break-all; overflow: hidden;font-size: 16px;font-weight: bold; ">评语：</span><span style="font-size: 16px;">${comment }</span>
 							</div>
 							<hr>
 							<div style="text-align:left ;">
-								<span style="font-size: 14px;font-weight: bold;">作业成绩：</span> <span style="font-size: 14px;color: red">${grade }</span>
+								<span style="font-size: 16px;font-weight: bold;">作业成绩：</span> <span style="font-size: 20px;color: red;font-weight: bold; ">${grade }</span>
 							</div>
 					</c:if>
 				</form>
@@ -131,7 +136,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 		</div>
-		
+		</div>
+		<div style="width: 100%;height: 20px;background-color: #f8f8f8;">
+		</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
@@ -169,5 +176,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				unpublished.style.display="block";
 			}
 		</script>
+		<jsp:include page="/jsp/footer.jsp" flush="true" />
 	</body>
 </html>

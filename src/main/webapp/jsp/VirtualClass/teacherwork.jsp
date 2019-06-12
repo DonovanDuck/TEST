@@ -17,6 +17,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</head>
 	<body style="background-color: #f8f8f8;">
 			<jsp:include page="/jsp/top.jsp" flush="true"/>
+		<div style="width: 1200px;padding-top: 10px">
+			<div style="width: 100%;height: 100px;background-color: #fff;margin-bottom: 10px;text-align:left;padding-left: 20px;padding-top: 20px">
+				<div style="margin-bottom: 10px"><span style="font-size: 28px;font-weight: bold;">${courseName }</span></div>
+				<div><span style="font-size: 18px;">${virtualClassName } &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;授课教师：${teacherClassName }</span></div>
+			</div>
 		<div class="worktitle">
 			<div style="width: 10px;height: 10px;margin-top: 20px;margin-left: 20px;background-color: blue;float: left;"></div>
 			<h4 style="float: left;line-height: 170%;margin-left: 20px;font-weight: bold;">${task.taskTitle }</h4>
@@ -61,21 +66,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
 						<div class="studentinfo">
 							<img src="${pageContext.request.contextPath}/img/facedownload.jpg" alt="头像" class="img-circle" style="float: left;width: 100px;height: 100px;">
-							<div class="" style="float: left;margin: 10px 30px;width: 20%;">
+							<div class="" style="float: left;margin: -8px 30px;width: 30%;">
 								<div class="classnum"> <h4>${student1.studentId }</h4> </div>
 								<div class="studentname"> <h3>${student1.studentName }</h3> </div>
+								<div >
+								<span style="font-size: 18px;">提交时间：${fn:substring(studentToUpTask[student1.studentId].upTime,0,16)}</span>
+								</div>
 							</div>
-							<div style="width: 50%;height: 100px;margin: 0 auto;line-height: 620%;float: left;">
-								<span style="font-size: 18px">提交时间：</span><span style="font-size: 18px;color: red;">${fn:substring(studentToUpTask[student1.studentId].upTime,0,16)}&nbsp;&nbsp;</span>
-								<c:if test="${empty studentTograde[student1.studentId] }">
-								<span style="font-size: 18px">尚未评分</span>
+							<div style="width: 40%;height: 100px;margin: 0 auto;line-height: 350%;float: left;padding-left: 3%">
 								
+								<c:if test="${empty studentTograde[student1.studentId] }">
+								<div style="height: 30px">
+								<span style="font-size: 18px">尚未评分</span>
+								</div>
 								</c:if>
 								
 								<c:if test="${not empty studentTograde[student1.studentId] }">
+								<div style="height: 30px">
 								<span style="font-size: 18px">获得分数：</span><span style="font-size: 18px;color: red;font-weight: bold;">${studentTograde[student1.studentId] }&nbsp;&nbsp;</span>
-								<span style="font-size: 18px">批阅时间：</span><span style="font-size: 18px;color: red;">${fn:substring(studentToUpTask[student1.studentId].commentTime,0,16)}&nbsp;&nbsp;</span>
-								
+								</div>
+								<div style="height: 30px;    margin-top: 32px;">
+								<span style="font-size: 18px">批阅时间：</span><span style="font-size: 18px;">${fn:substring(studentToUpTask[student1.studentId].commentTime,0,16)}&nbsp;&nbsp;</span>
+								</div>
 								</c:if>
 								
 							</div>
@@ -116,6 +128,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				</div>
 			</div>
 		</div>
+		<div style="width: 100%;height: 20px;background-color: #f8f8f8;">
+		</div>
 		<script type="text/javascript">
 			// $(document).ready(function(){
 			// 	$("#publishedlist").css('display','none'); 
@@ -151,12 +165,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				$('#unpublishedlist').show();
 			}
 		</script>
+		</div>
 		<div class="goback" style="height: 30px;width: 60px;position: fixed;bottom: 170px;right: 70px;">
-			<a target="_top" href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClassNum }&virtualClassName=${virtualClassName }">
+			<a target="_top" href="${pageContext.request.contextPath}/teacher/toClassDetail?virtualClassNum=${virtualClassNum }&virtualClassName=${virtualClassName }&courseName=${courseName }">
 				<span class="glyphicon glyphicon-send" aria-hidden="true"></span>
 				<span class="glyphicon-class">返回作业列表页</span>
 			</a>
 		</div>
-		<jsp:include page="/jsp/footer.jsp" flush="true"/>
+		<jsp:include page="/jsp/footer.jsp" flush="true" />
 	</body>
 </html>
