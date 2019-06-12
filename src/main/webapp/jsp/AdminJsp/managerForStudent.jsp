@@ -334,7 +334,7 @@
 					<button type="submit" class="btn btn-default"
 						style="margin-top: 2%">提交</button>
 				</form>
-				<div>文件格式：学号、姓名、班级、性别、密码、邮箱、专业、电话</div>
+				<div>文件格式：学号、姓名、专业</div>
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
