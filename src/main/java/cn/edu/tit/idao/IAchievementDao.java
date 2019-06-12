@@ -9,6 +9,7 @@ import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
@@ -78,7 +79,11 @@ public interface IAchievementDao {
 	public void insertAchievementAccessory(@Param("list")List<AchievementAccessory> list)throws Exception;
 
 	public void insertAchievementComment(@Param("comment")AchievementComment comment)throws Exception;
-	public List<AchievementComment> queryComment(@Param("achievementId")String achievementId,@Param("category")String category);
-
+	public List<AchievementComment> queryTeaComment(@Param("achievementId")String achievementId,@Param("category")String category);
+	public List<AchievementComment> queryStuComment(@Param("achievementId")String achievementId,@Param("category")String category);
+	
 	public Integer verifyAlreadyComment(@Param("userId")String userId, @Param("id")String id)throws Exception;
+	public void insertScore(AchievementScore as);
+	public AchievementScore queryAchievementScoreById(@Param("achievementId")String achievementId);
+	public void updateScore(AchievementScore as);
 }

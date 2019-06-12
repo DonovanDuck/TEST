@@ -12,6 +12,7 @@ import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 
 
 public interface IAdminService {
@@ -149,5 +150,9 @@ public interface IAdminService {
 	List<Department> readAllDepartment() throws Exception;
 
 	public void addAcademic(Academic ac) throws Exception;
+
+	public void addTerm(Term te) throws Exception;
+
+	public Term judgeTerm(String addStartTerm, String addEndTerm, String selectTerm)throws Exception;
 
 }

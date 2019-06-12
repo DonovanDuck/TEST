@@ -26,8 +26,8 @@
 	padding: 0px;
 }
 
-.chengguo-out{
-	height:20%;
+.chengguo-out {
+	height: 20%;
 }
 
 .achievementTitle {
@@ -43,8 +43,21 @@
 	font-size: 15px;
 	word-break: break-all;
 	text-overflow: ellipsis;
-	-webkit-line-clamp: 1;
+	-webkit-line-clamp: 2;
 	color: gray;
+}
+
+.titleStyle {
+	display: -webkit-box;
+	-webkit-box-orient: vertical;
+	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	font-size: 15px;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	-webkit-line-clamp: 1;
+	color: black;
 }
 
 .publishTime {

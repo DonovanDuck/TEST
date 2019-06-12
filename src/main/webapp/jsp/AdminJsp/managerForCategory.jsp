@@ -192,7 +192,7 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="#">登出</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -224,6 +224,9 @@
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
 					</li>
+										<li><a
+						href="${pageContext.request.contextPath}/admin/toTerm"
+						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAcademicManager"
 						class="waves-effect waves-dark" style="font-size: 20px">学术委员管理</a>

@@ -16,6 +16,7 @@ import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.common.ReadStudentExcel;
 import cn.edu.tit.common.ReadTeacherExcel;
@@ -67,7 +68,6 @@ public class AdminServiceImpl implements IAdminService {
 		String insertMsg = "";
 		try {
 			teacherList = readExcel.getExcelInfo(file);	//调用函数，获取到装有Teacher对象的teacherList集合
-
 			for(Teacher s :teacherList) {	
 				s.setTeacherPassword(Common.eccryptMD5(s.getTeacherPassword()));
 				insertResult++;
@@ -153,19 +153,19 @@ public class AdminServiceImpl implements IAdminService {
 				insertResult++;
 				//以下一段是用来系统初始化所有班级时使用的，由于没有所有班级表，所以采用这种方式获得所有班级，日后，如果有了班级表，则可直接从班级表获得
 				String realClassNum = s.getClassNum();
-				String classNum = realClassNum.substring(0,7);
+				//String classNum = realClassNum.substring(0,7);
 				String departmentNum = null;
 				RealClass real = null;
-				real = iAdminDao.getRealClassByNum(classNum);
+				real = iAdminDao.getRealClassByNum(realClassNum);
 				if(real!=null)
 				{
-					iAdminDao.updateStudentNumInRealClass(classNum);
+					iAdminDao.updateStudentNumInRealClass(realClassNum);
 				}
 				if(real == null)
 				{
 					RealClass realClass = new RealClass();
-					realClass.setRealClassNum(classNum);
-					departmentNum = realClassNum.substring(4,5);
+					realClass.setRealClassNum(realClassNum);
+					departmentNum = s.getStudentCategory();
 					Department de = null;
 					de = iAdminDao.readDepartmentByNum(departmentNum);
 					if(de==null)
@@ -174,12 +174,14 @@ public class AdminServiceImpl implements IAdminService {
 						dee.setId(Common.uuid());
 						dee.setName("未命名");
 						dee.setNum(Integer.parseInt(departmentNum));
+						dee.setDeleteFlag(1);
 						iAdminDao.addDepartment(dee);
 					}
 					if(de!=null)
 					{
 						realClass.setRealClassCategory(realClassNum.substring(4,5));
 					}
+					realClass.setRealClassCategory(realClassNum.substring(4,5));
 					realClass.setRealPersonNum(1);	
 					realClasses.add(realClass);
 					iAdminDao.addRealClass(realClasses); 
@@ -516,5 +518,15 @@ public class AdminServiceImpl implements IAdminService {
 	@Override
 	public void addAcademic(Academic ac) throws Exception {
 		iAdminDao.addAcademic(ac);			
+	}
+
+	@Override
+	public void addTerm(Term te) throws Exception {
+		iAdminDao.addTerm(te);			
+	}
+
+	@Override
+	public Term judgeTerm(String addStartTerm, String addEndTerm, String selectTerm) throws Exception {
+		return iAdminDao.judgeTerm(addStartTerm,addEndTerm,selectTerm);
 	}
 }

@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.IAdminDao">
-
+	<resultMap type="cn.edu.tit.bean.Term" id="termMap">
+		<id column="term_id" property="termId" />
+		<result column="start_year" property="startYear" />
+		<result column="end_year" property="endYear" />
+		<result column="term" property="term" />
+	</resultMap>
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
@@ -354,11 +359,25 @@
 		set
 		delete_flag = 0 where id = #{id}
 	</update>
-
 	<update id="updateAcademic" parameterType="cn.edu.tit.bean.Academic">
 		update academic
 		set
 		name = #{name},professional = #{professional},department =
 		#{department} where id = #{id}
 	</update>
+
+	<insert id="addTerm" parameterType="cn.edu.tit.bean.Term">
+		INSERT INTO term
+		(term_id,
+		start_year,
+		end_year,
+		term)
+		VALUES
+		(#{termId},#{startYear},#{endYear},#{term});
+	</insert>
+	
+	<select id="judgeTerm" parameterType="java.lang.String"
+		resultMap="departmentMap">
+		select * from term where start_year = #{s} and end_year = #{e} and term = #{st};
+	</select>
 </mapper>
