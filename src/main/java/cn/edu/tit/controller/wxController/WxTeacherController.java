@@ -1461,11 +1461,16 @@ public class WxTeacherController {
 			@RequestParam(value="virtualClassNum") String virtualClassNum){
 		Map<String, Object> ret = new HashMap<>();
 		try {
+			//判断此班级是否有正在进行的打卡
+//			boolean isAttend = teacherService.
 			Attendance att = new Attendance();
 			att.setAttendanceId(Common.uuid());
 			att.setVirtualClassNum(virtualClassNum);
 			//设置第几次打卡
-			att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
+			if(teacherService.getLastAttIndex(virtualClassNum) != null)
+				att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
+			else
+				att.setAttIndex(1);
 			Timestamp attTime = new Timestamp(System.currentTimeMillis());
 			att.setAttendanceTime(attTime);
 			att.setAttendanceNum(0);
@@ -1475,6 +1480,27 @@ public class WxTeacherController {
 			att.setPublishId(employeeNum);
 			//添加
 			teacherService.addAttendance(att);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 教师关闭打卡
+	 * @return
+	 */
+	@RequestMapping(value="endAttend")
+	public Map<String, Object> endAttend(@RequestParam(value="attendanceId") String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//添加
+//			teacherService.endAttendance(attendanceId);
 			ret.put("status", "ok");
 			return ret;
 		} catch (Exception e) {
