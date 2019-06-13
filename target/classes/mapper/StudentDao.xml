@@ -77,7 +77,7 @@
 
 	<select id="studentVirtualClassId"
 		parameterType="java.lang.String" resultType="java.lang.String">
-		select * from
+		select virtual_class_num from
 		real_virtual_class where real_class_num = #{classnum};
 	</select>
 	<resultMap type="cn.edu.tit.bean.VirtualClass"

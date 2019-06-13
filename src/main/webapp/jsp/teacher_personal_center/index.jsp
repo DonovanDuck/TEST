@@ -10,14 +10,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" href="css/index.css" />
-		<link rel="stylesheet" href="css/bootstrap.min.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/teacher_personal_center/css/index.css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/teacher_personal_center/css/bootstrap.min.css" />
 	</head>
 	<body class="row">
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main_left col-md-3">
 			<div class="head_sculpture col-md-10">
 				<div class="head_sculpture_inner">
-					<img src="img/avatar-195x195.png" class="center-block " alt="" />
+					<c:if test="${empty item.faceImg }">
+								<img data-src="holder.js/140x140" class="img-circle" alt="140x140" 
+									src="${pageContext.request.contextPath}/img/facedownload.jpg" data-holder-rendered="true" style="width: 140px; height: 140px;">
+						
+							</c:if>
+							<c:if test="${not empty item.faceImg }">
+								<img data-src="holder.js/140x140" class="img-circle" alt="140x140" 
+									src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${teacher.faceImg }" data-holder-rendered="true" style="width: 140px; height: 140px;">
+						
+							</c:if>
 					<p class="petname">${teacher.teacherName }</p>
 					<p class="title">${teacher.professionalTitles }</p>
 				</div>	
@@ -38,7 +48,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div class="nav row">
 				<div class="nav_petname col-md-2">
 					<a href="index.html">
-						<img src="img/logo.svg" alt="" />
+							<img src="img/logo.svg" alt="" />
 						<span>${teacher.teacherName }</span>
 					</a>
 					
@@ -46,13 +56,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div class="nav_list col-md-10">
 					<nav>
 						<ul>
-							<li><a href="mycourse.html">我的课程</a></li>
-							<li><a href="myclass.html">我的班级</a></li>
+							<li><a href="${pageContext.request.contextPath}/teacher/toTeacherMyCourse">我的课程</a></li>
+							<li><a href="${pageContext.request.contextPath}/teacher/toTeacherMyClass">我的班级</a></li>
 							<li><a href="myachievement.html">我的成果</a></li>
 							<li><a href="myappraise.html">我的评价</a></li>
 							<li><a href="mydiscussion.html">我的讨论</a></li>
 							<li><a href="myteam.html">我的团队</a></li>
-							<li><a href="index.html">我的信息</a></li>
+							<li><a href="${pageContext.request.contextPath}/teacher/toTeacherMyInfo">我的信息</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -124,5 +134,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 
         </div>
+        <jsp:include page="/jsp/footer2.jsp" flush="true"/>
 	</body>
 </html>

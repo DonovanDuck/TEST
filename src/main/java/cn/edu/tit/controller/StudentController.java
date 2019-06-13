@@ -9,7 +9,12 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -88,7 +93,10 @@ public class StudentController {
 		 * System.out.println("异地登录"); mv.setViewName("/jsp/Teacher/index");//设置返回页面
 		 * }else {
 		 */
+		
 			request.getSession().invalidate();
+			String identify = "student";
+			request.getSession().setAttribute("identify", identify);
 			String readResult =null;
 			String psw = null;
 			Student student = new Student();
@@ -112,7 +120,7 @@ public class StudentController {
 					request.getSession().setAttribute("student", student);
 					mv=mainController.toMain(request); //去首页
 					//清楚其他用户SESSION
-					request.getSession().removeAttribute("identify");
+					
 					request.getSession().removeAttribute("teacher");
 					request.getSession().removeAttribute("teacherId");
 					request.getSession().setAttribute("readResult", null);
@@ -383,9 +391,10 @@ public class StudentController {
 	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
 	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName ,@RequestParam(value="courseName") String courseName) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		String identify = "student";
+		
+		String identify = (String) request.getSession().getAttribute("identify");
 		request.getSession().removeAttribute("courseName");
-		request.getSession().setAttribute("identify", identify);
+		
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
 		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);
 		Course course  = teacherService.getCourseById(virtualClass.getCourseId());
@@ -589,6 +598,242 @@ public class StudentController {
 		mv.addObject("truancyStudentMap", truancyStudentMap);
 		mv.addObject("leaveStudentMap", leaveStudentMap);
 		mv.setViewName("/jsp/StudentJsp/studentAttendanceAnalyse");
+		return mv;
+	}
+	@RequestMapping(value="toStudentMyInfo")
+	public ModelAndView toStudentMyInfo(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Student student = (Student) request.getSession().getAttribute("student");
+		Category category = new Category();
+		category = studentService.getCategoryById(student.getStudentCategory());
+		mv.addObject("student", student);//返回信息
+		mv.addObject("category", category);//返回信息
+		mv.setViewName("jsp/student_personal_center/index");//设置返回页面
+		return mv;
+	}
+	@RequestMapping(value="toStudentMyCourse")
+	public ModelAndView toStudentMyCourse(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Term term = new Term();
+		List<RealClass> realClass = new ArrayList<RealClass>();
+		List<Term> termList = new ArrayList<Term>();
+		List<VirtualClass> virtualList = new ArrayList<VirtualClass>();
+		termList = teacherService.readTerm();//获取学期信息
+		Student student = (Student) request.getSession().getAttribute("student");//从SSEION中获取学生信息
+		String studentClass = student.getClassNum();
+		virtualList = teacherService.getVirtualClassNumByreal(studentClass);//获取虚拟班级列表
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				realClass = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
+				virtualClass.setRealClassList(realClass);
+			}
+		}
+		if(virtualList!=null) {
+			for (VirtualClass virtualClass : virtualList) {
+				term = studentService.readTermById(virtualClass.getTerm());
+
+				if(term != null){
+					virtualClass.setTerm(term.getStartYear()+"-"+term.getEndYear()+"	"+term.getTerm());
+				}
+
+			}
+		}
+		mv.addObject("listTerm", termList);//返回信息
+		mv.addObject("virtualClassList", virtualList);//返回信息
+		for (VirtualClass virtualClass : virtualList) {
+			System.out.println("学生班级："+virtualClass.getVirtualClassName());
+		}
+		
+		Category category = new Category();
+		category = studentService.getCategoryById(student.getStudentCategory());
+		mv.addObject("student", student);//返回信息
+		mv.addObject("category", category);//返回信息
+		
+		mv.setViewName("jsp/student_personal_center/mycourse");//设置返回页面
+		
+		
+		
+		
+		return mv;
+	}
+	@RequestMapping(value="toStudentMyTask")
+	public ModelAndView toStudentMyTask(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Integer upNum =0;
+		List<String> taskIdList;
+		List<Task> taskListAll=new ArrayList<Task>();
+		String readResult =null;
+		Integer point=0;
+		String upTaskDetail = null;
+		String identify = (String) request.getSession().getAttribute("identify");
+		Student student = (Student) request.getSession().getAttribute("student");
+		//Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		//获取当前时间
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		HashMap<String, String> upTaskDetail2taskList = new HashMap<String, String>();
+		HashMap<String, List<String>> accessoriesName2taskList  = new HashMap<String, List<String>>();
+		HashMap<String, Integer> grade2taskList  = new HashMap<String, Integer>();
+		HashMap<String, Boolean> isEnd2taskList = new HashMap<String, Boolean>();
+		HashMap<String, String> timeEnd2taskList = new HashMap<String, String>();//计算时间差
+		//计算不同虚拟班级的总人数
+		HashMap<String, Integer>studentNum2virtualClassList = new HashMap<String, Integer>();
+		HashMap<String, String> task2virtualClassNum = new HashMap<String, String>();
+		
+		HashMap<String, String> task2virtualClassName = new HashMap<String, String>();
+		HashMap<String, String> task2courseName = new HashMap<String, String>();
+		List<String> accessoriesName = new ArrayList<String>();
+		//任务对应的虚拟班级的总人数
+		HashMap<String, Integer> taskId2studentNum = new HashMap<String, Integer>();
+		//upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
+		//accessoriesName = studentService.getUpAccessories(taskId, studentId);
+		//获得该学生所在虚拟班级列表，然后计算每个虚拟班级的总人数
+		List<String> virtualClassNumList = studentService.studentVirtualClassId(student.getClassNum());
+		for (String virtualClassNum : virtualClassNumList) {
+			//String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");//获取当前虚拟班级
+			VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);//获取虚拟班级实体
+			Integer studentNum = virtualClass.getClassStuentNum();	//获取班级总人数
+			//studentNum2virtualClassList.put(virtualClassNum, studentNum);
+			taskIdList = teacherService.searchTaskId(virtualClassNum);
+			List<Task> taskList=new ArrayList<Task>();
+			
+			if(!taskIdList.isEmpty()) {
+				taskList = teacherService.TaskList(taskIdList);
+				for (Task task : taskList) {
+					point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+					task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
+					upNum = teacherService.getUpNum(virtualClassNum, task.getTaskId());
+					task.setUpNum(upNum);
+					task.setTaskPoint(point);
+					task2virtualClassName.put(task.getTaskId(), virtualClass.getVirtualClassName());
+					task2courseName.put(task.getTaskId(), virtualClass.getVirtualCourseName());
+					taskId2studentNum.put(task.getTaskId(), studentNum);
+					task2virtualClassNum.put(task.getTaskId(), virtualClassNum);
+					isEnd2taskList.put(task.getTaskId(),Common.isEffectiveDate(now, task.getPublishTime(), teacherService.getTaskEndTime(virtualClassNum,task.getTaskId())));
+					timeEnd2taskList.put(task.getTaskId(), Common.timeDifference(now, teacherService.getTaskEndTime(virtualClassNum,task.getTaskId())));
+					if(student!=null) {
+						upTaskDetail2taskList.put(task.getTaskId(), studentService.getUpTaskDetail(task.getTaskId(), student.getStudentId()));
+						accessoriesName2taskList.put(task.getTaskId(),studentService.getUpAccessories(task.getTaskId(), student.getStudentId()) );
+						grade2taskList.put(task.getTaskId(), teacherService.getGrade(task.getTaskId(), student.getStudentId()));
+					}
+
+				}
+				taskListAll.addAll(taskList);
+				
+			}
+		}
+		mv.addObject("taskListAll", taskListAll);
+		mv.addObject("timeEnd2taskList", timeEnd2taskList);
+		mv.addObject("isEnd2taskList", isEnd2taskList);
+		mv.addObject("identify", identify);
+		mv.addObject("upTaskDetail2taskList", upTaskDetail2taskList);
+		mv.addObject("accessoriesName2taskList", accessoriesName2taskList);
+		mv.addObject("grade2taskList", grade2taskList);
+		mv.addObject("task2courseName", task2courseName);
+		mv.addObject("task2virtualClassName", task2virtualClassName);
+		mv.addObject("student",student);
+		mv.addObject("readResult", readResult);
+		mv.addObject("taskId2studentNum", taskId2studentNum);
+		
+		mv.addObject("task2virtualClassNum", task2virtualClassNum);
+		mv.setViewName("jsp/student_personal_center/mytask");
+		return mv;	
+	}
+	@RequestMapping(value="toTaskDetail",method= {RequestMethod.GET})
+	public ModelAndView toTaskDetail(HttpServletRequest request,
+			@RequestParam(value="taskId") String taskId,
+			@RequestParam(value="virtualClassNum")String virtualClassNum,
+			@RequestParam(value="virtualClassName")String virtualClassName,
+			@RequestParam(value="courseName")String courseName) {
+		ModelAndView mv = new ModelAndView();
+		Timestamp taskEndTime;
+		String format = "yyyy-MM-dd HH:mm:ss";
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+    	Date nowTime = new java.util.Date(now.getTime());
+    	DateFormat df=new SimpleDateFormat(format);
+    	try {
+			nowTime=df.parse(df.format(nowTime )) ;
+		} catch (ParseException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		String identify = (String) request.getSession().getAttribute("identify");
+		System.out.println("identify======"+identify);
+		//String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		//String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
+		Task task ;
+		HashMap<String, Integer> studentTograde= new HashMap<String, Integer>();
+		HashMap<String, UpTask> studentToUpTask= new HashMap<String, UpTask>();
+		List<Student> studentUpedList = new ArrayList<Student>();
+		List<Student> studentNotUpList = new ArrayList<Student>();
+		List<String> accessoriesName = new ArrayList<String>();
+		String upTaskDetail = null ;
+		String studentId = (String) request.getSession().getAttribute("studentId");
+
+		if(studentId!=null) {
+			upTaskDetail = studentService.getUpTaskDetail(taskId, studentId);
+		}
+		Integer point=0;
+		try {
+			task = teacherService.searchTask(taskId);
+			point = teacherService.searchTaskPoint(task.getTaskType());//任务实体对象加入任务分值信息
+			task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
+			task.setTaskPoint(point);
+			System.out.println("virtualClassNum****************"+virtualClassNum);
+			taskEndTime = teacherService.getTaskEndTime(virtualClassNum,task.getTaskId());
+			String teacherClassName = (String) request.getSession().getAttribute("teacherClassName");
+			
+			mv.addObject("task",task);
+			mv.addObject("virtualClassName",virtualClassName);
+			mv.addObject("virtualClassNum", virtualClassNum);
+			mv.addObject("taskEndTime", taskEndTime);
+			mv.addObject("courseName", courseName);
+			mv.addObject("teacherClassName", teacherClassName);
+			if(identify.equals("student")) {
+				Boolean isEnd=false;
+			     Calendar begin = Calendar.getInstance();
+			     begin.setTime(nowTime);
+			     Date endTime = new java.util.Date(taskEndTime.getTime());
+			    	
+			     endTime=df.parse(df.format(endTime )) ;
+			     Calendar end = Calendar.getInstance();
+			     end.setTime(endTime);
+			     if (begin.after(end)) {
+			    	 isEnd=true;
+			     }
+				accessoriesName = studentService.getUpAccessories(taskId, studentId);
+				String comment = null;
+				Student student = null;
+				Integer grade=null;
+				comment = teacherService.getComment(taskId, studentId);
+				grade = teacherService.getGrade(taskId, studentId);
+				mv.addObject("grade", grade);
+				mv.addObject("isEnd", isEnd);
+				mv.addObject("comment", comment);
+				mv.addObject("accessoriesName", accessoriesName);
+				mv.addObject("upTaskDetail", upTaskDetail);
+				mv.setViewName("/jsp/VirtualClass/studentwork");
+			}else if(identify.equals("teacher")) {
+				studentNotUpList =teacherService.getStudentListOfNotUp(taskId, virtualClassNum);
+				studentUpedList = teacherService.getStudentListOfUped(taskId,virtualClassNum);
+				for (Student student : studentUpedList) {
+					studentTograde.put(student.getStudentId(), teacherService.getGrade(taskId, student.getStudentId()));
+					studentToUpTask.put(student.getStudentId(), teacherService.getUpTask(taskId, student.getStudentId()));
+				}
+				//				for (Student s : studentNotUpList) {
+				//					System.out.println(s.getStudentName());
+				//				}
+				mv.addObject("studentTograde", studentTograde);
+				mv.addObject("studentToUpTask", studentToUpTask);
+				mv.addObject("studentUpedList", studentUpedList);
+				mv.addObject("studentNotUpList", studentNotUpList);
+				mv.setViewName("/jsp/VirtualClass/teacherwork");
+			}
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			mv.setViewName("jsp/VirtualClass/content");
+		}
 		return mv;
 	}
 

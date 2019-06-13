@@ -1055,7 +1055,7 @@ public class WxTeacherController {
 		List<Student> studentNotUpList = new ArrayList<Student>();
 		try {
 			studentNotUpList =teacherService.getStudentListOfNotUp(taskId, virtualClassNum);
-			studentUpedList = teacherService.getStudentListOfUped(taskId);
+			studentUpedList = teacherService.getStudentListOfUped(taskId,virtualClassNum);
 			ret.put("studentNotUpList", studentNotUpList);
 			ret.put("studentUpedList", studentUpedList);
 			ret.put("status", "success");

@@ -53,8 +53,7 @@
 	</select>
 
 	<select id="getLeaveStudentIdList" resultType="java.lang.String">
-		select student_id
-		from att_leave where attendance_id=#{attendanceId}
+		select student_id from att_leave where attendance_id=#{attendanceId}
 	</select>
 	<select id="getTruancyStudentIdList" resultType="java.lang.String">
 		select

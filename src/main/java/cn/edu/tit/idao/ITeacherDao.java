@@ -388,7 +388,7 @@ public interface ITeacherDao {
 	 * @param taskId
 	 * 当以选择形式发布作业时，作业引用次数+1
 	 */
-	public void addUseNum(@Param("taskId")String taskId, @Param("taskUseNum")int taskUseNum);
+	public void addUseNum(@Param("taskId")String taskId);
 	public void addWatchNum(@Param("taskId")String taskId, @Param("taskUseNum")int taskUseNum);
 	public Term getTermById(@Param("termId")String termId);
 	public List<Teacher> teacherForFuzzyQueryById(@Param("teacherNum")String teacherNum);
