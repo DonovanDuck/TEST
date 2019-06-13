@@ -54,7 +54,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<div style="height: 75px;padding-left: 36px;">
 					<div class="accessorylist">
 						<c:forEach items="${task.accessoryList }" var="accessory"  varStatus="status">
-							<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">
+							<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }&type=teacherPub">
 								<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;" >${accessory.accessoryName }</button>
 							</a>
 						</c:forEach>
@@ -81,7 +81,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<div style="height: 90px;margin-top: 20px;">
 						<div class="accessorylist">
 							<c:forEach items="${accessoriesName }" var="accessoriesName"  varStatus="status">
-								<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessoriesName }&id=${task.taskId }">
+								<a href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessoriesName }&id=${task.taskId }&type=studentUp">
 									<button class="btn btn-default" type="button" style="border-radius: 20px;float: left;" >${accessoriesName }</button>
 								</a>
 							</c:forEach>

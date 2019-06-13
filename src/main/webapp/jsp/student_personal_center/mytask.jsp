@@ -1,5 +1,6 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
@@ -10,10 +11,15 @@
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
-		<link rel="stylesheet" href="css/mytask.css" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jsp/student_personal_center/css/bootstrap.min.css"/>
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/student_personal_center/css/mytask.css" type="text/css" />
+	<script src="${pageContext.request.contextPath}/js/jquery.min.js"
+	type="text/javascript" charset="utf-8"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"
+	type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body class="row">
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main_left row col-md-3">
 			<div class="head_sculpture col-md-10">
 				<div class="head_sculpture_inner">
@@ -46,7 +52,7 @@
 				<div class="nav_list col-md-10">
 					<nav>
 						<ul>
-							<li><a href="mytask.html">我的任务</a></li>
+							<li><a href="${pageContext.request.contextPath}/student/toStudentMyTask">我的任务</a></li>
 							<li><a href="${pageContext.request.contextPath}/student/toStudentMyCourse">我的课程</a></li>
 							<li><a href="myAchievements.html">我的成果</a></li>
 							<li><a href="myChallenges.html">我的挑战</a></li>
@@ -59,11 +65,11 @@
 			</div>
 			<div class="text">
 				<h2>我的任务</h2>
-				<c:forEach items="${taskList }" var="task">
+				<c:forEach items="${taskListAll }" var="task">
 		<div class="contentlist" style="padding-top: 10px;padding-bottom: 10px;padding-left: 20px;">
 			<div class="row  col-lg-24">
 			  <div class=" col-lg-3" style="float: left;width: 16%">
-				<a target="_top"  href="${pageContext.request.contextPath}/teacher/toTaskDetail?taskId=${task.taskId }" class="thumbnail">
+				<a target="_top"  href="${pageContext.request.contextPath}/student/toTaskDetail?taskId=${task.taskId }&virtualClassNum=${task2virtualClassNum[task.taskId] }&virtualClassName=${task2virtualClassName[task.taskId] }&courseName=${task2virtualClassCourseName[task.taskId] }" class="thumbnail">
 				<c:if test="${task.taskType eq 'work' }">
 				    <img src="${pageContext.request.contextPath}/img/workType/作业.ico" alt=""style="height: 100px; width: 100px; display: block;">
 				  </c:if>
@@ -77,7 +83,7 @@
 			  </div>
 			  <div class="col-lg-21" style="float: left; height: 100px;margin-top: 3px;width: 70%">
 				  <div class="listtitle" style="font-size: 20px;margin-top: 15px;margin-left: 10px;font-weight: bold;" >
-				  		<a target="_top" href="${pageContext.request.contextPath}/teacher/toTaskDetail?taskId=${task.taskId }" > 	${task.taskTitle }</a>
+				  		<a target="_top" href="${pageContext.request.contextPath}/student/toTaskDetail?taskId=${task.taskId }&virtualClassNum=${task2virtualClassNum[task.taskId] }&virtualClassName=${task2virtualClassName[task.taskId] }&courseName=${task2courseName[task.taskId] }" > 	${task.taskTitle }</a>
 				  		<c:if test="${identify eq 'student' }">
 						<c:if test="${not empty upTaskDetail2taskList[task.taskId] || not empty accessoriesName2taskList[task.taskId] }">
 								<!-- <button type="button" class="btn btn-info"disabled="disabled" style="margin-left: 200px;float: left;">已提交</button> -->
@@ -122,7 +128,7 @@
 					距离结束还剩 ： <span style="color:red">${timeEnd2taskList[task.taskId] }</span> 
 					  </c:if>
 				  	<button class="proplenum" style="background-color: #FFFFFF;margin-left: 20px;padding: 0;   border: 1px solid #00FFFF;  -moz-border-radius: 15px;-webkit-border-radius: 15px;border-radius:15px;">
-						&nbsp;&nbsp;提交人数/总人数：${task.upNum }/${studentNum }&nbsp;&nbsp;
+						&nbsp;&nbsp;提交人数/总人数：${task.upNum }/${taskId2studentNum[task.taskId] }&nbsp;&nbsp;
 					</button>
 				  </div>
 			  </div>

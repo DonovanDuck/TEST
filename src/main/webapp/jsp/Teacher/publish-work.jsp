@@ -224,7 +224,7 @@
 								);
 								for(var i=0;i<accessoryList.length;i++){
 									$("#autoAccessoryList").append(
-					                "<a href='${pageContext.request.contextPath}/teacher/resourceDownload?fileName="+accessoryList[i].accessoryName+"&id="+result[0].taskId+"'>"+
+					                "<a href='${pageContext.request.contextPath}/teacher/resourceDownload?fileName="+accessoryList[i].accessoryName+"&id="+result[0].taskId+"&type=teacherPub'>"+
 										"<button class='btn btn-default' type='submit' style='border-radius: 20px;float: left;margin-left: 10px;' >"+accessoryList[i].accessoryName+"</button>"+
 									"</a>");
 					           }

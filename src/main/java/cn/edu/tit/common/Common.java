@@ -148,11 +148,12 @@ public  class  Common {
 			Map<String, Object> formdata = new HashMap<String, Object>(); // 要返回的map,存储的是要转换的类信息
 			List<File> returnFileList = new ArrayList<>(); // 要返回的文件集合
 			String studentId = (String) request.getSession().getAttribute("studentId");
+			String identify = (String) request.getSession().getAttribute("identify");
 			String path = readProperties("path");
 			if(!"".equals(id) && id != null){
-				if(studentId==null||studentId.equals("")) {
+				if("teacher".equals(identify)) {
 					path +="/"+id;
-				}else {
+				}else if("student".equals(identify)){
 					path +="/"+id+"/"+studentId;
 				}
 			}
