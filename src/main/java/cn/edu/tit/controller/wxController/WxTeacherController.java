@@ -1406,16 +1406,16 @@ public class WxTeacherController {
 	 * 显示已打卡，和未打卡的学生
 	 * @return
 	 */
-	@RequestMapping(value="getStuAttStituation")
-	public Map<String, Object> getStuAttStituation(@RequestParam(value="attendanceId") String attendanceId,@RequestParam(value="virtualClassNum") String virtualClassNum){
+	@RequestMapping(value="getStuAttSituation")
+	public Map<String, Object> getStuAttSituation(@RequestParam(value="attendanceId") String attendanceId){
 		Map<String, Object> ret = new HashMap<>();
 		try {
 			//获得已打卡的学生
 			List<Student> attendedList = new ArrayList<>();
 			attendedList = teacherService.getStuAttended(attendanceId);
 			Map<String, Object> attendedMap = new HashMap<>();
-			//获取未打卡的学生
-			List<Student> studentList = teacherService.getStudentList(virtualClassNum);//获取班上所有的学生
+			//获取请假的学生
+			List<Student> studentList = teacherService.getStuLeaveList(attendanceId);//获取班上所有的学生
 			List<Student> disattended = new ArrayList<>();
 			//做差集得到未打卡的
 			if(studentList != null && !studentList.isEmpty()){
@@ -1481,6 +1481,7 @@ public class WxTeacherController {
 				att.setPublishId(employeeNum);
 				//添加
 				teacherService.addAttendance(att);
+				ret.put("att", att);
 				ret.put("status", "ok");
 			}
 			else{

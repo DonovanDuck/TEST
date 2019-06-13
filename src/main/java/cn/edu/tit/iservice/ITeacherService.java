@@ -827,5 +827,21 @@ public interface ITeacherService {
 	 */
 	public String getCurrentAttend(String virtualClassNum);
 	
+	/**
+	 * 开启打卡时所有学生默认缺勤
+	 */
+	public void stuSetTruancy();
+	
+	/**
+	 * 获得请假的学生列表
+	 * @return
+	 */
+	public List<Student> getStuLeaveList(String attendanceId);
+	
+	/**
+	 * 获得缺勤的学生列表
+	 * @return
+	 */
+	public List<Student> getStuTruancyList(String attendanceId);
 	
 }

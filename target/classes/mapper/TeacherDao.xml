@@ -1044,4 +1044,12 @@
 		update attendance set is_process = 0
 			where attendance_id =#{attendanceId};  
 	</update>
+	
+	<update id="stuSetTruancy">
+		update student set status = -1;
+	</update>
+	
+	<!-- <select id="getStuLeaveList">
+		select studentId from att_leave where 
+	</select> -->
 </mapper>

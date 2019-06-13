@@ -1568,19 +1568,27 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		String category = categoryId;
 		List<Course> list = new ArrayList<Course>();
-		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
+		List<Teacher> teacherList = new ArrayList<>();
 		try {
 			list = teacherService.readCourseInfoByCategory(category);
-			for (Course course : list) {
-				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+			if(!list.isEmpty()) {
+				for (Course course : list) 
+				{
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv.addObject("teacherNames",teacherNames);
-		mv.addObject("categories",categories);
-		mv.addObject("categoryId",categoryId);
+		
+		mv.addObject("categories", categories);
 		mv.addObject("courseList", list);
+		mv.addObject("publishTime",publishTime);
+		mv.addObject("teacherList", teacherList);
+		mv.addObject("categoryId",categoryId);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
 	}

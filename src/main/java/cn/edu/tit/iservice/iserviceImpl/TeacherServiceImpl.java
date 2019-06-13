@@ -1443,4 +1443,22 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getCurrentAttend(virtualClassNum);
 	}
 
+	@Override
+	public void stuSetTruancy() {
+		// TODO Auto-generated method stub
+		teacherDao.stuSetTruancy();
+	}
+
+	@Override
+	public List<Student> getStuLeaveList(String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getStuLeaveList(attendanceId);
+	}
+
+	@Override
+	public List<Student> getStuTruancyList(String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getStuTruancyList(attendanceId);
+	}
+
 }
