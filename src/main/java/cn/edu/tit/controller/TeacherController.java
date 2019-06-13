@@ -2395,7 +2395,7 @@ public class TeacherController {
 				}
 				taskList.add(task);
 			}
-			mv.addObject("trailList", trailList);//返回信息
+			mv.addObject("taskList", taskList);//返回信息
 			break;
 
 		}
