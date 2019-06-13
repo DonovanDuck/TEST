@@ -48,4 +48,34 @@ public class TurnClassController {
 		mv.setViewName("/jsp/TurnClassJsp/designBeforeClass");
 		return mv;
 	}
+	
+	@RequestMapping(value="toPrepareForCourse",method= {RequestMethod.GET})
+	public ModelAndView toPrepareForCourse(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/prepareForCourse");
+		return mv;
+	}
+	
+	@RequestMapping(value="toCourseFeedback",method= {RequestMethod.GET})
+	public ModelAndView toCourseFeedback(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/courseFeedback");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="toCourseAfterEdit",method= {RequestMethod.GET})
+	public ModelAndView toCourseAfterEdit(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/courseAfterEdit");
+		return mv;
+	}
+	
+	
+	@RequestMapping(value="toEndAchievement",method= {RequestMethod.GET})
+	public ModelAndView toEndAchievement(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/endAchievement");
+		return mv;
+	}
 }

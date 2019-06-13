@@ -61,8 +61,11 @@
 		<div class="main_b_group row" style="margin-left: 10%">
 			<div class="group_t">
 				<div class="col-md-1"></div>
-				<div class="group_name col-md-9">
+				<div class="group_name col-md-3">
 					<h4>小组1</h4>
+				</div>
+				<div class="group_name col-md-6">
+					<h4>贪吃蛇小游戏</h4>
 				</div>
 				<div class="group_status col-md-2">
 					<button type="button" class="btn btn-default">课前准备</button>
@@ -96,7 +99,7 @@
 						<p class="text-center">192056102&nbsp;&nbsp;诸葛亮</p>
 					</div>
 				</div>
-				<div class="group_b col-md-12">
+				<div class="group_b col-md-12" style="margin-top:-2%">
 					<p class="p2 col-md-3">接收任务时间：2019年3月3日</p>
 					<p class=" p1 col-md-2">评论：24条</p>
 				</div>

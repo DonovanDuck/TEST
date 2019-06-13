@@ -35,6 +35,17 @@
 		setIframeHeight(document.getElementById('iframeContent'));
 	};
 </script>
+<script type="text/javascript">
+	function doSomething(category) {
+		$("#design").removeClass("active");
+		$("#end").removeClass("active");
+		$("#prepare").removeClass("active");
+		$("#feedback").removeClass("active");
+		$("#edit").removeClass("active");
+		$("#"+category).removeClass("active");
+		$("#"+category).addClass("active");
+	}
+</script>
 </head>
 <body>
 	<main>
@@ -95,11 +106,21 @@
 		<div class="col-md-12">
 			<ul class="nav nav-pills nav-justified"
 				style="background-color: white;">
-				<li role="presentation" class="active"><a href="#">课前设计</a></li>
-				<li role="presentation"><a href="#">课堂准备</a></li>
-				<li role="presentation"><a href="#">课堂反馈</a></li>
-				<li role="presentation"><a href="#">课后修改</a></li>
-				<li role="presentation"><a href="#">最终成果</a></li>
+				<li role="presentation" id="design" class="active"><a
+					target="iframeContent" onclick="doSomething('design')"
+					href="${pageContext.request.contextPath}/turnClass/toDesignBeforeClass">课前设计</a></li>
+				<li role="presentation" id="prepare"><a target="iframeContent"
+					onclick="doSomething('prepare')"
+					href="${pageContext.request.contextPath}/turnClass/toPrepareForCourse">课堂准备</a></li>
+				<li role="presentation" id="feedback"><a target="iframeContent"
+					onclick="doSomething('feedback')"
+					href="${pageContext.request.contextPath}/turnClass/toCourseFeedback">课堂反馈</a></li>
+				<li role="presentation" id="edit"><a target="iframeContent"
+					onclick="doSomething('edit')"
+					href="${pageContext.request.contextPath}/turnClass/toCourseAfterEdit">课后修改</a></li>
+				<li role="presentation" id="end"><a target="iframeContent"
+					onclick="doSomething('end')"
+					href="${pageContext.request.contextPath}/turnClass/toEndAchievement">最终成果</a></li>
 			</ul>
 		</div>
 		<div class="content" id="content">

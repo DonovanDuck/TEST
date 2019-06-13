@@ -17,33 +17,8 @@
 	href="${pageContext.request.contextPath}/css/course3.css">
 <script
 	src="${pageContext.request.contextPath}/js/backstagemanager/jquery-3.2.1.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/backstagemanager/bootstrap.js"></script>
-<style type="text/css">
-.cit {
-	width: 100px;
-	height: 100px;
-	background-color: #CC9933;
-	border-radius: 50px;
-	text-align: center;
-}
-</style>
-<script type="text/javascript" charset="utf-8">
-	$(function() {
-		var width = $("#content").width();
-		var ue = UE.getEditor('detail', {
-			initialFrameWidth : width,
-			initialFrameHeight : 180,
-			initialFrameMargin : 0,
-		})
-	})
-</script>
 <script type="text/javascript">
 	function focousCommentContent() {
 		$.ajax({
@@ -62,56 +37,46 @@
 </script>
 </head>
 <body style="background-color: white;">
-	<div class="col-md-12">
-		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">简介</h3>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">计划</h3>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">需求</h3>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">设计方案</h3>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">关键算法</h3>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">测试情况</h3>
-			</div>
-		</div>
-		<div
-			style="height: 5px; width: 80%; margin-left: 8%; margin-top: 6%; background-color: #0099CC;"></div>
-	</div>
-	<div class="col-md-12" id="content" style="margin-top: 2%">
-		<textarea id="detail" name="detail" type="text"></textarea>
-	</div>
 	<div class="col-md-12" style="margin-top: 2%">
-		<input type="text" class="form-control" style="width: 15%"
-			placeholder="步骤设计者">
-		<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
-			<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
-			<div class="col-md-4 pull-right" style="margin-top: -1%">
-				<div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-default">上一步</button>
-					<button type="button" class="btn btn-default">保存</button>
-					<button type="button" class="btn btn-success">下一步</button>
+		<form class="form-horizontal">
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">上传课程PPT资源</label>
+				<div class="col-sm-10">
+					<input type="file" id="pptFile" name="pptFile" class="col-md-3"
+						style="padding: 0px" placeholder="课程PPT资源"><input
+						type="text" class="col-md-3" class="form-control"
+						style="width: 15%" placeholder="步骤设计者">
 				</div>
 			</div>
-		</div>
+			<div class="form-group">
+				<label for="inputEmail3" class="col-sm-2 control-label">上传工程技术资源</label>
+				<div class="col-sm-10">
+					<input type="file" id="techFile" name="techFile" class="col-md-3"
+						style="padding: 0px" placeholder="工程技术资源"><input
+						type="text" class="col-md-3" class="form-control"
+						style="width: 15%" placeholder="步骤设计者">
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="codeFile" class="col-sm-2 control-label">上传项目代码资源</label>
+				<div class="col-sm-10">
+					<input type="file" id="codeFile" name="codeFile" class="col-md-3"
+						style="padding: 0px" placeholder="项目代码资源"><input
+						type="text" class="col-md-3" class="form-control"
+						style="width: 15%" placeholder="步骤设计者">
+				</div>
+			</div>
+			<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
+				<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
+				<div class="col-md-4 pull-right" style="margin-top: -1%">
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default">上一步</button>
+						<button type="button" class="btn btn-default">保存</button>
+						<button type="button" class="btn btn-success">下一步</button>
+					</div>
+				</div>
+			</div>
+		</form>
 	</div>
 	<div class="col-md-12" style="height: 12px; background-color: #F0F0F0"></div>
 	<div class="col-md-12" style="padding: 2%">
