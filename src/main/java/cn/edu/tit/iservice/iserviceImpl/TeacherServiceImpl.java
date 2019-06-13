@@ -1397,4 +1397,31 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getAttTime(studentId, attendanceId);
 	}
 
+	@Override
+	public boolean isAttend(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		try {
+			Integer isprocess = teacherDao.getIsAttend(virtualClassNum);
+			if(isprocess == 1){
+				return false;
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return true;
+	}
+
+	@Override
+	public void endAttendance(String attendanceId) {
+		// TODO Auto-generated method stub
+		teacherDao.endAttendance(attendanceId);
+	}
+
+	@Override
+	public String getCurrentAttend(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getCurrentAttend(virtualClassNum);
+	}
+
 }

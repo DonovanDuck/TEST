@@ -105,7 +105,7 @@ $(document).ready(function() {
 </div>
 <div class="main_b_t" style="margin-bottom: 70px;margin-left: 103px;">
 				<nav>
-					<ul style="    margin-top: 25px;margin-left: 30px;">
+					<ul style="    margin-top: 25px;margin-left: -5px;">
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/0"
 							><button id="0" class="btn btn-default daohang">全部</button></a></li>
@@ -131,7 +131,7 @@ $(document).ready(function() {
 				</nav>
 			</div>
 </main>
-<div class="main2" style="height: auto;width: auto;min-height: 800px;">
+<div class="main2" style="height: auto;width: auto;min-height: 800px;margin-left: -43px;">
 	
 	<div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;">
 		<c:if test="${isTeacher == 1 && resourceName !='全部' }">
@@ -146,7 +146,9 @@ $(document).ready(function() {
 	<div class="mian2_content" style="height: auto;width: auto;min-height: 170px;margin-left: 140px;">
 		<ul style="list-style: none;">
 			<c:if test="${resource != null }">
+			<div class="row">
 			<c:forEach items="${resource }" var="re" varStatus="status">
+			<div class="col-xs-4 col-md-4 " style="height: auto;">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 49px; margin-right: 20px;">
 				<div class="xiangmu-out" style="height: 170px;width: 350px;">
 					<%-- <c:if test="${isTeacher == 1 }">
@@ -182,11 +184,15 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</li>
+			</div>
 			</c:forEach>
+			</div>
 			</c:if>
 			
 			<c:if test="${taskList != null }">
+			<div class="row">
 			<c:forEach items="${taskList }" var="task" varStatus="status">
+			<div class="col-xs-4 col-md-4 " style="height: auto;">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 49px; margin-right: 20px;">
 				<div class="xiangmu-out" style="height: 170px;width: 350px;">
 					<div style="height: 127px;width: 350px;background: #fff;padding-top: 23px;border: 1px solid #dadada; border-bottom: 0">
@@ -227,8 +233,11 @@ $(document).ready(function() {
 						</c:if>
 					</div>
 				</div>
+				
 			</li>
+			</div>
 			</c:forEach>
+			</div>
 			</c:if>
 			
 			<!-- <li style="float: left;height: 170px;width: 350px;margin-top: 25px; margin-right: 20px;">

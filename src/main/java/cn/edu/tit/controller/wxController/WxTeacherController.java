@@ -1462,25 +1462,30 @@ public class WxTeacherController {
 		Map<String, Object> ret = new HashMap<>();
 		try {
 			//判断此班级是否有正在进行的打卡
-//			boolean isAttend = teacherService.
-			Attendance att = new Attendance();
-			att.setAttendanceId(Common.uuid());
-			att.setVirtualClassNum(virtualClassNum);
-			//设置第几次打卡
-			if(teacherService.getLastAttIndex(virtualClassNum) != null)
-				att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
-			else
-				att.setAttIndex(1);
-			Timestamp attTime = new Timestamp(System.currentTimeMillis());
-			att.setAttendanceTime(attTime);
-			att.setAttendanceNum(0);
-			att.setTotalNum(teacherService.getTaskUserNum(virtualClassNum));
-			att.setLeaveNum(0);
-			att.setTruancyNum(0);
-			att.setPublishId(employeeNum);
-			//添加
-			teacherService.addAttendance(att);
-			ret.put("status", "ok");
+			boolean isAttend = teacherService.isAttend(virtualClassNum);
+			if(isAttend){
+				Attendance att = new Attendance();
+				att.setAttendanceId(Common.uuid());
+				att.setVirtualClassNum(virtualClassNum);
+				//设置第几次打卡
+				if(teacherService.getLastAttIndex(virtualClassNum) != null)
+					att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
+				else
+					att.setAttIndex(1);
+				Timestamp attTime = new Timestamp(System.currentTimeMillis());
+				att.setAttendanceTime(attTime);
+				att.setAttendanceNum(0);
+				att.setTotalNum(teacherService.getTaskUserNum(virtualClassNum));
+				att.setLeaveNum(0);
+				att.setTruancyNum(0);
+				att.setPublishId(employeeNum);
+				//添加
+				teacherService.addAttendance(att);
+				ret.put("status", "ok");
+			}
+			else{
+				ret.put("msg", "不能多次开启打卡！");
+			}
 			return ret;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -1499,9 +1504,30 @@ public class WxTeacherController {
 	public Map<String, Object> endAttend(@RequestParam(value="attendanceId") String attendanceId){
 		Map<String, Object> ret = new HashMap<>();
 		try {
-			//添加
-//			teacherService.endAttendance(attendanceId);
+			
+			teacherService.endAttendance(attendanceId);
 			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 获取当前打卡id
+	 * @return
+	 */
+	@RequestMapping(value="getCurrentAttend")
+	public Map<String, Object> getCurrentAttend(@RequestParam(value="virtualClassNum") String virtualClassNum){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//添加
+			String attendanceId = teacherService.getCurrentAttend(virtualClassNum);
+			ret.put("attendanceId", attendanceId);
 			return ret;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -1528,7 +1554,7 @@ public class WxTeacherController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			ret.put("img", "不能重复打卡！");
+			ret.put("msg", "不能重复打卡！");
 			ret.put("status", "error");
 			return ret;
 		}

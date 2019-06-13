@@ -1031,4 +1031,18 @@
 	<select id="getAttTime" resultType="String">
 		select att_time from attence where attendance_id = #{attendanceId} and student_id = #{studentId};
 	</select>
+	
+	<select id="getIsAttend" resultType="Integer">
+		select is_process from attendance where virtual_class_num =#{virtualClassNum} and is_process = 1;
+	</select>
+	
+	<select id="getCurrentAttend" resultType="String">
+		select attendance_id from attendance where virtual_class_num =#{virtualClassNum} and is_process = 1;
+	</select>
+	
+	<!-- 关闭打卡 -->
+	<update id="endAttendance">
+		update attendance set is_process = 0
+			where attendance_id =#{attendanceId};  
+	</update>
 </mapper>

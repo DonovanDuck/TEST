@@ -56,6 +56,14 @@
 	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 
 <script type="text/javascript">
 	
@@ -498,7 +506,7 @@
 			 $("#taskTitleEdit").focus();
 			 return false;	 
 		 }
-		 if($("#taskDetail").val()==""&&!$('#accessory').get(0).files[0]){
+		 if(!UE.getEditor('taskDetail').hasContents()&&!$('#accessory').get(0).files[0]){
 			 alert("请输入作业描述或者选择上传的任务附件");
 			 return false;	
 		 }
@@ -538,7 +546,6 @@
 	// 	$(".selectTaskButton").css("color","#000000");
 	// })
 </script>
-
 </head>
 <body style="background-color: #F1F3F4;">
 	<div
@@ -604,15 +611,15 @@
 					<input type="text" id="taskCategoryEdit" name="taskCategory"
 						hidden="hidden" value="work" />
 				</div>
-				<div class="taskdetail"
+				<div class="taskdetail form-group"
 					style="width: 100%; padding-top: 40px; margin-top: 10px;">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">编辑任务</h3>
 						</div>
-
-						<textarea id="taskDetail" name="taskDetail" class="form-control"
-							style="width: 100%; height: 100px; resize: none;"
+						
+						<textarea  id="taskDetail" name="taskDetail" 
+							style="width: 100%; height: 100px; resize: none;" type="text"
 							placeholder="编辑任务"></textarea>
 
 					</div>
@@ -749,5 +756,20 @@
 	<script type="text/javascript">
 		var app = angular.module('app', [ "wui.date" ]);
 	</script>
+	<script type="text/javascript">
+
+var ue = UE.getEditor('taskDetail',{
+
+    initialFrameWidth :798,//设置编辑器宽度
+
+    initialFrameHeight:100,//设置编辑器高度
+    initialFrameMargin:0,
+
+    scaleEnabled:true
+    
+
+ });
+
+</script>
 </body>
 </html>

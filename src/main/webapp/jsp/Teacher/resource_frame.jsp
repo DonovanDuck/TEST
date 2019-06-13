@@ -55,9 +55,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
 <ul style="    margin-top: 3%">
 <c:if test="${taskList != null }">
+<div class="row">
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -70,9 +72,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</li>
 	</c:forEach>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+	
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -85,9 +90,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</li>
 	</c:forEach>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="2" end="2">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -100,9 +107,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</li>
 	</c:forEach>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -115,9 +124,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</li>
 	</c:forEach>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="4" end="4">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -130,9 +141,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</li>
 	</c:forEach>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="5" end="5">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -145,12 +158,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div>
 	</li>
 	</c:forEach>
+	</div>
+	</div>
 	</c:if>
 	
 	<c:if test="${resource != null }">
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -165,7 +180,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="1" end="1">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -180,7 +195,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="2" end="2">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -195,7 +210,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -210,7 +225,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="4" end="4">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -225,7 +240,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="5" end="5">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;

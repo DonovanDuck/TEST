@@ -807,7 +807,24 @@ public interface ITeacherService {
 	 */
 	public String getAttTime(String studentId,String attendanceId);
 	
+	/**
+	 * 判断班级是否有为结束的打卡
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public boolean isAttend(String virtualClassNum);
 	
+	/**
+	 * 教师关闭打卡
+	 * @param attendanceId
+	 */
+	public void endAttendance(String attendanceId);
+	
+	/**
+	 * 获取当前打卡id
+	 * @return
+	 */
+	public String getCurrentAttend(String virtualClassNum);
 	
 	
 }
