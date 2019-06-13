@@ -4,12 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -46,6 +43,7 @@ import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.common.Common;
 import cn.edu.tit.iservice.IAchievementService;
 import cn.edu.tit.iservice.IAdminService;
@@ -74,7 +72,7 @@ public class AdminController {
 	 * 添加教师的方法  excel 相关的操作,将数据插入到数据库 
 	 * 使用spring的MultipartFile上传文件
 	 * */
-	@RequestMapping(value="AddTeacher",method= {RequestMethod.POST})
+	@RequestMapping(value="addTeacher",method= {RequestMethod.POST})
 	public ModelAndView DoExcelTeacher(HttpServletRequest request) throws Exception {
 		DiskFileItemFactory factory = new DiskFileItemFactory();
 		ServletFileUpload upload = new ServletFileUpload(factory);
@@ -290,7 +288,6 @@ public class AdminController {
 	@RequestMapping(value="addCategory",method= {RequestMethod.POST})
 	public ModelAndView addCategory(@RequestParam(value="categoryNum") String categoryNum,@RequestParam(value="categoryName") String categoryName,@RequestParam(value="categoryDetail") String categoryDetail) {			
 		ModelAndView mv = new ModelAndView();
-
 		try {
 			Category category = new Category();
 			category.setCategoryDetail(categoryDetail);
@@ -654,7 +651,7 @@ public class AdminController {
 	public void readDepartmentInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {			
 		List<Department> readResult = new ArrayList<Department>();
 		try {
-			readResult = iAdminService.readDepartment();
+			readResult = iAdminService.readAllDepartment();
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("application/json;charset=UTF-8");
 		} catch (Exception e) {
@@ -666,6 +663,7 @@ public class AdminController {
 			ob.put("id", ca.getId());
 			ob.put("name", ca.getName());
 			ob.put("num", ca.getNum());
+			ob.put("deleteFlag", ca.getDeleteFlag());
 			arr.add(ob);
 		}
 		String result = arr.toString();
@@ -717,6 +715,27 @@ public class AdminController {
 			teacher.setTeacherName(teacherName);
 			teacher.setTeacherGender(select);
 			iTeacherService.UpdateTeacher(teacher);
+		}
+		mv = toTeacherManager();
+		return mv;
+	}
+
+
+
+	@RequestMapping(value="addOneTeacher")
+	public ModelAndView addOneTeacher(@RequestParam("addTeacherNum")String addTeacherNum,@RequestParam("addTeacherName")String addTeacherName,@RequestParam("addSelect")String addSelect) throws Exception {			
+		ModelAndView mv = new ModelAndView();
+		Teacher te = new Teacher();
+		te.setEmployeeNum(addTeacherNum);
+		te.setTeacherName(addTeacherName);
+		te.setTeacherGender(addSelect);
+		String pwd = Common.eccryptMD5("123456");
+		te.setTeacherPassword(pwd);
+		try {
+			iAdminService.addOneTeacher(te);
+		} catch (Exception e) {
+			e.printStackTrace();
+			mv = toTeacherManager();
 		}
 		mv = toTeacherManager();
 		return mv;
@@ -979,5 +998,192 @@ public class AdminController {
 			break;
 		}
 		response.getWriter().print("恢复成功");
+	}
+
+	@RequestMapping(value="deleteDepartment/{departmentId}")
+	public void deleteDepartment(HttpServletRequest request,HttpServletResponse response,@PathVariable String departmentId) throws Exception {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			iAdminService.deleteDepartment(departmentId);
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		response.getWriter().print("删除成功");
+	}
+
+	@RequestMapping(value="resotreDepartment/{departmentId}")
+	public void resotreDepartment(HttpServletRequest request,HttpServletResponse response,@PathVariable String departmentId) throws Exception {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			iAdminService.resotreDepartment(departmentId);
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		response.getWriter().print("恢复成功");
+	}
+
+	@RequestMapping(value="addDepartment")
+	public ModelAndView addDepartment(@RequestParam("departmentName")String departmentName,@RequestParam("departmentNum")String departmentNum) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Department de = new Department();
+		de.setDeleteFlag(1);
+		de.setName(departmentName);
+		de.setNum(Integer.parseInt(departmentNum));
+		de.setId(Common.uuid());
+		try {
+			iAdminService.addDepartment(de);
+			mv.setViewName("/jsp/AdminJsp/managerForDepartment");
+		} catch (Exception e) {
+			mv.setViewName("/jsp/AdminJsp/managerForDepartment");
+		}
+		return mv;
+	}
+
+	@RequestMapping(value="judgeDepartmentNum/{departmentNum}")
+	public void judgeDepartmentNum(HttpServletRequest request,HttpServletResponse response,@PathVariable String departmentNum) throws Exception {
+		String result = null;
+		Department de = null;
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			de = iAdminService.readDepartmentByNum(departmentNum);
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		if(de !=null)
+		{
+			result = "学术委员会编号已经存在";
+		}
+		response.getWriter().print(result);
+	}
+
+	@RequestMapping(value="updateAcademic")
+	public ModelAndView updateAcademic(@RequestParam("editId")String editId,@RequestParam("editName")String editName,@RequestParam("editPro")String editPro,@RequestParam("editSe")String editSe) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Academic ac = new Academic();
+		ac.setId(editId);
+		ac.setName(editName);
+		ac.setProfessional(editPro);
+		ac.setDepartment(editSe);
+		try {
+			iAdminService.updateAcademic(ac);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv = toAcademicManager();
+		return mv;
+	}
+
+	@RequestMapping(value="addAcademic")
+	public ModelAndView addAcademic(@RequestParam("addName")String addName,@RequestParam("selectAdd")String selectAdd,@RequestParam("addPro")String addPro,@RequestParam("addTime")String addTime) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Timestamp ts = new Timestamp(System.currentTimeMillis());   
+		String tsStr = addTime + " 00:00:00";   
+		try {   
+			ts = Timestamp.valueOf(tsStr);   
+			System.out.println(ts);   
+		} catch (Exception e) {   
+			e.printStackTrace();   
+		}  
+		Academic ac = new Academic();
+		ac.setId(Common.uuid());
+		ac.setName(addName);
+		ac.setProfessional(addPro);
+		ac.setDepartment(selectAdd);
+		ac.setTime(ts);
+		try {
+			iAdminService.addAcademic(ac);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv = toAcademicManager();
+		return mv;
+	}
+	
+	@RequestMapping(value="logout")
+	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		request.getSession().removeAttribute("admin");
+		mv.setViewName("/jsp/main");
+		return mv;
+	}
+	
+	@RequestMapping(value="toTerm")
+	public ModelAndView toTerm() throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/AdminJsp/managerForTerm");
+		return mv;
+	}
+	
+	@RequestMapping(value="addTerm")
+	public ModelAndView addTerm(@RequestParam("addStartTerm")String addStartTerm,@RequestParam("addEndTerm")String addEndTerm,@RequestParam("selectTerm")String selectTerm) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		Term te = new Term();
+		try {
+			te.setEndYear(addEndTerm);
+			te.setStartYear(addStartTerm);
+			te.setTermId(Common.uuid());
+			te.setTerm(selectTerm);
+			iAdminService.addTerm(te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv = toTerm();
+		return mv;
+	}
+	
+	@RequestMapping(value="addTermJudge")
+	public void addTermJudge(HttpServletRequest request,HttpServletResponse response,@RequestParam("addStartTerm")String addStartTerm,@RequestParam("addEndTerm")String addEndTerm,@RequestParam("selectTerm")String selectTerm) throws Exception {
+		Term te = null;
+		String result = "";
+		try {
+			te = iAdminService.judgeTerm(addStartTerm,addEndTerm,selectTerm);
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		if(te!=null)
+		{
+			result = "学期信息已经存在";
+		}
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+	
+	
+	@RequestMapping(value="readTerm")
+	public void readTerm(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		List<Term> readResult = new ArrayList<>();
+		try {
+			readResult = iTeacherService.readTerm();
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		for (Term t : readResult) {
+			JSONObject ob=new JSONObject();
+			ob.put("id", t.getTermId());
+			ob.put("startYear", t.getStartYear());
+			ob.put("endYear", t.getEndYear());
+			ob.put("term", t.getTerm());
+			arr.add(ob);
+		}
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 }

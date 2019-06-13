@@ -10,12 +10,13 @@ import java.sql.Timestamp;
 public class Attendance {
 	private String attendanceId;
 	private String virtualClassNum;
-	private Integer index;
+	private Integer attIndex;
 	private Timestamp attendanceTime;
 	private Integer attendanceNum;
 	private Integer totalNum;
 	private Integer leaveNum;
 	private Integer truancyNum;
+	private String publishId;
 	public String getAttendanceId() {
 		return attendanceId;
 	}
@@ -28,11 +29,11 @@ public class Attendance {
 	public void setVirtualClassNum(String virtualClassNum) {
 		this.virtualClassNum = virtualClassNum;
 	}
-	public Integer getIndex() {
-		return index;
+	public Integer getAttIndex() {
+		return attIndex;
 	}
-	public void setIndex(Integer index) {
-		this.index = index;
+	public void setAttIndex(Integer attIndex) {
+		this.attIndex = attIndex;
 	}
 	public Timestamp getAttendanceTime() {
 		return attendanceTime;
@@ -64,27 +65,29 @@ public class Attendance {
 	public void setTruancyNum(Integer truancyNum) {
 		this.truancyNum = truancyNum;
 	}
-	public Attendance(String attendanceId, String virtualClassNum, Integer index, Timestamp attendanceTime,
-			Integer attendanceNum, Integer totalNum, Integer leaveNum, Integer truancyNum) {
+	public String getPublishId() {
+		return publishId;
+	}
+	public void setPublishId(String publishId) {
+		this.publishId = publishId;
+	}
+	public Attendance(String attendanceId, String virtualClassNum, Integer attIndex, Timestamp attendanceTime,
+			Integer attendanceNum, Integer totalNum, Integer leaveNum, Integer truancyNum, String publishId) {
 		super();
 		this.attendanceId = attendanceId;
 		this.virtualClassNum = virtualClassNum;
-		this.index = index;
+		this.attIndex = attIndex;
 		this.attendanceTime = attendanceTime;
 		this.attendanceNum = attendanceNum;
 		this.totalNum = totalNum;
 		this.leaveNum = leaveNum;
 		this.truancyNum = truancyNum;
+		this.publishId = publishId;
 	}
 	public Attendance() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	@Override
-	public String toString() {
-		return "Attendance [attendanceId=" + attendanceId + ", virtualClassNum=" + virtualClassNum + ", index=" + index
-				+ ", attendanceTime=" + attendanceTime + ", attendanceNum=" + attendanceNum + ", totalNum=" + totalNum
-				+ ", leaveNum=" + leaveNum + ", truancyNum=" + truancyNum + "]";
-	}
+	
 	
 }

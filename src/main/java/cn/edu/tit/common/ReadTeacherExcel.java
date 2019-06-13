@@ -2,6 +2,7 @@ package cn.edu.tit.common;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -73,9 +74,10 @@ public class ReadTeacherExcel {
 	 * 根据excel里面的内容读取信息
 	 * @param is    输入流
 	 * @param isExcel2003 excel是2003还是2007版本
+	 * @throws NoSuchAlgorithmException 
 	 * @throws IOException
 	 */
-	public List<Teacher> createExcel(InputStream is, boolean isExcel2003) {
+	public List<Teacher> createExcel(InputStream is, boolean isExcel2003) throws NoSuchAlgorithmException {
 		List<Teacher> teacherList = new ArrayList<Teacher>();
 		try {
 			Workbook wb = null;
@@ -99,8 +101,9 @@ public class ReadTeacherExcel {
 	 * 
 	 * @param wb
 	 * @return
+	 * @throws NoSuchAlgorithmException 
 	 */
-	private List<Teacher> readExcelValue(Workbook wb) {
+	private List<Teacher> readExcelValue(Workbook wb) throws NoSuchAlgorithmException {
 		// 得到第一个shell
 		Sheet sheet = wb.getSheetAt(0);
 		// 得到Excel的行数
@@ -146,37 +149,37 @@ public class ReadTeacherExcel {
 					teacher.setTeacherName(getValue(cell));//设置教师名
 					break;
 				case 2:
-					teacher.setTeacherPassword(getValue(cell));//设置教师密码
+					teacher.setTeacherPassword(Common.eccryptMD5("123456"));//设置教师密码
 					break;
-				case 3:
-					teacher.setTeacherGender(getValue(cell));//设置教师性别
-					break;	
-				case 4:
-					teacher.setEducationBackground(getValue(cell));//设置教育背景
-					break;
-				case 5:
-					teacher.setProfessionalTitles(getValue(cell));//设置教师职称
-					break;
-				case 6:
-					teacher.setTelephone(getValue(cell));//设置教师电话
-					break;
-				case 7:
-					teacher.setEmail(getValue(cell));//设置教师电子邮箱
-					break;
-				case 8:
-					teacher.setFaceImg(null);
-					break;
-				case 9:
-					teacher.setTeacherNickName(null);
-					break;
-				case 10:
-					teacher.setStatus(null);;
-					break;
-				case 11:
-					teacher.setTeacherCategory(null);;
-					break;
-				default:
-					break;
+//				case 3:
+//					teacher.setTeacherGender(getValue(cell));//设置教师性别
+//					break;	
+//				case 4:
+//					teacher.setEducationBackground(getValue(cell));//设置教育背景
+//					break;
+//				case 5:
+//					teacher.setProfessionalTitles(getValue(cell));//设置教师职称
+//					break;
+//				case 6:
+//					teacher.setTelephone(getValue(cell));//设置教师电话
+//					break;
+//				case 7:
+//					teacher.setEmail(getValue(cell));//设置教师电子邮箱
+//					break;
+//				case 8:
+//					teacher.setFaceImg(null);
+//					break;
+//				case 9:
+//					teacher.setTeacherNickName(null);
+//					break;
+//				case 10:
+//					teacher.setStatus(null);;
+//					break;
+//				case 11:
+//					teacher.setTeacherCategory(null);;
+//					break;
+//				default:
+//					break;
 				}
 			}
 			if(teacher.getEmployeeNum()!=null)

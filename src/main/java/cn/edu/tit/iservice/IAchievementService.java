@@ -8,6 +8,7 @@ import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
@@ -107,6 +108,13 @@ public interface IAchievementService {
 	 * 查找评论
 	 * */
 	public void insertAchievementComment(AchievementComment comment)throws Exception;
-	public List<AchievementComment> queryComment(String achievementId,String category)throws Exception;
+	public List<AchievementComment> queryStuComment(String achievementId,String category)throws Exception;
+	public List<AchievementComment> queryTeaComment(String achievementId,String category)throws Exception;
+	public Integer verifyLimitComment(String userID, String id)throws Exception;
+	public Integer verifyAlreadyComment(String userID, String id)throws Exception;
+	public void insertScore(AchievementScore as)throws Exception;
+	public AchievementScore queryAchievementScoreById(String achievementId)throws Exception;
+	public void updateScore(AchievementScore as)throws Exception;
+
 
 }

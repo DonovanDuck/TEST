@@ -255,14 +255,16 @@ public class TeacherController {
 
 			//获取课程成果
 			List<CourseExpand> aocscList  = iAchievementService.queryCourseExpandByCourseId(courseId);
-			request.setAttribute("aocscList", aocscList);
+			if(!aocscList.isEmpty())
+				request.setAttribute("aocscList", aocscList);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
 
-		
-		
+
+
 		return "jsp/Teacher/course_detail";
 	}
 
@@ -276,9 +278,17 @@ public class TeacherController {
 	public String toCreateCourse(HttpServletRequest request){
 		try {
 			List<Category> categoryList =  teacherService.readCategory();
-			List<Teacher> teacherList = teacherService.getTeachers();
+			List<Teacher> teacherList = new ArrayList<>();
+			Teacher teach = (Teacher) request.getSession().getAttribute("teacher");
+			String employeeNum = teach.getEmployeeNum();
+			for(Teacher teacher : teacherService.getTeachers()){
+				if(!employeeNum.equals(teacher.getEmployeeNum())){ // 在选择的教师中过滤掉当前的操作者
+					teacherList.add(teacher);
+				}
+			}
 			request.getSession().setAttribute("categoryList", categoryList);
 			request.getSession().setAttribute("teacherList", teacherList);
+			
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -496,10 +506,12 @@ public class TeacherController {
 			String teacherStr = (String)formdata.get("selectTeacher");
 			String[] teachers = teacherStr.split(",");
 			course.setPublisherId(employeeNum);
+			//course.setFaceImg(Common.readProperties("path")+"/"+courseId+"/"+employeeNum+"/"+files.get(0).getName());
 			for(File f : files){ // 集合中只有一张图片
 				String p = Common.readProperties("pre") +f.getPath().replaceAll("\\\\", "/").substring(3);
 				course.setFaceImg(p);
 			}
+			course.setCourseStudentNum(0);
 			teacherService.createCourse(course); // 添加课程
 			teacherService.addOtherToMyCourse(employeeNum, courseId, 1);//把课程创建者初始化到教师圈
 			//通过课程id和获取教师圈的id集合绑定教师到课程
@@ -565,12 +577,15 @@ public class TeacherController {
 			vir.setVirtualClassName(className);
 			vir.setTerm(selectTerm);
 			vir.setClassStuentNum(count);
+			//修改课程总人数
+			teacherService.updateCourseStudentNum(count,courseId);
 			if(files.isEmpty()||files==null||files.size()==0)
 			{
 				vir.setFaceImg(null);
 
 			}else {
-				vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+files.get(0).getName());
+				vir.setFaceImg(Common.readProperties("pre") +files.get(0).getPath().replaceAll("\\\\", "/").substring(3));
+				//vir.setFaceImg(Common.readProperties("path")+"/"+virId+"/"+files.get(0).getName());
 			}
 			vir.setRealClassList(realClassList);
 			teacherService.createVirtualClass(vir);
@@ -643,6 +658,36 @@ public class TeacherController {
 	//	return toCourseDetail(request,courseId);//创建虚拟班级成功返回到课程三级页面
 	//}
 
+	/**
+	 * @author LiMing
+	 * @param request
+	 * @return
+	 * @throws Exception 
+	 * 课程二级页面查询
+	 */
+	@RequestMapping(value="toCourseSecondSearch")
+	public ModelAndView toCourseSecondSearch(HttpServletRequest request,@RequestParam("search")String search) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		categories = teacherService.readCategory();
+		List<Course> list = new ArrayList<Course>();
+		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
+		list = teacherService.searchCourse(search);
+		if(list !=null && !list.isEmpty()) {
+			for (Course course : list) 
+			{
+				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				publishTime.add(course.getPublishTime().toString().substring(0,10));
+			}
+		}
+		mv.addObject("categories", categories);
+		mv.addObject("courseList", list);
+		mv.addObject("teacherNames", teacherNames);
+		mv.addObject("publishTime",publishTime);
+		mv.setViewName("/jsp/CourseJsp/courseSecond");
+		return mv;
+	}
+	
 	/**
 	 * 修改课程
 	 * @return
@@ -784,7 +829,7 @@ public class TeacherController {
 		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
-		
+
 		// 创建list集合用于获取文件上传返回路径名
 		List<String> list = new ArrayList<String>();
 		List<Accessory> accessories  = new ArrayList<Accessory>();
@@ -822,7 +867,7 @@ public class TeacherController {
 				Accessory accessory = new Accessory();
 				String fileName="";
 				try {
-					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+					fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -865,6 +910,89 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 		return url;
+	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * 修改任务资源
+	 */
+	@RequestMapping(value="updateTask")
+	@SuppressWarnings({ "unused", "unchecked" })
+	public ModelAndView updateTask(HttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		Object[] obj = Common.fileFactory(request,null);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		
+		// 创建list集合用于获取文件上传返回路径名
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		List<Resource> resources = new ArrayList<Resource>();
+		Task task=new Task();
+		task.setTaskId((String) formdata.get("taskId"));
+		task.setTaskTitle((String) formdata.get("taskTitle"));
+		task.setTaskDetail((String) formdata.get("taskDetail"));
+		//task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
+		//	task.setTaskType((String) formdata.get("taskType"));
+		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
+		task.setCourseId((String) request.getSession().getAttribute("courseId"));
+
+		try {
+			teacherService.updateTask(task);		//修改任务
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if(!returnFileList.isEmpty()) {
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				String fileName="";
+				try {
+					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				accessory.setAccessoryName(fileName);
+				System.out.println("name=================="+fileName);
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId((String) formdata.get("taskId"));
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+			}
+			try {
+				teacherService.updateAccessory(accessories);	//修改任务附件
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+				
+			}
+		}
+
+		try {
+			String a = (String) formdata.get("taskType");
+			if("work".equals(a)){
+				a = "8";
+			}
+			if("trial".equals(a)){
+				a = "9";
+			}
+			if("curriculum_design ".equals(a)){
+				a = "10";
+			}
+			return toCourseResource(request,a );
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			request.getSession().setAttribute("img", "error");
+			mv.setViewName("jsp/Teacher/teacher-update-taskResource");
+			return mv;
+		}
+
 	}
 
 	@RequestMapping(value="selectTaskToPublish")
@@ -922,6 +1050,30 @@ public class TeacherController {
 		}
 		return mv;
 	}
+	
+	/**
+	 * 跳转到修改任务资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toUpdateTaskResource/{taskId}")
+	public ModelAndView toUpdateTaskResource(HttpServletRequest request,@PathVariable String taskId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获得对应的资源
+			Task task = teacherService.getTaskById(taskId);
+			//mv.addObject("category", category);
+			if(task != null)
+				mv.addObject("task", task);
+			mv.setViewName("/jsp/Teacher/teacher-update-taskResource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
 
 	/**
 	 * 修改资源
@@ -954,8 +1106,9 @@ public class TeacherController {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			return null;
 		}
-		return null;
+		
 
 	}
 
@@ -1021,7 +1174,7 @@ public class TeacherController {
 
 
 	}
-	
+
 	/**
 	 * @author wenli
 	 * @param request
@@ -1038,7 +1191,7 @@ public class TeacherController {
 		Map<String, Object> formdata = (Map<String, Object>) obj[1];
 		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
 		String virtualClassNum = "001";
-		
+
 		// 创建list集合用于获取文件上传返回路径名
 		List<String> list = new ArrayList<String>();
 		List<Accessory> accessories  = new ArrayList<Accessory>();
@@ -1053,8 +1206,8 @@ public class TeacherController {
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum(virtualClassNum);
 		task.setUseNum(1);//设置使用次数为1
+		task.setWatchNum(0);
 		task.setCourseId((String) formdata.get("courseId"));
-		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
 		String c = (String)formdata.get("taskCategory");
 		if("8".equals(c))
 			task.setTaskType("work");
@@ -1077,7 +1230,7 @@ public class TeacherController {
 				Accessory accessory = new Accessory();
 				String fileName="";
 				try {
-					 fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+					fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
 				} catch (UnsupportedEncodingException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -1096,12 +1249,12 @@ public class TeacherController {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				mv.setViewName("/jsp/Teacher/teacher-release-resourceTask");
-				
+
 			}
 		}
 
 		return mv;
-		
+
 
 	}
 
@@ -1154,8 +1307,16 @@ public class TeacherController {
 
 	 */
 	@RequestMapping(value="toClassDetail",method= {RequestMethod.GET})
-	public ModelAndView toClassDetail(HttpServletRequest request  ,@RequestParam(value="virtualClassNum") String virtualClassNum,@RequestParam(value="virtualClassName") String virtualClassName,@RequestParam(value="courseName") String courseName ) throws Exception {
+	public ModelAndView toClassDetail(HttpServletRequest request ,HttpServletResponse response, @RequestParam(value="virtualClassNum") String virtualClassNum,
+			@RequestParam(value="virtualClassName") String virtualClassName,@RequestParam(value="courseName") String courseName ) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 		System.out.println(virtualClassName+"dsfghjkl"+courseName);
 		String identify = "teacher";
 		request.getSession().setAttribute("identify", identify);
@@ -1277,9 +1438,9 @@ public class TeacherController {
 		Timestamp taskEndTime;
 		String format = "yyyy-MM-dd HH:mm:ss";
 		Timestamp now = new Timestamp(System.currentTimeMillis());
-    	Date nowTime = new java.util.Date(now.getTime());
-    	DateFormat df=new SimpleDateFormat(format);
-    	try {
+		Date nowTime = new java.util.Date(now.getTime());
+		DateFormat df=new SimpleDateFormat(format);
+		try {
 			nowTime=df.parse(df.format(nowTime )) ;
 		} catch (ParseException e1) {
 			// TODO Auto-generated catch block
@@ -1317,16 +1478,16 @@ public class TeacherController {
 			mv.addObject("teacherClassName", teacherClassName);
 			if(identify.equals("student")) {
 				Boolean isEnd=false;
-			     Calendar begin = Calendar.getInstance();
-			     begin.setTime(nowTime);
-			     Date endTime = new java.util.Date(taskEndTime.getTime());
-			    	
-			     endTime=df.parse(df.format(endTime )) ;
-			     Calendar end = Calendar.getInstance();
-			     end.setTime(endTime);
-			     if (begin.after(end)) {
-			    	 isEnd=true;
-			     }
+				Calendar begin = Calendar.getInstance();
+				begin.setTime(nowTime);
+				Date endTime = new java.util.Date(taskEndTime.getTime());
+
+				endTime=df.parse(df.format(endTime )) ;
+				Calendar end = Calendar.getInstance();
+				end.setTime(endTime);
+				if (begin.after(end)) {
+					isEnd=true;
+				}
 				accessoriesName = studentService.getUpAccessories(taskId, studentId);
 				String comment = null;
 				Student student = null;
@@ -1401,7 +1562,7 @@ public class TeacherController {
 	 * 通过分类筛选 课程
 	 * */
 	@RequestMapping(value="readCourseInfoByCategory/{categoryId}",method= {RequestMethod.GET})
-	public ModelAndView readCategoryInfo(@PathVariable String categoryId) {			
+	public ModelAndView readCategoryInfo(HttpServletRequest request, @PathVariable String categoryId) {			
 		ModelAndView mv = new ModelAndView();
 		String category = categoryId;
 		List<Course> list = new ArrayList<Course>();
@@ -1416,6 +1577,7 @@ public class TeacherController {
 		}
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("categories",categories);
+		mv.addObject("categoryId",categoryId);
 		mv.addObject("courseList", list);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
@@ -1471,9 +1633,9 @@ public class TeacherController {
 					if(!"".equals(course.getCourseDetail())){
 						String de = course.getCourseDetail().replaceAll("<p>", "");
 						de = de.replaceAll("</p>","");
-						
+
 						if(course.getCourseDetail().length()>=70){
-							
+
 							de = de.substring(0, 63);
 						}
 						course.setCourseDetail(de);
@@ -1524,9 +1686,9 @@ public class TeacherController {
 					if(!"".equals(course.getCourseDetail())){
 						String de = course.getCourseDetail().replaceAll("<p>", "");
 						de = de.replaceAll("</p>","");
-						
+
 						if(course.getCourseDetail().length()>=70){
-							
+
 							de = de.substring(0, 63);
 						}
 						course.setCourseDetail(de);
@@ -1577,9 +1739,9 @@ public class TeacherController {
 					if(!"".equals(course.getCourseDetail())){
 						String de = course.getCourseDetail().replaceAll("<p>", "");
 						de = de.replaceAll("</p>","");
-						
+
 						if(course.getCourseDetail().length()>=70){
-							
+
 							de = de.substring(0, 63);
 						}
 						course.setCourseDetail(de);
@@ -2180,17 +2342,9 @@ public class TeacherController {
 		List<Task> taskList = new ArrayList<>();//返回前台数据
 		//查询信息switch
 		switch (category) {
-		case "6":{
+		case "0":{
 			//教案库
-			mv.addObject("resourceName", "教案");
-			break;
-		}
-		case "7":{
-			//教学资源库
-			mv.addObject("resourceName", "教学资源");
-			break;
-		}
-		case "5":{
+			mv.addObject("resourceName", "全部");
 			//多媒体资源
 			resourceList = resourceService.showResourceByCourse(courseId);
 			for (Resource resource : resourceList) {
@@ -2208,12 +2362,6 @@ public class TeacherController {
 				}
 			}
 			mv.addObject("resource", resourceList);//返回信息
-
-
-			mv.addObject("resourceName", "多媒体资源");
-			break;
-		}
-		case "8":{
 			//作业库
 			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
 			for (Task task : taskList) {
@@ -2230,13 +2378,9 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
-			mv.addObject("resourceName", "作业");
-			break;
-		}
-		case "9"://实验库
-			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
-			for (Task task : taskList) {
+			//实验库
+			List<Task> trailList = teacherService.getTaskByPointAndCourse("trial",courseId);
+			for (Task task : trailList) {
 				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
 				//限制显示字数
 				if(!"".equals(task.getTaskDetail())){
@@ -2249,8 +2393,92 @@ public class TeacherController {
 					}
 					task.setTaskDetail(de);
 				}
+				taskList.add(task);
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			mv.addObject("trailList", trailList);//返回信息
+			break;
+
+		}
+		case "6":{
+			//教案库
+			mv.addObject("resourceName", "教案");
+			break;
+		}
+		case "7":{
+			//教学资源库
+			mv.addObject("resourceName", "教学资源");
+			
+			
+			break;
+		}
+		case "5":{
+			//多媒体资源
+			resourceList = resourceService.showResourceByCourse(courseId);
+			for (Resource resource : resourceList) {
+				resource.setPublisherId(teacherService.getTeacherNameById(resource.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(resource.getResourceDetail()) && resource.getResourceDetail() != null){
+					String de = resource.getResourceDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(resource.getResourceDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					resource.setResourceDetail(de);
+				}
+			}
+			if(resourceList != null && !resourceList.isEmpty())
+				mv.addObject("resource", resourceList);//返回信息
+			else 
+				mv.addObject("resource", null);//返回信息
+			mv.addObject("resourceName", "多媒体资源");
+			break;
+		}
+		case "8":{
+			//作业库
+			taskList = teacherService.getTaskByPointAndCourse("work",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(task.getTaskDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+			}
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
+			mv.addObject("resourceName", "作业");
+			break;
+		}
+		case "9"://实验库
+			taskList = teacherService.getTaskByPointAndCourse("trial",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(task.getTaskDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+			}
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "实验");
 			break;
 		case "10"://课程设计库
@@ -2281,7 +2509,7 @@ public class TeacherController {
 		mv.addObject("course", course);//返回信息
 		return mv;
 	}
-	
+
 	/**
 	 * 课程详细页面的列表显示
 	 * @param request
@@ -2335,17 +2563,18 @@ public class TeacherController {
 				if(!"".equals(resource.getResourceDetail()) && resource.getResourceDetail() != null){
 					String de = resource.getResourceDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(resource.getResourceDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					resource.setResourceDetail(de);
 				}
 			}
-			mv.addObject("resource", resourceList);//返回信息
-
-
+			if(resourceList != null && !resourceList.isEmpty())
+				mv.addObject("resource", resourceList);//返回信息
+			else 
+				mv.addObject("resource", null);//返回信息
 			mv.addObject("resourceName", "多媒体资源");
 			break;
 		}
@@ -2358,15 +2587,18 @@ public class TeacherController {
 				if(!"".equals(task.getTaskDetail())){
 					String de = task.getTaskDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(task.getTaskDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "作业");
 			break;
 		}
@@ -2378,15 +2610,18 @@ public class TeacherController {
 				if(!"".equals(task.getTaskDetail())){
 					String de = task.getTaskDetail().replaceAll("<p>", "");
 					de = de.replaceAll("</p>","");
-					
+
 					if(task.getTaskDetail().length()>=30){
-						
+
 						de = de.substring(0, 15);
 					}
 					task.setTaskDetail(de);
 				}
 			}
-			mv.addObject("taskList", taskList);//返回信息
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "实验");
 			break;
 		case "10"://课程设计库
@@ -2705,7 +2940,7 @@ public class TeacherController {
 		String comment = request.getParameter("comment");
 		Timestamp commentTime = new Timestamp(System.currentTimeMillis());
 		teacherService.setGradeAndComment(comment, grade, studentId, taskId,commentTime);
-		
+
 		return "redirect:/teacher/toTaskDetail?taskId="+taskId;
 
 	}
@@ -2762,8 +2997,13 @@ public class TeacherController {
 	@RequestMapping("/readRealClassToSelect/{realClass}")
 	public void readRealClassToSelect( HttpServletResponse response,@PathVariable(value="realClass") String realClass,HttpServletRequest request) throws Exception{
 		List<RealClass> list = new ArrayList<RealClass>();
-		try {
+		if("nullRealClassName".equals(realClass))
+		{
+			list = teacherService.readRealClassToSelect("");
+		}else {
 			list = teacherService.readRealClassToSelect(realClass);
+		}
+		try {
 			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
 			String result = json.toString();
 			response.getWriter().print(result);
@@ -2845,7 +3085,7 @@ public class TeacherController {
 		mv.setViewName("/jsp/Teacher/teacherInfo/myclass_create");;//设置返回页面
 		return mv;
 	}
-	
+
 	/**
 	 * 跳转到课程详细简介
 	 * @param request
@@ -2866,7 +3106,7 @@ public class TeacherController {
 		}
 		return mv;
 	}
-	
+
 	/**
 	 * 跳转到课程详细教师圈
 	 * @param request
@@ -2877,8 +3117,8 @@ public class TeacherController {
 	public ModelAndView toCourseTeacherFrame(HttpServletRequest request, @PathVariable String courseId){
 		ModelAndView mv = new ModelAndView();
 		// 查询教师圈教师信息
-				List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
-				request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
+		List<Teacher> teacherList = teacherService.getTeachersByCourseId(courseId);
+		request.getSession().setAttribute("teacherList", teacherList); //通过存入request在前台访问
 		try {
 			mv.addObject("teacherList", teacherList);
 			mv.setViewName("/jsp/Teacher/course_detail_teachers");
@@ -2888,7 +3128,7 @@ public class TeacherController {
 		}
 		return mv;
 	}
-	
+
 	/**
 	 * 根据教师ID的模糊查询
 	 * */
@@ -2896,7 +3136,12 @@ public class TeacherController {
 	public void teacherForFuzzyQueryById(HttpServletRequest request,HttpServletResponse response,@PathVariable("teacherNum")String teacherNum) {
 		List<Teacher> list = new ArrayList<Teacher>();
 		try {
-			list = teacherService.teacherForFuzzyQueryById(teacherNum);
+			if("nullTeacherName".equals(teacherNum))
+			{
+				list = teacherService.teacherForFuzzyQueryById("");
+			}else {
+				list = teacherService.teacherForFuzzyQueryById(teacherNum);
+			}
 			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
 			String result = json.toString();
 			response.getWriter().print(result);
@@ -2978,59 +3223,59 @@ public class TeacherController {
 			studentTurnClassGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "turn_class"));
 			studentAttenceGradeNum.put(student.getStudentId(), teacherService.getStudentGradeNum(student.getStudentId(), virtualClassNum, "attence"));
 		}
-	
-        int max=0;
-        System.out.println("已经进来了...");
-        //定义用于传递的JSONARRAY数组
-        com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
-      //填充JSON数组内容
-        for (Student student : studentList) {
-        	 JSONObject ob=new JSONObject();
-        	 ob.put("studentName", student.getStudentName());
-        	 ob.put("studentId", student.getStudentId());
-        	 ob.put("workGrade", studentWorkGrade.get(student.getStudentId())+"/"+studentWorkGradeNum.get(student.getStudentId()));
-        	 ob.put("trialGrade", studentTrialGrade.get(student.getStudentId())+"/"+studentTrialGradeNum.get(student.getStudentId()));
-        	 ob.put("courseDesignGrade", studentCourseDesignGrade.get(student.getStudentId())+"/"+studentCourseDesignGradeNum.get(student.getStudentId()));
-        	 ob.put("turnClassGrade", studentTurnClassGrade.get(student.getStudentId())+"/"+studentTurnClassGradeNum.get(student.getStudentId()));
-        	 ob.put("attenceGrade", studentAttenceGrade.get(student.getStudentId())+"/"+studentAttenceGradeNum.get(student.getStudentId()));
-        	 ob.put("workGradeNum", studentWorkGradeNum.get(student.getStudentId()));
-        	 ob.put("trialGradeNum", studentTrialGradeNum.get(student.getStudentId()));
-        	 ob.put("courseDesignGradeNum", studentCourseDesignGradeNum.get(student.getStudentId()));
-        	 ob.put("turnClassGradeNum", studentTurnClassGradeNum.get(student.getStudentId()));
-        	 ob.put("attenceGradeNum", studentAttenceGradeNum.get(student.getStudentId()));
-        	 ob.put("sumGrade",studentWorkGrade.get(student.getStudentId())
-        			 +studentTrialGrade.get(student.getStudentId())
-        			 +studentCourseDesignGrade.get(student.getStudentId())
-        			 +studentTurnClassGrade.get(student.getStudentId())
-        			 +studentAttenceGrade.get(student.getStudentId()));
-        	//装进数组
-             arr.add(ob);
-        }
-        //根据成绩排序
-        List<JSONObject>list = com.alibaba.fastjson.JSONArray.parseArray(arr.toJSONString(),JSONObject.class);
-        System.out.println("排序前："+arr);
-        Collections.sort(list, new Comparator<JSONObject>() {
-            @Override
-            public int compare(JSONObject o1, JSONObject o2) {
-                int a = o1.getInteger("sumGrade");
-                int b = o2.getInteger("sumGrade");
-                if (a > b) {
-                    return -1;
-                } else if(a == b) {
-                    return 0;
-                } else
-                    return 1;
-                }
-        });
-        com.alibaba.fastjson.JSONArray jsonArray = com.alibaba.fastjson.JSONArray.parseArray(list.toString());
-        System.out.println("排序后：" + jsonArray);
-        //排序完毕之后绑定学生排名
-        if(jsonArray.size()>0){
-        	  for(int i=0;i<jsonArray.size();i++){
-        	    JSONObject ob = jsonArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
-        	    ob.put("studentRank", i+1);
-        	  }
-        }
+
+		int max=0;
+		System.out.println("已经进来了...");
+		//定义用于传递的JSONARRAY数组
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		//填充JSON数组内容
+		for (Student student : studentList) {
+			JSONObject ob=new JSONObject();
+			ob.put("studentName", student.getStudentName());
+			ob.put("studentId", student.getStudentId());
+			ob.put("workGrade", studentWorkGrade.get(student.getStudentId())+"/"+studentWorkGradeNum.get(student.getStudentId()));
+			ob.put("trialGrade", studentTrialGrade.get(student.getStudentId())+"/"+studentTrialGradeNum.get(student.getStudentId()));
+			ob.put("courseDesignGrade", studentCourseDesignGrade.get(student.getStudentId())+"/"+studentCourseDesignGradeNum.get(student.getStudentId()));
+			ob.put("turnClassGrade", studentTurnClassGrade.get(student.getStudentId())+"/"+studentTurnClassGradeNum.get(student.getStudentId()));
+			ob.put("attenceGrade", studentAttenceGrade.get(student.getStudentId())+"/"+studentAttenceGradeNum.get(student.getStudentId()));
+			ob.put("workGradeNum", studentWorkGradeNum.get(student.getStudentId()));
+			ob.put("trialGradeNum", studentTrialGradeNum.get(student.getStudentId()));
+			ob.put("courseDesignGradeNum", studentCourseDesignGradeNum.get(student.getStudentId()));
+			ob.put("turnClassGradeNum", studentTurnClassGradeNum.get(student.getStudentId()));
+			ob.put("attenceGradeNum", studentAttenceGradeNum.get(student.getStudentId()));
+			ob.put("sumGrade",studentWorkGrade.get(student.getStudentId())
+					+studentTrialGrade.get(student.getStudentId())
+					+studentCourseDesignGrade.get(student.getStudentId())
+					+studentTurnClassGrade.get(student.getStudentId())
+					+studentAttenceGrade.get(student.getStudentId()));
+			//装进数组
+			arr.add(ob);
+		}
+		//根据成绩排序
+		List<JSONObject>list = com.alibaba.fastjson.JSONArray.parseArray(arr.toJSONString(),JSONObject.class);
+		System.out.println("排序前："+arr);
+		Collections.sort(list, new Comparator<JSONObject>() {
+			@Override
+			public int compare(JSONObject o1, JSONObject o2) {
+				int a = o1.getInteger("sumGrade");
+				int b = o2.getInteger("sumGrade");
+				if (a > b) {
+					return -1;
+				} else if(a == b) {
+					return 0;
+				} else
+					return 1;
+			}
+		});
+		com.alibaba.fastjson.JSONArray jsonArray = com.alibaba.fastjson.JSONArray.parseArray(list.toString());
+		System.out.println("排序后：" + jsonArray);
+		//排序完毕之后绑定学生排名
+		if(jsonArray.size()>0){
+			for(int i=0;i<jsonArray.size();i++){
+				JSONObject ob = jsonArray.getJSONObject(i);  // 遍历 jsonarray 数组，把每一个对象转成 json 对象
+				ob.put("studentRank", i+1);
+			}
+		}
 		String result = jsonArray.toString();
 		try {
 			response.getWriter().print(result);
@@ -3038,8 +3283,70 @@ public class TeacherController {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
-        
-        
 	}
+
+	@RequestMapping("toMyAchievement")
+	public ModelAndView toMyAchievement() {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/Teacher/teacherInfo/myAchievement");
+		return mv;
+	}	
+
+
+	@RequestMapping("queryCourseByPartName/{courseName}")
+	public void queryCourseByPartName(HttpServletRequest request,HttpServletResponse response,@PathVariable("courseName")String courseName) {
+		List<Course> list = new ArrayList<Course>();
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			if("nullCourseName".equals(courseName))
+			{
+				list = teacherService.queryCourseByPartName("");
+			}else {
+				list = teacherService.queryCourseByPartName(courseName);
+			}
+			JSONArray  json  =  JSONArray.fromObject(list); //将获取的List集合存入 JSONArray中
+			String result = json.toString();
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
+
+	@RequestMapping("getTeacherNameById/{teacherId}")
+	public void getTeacherNameById(HttpServletRequest request,HttpServletResponse response,@PathVariable("teacherId")String teacherId) {
+		String name = "";
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			name = teacherService.getTeacherNameById(teacherId);
+			response.getWriter().print(name);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	@RequestMapping("getStudentNameById/{studentId}")
+	public void getStudentNameById(HttpServletRequest request,HttpServletResponse response,@PathVariable("studentId")String studentId) {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			Student stu = studentService.studentLoginByEmployeeNum(studentId);
+			response.getWriter().print(stu.getStudentName());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}	
 }

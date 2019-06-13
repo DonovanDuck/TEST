@@ -44,13 +44,13 @@
 				<div class="lesson">
 					<div class="lesson_l">
 						<c:if test="${empty course.faceImg }">
-							<img
-								src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
-								alt="" style="width: 100%; height: 100%;" />
-						</c:if>
+								<img
+									src="${pageContext.request.contextPath}/img/workType/classDefault.jpg"
+									alt="" style="width: 100%; height: 100%;" />
+							</c:if>
 						<c:if test="${not empty course.faceImg }">
 							<img
-								src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${course.faceImg }"
+								src="${course.faceImg }"
 								alt="" style="width: 100%; height: 90%;" />
 						</c:if>
 					</div>

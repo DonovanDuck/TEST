@@ -255,6 +255,16 @@
 		return judge;
 	}
 </script>
+<script type="text/javascript">
+	function check() {
+		var uid = $("#file_excel").val();
+		if (uid == null || uid == "") {
+			alert("文件为空");
+			return false;
+		}
+		return true;
+	}
+</script>
 <title>后台管理</title>
 </head>
 <body style="background-color: #f8f8f8">
@@ -275,7 +285,8 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="#">登出</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -300,19 +311,20 @@
 						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a>
 					</li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
-					</li>
-					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
-						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
+						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a></li>
+					<li><a href="${pageContext.request.contextPath}/admin/toTerm"
+						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
+						class="waves-effect waves-dark" style="font-size: 20px">学术委员管理</a>
 					</li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px;">系部信息管理</a></li>
+						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -330,13 +342,13 @@
 							type="file" id="file_excel" name="file_excel">
 					</div>
 					<button type="submit" class="btn btn-default"
-						style="margin-top: 2%">提交</button>
+						style="margin-top: 2%">导入</button>
 				</form>
-				<div>文件格式：学号、姓名、班级、性别、密码、邮箱、专业、电话</div>
+				<div>文件(EXCEL)格式：学号、姓名、专业</div>
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<table id="tb_departments"></table>
+				<table id="tb_departments" style="table-layout:fixed"></table>
 			</div>
 		</div>
 	</div>

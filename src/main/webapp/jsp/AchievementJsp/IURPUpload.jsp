@@ -18,6 +18,18 @@
 	rel="stylesheet" />
 <script src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js"
+	charset="utf-8"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js"
+	charset="utf-8"></script>
 <script type="text/javascript">
 	function submitButton() {
 		var member = "";
@@ -30,6 +42,7 @@
 		});
 		$("#memberContent").val(member);
 		$("#memberNumContent").val(memberNum);
+		
 		var judge = true;//定义判断，如果有空，则不可提交,默认可以提交
 		var alertJudge = true;//弹框判断
 		 $("#content").find("input[type='text']").each(function(){
@@ -63,10 +76,160 @@
 	}
 </script>
 <script type="text/javascript">
+	function readCompereId() {
+		var memberNum = $("#memberNum").val();
+		var judge = true;
+		if(judge)
+			{
+			$
+					.ajax({
+						async : false,
+						cache : false,
+						url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+memberNum,
+						type : "POST",
+						dataType : "text",
+						success : function(result) {
+					$("#compere").val(result);
+					if(result!=null||result!=""||result!="null")
+						{judge = false;
+						}
+						},
+						error:function(){
+						}
+					});
+			}
+		if(judge)
+		{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+memberNum,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+				$("#compere").val(result)
+				},
+				error:function(){
+				}
+			});	
+		}
+	}
+</script>
+<script type="text/javascript">
+	function readGuidance() {
+		var guidanceTeacherId = $("#guidanceTeacherId").val();
+		var judge = true;
+		if(judge)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+guidanceTeacherId,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#guidanceTeacher").val(result);
+			if(result!=null||result!=""||result!="null")
+			{judge = false}
+				},
+				error:function(){
+				}
+			});
+			}
+		if(judge)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+guidanceTeacherId,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#guidanceTeacher").val(result)
+				},
+				error:function(){
+				}
+			});
+			}
+	}
+</script>
+<script type="text/javascript" charset="utf-8">
+$(function (){
+	var width = $("#name").width();
+	var height = $("#name").height();
+	$("#finishTime").height(height);
+	var ue = UE.getEditor('detail',{
+	initialFrameWidth:width,
+	initialFrameHeight:180,
+	initialFrameMargin:0,
+	})
+})
+</script>
+<script type="text/javascript">
+	function readMemberId(one) {
+ 		var idNum = $(one).attr('id');
+ 		var id = $("#"+idNum).val();
+ 		var idName = parseInt(idNum)+1;
+		var judge = true;
+		var ST = true;
+		$("input[name='memberNum']").each(function(i) {
+			memberId = $(this).val();
+			var eachId = $(this).attr('id');
+			if(id==memberId&&eachId!=idNum)
+				{
+				alert("输入学号不可重复输入");
+				judge = false;
+				}
+		});
+		if(judge&&ST)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getStudentNameById/"+id,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#"+idName).val(result);
+			if(result!=null||result!=""||result!="null")
+			{ST = false}
+				},
+				error:function(){
+				}
+			});
+			}
+		if(judge&&ST)
+			{
+			$
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/getTeacherNameById/"+id,
+				type : "POST",
+				dataType : "text",
+				success : function(result) {
+			$("#guidanceTeacher").val(result)
+				},
+				error:function(){
+				}
+			});
+			}
+	}
+</script>
+<script type="text/javascript">
+var numId = 3;//定义全局变量，用于动态ID的变化
+var nameId = 4;//定义全局变量，用于动态ID的变化
 	$(function() {
 		$("#addMemberButton").click(function() {
-			var mode = "<li style='padding: 0%; margin-bottom: 1%; float: left; width: 100%;'><div style='padding: 0px; margin: 0px;width:85%'><input type='text' class='form-control' id='member' name='member' placeholder='作品成员' style='width: 38%; float: left'><input type='text' class='form-control' id='memberNum' name='memberNum' placeholder='工号' style='width: 58%; float: left; margin-left: 1%;'></div></li>"		
-				$("#ulContent").append(mode);
+			var mode = "<li style='padding: 0%; margin-bottom: 1%; float: left; width: 100%;'><div style='padding: 0px; margin: 0px;width:85%'><input type='text' class='form-control' id='"+numId+"' name='memberNum' placeholder='工号' oninput='readMemberId(this)' style='width: 58%; float: left;'><input type='text' class='form-control' id='"+nameId+"' name='member' placeholder='作品成员' readonly='readonly' style='width: 38%; float: left; margin-left:3%'></div></li>"		
+			numId = numId+2;
+			nameId = nameId+2;
+			$("#ulContent").append(mode);
+			$("#ulContent").trigger("create");
 		});
 	})
 </script>
@@ -106,12 +269,14 @@
 				<div class="form-group">
 					<label for="compere">作品负责人</label>
 					<div style="padding: 0px; margin: 0px; width: 100%;">
-						<input type="text" class="form-control" id="compere"
-							name="compere" style="float: left; width: 41%"
-							placeholder="作品负责人"><input type="text"
-							class="form-control" id="memberNum" name="memberNum"
-							placeholder="工号"
-							style="width: 58%; float: left; margin-left: 1%;">
+						<input type="text" class="form-control" id="memberNum"
+							onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+							onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
+							name="memberNum" placeholder="工号" oninput="readCompereId()"
+							style="width: 50%; float: left;"> <input type="text"
+							class="form-control" id="compere" name="compere"
+							style="float: left; width: 48%; margin-left: 2%"
+							placeholder="作品负责人" readonly="readonly">
 					</div>
 				</div>
 				<div class="form-group">
@@ -121,12 +286,14 @@
 						<li
 							style="padding: 0%; margin-bottom: 1%; float: left; width: 85%;">
 							<div style="padding: 0px; margin: 0px; width: 100%;">
-								<input type="text" class="form-control" id="member"
-									name="member" placeholder="作品成员"
-									style="width: 38%; float: left"><input type="text"
-									class="form-control" id="memberNum" name="memberNum"
-									placeholder="工号"
-									style="width: 58%; float: left; margin-left: 1%;">
+								<input type="text" class="form-control" id="1" name="memberNum"
+									oninput="readMemberId(this)" placeholder="工号"
+									onkeyup="this.value=this.value.replace(/[^\d]/g,'') "
+									onafterpaste="this.value=this.value.replace(/[^\d]/g,'') "
+									style="width: 58%; float: left;"><input type="text"
+									class="form-control" id="2" name="member" placeholder="作品成员"
+									style="width: 38%; margin-left: 3%; float: left"
+									readonly="readonly">
 							</div>
 						</li>
 						<li class="text-center"
@@ -136,7 +303,7 @@
 						</li>
 					</ul>
 					<input type="text" style="display: none" id="memberContent"
-						name="memberContent"> <input type="text"
+						name="memberContent"><input type="text"
 						style="display: none" id="memberNumContent"
 						name="memberNumContent"> <br>
 				</div>
@@ -147,24 +314,23 @@
 				</div>
 				<div class="form-group">
 					<label for="detail">作品详情</label>
-					<textarea class="form-control" id="detail" rows="10" name="detail"
-						style="resize: none; height: 30%" placeholder="作品详情"></textarea>
-				</div>
-				<div>
-					<div class="form-group" style="width: 50%; float: left">
-						<label for="picture"
-							style="float: left; margin-top: 1%; margin-right: 4%;">作品图片</label>
-						<input type="file" id="picture" name="img" multiple="multiple"
-							placeholder="作品图片" />
-					</div>
-					<div class="form-group" style="width: 50%; float: left">
-						<label for="exampleInputFile"
-							style="float: left; margin-top: 1%; margin-right: 4%;">作品附件</label>
-						<input type="file" name="accessory" id="exampleInputFile"
-							placeholder="作品附件">
+					<div style="padding-left: 0px; margin-left: 2%">
+						<textarea id="detail" name="detail" type="text" placeholder="作品详情"></textarea>
 					</div>
 				</div>
 				<div class="form-group">
+					<label for="picture"
+						style="float: left; margin-top: 1%; margin-right: 4%;">作品图片</label>
+					<input type="file" id="picture" name="img" multiple="multiple"
+						placeholder="作品图片" />
+				</div>
+				<div class="form-group" style="margin-top: 3%">
+					<label for="exampleInputFile"
+						style="float: left; margin-right: 4%;">作品附件</label> <input
+						type="file" name="accessory" id="exampleInputFile"
+						placeholder="作品附件">
+				</div>
+				<div class="form-group" style="margin-top: 3%">
 					<label for="price">作品售价</label> <input type="number"
 						class="form-control" id="price" name="price" placeholder="作品售价/元">
 				</div>
@@ -174,14 +340,18 @@
 						placeholder="合作单位">
 				</div>
 				<div class="form-group">
-					<label for="startTime">作品开始时间</label> <input type="date"
-						class="form-control" id="startTime" name="startTime"
-						placeholder="作品开始时间">
+					<label for="finishTime">作品开始时间</label> <input type="text"
+						style="height: 30px;" class="Wdate form-control" name="startTime"
+						id="startTime"
+						onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"
+						placeholder="作品开始时间" />
 				</div>
 				<div class="form-group">
-					<label for="endTime">作品结束时间</label> <input type="date"
-						class="form-control" id="endTime" name="endTime"
-						placeholder="作品结束时间">
+					<label for="finishTime">作品完成时间</label> <input type="text"
+						style="height: 30px;" class="Wdate form-control" name="endTime"
+						id="endTime"
+						onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})"
+						placeholder="作品完成时间" />
 				</div>
 				<div class="form-group">
 					<label for="isShare">是否分享</label> <select class="form-control"

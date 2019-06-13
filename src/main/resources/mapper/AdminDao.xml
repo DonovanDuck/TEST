@@ -2,7 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="cn.edu.tit.idao.IAdminDao">
-
+	<resultMap type="cn.edu.tit.bean.Term" id="termMap">
+		<id column="term_id" property="termId" />
+		<result column="start_year" property="startYear" />
+		<result column="end_year" property="endYear" />
+		<result column="term" property="term" />
+	</resultMap>
 	<resultMap type="cn.edu.tit.bean.Teacher" id="teacherMap">
 		<id column="employee_num" property="employeeNum" />
 		<result column="teacher_name" property="teacherName" />
@@ -28,6 +33,7 @@
 		<id column="id" property="id" />
 		<result column="name" property="name" />
 		<result column="num" property="num" />
+		<result column="delete_flag" property="deleteFlag" />
 	</resultMap>
 	<!-- 被抛弃的方法，备份。原目的：查询教师，添加管理员 -->
 	<resultMap type="cn.edu.tit.bean.Admin" id="adminMap">
@@ -296,7 +302,13 @@
 	</select>
 
 	<select id="readDepartment" resultMap="departmentMap">
-		select * from department;
+		select * from department
+		where delete_flag &lt;&gt; 0;
+	</select>
+
+	<select id="readAllDepartment" resultMap="departmentMap">
+		select * from
+		department;
 	</select>
 
 	<select id="readDepartmentByNum" parameterType="java.lang.String"
@@ -304,12 +316,22 @@
 		select * from department where num = #{num};
 	</select>
 
-	<!-- 增加分类信息 -->
 	<insert id="addDepartment" parameterType="cn.edu.tit.bean.Department">
 		insert into department
-		(id,name,num)
-		values
-		(#{de.id},#{de.name},#{de.num})
+		(id,name,num,delete_flag) values
+		(#{id},#{name},#{num},#{deleteFlag})
+	</insert>
+
+
+	<insert id="addAcademic" parameterType="cn.edu.tit.bean.Academic">
+		INSERT INTO academic
+		(id,
+		name,
+		professional,
+		time,
+		department)
+		VALUES
+		(#{id},#{name},#{professional},#{time},#{department});
 	</insert>
 
 	<!-- 实体班级学生人数 -->
@@ -325,4 +347,37 @@
 		set
 		name = #{name} where id = #{id}
 	</update>
+
+	<update id="resotreDepartment" parameterType="java.lang.String">
+		update department
+		set
+		delete_flag = 1 where id = #{id}
+	</update>
+
+	<update id="deleteDepartment" parameterType="java.lang.String">
+		update department
+		set
+		delete_flag = 0 where id = #{id}
+	</update>
+	<update id="updateAcademic" parameterType="cn.edu.tit.bean.Academic">
+		update academic
+		set
+		name = #{name},professional = #{professional},department =
+		#{department} where id = #{id}
+	</update>
+
+	<insert id="addTerm" parameterType="cn.edu.tit.bean.Term">
+		INSERT INTO term
+		(term_id,
+		start_year,
+		end_year,
+		term)
+		VALUES
+		(#{termId},#{startYear},#{endYear},#{term});
+	</insert>
+	
+	<select id="judgeTerm" parameterType="java.lang.String"
+		resultMap="departmentMap">
+		select * from term where start_year = #{s} and end_year = #{e} and term = #{st};
+	</select>
 </mapper>

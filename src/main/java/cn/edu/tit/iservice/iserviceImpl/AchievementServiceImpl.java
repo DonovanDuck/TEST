@@ -10,11 +10,13 @@ import cn.edu.tit.bean.AOCSC;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementComment;
 import cn.edu.tit.bean.AchievementPicture;
+import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.CourseExpand;
 import cn.edu.tit.bean.GDFCS;
 import cn.edu.tit.bean.IURP;
 import cn.edu.tit.bean.SIAE;
 import cn.edu.tit.idao.IAchievementDao;
+import cn.edu.tit.idao.ITeacherDao;
 import cn.edu.tit.iservice.IAchievementService;
 
 @Service
@@ -22,6 +24,8 @@ public class AchievementServiceImpl implements IAchievementService{
 
 	@Autowired
 	private IAchievementDao achievementDao; 
+	@Autowired
+	private ITeacherDao teacherDao; 
 
 	/**
 	 * @author LiMing
@@ -402,17 +406,27 @@ public class AchievementServiceImpl implements IAchievementService{
 	}
 
 	@Override
-	public List<AchievementComment> queryComment(String achievementId,String category) throws Exception {
+	public List<AchievementComment> queryStuComment(String achievementId,String category) throws Exception {
 		List<AchievementComment> list = new ArrayList<>();
 		try {
-			 list = achievementDao.queryComment(achievementId,category);
+			 list = achievementDao.queryStuComment(achievementId,category);
 			} catch (Exception e) {
 				e.printStackTrace();
 				list = null;
 			}		
 		return list;
 	}
-
+	@Override
+	public List<AchievementComment> queryTeaComment(String achievementId,String category) throws Exception {
+		List<AchievementComment> list = new ArrayList<>();
+		try {
+			 list = achievementDao.queryTeaComment(achievementId,category);
+			} catch (Exception e) {
+				e.printStackTrace();
+				list = null;
+			}		
+		return list;
+	}
 	@Override
 	public void insertAchievementComment(AchievementComment comment) throws Exception {
 		try {
@@ -638,8 +652,37 @@ public class AchievementServiceImpl implements IAchievementService{
 
 	@Override
 	public List<CourseExpand> queryCourseExpandByCourseId(String courseId) throws Exception {
-		// TODO Auto-generated method stub
-		
 		return achievementDao.getCourseExpandBycourseId(courseId);
+	}
+
+	@Override
+	public Integer verifyLimitComment(String userID, String id) throws Exception {
+		Integer verify = teacherDao.verifyLimitComment(userID,id);
+		return verify;
+	}
+
+	@Override
+	public Integer verifyAlreadyComment(String userID, String id) throws Exception {
+		Integer verify = achievementDao.verifyAlreadyComment(userID,id);
+		return verify;
+	}
+
+	@Override
+	public void insertScore(AchievementScore as) throws Exception {
+		try {
+			achievementDao.insertScore(as);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@Override
+	public AchievementScore queryAchievementScoreById(String achievementId) throws Exception {
+		return achievementDao.queryAchievementScoreById(achievementId);
+	}
+
+	@Override
+	public void updateScore(AchievementScore as) throws Exception {
+		achievementDao.updateScore(as);
 	}
 }

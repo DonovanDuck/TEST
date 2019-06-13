@@ -245,6 +245,50 @@
 		return judge;
 	}
 </script>
+<script type="text/javascript">
+	function check() {
+		var uid = $("#file_excel").val();
+		if (uid == null || uid == "") {
+			alert("文件为空");
+			return false;
+		}
+		return true;
+	}
+</script>
+<script type="text/javascript">
+	function addCheckInfo() {
+		var num = $("#addTeacherNum").val();
+		var url = "${pageContext.request.contextPath}/admin/verificationTeacherId/"
+				+ num;
+		var judge = true;
+		var name = $("#addTeacherName").val()
+		$.ajax({
+			async : false,
+			cache : false,
+			url : url,
+			type : "get",
+			dataType : "text",
+			scriptCharset : 'UTF-8',
+			success : function(msg) {
+				if (msg != "null") {
+					alert(msg);
+					judge = false;
+				}
+			}
+		});
+		if (num == "" && judge) {
+			judge = false;
+			alert("工号不可为空");
+		}
+		if (name == "" && judge) {
+			judge = false;
+			alert("姓名不可为空");
+		}
+		if (judge) {
+			$("#addInfo").submit();
+		}
+	}
+</script>
 <title>后台管理</title>
 </head>
 <body style="background-color: #f8f8f8">
@@ -265,7 +309,7 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="#">登出</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -290,19 +334,21 @@
 						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a>
 					</li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark" style="font-size: 20px">学术委员会管理</a>
-					</li>
-					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
-						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
+						class="waves-effect waves-dark" style="font-size: 20px;">自然班管理</a></li>
+											<li><a
+						href="${pageContext.request.contextPath}/admin/toTerm"
+						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
+						class="waves-effect waves-dark" style="font-size: 20px">学术委员管理</a>
 					</li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
-						class="waves-effect waves-dark" style="font-size: 20px;">系部信息管理</a></li>
+						class="waves-effect waves-dark" style="font-size: 20px;">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
@@ -312,7 +358,7 @@
 				<h3>文件导入教师信息</h3>
 				<form class="form-inline" id="form_excel" name="form_excel"
 					role="form" style="margin: 0px"
-					action="${pageContext.request.contextPath}/admin/AddTeacher"
+					action="${pageContext.request.contextPath}/admin/addTeacher"
 					method="post" enctype="multipart/form-data"
 					onsubmit="return check()">
 					<div class="form-group" style="padding-top: 2%">
@@ -320,14 +366,18 @@
 							type="file" id="file_excel" name="file_excel">
 					</div>
 					<button type="submit" class="btn btn-default"
-						style="margin-top: 2%">提交</button>
+						style="margin-top: 2%">导入</button>
 				</form>
 				<br>
-				<div>文件格式：工号、教师名、教师密码、教师性别、教育背景、教师职称、教师电话、电子邮箱</div>
+				<div>文件(EXCEL)格式：工号、教师名</div>
+				<button type="button" class="btn btn-primary btn-lg"
+					data-toggle="modal" data-target="#AddTeacher"
+					style="margin-top: 1%; margin-left: 1%;">添加个体教师</button>
+				<hr>
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<table id="tb_departments"></table>
+				<table id="tb_departments" style="table-layout:fixed"></table>
 			</div>
 		</div>
 	</div>
@@ -348,8 +398,9 @@
 							<div class="form-group">
 								<label for="teacherId" class="control-label">教师工号</label> <input
 									type="text" class="form-control" id="teacherId"
-									name="teacherId"> <input type="text"
-									style="display: none" id="teacherIdB" name="teacherIdB" />
+									oninput="value=value.replace(/[^\d]/g,'')" name="teacherId">
+								<input type="text" style="display: none" id="teacherIdB"
+									name="teacherIdB" />
 							</div>
 							<div class="form-group">
 								<label for="teacherName" class="control-label">教师姓名</label> <input
@@ -367,6 +418,50 @@
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal" style="margin-left: 2%">关闭</button>
 								<button type="submit" class="btn btn-primary" id="submitButton">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<div class="modal" id="AddTeacher" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加教师信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<form role="form" id="addInfo"
+							action="${pageContext.request.contextPath}/admin/addOneTeacher">
+							<div class="form-group">
+								<label for="teacherId" class="control-label">教师工号</label> <input
+									type="text" class="form-control" id="addTeacherNum"
+									oninput="value=value.replace(/[^\d]/g,'')" name="addTeacherNum">
+							</div>
+							<div class="form-group">
+								<label for="teacherName" class="control-label">教师姓名</label> <input
+									type="text" class="form-control" id="addTeacherName"
+									name="addTeacherName">
+							</div>
+							<div class="form-group">
+								<label class="control-label">教师性别</label> <select
+									class="form-control" id="addSelect" name="addSelect">
+									<option>男</option>
+									<option>女</option>
+								</select>
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" style="margin-left: 2%">关闭</button>
+								<button class="btn btn-primary" type="button"
+									onclick="addCheckInfo()">提交</button>
 							</div>
 						</form>
 					</div>

@@ -90,6 +90,10 @@
 											visible : false,
 										},
 										{
+											field : 'deleteFlag',
+											visible : false,
+										},
+										{
 											field : 'name',
 											align : 'center',
 											title : '系部名'
@@ -102,11 +106,72 @@
 										{
 											align : 'center',
 											title : '操作',
-											formatter : addoperate,
+											formatter : function(value, row,
+													index) {
+												var deleteFlag = row.deleteFlag;
+												var browsePath = row.browsePath;
+												var s = '<button id="edit" type="button" class="btn btn-default">编辑</button>';
+												if (deleteFlag == 1) {
+													var ss = '<input class="btn btn-default" id="restore" type="button" value="删除">'
+												} else {
+													var ss = '<input class="btn btn-default" id="restore" type="button" value="恢复">'
+												}
+												return s + ss;
+											},
 											events : {
+												'click #restore' : function(
+														event, value, row,
+														index) {
+													var id = row.id;
+													var deleteFlag = row.deleteFlag;
+													var url = "";
+													if (deleteFlag == 1) {
+														url = "${pageContext.request.contextPath}/admin/deleteDepartment/"
+																+ id;
+													} else {
+														url = "${pageContext.request.contextPath}/admin/resotreDepartment/"
+																+ id;
+													}
+													$
+															.ajax({
+																async : true,
+																cache : false,
+																url : url,
+																type : "get",
+																dataType : "text",
+																success : function(
+																		result) {
+																	alert(result);
+																	if (deleteFlag == 1) {
+																		$(
+																				"#restore")
+																				.val(
+																						"恢复");
+																		$(
+																				"#tb_departments")
+																				.bootstrapTable(
+																						'refresh',
+																						{
+																							url : '${pageContext.request.contextPath}/admin/readDepartmentInfo'
+																						});
+																	} else {
+																		$(
+																				"#restore")
+																				.val(
+																						"删除");
+																		$(
+																				"#tb_departments")
+																				.bootstrapTable(
+																						'refresh',
+																						{
+																							url : '${pageContext.request.contextPath}/admin/readDepartmentInfo'
+																						});
+																	}
+																}
+															})
+												},
 												'click #edit' : function(event,
 														value, row, index) {
-													alert(row.name);
 													document
 															.getElementById("editName").value = row.name;
 													document
@@ -114,7 +179,7 @@
 													document
 															.getElementById("editId").value = row.id;
 													$('#Edit').modal('show');
-												}
+												},
 											}
 										} ],
 								onLoadSuccess : function(res) {//可不写
@@ -155,10 +220,27 @@
 		}
 		return oInit;
 	};
-	function addoperate(value, row, index) {
-		return [
-				'<button id="edit" type="button" class="btn btn-default">编辑</button>', ]
-				.join('');
+</script>
+<script type="text/javascript">
+	function checkoutNum(form) {
+		var num = $("#departmentNum").val();
+		$
+				.ajax({
+					async : true,
+					cache : false,
+					url : "${pageContext.request.contextPath}/admin/judgeDepartmentNum/"
+							+ num,
+					type : "get",
+					dataType : "text",
+					success : function(result) {
+						if (result == null || result == "null" || result == "") {
+							$("#addForm").submit();
+						} else {
+							alert(result);
+							return false;
+						}
+					}
+				})
 	}
 </script>
 <title>后台管理</title>
@@ -181,7 +263,7 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="#">登出</a></li>
+							<li><a href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -206,26 +288,68 @@
 						class="waves-effect waves-dark" style="font-size: 20px">课程类型管理</a>
 					</li>
 					<li><a
-						href="${pageContext.request.contextPath}/admin/toAcademicManager"
-						class="waves-effect waves-dark" style="font-size: 20px;">学术委员会管理</a></li>
-					<li><a
 						href="${pageContext.request.contextPath}/admin/toAchievementManager"
 						class="waves-effect waves-dark" style="font-size: 20px">成果管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark" style="font-size: 20px">自然班管理</a>
 					</li>
+										<li><a
+						href="${pageContext.request.contextPath}/admin/toTerm"
+						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
+					<li><a
+						href="${pageContext.request.contextPath}/admin/toAcademicManager"
+						class="waves-effect waves-dark" style="font-size: 20px;">学术委员管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toDepartmentManager"
 						class="waves-effect waves-dark"
-						style="font-size: 20px; background-color: #f8f8f8">系部信息管理</a></li>
+						style="font-size: 20px; background-color: #f8f8f8">学术委员会管理</a></li>
 				</ul>
 			</nav>
 		</div>
 		<div class="RightContent col-md-10" style="margin-top: 1%;">
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white; padding: 1%">
+				<button type="button" class="btn btn-primary btn-lg"
+					data-toggle="modal" data-target="#Add" style="margin-top: 1%">添加学术委员会</button>
 				<table id="tb_departments"></table>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal" id="Add" tabindex="-1" role="dialog"
+		aria-labelledby="myModalLabel">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal"
+						aria-hidden="true">&times;</button>
+					<h4 class="modal-title" id="myModalLabel">添加学术委员会信息</h4>
+				</div>
+				<div class="modal-body">
+					<div class="modal-body">
+						<form
+							action="${pageContext.request.contextPath}/admin/addDepartment"
+							method="get" id="addForm">
+							<div class="form-group">
+								<label for="editName" class="control-label">学术委员会名</label> <input
+									type="text" class="form-control" id="departmentName"
+									name="departmentName">
+							</div>
+							<div class="form-group">
+								<label for="editPro" class="control-label">学术委员会编号</label> <input
+									type="text" class="form-control" id="departmentNum"
+									oninput="value=value.replace(/[^\d]/g,'')" name="departmentNum">
+							</div>
+							<div class="modal-footer">
+								<button type="button" class="btn btn-default"
+									data-dismiss="modal" style="margin-left: 2%">关闭</button>
+								<button type="submit" class="btn btn-primary"
+									onclick="checkoutNum()">提交</button>
+							</div>
+						</form>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -237,7 +361,7 @@
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal"
 						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">编辑系部信息</h4>
+					<h4 class="modal-title" id="myModalLabel">编辑学术委员会信息</h4>
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
@@ -245,15 +369,15 @@
 							action="${pageContext.request.contextPath}/admin/updateDepartment"
 							method="get">
 							<div class="form-group">
-								<label for="editName" class="control-label">系部名</label> <input
+								<label for="editName" class="control-label">学术委员会名</label> <input
 									type="text" class="form-control" id="editName" name="editName">
 								<input type="text" class="form-control" id="editId"
 									style="display: none" name="editId">
 							</div>
 							<div class="form-group">
-								<label for="editPro" class="control-label">系部编号</label> <input
+								<label for="editPro" class="control-label">学术委员会编号</label> <input
 									type="text" class="form-control" id="editNum" name="editNum"
-									readonly="readonly">
+									oninput="value=value.replace(/[^\d]/g,'')" readonly="readonly">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"

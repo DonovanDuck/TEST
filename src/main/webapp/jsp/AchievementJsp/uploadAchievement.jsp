@@ -100,30 +100,30 @@
 					</select>
 				</div>
 				<div style="display: none">
-					<a target="iframeContent"
+					<a  
 						href="${pageContext.request.contextPath}/achievement/toAOCSCUpload"><Button
-							id="AOCSC"></Button></a> <a target="iframeContent"
+							id="AOCSC"></Button></a> <a  
 						href="${pageContext.request.contextPath}/achievement/toIURPUpload"><Button
-							id="IURP"></Button></a> <a target="iframeContent"
+							id="IURP"></Button></a> <a  
 						href="${pageContext.request.contextPath}/achievement/toGDFCSUpload"><Button
-							id="GDFCS"></Button></a> <a target="iframeContent"
+							id="GDFCS"></Button></a> <a  
 						href="${pageContext.request.contextPath}/achievement/toSIAEUpload"><Button
-							id="SIAE"></Button></a> <a target="iframeContent"
+							id="SIAE"></Button></a> <a  
 						href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"><Button
 							id="CourseExpand"></Button></a>
 				</div>
 			</div> --%>
 			<%-- 	<ul class="nav nav-tabs nav-justified" style="margin-top: 5%">
 				<li role="presentation" class="active"><a
-					target="iframeContent"
+					 
 					href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload">课程拓展</a></li>
-				<li role="presentation"><a target="iframeContent"
+				<li role="presentation"><a  
 					href="${pageContext.request.contextPath}/achievement/toSIAEUpload">大学生创新创业</a></li>
-				<li role="presentation"><a target="iframeContent"
+				<li role="presentation"><a  
 					href="${pageContext.request.contextPath}/achievement/toAOCSCUpload">大学生竞赛</a></li>
-				<li role="presentation"><a target="iframeContent"
+				<li role="presentation"><a  
 					href="${pageContext.request.contextPath}/achievement/toGDFCSUpload">毕业设计</a></li>
-				<li role="presentation"><a target="iframeContent"
+				<li role="presentation"><a  
 					href="${pageContext.request.contextPath}/achievement/toIURPUpload">产学研</a></li>
 			</ul> --%>
 			<button type="button" class="btn btn-primary" data-toggle="modal"
@@ -142,27 +142,27 @@
 						<div class="btn-group btn-group-justified" role="group"
 							aria-label="...">
 							<div class="btn-group" role="group">
-								<a target="iframeContent"
+								<a  
 									href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload"><button
 										type="button" class="btn btn-default">课程拓展</button></a>
 							</div>
 							<div class="btn-group" role="group">
-								<a target="iframeContent"
+								<a  
 									href="${pageContext.request.contextPath}/achievement/toSIAEUpload"><button
 										type="button" class="btn btn-default">大学生创新创业</button></a>
 							</div>
 							<div class="btn-group" role="group">
-								<a target="iframeContent"
+								<a  
 									href="${pageContext.request.contextPath}/achievement/toAOCSCUpload"><button
 										type="button" class="btn btn-default">大学生竞赛</button></a>
 							</div>
 							<div class="btn-group" role="group">
-								<a target="iframeContent"
+								<a  
 									href="${pageContext.request.contextPath}/achievement/toGDFCSUpload"><button
 										type="button" class="btn btn-default">毕业设计</button></a>
 							</div>
 							<div class="btn-group" role="group">
-								<a target="iframeContent"
+								<a  
 									href="${pageContext.request.contextPath}/achievement/toIURPUpload"><button
 										type="button" class="btn btn-default">产学研</button></a>
 							</div>
@@ -175,15 +175,15 @@
 
 						<%-- 						<ul class="nav nav-tabs nav-justified" style="margin-top: 5%">
 							<li role="presentation" class="active"><a
-								target="iframeContent"
+								 
 								href="${pageContext.request.contextPath}/achievement/toCourseExpandUpload">课程拓展</a></li>
-							<li role="presentation"><a target="iframeContent"
+							<li role="presentation"><a  
 								href="${pageContext.request.contextPath}/achievement/toSIAEUpload">大学生创新创业</a></li>
-							<li role="presentation"><a target="iframeContent"
+							<li role="presentation"><a  
 								href="${pageContext.request.contextPath}/achievement/toAOCSCUpload">大学生竞赛</a></li>
-							<li role="presentation"><a target="iframeContent"
+							<li role="presentation"><a  
 								href="${pageContext.request.contextPath}/achievement/toGDFCSUpload">毕业设计</a></li>
-							<li role="presentation"><a target="iframeContent"
+							<li role="presentation"><a  
 								href="${pageContext.request.contextPath}/achievement/toIURPUpload">产学研</a></li>
 						</ul> --%>
 					</div>

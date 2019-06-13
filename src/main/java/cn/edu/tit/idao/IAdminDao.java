@@ -10,6 +10,7 @@ import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 
 @Component
 public interface IAdminDao {
@@ -129,9 +130,23 @@ public interface IAdminDao {
 	public Department readDepartmentByNum(String num);
 
 	public List<Department> readDepartment();
+	
+	public List<Department> readAllDepartment();
 
 	public void addDepartment(Department de);
 
 	public void updateDepartment(Department de);
+
+	public void resotreDepartment(String id);
+
+	public void deleteDepartment(String id);
+
+	public void updateAcademic(Academic ac);
+
+	public void addAcademic(Academic ac);
+
+	public void addTerm(Term te);
+
+	public Term judgeTerm(String s, String e, String st);
 	
 }

@@ -5,6 +5,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -57,7 +58,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px; margin-top: 1%;">
+								style="padding: 8px; height: 330px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -68,14 +69,22 @@
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
 										<div class="infoContent">
-											<h3 class="achievementTitle">
+											<h4 class="achievementTitle titleStyle">
 												<b>${item.projectName }</b>
-											</h3>
-											<p class="description">${item.introduction }</p>
+											</h4>
 											<p class="description">
-												<b>产学研</b>推荐&nbsp&nbsp<span class="publishTime">发布于：${item.endTime }</span>
+												<b>产学研</b>
 											</p>
-											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											<p class="description" style="height: 40px">${item.introduction }</p>
+											<hr style="margin: 4px">
+											<div>
+												<p class="publishTime" style="float: left; color: gray">
+													发布于：
+													<fmt:formatDate value="${item.uploadTime }"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -89,7 +98,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px; margin-top: 1%;">
+								style="padding: 8px; height: 330px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -100,15 +109,21 @@
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
 										<div class="infoContent">
-											<h3 class="achievementTitle">
+											<h4 class="achievementTitle titleStyle">
 												<b>${item.achievementName }</b>
-											</h3>
-											<p class="description">${item.introduction }</p>
+											</h4>
 											<p class="description">
-												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
-													class="publishTime">发布于：${item.finishTime }</span>
+												<b>${item.achievementCategory }</b>
 											</p>
-											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											<p class="description" style="height: 40px">${item.introduction }</p>
+											<div>
+												<p class="publishTime" style="float: left; color: gray">
+													发布于：
+													<fmt:formatDate value="${item.uploadTime }"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -121,7 +136,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailGDFCS?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px; margin-top: 1%;">
+								style="padding: 8px; height: 330px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -132,15 +147,21 @@
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
 										<div class="infoContent">
-											<h3 class="achievementTitle">
+											<h4 class="achievementTitle titleStyle">
 												<b>${item.achievementName }</b>
-											</h3>
-											<p class="description">${item.introduction }</p>
+											</h4>
 											<p class="description">
-												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
-													class="publishTime">发布于：${item.finishTime }</span>
+												<b>${item.achievementCategory }</b>
 											</p>
-											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											<p class="description" style="height: 40px">${item.introduction }</p>
+											<div>
+												<p class="publishTime" style="float: left; color: gray">
+													发布于：
+													<fmt:formatDate value="${item.uploadTime }"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -153,7 +174,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailSIAE?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px; margin-top: 1%;">
+								style="padding: 8px; height: 330px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -164,15 +185,21 @@
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
 										<div class="infoContent">
-											<h3 class="achievementTitle">
+											<h4 class="achievementTitle titleStyle">
 												<b>${item.achievementName }</b>
-											</h3>
-											<p class="description">${item.introduction }</p>
+											</h4>
 											<p class="description">
-												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
-													class="publishTime">发布于：${item.finishTime }</span>
+												<b>${item.achievementCategory }</b>
 											</p>
-											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											<p class="description" style="height: 40px">${item.introduction }</p>
+											<div>
+												<p class="publishTime" style="float: left; color: gray">
+													发布于：
+													<fmt:formatDate value="${item.uploadTime }"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -185,7 +212,7 @@
 						<a
 							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
 							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 350px; margin-top: 1%;">
+								style="padding: 8px; height: 330px; margin-top: 1%;">
 								<div class="doorPlank"
 									style="padding: 2.5rem; background-color: white; height: 100%">
 									<div class="rel-img">
@@ -196,15 +223,22 @@
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
 										<div class="infoContent">
-											<h3 class="achievementTitle">
+											<h4 class="achievementTitle titleStyle">
 												<b>${item.achievementName }</b>
-											</h3>
-											<p class="description">${item.introduction }</p>
+											</h4>
 											<p class="description">
-												<b>${item.achievementCategory }</b>推荐&nbsp&nbsp<span
-													class="publishTime">发布于：${item.finishTime }</span>
+												<b>${item.achievementCategory }</b>
 											</p>
-											<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											<p class="description" style="height: 40px">${item.introduction }</p>
+
+											<div>
+												<p class="publishTime" style="float: left; color: gray">
+													发布于：
+													<fmt:formatDate value="${item.uploadTime }"
+														pattern="yyyy-MM-dd" />
+												</p>
+												<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
+											</div>
 										</div>
 									</div>
 								</div>
