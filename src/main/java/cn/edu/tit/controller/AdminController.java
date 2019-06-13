@@ -96,7 +96,6 @@ public class AdminController {
 		ModelAndView mv = new ModelAndView();
 		String readResult =null;
 		try {
-			//调用ITeacherService 下的方法，完成增加教师
 			readResult = iAdminService.addTeacherInfo(multipartFile);
 		} catch (Exception e) {
 			e.printStackTrace();

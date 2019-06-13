@@ -311,11 +311,11 @@
 						style="display: block; padding: 0%">
 						<div class="col-md-12 startTimeAndEndTime">
 							<h3>项目完成时间</h3>
-							<div class="col-md-12">${IURP.endTime }</div>
+							<div class="col-md-12">${Achievement.finishTime }</div>
 						</div>
 						<div class="col-md-12">
 							<h3>项目详情</h3>
-							<div class="col-md-12">${IURP.projectDetail }</div>
+							<div class="col-md-12">${Achievement.achievementDetail }</div>
 						</div>
 					</div>
 					<div class="col-md-12 commentContentForTeacher"

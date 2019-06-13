@@ -144,13 +144,14 @@ public class ReadTeacherExcel {
 				switch (c) {
 				case 0:
 					teacher.setEmployeeNum(getValue(cell));//设置工号
+					teacher.setTeacherPassword(Common.eccryptMD5("123456"));//设置教师密码
 					break;
 				case 1:
 					teacher.setTeacherName(getValue(cell));//设置教师名
 					break;
-				case 2:
-					teacher.setTeacherPassword(Common.eccryptMD5("123456"));//设置教师密码
-					break;
+//				case 2:
+//					teacher.setTeacherPassword(Common.eccryptMD5("123456"));//设置教师密码
+//					break;
 //				case 3:
 //					teacher.setTeacherGender(getValue(cell));//设置教师性别
 //					break;	

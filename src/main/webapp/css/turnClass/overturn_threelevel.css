@@ -1,0 +1,118 @@
+/*全局样式*/
+body
+{
+    background-color: #F0F0F0;
+}
+*{
+    margin:0;
+    padding:0;
+}
+li{
+    list-style: none;
+}
+/*全局样式*/
+/*头部样式*/
+.head
+{
+    background-color:#0076D2;
+    height:100px;
+}
+/*头部样式*/
+/*main部分样式*/
+.main_t
+{
+    background-image: url("../../img/turnClass/main_t.jpg");
+    height:240px;
+    margin-bottom:10px;
+}
+.main_t .word
+{
+    height:180px;
+    padding-top:60px;
+    padding-left:200px;
+}
+.main_t .word h1
+{
+    color:white;
+}
+.main_t .word p
+{
+    color:white;
+}
+.main_t .button
+{
+    height:240px;
+    text-align: center;
+    line-height:240px;
+}
+.main_m
+{
+    width:80%;
+    background:white;
+    height:60px;
+    line-height:60px;
+    margin:0 auto;
+}
+.main_b_top{
+    width:80%;
+    background:white;
+    margin:0 auto;
+    margin-top:10px;
+    height:300px;
+}
+.main_b_top .details
+{
+    height:150px;
+}
+.main_b_top .time{
+    float:right;
+}
+.main_b_group{
+    width:80%;
+    margin:0 auto;
+    margin-top:10px;
+    margin-bottom:10px;
+    height:210px;
+    background:white;
+}
+.main_b_group .group_t
+{
+    height:50px;
+}
+.main_b_group .group_t .group_name
+{
+    padding:0;
+}
+.main_b_group .group_t .group_status
+{
+    height:46px;
+    padding-top:5px;
+    padding-right:5px;
+}
+.main_b_group .group_m .people
+{
+    height:130px;
+}
+.main_b_group .group_m .people .img-circle
+{
+    width:50px;
+    height:50px;
+    background-color:red;
+    overflow:hidden;
+}
+.main_b_group .group_m .people .p{
+    margin-top:2px;
+}
+.main_b_group .group_b .p1{
+    float:right;
+}
+.main_b_group .group_b .p2{
+    float:right;
+}
+/*main部分样式*/
+/*footer样式*/
+.footer{
+    background-color:#0076D2;
+    height:80px;
+}
+/*footer样式*/

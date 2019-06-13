@@ -20,13 +20,7 @@ import cn.edu.tit.iservice.ITurnClassService;
 public class TurnClassController {
 	@Autowired
 	private ITurnClassService turnClassService;
-	/**
-	 * @author LiMing
-	 * @param request
-	 * @return
-	 * @throws Exception 
-	 * 课程二级页面
-	 */
+
 	@RequestMapping(value="toTurnClassMainPage",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -34,4 +28,24 @@ public class TurnClassController {
 		return mv;
 	}
 	
+	@RequestMapping(value="toTurnClassTeamDetail",method= {RequestMethod.GET})
+	public ModelAndView toTurnClassDetail(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/turnClassTeamDetail");
+		return mv;
+	}
+	
+	@RequestMapping(value="toTurnClassTeam",method= {RequestMethod.GET})
+	public ModelAndView toTurnClassTeam(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/turnClassTeam");
+		return mv;
+	}
+	
+	@RequestMapping(value="toDesignBeforeClass",method= {RequestMethod.GET})
+	public ModelAndView toDesignBeforeClass(HttpServletRequest request) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("/jsp/TurnClassJsp/designBeforeClass");
+		return mv;
+	}
 }
