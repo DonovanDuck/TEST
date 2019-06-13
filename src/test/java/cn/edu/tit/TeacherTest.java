@@ -190,7 +190,11 @@ public class TeacherTest {
 	public void  timeTest() {
 		String time = "2019-01-12 13:29:03.666";
 		System.out.println(Timestamp.valueOf(time));
-
+		List<Course> list = new ArrayList<Course>();
+		list = teacherService.queryCourseByPartName("");
+		for (Course course : list) {
+			System.out.println(course.toString());
+		}
 	}
 }
 

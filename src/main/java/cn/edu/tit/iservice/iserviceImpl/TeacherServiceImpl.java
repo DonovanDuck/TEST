@@ -1300,7 +1300,13 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public int getTaskUserNum(String virtualClassNum) {
 		// TODO Auto-generated method stub
-		return teacherDao.getTaskUserNum(virtualClassNum);
+		try {
+			return teacherDao.getTaskUserNum(virtualClassNum);
+		} catch (Exception e) {
+			// TODO: handle exception
+			return 0;
+		}
+		
 	}
 		
 	@Override
@@ -1309,5 +1315,105 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getUpTask(taskId, studentId);
 	}
 
-	
+	@Override
+	public List<Student> getStuAttended(String attendanceId) {
+		// TODO Auto-generated method stub
+		
+		return teacherDao.getStuAttended(attendanceId);
+	}
+
+	@Override
+	public Integer getLastAttIndex(String virtualClassNum) {
+		// TODO Auto-generated method stub
+		try {
+			return teacherDao.getLastAttIndex(virtualClassNum);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public void addAttendance(Attendance att) {
+		// TODO Auto-generated method stub
+		teacherDao.addAttendance(att);
+	}
+
+	@Override
+	public Task getTaskById(String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskById(taskId);
+	}
+
+	@Override
+	public void updateTask(Task task) {
+		// TODO Auto-generated method stub
+		teacherDao.updateTask(task);
+	}
+
+	@Override
+	public void updateAccessory(List<Accessory> acc) {
+		// TODO Auto-generated method stub
+		teacherDao.deleteTaskAcc(acc.get(0).getTaskId());
+		try {
+			teacherDao.addAccessory(acc);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Override
+	public List<Course> getAllCourse() {
+		return teacherDao.getAllCourse();
+	}
+
+	@Override
+	public List<Course> queryCourseByPartName(String courseName) {
+		return teacherDao.queryCourseByPartName(courseName);
+	}
+
+	@Override
+	public void updateCourseStudentNum(Integer count, String courseId) {
+		// TODO Auto-generated method stub
+		teacherDao.updateCourseStudentNum(count, courseId);
+	}
+
+	@Override
+	public void attend(String studentId, String attendanceId,Timestamp atttime) {
+		// TODO Auto-generated method stub
+		teacherDao.attend(studentId, attendanceId, atttime);
+	}
+
+	@Override
+	public List<Attendance> getALLAtt() {
+		// TODO Auto-generated method stub
+		return teacherDao.getALLAtt();
+	}
+
+	@Override
+	public String getAttRecordById(String studentId, String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttRecordById(studentId, attendanceId);
+	}
+
+	@Override
+	public void setTruancy(String studentId, String attid) {
+		// TODO Auto-generated method stub
+		teacherDao.setTruancy(studentId, attid);
+	}
+
+	@Override
+	public void setLeave(String studentId, String attid) {
+		// TODO Auto-generated method stub
+		teacherDao.setLeave(studentId, attid);
+	}
+
+	@Override
+	public String getAttTime(String studentId, String attendanceId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getAttTime(studentId, attendanceId);
+	}
+
 }

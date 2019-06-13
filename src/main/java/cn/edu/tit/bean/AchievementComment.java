@@ -12,10 +12,7 @@ public class AchievementComment {
 	private Timestamp uploadTime;//上传时间	
 	private String authorPicture;//评论者头像 方便前台使用设置
 	private String authorName;//评论者名字 方便前台使用设置
-	
-	
-	
-	
+	private String authorCategory;//老师，学生
 	public String getCommentId() {
 		return commentId;
 	}
@@ -64,14 +61,22 @@ public class AchievementComment {
 	public void setAuthorName(String authorName) {
 		this.authorName = authorName;
 	}
+	public String getAuthorCategory() {
+		return authorCategory;
+	}
+	public void setAuthorCategory(String authorCategory) {
+		this.authorCategory = authorCategory;
+	}
 	@Override
 	public String toString() {
 		return "AchievementComment [commentId=" + commentId + ", achievemendId=" + achievemendId + ", authorId="
 				+ authorId + ", category=" + category + ", commentContent=" + commentContent + ", uploadTime="
-				+ uploadTime + ", authorPicture=" + authorPicture + ", authorName=" + authorName + "]";
+				+ uploadTime + ", authorPicture=" + authorPicture + ", authorName=" + authorName + ", authorCategory="
+				+ authorCategory + "]";
 	}
 	public AchievementComment(String commentId, String achievemendId, String authorId, String category,
-			String commentContent, Timestamp uploadTime, String authorPicture, String authorName) {
+			String commentContent, Timestamp uploadTime, String authorPicture, String authorName,
+			String authorCategory) {
 		super();
 		this.commentId = commentId;
 		this.achievemendId = achievemendId;
@@ -81,12 +86,12 @@ public class AchievementComment {
 		this.uploadTime = uploadTime;
 		this.authorPicture = authorPicture;
 		this.authorName = authorName;
+		this.authorCategory = authorCategory;
 	}
 	public AchievementComment() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
 	
 	
 }

@@ -27,6 +27,11 @@
 	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 	<script
 	src="${pageContext.request.contextPath}/js/jquery.min.js"></script>
+</head>
+<body>
+<head>
+<jsp:include page="/jsp/top.jsp" flush="true" />
+</head>
 
 <script type="text/javascript">
 	function attention() {
@@ -71,7 +76,6 @@
 </script>
 <script>
 	function modifyRe(){
-		debugger;
 		$("[type=file]").click();
 		$("[type=file]").on('change', function( e ){
 	        //e.currentTarget.files 是一个数组，如果支持多个文件，则需要遍历
@@ -80,13 +84,6 @@
 	    });
 	}
 </script>
-</head>
-<body>
-<head>
-<jsp:include page="/jsp/top.jsp" flush="true" />
-</head>
-
-
 <main>
 <div class="main_t">
 	<div class="container-fluid">
@@ -119,31 +116,38 @@
 	<div
 		style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 		<form
-			action="${pageContext.request.contextPath}/teacher/updateResource"
+			action="${pageContext.request.contextPath}/teacher/updateTask"
 			enctype="multipart/form-data" method="post" id="resourceForm">
 			<div class="form-group">
 				<label for="exampleInputName2"
 					style="float: left; padding-left: 13px; margin-right: 5px;">资源名：</label>
 				<input type="text" class="form-control" id="exampleInputName2"
-					name="resourceName" style="width: 663px;"
-					value="${resource.resourceName }"> <input type="hidden"
-					name="resourceType" value="${resource.resourceTypeId }">
+					name="taskTitle" style="width: 663px;"
+					value="${task.taskTitle }"> <input type="hidden"
+					name="taskType" value="${task.taskType }">
 					<input type="hidden"
-					name="resourceId" value="${resource.resourceId }">
+					name="taskId" value="${taskId }">
 					 <input
 					type="hidden" name="courseId" value="${course.courseId }">
 			</div>
 			<div class="form-group">
   	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;">资源类型：</label>
-   <input type="hidden" name="resourceType" value="${resource.resourceTypeId }">
-    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源">
+   <c:if test="${task.taskType == 'work' }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="作业资源">
+    </c:if>
+     <c:if test="${task.taskType == 'trial' }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="实验资源">
+    </c:if>
+     <c:if test="${task.taskType == 'curriculum_design' }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="课程设计资源">
+    </c:if>
   </div>
 			<div class="form-group">
 				<label for="exampleInputName2">资源介绍：</label>
-				<textarea id="resourceDetail" name="resourceDetail" type="text"
+				<textarea id="taskDetail" name="taskDetail" type="text"
 					placeholder=""
 					style="width: 700px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
-					value="">${resource.resourceDetail }</textarea>
+					value="">${task.taskDetail }</textarea>
 			</div>
 			
 				
@@ -152,7 +156,7 @@
 					style="float: left; margin-right: 5px;">修改附件：</label>
 					<div style="height: 96px;width: 274px;float: left;padding: 15px;background: #f0f0f0;border-radius: 11px;">
 						<img style="height: 50px; width: 50px;margin-right: 10px;" src="${pageContext.request.contextPath}/images/file.jpg">
-						<label class="re_name">${resource.resourceName }</label>
+						<label class="re_name">${task.taskTitle }</label>
 						<span style="color: #c9302c;position: absolute;top: 167%;left: 43%;cursor: pointer;" onclick="modifyRe()">修改</span>
 					</div>
 					
@@ -173,7 +177,7 @@
 </div>
 </body>
 <script type="text/javascript" charset="utf-8">
-	UE.getEditor('resourceDetail');
+	UE.getEditor('taskDetail');
 	
 </script>
 </html>

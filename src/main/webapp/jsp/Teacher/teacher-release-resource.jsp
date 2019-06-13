@@ -86,17 +86,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 
-<div class="main_b">
-<div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;margin-bottom: 55px;">
-		发布${resourceName }资源：
+<div class="main_b" style="width: 70%;margin-left: 17%; padding-top: 3%;background: #fff;height: 100%;">
+<div style="font-size: 27px;
+    font-weight: 600;
+    margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
+		发布${resourceName }资源
 	</div>
-	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 22%;">
+	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 	<form action="${pageContext.request.contextPath}/teacher/publishResource" enctype="multipart/form-data" method="post" id="resourceForm">
 	<div class="form-group">
     <label for="exampleInputName2" style="float: left;padding-left: 13px;margin-right: 5px;">资源名：</label>
     <input type="text" class="form-control" id="exampleInputName2" name="resourceName" style="width: 663px;">
-    <input type="hidden" name="resourceType" value="${category }">
+     
     <input type="hidden" name="courseId" value="${course.courseId }">
+  </div>
+  <div class="form-group">
+  	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;">资源类型：</label>
+   <input type="hidden" name="resourceType" value="${category }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源">
   </div>
 		<div class="form-group">
 					<label for="exampleInputName2">资源介绍：</label>

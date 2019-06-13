@@ -9,7 +9,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>spoc-mooc</title>
+    <title>太原工业学院SPOC-MOOC平台</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/base.css" type="text/css">
     <link
 	href="${pageContext.request.contextPath}/css/achievement/achievementMain.css"
@@ -67,7 +67,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script
 	src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 </head>
-<body>
+<body style="background: #f0f0f0;">
       <jsp:include page="/jsp/top.jsp" flush="true" />
       <div class="banner" style="height: 458px;">
       	<div class="container" style="width: 100%;padding: 0;">
@@ -135,24 +135,24 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--课程-->
           <div class="course">
               课程
-              <span style="float: right;font-size: 16px;font-family: "微软雅黑 Light";line-height: 40px;margin-right: 1%;"><a href="<c:url value='/teacher/courseList' />">查看全部</a></span>
+              <span style="float: right;font-size: 16px;font-family: "微软雅黑 Light";line-height: 40px;margin-right: 1%;"><a href="<c:url value='/teacher/courseList' />">更多</a></span>
                  <div class="container" style="margin: 0;padding: 0;width: 100%">
       				 <div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="0" end="3">
                    <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li xiangmu-out" style="width: 300px;">
-                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;min-height: 345px;">
+                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
+                                      <p style="font-family: 微软雅黑;margin-top:10px; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>
@@ -162,20 +162,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
       			<div class="row">
                   <c:forEach items="${courseList }" var="course" varStatus="status" begin="4" end="7">
-                  <div class="col-xs-3 col-md-3" style="height: 394px;">
+                  <div class="col-xs-3 col-md-3 " style="height: 394px;">
                   	<a href="<c:url value='/teacher/toCourseDetail/${course.courseId }'/>">
-                          <div  class="jidixiangmu-li xiangmu-out" style="width: 300px;">
-                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="width: 300px;height: 200px;"></div>
+                          <div  class="jidixiangmu-li xiangmu-out" style="width: 100%;min-height: 345px;">
+                              <div class="rel-img"  style="width: 100%;height: 200px;"><img src="${course.faceImg }" alt="" style="height: 200px;"></div>
                               <div class="info">
                                   <div class="title">
-                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
+                                      <p style="font-family: 微软雅黑;margin-top:10px; font-size: 20px; font-weight: 20px;opacity: 1;">${course.courseName }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">教师团队：</span>
                                       	<c:forEach items="${course.teacherList }" var="teacher">
                 							${teacher.teacherName }
                 						</c:forEach>
                                       </p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
-                                      <p><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">创建时间：</span>${publishTime[status.index] }</p>
+                                      <p style="margin-bottom: -1%;"><span style="font-size: 13px;font-weight: 600;">课程人数：</span>${course.courseStudentNum }</p>
                                   </div>
                               </div>
                           </div>
@@ -241,7 +241,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--明星学生-->
           <div class="touxiang">
               明星学生
-              <span><a href="">查看全部</a></span>
+              <span><a href="">更多</a></span>
               <nav>
                   <ul>
                       <li><a href="">
@@ -339,21 +339,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           <!--学生成果-->
           <div class="chengguo">
               学生成果
-              <span><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">查看全部</a></span>
+              <span><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">更多</a></span>
               
               <div class="row">
                   <c:forEach items="${aocscList }" var="item" varStatus="status" begin="0" end="3">
-                   <div class="col-xs-3 col-md-3">
+                   <div class="col-xs-3 col-md-3" ">
                   	<a
 							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
 							<div class="chengguo-out"
 								style="padding: 0; height: 378px; margin-top: 1%;">
 								<div class="doorPlank xiangmu-out"
-									style="padding: 1.5rem; background-color: white; height: 100%">
-									<div class="rel-img">
+									style="padding: 1.5rem; background-color: white; height: 100%;width: 91%;">
+									<div class="rel-img" style="width: 100%; height: 58%;">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;width: 23px;height: 23px;">
-										<img alt="" style="width: 100%; height: 150px;"
+										<img alt="" style="width: 100%; height: 100%;"
 											src="${pageContext.request.contextPath}/images/tu2.jpg" />
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
@@ -377,17 +377,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   </div>
                   <div class="row">
                   <c:forEach items="${aocscList }" var="item" varStatus="status" begin="4" end="7">
-                   <div class="col-xs-3 col-md-3">
+                   <div class="col-xs-3 col-md-3" ">
                   	<a
 							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
 							<div class="chengguo-out"
 								style="padding: 0; height: 378px; margin-top: 1%;">
 								<div class="doorPlank xiangmu-out"
-									style="padding: 1.5rem; background-color: white; height: 100%">
-									<div class="rel-img">
+									style="padding: 1.5rem; background-color: white; height: 100%;width: 91%;">
+									<div class="rel-img" style="width: 100%; height: 58%;">
 										<img src="${pageContext.request.contextPath}/img/fire.png"
 											style="position: absolute; margin-left: 0; margin-top: 0;width: 23px;height: 23px;">
-										<img alt="" style="width: 100%; height: 150px;"
+										<img alt="" style="width: 100%; height: 100%;"
 											src="${pageContext.request.contextPath}/images/tu2.jpg" />
 									</div>
 									<div class="info" style="width: 100%; height: 80px;">
@@ -413,87 +413,87 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <!--产学研项目-->
-          <div class="xiangmu">
-              翻转课堂
-              <span><a href="">查看全部</a></span>
+          <div class="xiangmu" style="padding-left: 20px;padding-bottom: 0%">
+            产学研
+              <span><a href="">更多</a></span>
               <table>
                   <tr>
-                      <td>
-                          <div  class="xiangmu-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chanxueyan_01.jpg" alt="" style="width: 257px;height: 209px;"></div>
+                      <td style="width: 31%;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
+                              <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_01.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：协同创新项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>获奖情况：国家一等奖</p>
-                                      <p>完成时间：2006-12-22</p>
+                                  <div class="title" style="margin-top: 10px;">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">协同创新项目</p>
+                                      <p style="margin-bottom: -1px;">团队名称：科研团队</p>
+                                      <p style="margin-bottom: -1px;">获奖情况：国家一等奖</p>
+                                      <p style="margin-bottom: -1px;">完成时间：2006-12-22</p>
                                   </div>
                               </div>
                           </div>
                       </td>
-                      <td>
-                          <div  class="xiangmu-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chanxueyan_02.jpg" alt="" style="width: 257px;height: 209px;"></div>
+                      <td style="width: 31%;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
+                              <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_02.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：WISDOM项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>获奖情况：国家二等奖</p>
-                                      <p>完成时间：2006-12-22</p>
+                                  <div class="title" style="margin-top: 10px;">
+                                     <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">WISDOM项目</p>
+                                      <p style="margin-bottom: -1px;">团队名称：科研团队</p>
+                                      <p style="margin-bottom: -1px;">获奖情况：国家二等奖</p>
+                                      <p style="margin-bottom: -1px;">完成时间：2006-12-22</p>
                                   </div>
                               </div>
                           </div>
                       </td>
-                      <td>
-                          <div  class="xiangmu-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chanxueyan_03.jpg" alt="" style="width: 257px;height: 209px;"></div>
+                      <td style="width: 31%;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
+                              <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_03.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：技术转化项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>获奖情况：国家一等奖</p>
-                                      <p>完成时间：2006-12-22</p>
+                                  <div class="title" style="margin-top: 10px;">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">技术转化项目</p>
+                                      <p style="margin-bottom: -1px;">团队名称：科研团队</p>
+                                      <p style="margin-bottom: -1px;">获奖情况：国家一等奖</p>
+                                      <p style="margin-bottom: -1px;">完成时间：2006-12-22</p>
                                   </div>
                               </div>
                           </div>
                       </td>
                   </tr>
                   <tr>
-                      <td>
-                          <div  class="xiangmu-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chanxueyan_04.jpg" alt="" style="width: 257px;height: 209px;"></div>
+                      <td style="width: 31%;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
+                              <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_04.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：管理创新项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>获奖情况：国家二等奖</p>
-                                      <p>完成时间：2006-12-22</p>
+                                  <div class="title" style="margin-top: 10px;">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">管理创新项目</p>
+                                      <p style="margin-bottom: -1px;">团队名称：科研团队</p>
+                                      <p style="margin-bottom: -1px;">获奖情况：国家二等奖</p>
+                                      <p style="margin-bottom: -1px;">完成时间：2006-12-22</p>
                                   </div>
                               </div>
                           </div>
                       </td>
-                      <td>
-                          <div  class="xiangmu-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chanxueyan_05.jpg" alt="" style="width: 257px;height: 209px;"></div>
+                      <td style="width: 31%;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
+                              <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_05.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：国家火炬项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>获奖情况：国家三等奖</p>
-                                      <p>完成时间：2006-12-22</p>
+                                  <div class="title" style="margin-top: 10px;">
+                                     <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">国家火炬项目</p>
+                                      <p style="margin-bottom: -1px;">团队名称：科研团队</p>
+                                      <p style="margin-bottom: -1px;">获奖情况：国家三等奖</p>
+                                      <p style="margin-bottom: -1px;">完成时间：2006-12-22</p>
                                   </div>
                               </div>
                           </div>
                       </td>
-                      <td>
-                          <div  class="xiangmu-out">
-                              <div class="rel-img"><img src="${pageContext.request.contextPath}/images/chanxueyan_06.jpg" alt="" style="width: 257px;height: 209px;"></div>
+                      <td style="width: 31%;">
+                          <div  class="xiangmu-out" style="width: 95%;height:355px;">
+                              <div class="rel-img" style="width: 100%; height: 58%;"><img src="${pageContext.request.contextPath}/images/chanxueyan_06.jpg" alt="" style="width: 100%; height: 100%;"></div>
                               <div class="info">
-                                  <div class="title">
-                                      <p>成果名称：科技创新项目</p>
-                                      <p>团队名称：科研团队</p>
-                                      <p>获奖情况：国家二等奖</p>
-                                      <p>完成时间：2006-12-22</p>
+                                  <div class="title" style="margin-top: 10px;">
+                                      <p style="font-family: 微软雅黑; font-size: 20px; font-weight: 20px;opacity: 1;">科技创新项目</p>
+                                      <p style="margin-bottom: -1px;">团队名称：科研团队</p>
+                                      <p style="margin-bottom: -1px;">获奖情况：国家二等奖</p>
+                                      <p style="margin-bottom: -1px;">完成时间：2006-12-22</p>
                                   </div>
                               </div>
                           </div>
@@ -503,10 +503,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
           </div>
 
           <!--老师排行榜-->
-          <div class="teacher">
+          <div class="teacher" style="height: 857px;">
               教师排行榜
-              <span><a href="">查看全部</a></span>
-              <nav>
+              <span><a href="">更多</a></span>
+              <%-- <nav>
                   <ul>
                       <li>
                           <div class="teacher-out">
@@ -598,13 +598,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                       </li>
 
                   </ul>
-              </nav>
+              </nav> --%>
+              
+              <iframe style="margin-top: -2px;width:94%; height:99%;"
+					src="${pageContext.request.contextPath}/jsp/Teacher/main_teachers.jsp"
+					frameborder="0" width="93%" height="87%"
+					scrolling="auto"></iframe>
           </div>
 
           <!--论坛热帖-->
           <div class="post" style="margin-bottom: 55px;">
               热帖
-              <span><a href="">查看全部</a></span>
+              <span><a href="">更多</a></span>
               <nav>
                   <ul>
                       <li>

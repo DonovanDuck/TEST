@@ -433,6 +433,116 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	/**
+	 * 确定教师是否在某课程教师团队中
+	 * 若在，返回计数不为0
+	 * 若不在，返回计数为0
+	 * */
+	public Integer verifyLimitComment(@Param("userId")String userId,@Param("id")String id);
+	public List<Course> getAllCourse();
+	public List<Course> queryCourseByPartName(@Param("courseName")String courseName);
+	
+	/**
+	 * 获得已打卡的学生
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public List<Student> getStuAttended(String attendanceId);
+	
+	/**
+	 * 获取某个班最近一次打卡是第几次
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public Integer getLastAttIndex(String virtualClassNum);
+	
+	/**
+	 * 添加打卡
+	 * @param att
+	 */
+	public void addAttendance(Attendance att);
+	
+	/**
+	 * 通过id获取任务
+	 * @param taskId
+	 * @return
+	 */
+	public Task getTaskById(String taskId);
+	
+	/**
+	 * 修改任务
+	 * @param task
+	 */
+	public void updateTask(Task task);
+	
+	/**
+	 * 删除附件
+	 * @param taskId
+	 */
+	public void deleteTaskAcc(String taskId);
 	
 	
+	/**
+	 * 修改课程学生人数
+	 * @param count
+	 * @param courseId
+	 */
+	public void updateCourseStudentNum(@Param("count")Integer count,@Param("courseId")String courseId);
+	
+	/**
+	 * 学生打卡
+	 */
+	public void attend(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId,@Param("atttime")Timestamp atttime);
+	
+	/**
+	 * 获取所有打卡记录
+	 * @return
+	 */
+	public List<Attendance> getALLAtt();
+	
+	/**
+	 * 查询某学生是否有此打卡记录
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttRecordById(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * 设置缺勤
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setTruancy(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+	
+	/**
+	 * 设置请假
+	 * @param studentId
+	 * @param tid
+	 */
+	public void setLeave(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+
+
+	/**
+	 * 获取打卡时间
+	 * @param studentId
+	 * @param attendanceId
+	 * @return
+	 */
+	public String getAttTime(@Param("studentId")String studentId,@Param("attendanceId")String attendanceId);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

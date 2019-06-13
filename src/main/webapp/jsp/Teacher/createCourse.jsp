@@ -43,6 +43,13 @@
 <script type="text/javascript">
 	function OnInput() {
 		var teacherNum = $("#inputSelectTeacher").val();
+		var path = "";
+		if (teacherNum == "") {
+			path = "${pageContext.request.contextPath}/teacher/teacherForFuzzyQueryById/nullTeacherName";
+		} else {
+			path = "${pageContext.request.contextPath}/teacher/teacherForFuzzyQueryById/"
+					+ teacherNum;
+		}
 		$
 				.ajax({
 					async : false,
@@ -62,7 +69,7 @@
 													+ " style='width: 30%; margin-left: 2%; margin-top: 1%;'><input type='checkbox' name='unSelect' onclick='checkboxOnclick(this)'  value='"
 													+ arr[i].employeeNum
 													+ "'>"
-													+ arr[i].employeeNum
+													+ arr[i].teacherName
 													+ "</label>");
 						}
 					}
@@ -74,6 +81,7 @@
 	function checkboxOnclick(checkbox) {
 		if (checkbox.checked == true) {
 			var value = checkbox.value;
+			var content = $("#" + value).text();
 			$("input[name = 'select']").each(function() {
 				if ($(this).val() == value)
 					$("#" + value).remove();
@@ -87,7 +95,7 @@
 							"<label class='checkbox-inline' id="
 									+ value
 									+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input name='select' type='checkbox' checked onclick='checkboxBackclick(this)'  value='"
-									+ value + "'>" + value + "</label>");
+									+ value + "'>" +content + "</label>");
 		}
 	}
 </script>
@@ -96,6 +104,7 @@
 	function checkboxBackclick(checkbox) {
 		if (checkbox.checked == false) {
 			var value = checkbox.value;
+			var content = $("#" + value).text();
 			$("input[name = 'select']").each(function() {
 				if ($(this).val() == value)
 					$("#" + value).remove();
@@ -109,7 +118,7 @@
 							"<label class='checkbox-inline' id="
 									+ value
 									+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input  name='unSelect' onclick='checkboxOnclick(this)'  type='checkbox' value='"
-									+ value + "'>" + value + "</label>");
+									+ value + "'>" + content + "</label>");
 		}
 	}
 </script>
@@ -123,23 +132,23 @@
 			selectClass = selectClass + $(this).val() + ",";
 			$("#selectTeacher").val(selectClass);
 		});
-		if($("#courseName").val() == null || $("#courseName").val() == ''){
+		if ($("#courseName").val() == null || $("#courseName").val() == '') {
 			alert("课程名不能为空！");
 			flag = false;
 		}
-		if(!UE.getEditor('courseDetail').hasContents()){
+		if (!UE.getEditor('courseDetail').hasContents()) {
 			alert("课程描述不能为空！");
 			flag = false;
 		}
-		if(selectClass == null || selectClass == ''){
+		if (selectClass == null || selectClass == '') {
 			alert("教师团队不能为空！");
 			flag = false;
 		}
-		
-		if(flag){
-			
-		 	$("#formContent").submit();
-		}else{
+
+		if (flag) {
+
+			$("#formContent").submit();
+		} else {
 			return false;
 		}
 	};
@@ -168,7 +177,8 @@ var ue = UE.getEditor('courseDetail',{
 
 	<div class="main" style="width: 80%; margin-left: 10%;padding-bottom: 10px;margin-bottom: 50px;">
 		<form action="${pageContext.request.contextPath}/teacher/createCourse"
-			id="formContent" method="post" enctype="multipart/form-data" onsubmit="return submitForm()">
+			id="formContent" method="post" enctype="multipart/form-data"
+			onsubmit="return submitForm()">
 			<input type="hidden" name="publisherId"
 				value="${teacher.employeeNum }">
 			<div class="form-group">
@@ -207,7 +217,7 @@ var ue = UE.getEditor('courseDetail',{
 					</select>
 				</div>
 			</div>
-			<br><br><br><br><br> 
+			<br> <br> <br> <br> <br>
 			<div class="form-group">
 				<label class="col-sm-2 control-label text-right"
 					style="margin-top: 1%">课程介绍：</label>

@@ -139,7 +139,7 @@
 								</c:if>
 								<c:if test="${not empty item.faceImg }">
 									<img
-										src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.faceImg }"
+										src="${item.faceImg }"
 										alt="" style="width: 100%; height: 100%;" />
 								</c:if>
 							</div>

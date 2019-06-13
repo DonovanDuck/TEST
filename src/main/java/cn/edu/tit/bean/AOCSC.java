@@ -28,6 +28,7 @@ public class AOCSC {
 	private String firstPicture;//第一张图片
 	private Integer browseVolume;//浏览量
 	private Integer deleteFlag;//删除标志位,0为删除,1为没删除
+	
 	public String getAchievementId() {
 		return achievementId;
 	}

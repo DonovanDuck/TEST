@@ -24,17 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body>
 <head>
-<div class="container-fluid">
-	<nav>
-		<ul class="nav nav-pills">
-			<li role="presentation" class="active"><a href="#">首页</a></li>
-			<li role="presentation"><a href="#">课程</a></li>
-			<li role="presentation"><a href="#">讨论区</a></li>
-			<li role="presentation"><a href="#">学生成果</a></li>
-			<li role="presentation"><a href="#">产学研项目</a></li>
-		</ul>
-	</nav>
-</div>
+<jsp:include page="/jsp/top.jsp" flush="true" />
 </head>
 
 <script type="text/javascript">
@@ -96,18 +86,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 </div>
 
-<div class="main_b">
-<div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;margin-bottom: 55px;">
-		${resourceName }发布作业资源：
+<div class="main_b" style="width: 70%;margin-left: 17%; padding-top: 3%;background: #fff;height: 100%;">
+<div style="font-size: 27px;
+    font-weight: 600;
+    margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
+		${resourceName }发布作业资源
 	</div>
-	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 22%;">
+	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 	<form action="${pageContext.request.contextPath}/teacher/publishTaskResourse" enctype="multipart/form-data" method="post" id="resourceForm">
 	<div class="form-group">
     <label for="exampleInputName2" style="float: left;padding-left: 13px;margin-right: 5px;">资源名：</label>
     <input type="text" class="form-control" id="exampleInputName2" name="taskTitle" style="width: 663px;">
-		<input type="hidden" name="taskCategory" value="${category } ">
+     
 	<input type="hidden" name="courseId" value="${course.courseId }">
   </div>
+  
+  <div class="form-group">
+  	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;" >资源类型：</label>
+    <input type="hidden" name="taskCategory" value="${category }">
+    <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="作业资源">
+  </div>
+  
 		<div class="form-group">
 					<label for="exampleInputName2">资源介绍：</label>
 					<textarea id="taskDetail" name="taskDetail" type="text" placeholder=""

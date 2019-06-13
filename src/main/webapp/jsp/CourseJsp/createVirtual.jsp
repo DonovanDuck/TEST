@@ -22,8 +22,8 @@
 	rel="stylesheet">
 <link href="${pageContext.request.contextPath}/css/Admin/bootstrap.css"
 	rel="stylesheet" />
-<script
-	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
 <script
 	src="${pageContext.request.contextPath}/js/Admin/bootstrap.min.js"></script>
 <!-- 图片预加载 -->
@@ -52,12 +52,18 @@
 <script type="text/javascript">
 	function OnInput() {
 		var classNum = $("#inputSelectClass").val();
+		var path = "";
+		if (classNum == "") {
+			path = "${pageContext.request.contextPath}/teacher/readRealClassToSelect/nullRealClassName";
+		} else {
+			path = "${pageContext.request.contextPath}/teacher/readRealClassToSelect/"
+					+ classNum;
+		}
 		$
 				.ajax({
 					async : false,
 					cache : false,
-					url : "${pageContext.request.contextPath}/teacher/readRealClassToSelect/"
-							+ classNum,
+					url : path,
 					type : "POST",
 					dataType : "json",
 					success : function(result) {
@@ -124,14 +130,14 @@
 </script>
 
 <script type="text/javascript">
-function submitForm(){
-	var selectClass = "";
-	$("input[name = 'select']").each(function() {
-		selectClass = selectClass + $(this).val()+",";
-	});
-	$("#selectClass").val(selectClass);
-	$("#formContent").submit();
-}
+	function submitForm() {
+		var selectClass = "";
+		$("input[name = 'select']").each(function() {
+			selectClass = selectClass + $(this).val() + ",";
+		});
+		$("#selectClass").val(selectClass);
+		$("#formContent").submit();
+	}
 </script>
 </head>
 <body style="background-color: #E8EBF0;">
@@ -192,7 +198,8 @@ function submitForm(){
 				<div class="col-sm-10" style="padding-left: 0px; width: 75%">
 					<div class="panel panel-default classSelectedContent"
 						id="classSelectedContent"
-						style="margin-top: 1%; height: 40px; overflow-y: auto"></div>
+						style="margin-top: 1%; height: 40px; overflow-y: auto">
+					</div>
 					<input class="form-control" oninput="OnInput (event)"
 						id="inputSelectClass" name="inputSelectClass" placeholder="筛选班级"
 						style="margin-top: 1%">

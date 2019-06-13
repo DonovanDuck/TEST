@@ -12,6 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.edu.tit.bean.Admin;
 import cn.edu.tit.bean.Category;
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
@@ -40,6 +41,8 @@ public class AdminTest {
 	@Test
 	public void Test() {
 
+		Department de = iAdminDao.readDepartmentByNum("4");
+		System.out.println(de.toString());
 		/**
 		 * 测试插入管理员功能
 		 * */
