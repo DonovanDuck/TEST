@@ -994,16 +994,35 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 
 		@Override
-		public List<Student> getStudentListOfUped(String taskId) {
+		public List<Student> getStudentListOfUped(String taskId,String virtualClassNum) {
 			// TODO Auto-generated method stub
 			List<Student> studentList = null;
 			List<String > studentIdList =null;
+			List<Student> studentAllList =new ArrayList<Student>();
+			List<Student> studentMyClass =new ArrayList<Student>();
+			try {
+				List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
+				if(classNums.size()>0) {
+					studentAllList = teacherDao.studentList(classNums);//所有学生
+				}
+				
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
 			if (studentIdList!=null) {
 				studentList = teacherDao.getStudentListOfUped(studentIdList);
 			}
+			for (Student student : studentList) {
+				for (Student student2 : studentAllList) {
+					if (student2.getStudentId().equals(student.getStudentId())) {
+						studentMyClass.add(student2);
+					}
+				}
+			}
 			
-			return studentList;
+			return studentMyClass;
 		}
 
 		@Override
@@ -1116,9 +1135,9 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public void addUseNum(String taskId, int taskSumNum) {
+	public void addUseNum(String taskId) {
 		// TODO Auto-generated method stub
-		teacherDao.addUseNum(taskId,taskSumNum);
+		teacherDao.addUseNum(taskId);
 	}
 	
 	@Override

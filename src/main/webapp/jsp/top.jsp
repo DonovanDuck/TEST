@@ -139,12 +139,15 @@ header nav li a{
               <li class="m" style="width: 120px;"><a href="<c:url value='/teacher/toTeacherPage'/>">欢迎:${teacher.teacherName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
+              <a href="<c:url value='/teacher/toTeacherMyInfo'/>">预方案</a>
                </c:if> 
               <c:if test="${student != null }">
               <li class="menu" style="width: 120px;"><a href="<c:url value='/student/toStudentPage'/>">欢迎:${student.studentName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
+              <a href="<c:url value='/student/toStudentMyInfo'/>">预方案</a>
               </c:if>
+              
               <div class="spanLi2">
                       <ul>
                        	<li><a href="">我的作品</a></li>

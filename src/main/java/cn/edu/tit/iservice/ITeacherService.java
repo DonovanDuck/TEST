@@ -565,7 +565,7 @@ public interface ITeacherService {
 	 * @return
 	 * 获得已提交作业的所有学生
 	 */
-	public List<Student> getStudentListOfUped(String taskId);
+	public List<Student> getStudentListOfUped(String taskId,String virtualClassNum);
 	/**
 	 * @author wenli
 	 * @param taskId
@@ -634,7 +634,7 @@ public interface ITeacherService {
 	 * @param taskId
 	 * 当以选择形式发布作业时，作业watchnum为虚拟班级人数
 	 */
-	public void addUseNum(String taskId,int taskSumNum);
+	public void addUseNum(String taskId);
 	public void addWatchNum(String taskId,int taskSumNum);
 	public Term getTermById(String term);
 	
@@ -714,5 +714,7 @@ public interface ITeacherService {
 	 * @return
 	 */
 	public int getTaskUserNum(String virtualClassNum);
+	
+	
 	
 }

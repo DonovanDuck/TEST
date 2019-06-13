@@ -1,14 +1,22 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/jsp/student_personal_center/css/bootstrap.min.css"/>
-		<link rel="stylesheet" href="css/mycourse.css" type="${pageContext.request.contextPath}/jsp/student_personal_center/text/css" />
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/jsp/student_personal_center/css/index.css" type="text/css" />
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
 	</head>
 	<body class="row">
+	<jsp:include page="/jsp/top.jsp" flush="true"/>
 		<div class="main_left row col-md-3">
 			<div class="head_sculpture col-md-10">
 				<div class="head_sculpture_inner">
@@ -41,13 +49,13 @@
 				<div class="nav_list col-md-10">
 					<nav>
 						<ul>
-							<li><a href="mytask.html">我的任务</a></li>
-							<li><a href="mycourse.html">我的课程</a></li>
+							<li><a href="${pageContext.request.contextPath}/student/toStudentMyTask">我的任务</a></li>
+							<li><a href="${pageContext.request.contextPath}/student/toStudentMyCourse">我的课程</a></li>
 							<li><a href="myAchievements.html">我的成果</a></li>
 							<li><a href="myChallenges.html">我的挑战</a></li>
 							<li><a href="myFlip.html">我的翻转</a></li>
 							<li><a href="myDiscussion.html">我的讨论</a></li>
-							<li><a href="index.html">我的信息</a></li>
+							<li><a href="${pageContext.request.contextPath}/student/toStudentMyInfo">我的信息</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -77,7 +85,7 @@
 						<dt><span class="glyphicon glyphicon-star" aria-hidden="true"></span>所属班级</dt>
 						<dd>${student.classNum }</dd>
 						<dt><span class="glyphicon glyphicon-star" aria-hidden="true"></span>所属专业</dt>
-						<dd>${student.professional }</dd>
+						<dd>${category.categoryName }</dd>
 					</dl>
 					<dl class="dl-horizontal col-md-4">
 						<dt><span class="glyphicon glyphicon-star" aria-hidden="true"></span>联系方式</dt>
