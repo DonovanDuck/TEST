@@ -87,7 +87,10 @@
 				$("#typeNameSelect").html("课程设计");
 				$("#taskCategorySelect").val("course_design");
 			}
-		
+			if(text=="翻转"){
+				$("#typeNameEdit").html("翻转");
+				$("#taskCategoryEdit").val("turnClass");
+			}
 			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
 					'refresh', 
@@ -108,7 +111,10 @@
 				$("#typeNameEdit").html("课程设计");
 				$("#taskCategoryEdit").val("course_design");
 			}
-			
+			if(text=="翻转"){
+				$("#typeNameEdit").html("翻转");
+				$("#taskCategoryEdit").val("turnClass");
+			}
 			
 			$tasktype=$("#taskCategoryEdit").val();
 			
@@ -600,7 +606,10 @@
 									<li style="font-size: 18px; padding-left: 20px"><c:if
 											test="${taskCategory=='work' }">作业</c:if> <c:if
 											test="${taskCategory=='trial' }">实验</c:if> <c:if
-											test="${taskCategory=='course_design' }">课程设计</c:if></li>
+											test="${taskCategory=='course_design' }">课程设计</c:if>
+											<c:if
+											test="${taskCategory=='turnClass' }">翻转</c:if>
+											</li>
 
 								</c:forEach>
 
@@ -696,6 +705,7 @@
 										<c:if test="${taskCategory=='work' }">作业</c:if>
 										<c:if test="${taskCategory=='trial' }">实验</c:if>
 										<c:if test="${taskCategory=='course_design' }">课程设计</c:if>
+										<c:if test="${taskCategory=='turnClass' }">翻转</c:if>
 									</li>
 								</c:forEach>
 							</ul>
