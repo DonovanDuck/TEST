@@ -88,8 +88,9 @@
 				</ul>
 			</nav>
 		</div>
-		<div class="RightContent col-md-10 text-center">
-			<h1 style="margin-top: 22%">欢迎进入太原工业学院教学平台-后台</h1>
+		<div class="RightContent col-md-10 text-center"
+			style="height: 100%; background: url('../img/Admin/adminBack.jpg') no-repeat; margin-top: 1%; background-attachment: fixed; background-size: cover">
+			<h1 style="margin-top: 22%;color:white;">欢迎进入太原工业学院教学管理平台</h1>
 		</div>
 	</div>
 </body>

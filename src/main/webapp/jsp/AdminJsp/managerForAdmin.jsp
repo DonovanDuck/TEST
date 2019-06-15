@@ -40,7 +40,7 @@
 			$('#tb_departments')
 					.bootstrapTable(
 							{
-								url : '${pageContext.request.contextPath}/admin/readTerm', //请求后台的URL（*）
+								url : '${pageContext.request.contextPath}/admin/getAdminInfo', //请求后台的URL（*）
 								method : 'get', //请求方式（*）
 								striped : true, //是否显示行间隔色
 								cache : true, //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
@@ -90,19 +90,15 @@
 											visible : false,
 										},
 										{
-											field : 'startYear',
+											field : 'name',
 											align : 'center',
-											title : '起始年份'
+											title : '用户名'
 										},
 										{
-											field : 'endYear',
+											field : 'pas',
 											align : 'center',
-											title : '截止年份'
-										},
-										{
-											field : 'term',
-											align : 'center',
-											title : '学期'
+											title : '密码',
+											value : '**********'
 										},
 										{
 											align : 'center',
@@ -112,18 +108,9 @@
 												'click #edit' : function(event,
 														value, row, index) {
 													document
-															.getElementById("editName").value = row.name;
-													document
 															.getElementById("editId").value = row.id;
 													document
-															.getElementById("editPro").value = row.professional;
-													$("#editSe")
-															.find(
-																	"option:contains("
-																			+ row.department
-																			+ ")")
-															.attr("selected",
-																	true);
+															.getElementById("editName").value = row.name;
 													$('#Edit').modal('show');
 												}
 											}
@@ -173,47 +160,61 @@
 	}
 </script>
 <script type="text/javascript">
-	$(function() {
-		var date = new Date;
-		var year = date.getFullYear();
-		$("#addStartTerm").val(year);
-		$("#addEndTerm").val(year + 1);
-	})
-
-	function addTermBut() {
-		var startTerm = $("#addStartTerm").val();
-		var endTerm = $("#addEndTerm").val();
-		var selectTerm = $("#selectTerm").val();
-		var time = endTerm - startTerm;
-		var judge = true;
-		if (judge) {
-			if (time != 1) {
-				alert("时间填写错误，重新填写");
-				judge = false;
+	function pasBlur() {
+		var pas = $("#editPas").val();
+		$.ajax({
+			async : false,
+			cache : false,
+			url : '${pageContext.request.contextPath}/admin/judgePas?pas='
+					+ pas,
+			scriptCharset : 'UTF-8',
+			type : "get",
+			dataType : "text",
+			success : function(result) {
+				if (result.length != 0) {
+					alert(result);
+					return false;
+				}
 			}
+		});
+	}
+	function newPasBlur() {
+		var pas = $("#newPas").val();
+		var rePas = $("#reNewPas").val();
+		if (pas != rePas) {
+			alert("两次输入不一致，重新输入");
+		}
+	}
+
+	function checkEdit() {
+		var name = $("#editName").val();
+		var pas = $("#newPas").val();
+		var rePas = $("#reNewPas").val();
+		var pasOld = $("#editPas").val();
+		var pas = $("#editPas").val();
+		var id = $("#editId").val();
+		var judge = true;
+		$.ajax({
+			async : false,
+			cache : false,
+			url : '${pageContext.request.contextPath}/admin/judgePas?pas='
+					+ pas,
+			scriptCharset : 'UTF-8',
+			type : "get",
+			dataType : "text",
+			success : function(result) {
+				if (result.length != 0) {
+					alert(result);
+					judge = false;
+				}
+			}
+		});
+		if (name == "" || pas == "" || rePas == "" || pasOld == "") {
+			alert("输入信息不完整");
+			judge = false;
 		}
 		if (judge) {
-			$
-					.ajax({
-						async : false,
-						cache : false,
-						url : "${pageContext.request.contextPath}/admin/addTermJudge?addStartTerm="
-								+ startTerm
-								+ "&addEndTerm="
-								+ endTerm
-								+ "&selectTerm=" + selectTerm,
-						type : "get",
-						dataType : "text",
-						success : function(result) {
-							if (result.length != 0 && result != "null") {
-								alert(result);
-								judge = false;
-							}
-						}
-					})
-		}
-		if (judge) {
-			$("#addTerm").submit();
+			$("#commitCategory").submit();
 		}
 	}
 </script>
@@ -269,8 +270,7 @@
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark" style="font-size: 20px;">自然班管理</a></li>
 					<li><a href="${pageContext.request.contextPath}/admin/toTerm"
-						class="waves-effect waves-dark"
-						style="font-size: 20px; background-color: #f8f8f8">学期管理</a></li>
+						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAcademicManager"
 						class="waves-effect waves-dark" style="font-size: 20px;">学术委员管理</a></li>
@@ -283,94 +283,44 @@
 		<div class="RightContent col-md-10" style="margin-top: 1%;">
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<button type="button" class="btn btn-primary btn-lg"
-					style="margin-top: 1%" data-toggle="modal" data-target="#add">添加学期信息</button>
 				<table id="tb_departments"></table>
 			</div>
 		</div>
 	</div>
-
-	<div class="modal" id="add" tabindex="-1" role="dialog"
-		aria-labelledby="myModalLabel">
-		<div class="modal-dialog">
-			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">添加学期信息</h4>
-				</div>
-				<div class="modal-body">
-					<div class="modal-body">
-						<form id="addTerm"
-							action="${pageContext.request.contextPath}/admin/addTerm"
-							method="post">
-							<div class="form-group">
-								<label for="categoryId" class="control-label">起始时间</label> <input
-									type="text" class="form-control" id="addStartTerm"
-									name="addStartTerm">
-							</div>
-							<div class="form-group">
-								<label for="categoryId" class="control-label">截止时间</label> <input
-									type="text" class="form-control" id="addEndTerm"
-									name="addEndTerm">
-							</div>
-							<div class="form-group">
-								<label for="categoryId" class="control-label">学期选择</label> <select
-									class="form-control" id="selectTerm" name="selectTerm">
-									<option>第一学期</option>
-									<option>第二学期</option>
-								</select>
-							</div>
-							<div class="modal-footer">
-								<button type="button" class="btn btn-default"
-									data-dismiss="modal" style="margin-left: 2%">关闭</button>
-								<button type="button" onclick="addTermBut()"
-									class="btn btn-primary">提交</button>
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
 	<div class="modal" id="Edit" tabindex="-1" role="dialog"
 		aria-labelledby="myModalLabel">
 		<div class="modal-dialog">
 			<div class="modal-content">
-				<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"
-						aria-hidden="true">&times;</button>
-					<h4 class="modal-title" id="myModalLabel">编辑学期信息</h4>
-				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form
-							action="${pageContext.request.contextPath}/admin/updateAcademic">
+						<form id="commitCategory"
+							action="${pageContext.request.contextPath}/admin/updateAdmin"
+							method="post">
 							<div class="form-group">
-								<label for="editName" class="control-label">姓名</label> <input
+								<label for="editName" class="control-label">用户名</label> <input
 									type="text" class="form-control" id="editName" name="editName">
 								<input type="text" class="form-control" id="editId"
 									name="editId" style="display: none">
 							</div>
 							<div class="form-group">
-								<label for="editPro" class="control-label">职称</label> <input
-									type="text" class="form-control" id="editPro" name="editPro">
+								<label for="editPro" class="control-label">密码</label> <input
+									onblur="pasBlur()" type="password" class="form-control"
+									id="editPas" name="editPas">
 							</div>
 							<div class="form-group">
-								<label for="selectDe" class="control-label">系部</label> <select
-									class="selectpicker show-tick form-control"
-									data-live-search="true" name="editSe" id="editSe">
-									<c:forEach items="${departmentList }" var="de"
-										varStatus="status">
-										<option value="${de.num }">${de.name }</option>
-									</c:forEach>
-								</select>
+								<label for="editPro" class="control-label">新密码</label> <input
+									type="password" class="form-control" id="newPas" name="newPas">
+							</div>
+							<div class="form-group">
+								<label for="editPro" class="control-label">重复输入密码</label> <input
+									onblur="newPasBlur() " type="password" class="form-control"
+									id="reNewPas" name="reNewPas">
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal" style="margin-left: 2%">关闭</button>
-								<button type="submit" class="btn btn-primary">提交</button>
+								<button type="button" onclick="checkEdit()"
+									class="btn btn-primary">修改</button>
 							</div>
 						</form>
 					</div>

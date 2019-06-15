@@ -278,8 +278,8 @@
 	<update id="updateAdmin" parameterType="cn.edu.tit.bean.Admin">
 		UPDATE admin
 		<set>
-			<if test="teacherName != null">adminUsername = #{adminUsername},</if>
-			<if test="teacherPassword != null">adminPassword = #{adminPassword}</if>
+			<if test="adminUsername != null">adminUsername = #{adminUsername},</if>
+			<if test="adminPassword != null">adminPassword = #{adminPassword}</if>
 		</set>
 		WHERE adminId = #{adminId}
 	</update>
@@ -377,7 +377,7 @@
 	</insert>
 	
 	<select id="judgeTerm" parameterType="java.lang.String"
-		resultMap="departmentMap">
+		resultMap="termMap">
 		select * from term where start_year = #{s} and end_year = #{e} and term = #{st};
 	</select>
 </mapper>

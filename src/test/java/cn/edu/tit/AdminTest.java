@@ -16,6 +16,7 @@ import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.idao.IAdminDao;
 import cn.edu.tit.iservice.IAdminService;
 import cn.edu.tit.iservice.ITeacherService;
@@ -125,6 +126,14 @@ public class AdminTest {
 		//		for (RealClass realClass : realClassList) {
 		//			System.out.println(realClass.toString());
 		//		}
+		//
+		//		Term term = new Term();
+		//		try {
+		//			term = iadminService.judgeTerm("2019","2020","第一学期");
+		//		} catch (Exception e) {
+		//			e.printStackTrace();
+		//		}
+		//		System.out.println(term.toString());
 	}
 }
 

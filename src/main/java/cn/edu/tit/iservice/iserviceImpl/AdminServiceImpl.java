@@ -527,6 +527,12 @@ public class AdminServiceImpl implements IAdminService {
 
 	@Override
 	public Term judgeTerm(String addStartTerm, String addEndTerm, String selectTerm) throws Exception {
-		return iAdminDao.judgeTerm(addStartTerm,addEndTerm,selectTerm);
+		Term term = new Term();
+		try {
+			term = iAdminDao.judgeTerm(addStartTerm,addEndTerm,selectTerm);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return term;
 	}
 }

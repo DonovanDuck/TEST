@@ -1,6 +1,8 @@
 package cn.edu.tit.idao;
 
 import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Component;
 
 import cn.edu.tit.bean.Academic;
@@ -147,6 +149,6 @@ public interface IAdminDao {
 
 	public void addTerm(Term te);
 
-	public Term judgeTerm(String s, String e, String st);
+	public Term judgeTerm(@Param("s")String s, @Param("e")String e, @Param("st")String st);
 	
 }
