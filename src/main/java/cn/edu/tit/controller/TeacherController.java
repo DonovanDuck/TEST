@@ -847,6 +847,7 @@ public class TeacherController {
 		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum(virtualClassNum);
+		task.setKnowledgePoints((String) formdata.get("knowledgePoints"));
 		task.setUseNum(1);//设置使用次数为1
 		//获取修改使用次数-虚拟班级人数
 		/*

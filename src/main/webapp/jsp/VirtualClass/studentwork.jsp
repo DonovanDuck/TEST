@@ -14,6 +14,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/bootstrap.min.css"/>
 		<script src="${pageContext.request.contextPath}/js/jquery.min.js" type="text/javascript" charset="utf-8"></script>
 		<script src="${pageContext.request.contextPath}/js/bootstrap.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 		<script type="text/javascript">
 			function checkInput(form) {
 				var fileInput = $('#upfile').get(0).files[0];
@@ -51,6 +57,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			function stopSubmit() {
 				alert("请先结束编辑状态后再尝试提交");
 			};
+			function  toUpdatePage() {
+				$("#firstUp").css("display","none");
+				$("#secondUp").css("display","block");
+			}
+			function quitUpdate() {
+				$("#firstUp").css("display","block");
+				$("#secondUp").css("display","none");
+				return false;
+			}
+			
+			function quitUp() {
+				 
+				$("#upTaskDetail").val("");
+				$("#upfile").val("");
+				return false;
+			}
 		</script>
 	</head>
 	<body style="background-color: #f8f8f8;">
@@ -94,7 +116,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</div>
 			
 		</div>
-		<div class="workdiv" style="margin-top: 10px;">
+		<!-- 首次提交作业star -->
+		<div class="workdiv" id="firstUp" style="margin-top: 10px;display: block;">
 			<div class="workcontent">
 				<form target="_top" action="${pageContext.request.contextPath}/student/toUpTask/${task.taskId }" enctype="multipart/form-data" method="post"  onsubmit="return checkInput(this)" >
 					
@@ -109,9 +132,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</div>
 					
 					<c:if test="${not empty upTaskDetail || not empty accessoriesName }">
-					<div style="text-align:left ;display: block;padding-left: 36px;" class="edited">
-						<span id="editedtext" style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${upTaskDetail }</span>
-					</div>
+						<div style="text-align:left ;display: block;padding-left: 36px;" class="edited">
+							<span id="editedtext" style="word-wrap:break-word; word-break:break-all; overflow: hidden; ">${upTaskDetail }</span>
+						</div>
 					</c:if>
 					<c:if test="${!isEnd }">
 						<c:if test="${empty upTaskDetail && empty accessoriesName }">
@@ -148,20 +171,66 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<c:if test="${!isEnd }">
 							<c:if test="${empty upTaskDetail && empty accessoriesName }">
 								<input id="trueSubmit" class="btn btn-primary" type="submit" value="确认提交" >
+								<input id="trueSubmit" onclick="return quitUp()" type="submit"  class="btn btn-primary"  value="撤销" >
 							</c:if>
 					</c:if>
-					 <c:if test="${not empty upTaskDetail || not empty accessoriesName }">
-						<input id="trueSubmit"  style="display: block" class="btn btn-warning" type="button" disabled="disabled"  value="已提交" style="margin-left: -350px;">
+					<c:if test="${!isEnd }">
+					
+					
+						 <c:if test="${not empty upTaskDetail || not empty accessoriesName }">
+							<input id="trueSubmit"  style="display: block" class="btn btn-warning" type="button" onclick="toUpdatePage()" value="修改作业" style="margin-left: -350px;">
+						</c:if>
 					</c:if>
-	
+					<c:if test="${isEnd }">
+						<input id="trueSubmit"  style="display: block" class="btn btn-warning" disabled="disabled" type="button" onclick="toUpdatePage()" value="已结束" style="margin-left: -350px;">
 					
-					
-					
-					
+					</c:if>
+
 				</form>
 			</div>
 			
 		</div>
+			<!-- 首次提交作业end -->
+			
+			<!-- 修改提交作业star -->
+		<div class="workdiv" id="secondUp" style="margin-top: 10px;display: none">
+			<div class="workcontent">
+				<form target="_top" action="${pageContext.request.contextPath}/student/toUpdateUpTask/${task.taskId }" enctype="multipart/form-data" method="post"  onsubmit="return checkInput(this)" >
+					
+				
+					<div style="height: 70px;">
+						<div style="float: left;"><h4 style="font-weight: bold;">作业详情</h4></div>
+						
+						<%-- <c:if test="${empty upTaskDetail && empty accessoriesName }">
+								<div style="float: right;"><input onclick="editstaus()" class="btn btn-default butt" type="button" value="编辑" ></div>
+						</c:if> --%>
+						<input id="taskId"  name="taskId" value="${task.taskId }"  type="hidden" />
+					</div>
+					<div class="toedit" style="display: block;width: 100%;">
+							<textarea autofocus="autofocus" id="upTaskDetail"placeholder="编辑作业" name="upTaskDetail" style=" width: 100%;height: 150px;" wrap="logical">${upTaskDetail }</textarea>
+					</div>
+					<hr >
+				<div style="height: 35px;">
+					<div style="float: left;font-weight: bold;"><h4 style="font-weight: bold;">附件</h4></div>
+				</div>
+					<div style="height: 75px;padding-left: 36px;">
+						<input  class="btn btn-default" id="upfile"  name="file" type="file"  multiple="multiple" style="border-radius: 20px;float: left;" value="上传附件" />
+					<!--	<div class="accessorylist">
+							<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">文件一</button>
+							<button class="btn btn-default" type="submit" style="border-radius: 20px;float: left;">文件二</button>
+						</div>
+						  -->
+					</div>
+					
+					<input id="trueSubmit" class="btn btn-primary" type="submit" value="确认修改" style="margin-left: -973px;">
+					<input id="trueSubmit" onclick="return quitUpdate()" type="submit"  class="btn btn-primary"  value="取消修改" style="margin-left: 10px">
+ 
+				</form>
+			</div>
+			
+		</div>
+			<!-- 修改提交作业end -->
+			
 		
 		<c:if test="${not empty grade }">
 		<div class="workdiv" style="margin-top: 10px;overflow: hidden;">
@@ -234,5 +303,21 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</a>
 		</div>
 		<jsp:include page="/jsp/footer.jsp" flush="true"/>
+		<script type="text/javascript">
+
+var ue = UE.getEditor('upTaskDetail',{
+
+    initialFrameWidth :1151,//设置编辑器宽度
+
+    initialFrameHeight:300,//设置编辑器高度
+    initialFrameMargin:0,
+
+    scaleEnabled:false
+    
+
+ });
+
+</script>
 	</body>
+	
 </html>

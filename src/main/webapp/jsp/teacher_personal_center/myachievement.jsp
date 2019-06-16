@@ -1,9 +1,16 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+%>
 <!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<title></title>
-		<link rel="stylesheet" href="css/mydiscussion.css" />
+		<link rel="stylesheet" href="css/myachievement.css" />
 		<link rel="stylesheet" href="css/bootstrap.min.css" />
 	</head>
 	<body class="row">
@@ -51,13 +58,12 @@
 				</div>
 			</div>
 			<div class="text">
-				<h2>我的讨论</h2>		
+				<h2>我的成果</h2>	
 				<div id="content">
 				正在维护
-				</div>		
+				</div>	
 			</div>
 
         </div>
 	</body>
 </html>
-

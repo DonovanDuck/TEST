@@ -379,7 +379,7 @@
 		<result column="task_category" property="taskType" />
 		<result column="use_num" property="useNum" />
 		<result column="watch_num" property="watchNum" />
-		<result column="knowledge" property="knowledge" />
+		<result column="knowledge_points" property="knowledgePoints" />
 	</resultMap>
 	
 	<resultMap type="cn.edu.tit.bean.TeacherTeam" id="teamkMap">
@@ -392,10 +392,10 @@
 	<insert id="createTask" parameterType="cn.edu.tit.bean.Task">
 		insert into task (
 		task_id, task_title,
-		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num,watch_num)
+		task_detail,publish_time,publisher_id,task_end_time,status,task_category,course_id,use_num,watch_num,knowledge_points)
 		values (
 		#{taskId}, #{taskTitle}, #{taskDetail}, #{publishTime},
-		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1,#{watchNum})
+		#{publisherId},#{taskEndTime},#{status},#{taskType},#{courseId},1,#{watchNum},#{knowledgePoints})
 	</insert>
 
 	<insert id="mapClassTask">
