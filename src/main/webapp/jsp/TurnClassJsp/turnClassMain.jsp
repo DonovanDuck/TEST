@@ -21,7 +21,6 @@
 	src="${pageContext.request.contextPath}/js/backstagemanager/bootstrap.js"></script>
 </head>
 <body>
-	这里是翻转首页
 	<a href="${pageContext.request.contextPath}/turnClass/toTurnClassTeam"><button
 			class="btn btn-primary pull-right" style="margin-right: 20%">跳转</button>
 	</a>
