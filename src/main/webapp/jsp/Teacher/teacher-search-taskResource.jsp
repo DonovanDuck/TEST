@@ -102,7 +102,7 @@
 				<span>${course.fine }</span>
 			</div>
 		</c:if>
-		<p>参与人数：${course.courseStudentNum }
+		<p>类别：${type}系&nbsp;&nbsp;&nbsp;参与人数：${course.courseStudentNum }
 			&nbsp;&nbsp;&nbsp;创课时间：${publishTime }</p>
 	</div>
 </div>

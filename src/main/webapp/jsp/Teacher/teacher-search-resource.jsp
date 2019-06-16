@@ -127,17 +127,17 @@
 				<span>${course.fine }</span>
 			</div>
 		</c:if>
-		<p>参与人数：${course.courseStudentNum }
+		<p>类别：${type}系&nbsp;&nbsp;&nbsp;系参与人数：${course.courseStudentNum }
 			&nbsp;&nbsp;&nbsp;创课时间：${publishTime }</p>
 	</div>
 </div>
 
 <div class="main_b" style="width: 70%;margin-left: 17%; padding-top: 3%;background: #fff;height: 100%;">
-	<!-- <div
+	 <div
 		style="font-size: 27px;
     font-weight: 600;
     margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
-		查看资源</div> -->
+		查看资源</div> 
 	<div
 		style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 		
@@ -159,11 +159,12 @@
     <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源">
   </div>
 			<div class="form-group">
-				<label for="exampleInputName2">资源介绍：</label>
-				<textarea id="resourceDetail" name="resourceDetail" type="text"
+				<label for="exampleInputName2" style="float:left;">资源介绍：</label>
+				<%-- <textarea id="resourceDetail" name="resourceDetail" type="text"
 					placeholder=""
-					style="width: 700px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
-					value="" readonly="true" >${resource.resourceDetail }</textarea>
+					style="width: 662px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
+					value="" readonly="true" >${resource.resourceDetail }</textarea> --%>
+					<div>${resource.resourceDetail }</div>
 			</div>
 			
 				
@@ -187,7 +188,7 @@
 					</div>
 					
 			<div
-				style=" height: 35px; min-height: 35px; padding-left: 0; margin-top: 62%; margin-bottom: 13%;">
+				style=" height: 35px; min-height: 35px; padding-left: 0;    margin-top: 17%;  margin-bottom: 13%;">
 				<div style="float: left; margin-right: 131px;">
 					<button type="button" onClick="javascript :history.back(-1);" class="btn btn-info">返回</button>
 				</div>

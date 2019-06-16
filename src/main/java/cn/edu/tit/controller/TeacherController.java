@@ -1065,6 +1065,16 @@ public class TeacherController {
 	@RequestMapping(value="toSearchResource/{resourceId}")
 	public ModelAndView toSearchResource(HttpServletRequest request,@PathVariable String resourceId){
 		ModelAndView mv = new ModelAndView();
+		Course course = (Course) request.getSession().getAttribute("course");
+		//查询课程类别名
+		if(course != null){
+			String cate = teacherService.getCategoryById(course.getCourseCategory());
+			request.setAttribute("type", cate);
+		
+			//修改课程创建时间格式
+			String time = course.getPublishTime().toString().substring(0, 10);
+			request.setAttribute("publishTime", time);
+		}
 		try {
 			//获得对应的资源
 			List<Resource> resource = resourceService.showResource(resourceId);
@@ -1094,6 +1104,16 @@ public class TeacherController {
 	@RequestMapping(value="toUpdateTaskResource/{taskId}")
 	public ModelAndView toUpdateTaskResource(HttpServletRequest request,@PathVariable String taskId){
 		ModelAndView mv = new ModelAndView();
+		Course course = (Course) request.getSession().getAttribute("course");
+		//查询课程类别名
+		if(course != null){
+			String cate = teacherService.getCategoryById(course.getCourseCategory());
+			request.setAttribute("type", cate);
+		
+			//修改课程创建时间格式
+			String time = course.getPublishTime().toString().substring(0, 10);
+			request.setAttribute("publishTime", time);
+		}
 		try {
 			//获得对应的资源
 			Task task = teacherService.getTaskById(taskId);
