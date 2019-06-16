@@ -16,6 +16,7 @@ import cn.edu.tit.bean.Department;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.bean.Term;
 import cn.edu.tit.idao.IAdminDao;
 import cn.edu.tit.iservice.IAdminService;
 import cn.edu.tit.iservice.ITeacherService;
@@ -40,9 +41,9 @@ public class AdminTest {
 
 	@Test
 	public void Test() {
-
-		Department de = iAdminDao.readDepartmentByNum("4");
-		System.out.println(de.toString());
+		//
+		//		Department de = iAdminDao.readDepartmentByNum("4");
+		//		System.out.println(de.toString());
 		/**
 		 * 测试插入管理员功能
 		 * */
@@ -68,6 +69,16 @@ public class AdminTest {
 		//		List<Teacher> teacherList =new ArrayList<Teacher>();
 		//		teacherList.add(teacher);
 		//		iAdminDao.addTeacherInfo(teacherList);
+
+		try {
+			Student stu = new Student("1111111", "学生一号", null, "男", "123456", "1520561", "软件工程", null, null, null, null, null, "计算机工程系");
+			List<Student> list = new ArrayList<>();
+			list.add(stu);
+			iAdminDao.addStudentInfo(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		/**
 		 * 测试删除管理员功能
 		 * */
@@ -125,6 +136,14 @@ public class AdminTest {
 		//		for (RealClass realClass : realClassList) {
 		//			System.out.println(realClass.toString());
 		//		}
+		//
+		//		Term term = new Term();
+		//		try {
+		//			term = iadminService.judgeTerm("2019","2020","第一学期");
+		//		} catch (Exception e) {
+		//			e.printStackTrace();
+		//		}
+		//		System.out.println(term.toString());
 	}
 }
 

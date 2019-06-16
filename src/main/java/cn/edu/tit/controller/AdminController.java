@@ -681,9 +681,7 @@ public class AdminController {
 	@RequestMapping(value="toAdminInfo",method= {RequestMethod.GET})
 	public ModelAndView toAdminInfo(HttpServletRequest request) {			
 		ModelAndView mv = new ModelAndView();
-		Admin admin = (Admin) request.getSession().getAttribute("admin");
-		mv.addObject("admin",admin);
-		mv.setViewName("/jsp/AdminJsp/adminInfo");
+		mv.setViewName("/jsp/AdminJsp/managerForAdmin");
 		return mv;
 	}
 
@@ -1102,7 +1100,7 @@ public class AdminController {
 		mv = toAcademicManager();
 		return mv;
 	}
-	
+
 	@RequestMapping(value="logout")
 	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -1110,14 +1108,14 @@ public class AdminController {
 		mv.setViewName("/jsp/main");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="toTerm")
 	public ModelAndView toTerm() throws Exception {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("/jsp/AdminJsp/managerForTerm");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="addTerm")
 	public ModelAndView addTerm(@RequestParam("addStartTerm")String addStartTerm,@RequestParam("addEndTerm")String addEndTerm,@RequestParam("selectTerm")String selectTerm) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -1134,7 +1132,27 @@ public class AdminController {
 		mv = toTerm();
 		return mv;
 	}
-	
+
+	@RequestMapping(value="updateAdmin")
+	public ModelAndView updateAdmin(HttpServletRequest request,HttpServletResponse response,@RequestParam("id")String id,@RequestParam("editName")String editName,@RequestParam("newPas")String newPas) throws Exception {
+		ModelAndView mv = new ModelAndView();
+		String name = editName;
+		String pas = Common.eccryptMD5(newPas);
+		Admin admin = new Admin();
+		admin.setAdminId(Integer.parseInt(id));
+		admin.setAdminPassword(pas);
+		admin.setAdminUsername(name);
+		try {
+			iAdminService.updateAdmin(admin);
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		mv = toAdminInfo(request);
+		return mv;
+	}
+
 	@RequestMapping(value="addTermJudge")
 	public void addTermJudge(HttpServletRequest request,HttpServletResponse response,@RequestParam("addStartTerm")String addStartTerm,@RequestParam("addEndTerm")String addEndTerm,@RequestParam("selectTerm")String selectTerm) throws Exception {
 		Term te = null;
@@ -1156,8 +1174,8 @@ public class AdminController {
 			e1.printStackTrace();
 		}
 	}
-	
-	
+
+
 	@RequestMapping(value="readTerm")
 	public void readTerm(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		List<Term> readResult = new ArrayList<>();
@@ -1180,6 +1198,52 @@ public class AdminController {
 		}
 		String result = arr.toString();
 		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value="getAdminInfo")
+	public void getAdminInfo(HttpServletRequest request,HttpServletResponse response) throws Exception {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		Admin a = new Admin();
+		a = (Admin) request.getSession().getAttribute("admin");
+		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
+		JSONObject ob=new JSONObject();
+		ob.put("id", a.getAdminId());
+		ob.put("name",a.getAdminUsername());
+		arr.add(ob);
+		String result = arr.toString();
+		try {
+			response.getWriter().print(result);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+	}
+
+	@RequestMapping(value="judgePas")
+	public void judgePas(HttpServletRequest request,HttpServletResponse response,@RequestParam("pas")String pas) throws Exception {
+		try {
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
+		}
+		String result = "";
+		Admin a = new Admin();
+		a = (Admin) request.getSession().getAttribute("admin");
+		String password=Common.eccryptMD5(pas);
+		try {
+			if(!password.equals(a.getAdminPassword()))
+			{
+				result="密码输入不正确,重新输入";
+			}
 			response.getWriter().print(result);
 		} catch (IOException e1) {
 			e1.printStackTrace();
