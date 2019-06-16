@@ -331,6 +331,8 @@
 		<div class="RightContent col-md-10">
 			<div class="panel"
 				style="padding-bottom: 0%; margin-top: 1%; margin-bottom: 0px; background-color: white;">
+				<h2 class="text-center">学生信息管理</h2>
+				<hr style="margin: 1%">
 				<h3>文件导入学生信息</h3>
 				<form class="form-inline" id="form_excel" name="form_excel"
 					role="form"
@@ -348,7 +350,7 @@
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<table id="tb_departments" style="table-layout:fixed"></table>
+				<table id="tb_departments" style="table-layout: fixed"></table>
 			</div>
 		</div>
 	</div>

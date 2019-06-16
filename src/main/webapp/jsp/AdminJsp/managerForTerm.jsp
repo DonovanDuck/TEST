@@ -111,19 +111,20 @@
 											events : {
 												'click #edit' : function(event,
 														value, row, index) {
+													var term = row.term;
 													document
-															.getElementById("editName").value = row.name;
+															.getElementById("editTermId").value = row.id;
 													document
-															.getElementById("editId").value = row.id;
+															.getElementById("editStartTerm").value = row.startYear;
 													document
-															.getElementById("editPro").value = row.professional;
-													$("#editSe")
-															.find(
-																	"option:contains("
-																			+ row.department
-																			+ ")")
-															.attr("selected",
-																	true);
+															.getElementById("editEndTerm").value = row.endYear;
+													if (term == "第一学期") {
+														document
+																.getElementById('editSelectTerm').options[0].selected = true;
+													} else {
+														document
+																.getElementById('editSelectTerm').options[1].selected = true;
+													}
 													$('#Edit').modal('show');
 												}
 											}
@@ -216,6 +217,43 @@
 			$("#addTerm").submit();
 		}
 	}
+
+	function updateTermBut() {
+		var startTerm = $("#editStartTerm").val();
+		var endTerm = $("#editEndTerm").val();
+		var selectTerm = $("#editSelectTerm").val();
+		var time = endTerm - startTerm;
+		var judge = true;
+		if (judge) {
+			if (time != 1) {
+				alert("时间填写错误，重新填写");
+				judge = false;
+			}
+		}
+		if (judge) {
+			$
+					.ajax({
+						async : false,
+						cache : false,
+						url : "${pageContext.request.contextPath}/admin/addTermJudge?addStartTerm="
+								+ startTerm
+								+ "&addEndTerm="
+								+ endTerm
+								+ "&selectTerm=" + selectTerm,
+						type : "get",
+						dataType : "text",
+						success : function(result) {
+							if (result.length != 0 && result != "null") {
+								alert(result);
+								judge = false;
+							}
+						}
+					})
+		}
+		if (judge) {
+			$("#updateTerm").submit();
+		}
+	}
 </script>
 <title>后台管理</title>
 </head>
@@ -283,7 +321,9 @@
 		<div class="RightContent col-md-10" style="margin-top: 1%;">
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<button type="button" class="btn btn-primary btn-lg"
+				<h2 class="text-center">学期管理</h2>
+				<hr style="margin: 1%">
+				<button type="button" class="btn btn-primary btn-sm"
 					style="margin-top: 1%" data-toggle="modal" data-target="#add">添加学期信息</button>
 				<table id="tb_departments"></table>
 			</div>
@@ -345,32 +385,32 @@
 				</div>
 				<div class="modal-body">
 					<div class="modal-body">
-						<form
-							action="${pageContext.request.contextPath}/admin/updateAcademic">
+						<form id="updateTerm"
+							action="${pageContext.request.contextPath}/admin/updateTerm">
+							<input type="text" class="form-control" id="editTermId"
+								name="editTermId" style="display:none">
 							<div class="form-group">
-								<label for="editName" class="control-label">姓名</label> <input
-									type="text" class="form-control" id="editName" name="editName">
-								<input type="text" class="form-control" id="editId"
-									name="editId" style="display: none">
+								<label for="categoryId" class="control-label">起始时间</label> <input
+									type="text" class="form-control" id="editStartTerm"
+									name="editStartTerm">
 							</div>
 							<div class="form-group">
-								<label for="editPro" class="control-label">职称</label> <input
-									type="text" class="form-control" id="editPro" name="editPro">
+								<label for="categoryId" class="control-label">截止时间</label> <input
+									type="text" class="form-control" id="editEndTerm"
+									name="editEndTerm">
 							</div>
 							<div class="form-group">
-								<label for="selectDe" class="control-label">系部</label> <select
-									class="selectpicker show-tick form-control"
-									data-live-search="true" name="editSe" id="editSe">
-									<c:forEach items="${departmentList }" var="de"
-										varStatus="status">
-										<option value="${de.num }">${de.name }</option>
-									</c:forEach>
+								<label for="categoryId" class="control-label">学期选择</label> <select
+									class="form-control" id="editSelectTerm" name="editSelectTerm">
+									<option>第一学期</option>
+									<option>第二学期</option>
 								</select>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-default"
 									data-dismiss="modal" style="margin-left: 2%">关闭</button>
-								<button type="submit" class="btn btn-primary">提交</button>
+								<button type="button" onclick="updateTermBut()"
+									class="btn btn-primary">提交</button>
 							</div>
 						</form>
 					</div>

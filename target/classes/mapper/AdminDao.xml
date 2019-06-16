@@ -337,11 +337,10 @@
 	<!-- 实体班级学生人数 -->
 	<update id="updateRealClass" parameterType="cn.edu.tit.bean.RealClass">
 		update real_class set
-		real_person_num=#{realPersonNum} and real_class_category =
+		real_person_num = #{realPersonNum},real_class_category =
 		#{realClassCategory} where real_class_num = #{realClassNum}
 	</update>
 
-	<!-- 实体班级学生人数 -->
 	<update id="updateDepartment" parameterType="cn.edu.tit.bean.Department">
 		update department
 		set
@@ -375,9 +374,17 @@
 		VALUES
 		(#{termId},#{startYear},#{endYear},#{term});
 	</insert>
-	
+
 	<select id="judgeTerm" parameterType="java.lang.String"
 		resultMap="termMap">
-		select * from term where start_year = #{s} and end_year = #{e} and term = #{st};
+		select * from term where start_year = #{s} and end_year =
+		#{e} and term = #{st};
 	</select>
+
+	<update id="updateTerm" parameterType="cn.edu.tit.bean.Term">
+		update term
+		set
+		start_year = #{startYear},end_year = #{endYear},term =
+		#{term} where term_id = #{termId}
+	</update>
 </mapper>

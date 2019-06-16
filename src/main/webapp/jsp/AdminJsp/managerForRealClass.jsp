@@ -207,7 +207,8 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -238,8 +239,7 @@
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark"
 						style="font-size: 20px; background-color: #f8f8f8">自然班管理</a></li>
-											<li><a
-						href="${pageContext.request.contextPath}/admin/toTerm"
+					<li><a href="${pageContext.request.contextPath}/admin/toTerm"
 						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAcademicManager"
@@ -254,6 +254,8 @@
 		<div class="RightContent col-md-10">
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white; margin-top: 1%;">
+				<h2 class="text-center">自然班管理</h2>
+				<hr style="margin: 1%">
 				<table id="tb_departments"></table>
 			</div>
 		</div>
@@ -270,14 +272,14 @@
 				<div class="modal-body">
 					<div class="modal-body">
 						<form id="commitCategory" name="commitCategory"
-							action="${pageContext.request.contextPath}/admin/..updateRealClass">
+							action="${pageContext.request.contextPath}/admin/updateRealClass">
 							<div class="form-group">
 								<label for="realClassNum" class="control-label">班号</label> <input
-									type="text" class="form-control" id="realClassNum"
-									name="realClassNum">
+									readonly="readonly" type="text" class="form-control"
+									id="realClassNum" name="realClassNum">
 							</div>
 							<div class="form-group">
-								<label for="realClassNum" class="control-label">班级人数</label> <input
+								<label for="realClassNum" class="control-label">班级人数</label><input
 									type="text" class="form-control" id="realClassPersonNum"
 									name="realClassPersonNum" value="40">
 							</div>
@@ -286,7 +288,7 @@
 									data-live-search="true" name="category" id="category">
 									<c:forEach items="${categories }" var="category"
 										varStatus="status">
-										<option>${category.categoryName }</option>
+										<option value="${category.categoryNum }">${category.categoryName }</option>
 									</c:forEach>
 								</select>
 							</div>

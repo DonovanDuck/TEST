@@ -92,7 +92,7 @@
 										{
 											field : 'department',
 											align : 'center',
-											title : '系部'
+											title : '学术委员会'
 										},
 										{
 											field : 'name',
@@ -107,7 +107,11 @@
 										{
 											field : 'time',
 											align : 'center',
-											title : '认定时间'
+											title : '认定时间',
+											formatter : function(value, row,
+													index) {
+												return changeDateFormat(value)
+											}
 										},
 										{
 											align : 'center',
@@ -176,6 +180,20 @@
 				'<button id="edit" type="button" class="btn btn-default">编辑</button>', ]
 				.join('');
 	}
+    function changeDateFormat(cellval) {
+        var dateVal = cellval + "";
+        if (cellval != null) {
+            var date = new Date(parseInt(dateVal.replace("/Date(", "").replace(")/", ""), 10));
+            var month = date.getMonth() + 1 < 10 ? "0" + (date.getMonth() + 1) : date.getMonth() + 1;
+            var currentDate = date.getDate() < 10 ? "0" + date.getDate() : date.getDate();
+            
+            var hours = date.getHours() < 10 ? "0" + date.getHours() : date.getHours();
+            var minutes = date.getMinutes() < 10 ? "0" + date.getMinutes() : date.getMinutes();
+            var seconds = date.getSeconds() < 10 ? "0" + date.getSeconds() : date.getSeconds();
+            
+            return date.getFullYear() + "-" + month + "-" + currentDate;
+        }
+    }
 </script>
 <title>后台管理</title>
 </head>
@@ -243,9 +261,11 @@
 		<div class="RightContent col-md-10" style="margin-top: 1%;">
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
+				<h2 class="text-center">学术委员管理</h2>
+				<hr style="margin: 1%">
 				<button type="button" class="btn btn-primary btn-lg"
 					style="margin-top: 1%" data-toggle="modal" data-target="#add">添加学术委员</button>
-				<table id="tb_departments"></table>
+				<table id="tb_departments" style="margin-top: 1%"></table>
 			</div>
 		</div>
 	</div>
@@ -265,11 +285,7 @@
 							action="${pageContext.request.contextPath}/admin/addAcademic"
 							method="post">
 							<div class="form-group">
-								<label for="categoryId" class="control-label">姓名</label> <input
-									type="text" class="form-control" id="addnName" name="addName">
-							</div>
-							<div class="form-group">
-								<label for="selectDe" class="control-label">系部</label> <select
+								<label for="selectDe" class="control-label">学术委员会</label> <select
 									class="selectpicker show-tick form-control"
 									data-live-search="true" name=selectAdd id="selectAdd">
 									<c:forEach items="${departmentList }" var="de"
@@ -277,6 +293,10 @@
 										<option value="${de.num }">${de.name }</option>
 									</c:forEach>
 								</select>
+							</div>
+							<div class="form-group">
+								<label for="categoryId" class="control-label">姓名</label> <input
+									type="text" class="form-control" id="addnName" name="addName">
 							</div>
 							<div class="form-group">
 								<label for="categoryName" class="control-label">职称</label> <input

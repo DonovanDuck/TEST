@@ -309,7 +309,8 @@
 							<li><a
 								href="${pageContext.request.contextPath}/admin/toAdminInfo">设置</a></li>
 							<li class="divider"></li>
-							<li><a href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
+							<li><a
+								href="${pageContext.request.contextPath}/admin/logout">登出</a></li>
 						</ul></li>
 				</ul>
 			</div>
@@ -339,8 +340,7 @@
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toRealClassManager"
 						class="waves-effect waves-dark" style="font-size: 20px;">自然班管理</a></li>
-											<li><a
-						href="${pageContext.request.contextPath}/admin/toTerm"
+					<li><a href="${pageContext.request.contextPath}/admin/toTerm"
 						class="waves-effect waves-dark" style="font-size: 20px;">学期管理</a></li>
 					<li><a
 						href="${pageContext.request.contextPath}/admin/toAcademicManager"
@@ -355,7 +355,9 @@
 		<div class="RightContent col-md-10">
 			<div class="panel"
 				style="padding-bottom: 0%; margin-top: 1%; margin-bottom: 0px; background-color: white;">
-				<h3>文件导入教师信息</h3>
+				<h2 class="text-center">教师信息管理</h2>
+				<hr style="margin: 1%">
+				<h3 style="margin-bottom: 0px">文件导入教师信息</h3>
 				<form class="form-inline" id="form_excel" name="form_excel"
 					role="form" style="margin: 0px"
 					action="${pageContext.request.contextPath}/admin/addTeacher"
@@ -369,15 +371,15 @@
 						style="margin-top: 2%">导入</button>
 				</form>
 				<br>
-				<div>文件(EXCEL)格式：工号、教师名</div>
-				<button type="button" class="btn btn-primary btn-lg"
+				<div style="color: red">文件(EXCEL)格式：工号、教师名</div>
+				<button type="button" class="btn btn-primary btn-sm"
 					data-toggle="modal" data-target="#AddTeacher"
 					style="margin-top: 1%; margin-left: 1%;">添加个体教师</button>
 				<hr>
 			</div>
 			<div class="panel-body"
 				style="padding-bottom: 0px; padding-top: 0px; background-color: white;">
-				<table id="tb_departments" style="table-layout:fixed"></table>
+				<table id="tb_departments" style="table-layout: fixed"></table>
 			</div>
 		</div>
 	</div>

@@ -24,7 +24,7 @@
 	href="${pageContext.request.contextPath}/css/student/table.css" />
 </head>
 <body>
-	<div class="content">
+	<div class="content" style="margin-left:0px;width:100%">
 		<div class="topRow" style="height: 58px">
 			<div class="word1" id="w1">
 				<p>

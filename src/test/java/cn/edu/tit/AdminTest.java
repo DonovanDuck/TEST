@@ -40,7 +40,7 @@ public class AdminTest {
 	List<Category> categories = new ArrayList<Category>();
 
 	@Test
-	public void Test() {
+	public void Test() throws Exception {
 		//
 		//		Department de = iAdminDao.readDepartmentByNum("4");
 		//		System.out.println(de.toString());
@@ -53,6 +53,12 @@ public class AdminTest {
 		//		}
 		//		iadminService.addAdmin(adminList);
 
+		RealClass r= new RealClass("1720411", "5",88);
+		try {
+			iadminService.updateRealClass(r);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
 		/**
 		 * 测试管理员添加课程类别

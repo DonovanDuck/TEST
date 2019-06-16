@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1679,6 +1680,31 @@ public class WxTeacherController {
 		}
 	}
 
+	/**
+	 * 选择作业发布
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="selectTaskToPublish")
+	public Map<String, Object> selectTaskToPublish(HttpServletRequest request,@RequestParam(value="taskId") String taskId
+			,@RequestParam(value="taskEndTime") String taskEndTime,@RequestParam(value="virtualClassNum") String virtualClassNum) {
+		Map<String, Object> ret = new HashMap<>();
+		//获取修改使用次数
+		//int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
+		try {
+			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+			teacherService.addUseNum(taskId);
+			//teacherService.addWatchNum(taskId, taskUseNum);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
 	
 	private JSONArray taskSort(List<Task> taskList, String studentId){
 		

@@ -155,4 +155,6 @@ public interface IAdminService {
 
 	public Term judgeTerm(String addStartTerm, String addEndTerm, String selectTerm)throws Exception;
 
+	public void updateTerm(Term te) throws Exception;
+
 }

@@ -536,4 +536,13 @@ public class AdminServiceImpl implements IAdminService {
 		}
 		return term;
 	}
+
+	@Override
+	public void updateTerm(Term te) throws Exception {
+		try {
+			iAdminDao.updateTerm(te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }

@@ -52,11 +52,6 @@ public class AchievementController {
 	@Autowired
 	private ITeacherService iTeacherService;
 
-	/**
-	 * 跳转到学生成果页面
-	 * @param request
-	 * @return
-	 */
 	@RequestMapping(value="toAchievementMainPage")
 	public ModelAndView toAchievementMainPage(HttpServletRequest request){
 		ModelAndView mv = new ModelAndView();
@@ -83,6 +78,25 @@ public class AchievementController {
 		return mv;
 	}
 
+	/**
+	 * 跳转到学生成果页面
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="toIURPMainPage")
+	public ModelAndView toIURPMainPage(HttpServletRequest request){
+		ModelAndView mv = new ModelAndView();
+		List<IURP> iURPList =new ArrayList<>();
+		try {
+			iURPList = iAchievementService.queryIURP();
+			mv.addObject("iURPList",iURPList);
+			mv.setViewName("/jsp/AchievementJsp/iURPMain");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
 	/**
 	 * 跳转到发布成果页
 	 * @param request
@@ -251,6 +265,7 @@ public class AchievementController {
 			i.setStartTime(ConverDate((String)formdata.get("startTime")));
 			i.setStatus(null);
 			i.setBrowseVolume(1);
+			i.setUploadTime(new Timestamp(System.currentTimeMillis()));
 			i.setFirstPicture(Common.readProperties("path")+"/"+projectId+"/"+stu.getStudentId()+"/"+files.get(0).getName());//获取图片的第一个图片
 			iAchievementService.insertIURP(i);
 			/**
