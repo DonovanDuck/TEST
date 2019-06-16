@@ -147,7 +147,7 @@
 					style="width: 700px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
 					value="">${task.taskDetail }</textarea>
 			</div>
-			
+			<div style="clear: both;"></div>
 				
 					
 				 <label for="exampleInputName2"

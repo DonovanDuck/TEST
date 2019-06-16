@@ -166,7 +166,7 @@
 					value="" readonly="true" >${resource.resourceDetail }</textarea> --%>
 					<div>${resource.resourceDetail }</div>
 			</div>
-			
+			<div style="clear: both;"></div>
 				
 					
 				 <label for="exampleInputName2"

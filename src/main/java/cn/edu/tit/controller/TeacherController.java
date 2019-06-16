@@ -854,6 +854,7 @@ public class TeacherController {
 		 * int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
 		 * task.setWatchNum(taskUseNum);
 		 */
+		task.setWatchNum(0);
 		task.setCourseId((String) request.getSession().getAttribute("courseId"));
 		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
 		task.setTaskType((String) formdata.get("taskCategory"));
@@ -986,7 +987,7 @@ public class TeacherController {
 			if("trial".equals(a)){
 				a = "9";
 			}
-			if("curriculum_design ".equals(a)){
+			if("course_design ".equals(a)){
 				a = "10";
 			}
 			return toCourseResource(request,a );
@@ -1294,7 +1295,7 @@ public class TeacherController {
 		else if("9".equals(c))
 			task.setTaskType("trial");
 		else if("10".equals(c))
-			task.setTaskType("curriculum_design ");
+			task.setTaskType("course_design ");
 		task.setStatus(0);
 
 		try {

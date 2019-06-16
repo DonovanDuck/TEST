@@ -173,7 +173,7 @@ $(document).ready(function() {
 					<div style="height: 70px;width: 350px;background: #f0f0f0;padding-top: 9px;border:1px solid #dadada;border-top: 0">
 						<div style="margin-left: 42px;width: 193px;padding-bottom: 8px;float: left;">
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
-							<div style="width: 100%;">已下载：${re.watchNum }</div>
+							<div style="width: 100%;">已下载：${re.useNum }</div>
 						</div>
 						<c:if test="${sessionScope.teacher == null }">
 						<div>
@@ -221,7 +221,7 @@ $(document).ready(function() {
 					<div style="height: 70px;width: 350px;background: #f0f0f0;padding-top: 9px;border:1px solid #dadada;border-top: 0">
 						<div style="margin-left: 42px;width: 193px;padding-bottom: 8px;float: left;">
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
-							<div style="width: 100%;">已下载：${task.watchNum }</div>
+							<div style="width: 100%;">已下载：${task.useNum }</div>
 						</div>
 						<c:if test="${sessionScope.teacher == null }">
 						<div>

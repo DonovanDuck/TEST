@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
 	</li></div>
 	</c:forEach>
@@ -91,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
 	</li></div>
 	</c:forEach>
@@ -109,7 +109,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
 	</li></div>
 	</c:forEach>
@@ -127,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
 	</li></div>
 	</c:forEach>
@@ -145,7 +145,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
 	</li></div>
 	</c:forEach>
@@ -162,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
 	</li></div>
 	</c:forEach>
@@ -182,7 +182,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
@@ -197,7 +197,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
@@ -212,7 +212,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
@@ -227,7 +227,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
@@ -242,7 +242,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
@@ -257,7 +257,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
