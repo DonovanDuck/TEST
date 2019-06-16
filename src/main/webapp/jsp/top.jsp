@@ -205,7 +205,7 @@ header nav li a{
                    <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
                   <%-- <li class="li3"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li> --%>
                   
-                 <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li>
+                 <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toIURPMainPage">产学研项目</a></li>
                   <%-- <li class="li3"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li> --%>
                   
               <li class="li2"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li> 

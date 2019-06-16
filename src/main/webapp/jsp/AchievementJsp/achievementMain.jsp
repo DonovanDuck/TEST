@@ -38,9 +38,9 @@
 						href="${pageContext.request.contextPath}/achievement/selectCategory?category=AOCSC"
 						role="button">大学生竞赛</a> <a class="btn btn-default"
 						href="${pageContext.request.contextPath}/achievement/selectCategory?category=GDFCS"
-						role="button">毕业设计</a> <a class="btn btn-default"
+						role="button">毕业设计</a> <%-- <a class="btn btn-default"
 						href="${pageContext.request.contextPath}/achievement/selectCategory?category=IURP"
-						role="button">产学研</a>
+						role="button">产学研</a> --%>
 				</div>
 				<div class="col-md-4 rightSearch">
 					<form
@@ -53,45 +53,6 @@
 				</div>
 			</div>
 			<div class="col-md-12 bottomColumn" style="min-height: 400px">
-				<c:if test="${!empty iURPList}">
-					<c:forEach items="${iURPList }" var="item" varStatus="status">
-						<a
-							href="${pageContext.request.contextPath}/achievement/toDetailIURP?achievementId=${item.projectId }">
-							<div class="chengguo-out col-md-4"
-								style="padding: 8px; height: 330px; margin-top: 1%;">
-								<div class="doorPlank"
-									style="padding: 2.5rem; background-color: white; height: 100%">
-									<div class="rel-img">
-										<img src="${pageContext.request.contextPath}/img/fire.png"
-											style="position: absolute; margin-left: 0; margin-top: 0;">
-										<img alt="" style="width: 100%; height: 150px;"
-											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${item.firstPicture }" />
-									</div>
-									<div class="info" style="width: 100%; height: 80px;">
-										<div class="infoContent">
-											<h4 class="achievementTitle titleStyle">
-												<b>${item.projectName }</b>
-											</h4>
-											<p class="description">
-												<b>产学研</b>
-											</p>
-											<p class="description" style="height: 40px">${item.introduction }</p>
-											<hr style="margin: 4px">
-											<div>
-												<p class="publishTime" style="float: left; color: gray">
-													发布于：
-													<fmt:formatDate value="${item.uploadTime }"
-														pattern="yyyy-MM-dd" />
-												</p>
-												<p class="publishTime" style="float: right; color: gray">浏览量:${item.browseVolume }</p>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-						</a>
-					</c:forEach>
-				</c:if>
 				<c:if test="${!empty courseExpandList}">
 					<c:forEach items="${courseExpandList }" var="item"
 						varStatus="status">

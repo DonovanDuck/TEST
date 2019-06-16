@@ -120,7 +120,7 @@ public interface IAdminDao {
 	 * @author 
 	 * 更新实体班级人数  管理员操作
 	 */
-	public void updateRealClass(RealClass realClass);
+	public void updateRealClass(RealClass realClass) throws Exception;
 
 	/**
 	 * 根据班级num获取班级实体
@@ -150,5 +150,7 @@ public interface IAdminDao {
 	public void addTerm(Term te);
 
 	public Term judgeTerm(@Param("s")String s, @Param("e")String e, @Param("st")String st);
+
+	public void updateTerm(Term te);
 	
 }

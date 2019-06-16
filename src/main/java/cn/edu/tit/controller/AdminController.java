@@ -517,10 +517,14 @@ public class AdminController {
 	/**
 	 * @author LiMing
 	 * 读取实体班级信息
+	 * @throws Exception 
 	 * */
 	@RequestMapping(value="toRealClassManager",method= {RequestMethod.GET})
-	public ModelAndView toRealClassManager() {			
+	public ModelAndView toRealClassManager() throws Exception {			
 		ModelAndView mv = new ModelAndView();
+		List<Category> ca = new ArrayList<>();
+		ca = iAdminService.readCategory();
+		mv.addObject("categories",ca);
 		mv.setViewName("/jsp/AdminJsp/managerForRealClass");//设置返回页面
 		return mv;
 	}
@@ -544,7 +548,8 @@ public class AdminController {
 			JSONObject ob=new JSONObject();
 			ob.put("number", ca.getRealClassNum());
 			ob.put("amount", ca.getRealPersonNum());
-			ob.put("category", ca.getRealClassCategory());
+			String name = iTeacherService.getCategoryById( ca.getRealClassCategory());
+			ob.put("category", name);
 			arr.add(ob);
 		}
 		String result = arr.toString();
@@ -556,12 +561,8 @@ public class AdminController {
 	}
 
 
-	/**
-	 * @author LiMing
-	 * 增加实体班级信息
-	 * */
 	@RequestMapping(value="updateRealClass",method= {RequestMethod.GET})
-	public ModelAndView updateRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,@RequestParam("realClassPersonNum")String realClassPersonNum,HttpServletRequest request) {			
+	public ModelAndView updateRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,@RequestParam("realClassPersonNum")String realClassPersonNum,HttpServletRequest request) throws Exception {			
 		ModelAndView mv = new ModelAndView();
 		RealClass realClass = new RealClass();
 		realClass.setRealClassCategory(category);
@@ -576,13 +577,31 @@ public class AdminController {
 		return mv;
 	}
 
+	@RequestMapping(value="updateTerm",method= {RequestMethod.GET})
+	public ModelAndView updateTerm(@RequestParam("editTermId")String editTermId,@RequestParam("editStartTerm")String editStartTerm,@RequestParam("editEndTerm")String editEndTerm,@RequestParam("editSelectTerm")String editSelectTerm,HttpServletRequest request) throws Exception {			
+		ModelAndView mv = new ModelAndView();
+		Term te = new Term();
+		try {
+			te.setEndYear(editEndTerm);
+			te.setStartYear(editStartTerm);
+			te.setTermId(editTermId);
+			te.setTerm(editSelectTerm);
+			iAdminService.updateTerm(te);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		mv = toTerm();
+		return mv;
+	}
+
 
 	/**
 	 * @author LiMing
 	 * 增加实体班级信息
+	 * @throws Exception 
 	 * */
 	@RequestMapping(value="addRealClass",method= {RequestMethod.GET})
-	public ModelAndView AddRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,@RequestParam("realClassPersonNum")String realClassPersonNum,HttpServletRequest request) {			
+	public ModelAndView AddRealClass( @RequestParam("realClassNum")String realClassNum,@RequestParam("category")String category,@RequestParam("realClassPersonNum")String realClassPersonNum,HttpServletRequest request) throws Exception {			
 		ModelAndView mv = new ModelAndView();
 		RealClass realClass = new RealClass();
 		realClass.setRealClassCategory(category);
