@@ -421,6 +421,12 @@ public class StudentServiceImpl implements IStudentService{
 		
 	}
 
+	@Override
+	public void upUpdateTask(UpTask upTask, String virtualClassNum) {
+		studentDao.upUpdateTaskThis(upTask);
+		
+	}
+
 	
 
 //	@Override

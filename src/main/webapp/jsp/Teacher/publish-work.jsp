@@ -149,8 +149,8 @@
 				title : '任务标题',
 
 			}, {
-				field : 'taskDetail',
-				title : '任务描述',
+				field : 'knowledgePoints',
+				title : '任务知识点',
 
 			}, {
 				field : 'publisherId',
@@ -604,8 +604,15 @@
 					<input type="text" id="taskCategoryEdit" name="taskCategory"
 						hidden="hidden" value="work" />
 				</div>
+				<div class="input-group"
+						style=" width: 100%; margin-right: 2%;padding-top: 20px; margin-top: 10px;">
+						<span class="input-group-addon" id="basic-addon3"
+							style="font-size: 20px; padding: 0 49px; font-weight: bold;">&nbsp;&nbsp;知识点&nbsp;&nbsp;</span>
+						<input type="text" name="knowledgePoints" class="form-control" placeholder="输入任务相关知识点内容"
+							id="knowledgePoints" aria-describedby="basic-addon3">
+				</div>
 				<div class="taskdetail"
-					style="width: 100%; padding-top: 40px; margin-top: 10px;">
+					style="width: 100%; padding-top: 10px; margin-top: 10px;">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">编辑任务</h3>

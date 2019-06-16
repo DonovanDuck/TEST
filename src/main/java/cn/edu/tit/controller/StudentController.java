@@ -463,6 +463,59 @@ public class StudentController {
 		}
 		return url;	
 	}
+	
+	
+	
+	@RequestMapping(value="toUpdateUpTask/{taskId}")
+	public String toUpdateUpTask(HttpServletRequest request,@PathVariable String taskId) {
+		ModelAndView mv = new ModelAndView();
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
+		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
+		String term = teacherService.getVirtualById(virtualClassNum).getTerm();
+		Object[] obj = Common.fileFactory(request,taskId);
+		Map<String, Object> formdata = (Map<String, Object>) obj[1];
+		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+		// 创建list集合用于获取文件上传返回路径名
+		List<String> list = new ArrayList<String>();
+		List<Accessory> accessories  = new ArrayList<Accessory>();
+		UpTask upTask = new UpTask();
+		upTask.setTaskId(taskId);
+		upTask.setStudentId(studentId);
+		upTask.setTerm(term);
+		upTask.setUpTime(new Timestamp(System.currentTimeMillis()));
+		upTask.setUpTaskDetail((String) formdata.get("upTaskDetail"));
+		studentService.upUpdateTask(upTask, virtualClassNum);
+		
+		if(!returnFileList.isEmpty()) {
+			for (File file : returnFileList) {
+				Accessory accessory = new Accessory();
+				accessory.setAccessoryName(file.getName());
+				accessory.setAccessoryPath(file.getPath());
+				accessory.setTaskId(taskId);
+				accessory.setAccessoryTime(Common.TimestamptoString());
+				accessories.add(accessory);
+			}
+			try {
+				studentService.upAccessory(accessories, studentId);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		String courseName = (String) request.getSession().getAttribute("courseName");
+		String url=null;
+		try {
+			url =  "redirect:/student/toClassDetail?virtualClassNum="+ URLEncoder.encode(virtualClassNum,"UTF-8")+"&virtualClassName="+URLEncoder.encode(virtualClassName,"UTF-8")+"&courseName="+URLEncoder.encode(courseName,"UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return url;	
+	}
+	
+	
 	//toPersonAccomplishment
 	@RequestMapping(value="toPersonAccomplishment")
 	public ModelAndView toPersonAccomplishment(HttpServletRequest request) {

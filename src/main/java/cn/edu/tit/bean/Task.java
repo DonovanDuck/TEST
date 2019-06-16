@@ -22,7 +22,7 @@ public class Task {
 	private Integer useNum; // 使用次数
 	private Integer watchNum; //查看次数
 	private Integer upNum;//提交人数，用于在每次封装对象时使用，在数据库不需要建立
-
+	private String knowledgePoints;//知识点
 	private List<Accessory> accessoryList; // 任务对应附件
 
 	public String getTaskId() {
@@ -144,10 +144,21 @@ public class Task {
 	public void setAccessoryList(List<Accessory> accessoryList) {
 		this.accessoryList = accessoryList;
 	}
+	
+	public String getKnowledgePoints() {
+		return knowledgePoints;
+	}
+
+	public void setKnowledgePoints(String knowledgePoints) {
+		this.knowledgePoints = knowledgePoints;
+	}
+
+	
 
 	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
 			String publisherId, String virtualClassNum, String courseId, String taskType, Integer status,
-			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, List<Accessory> accessoryList) {
+			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, String knowledgePoints,
+			List<Accessory> accessoryList) {
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
@@ -163,6 +174,7 @@ public class Task {
 		this.useNum = useNum;
 		this.watchNum = watchNum;
 		this.upNum = upNum;
+		this.knowledgePoints = knowledgePoints;
 		this.accessoryList = accessoryList;
 	}
 
