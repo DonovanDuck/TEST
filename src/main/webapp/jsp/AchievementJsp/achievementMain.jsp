@@ -116,6 +116,7 @@
 												<b>${item.achievementCategory }</b>
 											</p>
 											<p class="description" style="height: 40px">${item.introduction }</p>
+											<hr style="margin: 4px">
 											<div>
 												<p class="publishTime" style="float: left; color: gray">
 													发布于：
@@ -154,6 +155,7 @@
 												<b>${item.achievementCategory }</b>
 											</p>
 											<p class="description" style="height: 40px">${item.introduction }</p>
+											<hr style="margin: 4px">
 											<div>
 												<p class="publishTime" style="float: left; color: gray">
 													发布于：
@@ -192,6 +194,7 @@
 												<b>${item.achievementCategory }</b>
 											</p>
 											<p class="description" style="height: 40px">${item.introduction }</p>
+											<hr style="margin: 4px">
 											<div>
 												<p class="publishTime" style="float: left; color: gray">
 													发布于：
@@ -230,7 +233,7 @@
 												<b>${item.achievementCategory }</b>
 											</p>
 											<p class="description" style="height: 40px">${item.introduction }</p>
-
+											<hr style="margin: 4px">
 											<div>
 												<p class="publishTime" style="float: left; color: gray">
 													发布于：
