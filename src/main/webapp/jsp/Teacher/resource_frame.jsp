@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html lang="zh-CN" style="background: #fff;">
+<html lang="zh-CN" style="background: #fff;overflow: hidden;">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">

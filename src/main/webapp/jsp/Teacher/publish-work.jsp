@@ -57,8 +57,6 @@
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
 	<script type="text/javascript"
-	src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
-<script type="text/javascript"
 	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
@@ -88,9 +86,10 @@
 				$("#taskCategorySelect").val("course_design");
 			}
 			if(text=="翻转"){
-				$("#typeNameEdit").html("翻转");
-				$("#taskCategoryEdit").val("turnClass");
+				$("#typeNameSelect").html("翻转");
+				$("#taskCategorySelect").val("turnClass");
 			}
+		
 			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
 					'refresh', 
@@ -115,6 +114,7 @@
 				$("#typeNameEdit").html("翻转");
 				$("#taskCategoryEdit").val("turnClass");
 			}
+			
 			
 			$tasktype=$("#taskCategoryEdit").val();
 			
@@ -512,7 +512,7 @@
 			 $("#taskTitleEdit").focus();
 			 return false;	 
 		 }
-		 if(!UE.getEditor('taskDetail').hasContents()&&!$('#accessory').get(0).files[0]){
+		 if($("#taskDetail").val()==""&&!$('#accessory').get(0).files[0]){
 			 alert("请输入作业描述或者选择上传的任务附件");
 			 return false;	
 		 }
@@ -552,6 +552,7 @@
 	// 	$(".selectTaskButton").css("color","#000000");
 	// })
 </script>
+
 </head>
 <body style="background-color: #F1F3F4;">
 	<div
@@ -606,10 +607,8 @@
 									<li style="font-size: 18px; padding-left: 20px"><c:if
 											test="${taskCategory=='work' }">作业</c:if> <c:if
 											test="${taskCategory=='trial' }">实验</c:if> <c:if
-											test="${taskCategory=='course_design' }">课程设计</c:if>
-											<c:if
-											test="${taskCategory=='turnClass' }">翻转</c:if>
-											</li>
+											test="${taskCategory=='course_design' }">课程设计</c:if><c:if
+											test="${taskCategory=='turnClass' }">翻转</c:if></li>
 
 								</c:forEach>
 
@@ -620,15 +619,15 @@
 					<input type="text" id="taskCategoryEdit" name="taskCategory"
 						hidden="hidden" value="work" />
 				</div>
-				<div class="taskdetail form-group"
+				<div class="taskdetail taskDetail"
 					style="width: 100%; padding-top: 40px; margin-top: 10px;">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">编辑任务</h3>
 						</div>
-						
-						<textarea  id="taskDetail" name="taskDetail" 
-							style="width: 100%; height: 100px; resize: none;" type="text"
+
+						<textarea id="taskDetail" name="taskDetail" 
+							style="width: 100%; height: 100px; resize: none;"
 							placeholder="编辑任务"></textarea>
 
 					</div>

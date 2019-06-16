@@ -1461,4 +1461,16 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getStuTruancyList(attendanceId);
 	}
 
+	@Override
+	public void addTeamMember(String employeeNum, String id,int manager) {
+		// TODO Auto-generated method stub
+		teacherDao.addTeamMember(employeeNum, id,manager);
+	}
+
+	@Override
+	public Integer getMaxManager(String employeeNum) {
+		// TODO Auto-generated method stub
+		return teacherDao.getMaxManager(employeeNum);
+	}
+
 }

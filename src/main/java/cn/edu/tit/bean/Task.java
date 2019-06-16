@@ -12,6 +12,7 @@ public class Task {
 	private String taskTitle; // 任务标题
 	private String taskDetail; //任务描述
 	private Timestamp publishTime; // 发布时间
+	private String knowledge; //知识点
 	private Timestamp taskEndTime; //任务结束时间 
 	private String publisherId; // 发布人id
 	private String virtualClassNum; // 对应班级id
@@ -55,6 +56,14 @@ public class Task {
 
 	public void setPublishTime(Timestamp publishTime) {
 		this.publishTime = publishTime;
+	}
+
+	public String getKnowledge() {
+		return knowledge;
+	}
+
+	public void setKnowledge(String knowledge) {
+		this.knowledge = knowledge;
 	}
 
 	public Timestamp getTaskEndTime() {
@@ -145,14 +154,16 @@ public class Task {
 		this.accessoryList = accessoryList;
 	}
 
-	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
-			String publisherId, String virtualClassNum, String courseId, String taskType, Integer status,
-			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, List<Accessory> accessoryList) {
+	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, String knowledge,
+			Timestamp taskEndTime, String publisherId, String virtualClassNum, String courseId, String taskType,
+			Integer status, Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum,
+			List<Accessory> accessoryList) {
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
 		this.taskDetail = taskDetail;
 		this.publishTime = publishTime;
+		this.knowledge = knowledge;
 		this.taskEndTime = taskEndTime;
 		this.publisherId = publisherId;
 		this.virtualClassNum = virtualClassNum;
@@ -170,5 +181,7 @@ public class Task {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
 	
 }

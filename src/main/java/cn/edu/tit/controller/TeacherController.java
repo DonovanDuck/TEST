@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -191,6 +192,7 @@ public class TeacherController {
 		Course course = null;
 		try {
 			course = teacherService.getCourseById(courseId);
+			request.getSession().setAttribute("course", course);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -224,9 +226,8 @@ public class TeacherController {
 		request.setAttribute("student", student);
 		//查询课程类别名
 		String category = teacherService.getCategoryById(course.getCourseCategory());
-		course.setCourseCategory(category);
 		request.setAttribute("category", category);
-		request.getSession().setAttribute("course", course);
+		
 		//修改课程创建时间格式
 		String publishTime = course.getPublishTime().toString().substring(0, 10);
 		request.setAttribute("publishTime", publishTime);
@@ -1054,6 +1055,35 @@ public class TeacherController {
 	}
 	
 	/**
+	 * 跳转到修改资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toSearchResource/{resourceId}")
+	public ModelAndView toSearchResource(HttpServletRequest request,@PathVariable String resourceId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获得对应的资源
+			List<Resource> resource = resourceService.showResource(resourceId);
+			//mv.addObject("category", category);
+			for(Resource r : resource){
+				int rindex = r.getResourcePath().lastIndexOf("\\");
+				if(rindex >0)
+					r.setResourcePath(r.getResourcePath().substring(rindex));
+			}
+			if(!resource.isEmpty() && resource != null)
+				mv.addObject("resource", resource.get(0));
+			mv.setViewName("/jsp/Teacher/teacher-search-resource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
 	 * 跳转到修改任务资源页面
 	 * @param request
 	 * @param resourceId
@@ -1070,6 +1100,33 @@ public class TeacherController {
 			if(task != null)
 				mv.addObject("task", task);
 			mv.setViewName("/jsp/Teacher/teacher-update-taskResource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
+	 * 跳转到修改任务资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toSearchTaskResource/{taskId}")
+	public ModelAndView toSearchTaskResource(HttpServletRequest request,@PathVariable String taskId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获得对应的资源
+			Task task = teacherService.getTaskById(taskId);
+			task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
+			//mv.addObject("category", category);
+			if(task != null)
+				mv.addObject("task", task);
+			if(task.getAccessoryList().size()>0)
+			mv.addObject("acc",task.getAccessoryList().get(0));
+			mv.setViewName("/jsp/Teacher/teacher-search-taskResource");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -1975,9 +2032,46 @@ public class TeacherController {
 	 * @throws IOException
 	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
 	 */
-	@RequestMapping("/resourceDownload")
-	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id,@RequestParam(value="type")String type) throws IOException {
+	@RequestMapping(value="/resourceDownload", method= {RequestMethod.POST})
+	public ResponseEntity<byte[]> download(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id,@RequestParam(value="type")String type) throws IOException {
+		request.setCharacterEncoding("utf-8");
+		((ServletRequest) response).setCharacterEncoding("utf-8");  
+		response.setContentType("text/html;charset=UTF-8");
+		System.out.println(fileName);
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		File file=null;
+		//附件下载时通过判断类型下载，因为在上传时是通过不同身份设置了不同的路径，在下载时则不能再根据当前登陆者身份来确定唯一路径，路径的类型由前台给予
+		if("teacherPub".equals(type)) {
+			file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
+		}else if("studentUp".equals(type)) {
+			file = new File(Common.readProperties("path")+"/"+id+"/"+studentId+"/"+fileName);
 
+		}
+		
+		System.out.println("文件名"+file.getName());
+		byte[] body = null;
+		InputStream is = new FileInputStream(file);
+		body = new byte[is.available()];
+		is.read(body);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+		HttpStatus statusCode = HttpStatus.OK;
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+		
+		return entity;
+	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
+	 */
+	@RequestMapping(value="/resourceDownload2/{fileName}/{id}/{type}", method= {RequestMethod.POST})
+	public ResponseEntity<byte[]> download2(HttpServletRequest request,HttpServletResponse response,@PathVariable String fileName,@PathVariable String id,@PathVariable String type) throws IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
 		System.out.println(fileName);
 		String studentId = (String) request.getSession().getAttribute("studentId");
 		File file=null;
@@ -2351,6 +2445,16 @@ public class TeacherController {
 		if(isThisTeacher){
 			request.setAttribute("isTeacher", 1);
 		}
+		
+		//查询课程类别名
+			if(course != null){
+				String cate = teacherService.getCategoryById(course.getCourseCategory());
+				request.setAttribute("type", cate);
+			
+				//修改课程创建时间格式
+				String time = course.getPublishTime().toString().substring(0, 10);
+				request.setAttribute("publishTime", time);
+			}
 		List<Resource> resourceList = new ArrayList<>();//返回前台数据
 		List<Task> taskList = new ArrayList<>();//返回前台数据
 		//查询信息switch
@@ -3516,6 +3620,7 @@ public class TeacherController {
 	
 	@RequestMapping("getStudentNameById/{studentId}")
 	public void getStudentNameById(HttpServletRequest request,HttpServletResponse response,@PathVariable("studentId")String studentId) {
+		
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("application/json;charset=UTF-8");
@@ -3529,4 +3634,51 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}	
+	/**
+	 * 添加教师团队成员辅助函数，方便之后排序
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@RequestMapping("addTeacherTeam/{id}")
+	public ModelAndView addTeacherTeam(HttpServletRequest request,HttpServletResponse response,@PathVariable String id) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			if(isLogin(request)){
+				request.getSession().setAttribute("readResult", "请先登录！");//返回信息
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				return mv;
+			}
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			//获取manager
+			Integer manager  = teacherService.getMaxManager(teacher.getEmployeeNum());
+			if(manager == null){
+				manager = 2;
+			}
+			else{
+				manager +=1;
+			}
+			//添加
+			teacherService.addTeamMember(teacher.getEmployeeNum(),id,manager);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}	
+	
+	/**
+	 * 判断登录
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="isLogin")
+	private boolean isLogin(HttpServletRequest request) {
+			if(request.getSession().getAttribute("teacher") == null && request.getSession().getAttribute("student") == null){
+				
+				return true;
+			}
+		return false;
+	}
 }

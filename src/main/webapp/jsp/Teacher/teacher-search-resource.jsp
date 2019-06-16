@@ -10,7 +10,7 @@
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
-<title>修改资源</title>
+<title>查看资源</title>
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
 <link rel="stylesheet"
@@ -48,6 +48,28 @@
 						} else {
 							$("#attention").html("关注");
 						}
+					}
+				});
+	}
+</script>
+<script type="text/javascript">
+	function xiazai() {
+		//alert('${course.courseId}');
+		alert("sss");
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/teacher/resourceDownload",
+					data : {
+						'fileName' : '${resource.resourceName }',
+						'id' : '${resource.resourceId }',
+						'type' : 'teacherPub'
+					},
+					type : "POST",
+					dataType : "text",
+					success : function(result) {
+						
 					}
 				});
 	}
@@ -111,78 +133,73 @@
 </div>
 
 <div class="main_b" style="width: 70%;margin-left: 17%; padding-top: 3%;background: #fff;height: 100%;">
-	<div
+	<!-- <div
 		style="font-size: 27px;
     font-weight: 600;
     margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
-		修改资源</div>
+		查看资源</div> -->
 	<div
 		style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
-		<form
-			action="${pageContext.request.contextPath}/teacher/updateResource"
-			enctype="multipart/form-data" method="post" id="resourceForm">
+		
 			<div class="form-group">
 				<label for="exampleInputName2"
 					style="float: left; padding-left: 13px; margin-right: 5px;">资源名：</label>
-				<input type="text" class="form-control" id="exampleInputName2"
-					name="resourceName" style="width: 663px;"
+				<span>${resource.resourceName }</span>
+				<%-- <input type="text" class="form-control" id="exampleInputName2"
+					name="resourceName" style="width: 663px;" readonly="true" 
 					value="${resource.resourceName }"> <input type="hidden"
 					name="resourceType" value="${resource.resourceTypeId }">
 					<input type="hidden"
 					name="resourceId" value="${resource.resourceId }">
 					 <input
-					type="hidden" name="courseId" value="${course.courseId }">
+					type="hidden" name="courseId" value="${course.courseId }"> --%>
 			</div>
 			<div class="form-group">
   	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;">资源类型：</label>
-   <input type="hidden" name="resourceType" value="${resource.resourceTypeId }">
-    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源">
+  	<span>多媒体资源</span>
+   <%-- <input type="hidden" name="resourceType" value="${resource.resourceTypeId }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源"> --%>
   </div>
 			<div class="form-group">
-				<label for="exampleInputName2">资源介绍：</label>
-				<textarea id="resourceDetail" name="resourceDetail" type="text"
+				<label for="exampleInputName2" style="float: left;">资源介绍：</label>
+				<span>${resource.resourceDetail }</span>
+				<%-- <textarea id="resourceDetail" name="resourceDetail" type="text"
 					placeholder=""
 					style="width: 700px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
-					value="">${resource.resourceDetail }</textarea>
+					value="" readonly="true" >${resource.resourceDetail }</textarea> --%>
 			</div>
 			
 				
 					
 				 <label for="exampleInputName2"
-					style="float: left; margin-right: 5px;">修改附件：</label>
+					style="float: left; margin-right: 5px;">资源附件：</label>
 					<div style="height: 96px;width: 274px;float: left;padding: 15px;background: #f0f0f0;border-radius: 11px;">
 						<img style="height: 50px; width: 50px;margin-right: 10px;" src="${pageContext.request.contextPath}/images/file.jpg">
 						<label class="re_name">${resource.resourceName }</label>
-						<span style="color: #c9302c;position: relative;top: 46%;left: 39%;cursor: pointer;" onclick="modifyRe()">修改</span>
+						<%-- <a href="${pageContext.request.contextPath}/teacher/resourceDownload2/${resource.resourceName }/${resource.resourceId }/teacherPub"> --%>
+						<form action="${pageContext.request.contextPath}/teacher/resourceDownload2/${resource.resourcePath }/${resource.resourceId }/teacherPub" method="POST">
+						 <button type="submit" class="btn btn-default"  style="color: #c9302c;
+    position: relative;
+    top: 40%;
+    left: 76%;
+    cursor: pointer;
+    border: none;
+    background: #f0f0f0;">下载</button>
+						 <!-- </a> -->
+						 </form>
 					</div>
 					
-					 <input style="margin-top: 6%;position: relative;left: 5%;top: 27px;display:none;" name="file" type="file" multiple="multiple" >
 			<div
-				style=" height: 35px; min-height: 35px; padding-left: 38%; margin-top: 60%; margin-bottom: 13%;">
+				style=" height: 35px; min-height: 35px; padding-left: 0; margin-top: 62%; margin-bottom: 13%;">
 				<div style="float: left; margin-right: 131px;">
-					<button type="submit" class="btn btn-info">确认</button>
+					<button type="button" onClick="javascript :history.back(-1);" class="btn btn-info">返回</button>
 				</div>
-				<div>
-					<button type="button" class="btn btn-danger">取消</button>
-				</div>
+				
 			</div>
-		</form>
 	</div>
 
 
 </div>
 </body>
-<script type="text/javascript" charset="utf-8">
-	var ue = UE.getEditor('resourceDetail',{
 
-	    initialFrameWidth :661,//设置编辑器宽度
-
-	    initialFrameHeight:200,//设置编辑器高度
-	    initialFrameMargin:0,
-
-	    scaleEnabled:true
-	    
-
-	 });
-</script>
 </html>

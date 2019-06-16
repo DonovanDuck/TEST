@@ -393,7 +393,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </div>
 
-<div class="main_b_b">
+<!-- <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">挑战</h3>
 			<ul>
@@ -460,7 +460,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </ul>
 </div>
-</div>
+</div> -->
 <c:if test="${aocscList != null }">
 <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">

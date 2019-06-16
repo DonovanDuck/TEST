@@ -157,7 +157,7 @@
 					<div style="height: 96px;width: 274px;float: left;padding: 15px;background: #f0f0f0;border-radius: 11px;">
 						<img style="height: 50px; width: 50px;margin-right: 10px;" src="${pageContext.request.contextPath}/images/file.jpg">
 						<label class="re_name">${task.taskTitle }</label>
-						<span style="color: #c9302c;position: absolute;top: 167%;left: 43%;cursor: pointer;" onclick="modifyRe()">修改</span>
+						<span style="color: #c9302c;position: relative;top: 46%;left: 39%;cursor: pointer;" onclick="modifyRe()">修改</span>
 					</div>
 					
 					 <input style="margin-top: 6%;position: relative;left: 5%;top: 27px;display:none;" name="file" type="file" multiple="multiple" >
@@ -177,7 +177,16 @@
 </div>
 </body>
 <script type="text/javascript" charset="utf-8">
-	UE.getEditor('taskDetail');
-	
+	var ue = UE.getEditor('taskDetail',{
+
+	    initialFrameWidth :661,//设置编辑器宽度
+
+	    initialFrameHeight:200,//设置编辑器高度
+	    initialFrameMargin:0,
+
+	    scaleEnabled:true
+	    
+
+	 });
 </script>
 </html>

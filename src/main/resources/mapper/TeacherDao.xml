@@ -29,6 +29,7 @@
 		<result column="time_size" property="timeSize" />
 		<result column="watch_num" property="watchNum" />
 		<result column="use_num" property="useNum" />
+		<result column="knowledge" property="knowledge" />
 	</resultMap>
 	<resultMap type="cn.edu.tit.bean.Term" id="termMap">
 		<id column="term_id" property="termId" />
@@ -378,6 +379,13 @@
 		<result column="task_category" property="taskType" />
 		<result column="use_num" property="useNum" />
 		<result column="watch_num" property="watchNum" />
+		<result column="knowledge" property="knowledge" />
+	</resultMap>
+	
+	<resultMap type="cn.edu.tit.bean.TeacherTeam" id="teamkMap">
+		<id column="publish_id" property="publishId" />
+		<result column="member_id" property="memberId" />
+		<result column="manager" property="manager" />
 	</resultMap>
 
 
@@ -1049,7 +1057,18 @@
 		update student set status = -1;
 	</update>
 	
-	<!-- <select id="getStuLeaveList">
-		select studentId from att_leave where 
-	</select> -->
+	 <select id="getStuLeaveList">
+		select studentId from att_leave where attendance_id = #{attendanceId};
+	</select> 
+	
+	<insert id="addTeamMember">
+	insert into teacher_team(publish_id,member_id,manager) values(
+		#{employeeNum},
+		#{id},
+		#{manager}
+	);
+	</insert>
+	<select id="getMaxManager" resultType="Integer">
+		select max(manager) from teacher_team where publish_id = #{employeeNum};
+	</select>
 </mapper>

@@ -572,6 +572,8 @@ public interface ITeacherDao {
 	 */
 	public List<Student> getStuTruancyList(String attendanceId);
 
-
+	public void addTeamMember(@Param("employeeNum")String employeeNum,@Param("id")String id,@Param("manager")int manager);
+	
+	public Integer getMaxManager(String employeeNum);
 
 }

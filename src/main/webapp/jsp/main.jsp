@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body style="background: #f0f0f0;">
       <jsp:include page="/jsp/top.jsp" flush="true" />
-      <div class="banner" style="height: 458px;">
+      <div class="banner" style="height: 334px;">
       	<div class="container" style="width: 100%;padding: 0;">
 					<div class="carousel slide" id="slidershow" data-ride="carousel" data-interval="2000">
 						<!--计数器-->

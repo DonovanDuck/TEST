@@ -39,7 +39,7 @@ header span li{
 }
 header span li a{
     color: white;
-    font-size: 17px;
+    
 }
 header span li:nth-child(1){
     position: relative;

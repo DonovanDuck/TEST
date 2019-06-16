@@ -82,6 +82,20 @@
 		if (checkbox.checked == true) {
 			var value = checkbox.value;
 			var content = $("#" + value).text();
+			
+			/* $
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/addTeacherTeam/"
+						+ value,
+				type : "POST",
+				dataType : "json",
+				success : function(result) {
+					
+				}
+			}); */
+			
 			$("input[name = 'select']").each(function() {
 				if ($(this).val() == value)
 					$("#" + value).remove();
@@ -104,6 +118,20 @@
 	function checkboxBackclick(checkbox) {
 		if (checkbox.checked == false) {
 			var value = checkbox.value;
+			
+			/* $
+			.ajax({
+				async : false,
+				cache : false,
+				url : "${pageContext.request.contextPath}/teacher/addTeacherTeam/"
+						+ value,
+				type : "POST",
+				dataType : "json",
+				success : function(result) {
+					
+				}
+			}); */
+			
 			var content = $("#" + value).text();
 			$("input[name = 'select']").each(function() {
 				if ($(this).val() == value)

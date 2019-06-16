@@ -844,4 +844,9 @@ public interface ITeacherService {
 	 */
 	public List<Student> getStuTruancyList(String attendanceId);
 	
+	
+	public void addTeamMember(String employeeNum,String id,int manager);
+	
+	public Integer getMaxManager(String employeeNum);
+	
 }
