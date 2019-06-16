@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -1055,7 +1056,7 @@ public class WxTeacherController {
 		List<Student> studentNotUpList = new ArrayList<Student>();
 		try {
 			studentNotUpList =teacherService.getStudentListOfNotUp(taskId, virtualClassNum);
-			studentUpedList = teacherService.getStudentListOfUped(taskId);
+			studentUpedList = teacherService.getStudentListOfUped(taskId,virtualClassNum);
 			ret.put("studentNotUpList", studentNotUpList);
 			ret.put("studentUpedList", studentUpedList);
 			ret.put("status", "success");
@@ -1406,8 +1407,49 @@ public class WxTeacherController {
 	 * 显示已打卡，和未打卡的学生
 	 * @return
 	 */
-	@RequestMapping(value="getStuAttStituation")
-	public Map<String, Object> getStuAttStituation(@RequestParam(value="attendanceId") String attendanceId,@RequestParam(value="virtualClassNum") String virtualClassNum){
+	@RequestMapping(value="getStuAttSituation")
+	public Map<String, Object> getStuAttSituation(@RequestParam(value="attendanceId") String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//获得已打卡的学生
+			List<Student> attendedList = new ArrayList<>();
+			attendedList = teacherService.getStuAttended(attendanceId);
+			Map<String, Object> attendedMap = new HashMap<>();
+			//获取请假的学生
+			List<Student> studentLeaveList = teacherService.getStuLeaveList(attendanceId);//获取班上所有的学生
+			//获得缺勤的学生
+			List<Student> studentTruancyList = teacherService.getStuTruancyList(attendanceId);//获取班上所有的学生
+			
+			for(Student student : attendedList){
+				//获取打卡时间
+				String atttime = teacherService.getAttTime(student.getStudentId(),attendanceId);
+				if(!"".equals(atttime)&&atttime != null){
+					atttime = atttime.toString().substring(0, 16);
+					String sid = student.getStudentId();
+					student.setStudentId(atttime);
+					attendedMap.put(sid, student);
+				}
+			}
+			ret.put("attendedMap", attendedMap);
+			ret.put("studentLeaveList", studentLeaveList);
+			ret.put("studentTruancyList", studentTruancyList);
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+	}
+
+	
+	/**
+	 * 结束时显示已打卡，和未打卡的学生
+	 * @return
+	 */
+	@RequestMapping(value="EndGetStuAttSituation")
+	public Map<String, Object> EndGetStuAttSituation(@RequestParam(value="attendanceId") String attendanceId,
+			@RequestParam(value="virtualClassNum") String virtualClassNum){
 		Map<String, Object> ret = new HashMap<>();
 		try {
 			//获得已打卡的学生
@@ -1450,7 +1492,11 @@ public class WxTeacherController {
 			ret.put("status", "error");
 			return ret;
 		}
+
 	}
+	
+	
+	
 	
 	/**
 	 * 教师开启打卡
@@ -1461,21 +1507,74 @@ public class WxTeacherController {
 			@RequestParam(value="virtualClassNum") String virtualClassNum){
 		Map<String, Object> ret = new HashMap<>();
 		try {
-			Attendance att = new Attendance();
-			att.setAttendanceId(Common.uuid());
-			att.setVirtualClassNum(virtualClassNum);
-			//设置第几次打卡
-			att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
-			Timestamp attTime = new Timestamp(System.currentTimeMillis());
-			att.setAttendanceTime(attTime);
-			att.setAttendanceNum(0);
-			att.setTotalNum(teacherService.getTaskUserNum(virtualClassNum));
-			att.setLeaveNum(0);
-			att.setTruancyNum(0);
-			att.setPublishId(employeeNum);
-			//添加
-			teacherService.addAttendance(att);
+			//判断此班级是否有正在进行的打卡
+			boolean isAttend = teacherService.isAttend(virtualClassNum);
+			if(isAttend){
+				Attendance att = new Attendance();
+				att.setAttendanceId(Common.uuid());
+				att.setVirtualClassNum(virtualClassNum);
+				//设置第几次打卡
+				if(teacherService.getLastAttIndex(virtualClassNum) != null)
+					att.setAttIndex(teacherService.getLastAttIndex(virtualClassNum)+1);
+				else
+					att.setAttIndex(1);
+				Timestamp attTime = new Timestamp(System.currentTimeMillis());
+				att.setAttendanceTime(attTime);
+				att.setAttendanceNum(0);
+				att.setTotalNum(teacherService.getTaskUserNum(virtualClassNum));
+				att.setLeaveNum(0);
+				att.setTruancyNum(0);
+				att.setPublishId(employeeNum);
+				//添加
+				teacherService.addAttendance(att);
+				ret.put("att", att);
+				ret.put("status", "ok");
+			}
+			else{
+				ret.put("msg", "不能多次开启打卡！");
+			}
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 教师关闭打卡
+	 * @return
+	 */
+	@RequestMapping(value="endAttend")
+	public Map<String, Object> endAttend(@RequestParam(value="attendanceId") String attendanceId){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			
+			teacherService.endAttendance(attendanceId);
 			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
+	
+	/**
+	 * 获取当前打卡id
+	 * @return
+	 */
+	@RequestMapping(value="getCurrentAttend")
+	public Map<String, Object> getCurrentAttend(@RequestParam(value="virtualClassNum") String virtualClassNum){
+		Map<String, Object> ret = new HashMap<>();
+		try {
+			//添加
+			String attendanceId = teacherService.getCurrentAttend(virtualClassNum);
+			ret.put("attendanceId", attendanceId);
 			return ret;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -1502,7 +1601,7 @@ public class WxTeacherController {
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
-			ret.put("img", "不能重复打卡！");
+			ret.put("msg", "不能重复打卡！");
 			ret.put("status", "error");
 			return ret;
 		}
@@ -1553,22 +1652,24 @@ public class WxTeacherController {
 	 * @return
 	 */
 	@RequestMapping(value="signLeaveOrTruancy")
-	public Map<String, Object> signLeaveOrTruancy(@RequestParam(value="noAttMap") Map<String, String> noAttMap,
-			@RequestParam(value="attendanceId")String attendanceId){
+	public Map<String, Object> signLeaveOrTruancy(@RequestBody String data){
+		JSONObject res = JSON.parseObject(data);
 		Map<String, Object> ret = new HashMap<>();
 		try {
-			if(noAttMap != null){
-				for(Entry<String, String> en : noAttMap.entrySet()){
-					if("0".equals(en.getValue())){
-						//设置为缺勤
-						teacherService.setTruancy(en.getKey(),attendanceId);
-					}
-					else if("1".equals(en.getValue())){
-						//设置为请假
-						teacherService.setLeave(en.getKey(),attendanceId);
-					}
+			JSONArray noAttAryy = res.getJSONArray("noAttList");
+			String attId = res.getString("attendanceId");
+			for(int i = 0;i<noAttAryy.size();i++){
+				JSONObject s =  noAttAryy.getJSONObject(i);
+				if("-1".equals(s.getString("status"))){
+					//设置为缺勤
+					teacherService.setTruancy(s.getString("studentId"),attId);
+				}
+				else if("99".equals(s.getString("status"))){
+					//设置为请假
+					teacherService.setLeave(s.getString("studentId"),attId);
 				}
 			}
+			
 			ret.put("status", "ok");
 			return ret;
 		} catch (Exception e) {
@@ -1579,6 +1680,31 @@ public class WxTeacherController {
 		}
 	}
 
+	/**
+	 * 选择作业发布
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="selectTaskToPublish")
+	public Map<String, Object> selectTaskToPublish(HttpServletRequest request,@RequestParam(value="taskId") String taskId
+			,@RequestParam(value="taskEndTime") String taskEndTime,@RequestParam(value="virtualClassNum") String virtualClassNum) {
+		Map<String, Object> ret = new HashMap<>();
+		//获取修改使用次数
+		//int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
+		try {
+			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+			teacherService.addUseNum(taskId);
+			//teacherService.addWatchNum(taskId, taskUseNum);
+			ret.put("status", "ok");
+			return ret;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			ret.put("status", "error");
+			return ret;
+		}
+		
+	}
 	
 	private JSONArray taskSort(List<Task> taskList, String studentId){
 		

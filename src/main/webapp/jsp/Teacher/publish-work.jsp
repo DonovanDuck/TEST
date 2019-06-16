@@ -56,6 +56,12 @@
 	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
+	<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
+<script type="text/javascript"
+	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 
 <script type="text/javascript">
 	
@@ -80,9 +86,10 @@
 				$("#taskCategorySelect").val("course_design");
 			}
 			if(text=="翻转"){
-				$("#typeNameEdit").html("翻转");
-				$("#taskCategoryEdit").val("turnClass");
+				$("#typeNameSelect").html("翻转");
+				$("#taskCategorySelect").val("turnClass");
 			}
+		
 			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
 					'refresh', 
@@ -107,6 +114,7 @@
 				$("#typeNameEdit").html("翻转");
 				$("#taskCategoryEdit").val("turnClass");
 			}
+			
 			
 			$tasktype=$("#taskCategoryEdit").val();
 			
@@ -155,8 +163,8 @@
 				title : '任务标题',
 
 			}, {
-				field : 'taskDetail',
-				title : '任务描述',
+				field : 'knowledgePoints',
+				title : '任务知识点',
 
 			}, {
 				field : 'publisherId',
@@ -222,7 +230,7 @@
 								);
 								for(var i=0;i<accessoryList.length;i++){
 									$("#autoAccessoryList").append(
-					                "<a href='${pageContext.request.contextPath}/teacher/resourceDownload?fileName="+accessoryList[i].accessoryName+"&id="+result[0].taskId+"'>"+
+					                "<a href='${pageContext.request.contextPath}/teacher/resourceDownload?fileName="+accessoryList[i].accessoryName+"&id="+result[0].taskId+"&type=teacherPub'>"+
 										"<button class='btn btn-default' type='submit' style='border-radius: 20px;float: left;margin-left: 10px;' >"+accessoryList[i].accessoryName+"</button>"+
 									"</a>");
 					           }
@@ -599,10 +607,8 @@
 									<li style="font-size: 18px; padding-left: 20px"><c:if
 											test="${taskCategory=='work' }">作业</c:if> <c:if
 											test="${taskCategory=='trial' }">实验</c:if> <c:if
-											test="${taskCategory=='course_design' }">课程设计</c:if>
-											<c:if
-											test="${taskCategory=='turnClass' }">翻转</c:if>
-											</li>
+											test="${taskCategory=='course_design' }">课程设计</c:if><c:if
+											test="${taskCategory=='turnClass' }">翻转</c:if></li>
 
 								</c:forEach>
 
@@ -613,14 +619,21 @@
 					<input type="text" id="taskCategoryEdit" name="taskCategory"
 						hidden="hidden" value="work" />
 				</div>
+				<div class="input-group"
+						style=" width: 100%; margin-right: 2%;padding-top: 20px; margin-top: 10px;">
+						<span class="input-group-addon" id="basic-addon3"
+							style="font-size: 20px; padding: 0 49px; font-weight: bold;">&nbsp;&nbsp;知识点&nbsp;&nbsp;</span>
+						<input type="text" name="knowledgePoints" class="form-control" placeholder="输入任务相关知识点内容"
+							id="knowledgePoints" aria-describedby="basic-addon3">
+				</div>
 				<div class="taskdetail"
-					style="width: 100%; padding-top: 40px; margin-top: 10px;">
+					style="width: 100%; padding-top: 10px; margin-top: 10px;">
 					<div class="panel panel-primary">
 						<div class="panel-heading">
 							<h3 class="panel-title">编辑任务</h3>
 						</div>
 
-						<textarea id="taskDetail" name="taskDetail" class="form-control"
+						<textarea id="taskDetail" name="taskDetail" 
 							style="width: 100%; height: 100px; resize: none;"
 							placeholder="编辑任务"></textarea>
 
@@ -759,5 +772,20 @@
 	<script type="text/javascript">
 		var app = angular.module('app', [ "wui.date" ]);
 	</script>
+	<script type="text/javascript">
+
+var ue = UE.getEditor('taskDetail',{
+
+    initialFrameWidth :798,//设置编辑器宽度
+
+    initialFrameHeight:100,//设置编辑器高度
+    initialFrameMargin:0,
+
+    scaleEnabled:true
+    
+
+ });
+
+</script>
 </body>
 </html>

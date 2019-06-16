@@ -69,7 +69,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </head>
 <body style="background: #f0f0f0;">
       <jsp:include page="/jsp/top.jsp" flush="true" />
-      <div class="banner" style="height: 458px;">
+      <div class="banner" style="height: 334px;">
       	<div class="container" style="width: 100%;padding: 0;">
 					<div class="carousel slide" id="slidershow" data-ride="carousel" data-interval="2000">
 						<!--计数器-->
@@ -345,7 +345,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <c:forEach items="${aocscList }" var="item" varStatus="status" begin="0" end="3">
                    <div class="col-xs-3 col-md-3" ">
                   	<a
-							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
 							<div class="chengguo-out"
 								style="padding: 0; height: 378px; margin-top: 1%;">
 								<div class="doorPlank xiangmu-out"
@@ -379,7 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                   <c:forEach items="${aocscList }" var="item" varStatus="status" begin="4" end="7">
                    <div class="col-xs-3 col-md-3" ">
                   	<a
-							href="${pageContext.request.contextPath}/achievement/toDetailAOCSC?achievementId=${item.achievementId }">
+							href="${pageContext.request.contextPath}/achievement/toDetailCourseExpand?achievementId=${item.achievementId }">
 							<div class="chengguo-out"
 								style="padding: 0; height: 378px; margin-top: 1%;">
 								<div class="doorPlank xiangmu-out"

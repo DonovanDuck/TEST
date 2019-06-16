@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.servlet.ServletRequest;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -109,7 +110,10 @@ public class TeacherController {
 		 * System.out.println("异地登录"); mv.setViewName("/jsp/Teacher/index");//设置返回页面
 		 * }else {
 		 */
+		
 			request.getSession().invalidate();//顺序不能乱
+			String identify = "teacher";
+			request.getSession().setAttribute("identify", identify);
 			String readResult =null;
 			request.getSession().setAttribute("teacherId", null);
 			String teacherPassword = null;
@@ -122,7 +126,7 @@ public class TeacherController {
 					request.getSession().setAttribute("teacher", teacher);
 					mv=mainController.toMain(request); //去首页
 					//清空其他身份SESSION
-					request.getSession().removeAttribute("identify");
+					
 					request.getSession().removeAttribute("student");
 					request.getSession().removeAttribute("studentId");
 					
@@ -188,6 +192,7 @@ public class TeacherController {
 		Course course = null;
 		try {
 			course = teacherService.getCourseById(courseId);
+			request.getSession().setAttribute("course", course);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -221,9 +226,8 @@ public class TeacherController {
 		request.setAttribute("student", student);
 		//查询课程类别名
 		String category = teacherService.getCategoryById(course.getCourseCategory());
-		course.setCourseCategory(category);
 		request.setAttribute("category", category);
-		request.getSession().setAttribute("course", course);
+		
 		//修改课程创建时间格式
 		String publishTime = course.getPublishTime().toString().substring(0, 10);
 		request.setAttribute("publishTime", publishTime);
@@ -843,12 +847,14 @@ public class TeacherController {
 		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
 		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
 		task.setVirtualClassNum(virtualClassNum);
+		task.setKnowledgePoints((String) formdata.get("knowledgePoints"));
 		task.setUseNum(1);//设置使用次数为1
 		//获取修改使用次数-虚拟班级人数
 		/*
 		 * int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
 		 * task.setWatchNum(taskUseNum);
 		 */
+		task.setWatchNum(0);
 		task.setCourseId((String) request.getSession().getAttribute("courseId"));
 		System.out.println("作业类型是："+(String) formdata.get("taskCategory"));
 		task.setTaskType((String) formdata.get("taskCategory"));
@@ -981,7 +987,7 @@ public class TeacherController {
 			if("trial".equals(a)){
 				a = "9";
 			}
-			if("curriculum_design ".equals(a)){
+			if("course_design ".equals(a)){
 				a = "10";
 			}
 			return toCourseResource(request,a );
@@ -1002,18 +1008,17 @@ public class TeacherController {
 		
 		String taskId = request.getParameter("taskId");
 		String taskEndTime = request.getParameter("taskEndTime");
-		//获取修改使用次数-虚拟班级人数
-		int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
+		//获取修改使用次数
+		//int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
 		try {
 			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
-			teacherService.addUseNum(taskId, taskUseNum);
-			teacherService.addWatchNum(taskId, taskUseNum);
+			teacherService.addUseNum(taskId);
+			//teacherService.addWatchNum(taskId, taskUseNum);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}		//映射班级任务表
 		String courseName = (String) request.getSession().getAttribute("courseName");
-		
 		System.out.println("选择发布"+virtualClassName+"sdfghjkl;"+courseName);
 		System.out.println("redirect:/teacher/toClassDetail?virtualClassNum="+virtualClassNum+"&virtualClassName="+virtualClassName+"&courseName="+courseName);
 		
@@ -1052,6 +1057,45 @@ public class TeacherController {
 	}
 	
 	/**
+	 * 跳转到修改资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toSearchResource/{resourceId}")
+	public ModelAndView toSearchResource(HttpServletRequest request,@PathVariable String resourceId){
+		ModelAndView mv = new ModelAndView();
+		Course course = (Course) request.getSession().getAttribute("course");
+		//查询课程类别名
+		if(course != null){
+			String cate = teacherService.getCategoryById(course.getCourseCategory());
+			request.setAttribute("type", cate);
+		
+			//修改课程创建时间格式
+			String time = course.getPublishTime().toString().substring(0, 10);
+			request.setAttribute("publishTime", time);
+		}
+		try {
+			//获得对应的资源
+			List<Resource> resource = resourceService.showResource(resourceId);
+			//mv.addObject("category", category);
+			for(Resource r : resource){
+				int rindex = r.getResourcePath().lastIndexOf("\\");
+				if(rindex >0)
+					r.setResourcePath(r.getResourcePath().substring(rindex));
+			}
+			if(!resource.isEmpty() && resource != null)
+				mv.addObject("resource", resource.get(0));
+			mv.setViewName("/jsp/Teacher/teacher-search-resource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
 	 * 跳转到修改任务资源页面
 	 * @param request
 	 * @param resourceId
@@ -1061,6 +1105,16 @@ public class TeacherController {
 	@RequestMapping(value="toUpdateTaskResource/{taskId}")
 	public ModelAndView toUpdateTaskResource(HttpServletRequest request,@PathVariable String taskId){
 		ModelAndView mv = new ModelAndView();
+		Course course = (Course) request.getSession().getAttribute("course");
+		//查询课程类别名
+		if(course != null){
+			String cate = teacherService.getCategoryById(course.getCourseCategory());
+			request.setAttribute("type", cate);
+		
+			//修改课程创建时间格式
+			String time = course.getPublishTime().toString().substring(0, 10);
+			request.setAttribute("publishTime", time);
+		}
 		try {
 			//获得对应的资源
 			Task task = teacherService.getTaskById(taskId);
@@ -1068,6 +1122,33 @@ public class TeacherController {
 			if(task != null)
 				mv.addObject("task", task);
 			mv.setViewName("/jsp/Teacher/teacher-update-taskResource");
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+		return mv;
+	}
+	
+	/**
+	 * 跳转到修改任务资源页面
+	 * @param request
+	 * @param resourceId
+	 * @param category
+	 * @return
+	 */
+	@RequestMapping(value="toSearchTaskResource/{taskId}")
+	public ModelAndView toSearchTaskResource(HttpServletRequest request,@PathVariable String taskId){
+		ModelAndView mv = new ModelAndView();
+		try {
+			//获得对应的资源
+			Task task = teacherService.getTaskById(taskId);
+			task.setAccessoryList(teacherService.searchAccessory(task.getTaskId()));
+			//mv.addObject("category", category);
+			if(task != null)
+				mv.addObject("task", task);
+			if(task.getAccessoryList().size()>0)
+			mv.addObject("acc",task.getAccessoryList().get(0));
+			mv.setViewName("/jsp/Teacher/teacher-search-taskResource");
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
@@ -1214,7 +1295,7 @@ public class TeacherController {
 		else if("9".equals(c))
 			task.setTaskType("trial");
 		else if("10".equals(c))
-			task.setTaskType("curriculum_design ");
+			task.setTaskType("course_design ");
 		task.setStatus(0);
 
 		try {
@@ -1318,8 +1399,7 @@ public class TeacherController {
 		}
 		
 		System.out.println(virtualClassName+"dsfghjkl"+courseName);
-		String identify = "teacher";
-		request.getSession().setAttribute("identify", identify);
+		String identify = (String) request.getSession().getAttribute("identify");
 		request.getSession().removeAttribute("courseName");
 		request.getSession().setAttribute("virtualClassNum", virtualClassNum);
 		VirtualClass virtualClass = teacherService.getVirtualById(virtualClassNum);
@@ -1447,6 +1527,7 @@ public class TeacherController {
 			e1.printStackTrace();
 		}
 		String identify = (String) request.getSession().getAttribute("identify");
+		System.out.println("identify======"+identify);
 		String virtualClassNum = (String) request.getSession().getAttribute("virtualClassNum");
 		String virtualClassName = (String) request.getSession().getAttribute("virtualClassName");
 		Task task ;
@@ -1502,7 +1583,7 @@ public class TeacherController {
 				mv.setViewName("/jsp/VirtualClass/studentwork");
 			}else if(identify.equals("teacher")) {
 				studentNotUpList =teacherService.getStudentListOfNotUp(taskId, virtualClassNum);
-				studentUpedList = teacherService.getStudentListOfUped(taskId);
+				studentUpedList = teacherService.getStudentListOfUped(taskId,virtualClassNum);
 				for (Student student : studentUpedList) {
 					studentTograde.put(student.getStudentId(), teacherService.getGrade(taskId, student.getStudentId()));
 					studentToUpTask.put(student.getStudentId(), teacherService.getUpTask(taskId, student.getStudentId()));
@@ -1566,19 +1647,27 @@ public class TeacherController {
 		ModelAndView mv = new ModelAndView();
 		String category = categoryId;
 		List<Course> list = new ArrayList<Course>();
-		List<String> teacherNames = new ArrayList<String>();
+		List<String> publishTime = new ArrayList<>();
+		List<Teacher> teacherList = new ArrayList<>();
 		try {
 			list = teacherService.readCourseInfoByCategory(category);
-			for (Course course : list) {
-				teacherNames.add(teacherService.getTeacherNameById(course.getPublisherId()));
+			if(!list.isEmpty()) {
+				for (Course course : list) 
+				{
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+					publishTime.add(course.getPublishTime().toString().substring(0,10));
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		mv.addObject("teacherNames",teacherNames);
-		mv.addObject("categories",categories);
-		mv.addObject("categoryId",categoryId);
+		
+		mv.addObject("categories", categories);
 		mv.addObject("courseList", list);
+		mv.addObject("publishTime",publishTime);
+		mv.addObject("teacherList", teacherList);
+		mv.addObject("categoryId",categoryId);
 		mv.setViewName("/jsp/CourseJsp/courseSecond");//设置返回页面
 		return mv;
 	}
@@ -1965,18 +2054,22 @@ public class TeacherController {
 	 * @throws IOException
 	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
 	 */
-	@RequestMapping("/resourceDownload")
-	public ResponseEntity<byte[]> download(HttpServletRequest request,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id) throws IOException {
-
+	@RequestMapping(value="/resourceDownload", method= {RequestMethod.POST})
+	public ResponseEntity<byte[]> download(HttpServletRequest request,HttpServletResponse response,@RequestParam(value="fileName")String fileName,@RequestParam(value="id")String id,@RequestParam(value="type")String type) throws IOException {
+		request.setCharacterEncoding("utf-8");
+		((ServletRequest) response).setCharacterEncoding("utf-8");  
+		response.setContentType("text/html;charset=UTF-8");
 		System.out.println(fileName);
 		String studentId = (String) request.getSession().getAttribute("studentId");
 		File file=null;
-		if("".equals(studentId)||studentId==null) {
+		//附件下载时通过判断类型下载，因为在上传时是通过不同身份设置了不同的路径，在下载时则不能再根据当前登陆者身份来确定唯一路径，路径的类型由前台给予
+		if("teacherPub".equals(type)) {
 			file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
-		}else {
+		}else if("studentUp".equals(type)) {
 			file = new File(Common.readProperties("path")+"/"+id+"/"+studentId+"/"+fileName);
 
 		}
+		
 		System.out.println("文件名"+file.getName());
 		byte[] body = null;
 		InputStream is = new FileInputStream(file);
@@ -1986,6 +2079,42 @@ public class TeacherController {
 		headers.add("Content-Disposition", "attchement;filename=" + file.getName());
 		HttpStatus statusCode = HttpStatus.OK;
 		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+		
+		return entity;
+	}
+	
+	/**
+	 * @author wenli
+	 * @param request
+	 * @return
+	 * @throws IOException
+	 * spring方式下载，当文件较小且下载复杂度不是很大时使用效率较高
+	 */
+	@RequestMapping(value="/resourceDownload2/{fileName}/{id}/{type}", method= {RequestMethod.POST})
+	public ResponseEntity<byte[]> download2(HttpServletRequest request,HttpServletResponse response,@PathVariable String fileName,@PathVariable String id,@PathVariable String type) throws IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=UTF-8");
+		System.out.println(fileName);
+		String studentId = (String) request.getSession().getAttribute("studentId");
+		File file=null;
+		//附件下载时通过判断类型下载，因为在上传时是通过不同身份设置了不同的路径，在下载时则不能再根据当前登陆者身份来确定唯一路径，路径的类型由前台给予
+		if("teacherPub".equals(type)) {
+			file = new File(Common.readProperties("path")+"/"+id+"/"+fileName);
+		}else if("studentUp".equals(type)) {
+			file = new File(Common.readProperties("path")+"/"+id+"/"+studentId+"/"+fileName);
+
+		}
+		
+		System.out.println("文件名"+file.getName());
+		byte[] body = null;
+		InputStream is = new FileInputStream(file);
+		body = new byte[is.available()];
+		is.read(body);
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Disposition", "attchement;filename=" + file.getName());
+		HttpStatus statusCode = HttpStatus.OK;
+		ResponseEntity<byte[]> entity = new ResponseEntity<byte[]>(body, headers, statusCode);
+		
 		return entity;
 	}
 
@@ -2338,6 +2467,16 @@ public class TeacherController {
 		if(isThisTeacher){
 			request.setAttribute("isTeacher", 1);
 		}
+		
+		//查询课程类别名
+			if(course != null){
+				String cate = teacherService.getCategoryById(course.getCourseCategory());
+				request.setAttribute("type", cate);
+			
+				//修改课程创建时间格式
+				String time = course.getPublishTime().toString().substring(0, 10);
+				request.setAttribute("publishTime", time);
+			}
 		List<Resource> resourceList = new ArrayList<>();//返回前台数据
 		List<Task> taskList = new ArrayList<>();//返回前台数据
 		//查询信息switch
@@ -2395,7 +2534,7 @@ public class TeacherController {
 				}
 				taskList.add(task);
 			}
-			mv.addObject("trailList", trailList);//返回信息
+			mv.addObject("taskList", taskList);//返回信息
 			break;
 
 		}
@@ -3284,6 +3423,173 @@ public class TeacherController {
 			e1.printStackTrace();
 		}
 	}
+	@RequestMapping("toTeacherMyInfo")
+	public ModelAndView toTeacherMyInfo(HttpServletRequest request ,HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		mv.addObject("teacher", teacher);
+		mv.setViewName("jsp/teacher_personal_center/index");
+		return mv;
+	}
+	@SuppressWarnings("unused")
+	@RequestMapping("toTeacherMyCourse")
+	public ModelAndView toTeacherMyCourse(HttpServletRequest request ,HttpServletResponse response) {
+		
+		ModelAndView mv = new ModelAndView();
+		List<String> courseIdListForMe ;	//自己创建的课程ID号
+		List<Course> courseListForMe = null ;		//自己课程实体
+		
+		List<String> courseIdListByJoin;		//加入别人的课程ID号
+		List<Course> courseListByJoin = null;		//别人课程实体
+		
+		List<String> courseIdListByInterset;		//加入别人的课程ID号
+		List<Course> courseListByInterset = null;		//别人课程实体
+		
+		Teacher teacher = null;
+		List<String> publishTimeForMe = new ArrayList<>();
+		List<String> publishTimeByJoin = new ArrayList<>();
+		List<String> publishTimeByInterset = new ArrayList<>();
+		
+		List<String> teacherIdList = null;
+		List<Teacher> teacherList = null;
+		//创建老师集合的目的是：课程与创建者的匹配
+		List<String> teacherNamesForMe = new ArrayList<String>();
+		List<String> teacherNamesByJoin = new ArrayList<String>();
+		List<String> teacherNamesByInterset = new ArrayList<String>();
+		try {
+			courseIdListForMe = teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 1);
+			courseListForMe = teacherService.courseList(courseIdListForMe);
+			courseIdListByJoin =teacherService.courseIdList((String) request.getSession().getAttribute("teacherId"), 0);
+			courseListByJoin = teacherService.courseList(courseIdListByJoin);
+			//填充我创建的课程实体
+			if(courseListForMe!=null) {
+				for (Course course : courseListForMe ) {
+					//限制显示字数
+					if(!"".equals(course.getCourseDetail())){
+						String de = course.getCourseDetail().replaceAll("<p>", "");
+						de = de.replaceAll("</p>","");
+						
+						if(course.getCourseDetail().length()>=70){
+							
+							de = de.substring(0, 63);
+						}
+						course.setCourseDetail(de);
+					}
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+					publishTimeForMe.add(course.getPublishTime().toString().substring(0,10));
+				}
+				for (int i = 0; i < courseListForMe.size(); i++) {
+					teacher = (Teacher) request.getSession().getAttribute("teacher");
+					teacherNamesForMe.add(teacher.getTeacherName());
+				}
+			}//end
+			//填充我加入的课程实体
+			if(courseListByJoin!=null) {
+
+				for (Course course : courseListByJoin ) {
+					//限制显示字数
+					if(!"".equals(course.getCourseDetail())){
+						String de = course.getCourseDetail().replaceAll("<p>", "");
+						de = de.replaceAll("</p>","");
+						
+						if(course.getCourseDetail().length()>=70){
+							
+							de = de.substring(0, 63);
+						}
+						course.setCourseDetail(de);
+					}
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+					publishTimeByJoin.add(course.getPublishTime().toString().substring(0,10));
+				}
+				for (Course course : courseListByJoin) {
+					teacherNamesByJoin.add(teacherService.getTeacherNameById(course.getPublisherId()));
+				}
+			}//end
+			//填充我创建的课程实体
+			if(courseListByInterset!=null) {
+				for (Course course : courseListByInterset ) {
+					//限制显示字数
+					if(!"".equals(course.getCourseDetail())){
+						String de = course.getCourseDetail().replaceAll("<p>", "");
+						de = de.replaceAll("</p>","");
+						
+						if(course.getCourseDetail().length()>=70){
+							
+							de = de.substring(0, 63);
+						}
+						course.setCourseDetail(de);
+					}
+					teacherList = teacherService.getTeachersByCourseId(course.getCourseId());
+					course.setTeacherList(teacherList);
+					publishTimeByInterset.add(course.getPublishTime().toString().substring(0,10));
+				}
+				for (int i = 0; i < courseListByInterset.size(); i++) {
+					teacher = (Teacher) request.getSession().getAttribute("teacher");
+					teacherNamesByInterset.add(teacher.getTeacherName());
+				}
+			}//end
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		//设置返回我创建的课程前台数据
+		mv.addObject("teacherNamesForMe",teacherNamesForMe);
+		mv.addObject("courseListForMe", courseListForMe);
+		mv.addObject("publishTimeForMe",publishTimeForMe);
+		
+		
+		//设置返回我加入的课程前台数据
+		mv.addObject("teacherNamesByJoin",teacherNamesByJoin);
+		mv.addObject("courseListByJoin", courseListByJoin);
+		mv.addObject("publishTimeByJoin",publishTimeByJoin);
+		
+		//设置返回我加入的课程前台数据
+		mv.addObject("teacherNamesByInterset",teacherNamesByInterset);
+		mv.addObject("courseListByInterset", courseListByInterset);
+		mv.addObject("publishTimeByInterset",publishTimeByInterset);
+		
+		
+		mv.addObject("teacher", teacher);
+		
+		mv.setViewName("jsp/teacher_personal_center/mycourse");
+		return mv;
+	}
+	@SuppressWarnings("unused")
+	@RequestMapping("toTeacherMyClass")
+	public ModelAndView toTeacherMyClass(HttpServletRequest request ,HttpServletResponse response) {
+		ModelAndView mv = new ModelAndView();
+		List<Term> termList = null;
+		List<VirtualClass> virtualClassList= null;
+		List<RealClass> realClassList = null;
+		List<String> realClassIdList = null;
+		String creatorId = (String) request.getSession().getAttribute("teacherId");
+		virtualClassList = teacherService.getVirtualClassByCreatorId(creatorId);
+		if(virtualClassList!=null) {
+			for (VirtualClass virtualClass : virtualClassList) {
+				realClassList = teacherService.getRealClassList(virtualClass.getVirtualClassNum());
+				virtualClass.setRealClassList(realClassList);
+				String term = virtualClass.getTerm();
+				Term  a = teacherService.getTermById(term);
+				virtualClass.setTerm(a.getStartYear()+"-"+a.getEndYear()+" 学年"+a.getTerm());
+			}
+		}
+		try {
+			termList = teacherService.readTerm();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		mv.addObject("termList", termList);
+		mv.addObject("virtualClassList", virtualClassList);
+		
+		Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+		mv.addObject("teacher", teacher);
+		
+		mv.setViewName("jsp/teacher_personal_center/myclass");
+		return mv;
+
+	}
 
 	@RequestMapping("toMyAchievement")
 	public ModelAndView toMyAchievement() {
@@ -3336,6 +3642,7 @@ public class TeacherController {
 	
 	@RequestMapping("getStudentNameById/{studentId}")
 	public void getStudentNameById(HttpServletRequest request,HttpServletResponse response,@PathVariable("studentId")String studentId) {
+		
 		try {
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("application/json;charset=UTF-8");
@@ -3349,4 +3656,51 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}	
+	/**
+	 * 添加教师团队成员辅助函数，方便之后排序
+	 * @param request
+	 * @param response
+	 * @param id
+	 */
+	@RequestMapping("addTeacherTeam/{id}")
+	public ModelAndView addTeacherTeam(HttpServletRequest request,HttpServletResponse response,@PathVariable String id) {
+		ModelAndView mv = new ModelAndView();
+		try {
+			if(isLogin(request)){
+				request.getSession().setAttribute("readResult", "请先登录！");//返回信息
+				mv.setViewName("/jsp/Teacher/index");//设置返回页面
+				return mv;
+			}
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("application/json;charset=UTF-8");
+			Teacher teacher = (Teacher) request.getSession().getAttribute("teacher");
+			//获取manager
+			Integer manager  = teacherService.getMaxManager(teacher.getEmployeeNum());
+			if(manager == null){
+				manager = 2;
+			}
+			else{
+				manager +=1;
+			}
+			//添加
+			teacherService.addTeamMember(teacher.getEmployeeNum(),id,manager);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}	
+	
+	/**
+	 * 判断登录
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value="isLogin")
+	private boolean isLogin(HttpServletRequest request) {
+			if(request.getSession().getAttribute("teacher") == null && request.getSession().getAttribute("student") == null){
+				
+				return true;
+			}
+		return false;
+	}
 }

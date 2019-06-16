@@ -65,6 +65,8 @@ public class AdminController {
 	private IStudentService iStudentService;
 	@Autowired
 	private IAchievementService iAchievementService;
+	@Autowired
+	public MainController mainController;
 
 
 	/**
@@ -1124,8 +1126,8 @@ public class AdminController {
 	public ModelAndView logout(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		request.getSession().removeAttribute("admin");
-		mv.setViewName("/jsp/main");
-		return mv;
+		
+		return mainController.toMain(request);
 	}
 
 	@RequestMapping(value="toTerm")

@@ -11,6 +11,7 @@ public class Resource {
 	private String resourceId; // 资源id
 	private String resourceName; // 资源名
 	private String resourceDetail; // 资源描述
+	private String knowledge; //知识点
 	private Timestamp publishTime; // 资源发布时间
 	private String publisherId; // 发布者id
 	private Integer resourceTypeId; // 资源类型
@@ -37,6 +38,12 @@ public class Resource {
 	}
 	public void setResourceDetail(String resourceDetail) {
 		this.resourceDetail = resourceDetail;
+	}
+	public String getKnowledge() {
+		return knowledge;
+	}
+	public void setKnowledge(String knowledge) {
+		this.knowledge = knowledge;
 	}
 	public Timestamp getPublishTime() {
 		return publishTime;
@@ -92,20 +99,14 @@ public class Resource {
 	public void setUseNum(Integer useNum) {
 		this.useNum = useNum;
 	}
-	@Override
-	public String toString() {
-		return "Resource [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDetail="
-				+ resourceDetail + ", publishTime=" + publishTime + ", publisherId=" + publisherId + ", resourceTypeId="
-				+ resourceTypeId + ", resourcePath=" + resourcePath + ", courseId=" + courseId + ", size=" + size
-				+ ", timeSize=" + timeSize + ", watchNum=" + watchNum + ", useNum=" + useNum + "]";
-	}
-	public Resource(String resourceId, String resourceName, String resourceDetail, Timestamp publishTime,
-			String publisherId, Integer resourceTypeId, String resourcePath, String courseId, String size,
-			String timeSize, Integer watchNum, Integer useNum) {
+	public Resource(String resourceId, String resourceName, String resourceDetail, String knowledge,
+			Timestamp publishTime, String publisherId, Integer resourceTypeId, String resourcePath, String courseId,
+			String size, String timeSize, Integer watchNum, Integer useNum) {
 		super();
 		this.resourceId = resourceId;
 		this.resourceName = resourceName;
 		this.resourceDetail = resourceDetail;
+		this.knowledge = knowledge;
 		this.publishTime = publishTime;
 		this.publisherId = publisherId;
 		this.resourceTypeId = resourceTypeId;
@@ -120,7 +121,7 @@ public class Resource {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
+	
 	
 	
 }

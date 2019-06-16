@@ -77,7 +77,7 @@
 
 	<select id="studentVirtualClassId"
 		parameterType="java.lang.String" resultType="java.lang.String">
-		select * from
+		select virtual_class_num from
 		real_virtual_class where real_class_num = #{classnum};
 	</select>
 	<resultMap type="cn.edu.tit.bean.VirtualClass"
@@ -237,6 +237,13 @@
 			<if test="studentCategory != null">student_category = #{studentCategory}</if>
 		</set>
 		WHERE student_id = #{studentId}
+	</update>
+	<update id="upUpdateTaskThis" parameterType="cn.edu.tit.bean.UpTask">
+		update up_task 
+		<set>
+			up_task_detail=#{upTaskDetail}
+		</set>
+		where student_id =#{studentId} and task_id = #{taskId}
 	</update>
 	<!--读取系部信息 -->
 	<select id="getCategoryById" resultMap="categoryMap"

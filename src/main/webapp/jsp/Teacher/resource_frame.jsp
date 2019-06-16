@@ -5,7 +5,7 @@ String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
 <!DOCTYPE html>
-<html lang="zh-CN" style="background: #fff;">
+<html lang="zh-CN" style="background: #fff;overflow: hidden;">
 <head>
 <meta charset="UTF-8" name="viewport"
 	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
@@ -53,11 +53,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </c:if>
 
-<ul style="    margin-top: 3%">
+
 <c:if test="${taskList != null }">
+<ul style="    margin-top: 3%">
+<div class="row">
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
+	<div  class="col-xs-4 col-md-4 LI0" style="height: auto;">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -66,28 +70,19 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
-	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
-		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-   background-size: cover;">
-			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }...</div>
-			<div>发布人：${task.publisherId }</div>
-			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
-		</div>
-	</li>
-	</c:forEach>
+	
+	
+	 
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="2" end="2">
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+	<div class="col-xs-4 col-md-4 LI2" style="height: auto;">
+	<li class="LI2" style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -96,13 +91,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="3" end="3">
+	<div class="col-xs-4 col-md-4 LI3" style="height: auto;">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -111,13 +109,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="4" end="4">
+	<div class="col-xs-4 col-md-4 LI4" style="height: auto;">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -126,13 +127,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="5" end="5">
+	<div class="col-xs-4 col-md-4 LI5" style="height: auto;">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -141,16 +145,35 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${task.taskDetail }...</div>
 			<div>发布人：${task.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
+			<div>引用次数：${task.useNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
+
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
+	<div class="col-xs-4 col-md-4 LI3" style="height: auto;">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
+		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }...</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>引用次数：${task.useNum }</div>
+		</div>
+	</li></div>
+	</c:forEach>
+	
+	</div>
 	</c:if>
 	
 	<c:if test="${resource != null }">
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="0" end="0">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -159,13 +182,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="1" end="1">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -174,13 +197,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="2" end="2">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -189,14 +212,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
-		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
+		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">
@@ -204,13 +227,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="4" end="4">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -219,13 +242,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="5" end="5">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 65px;padding-top: 15px;
+		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
@@ -234,7 +257,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>知识点：${re.resourceDetail }...</div>
 			<div>发布人：${re.publisherId }</div>
 			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${re.watchNum }</div>
+			<div>引用次数：${re.useNum }</div>
 		</div>
 	</li>
 	</c:forEach>

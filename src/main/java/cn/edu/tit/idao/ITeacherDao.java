@@ -388,7 +388,7 @@ public interface ITeacherDao {
 	 * @param taskId
 	 * 当以选择形式发布作业时，作业引用次数+1
 	 */
-	public void addUseNum(@Param("taskId")String taskId, @Param("taskUseNum")int taskUseNum);
+	public void addUseNum(@Param("taskId")String taskId);
 	public void addWatchNum(@Param("taskId")String taskId, @Param("taskUseNum")int taskUseNum);
 	public Term getTermById(@Param("termId")String termId);
 	public List<Teacher> teacherForFuzzyQueryById(@Param("teacherNum")String teacherNum);
@@ -533,16 +533,47 @@ public interface ITeacherDao {
 
 
 
+	/**
+	 * 判断班级是否有为结束的打卡
+	 * @param virtualClassNum
+	 * @return
+	 */
+	public Integer getIsAttend(String virtualClassNum);
 
 
+	/**
+	 * 教师关闭打卡
+	 * @param attendanceId
+	 */
+	public void endAttendance(String attendanceId);
 
 
+	/**
+	 * 获取当前打卡id
+	 * @return
+	 */
+	public String getCurrentAttend(String virtualClassNum);
 
+	/**
+	 * 开启打卡时所有学生默认缺勤
+	 */
+	public void stuSetTruancy();
+	
+	/**
+	 * 获得请假的学生列表
+	 * @return
+	 */
+	public List<Student> getStuLeaveList(String attendanceId);
+	
+	
+	/**
+	 * 获得缺勤的学生列表
+	 * @return
+	 */
+	public List<Student> getStuTruancyList(String attendanceId);
 
-
-
-
-
-
+	public void addTeamMember(@Param("employeeNum")String employeeNum,@Param("id")String id,@Param("manager")int manager);
+	
+	public Integer getMaxManager(String employeeNum);
 
 }

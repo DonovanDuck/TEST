@@ -40,16 +40,15 @@
 }
 
 .banner_t {
-	    width: 70%;
-    margin-left: 16%;
-	    height: 205px;
+	    width: 77%;
+    margin-left: 10%;
+	    height: 138px;
 	margin-top: 14px;
 	    padding-left: 77px;
-	        margin-bottom: 29px;
 }
 
 .banner_t li {
-	width: 16%;
+	width: 14%;
 	height: 30px;
 	float: left;
 	margin-top: 3%;
@@ -144,7 +143,7 @@ $(document).ready(function() {
 				
 			</ul>
 		</div>
-		<div style="height: 0px;width: 87%;border-bottom: 1px solid #ccc;margin-bottom: 2%;margin-top: -1%;"></div>
+		<div style="height: 0px;width: 90%;border-bottom: 1px solid #ccc;margin-bottom: 2%;margin-top: 1%;"></div>
 		<form action="${pageContext.request.contextPath}/teacher/toCourseSecondSearch">
 		<div class="form-group" style="margin-top: -6px;">
     <input style="width: 23%;float: left;margin-right: 13px;margin-left: 65.5%;margin-bottom: 1%;"  

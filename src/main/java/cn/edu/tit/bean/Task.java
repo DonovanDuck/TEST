@@ -22,132 +22,108 @@ public class Task {
 	private Integer useNum; // 使用次数
 	private Integer watchNum; //查看次数
 	private Integer upNum;//提交人数，用于在每次封装对象时使用，在数据库不需要建立
-
+	private String knowledgePoints;//知识点
 	private List<Accessory> accessoryList; // 任务对应附件
-
 	public String getTaskId() {
 		return taskId;
 	}
-
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
 	}
-
 	public String getTaskTitle() {
 		return taskTitle;
 	}
-
 	public void setTaskTitle(String taskTitle) {
 		this.taskTitle = taskTitle;
 	}
-
 	public String getTaskDetail() {
 		return taskDetail;
 	}
-
 	public void setTaskDetail(String taskDetail) {
 		this.taskDetail = taskDetail;
 	}
-
 	public Timestamp getPublishTime() {
 		return publishTime;
 	}
-
 	public void setPublishTime(Timestamp publishTime) {
 		this.publishTime = publishTime;
 	}
-
 	public Timestamp getTaskEndTime() {
 		return taskEndTime;
 	}
-
 	public void setTaskEndTime(Timestamp taskEndTime) {
 		this.taskEndTime = taskEndTime;
 	}
-
 	public String getPublisherId() {
 		return publisherId;
 	}
-
 	public void setPublisherId(String publisherId) {
 		this.publisherId = publisherId;
 	}
-
 	public String getVirtualClassNum() {
 		return virtualClassNum;
 	}
-
 	public void setVirtualClassNum(String virtualClassNum) {
 		this.virtualClassNum = virtualClassNum;
 	}
-
 	public String getCourseId() {
 		return courseId;
 	}
-
 	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
-
 	public String getTaskType() {
 		return taskType;
 	}
-
 	public void setTaskType(String taskType) {
 		this.taskType = taskType;
 	}
-
 	public Integer getStatus() {
 		return status;
 	}
-
 	public void setStatus(Integer status) {
 		this.status = status;
 	}
-
 	public Integer getTaskPoint() {
 		return taskPoint;
 	}
-
 	public void setTaskPoint(Integer taskPoint) {
 		this.taskPoint = taskPoint;
 	}
-
 	public Integer getUseNum() {
 		return useNum;
 	}
-
 	public void setUseNum(Integer useNum) {
 		this.useNum = useNum;
 	}
-
 	public Integer getWatchNum() {
 		return watchNum;
 	}
-
 	public void setWatchNum(Integer watchNum) {
 		this.watchNum = watchNum;
 	}
-
 	public Integer getUpNum() {
 		return upNum;
 	}
-
 	public void setUpNum(Integer upNum) {
 		this.upNum = upNum;
 	}
-
+	public String getKnowledgePoints() {
+		return knowledgePoints;
+	}
+	public void setKnowledgePoints(String knowledgePoints) {
+		this.knowledgePoints = knowledgePoints;
+	}
 	public List<Accessory> getAccessoryList() {
 		return accessoryList;
 	}
-
 	public void setAccessoryList(List<Accessory> accessoryList) {
 		this.accessoryList = accessoryList;
 	}
-
 	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
 			String publisherId, String virtualClassNum, String courseId, String taskType, Integer status,
-			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, List<Accessory> accessoryList) {
+			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, String knowledgePoints,
+			List<Accessory> accessoryList) {
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
@@ -163,12 +139,15 @@ public class Task {
 		this.useNum = useNum;
 		this.watchNum = watchNum;
 		this.upNum = upNum;
+		this.knowledgePoints = knowledgePoints;
 		this.accessoryList = accessoryList;
 	}
-
 	public Task() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
+	
+	
 	
 }

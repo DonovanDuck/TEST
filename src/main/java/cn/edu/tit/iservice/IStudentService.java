@@ -33,6 +33,7 @@ public interface IStudentService {
 	public List<Student> studentList(List<String> classNum) throws Exception;	//查询班级学生列表
 
 	public void upTask(UpTask upTask,String virtualClassNum); //提交作业
+	public void upUpdateTask(UpTask upTask,String virtualClassNum); //修改作业
 	public void upAccessory(@Param("accessories")List<Accessory> accessories,@Param("studentId")String studentId) throws Exception;//提交作业中的附件
 	public String getUpTaskDetail(String taskId,String studentId);//根据作业号和学号找提交的作业内容
 	public List<String> getUpAccessories(String taskId,String studentId);//根据作业号和学号找提交的附件

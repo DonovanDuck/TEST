@@ -39,7 +39,7 @@ header span li{
 }
 header span li a{
     color: white;
-    font-size: 17px;
+    
 }
 header span li:nth-child(1){
     position: relative;
@@ -95,7 +95,7 @@ header nav li{
     float: left;
     margin-left: 0;
     margin-right: 1%;
-    width: 10%;
+    width: 13%;
     text-align: center;
     border-radius: 3px;
         height: 34px;
@@ -170,12 +170,15 @@ header nav li a{
               <li class="m" style="width: 120px;"><a href="<c:url value='/teacher/toTeacherPage'/>">欢迎:${teacher.teacherName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
+              <a href="<c:url value='/teacher/toTeacherMyInfo'/>">&nbsp;&nbsp;&nbsp;&nbsp;</a>
                </c:if> 
               <c:if test="${student != null }">
               <li class="menu" style="width: 120px;"><a href="<c:url value='/student/toStudentPage'/>">欢迎:${student.studentName }</a></li>
               <li>|</li>
               <li class="li2"><a href="<c:url value='/teacher/quit'/>">退出</a></li>
+              <a href="<c:url value='/student/toStudentMyInfo'/>">&nbsp;&nbsp;&nbsp;&nbsp;</a>
               </c:if>
+              
               <div class="spanLi2">
                       <ul>
                        	<li><a href="">我的作品</a></li>
@@ -190,37 +193,37 @@ header nav li a{
           <!--导航-->
           <nav style="width: 55%;">
               <ul>
-                  <li class="li2"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" >首页</a></li>
+                  <li class="li2" style="font-size: 18px;width: 10%;"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" >首页</a></li>
                 <%--  <c:if test="${sessionScope.topFlag == '1' || sessionScope.topFlag == null}">
                    <li class="li3"><a href="<c:url value='/main/toMain'/>" onclick="dianji(this)" id="1">首页</a></li> 
                   </c:if> --%>
-                  <li class="li2"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)">课程</a></li> 
+                  <li class="li2" style="font-size: 18px;width: 10%;"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)">课程</a></li> 
                   <%--  <c:if test="${sessionScope.topFlag == '2' }">
                   <li class="li3"><a href="<c:url value='/teacher/courseList'/>" onclick="dianji(this)" id="2">课程</a></li> 
                   </c:if> --%>
                   
-             <li class="li2"><a href="">互助</a></li> 
+             <li class="li2" style="font-size: 18px;width: 10%;"><a href="">互助</a></li> 
                   <!--  <li class="li3"><a href="">互助</a></li> -->
                   
-                   <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
+                   <li class="li2" style="font-size: 18px;"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li>
                   <%-- <li class="li3"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">学生成果</a></li> --%>
                   
-                 <li class="li2"><a href="${pageContext.request.contextPath}/achievement/toIURPMainPage">产学研项目</a></li>
+                 <li class="li2" style="font-size: 18px;"><a href="${pageContext.request.contextPath}/achievement/toIURPMainPage">产学研项目</a></li>
                   <%-- <li class="li3"><a href="${pageContext.request.contextPath}/achievement/toAchievementMainPage">产学研项目</a></li> --%>
                   
-              <li class="li2"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li> 
+              <li class="li2" style="font-size: 18px;"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li> 
                   <%-- <li class="li3"><a href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage">课堂翻转</a></li> --%>
                   
                   <c:if test="${teacher != null }">
-                <li class="li2"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 15px;">个人中心</a></li> 
+                <li class="li2" style="font-size: 18px;"><a href="<c:url value='/teacher/toTeacherPage'/>" >个人中心</a></li> 
                   <%-- <li class="li3"><a href="<c:url value='/teacher/toTeacherPage'/>" style="font-size: 15px;">个人中心</a></li> --%>
 	              </c:if>
 	              <c:if test="${student != null }">
-	              <li class="li2"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 15px;">个人中心</a></li>
+	              <li class="li2" style="font-size: 18px;"><a href="<c:url value='/student/toStudentPage'/>" >个人中心</a></li>
 	              <%-- <li class="li3"><a href="<c:url value='/student/toStudentPage'/>" style="font-size: 15px;">个人中心</a></li> --%>
 	              </c:if>
 	              <c:if test="${student == null && teacher == null }">
-	              <li class="li2"><a href="<c:url value='/jsp/Teacher/index.jsp'/>" style="font-size: 15px;">个人中心</a></li>
+	              <li class="li2" style="font-size: 18px;"><a href="<c:url value='/jsp/Teacher/index.jsp'/>" >个人中心</a></li>
 	              <%-- <li class="li3"><a href="<c:url value='/jsp/Teacher/index.jsp'/>" style="font-size: 15px;">个人中心</a></li> --%>
 	              </c:if>
               </ul>

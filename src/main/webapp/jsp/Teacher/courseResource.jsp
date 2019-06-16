@@ -99,13 +99,14 @@ $(document).ready(function() {
 				<span>${course.fine }</span>
 			</div>
 		</c:if>
-		<p>参与人数：${course.courseStudentNum }
+		<p>类别：${type}系&nbsp;&nbsp;&nbsp; 参与人数：${course.courseStudentNum }
 			&nbsp;&nbsp;&nbsp;创课时间：${publishTime }</p>
 	</div>
 </div>
+
 <div class="main_b_t" style="margin-bottom: 70px;margin-left: 103px;">
 				<nav>
-					<ul style="    margin-top: 25px;margin-left: 30px;">
+					<ul style="    margin-top: 25px;margin-left: -5px;">
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/0"
 							><button id="0" class="btn btn-default daohang">全部</button></a></li>
@@ -127,26 +128,31 @@ $(document).ready(function() {
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/10"
 							><button id="10" class="btn btn-default daohang">课程设计库</button></a></li> 
+							<c:if test="${isTeacher == 1 && resourceName !='全部' }">
+							<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
+							href="${pageContext.request.contextPath}/teacher/toPublishResource/${category }/${course.courseId}"
+							><button id="10" class="btn btn-default daohang">发布资源</button></a></li>
+							</c:if> 
 					</ul>
 				</nav>
 			</div>
 </main>
-<div class="main2" style="height: auto;width: auto;min-height: 800px;">
+<div class="main2" style="height: auto;width: auto;min-height: 800px;margin-left: -43px;">
 	
-	<div style="font-size: 30px;font-weight: 600;margin-left: 140px;margin-top: 20px;">
-		<c:if test="${isTeacher == 1 && resourceName !='全部' }">
-		<div style="float: right;position: relative;left: -10%;top: -50px;">
+		<%-- <c:if test="${isTeacher == 1 && resourceName !='全部' }">
+		<div style="float: right;position: relative;left: -10%;">
 			<a href="${pageContext.request.contextPath}/teacher/toPublishResource/${category }/${course.courseId}">
 				<button type="button" class="btn btn-primary">发布资源</button>
 			</a>
 		</div>
-		</c:if>
-	</div>
+		</c:if> --%>
 	
-	<div class="mian2_content" style="height: auto;width: auto;min-height: 170px;margin-left: 140px;">
+	<div class="mian2_content" style="height: auto;width: auto;min-height: 170px;margin-left: 140px;margin-top: 0">
 		<ul style="list-style: none;">
 			<c:if test="${resource != null }">
+			<div class="row">
 			<c:forEach items="${resource }" var="re" varStatus="status">
+			<div class="col-xs-4 col-md-4 " style="height: auto;">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 49px; margin-right: 20px;">
 				<div class="xiangmu-out" style="height: 170px;width: 350px;">
 					<%-- <c:if test="${isTeacher == 1 }">
@@ -167,11 +173,11 @@ $(document).ready(function() {
 					<div style="height: 70px;width: 350px;background: #f0f0f0;padding-top: 9px;border:1px solid #dadada;border-top: 0">
 						<div style="margin-left: 42px;width: 193px;padding-bottom: 8px;float: left;">
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
-							<div style="width: 100%;">已下载：${re.watchNum }</div>
+							<div style="width: 100%;">已下载：${re.useNum }</div>
 						</div>
-						<c:if test="${sessionScope.student != null }">
+						<c:if test="${sessionScope.teacher == null }">
 						<div>
-							<button type="button" class="btn btn-info" style="margin-top: 9px;">查看资源</button>
+							<a href="${pageContext.request.contextPath}/teacher/toSearchResource/${re.resourceId }"><button type="button" class="btn btn-info" style="margin-top: 9px;">查看资源</button></a>
 						</div>
 						</c:if>
 						<c:if test="${isTeacher == 1 }">
@@ -182,11 +188,13 @@ $(document).ready(function() {
 					</div>
 				</div>
 			</li>
+			</div>
 			</c:forEach>
 			</c:if>
 			
 			<c:if test="${taskList != null }">
 			<c:forEach items="${taskList }" var="task" varStatus="status">
+			<div class="col-xs-4 col-md-4 " style="height: auto;">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 49px; margin-right: 20px;">
 				<div class="xiangmu-out" style="height: 170px;width: 350px;">
 					<div style="height: 127px;width: 350px;background: #fff;padding-top: 23px;border: 1px solid #dadada; border-bottom: 0">
@@ -213,11 +221,13 @@ $(document).ready(function() {
 					<div style="height: 70px;width: 350px;background: #f0f0f0;padding-top: 9px;border:1px solid #dadada;border-top: 0">
 						<div style="margin-left: 42px;width: 193px;padding-bottom: 8px;float: left;">
 							<div style="width: 100%;padding-bottom: 8px;">${time[status.index] }</div>
-							<div style="width: 100%;">已下载：${task.watchNum }</div>
+							<div style="width: 100%;">已下载：${task.useNum }</div>
 						</div>
-						<c:if test="${sessionScope.student != null }">
+						<c:if test="${sessionScope.teacher == null }">
 						<div>
+							<a href="${pageContext.request.contextPath}/teacher/toSearchTaskResource/${task.taskId }">
 							<button type="button" class="btn btn-info" style="margin-top: 9px;">查看资源</button>
+							</a>
 						</div>
 						</c:if>
 						<c:if test="${isTeacher == 1 }">
@@ -227,8 +237,11 @@ $(document).ready(function() {
 						</c:if>
 					</div>
 				</div>
+				
 			</li>
+			</div>
 			</c:forEach>
+			</div>
 			</c:if>
 			
 			<!-- <li style="float: left;height: 170px;width: 350px;margin-top: 25px; margin-right: 20px;">

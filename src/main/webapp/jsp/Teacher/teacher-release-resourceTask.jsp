@@ -104,7 +104,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="form-group">
   	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;" >资源类型：</label>
     <input type="hidden" name="taskCategory" value="${category }">
+    <c:if test="${category==8 }">
     <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="作业资源">
+  	</c:if>
+  	 <c:if test="${category==9 }">
+    <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="实验资源">
+  	</c:if>
+  	 <c:if test="${category==10 }">
+    <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="课程设计资源">
+  	</c:if>
   </div>
   
 		<div class="form-group">

@@ -122,7 +122,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
 							href="${pageContext.request.contextPath}/teacher/toCourseResource/0"
 							>资源</a></li>
-						<li style="float: left;margin-right: 25px"><a
+						<li style="float: left;margin-right: 25px;font-size: 22px;"><a
 							href="${pageContext.request.contextPath}/turnClass/toTurnClassMainPage"
 							>翻转课堂</a>
 						 <li style="float: left;margin-right: 25px"><a style="font-size: 22px;"
@@ -139,11 +139,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div class="main_b">
 	<div class="main_b_t">
 		<div class="container" style="margin-bottom: 23px;">
-			<div class="container_left">
+			<div class="container_left" style="width: 56%; position: absolute;">
 				<h3>简介</h3>
 				<iframe style="margin-left: 12px;margin-top: -2px;"
 					src="${pageContext.request.contextPath}/teacher/toCourseIntroduceFrame/${course.courseId }"
-					 frameborder="0" width="93%" height="100%"
+					 frameborder="0" width="97%" height="100%"
 					scrolling="auto"></iframe>
 				<!-- <h3>大纲</h3>
                 <p class="inner">
@@ -270,9 +270,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	</c:if>
 	<div class="main_b_b">
-		<div class="container" style="min-height: 412px;height: auto;">
+		<div class="container" style="min-height: 412px;height: auto;padding-right: 73px;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">翻转课堂</h3>
 			<ul>
+			<div class="row">
+			<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div  style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
@@ -290,6 +292,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
@@ -307,6 +311,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
@@ -324,6 +330,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
@@ -341,6 +349,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
@@ -358,6 +368,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
+	</div>
+	<div class="col-xs-4 col-md-4 " style="height: auto;">
 	<li class="xiangmu-out" style="float: left; margin-left: 23px;margin-top: 11px;border: 1px solid #dcdcdc;">
 		<div style="  height: 151px;width: 320px;padding-left: 19px;padding-top: 15px;">
 			<div style="float: left; height: 27px;width: 67px;
@@ -375,12 +387,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			
 		</div>
 	</li>
-	
+	</div>
+	</div>
 </ul>
 </div>
 </div>
 
-<div class="main_b_b">
+<!-- <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">挑战</h3>
 			<ul>
@@ -447,7 +460,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 </ul>
 </div>
-</div>
+</div> -->
 <c:if test="${aocscList != null }">
 <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">
