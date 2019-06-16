@@ -46,11 +46,11 @@ public class TestClass {
 	private ITeacherService teacherService;
 	@Autowired
 	private IAchievementDao achievementDao; 
-	
-	
+
+
 	@Test
 	public void searchResourceByType(){
-		 try {
+		try {
 			/*System.out.println(teacherService.getLastAttIndex("4BC2E4C97DC14B7EA73EF9DE837E0590"));
 			Attendance att = new Attendance();
 			att.setAttendanceId(Common.uuid());
@@ -66,14 +66,15 @@ public class TestClass {
 			att.setPublishId("1");
 			//添加
 			teacherService.addAttendance(att);*/
-			String t = teacherService.getAttTime("2", "1");
-			System.out.println(t.toString().substring(0, 16));
+			//			String t = teacherService.getAttTime("2", "1");
+			//			System.out.println(t.toString().substring(0, 16));
+			System.out.println(Common.eccryptMD5("1"));
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
-	
-	
-	
+
+
+
 }

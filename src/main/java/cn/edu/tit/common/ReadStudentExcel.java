@@ -149,21 +149,21 @@ public class ReadStudentExcel {
 					student.setStudentId(getValue(cell) );
 					student.setStudentPassword(Common.eccryptMD5("123456"));
 					student.setClassNum(getValue(cell).substring(0,7));
-					student.setStudentCategory(getValue(cell).substring(4,5));
+					//student.setStudentCategory(getValue(cell).substring(4,5));
 					//student.setClassNum(getValue(cell).substring(0,7));
 					break;
 				case 1:
 					student.setStudentName(getValue(cell));
 					break;
 				case 2:
+					student.setStudentGender(getValue(cell) );
+					break;	
+				case 3:
 					student.setProfessional(getValue(cell));
 					break;
-//				case 3:
-//					student.setStudentGender(getValue(cell) );
-//					break;	
-//				case 4:
-//					student.setStudentPassword(Common.eccryptMD5("123456"));
-//					break;
+				case 4:
+					student.setStudentCategory(getValue(cell));;
+					break;
 //				case 5:
 //					student.setEmail(getValue(cell));
 //					break;

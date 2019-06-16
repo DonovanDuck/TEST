@@ -156,6 +156,7 @@ public class AdminServiceImpl implements IAdminService {
 				//String classNum = realClassNum.substring(0,7);
 				String departmentNum = null;
 				RealClass real = null;
+				String departName = s.getStudentCategory();
 				real = iAdminDao.getRealClassByNum(realClassNum);
 				if(real!=null)
 				{
@@ -165,14 +166,14 @@ public class AdminServiceImpl implements IAdminService {
 				{
 					RealClass realClass = new RealClass();
 					realClass.setRealClassNum(realClassNum);
-					departmentNum = s.getStudentCategory();
+					departmentNum = s.getClassNum().substring(4,5);
 					Department de = null;
 					de = iAdminDao.readDepartmentByNum(departmentNum);
 					if(de==null)
 					{
 						Department dee = new Department();
 						dee.setId(Common.uuid());
-						dee.setName("未命名");
+						dee.setName(departName);
 						dee.setNum(Integer.parseInt(departmentNum));
 						dee.setDeleteFlag(1);
 						iAdminDao.addDepartment(dee);

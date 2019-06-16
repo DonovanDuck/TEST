@@ -41,9 +41,9 @@ public class AdminTest {
 
 	@Test
 	public void Test() {
-
-		Department de = iAdminDao.readDepartmentByNum("4");
-		System.out.println(de.toString());
+		//
+		//		Department de = iAdminDao.readDepartmentByNum("4");
+		//		System.out.println(de.toString());
 		/**
 		 * 测试插入管理员功能
 		 * */
@@ -69,6 +69,16 @@ public class AdminTest {
 		//		List<Teacher> teacherList =new ArrayList<Teacher>();
 		//		teacherList.add(teacher);
 		//		iAdminDao.addTeacherInfo(teacherList);
+
+		try {
+			Student stu = new Student("1111111", "学生一号", null, "男", "123456", "1520561", "软件工程", null, null, null, null, null, "计算机工程系");
+			List<Student> list = new ArrayList<>();
+			list.add(stu);
+			iAdminDao.addStudentInfo(list);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		/**
 		 * 测试删除管理员功能
 		 * */
