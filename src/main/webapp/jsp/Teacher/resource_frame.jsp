@@ -53,11 +53,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </div>
 </c:if>
 
-<ul style="    margin-top: 3%">
+
 <c:if test="${taskList != null }">
+<ul style="    margin-top: 3%">
 <div class="row">
-	<div class="col-xs-4 col-md-4 " style="height: auto;">
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="0" end="0">
+	<div  class="col-xs-4 col-md-4 LI0" style="height: auto;">
 	<li style="float: left; margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
@@ -70,30 +72,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.watchNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
-	</div>
-	<div class="col-xs-4 col-md-4 " style="height: auto;">
-	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 	
-		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
-		background: url('${pageContext.request.contextPath}/images/resource_back3.png') no-repeat;-webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-   background-size: cover;">
-			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
-			<div>知识点：${task.taskDetail }...</div>
-			<div>发布人：${task.publisherId }</div>
-			<div>发布时间：${time[status.index] }</div>
-			<div>下载次数：${task.watchNum }</div>
-		</div>
-	</li>
-	</c:forEach>
-	</div>
-	<div class="col-xs-4 col-md-4 " style="height: auto;">
+	
+	 
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="2" end="2">
-	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+	<div class="col-xs-4 col-md-4 LI2" style="height: auto;">
+	<li class="LI2" style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back4.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
@@ -105,11 +93,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.watchNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
-	</div>
-	<div class="col-xs-4 col-md-4 " style="height: auto;">
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="3" end="3">
+	<div class="col-xs-4 col-md-4 LI3" style="height: auto;">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
@@ -122,11 +111,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.watchNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
-	</div>
-	<div class="col-xs-4 col-md-4 " style="height: auto;">
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="4" end="4">
+	<div class="col-xs-4 col-md-4 LI4" style="height: auto;">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
 		background: url('${pageContext.request.contextPath}/images/resource_back5.png') no-repeat;-webkit-background-size: cover;
@@ -139,11 +129,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.watchNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
-	</div>
-	<div class="col-xs-4 col-md-4 " style="height: auto;">
+	
+	
 	<c:forEach items="${taskList }" var="task" varStatus="status" begin="5" end="5">
+	<div class="col-xs-4 col-md-4 LI5" style="height: auto;">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList xiangmu-out" style="  height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
      	 background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
@@ -156,9 +147,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div>发布时间：${time[status.index] }</div>
 			<div>下载次数：${task.watchNum }</div>
 		</div>
-	</li>
+	</li></div>
 	</c:forEach>
-	</div>
+
+	<c:forEach items="${taskList }" var="task" varStatus="status" begin="1" end="1">
+	<div class="col-xs-4 col-md-4 LI3" style="height: auto;">
+	<li style="float: left;margin-left: 25px;margin-top: 18px;">
+		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
+		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+   background-size: cover;">
+			<div style="font-weight: 400;font-size: 20px;">${task.taskTitle }</div>
+			<div>知识点：${task.taskDetail }...</div>
+			<div>发布人：${task.publisherId }</div>
+			<div>发布时间：${time[status.index] }</div>
+			<div>下载次数：${task.watchNum }</div>
+		</div>
+	</li></div>
+	</c:forEach>
+	
 	</div>
 	</c:if>
 	
@@ -211,7 +219,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<c:forEach items="${resource }" var="re" varStatus="status" begin="3" end="3">
 	<li style="float: left;margin-left: 25px;margin-top: 18px;">
 		<div class="resourceList xiangmu-out" style=" height: 151px;width: 300px;padding-left: 28px;padding-top: 12px;
-		background: url('${pageContext.request.contextPath}/images/resource_back1.png') no-repeat;-webkit-background-size: cover;
+		background: url('${pageContext.request.contextPath}/images/resource_back2.png') no-repeat;-webkit-background-size: cover;
     -moz-background-size: cover;
     -o-background-size: cover;
    background-size: cover;">

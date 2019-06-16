@@ -66,7 +66,6 @@ public class TestClass {
 			att.setPublishId("1");
 			//添加
 			teacherService.addAttendance(att);*/
-<<<<<<< HEAD
 			//获取manager
 				Integer manager  = teacherService.getMaxManager("aaa");
 				if(manager == null){
@@ -76,11 +75,6 @@ public class TestClass {
 					manager +=1;
 				}
 				System.out.println(manager);
-=======
-			//			String t = teacherService.getAttTime("2", "1");
-			//			System.out.println(t.toString().substring(0, 16));
-			System.out.println(Common.eccryptMD5("1"));
->>>>>>> liming
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

@@ -133,37 +133,40 @@
 </div>
 
 <div class="main_b" style="width: 70%;margin-left: 17%; padding-top: 3%;background: #fff;height: 100%;">
-	<!-- <div
+	 <div
 		style="font-size: 27px;
     font-weight: 600;
     margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
-		查看资源</div> -->
+		查看资源</div> 
 	<div
 		style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 		
 			<div class="form-group">
 				<label for="exampleInputName2"
 					style="float: left; padding-left: 13px; margin-right: 5px;">资源名：</label>
-				<input type="text" class="form-control" id="exampleInputName2"
+				<span>${resource.resourceName }</span>
+				<%-- <input type="text" class="form-control" id="exampleInputName2"
 					name="resourceName" style="width: 663px;" readonly="true" 
 					value="${resource.resourceName }"> <input type="hidden"
 					name="resourceType" value="${resource.resourceTypeId }">
 					<input type="hidden"
 					name="resourceId" value="${resource.resourceId }">
 					 <input
-					type="hidden" name="courseId" value="${course.courseId }">
+					type="hidden" name="courseId" value="${course.courseId }"> --%>
 			</div>
 			<div class="form-group">
   	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;">资源类型：</label>
-   <input type="hidden" name="resourceType" value="${resource.resourceTypeId }">
-    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源">
+  	<span>多媒体资源</span>
+   <%-- <input type="hidden" name="resourceType" value="${resource.resourceTypeId }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="多媒体资源"> --%>
   </div>
 			<div class="form-group">
-				<label for="exampleInputName2">资源介绍：</label>
-				<textarea id="resourceDetail" name="resourceDetail" type="text"
+				<label for="exampleInputName2" style="float: left;">资源介绍：</label>
+				<span>${resource.resourceDetail }</span>
+				<%-- <textarea id="resourceDetail" name="resourceDetail" type="text"
 					placeholder=""
 					style="width: 700px; height: 200px; float: left; margin-left: 9%; margin-bottom: 31px;"
-					value="" readonly="true" >${resource.resourceDetail }</textarea>
+					value="" readonly="true" >${resource.resourceDetail }</textarea> --%>
 			</div>
 			
 				
