@@ -86,12 +86,12 @@
 		});
 		if (judge) {
 			var id = $("#IURPID").val();
-			var content = $("#addCommentContent").val();
+			var content = $("#addCommentContentStu").val();
 			var path = "${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId="
 					+ id + "&category=产学研" + "&addCommentContent=" + content;
 			$
 					.ajax({
-						async : true,
+						async : false,
 						cache : false,
 						url : path,
 						contentType : 'application/json;charset=UTF-8',
@@ -109,9 +109,9 @@
 										+ arr[i].commentContent
 										+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>"
 										+ arr[i].uploadTime + "</p></div>";
-								$("#teaCommentContentList").append(msg);
+								$("#stuCommentContentList").append(msg);
 							}
-							$("#addCommentContent").val("");
+							$("#addCommentContentStu").val("");
 						},
 						error : function() {
 						}
@@ -139,10 +139,14 @@
 			var content = $("#addTeaCommentContent").val();
 			var score = $("#achievementScore").val();
 			var path = "${pageContext.request.contextPath}/achievement/insertTeaAchievementComment?achievementId="
-					+ id + "&category=产学研" + "&addCommentContent=" + content+"&score="+score;
+					+ id
+					+ "&category=产学研"
+					+ "&addCommentContent="
+					+ content
+					+ "&score=" + score;
 			$
 					.ajax({
-						async : true,
+						async : false,
 						cache : false,
 						url : path,
 						contentType : 'application/json;charset=UTF-8',
@@ -186,6 +190,13 @@
 			}
 		})
 	};
+	function checkScore() {
+		var score = $("#achievementScore").val();
+		if (parseInt(score)<=0||parseInt(score)>100) {
+			$("#achievementScore").val("");
+			alert("输入合法成绩");
+		}
+	}
 </script>
 </head>
 <body class="body">
@@ -193,7 +204,7 @@
 		<div class="top">
 			<jsp:include page="/jsp/top.jsp" flush="true" />
 		</div>
-		<div class="content" style="margin-top:1%">
+		<div class="content" style="margin-top: 1%">
 			<div class="col-md-12 topColumn panel panel-default"
 				style="margin-bottom: 0%; padding: 1%">
 				<div class="col-md-8 picture">
@@ -291,7 +302,8 @@
 						id="commentContentForTeacher" style="display: none; padding: 0%">
 						<div id="teaCommentContentList">
 							<c:if test="${not empty commentListTea }">
-								<c:forEach items="${commentListTea }" var="item" varStatus="states">
+								<c:forEach items="${commentListTea }" var="item"
+									varStatus="states">
 									<div class="col-md-12 panel panel-default" style="padding: 2%">
 										<div class="col-md-3 text-center" style="">
 											<img style="width: 80px; height: 80px;"
@@ -325,8 +337,9 @@
 									onclick="focousCommentContent();"></textarea>
 								<input type="text" style="display: none" id="TeaIURPID"
 									name="TeaIURPID" value="${IURP.projectId }"><input
-									type="number" id="achievementScore" name="achievementScore"
-									placeholder="成果得分" style="position: relative;">
+									onblur="checkScore()" type="number" id="achievementScore"
+									name="achievementScore" placeholder="成果得分"
+									style="position: relative; width: 15%" min="0" max="100">
 								<button class="btn btn-default btn-sm active pull-right"
 									type="button" onclick="submitTeaCommentBut();"
 									style="position: relative;">发表</button>
@@ -337,7 +350,8 @@
 						style="display: none; padding: 0%">
 						<div id="stuCommentContentList">
 							<c:if test="${not empty commentListStu }">
-								<c:forEach items="${commentListStu }" var="item" varStatus="states">
+								<c:forEach items="${commentListStu }" var="item"
+									varStatus="states">
 									<div class="col-md-12 panel panel-default" style="padding: 2%">
 										<div class="col-md-3 text-center" style="">
 											<img style="width: 80px; height: 80px;"
@@ -365,9 +379,10 @@
 							style="padding: 0px; margin: 0px;">
 							<div class="col-md-12"
 								style="font-size: 12px; letter-spacing: 1px; padding: 0px; margin: 0px; line-height: 23px;">
-								<textarea class="form-control" id="addCommentContentStu" rows="5"
-									name="addCommentContentStu" style="resize: none; height: 30%"
-									placeholder="添加评论" onclick="focousCommentContent();"></textarea>
+								<textarea class="form-control" id="addCommentContentStu"
+									rows="5" name="addCommentContentStu"
+									style="resize: none; height: 30%" placeholder="添加评论"
+									onclick="focousCommentContent();"></textarea>
 								<input type="text" style="display: none" id="IURPID"
 									name="IURPID" value="${IURP.projectId }">
 								<button class="btn btn-default btn-sm active pull-right"

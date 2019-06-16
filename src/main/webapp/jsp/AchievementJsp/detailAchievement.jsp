@@ -87,8 +87,9 @@
 			}
 		});
 		if (judge) {
-			var id = $("#IURPID").val();
-			var content = $("#addCommentContent").val();
+			var id = $("#achievementId").val();
+			var achievementCategory = $("#achievementCategoryA").val();
+			var content = $("#addCommentContentStu").val();
 			var path = "${pageContext.request.contextPath}/achievement/insertAchievementComment?achievementId="
 					+ id
 					+ "&category="
@@ -96,7 +97,7 @@
 					+ "&addCommentContent=" + content;
 			$
 					.ajax({
-						async : true,
+						async : false,
 						cache : false,
 						url : path,
 						contentType : 'application/json;charset=UTF-8',
@@ -114,9 +115,9 @@
 										+ arr[i].commentContent
 										+ "</span></div></div><p style='margin: 0px; margin-top: 12%; font-size: 10px; color: #B9B9B9;' class='text-right'>"
 										+ arr[i].uploadTime + "</p></div>";
-								$("#teaCommentContentList").append(msg);
+								$("#stuCommentContentList").append(msg);
 							}
-							$("#addCommentContent").val("");
+							$("#addCommentContentStu").val("");
 						},
 						error : function() {
 						}
@@ -140,7 +141,7 @@
 			}
 		});
 		if (judge) {
-			var id = $("#IURPID").val();
+			var id = $("#achievementId").val();
 			var content = $("#addTeaCommentContent").val();
 			var score = $("#achievementScore").val();
 			var path = "${pageContext.request.contextPath}/achievement/insertTeaAchievementComment?achievementId="
@@ -213,6 +214,13 @@
 			}
 		})
 	};
+	function checkScore() {
+		var score = $("#achievementScore").val();
+		if (parseInt(score) <= 0 || parseInt(score) > 100) {
+			$("#achievementScore").val("");
+			alert("输入合法成绩");
+		}
+	}
 </script>
 </head>
 <body class="body">
@@ -357,8 +365,9 @@
 									onclick="focousCommentContent();"></textarea>
 								<input type="text" style="display: none" id="TeaIURPID"
 									name="TeaIURPID" value="${IURP.projectId }"><input
-									type="number" id="achievementScore" name="achievementScore"
-									placeholder="成果得分" style="position: relative;">
+									onblur="checkScore()" type="number" id="achievementScore"
+									name="achievementScore" placeholder="成果得分"
+									style="position: relative;">
 								<button class="btn btn-default btn-sm active pull-right"
 									type="button" onclick="submitTeaCommentBut();"
 									style="position: relative;">发表</button>
