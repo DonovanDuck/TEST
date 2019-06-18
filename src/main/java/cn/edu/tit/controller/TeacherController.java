@@ -862,8 +862,15 @@ public class TeacherController {
 
 		try {
 			teacherService.createTask(task);		//创建任务
-			teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
-
+			if ("turn_class".equals(formdata.get("taskCategory"))) {
+				teacherService.mapClassTaskToTurnClass(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")),Timestamp.valueOf((String) formdata.get("preTaskEndTime")));		//映射班级任务表
+				
+			}else {
+				teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
+				
+			}
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1008,10 +1015,17 @@ public class TeacherController {
 		
 		String taskId = request.getParameter("taskId");
 		String taskEndTime = request.getParameter("taskEndTime");
+		String preTaskEndTime = request.getParameter("preTaskEndTime");
 		//获取修改使用次数
 		//int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
 		try {
-			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+			if ("turn_class".equals(request.getParameter("taskCategory"))) {
+				teacherService.mapClassTaskToTurnClass(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime),Timestamp.valueOf(preTaskEndTime));		//映射班级任务表
+				
+			}else {
+				teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+				
+			}
 			teacherService.addUseNum(taskId);
 			//teacherService.addWatchNum(taskId, taskUseNum);
 		} catch (Exception e) {
@@ -1201,7 +1215,7 @@ public class TeacherController {
 			//接收类型
 			// category  = (String)request.getAttribute("category");
 			request.setAttribute("category", category);
-			if("8".equals(category) || "9".equals(category)|| "10".equals(category)){
+			if("6".equals(category) || "7".equals(category)||"8".equals(category) || "9".equals(category)|| "10".equals(category)){
 				path = "/jsp/Teacher/teacher-release-resourceTask";
 				Timestamp d = new Timestamp(System.currentTimeMillis()); 
 				request.setAttribute("taskEndTime", d);
@@ -1266,77 +1280,74 @@ public class TeacherController {
 	@SuppressWarnings({ "unused", "unchecked" })
 	public ModelAndView publishTaskResourse(HttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		String taskId =  Common.uuid();	//设置任务id
-
-		Object[] obj = Common.fileFactory(request,taskId);
-		Map<String, Object> formdata = (Map<String, Object>) obj[1];
-		List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
-		String virtualClassNum = "001";
-
-		// 创建list集合用于获取文件上传返回路径名
-		List<String> list = new ArrayList<String>();
-		List<Accessory> accessories  = new ArrayList<Accessory>();
-		List<Resource> resources = new ArrayList<Resource>();
-		Task task=new Task();
-		task.setTaskId(taskId);
-		task.setTaskTitle((String) formdata.get("taskTitle"));
-		task.setTaskDetail((String) formdata.get("taskDetail"));
-		//task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
-		//	task.setTaskType((String) formdata.get("taskType"));
-		task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
-		task.setPublishTime(new Timestamp(System.currentTimeMillis()));
-		task.setVirtualClassNum(virtualClassNum);
-		task.setUseNum(1);//设置使用次数为1
-		task.setWatchNum(0);
-		task.setCourseId((String) formdata.get("courseId"));
-		String c = (String)formdata.get("taskCategory");
-		if("8".equals(c))
-			task.setTaskType("work");
-		else if("9".equals(c))
-			task.setTaskType("trial");
-		else if("10".equals(c))
-			task.setTaskType("course_design ");
-		task.setStatus(0);
-
 		try {
-			teacherService.createTask(task);		//创建任务
-			//teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
+			String taskId =  Common.uuid();	//设置任务id
+			Object[] obj = Common.fileFactory(request,taskId);
+			Map<String, Object> formdata = (Map<String, Object>) obj[1];
+			List<File> returnFileList = (List<File>) obj[0]; // 要返回的文件集合
+			String virtualClassNum = "001";
 
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		if(!returnFileList.isEmpty()) {
-			for (File file : returnFileList) {
-				Accessory accessory = new Accessory();
-				String fileName="";
-				try {
-					fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
-				} catch (UnsupportedEncodingException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+			// 创建list集合用于获取文件上传返回路径名
+			List<String> list = new ArrayList<String>();
+			List<Accessory> accessories  = new ArrayList<Accessory>();
+			List<Resource> resources = new ArrayList<Resource>();
+			Task task=new Task();
+			task.setTaskId(taskId);
+			task.setTaskTitle((String) formdata.get("taskTitle"));
+			task.setTaskDetail((String) formdata.get("taskDetail"));
+			//task.setTaskEndTime(Timestamp.valueOf((String) formdata.get("taskEndTime")));
+			//	task.setTaskType((String) formdata.get("taskType"));
+			task.setPublisherId((String) request.getSession().getAttribute("teacherId"));
+			task.setPublishTime(new Timestamp(System.currentTimeMillis()));
+			task.setVirtualClassNum(virtualClassNum);
+			task.setUseNum(1);//设置使用次数为1
+			task.setWatchNum(0);
+			task.setCourseId((String) formdata.get("courseId"));
+			String c = (String)formdata.get("taskCategory");
+			if("6".equals(c))
+				task.setTaskType("teaching_plan");
+			else if("7".equals(c))
+				task.setTaskType("teaching_resourse");
+			else if("8".equals(c))
+				task.setTaskType("work");
+			else if("9".equals(c))
+				task.setTaskType("trial");
+			else if("10".equals(c))
+				task.setTaskType("course_design");
+			task.setStatus(0);
+
+			
+				teacherService.createTask(task);		//创建任务
+				//teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
+
+			
+			if(!returnFileList.isEmpty() && returnFileList != null) {
+				for (File file : returnFileList) {
+					Accessory accessory = new Accessory();
+					String fileName="";
+					try {
+						fileName = new String(file.getName().getBytes("UTF-8"),"UTF-8");
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					accessory.setAccessoryName(fileName);
+					System.out.println("name=================="+fileName);
+					accessory.setAccessoryPath(file.getPath());
+					accessory.setTaskId(taskId);
+					accessory.setAccessoryTime(Common.TimestamptoString());
+					accessories.add(accessory);
 				}
-				accessory.setAccessoryName(fileName);
-				System.out.println("name=================="+fileName);
-				accessory.setAccessoryPath(file.getPath());
-				accessory.setTaskId(taskId);
-				accessory.setAccessoryTime(Common.TimestamptoString());
-				accessories.add(accessory);
+				
+					teacherService.addAccessory(accessories);	//添加任务附件
 			}
-			try {
-				teacherService.addAccessory(accessories);	//添加任务附件
-				return toCourseResource(request, (String) formdata.get("taskCategory"));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				mv.setViewName("/jsp/Teacher/teacher-release-resourceTask");
-
-			}
+			return toCourseResource(request, (String) formdata.get("taskCategory"));
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			mv.setViewName("/jsp/Teacher/teacher-release-resourceTask");
+			return mv;
 		}
-
-		return mv;
-
-
 	}
 
 	/**
@@ -1745,7 +1756,7 @@ public class TeacherController {
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("publishTime",publishTime);
 		mv.addObject("courseList", courseListByOthers);
-		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_jion");
+		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_create");
 		return mv;
 	}
 
@@ -1796,7 +1807,7 @@ public class TeacherController {
 		mv.addObject("teacherNames",teacherNames);
 		mv.addObject("courseList", courseListByOthers);
 		mv.addObject("publishTime",publishTime);
-		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_interest");
+		mv.setViewName("/jsp/Teacher/teacherInfo/mycourse_create");
 		return mv;
 	}
 
@@ -2246,6 +2257,35 @@ public class TeacherController {
 		String result = JSONObject.toJSONString(msg);
 		response.getWriter().println(result);
 	}
+	
+	/**
+	 * @author LiMing
+	 * @param request
+	 * 删除任务资源
+	 * @throws Exception 
+	 */
+	@RequestMapping("/toDeleteTaskResource/{resourceId}")
+	public void toDeleteTaskResource(HttpServletResponse response,@PathVariable String resourceId) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		String msg = null;
+		try {
+			
+			//删除相关附件
+			teacherService.deleteTaskAccByTid(resourceId);
+			//删除任务资源
+			teacherService.deleteTask(resourceId);
+			msg = "删除成功";
+			String result = JSONObject.toJSONString(msg);
+			response.getWriter().println(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg = "删除成功";
+			String result = JSONObject.toJSONString(msg);
+			response.getWriter().println(result);
+		}
+		
+	}
 
 	/**
 	 * @author LiMing
@@ -2482,7 +2522,6 @@ public class TeacherController {
 		//查询信息switch
 		switch (category) {
 		case "0":{
-			//教案库
 			mv.addObject("resourceName", "全部");
 			//多媒体资源
 			resourceList = resourceService.showResourceByCourse(courseId);
@@ -2517,6 +2556,57 @@ public class TeacherController {
 					task.setTaskDetail(de);
 				}
 			}
+			//教案库
+			List<Task> teaching_plan = teacherService.getTaskByPointAndCourse("teaching_plan",courseId);
+			for (Task task : teaching_plan) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+				taskList.add(task);
+			}
+			//教学资源库
+			List<Task> teaching_resourse = teacherService.getTaskByPointAndCourse("teaching_resourse",courseId);
+			for (Task task : teaching_resourse) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+				taskList.add(task);
+			}
+			//课设库
+			List<Task> curriculum_design = teacherService.getTaskByPointAndCourse("curriculum_design",courseId);
+			for (Task task : curriculum_design) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+					
+					if(task.getTaskDetail().length()>=30){
+						
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+				taskList.add(task);
+			}
 			//实验库
 			List<Task> trailList = teacherService.getTaskByPointAndCourse("trial",courseId);
 			for (Task task : trailList) {
@@ -2540,11 +2630,49 @@ public class TeacherController {
 		}
 		case "6":{
 			//教案库
+			taskList = teacherService.getTaskByPointAndCourse("teaching_plan",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(task.getTaskDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+			}
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "教案");
 			break;
 		}
 		case "7":{
 			//教学资源库
+			taskList = teacherService.getTaskByPointAndCourse("teaching_resourse",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(task.getTaskDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+			}
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "教学资源");
 			
 			
@@ -2620,7 +2748,27 @@ public class TeacherController {
 				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "实验");
 			break;
-		case "10"://课程设计库
+		case "10":
+			//课程设计库
+			taskList = teacherService.getTaskByPointAndCourse("course_design",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(task.getTaskDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+			}
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "课程设计");
 			break;
 		default:
@@ -2764,6 +2912,25 @@ public class TeacherController {
 			mv.addObject("resourceName", "实验");
 			break;
 		case "10"://课程设计库
+			taskList = teacherService.getTaskByPointAndCourse("course_design",courseId);
+			for (Task task : taskList) {
+				task.setPublisherId(teacherService.getTeacherNameById(task.getPublisherId()));
+				//限制显示字数
+				if(!"".equals(task.getTaskDetail())){
+					String de = task.getTaskDetail().replaceAll("<p>", "");
+					de = de.replaceAll("</p>","");
+
+					if(task.getTaskDetail().length()>=30){
+
+						de = de.substring(0, 15);
+					}
+					task.setTaskDetail(de);
+				}
+			}
+			if(taskList != null && !taskList.isEmpty())
+				mv.addObject("taskList", taskList);//返回信息
+			else 
+				mv.addObject("taskList", null);//返回信息
 			mv.addObject("resourceName", "课程设计");
 			break;
 		default:

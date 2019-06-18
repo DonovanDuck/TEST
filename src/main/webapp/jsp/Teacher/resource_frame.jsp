@@ -40,7 +40,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 .xiangmu-out .rel-img{
 	overflow: hidden;
 </style>
-<body>
+<body style="background: #fff;">
 
 
 <main>

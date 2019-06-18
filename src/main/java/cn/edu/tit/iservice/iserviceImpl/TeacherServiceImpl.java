@@ -833,11 +833,11 @@ public class TeacherServiceImpl implements ITeacherService{
 			return 0;
 		}
 	}
-		@Override
-		public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager) {
-			// TODO Auto-generated method stub
-			return teacherDao.getManagerByEmployeeNum(employeeNum, courseId, manager);
-		}
+	@Override
+	public Integer getManagerByEmployeeNum(String employeeNum, String courseId,int manager) {
+		// TODO Auto-generated method stub
+		return teacherDao.getManagerByEmployeeNum(employeeNum, courseId, manager);
+	}
 
 	/**
 	 * @author LiMing
@@ -854,7 +854,7 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 	}
 
-/*	@Override
+	/*	@Override
 	public Integer getManagerByEmployeeNum(String employeeNum, String courseId) {
 		// TODO Auto-generated method stub
 		return teacherDao.getManagerByEmployeeNum(employeeNum, courseId);
@@ -957,146 +957,146 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			System.out.println("readRealClassToSelect------Dao 层执行失败");
 		}
-		
+
 		return list;
 	}
 	//copy from 1609
-	
 
-		@Override
-		public List<Prize> prizeList() {
-			// TODO Auto-generated method stub
-			return teacherDao.prizeList();
-		}
 
-		@Override
-		public List<TeacherProject> teacherProjectList() {
-			// TODO Auto-generated method stub
-			return teacherDao.teacherProjectList();
-		}
+	@Override
+	public List<Prize> prizeList() {
+		// TODO Auto-generated method stub
+		return teacherDao.prizeList();
+	}
 
-		@Override
-		public List<IndustryUniversityResearchProject> industryUniversityResearchProjectList() {
-			// TODO Auto-generated method stub
-			return teacherDao.industryUniversityResearchProjectList();
-		}
+	@Override
+	public List<TeacherProject> teacherProjectList() {
+		// TODO Auto-generated method stub
+		return teacherDao.teacherProjectList();
+	}
 
-		@Override
-		public List<Achievement> achievementList() {
-			// TODO Auto-generated method stub
-			return teacherDao.achievementList();
-		}
+	@Override
+	public List<IndustryUniversityResearchProject> industryUniversityResearchProjectList() {
+		// TODO Auto-generated method stub
+		return teacherDao.industryUniversityResearchProjectList();
+	}
 
-		@Override
-		public List<Paper> paperList() {
-			// TODO Auto-generated method stub
-			return teacherDao.paperList();
-		}
+	@Override
+	public List<Achievement> achievementList() {
+		// TODO Auto-generated method stub
+		return teacherDao.achievementList();
+	}
 
-		@Override
-		public List<Student> getStudentListOfUped(String taskId,String virtualClassNum) {
-			// TODO Auto-generated method stub
-			List<Student> studentList = null;
-			List<String > studentIdList =null;
-			List<Student> studentAllList =new ArrayList<Student>();
-			List<Student> studentMyClass =new ArrayList<Student>();
-			try {
-				List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
-				if(classNums.size()>0) {
-					studentAllList = teacherDao.studentList(classNums);//所有学生
-				}
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
-			if (studentIdList!=null) {
-				studentList = teacherDao.getStudentListOfUped(studentIdList);
-			}
-			for (Student student : studentList) {
-				for (Student student2 : studentAllList) {
-					if (student2.getStudentId().equals(student.getStudentId())) {
-						studentMyClass.add(student2);
-					}
-				}
-			}
-			
-			return studentMyClass;
-		}
+	@Override
+	public List<Paper> paperList() {
+		// TODO Auto-generated method stub
+		return teacherDao.paperList();
+	}
 
-		@Override
-		public List<Student> getStudentListOfNotUp(String taskId,String virtualClassNum) throws Exception {
-			// TODO Auto-generated method stub
-			List<Student> studentUpedList =  null;
+	@Override
+	public List<Student> getStudentListOfUped(String taskId,String virtualClassNum) {
+		// TODO Auto-generated method stub
+		List<Student> studentList = null;
+		List<String > studentIdList =null;
+		List<Student> studentAllList =new ArrayList<Student>();
+		List<Student> studentMyClass =new ArrayList<Student>();
+		try {
 			List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
-			List<String > studentIdList =null;
-			studentIdList = teacherDao.getStudentIdListOfUped(taskId);
-			List<Student> studentAllList =new ArrayList<Student>();
 			if(classNums.size()>0) {
 				studentAllList = teacherDao.studentList(classNums);//所有学生
 			}
-			
-			
-			for (String studentId : studentIdList) {
-				System.out.println("查看已经提交的学生Id"+studentId );
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		studentIdList = teacherDao.getStudentIdListOfUped(taskId);
+		if (studentIdList!=null) {
+			studentList = teacherDao.getStudentListOfUped(studentIdList);
+		}
+		for (Student student : studentList) {
+			for (Student student2 : studentAllList) {
+				if (student2.getStudentId().equals(student.getStudentId())) {
+					studentMyClass.add(student2);
+				}
 			}
-			if (studentIdList!=null) {
-				studentUpedList = teacherDao.getStudentListOfUped(studentIdList);
-			}
-			System.out.println("-----------------------------------------------");
-			for (Student studentUped : studentUpedList) {
-				System.out.println("查看已经提交的学生"+studentUped.getStudentName() );
-			}
-			HashSet h1 = new HashSet(studentAllList);
-			HashSet h2 = new HashSet(studentUpedList);
-			h1.removeAll(h2);
-			studentAllList.clear();
-			studentAllList.addAll(h1);
-			System.out.println("-----------------------------------------------");
-			for (Student student : studentAllList) {
-				System.out.println("查看未提交的学生"+student.getStudentName() );
-			}
-			
-			
-			return studentAllList;
 		}
 
-		@Override
-		public Integer getUpNum(String virtualClassNum, String taskId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getUpNum(virtualClassNum, taskId);
+		return studentMyClass;
+	}
+
+	@Override
+	public List<Student> getStudentListOfNotUp(String taskId,String virtualClassNum) throws Exception {
+		// TODO Auto-generated method stub
+		List<Student> studentUpedList =  null;
+		List<String > classNums = teacherDao.searchRealClassNum(virtualClassNum);
+		List<String > studentIdList =null;
+		studentIdList = teacherDao.getStudentIdListOfUped(taskId);
+		List<Student> studentAllList =new ArrayList<Student>();
+		if(classNums.size()>0) {
+			studentAllList = teacherDao.studentList(classNums);//所有学生
 		}
 
-		@Override
-		public void setGradeAndComment(String comment, Integer grade,String studentId,String taskId,Timestamp commentTime) {
-			// TODO Auto-generated method stub
-			teacherDao.setGradeAndComment(comment, grade, studentId,taskId,commentTime);
+
+		for (String studentId : studentIdList) {
+			System.out.println("查看已经提交的学生Id"+studentId );
+		}
+		if (studentIdList!=null) {
+			studentUpedList = teacherDao.getStudentListOfUped(studentIdList);
+		}
+		System.out.println("-----------------------------------------------");
+		for (Student studentUped : studentUpedList) {
+			System.out.println("查看已经提交的学生"+studentUped.getStudentName() );
+		}
+		HashSet h1 = new HashSet(studentAllList);
+		HashSet h2 = new HashSet(studentUpedList);
+		h1.removeAll(h2);
+		studentAllList.clear();
+		studentAllList.addAll(h1);
+		System.out.println("-----------------------------------------------");
+		for (Student student : studentAllList) {
+			System.out.println("查看未提交的学生"+student.getStudentName() );
 		}
 
-		@Override
-		public Integer getGrade(String taskId, String studentId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getGrade(taskId, studentId);
-		}
 
-		@Override
-		public String getComment(String taskId, String studentId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getComment(taskId, studentId);
-		}
+		return studentAllList;
+	}
 
-		@Override
-		public List<Task> getTaskListPage(String courseId, String taskCategory) {
-			// TODO Auto-generated method stub
-			return teacherDao.getTaskListPage(courseId, taskCategory);
-		}
+	@Override
+	public Integer getUpNum(String virtualClassNum, String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getUpNum(virtualClassNum, taskId);
+	}
 
-		@Override
-		public Timestamp getTaskEndTime(String virtualClassNum, String taskId) {
-			// TODO Auto-generated method stub
-			return teacherDao.getTaskEndTime(virtualClassNum, taskId);
-		}
+	@Override
+	public void setGradeAndComment(String comment, Integer grade,String studentId,String taskId,Timestamp commentTime) {
+		// TODO Auto-generated method stub
+		teacherDao.setGradeAndComment(comment, grade, studentId,taskId,commentTime);
+	}
+
+	@Override
+	public Integer getGrade(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getGrade(taskId, studentId);
+	}
+
+	@Override
+	public String getComment(String taskId, String studentId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getComment(taskId, studentId);
+	}
+
+	@Override
+	public List<Task> getTaskListPage(String courseId, String taskCategory) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskListPage(courseId, taskCategory);
+	}
+
+	@Override
+	public Timestamp getTaskEndTime(String virtualClassNum, String taskId) {
+		// TODO Auto-generated method stub
+		return teacherDao.getTaskEndTime(virtualClassNum, taskId);
+	}
 
 	@Override
 	public void teacherExitAttentionCourse(String courseId, String employeeNum) {
@@ -1139,13 +1139,13 @@ public class TeacherServiceImpl implements ITeacherService{
 		// TODO Auto-generated method stub
 		teacherDao.addUseNum(taskId);
 	}
-	
+
 	@Override
 	public void addWatchNum(String taskId, int taskSumNum) {
 		// TODO Auto-generated method stub
 		teacherDao.addWatchNum(taskId,taskSumNum);
 	}
-	
+
 	public Term getTermById(String termId) {
 		Term term = null;
 		try {
@@ -1215,8 +1215,8 @@ public class TeacherServiceImpl implements ITeacherService{
 				}
 			}
 			//获得符合条件的ID
-			
-			
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1238,7 +1238,7 @@ public class TeacherServiceImpl implements ITeacherService{
 					upNum=teacherDao.sreachGradeNumByStudentId(studentId, taskIdListNeedList);
 				}
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1306,9 +1306,9 @@ public class TeacherServiceImpl implements ITeacherService{
 			// TODO: handle exception
 			return 0;
 		}
-		
+
 	}
-		
+
 	@Override
 	public UpTask getUpTask(String taskId, String studentId) {
 		// TODO Auto-generated method stub
@@ -1318,7 +1318,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	@Override
 	public List<Student> getStuAttended(String attendanceId) {
 		// TODO Auto-generated method stub
-		
+
 		return teacherDao.getStuAttended(attendanceId);
 	}
 
@@ -1332,7 +1332,7 @@ public class TeacherServiceImpl implements ITeacherService{
 			e.printStackTrace();
 			return 0;
 		}
-		
+
 	}
 
 	@Override
@@ -1475,7 +1475,31 @@ public class TeacherServiceImpl implements ITeacherService{
 
 	@Override
 	public String searchTaskMapVir(String taskId) {
-		return teacherDao.searchTaskMapVir(taskId);
+		return teacherDao.searchTaskMapVir(taskId);}
+	public String deleteTaskAccByTid(String taskId) {
+		// TODO Auto-generated method stub
+		String msg = null;
+		try {
+			teacherDao.deleteTaskAcc(taskId);
+			msg = "删除成功";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg = "删除失败";
+		}
+		return msg;
+	}	
+	@Override
+	public void mapClassTaskToTurnClass(String virtualClassNum, String taskId, Timestamp taskEndTime,
+			Timestamp preTaskEndTime) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			teacherDao.mapClassTaskToTurnClass(virtualClassNum, taskId, taskEndTime, preTaskEndTime);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层mapClassTaskToTurnClass出问题");
+		}
 	}
 
 }
