@@ -860,8 +860,15 @@ public class TeacherController {
 
 		try {
 			teacherService.createTask(task);		//创建任务
-			teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
-
+			if ("turn_class".equals(formdata.get("taskCategory"))) {
+				teacherService.mapClassTaskToTurnClass(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")),Timestamp.valueOf((String) formdata.get("preTaskEndTime")));		//映射班级任务表
+				
+			}else {
+				teacherService.mapClassTask(task.getVirtualClassNum(), taskId,Timestamp.valueOf((String) formdata.get("taskEndTime")));		//映射班级任务表
+				
+			}
+			
+			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -1006,10 +1013,17 @@ public class TeacherController {
 		
 		String taskId = request.getParameter("taskId");
 		String taskEndTime = request.getParameter("taskEndTime");
+		String preTaskEndTime = request.getParameter("preTaskEndTime");
 		//获取修改使用次数
 		//int taskUseNum = teacherService.getTaskUserNum(virtualClassNum);
 		try {
-			teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+			if ("turn_class".equals(request.getParameter("taskCategory"))) {
+				teacherService.mapClassTaskToTurnClass(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime),Timestamp.valueOf(preTaskEndTime));		//映射班级任务表
+				
+			}else {
+				teacherService.mapClassTask(virtualClassNum, taskId,Timestamp.valueOf(taskEndTime));
+				
+			}
 			teacherService.addUseNum(taskId);
 			//teacherService.addWatchNum(taskId, taskUseNum);
 		} catch (Exception e) {

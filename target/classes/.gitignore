@@ -1,12 +1,2 @@
-<<<<<<< HEAD
 /cn/
 /mapper/
-=======
-/applicationContext.xml
-/cn/
-/common.properties
-/jdbc.properties
-/log4j.properties
-/mapper/
-/springmvc.xml
->>>>>>> liming

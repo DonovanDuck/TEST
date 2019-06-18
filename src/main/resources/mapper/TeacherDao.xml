@@ -399,7 +399,15 @@
 		#{virtualClassNum},
 		#{taskId},0,#{taskEndTime})
 	</insert>
-
+	
+	<insert id="mapClassTaskToTurnClass">
+		replace into class_task ( virtual_class_num,
+		task_id,up_student_num,task_end_time,pre_task_end_time)
+		values
+		(
+		#{virtualClassNum},
+		#{taskId},0,#{taskEndTime},#{preTaskEndTime})
+	</insert>
 	<update id="stopTaskByEndTime" parameterType="java.lang.String">
 		update task set
 		status = 1

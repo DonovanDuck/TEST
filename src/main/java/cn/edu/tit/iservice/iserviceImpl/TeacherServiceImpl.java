@@ -1416,4 +1416,19 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getAttTime(studentId, attendanceId);
 	}
 
+	
+	@Override
+	public void mapClassTaskToTurnClass(String virtualClassNum, String taskId, Timestamp taskEndTime,
+			Timestamp preTaskEndTime) throws Exception {
+		// TODO Auto-generated method stub
+		try {
+			teacherDao.mapClassTaskToTurnClass(virtualClassNum, taskId, taskEndTime, preTaskEndTime);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			System.out.println("teachDao层mapClassTaskToTurnClass出问题");
+		}
+		
+	}
+
 }
