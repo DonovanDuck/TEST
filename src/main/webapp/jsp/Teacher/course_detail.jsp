@@ -269,6 +269,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		</div> 
 	</div>
 	</c:if>
+	<c:if test="${turnClass != null }">
 	<div class="main_b_b">
 		<div class="container" style="min-height: 412px;height: auto;padding-right: 73px;">
 			<h3 style="margin-left: 24px;font-weight: 600;font-size: 28px;">翻转课堂</h3>
@@ -392,6 +393,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </ul>
 </div>
 </div>
+</c:if>
 
 <!-- <div class="main_b_b">
 		<div class="container" style="min-height: 350px;height: auto;">

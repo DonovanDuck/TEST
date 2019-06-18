@@ -1473,4 +1473,19 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getMaxManager(employeeNum);
 	}
 
+	@Override
+	public String deleteTaskAccByTid(String taskId) {
+		// TODO Auto-generated method stub
+		String msg = null;
+		try {
+			teacherDao.deleteTaskAcc(taskId);
+			msg = "删除成功";
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			msg = "删除失败";
+		}
+		return msg;
+	}
+
 }

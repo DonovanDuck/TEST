@@ -63,6 +63,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	}
   
   </script>
+  <script language="javascript">
+  	function deleteTR(obj){
+  		//alert($(obj).attr('id'));
+  		var id = $(obj).attr('id')
+  		if(confirm("确定要删除数据吗？")){
+  		 $.ajax({
+			async:false,
+			cache:false,
+			url:"${pageContext.request.contextPath}/teacher/toDeleteTaskResource/"+id,
+			data:{},
+			type:"POST",
+			dataType:"text",
+			success:function(result) {
+				alert(eval(result));
+				if(eval(result) == "删除成功"){
+					location.reload(true);
+				}
+				else{
+					alert("删除失败");
+				}
+			}
+		}); 
+  	  }
+  	}
+  
+  </script>
   <script>
 $(document).ready(function() { 
 	var cid = "${category}";
@@ -155,11 +181,11 @@ $(document).ready(function() {
 			<div class="col-xs-4 col-md-4 " style="height: auto;">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 49px; margin-right: 20px;">
 				<div class="xiangmu-out" style="height: 170px;width: 350px;">
-					<%-- <c:if test="${isTeacher == 1 }">
-						<div id="${re.resourceId }" style="height: 20px; width: 20px;position: relative;left: 91%;top: 18%; cursor: pointer;" onclick="deleteR(this)">
+					 <c:if test="${isTeacher == 1 }">
+						<div id="${re.resourceId }" style="height: 20px; margin:0;width: 20px;position: relative;left: 91%;top: 7%;float:left; cursor: pointer;" onclick="deleteR(this)">
 							<img style="height: 100%;width: 100%" src="${pageContext.request.contextPath}/images/timg.jpg" />
 						</div>
-					</c:if> --%>
+					</c:if> 
 					<div style="height: 127px;width: 350px;background: #fff;padding-top: 23px;border: 1px solid #dadada; border-bottom: 0">
 						<ul>
 							<li style="text-align: center; font-size: 17px;font-weight: 600;margin-bottom: 7px;">${re.resourceName }</li>
@@ -197,6 +223,11 @@ $(document).ready(function() {
 			<div class="col-xs-4 col-md-4 " style="height: auto;">
 			<li style="float: left;height: 170px;width: 350px;margin-top: 49px; margin-right: 20px;">
 				<div class="xiangmu-out" style="height: 170px;width: 350px;">
+					 <c:if test="${isTeacher == 1 }">
+						<div id="${task.taskId }" style="height: 20px; margin:0;width: 20px;position: relative;left: 91%;top: 7%;float:left; cursor: pointer;" onclick="deleteTR(this)">
+							<img style="height: 100%;width: 100%" src="${pageContext.request.contextPath}/images/timg.jpg" />
+						</div>
+					</c:if> 
 					<div style="height: 127px;width: 350px;background: #fff;padding-top: 23px;border: 1px solid #dadada; border-bottom: 0">
 						<ul>
 							<li style="text-align: center; font-size: 17px;font-weight: 600;margin-bottom: 7px;">${task.taskTitle }</li>

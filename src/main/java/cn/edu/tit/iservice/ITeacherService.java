@@ -849,4 +849,6 @@ public interface ITeacherService {
 	
 	public Integer getMaxManager(String employeeNum);
 	
+	public String deleteTaskAccByTid(String resourceId);
+	
 }
