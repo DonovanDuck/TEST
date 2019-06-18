@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div style="font-size: 27px;
     font-weight: 600;
     margin-left: 43%; margin-top: 0px;margin-bottom: 55px;">
-		${resourceName }发布作业资源
+		${resourceName }发布资源
 	</div>
 	<div style="width: 800px;height: auto;min-height: 500px;margin-left: 7%;">
 	<form action="${pageContext.request.contextPath}/teacher/publishTaskResourse" enctype="multipart/form-data" method="post" id="resourceForm">
@@ -104,6 +104,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   <div class="form-group">
   	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;" >资源类型：</label>
     <input type="hidden" name="taskCategory" value="${category }">
+     <c:if test="${category==6 }">
+    <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="教案资源">
+    </c:if>
+     <c:if test="${category==7 }">
+    <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="教学资源">
+    </c:if>
     <c:if test="${category==8 }">
     <input type="text" class="form-control"  readonly="true"  style="width: 663px;" value="作业资源">
   	</c:if>

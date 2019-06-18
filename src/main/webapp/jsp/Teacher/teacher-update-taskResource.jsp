@@ -132,6 +132,12 @@
 			</div>
 			<div class="form-group">
   	<label for="exampleInputName2" style="float: left;padding-left: 2px;margin-right: 0px;">资源类型：</label>
+  	<c:if test="${task.taskType == 'teaching_plan' }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="教案资源">
+    </c:if>
+    <c:if test="${task.taskType == 'teaching_resourse' }">
+    <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="教学资源">
+    </c:if>
    <c:if test="${task.taskType == 'work' }">
     <input type="text" class="form-control" readonly="true"  style="width: 663px;" value="作业资源">
     </c:if>

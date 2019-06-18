@@ -64,7 +64,7 @@
                 ${teacher.teacherName }
                 </c:forEach>
 						</p>
-						<p style="margin-bottom: 1%">创课时间：${fn:substring(course.publishTime,0,16)}}</p>
+						<p style="margin-bottom: 1%">创课时间：${fn:substring(course.publishTime,0,16)}</p>
 					</div>
 				</div>
 			</a>

@@ -174,8 +174,15 @@ public interface ITeacherService {
 	 * @param taskId
 	 * 把任务映射到班级任务表中
 	 */
-
 	public void mapClassTask(String virtualClassNum,String taskId,Timestamp taskEndTime)throws Exception;	//把任务映射到班级任务表中
+	/**
+	 * @author wenli
+	 * @param virtualClassNum
+	 * @param taskId
+	 * 把翻转任务映射到班级任务表中
+	 */
+	public void mapClassTaskToTurnClass(String virtualClassNum,String taskId,Timestamp taskEndTime,Timestamp preTaskEndTime)throws Exception;	//把任务映射到班级任务表中
+	
 	/**
 	 * @author wenli
 	 * @param accessoris
@@ -849,5 +856,7 @@ public interface ITeacherService {
 	
 	public Integer getMaxManager(String employeeNum);
 	public String searchTaskMapVir(String taskId);
+	
+	public String deleteTaskAccByTid(String resourceId);
 	
 }
