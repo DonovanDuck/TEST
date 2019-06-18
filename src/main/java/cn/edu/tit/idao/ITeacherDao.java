@@ -539,6 +539,14 @@ public interface ITeacherDao {
 	 * @return
 	 */
 	public Integer getIsAttend(String virtualClassNum);
+	/**
+	 * @author wenli
+	 * @param virtualClassNum
+	 * @param taskId
+	 * 把翻转任务映射到班级任务表中
+	 */
+	public void mapClassTaskToTurnClass(@Param("virtualClassNum")String virtualClassNum,@Param("taskId")String taskId,@Param("taskEndTime")Timestamp taskEndTime,@Param("preTaskEndTime")Timestamp preTaskEndTime)throws Exception;	//把任务映射到班级任务表中
+	
 
 
 	/**

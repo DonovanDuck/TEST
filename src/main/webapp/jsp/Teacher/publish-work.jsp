@@ -76,14 +76,23 @@
 			if(text=="作业"){
 				$("#typeNameSelect").html("作业");
 				$("#taskCategorySelect").val("work");
+				$("#preSelectTime").css("display","none");
 			}
 			if(text=="实验"){
 				$("#typeNameSelect").html("实验");
 				$("#taskCategorySelect").val("trial");
+				$("#preSelectTime").css("display","none");
 			}
 			if(text=="课程设计"){
 				$("#typeNameSelect").html("课程设计");
 				$("#taskCategorySelect").val("course_design");
+				$("#preSelectTime").css("display","none");
+			}
+			if(text=="翻转"){
+				$("#typeNameSelect").html("翻转");
+				$("#taskCategorySelect").val("turn_class");
+				$("#preSelectTime").css("display","block");
+				
 			}
 			if(text=="翻转"){
 				$("#typeNameSelect").html("翻转");
@@ -101,14 +110,23 @@
 			if(text=="作业"){
 				$("#typeNameEdit").html("作业");
 				$("#taskCategoryEdit").val("work");
+				$("#preEditTime").css("display","none");
 			}
 			if(text=="实验"){
 				$("#typeNameEdit").html("实验");
 				$("#taskCategoryEdit").val("trial");
+				$("#preEditTime").css("display","none");
 			}
 			if(text=="课程设计"){
 				$("#typeNameEdit").html("课程设计");
 				$("#taskCategoryEdit").val("course_design");
+				$("#preEditTime").css("display","none");
+			}
+			if(text=="翻转"){
+				$("#typeNameEdit").html("翻转");
+				$("#taskCategoryEdit").val("turn_class");
+				$("#preEditTime").css("display","block");
+				
 			}
 			if(text=="翻转"){
 				$("#typeNameEdit").html("翻转");
@@ -607,8 +625,9 @@
 									<li style="font-size: 18px; padding-left: 20px"><c:if
 											test="${taskCategory=='work' }">作业</c:if> <c:if
 											test="${taskCategory=='trial' }">实验</c:if> <c:if
-											test="${taskCategory=='course_design' }">课程设计</c:if><c:if
-											test="${taskCategory=='turnClass' }">翻转</c:if></li>
+											test="${taskCategory=='course_design' }">课程设计</c:if>
+											<c:if
+											test="${taskCategory=='turn_class' }">翻转</c:if></li>
 
 								</c:forEach>
 
@@ -649,16 +668,19 @@
 					</div>
 				</div>
 
+				<div id="preEditTime" class="input-group"
+					style="width: 60%; margin-right: 2%;display: none">
+					<span class="input-group-addon" id="basic-addon3"
+						style="font-size: 20px; padding: 0 50px; font-weight: bold;">课前截至时间</span>
+					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="preTaskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" placeholder="请输入时间"/>
+				</div>
 				<div id="editTime" class="input-group"
 					style="width: 60%; margin-right: 2%;">
 					<span class="input-group-addon" id="basic-addon3"
-						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
-
-					
-					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
-					
-
+						style="font-size: 20px; padding: 0 50px; font-weight: bold;">任务截至时间</span>
+					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" placeholder="请输入时间"/>
 				</div>
+				
 
 				<!-- <div class="wui-content">
 					<div class="wui-area">
@@ -711,7 +733,7 @@
 										<c:if test="${taskCategory=='work' }">作业</c:if>
 										<c:if test="${taskCategory=='trial' }">实验</c:if>
 										<c:if test="${taskCategory=='course_design' }">课程设计</c:if>
-										<c:if test="${taskCategory=='turnClass' }">翻转</c:if>
+										<c:if test="${taskCategory=='turn_class' }">翻转</c:if>
 									</li>
 								</c:forEach>
 							</ul>
@@ -729,6 +751,12 @@
 				<table id="taskListTable"></table>
 			</div>
 			<input name="taskId" id="taskId"  type="text" hidden="hidden" value=""/>
+			<div id="preSelectTime" class="input-group"
+					style="width: 60%; margin-right: 2%;display: none">
+					<span class="input-group-addon" id="basic-addon3"
+						style="font-size: 20px; padding: 0 50px; font-weight: bold;">课前截至时间</span>
+					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="preTaskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" placeholder="请输入时间"/>
+				</div>
 			<div id="selectTime" class="input-group"
 				style="width: 68%; margin-right: 2%;">
 				<span class="input-group-addon" id="basic-addon3"

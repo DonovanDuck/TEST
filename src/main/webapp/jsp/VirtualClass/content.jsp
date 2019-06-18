@@ -30,6 +30,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				  <c:if test="${task.taskType eq 'trial' }">
 				    <img src="${pageContext.request.contextPath}/img/workType/实验.ico" alt=""style="height: 100px; width: 100px; display: block;">
 				  </c:if>
+				  <c:if test="${task.taskType eq 'turn_class' }">
+				    <img src="${pageContext.request.contextPath}/img/workType/翻转.ico" alt=""style="height: 100px; width: 100px; display: block;">
+				  </c:if>
 				</a>
 			  </div>
 			  <div class="col-lg-21" style="float: left; height: 100px;margin-top: 3px;width: 70%">
