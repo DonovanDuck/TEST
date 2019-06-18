@@ -607,8 +607,9 @@
 									<li style="font-size: 18px; padding-left: 20px"><c:if
 											test="${taskCategory=='work' }">作业</c:if> <c:if
 											test="${taskCategory=='trial' }">实验</c:if> <c:if
-											test="${taskCategory=='course_design' }">课程设计</c:if><c:if
-											test="${taskCategory=='turnClass' }">翻转</c:if></li>
+											test="${taskCategory=='course_design' }">课程设计</c:if>
+											<c:if test="${taskCategory=='turn_class' }">翻转</c:if>
+											</li>
 
 								</c:forEach>
 
@@ -652,12 +653,14 @@
 				<div id="editTime" class="input-group"
 					style="width: 60%; margin-right: 2%;">
 					<span class="input-group-addon" id="basic-addon3"
-						style="font-size: 20px; padding: 0 50px; font-weight: bold;">截至时间</span>
-
-					
+						style="font-size: 20px; padding: 0 50px; font-weight: bold;">课前截止截至时间</span>
+					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTimeClass" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
+				</div>
+				<div id="editTime" class="input-group"
+					style="width: 60%; margin-right: 2%;">
+					<span class="input-group-addon" id="basic-addon3"
+						style="font-size: 20px; padding: 0 50px; font-weight: bold;">课时截至时间</span>
 					<input type="text" style="height: 30px;width: 185px"  class="Wdate form-control" name="taskEndTime" id="taskEndTimeSelect" onclick="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd HH:mm:ss',minDate:'%y-%M-%d %H:%m:%s'})" value="请输入时间"/>
-					
-
 				</div>
 
 				<!-- <div class="wui-content">
@@ -711,7 +714,7 @@
 										<c:if test="${taskCategory=='work' }">作业</c:if>
 										<c:if test="${taskCategory=='trial' }">实验</c:if>
 										<c:if test="${taskCategory=='course_design' }">课程设计</c:if>
-										<c:if test="${taskCategory=='turnClass' }">翻转</c:if>
+										<c:if test="${taskCategory=='turn_class' }">翻转</c:if>
 									</li>
 								</c:forEach>
 							</ul>
@@ -747,7 +750,6 @@
 							class="btn btn-default" type="submit" value="取消"
 							style="float: left;">
 					</div>
-
 				</div>
 			</form>
 		</div>
