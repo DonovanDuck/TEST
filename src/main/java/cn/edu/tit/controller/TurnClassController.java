@@ -12,18 +12,35 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import cn.edu.tit.bean.Course;
+import cn.edu.tit.bean.RealClass;
+import cn.edu.tit.bean.Task;
 import cn.edu.tit.bean.Teacher;
+import cn.edu.tit.iservice.ITeacherService;
 import cn.edu.tit.iservice.ITurnClassService;
 
 @RequestMapping("/turnClass")
 @Controller
 public class TurnClassController {
+	
 	@Autowired
 	private ITurnClassService turnClassService;
+	@Autowired
+	private ITeacherService teacherService;
 
 	@RequestMapping(value="toTurnClassMainPage",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
+		List<Task> list = new ArrayList<>();
+		list = turnClassService.getAllTurnClass();
+		for (Task task : list) {
+			String taskId = task.getTaskId();
+			String virId = teacherService.searchTaskMapVir(taskId);
+			List<RealClass> listReal = teacherService.getRealClassList(virId);
+			task.setClassList(listReal);
+			Teacher tea = teacherService.teacherLoginByEmployeeNum(task.getPublisherId());
+			task.setPublisherId(tea.getTeacherName());
+		}
+		mv.addObject("taskList",list);
 		mv.setViewName("/jsp/TurnClassJsp/turnClassMain");
 		return mv;
 	}

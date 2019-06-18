@@ -1473,4 +1473,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		return teacherDao.getMaxManager(employeeNum);
 	}
 
+	@Override
+	public String searchTaskMapVir(String taskId) {
+		return teacherDao.searchTaskMapVir(taskId);
+	}
+
 }

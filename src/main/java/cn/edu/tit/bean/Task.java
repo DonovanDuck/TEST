@@ -24,6 +24,7 @@ public class Task {
 	private Integer upNum;//提交人数，用于在每次封装对象时使用，在数据库不需要建立
 	private String knowledgePoints;//知识点
 	private List<Accessory> accessoryList; // 任务对应附件
+	private List<RealClass> classList; //任务对应班级
 	public String getTaskId() {
 		return taskId;
 	}
@@ -120,10 +121,25 @@ public class Task {
 	public void setAccessoryList(List<Accessory> accessoryList) {
 		this.accessoryList = accessoryList;
 	}
+	public List<RealClass> getClassList() {
+		return classList;
+	}
+	public void setClassList(List<RealClass> classList) {
+		this.classList = classList;
+	}
+	@Override
+	public String toString() {
+		return "Task [taskId=" + taskId + ", taskTitle=" + taskTitle + ", taskDetail=" + taskDetail + ", publishTime="
+				+ publishTime + ", taskEndTime=" + taskEndTime + ", publisherId=" + publisherId + ", virtualClassNum="
+				+ virtualClassNum + ", courseId=" + courseId + ", taskType=" + taskType + ", status=" + status
+				+ ", taskPoint=" + taskPoint + ", useNum=" + useNum + ", watchNum=" + watchNum + ", upNum=" + upNum
+				+ ", knowledgePoints=" + knowledgePoints + ", accessoryList=" + accessoryList + ", classList="
+				+ classList + "]";
+	}
 	public Task(String taskId, String taskTitle, String taskDetail, Timestamp publishTime, Timestamp taskEndTime,
 			String publisherId, String virtualClassNum, String courseId, String taskType, Integer status,
 			Integer taskPoint, Integer useNum, Integer watchNum, Integer upNum, String knowledgePoints,
-			List<Accessory> accessoryList) {
+			List<Accessory> accessoryList, List<RealClass> classList) {
 		super();
 		this.taskId = taskId;
 		this.taskTitle = taskTitle;
@@ -141,13 +157,12 @@ public class Task {
 		this.upNum = upNum;
 		this.knowledgePoints = knowledgePoints;
 		this.accessoryList = accessoryList;
+		this.classList = classList;
 	}
 	public Task() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-
-	
 	
 	
 }
