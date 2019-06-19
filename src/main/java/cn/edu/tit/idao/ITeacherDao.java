@@ -185,7 +185,7 @@ public interface ITeacherDao {
 	 * @param courseName
 	 * @return
 	 */
-	public Course searchCourseByName(String courseName);
+	public List<Course> searchCourseByName(String courseName);
 	
 	/**
 	 * 通过班级名查班级

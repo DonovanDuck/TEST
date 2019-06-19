@@ -325,6 +325,28 @@ public class TeacherController {
 			e.printStackTrace();
 		}
 	}
+	
+	/**
+	 * 通过ajax判断课程是否重复
+	 */
+	@RequestMapping(value="isRepeatCourse/{courseName}")
+	public void isRepeatCourse(HttpServletRequest request, HttpServletResponse response, @PathVariable String courseName){
+		try {
+			String result = null;
+			request.setCharacterEncoding("utf-8");
+			response.setContentType("text/html;charset=UTF-8");
+			//查询课程
+			List<Course> course  = teacherService.getCourseByName(courseName);
+			if(course != null && !course.isEmpty()){
+				 result  =  JSONObject.toJSONString("此课程已存在，不能重复发布，请修改课程名！"); 
+			}
+			response.getWriter().print(result);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
 	/**
 	 * 通过ajax查找教师列表
 	 */
