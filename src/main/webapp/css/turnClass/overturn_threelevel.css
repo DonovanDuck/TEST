@@ -48,7 +48,7 @@ li{
 .main_m
 {
     width:80%;
-    background:white;
+    background:#FFD684;
     height:60px;
     line-height:60px;
     margin:0 auto;
@@ -58,11 +58,6 @@ li{
     background:white;
     margin:0 auto;
     margin-top:10px;
-    height:300px;
-}
-.main_b_top .details
-{
-    height:150px;
 }
 .main_b_top .time{
     float:right;

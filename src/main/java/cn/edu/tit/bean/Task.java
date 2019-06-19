@@ -7,7 +7,6 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public class Task {
-
 	private String taskId; // 任务id
 	private String taskTitle; // 任务标题
 	private String taskDetail; //任务描述

@@ -45,6 +45,8 @@
 	})
 </script>
 <script type="text/javascript">
+	var nowStage = "";//现在所处步骤
+	var complishStage = "";//完成的步骤
 	function focousCommentContent() {
 		$.ajax({
 			async : true,
@@ -59,60 +61,183 @@
 			}
 		})
 	};
+	$(function() {
+		ll();
+	})
+	function ll() {
+		var teamId = $("#teamId").val();
+		var taskId = $("#taskId").val();
+		var i;
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/turnClass/statusCheckout?teamId="
+							+ teamId + "&taskId=" + taskId,
+					type : "get",
+					dataType : "text",
+					success : function(result) {
+						complishStage = result;
+						if ("null" == complishStage) {
+							i = 0;
+							nowStage = "planStage";
+						}
+						if ("planStage" == complishStage) {
+							i = 1;
+							nowStage = "demandStage";
+						}
+						if ("demandStage" == complishStage) {
+							i = 2;
+							nowStage = "designStage";
+						}
+						if ("designStage" == complishStage) {
+							i = 3;
+							nowStage = "arithmeticStage";
+						}
+						if ("arithmeticStage" == complishStage) {
+							i = 4;
+							nowStage = "testStage";
+						}
+						if ("all" == complishStage) {
+							$("#submitBut").attr("disabled",true);
+						}
+						i = i + 1;
+						$("#" + i).css("background-color", "blue");
+					}
+				})
+	}
+
+	function submitButton() {
+		var path = "${pageContext.request.contextPath}/turnClass/insetPrepareForClass/"
+				+ nowStage;
+		$("#formContent").attr("action", path);
+		$("#formContent").submit();
+	}
+
+	function nextStep() {
+		if ("planStage" == nowStage) {
+			$("#2").css("background-color", "blue");
+			$("#1").css("background-color", "#CC9933");
+			nowStage = "demandStage";
+			return 0;
+		}
+		if ("demandStage" == nowStage) {
+			$("#3").css("background-color", "blue");
+			$("#2").css("background-color", "#CC9933");
+			nowStage = "designStage";
+			return 0;
+		}
+		if ("designStage" == nowStage) {
+			$("#4").css("background-color", "blue");
+			$("#3").css("background-color", "#CC9933");
+			nowStage = "arithmeticStage";
+			return 0;
+		}
+		if ("arithmeticStage" == nowStage) {
+			$("#5").css("background-color", "blue");
+			$("#4").css("background-color", "#CC9933");
+			nowStage = "testStage";
+			return 0;
+		}
+		if ("testStage" == nowStage) {
+			alert("已经是最后一步");
+			return 0;
+		}
+	}
+
+	function priviousStep() {
+		if ("planStage" == nowStage) {
+			alert("已经是第一步");
+			return 0;
+		}
+		if ("demandStage" == nowStage) {
+			$("#2").css("background-color", "#CC9933");
+			$("#1").css("background-color", "blue");
+			nowStage = "planStage";
+			return 0;
+		}
+		if ("designStage" == nowStage) {
+			$("#3").css("background-color", "#CC9933");
+			$("#2").css("background-color", "blue");
+			nowStage = "demandStage";
+			return 0;
+		}
+		if ("arithmeticStage" == nowStage) {
+			$("#4").css("background-color", "#CC9933");
+			$("#3").css("background-color", "blue");
+			nowStage = "designStage";
+			return 0;
+		}
+		if ("testStage" == nowStage) {
+			$("#5").css("background-color", "#CC9933");
+			$("#4").css("background-color", "blue");
+			nowStage = "arithmeticStage";
+			return 0;
+		}
+	}
 </script>
 </head>
 <body style="background-color: white;">
 	<div class="col-md-12">
+		<div class="col-md-1"></div>
 		<div class="col-md-2">
-			<div class="cit">
-				<h3 style="padding-top: 37%">简介</h3>
-			</div>
-		</div>
-		<div class="col-md-2">
-			<div class="cit">
+			<div class="cit" id="1">
 				<h3 style="padding-top: 37%">计划</h3>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="cit">
+			<div class="cit" id="2">
 				<h3 style="padding-top: 37%">需求</h3>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="cit">
+			<div class="cit" id="3">
 				<h3 style="padding-top: 37%">设计方案</h3>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="cit">
+			<div class="cit" id="4">
 				<h3 style="padding-top: 37%">关键算法</h3>
 			</div>
 		</div>
 		<div class="col-md-2">
-			<div class="cit">
+			<div class="cit" id="5">
 				<h3 style="padding-top: 37%">测试情况</h3>
 			</div>
 		</div>
 		<div
-			style="height: 5px; width: 80%; margin-left: 8%; margin-top: 6%; background-color: #0099CC;"></div>
+			style="height: 5px; width: 70%; margin-left: 10%; margin-top: 6%; background-color: #0099CC;"></div>
 	</div>
-	<div class="col-md-12" id="content" style="margin-top: 2%">
-		<textarea id="detail" name="detail" type="text"></textarea>
-	</div>
-	<div class="col-md-12" style="margin-top: 2%">
-		<input type="text" class="form-control" style="width: 15%"
-			placeholder="步骤设计者">
-		<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
-			<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
-			<div class="col-md-4 pull-right" style="margin-top: -1%">
-				<div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-default">上一步</button>
-					<button type="button" class="btn btn-default">保存</button>
-					<button type="button" class="btn btn-success">下一步</button>
+	<form id="formContent" action="" enctype="multipart/form-data">
+		<input name="taskId" id="taskId" value="${task.taskId }"
+			style="display: none"> <input name="teamId" id="teamId"
+			value="${team.teamId }" style="display: none">
+		<div class="col-md-12" id="content" style="margin-top: 2%">
+			<textarea id="detail" name="detail" type="text"></textarea>
+		</div>
+		<div class="col-md-12" style="margin-top: 2%">
+			<div class="col-sm-3" style="padding-left: 0px;">
+				<select class="form-control" id="authorId" name="authorId">
+					<option value="${team.leaderId }">${team.leaderName }</option>
+					<c:forEach items="${team.listStu }" var="l">
+						<option value="${l.studentId }">${l.studentName}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
+				<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
+				<div class="col-md-4 pull-right" style="margin-top: -1%">
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default"
+							onclick="priviousStep()">上一步</button>
+						<button type="button" id="submitBut" onclick="submitButton()"
+							class="btn btn-default">保存</button>
+						<button type="button" class="btn btn-success" onclick="nextStep()">下一步</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 	<div class="col-md-12" style="height: 12px; background-color: #F0F0F0"></div>
 	<div class="col-md-12" style="padding: 2%">
 		<h3 style="margin-top: -1%; margin-left: -1%">学生评论</h3>

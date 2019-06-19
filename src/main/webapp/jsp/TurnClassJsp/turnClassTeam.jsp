@@ -5,106 +5,366 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 <head>
-<meta charset="UTF-8">
-<title>翻转三级页面</title>
+<meta charset="UTF-8" name="viewport"
+	content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+<title>${course. courseName}</title>
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/scaffolding.less">
+<link
+	href="${pageContext.request.contextPath}/css/achievement/achievementMain.css"
+	rel="stylesheet" />
+<link rel="stylesheet"
+	href="${pageContext.request.contextPath}/css/course3.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/css/turnClass/overturn_threelevel.css">
-<link
-	href="${pageContext.request.contextPath}/css/backstagemanager/bootstrap.css"
-	rel="stylesheet" />
-<link
-	href="${pageContext.request.contextPath}/css/backstagemanager/bootstrap-table.css"
-	rel="stylesheet" />
-<script
-	src="${pageContext.request.contextPath}/js/backstagemanager/jquery-3.2.1.js"></script>
-<script
-	src="${pageContext.request.contextPath}/js/backstagemanager/bootstrap.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.js"></script>
 </head>
-<body style="background-color: #F0F0F0">
-	<div class="main_t container-fluid row">
-		<div class="word col-md-8">
-			<h1>JAVA程序设计</h1>
-			<p>参与人数：200 &nbsp;&nbsp;&nbsp;创课时间：2019年4月15日</p>
-		</div>
-		<div class="button col-md-4">
-			<button type="button" class="btn btn-default">关注课程</button>
+<body>
+	<style>
+.a {
+	width: 313px;
+	height: 0;
+	background-color: #f0f0f0;
+	opacity: 0;
+	transition: height 0.2s linear, opacity 0.2s linear;
+	-webkit-transition: height 0.2s linear, opacity 0.2s linear;
+	/* Safari */
+	padding-left: 26px;
+	padding-top: 18px;
+}
+
+.b {
+	width: 187px;
+	min-height: 77px;
+	height: auto;
+	position: relative;
+}
+
+.b:hover .a {
+	height: 100px;
+	opacity: 1;
+}
+
+.xiangmu-out .rel-img img {
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	transition: all 0.5s;
+}
+
+.xiangmu-out:hover {
+	box-shadow: 0 0 15px grey;
+	transform: translate(0, -10px);
+}
+
+.xiangmu-out .rel-img {
+	overflow: hidden;
+}
+</style>
+	<script type="text/javascript">
+		function attention() {
+			//alert('${course.courseId}');
+			$
+					.ajax({
+						async : false,
+						cache : false,
+						url : "${pageContext.request.contextPath}/teacher/ajaxAttentionCourse",
+						data : {
+							'courseId' : '${course.courseId}'
+						},
+						type : "POST",
+						dataType : "text",
+						success : function(result) {
+							alert(eval(result));
+							if (eval(result) == "关注成功！") {
+								$("#attention").html("已关注");
+							} else {
+								$("#attention").html("关注");
+							}
+						}
+					});
+		}
+		function ajaxStudent() {
+			$
+					.ajax({
+						async : false,
+						cache : false,
+						url : "${pageContext.request.contextPath}/turnClass/getRealClassAllStudent",
+						type : "POST",
+						dataType : "text",
+						success : function(result) {
+							var arr = eval(result);
+							$("#studentContent").empty();
+							for (var i = 0; i < arr.length; i++) {
+								$("#studentContent")
+										.append(
+												"<label class='checkbox-inline' id="
+														+ arr[i].id
+														+ " style='width: 30%; margin-left: 2%; margin-top: 1%;'><input type='checkbox' name='unSelect' onclick='checkboxOnclick(this)'  value='"
+														+ arr[i].id + "'>"
+														+ arr[i].name
+														+ "</label>");
+							}
+						}
+					});
+		}
+		function checkboxOnclick(checkbox) {
+			if (checkbox.checked == true) {
+				var value = checkbox.value;
+				$("input[name = 'select']").each(function() {
+					if ($(this).val() == value)
+						$("#" + value).remove();
+				});
+				$("input[name = 'unSelect']").each(function() {
+					if ($(this).val() == value)
+						$("#" + value).remove();
+				});
+				var content = "";
+				$
+						.ajax({
+							async : false,
+							cache : false,
+							url : "${pageContext.request.contextPath}/turnClass/getNameForStudent",
+							data : {
+								'num' : value
+							},
+							type : "POST",
+							dataType : "text",
+							success : function(result) {
+								content = result;
+							}
+						});
+				$("#studentSelectedContent")
+						.append(
+								"<label class='checkbox-inline' id="
+										+ value
+										+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input name='select' type='checkbox' checked onclick='checkboxBackclick(this)'  value='"
+										+ value + "'>" + content + "</label>");
+			}
+		}
+		function checkboxBackclick(checkbox) {
+			if (checkbox.checked == false) {
+				var value = checkbox.value;
+				$("input[name = 'select']").each(function() {
+					if ($(this).val() == value)
+						$("#" + value).remove();
+				});
+				$("input[name = 'unSelect']").each(function() {
+					if ($(this).val() == value)
+						$("#" + value).remove();
+				});
+				var content = "";
+				$
+						.ajax({
+							async : false,
+							cache : false,
+							url : "${pageContext.request.contextPath}/turnClass/getNameForStudent",
+							data : {
+								'num' : value
+							},
+							type : "POST",
+							dataType : "text",
+							success : function(result) {
+								content = result;
+							}
+						});
+				$("#studentContent")
+						.append(
+								"<label class='checkbox-inline' id="
+										+ value
+										+ "  style='width: 30%; margin-left: 2%; margin-top: 1%;'><input  name='unSelect' onclick='checkboxOnclick(this)'  type='checkbox' value='"
+										+ value + "'>" + content + "</label>");
+			}
+		}
+
+		function teamButton() {
+			var id = "";
+			var judge = true;
+			$("input[name = 'select']").each(function() {
+				id = id + $(this).val() + ",";
+			});
+			$("#selectStudentId").val(id);
+			var name = $("#projectName").val();
+			if (name == "") {
+				alert("项目名称未填写");
+				judge = false;
+			}
+			if (id == "") {
+				alert("成员未填写");
+				judge = false;
+			}
+			if (judge) {
+				$("#formContent").submit();
+			}
+		}
+	</script>
+	<jsp:include page="/jsp/top.jsp" flush="true" />
+	<main>
+	<div class="main_t">
+		<div class="container-fluid">
+			<c:if test="${ attention != 2 }">
+				<button type="button" class="btn btn-default" id="attention"
+					onclick="attention()">关注</button>
+			</c:if>
+			<c:if test="${ attention == 2 }">
+				<button type="button" class="btn btn-default" id="attention"
+					onclick="attention()">已关注</button>
+			</c:if>
+			<h1>${course.courseName}</h1>
+			<c:if test="${course.fine != null && course.fine != '' }">
+				<div
+					style="color: red; position: relative; left: 10%; height: 50px; float: left;">
+					<span>${course.fine }</span>
+				</div>
+			</c:if>
+			<p>
+				类别：${course.courseCategory}系&nbsp;&nbsp;&nbsp;
+				参与人数：${course.courseStudentNum } &nbsp;&nbsp;&nbsp;创课时间：
+				<fmt:formatDate value="${course.publishTime }" pattern="yyyy年MM月dd日" />
+			</p>
 		</div>
 	</div>
-	<div class="main_m row" style="margin-left: 10%;background-color: yellow;">
+	<div class="main_m row">
 		<div class="title col-md-11">
-			<h2>贪吃蛇大作战</h2>
+			<h2>${task.taskTitle }</h2>
 		</div>
 		<div class="accept_task col-md-1">
-			<button type="button" class="btn btn-link">接收任务</button>
+			<c:if test="${student != null }">
+				<button type="button" class="btn btn-primary" data-toggle="modal"
+					data-target=".bs-example-modal-lg" onclick="ajaxStudent();">接收任务</button>
+			</c:if>
 		</div>
 	</div>
-	<div class="main_b_top row" style="margin-left: 10%">
+	<div class="main_b_top row">
 		<h3 class="col-md-12">任务描述</h3>
-		<div class="details col-md-12">
-			第1部分 线性数据结构 <br> 该部分训练对线性结构实现方法，涉及线性表、队列、栈。第1部分
-			线性数据结构该部分训练对线性结构实现方法，涉及线性表、队列、栈。第1部分 线性数据结构该部分训练对线性结构实现方法，涉及线性表、队列、栈。<br>
-			1-1 数据结构与算法 - 线性表 <br> 1-2 数据结构与算法 - 队 <br> 1-1 数据结构与算法 -
-			线性表 <br> 1-2 数据结构与算法 - 队列 <br>
-		</div>
+		<div class="details col-md-12">${task.taskDetail }</div>
 		<div class="enclosure col-md-12">
 			<img src="../images/word.png" alt="">&nbsp;&nbsp; <img
 				src="../images/word.png" alt=""> &nbsp;&nbsp;<img
 				src="../images/word.png" alt="">
 		</div>
 		<div class="time col-md-4">
-			发布时间：2019年3月2日&nbsp;&nbsp;截止时间：2019年4月21日</div>
+			<p>
+				发布时间：
+				<fmt:formatDate value="${task.publishTime }" pattern="yyyy年MM月dd日" />
+			</p>
+		</div>
 	</div>
-	<a href="${pageContext.request.contextPath}/turnClass/toTurnClassTeamDetail">
-		<div class="main_b_group row" style="margin-left: 10%">
-			<div class="group_t">
-				<div class="col-md-1"></div>
-				<div class="group_name col-md-3">
-					<h4>小组1</h4>
-				</div>
-				<div class="group_name col-md-6">
-					<h4>贪吃蛇小游戏</h4>
-				</div>
-				<div class="group_status col-md-2">
-					<button type="button" class="btn btn-default">课前准备</button>
-				</div>
-			</div>
-			<div class="group_m">
-				<div class="people col-md-9">
-					<div class="col-md-3">
-						<div class="img-circle center-block">
-							<img src="../images/tou2.png" alt="">
+	<div class="main_b">
+		<c:forEach items="${listTeam }" var="item" varStatus="status">
+			<a
+				href="${pageContext.request.contextPath}/turnClass/toTurnClassTeamDetail?taskId=${task.taskId}&teamId=${item.teamId}">
+				<div class="main_b_group row" style="margin-left: 10%">
+					<div class="group_t">
+						<div class="col-md-1"></div>
+						<div class="group_name col-md-3">
+							<h4>小组${status.index + 1}</h4>
 						</div>
-						<p class="p1 text-center">192056101&nbsp;&nbsp;刘备</p>
-						<p class="text-center">组长</p>
-					</div>
-					<div class="col-md-3">
-						<div class="img-circle center-block">
-							<img src="../images/tou2.png" alt="">
+						<div class="group_name col-md-6">
+							<h4>${item.projectName }</h4>
 						</div>
-						<p class="text-center">192056101&nbsp;&nbsp;张飞</p>
-					</div>
-					<div class="col-md-3">
-						<div class="img-circle center-block">
-							<img src="../images/tou2.png" alt="">
+						<div class="group_status col-md-2">
+							<button type="button" class="btn btn-default">课前准备</button>
 						</div>
-						<p class="text-center">192056104&nbsp;&nbsp;孙权</p>
 					</div>
-					<div class="col-md-3">
-						<div class="img-circle center-block">
-							<img src="../images/tou2.png" alt="">
+					<div class="group_m">
+						<div class="people col-md-9">
+							<div class="col-md-3">
+								<div class="img-circle center-block">
+									<img src="../images/tou2.png" alt="">
+								</div>
+								<p class="p1 text-center">${item.leaderId }&nbsp&nbsp&nbsp${item.leaderName
+									}</p>
+								<p class="text-center">组长</p>
+							</div>
+							<c:forEach items="${item.listStu }" var="i">
+								<div class="col-md-3">
+									<div class="img-circle center-block">
+										<img
+											src="${pageContext.request.contextPath}/jsp/showImg.jsp?path=${i.faceImg }"
+											style="width: 100%; height: 100%;" alt="" />
+									</div>
+									<p class="text-center">${i.studentId }&nbsp&nbsp&nbsp${i.studentName}</p>
+								</div>
+							</c:forEach>
 						</div>
-						<p class="text-center">192056102&nbsp;&nbsp;诸葛亮</p>
+						<div class="group_b col-md-12" style="margin-top: -2%">
+							<p class="p2 col-md-3">
+								接收任务时间：
+								<fmt:formatDate value="${item.acceptTime}" pattern="yyyy年MM月dd日" />
+							</p>
+							<p class=" p1 col-md-2">评论：24条</p>
+						</div>
 					</div>
 				</div>
-				<div class="group_b col-md-12" style="margin-top:-2%">
-					<p class="p2 col-md-3">接收任务时间：2019年3月3日</p>
-					<p class=" p1 col-md-2">评论：24条</p>
-				</div>
+			</a>
+		</c:forEach>
+	</div>
+	<jsp:include page="/jsp/footer.jsp" flush="true" />
+	<div class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog"
+		aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg" role="document">
+			<div class="modal-content" style="padding: 2%">
+				<form class="form-horizontal" class="form-horizontal"
+					id="formContent"
+					action="${pageContext.request.contextPath}/turnClass/addTaskTeam">
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">项目名称</label>
+						<div class="col-sm-10">
+							<input class="form-control" id="projectName" name="projectName"
+								placeholder="项目名称">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">项目简介</label>
+						<div class="col-sm-10">
+							<input class="form-control" id="projectIntro" name="projectIntro"
+								placeholder="项目简介">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label">项目负责人</label>
+						<div class="col-sm-5">
+							<input class="form-control" id="compere" name="compere"
+								value="${student.studentName }" readonly="readonly">
+						</div>
+						<div class="col-sm-5">
+							<input class="form-control" id="compereId" name="compereId"
+								value="${student.studentId }" readonly="readonly">
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="inputEmail3" class="col-sm-2 control-label"
+							style="padding-right: 20px">选择成员</label>
+						<div class="col-sm-10"
+							style="padding-left: 0px; width: 80%; margin-left: 2%">
+							<div class="panel panel-default studentSelete"
+								id="studentSelectedContent"
+								style="margin-top: 1%; height: 40px; overflow-y: auto"></div>
+							<div class="panel panel-default studentContent"
+								id="studentContent"
+								style="margin-top: 1%; height: 80px; overflow-y: auto"></div>
+						</div>
+						<input name="selectStudentId" id="selectStudentId"
+							style="display: none" /><input name="taskId" id="taskId"
+							style="display: none" value="${task.taskId }" />
+					</div>
+					<div class="form-group">
+						<div class="col-sm-offset-2 col-sm-10">
+							<button type="button" onclick="teamButton()"
+								class="btn btn-primary btn-block">提交</button>
+						</div>
+					</div>
+				</form>
 			</div>
 		</div>
-	</a>
+	</div>
 </body>
 </html>

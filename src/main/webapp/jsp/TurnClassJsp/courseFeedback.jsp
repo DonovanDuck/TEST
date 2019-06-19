@@ -53,23 +53,38 @@
 </script>
 </head>
 <body style="background-color: white;">
-	<div class="col-md-12" id="content" style="margin-top: 2%">
-		<textarea id="detail" name="detail" type="text"></textarea>
-	</div>
-	<div class="col-md-12" style="margin-top: 2%">
-		<input type="text" class="form-control" style="width: 15%"
-			placeholder="步骤设计者">
-		<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
-			<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
-			<div class="col-md-4 pull-right" style="margin-top: -1%">
-				<div class="btn-group" role="group" aria-label="...">
-					<button type="button" class="btn btn-default">上一步</button>
-					<button type="button" class="btn btn-default">保存</button>
-					<button type="button" class="btn btn-success">下一步</button>
+	<form id="formContent"  method="post"
+		action="${pageContext.request.contextPath}/turnClass/insertFeedBack"
+		enctype="multipart/form-data">
+		<div class="col-md-12" id="content" style="margin-top: 2%">
+			<textarea id="detail" name="detail" type="text"></textarea>
+		</div>
+		<input name="taskId" value="${task.taskId }" style="display: none">
+		<input name="teamId" value="${team.teamId }" style="display: none">
+		<div class="col-md-12" style="margin-top: 2%">
+			<label for="inputEmail3" class="col-sm-1 control-label">上传视频</label>
+			<input type="file" id="pptFile" name="pptFile" class="col-md-3"
+				style="padding: 0px">
+			<div class="col-sm-3" style="padding-left: 0px;">
+				<select class="form-control" id="authorId" name="authorId">
+					<option value="${team.leaderId }">${team.leaderName }</option>
+					<c:forEach items="${team.listStu }" var="l">
+						<option value="${l.studentId }">${l.studentName}</option>
+					</c:forEach>
+				</select>
+			</div>
+			<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
+				<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
+				<div class="col-md-4 pull-right" style="margin-top: -1%">
+					<div class="btn-group" role="group" aria-label="...">
+						<button type="button" class="btn btn-default">上一步</button>
+						<button type="submit" class="btn btn-default">保存</button>
+						<button type="button" class="btn btn-success">下一步</button>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</form>
 	<div class="col-md-12" style="height: 12px; background-color: #F0F0F0"></div>
 	<div class="col-md-12" style="padding: 2%">
 		<h3 style="margin-top: -1%; margin-left: -1%">学生评论</h3>

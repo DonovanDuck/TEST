@@ -1,6 +1,7 @@
 package cn.edu.tit.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class TurnClassTeam {
 	private String teamId;//小组ID 
@@ -11,7 +12,10 @@ public class TurnClassTeam {
 	private String taskId;//任务ID
 	private Timestamp acceptTime;//接受任务时间
 	private String virtualClassId;//虚拟班级号
-	
+	private String status;//小组状态
+	private List<Student> listStu;
+	private String projectName;
+	private String projectIntro;
 	public String getTeamId() {
 		return teamId;
 	}
@@ -60,14 +64,33 @@ public class TurnClassTeam {
 	public void setVirtualClassId(String virtualClassId) {
 		this.virtualClassId = virtualClassId;
 	}
-	@Override
-	public String toString() {
-		return "TurnClassTeam [teamId=" + teamId + ", leaderId=" + leaderId + ", leaderName=" + leaderName
-				+ ", memberId=" + memberId + ", memberName=" + memberName + ", taskId=" + taskId + ", acceptTime="
-				+ acceptTime + ", virtualClassId=" + virtualClassId + "]";
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	public List<Student> getListStu() {
+		return listStu;
+	}
+	public void setListStu(List<Student> listStu) {
+		this.listStu = listStu;
+	}
+	public String getProjectName() {
+		return projectName;
+	}
+	public void setProjectName(String projectName) {
+		this.projectName = projectName;
+	}
+	public String getProjectIntro() {
+		return projectIntro;
+	}
+	public void setProjectIntro(String projectIntro) {
+		this.projectIntro = projectIntro;
 	}
 	public TurnClassTeam(String teamId, String leaderId, String leaderName, String memberId, String memberName,
-			String taskId, Timestamp acceptTime, String virtualClassId) {
+			String taskId, Timestamp acceptTime, String virtualClassId, String status, List<Student> listStu,
+			String projectName, String projectIntro) {
 		super();
 		this.teamId = teamId;
 		this.leaderId = leaderId;
@@ -77,11 +100,21 @@ public class TurnClassTeam {
 		this.taskId = taskId;
 		this.acceptTime = acceptTime;
 		this.virtualClassId = virtualClassId;
+		this.status = status;
+		this.listStu = listStu;
+		this.projectName = projectName;
+		this.projectIntro = projectIntro;
+	}
+	@Override
+	public String toString() {
+		return "TurnClassTeam [teamId=" + teamId + ", leaderId=" + leaderId + ", leaderName=" + leaderName
+				+ ", memberId=" + memberId + ", memberName=" + memberName + ", taskId=" + taskId + ", acceptTime="
+				+ acceptTime + ", virtualClassId=" + virtualClassId + ", status=" + status + ", listStu=" + listStu
+				+ ", projectName=" + projectName + ", projectIntro=" + projectIntro + "]";
 	}
 	public TurnClassTeam() {
 		super();
 		// TODO Auto-generated constructor stub
-	} 
-	
+	}
 	
 }
