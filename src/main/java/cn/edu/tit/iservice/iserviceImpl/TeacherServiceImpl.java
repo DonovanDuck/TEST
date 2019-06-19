@@ -775,7 +775,7 @@ public class TeacherServiceImpl implements ITeacherService{
 	}
 
 	@Override
-	public Course getCourseByName(String courseName) {
+	public List<Course> getCourseByName(String courseName) {
 		// 查询课程
 		return teacherDao.searchCourseByName(courseName);
 	}
