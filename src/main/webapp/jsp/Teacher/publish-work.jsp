@@ -530,7 +530,7 @@
 			 $("#taskTitleEdit").focus();
 			 return false;	 
 		 }
-		 if($("#taskDetail").val()==""&&!$('#accessory').get(0).files[0]){
+		 if(!UE.getEditor('taskDetail').hasContents()&&!$('#accessory').get(0).files[0]){
 			 alert("请输入作业描述或者选择上传的任务附件");
 			 return false;	
 		 }

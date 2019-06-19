@@ -431,7 +431,7 @@ public interface ITeacherService {
 	 * @param courseName
 	 * @return
 	 */
-	public Course getCourseByName(String courseName);
+	public List<Course> getCourseByName(String courseName);
 
 	/**
 	 * 通过班级名查班级

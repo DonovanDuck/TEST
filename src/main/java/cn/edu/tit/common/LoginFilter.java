@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.mysql.cj.api.Session;
 
 public class LoginFilter extends HandlerInterceptorAdapter {
 	/**
