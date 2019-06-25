@@ -129,4 +129,14 @@ public class TurnClassServiceImpl implements ITurnClassService{
 		turnClassDao.insertEndAchievement(tp);				
 	}
 
+	@Override
+	public TurnClassFeedback queryFeedBack(String taskId) throws Exception {
+		return turnClassDao.queryFeedBack(taskId);
+	}
+
+	@Override
+	public TurnClassAccessory queryTurnAccessory(String taskId, String teamId) throws Exception {
+		return turnClassDao.queryTurnAccessory(taskId,teamId);
+	}
+
 }

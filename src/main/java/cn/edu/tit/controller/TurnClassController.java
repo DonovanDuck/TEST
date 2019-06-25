@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.alibaba.fastjson.JSONObject;
 
+import cn.edu.tit.bean.Accessory;
 import cn.edu.tit.bean.Course;
 import cn.edu.tit.bean.RealClass;
 import cn.edu.tit.bean.Student;
@@ -75,6 +76,9 @@ public class TurnClassController {
 	public ModelAndView toTurnClassDetail(HttpServletRequest request,@RequestParam("taskId")String taskId,@RequestParam("teamId")String teamId) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		Task task = turnClassService.getTaskById(taskId);
+		List<Accessory> taskAccessory = new ArrayList<>();
+		taskAccessory = teacherService.searchAccessory(taskId);
+		task.setAccessoryList(taskAccessory);
 		String courseId = task.getCourseId();
 		Course course = teacherService.getCourseById(courseId);
 		TurnClassTeam tct = new TurnClassTeam();
@@ -120,6 +124,9 @@ public class TurnClassController {
 		ModelAndView mv = new ModelAndView();
 		Task task = teacherService.getTaskById(taskId);
 		task.setTaskEndTime(teacherService.getTaskEndTime(task.getVirtualClassNum(), taskId));
+		List<Accessory> taskAccessory = new ArrayList<>();
+		taskAccessory = teacherService.searchAccessory(taskId);
+		task.setAccessoryList(taskAccessory);
 		Course course = teacherService.getCourseById(task.getCourseId());
 		String courseId = course.getCourseId();
 		List<TurnClassTeam> teamList = new ArrayList<>();
@@ -200,6 +207,10 @@ public class TurnClassController {
 	public ModelAndView toCourseFeedback(HttpServletRequest request,@RequestParam("taskId")String taskId,@RequestParam("teamId")String teamId) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		Task task = turnClassService.getTaskById(taskId);
+		TurnClassFeedback tc = new TurnClassFeedback();
+		tc = turnClassService.queryFeedBack(taskId);
+		TurnClassAccessory ac  =new TurnClassAccessory();
+		ac = turnClassService.queryTurnAccessory(taskId,teamId);
 		TurnClassTeam tct = turnClassService.getTeamById(teamId);
 		List<Student> listStudent = new ArrayList<>();
 		String[] a = tct.getMemberId().split(",");
@@ -207,6 +218,8 @@ public class TurnClassController {
 			listStudent.add(studentService.studentLoginByEmployeeNum(a[i]));
 		}
 		tct.setListStu(listStudent);
+		mv.addObject("feedBack",tc);
+		mv.addObject("feedBackAccessory",ac);
 		mv.addObject("task",task);
 		mv.addObject("team",tct);
 		mv.setViewName("/jsp/TurnClassJsp/courseFeedback");
@@ -230,7 +243,7 @@ public class TurnClassController {
 		mv.setViewName("/jsp/TurnClassJsp/endAchievement");
 		return mv;
 	}
-	
+
 	@RequestMapping(value="toCourseAfterEdit",method= {RequestMethod.GET})
 	public ModelAndView toCourseAfterEdit(HttpServletRequest request,@RequestParam("taskId")String taskId,@RequestParam("teamId")String teamId) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -248,26 +261,43 @@ public class TurnClassController {
 		return mv;
 	}
 
-	@RequestMapping(value="getRealClassAllStudent")
-	public void getRealClassAllStudent(HttpServletRequest request,HttpServletResponse response) throws Exception {
+	@RequestMapping(value="getRealClassAllStudent/{taskId}")
+	public void getRealClassAllStudent(@PathVariable String taskId,HttpServletRequest request,HttpServletResponse response) throws Exception {
 		Student stu = (Student) request.getSession().getAttribute("student");
-		String id = stu.getStudentId();
-		List<Student> listStudent = new ArrayList<>();
+		List<TurnClassTeam> listTeam =  turnClassService.getTaskTeam(taskId);//获取所有的任务下队伍
+		List<Student> listStudent = new ArrayList<>();//此集合存放所有的已经被拉入团队的成员
+		listStudent.add(stu);//将此时的登录者放入集合当中,决定了listStudent 永远不为空
+		if(listTeam.size()!=0)//如果返回的队伍集合不为空，则遍历之，将之变为对应的对象
+		{
+			for (TurnClassTeam team : listTeam) {
+				listStudent.add(studentService.studentLoginByEmployeeNum(team.getLeaderId()));
+				String[] a = team.getMemberId().split(",");
+				for (int i = 0; i < a.length; i++) {
+					listStudent.add(studentService.studentLoginByEmployeeNum(a[i]));
+				}
+			}
+		}
+		List<Student> allStudent = new ArrayList<>();
 		try {
-			listStudent = turnClassService.getAllStudentByRealClass(stu.getClassNum());
+			allStudent = turnClassService.getAllStudentByRealClass(stu.getClassNum());//获取全部的班级学生
 			request.setCharacterEncoding("utf-8");
 			response.setContentType("application/json;charset=UTF-8");
 		} catch (UnsupportedEncodingException e1) {
 			e1.printStackTrace();
 		}
 		com.alibaba.fastjson.JSONArray arr=new com.alibaba.fastjson.JSONArray();
-		Iterator<Student> iterator = listStudent.iterator();
-		while (iterator.hasNext()) {
+		Iterator<Student> iterator = allStudent.iterator();//遍历集合
+		Iterator<Student> iterator2 = listStudent.iterator();//遍历集合
+		while (iterator.hasNext()) {//外部遍历allStudent
 			Student integer = iterator.next();
-			String id2 = integer.getStudentId();
-			if (id2.equals(id)) {
-				iterator.remove();
-				continue;
+			String id2 = integer.getStudentId();//获取当前外部集合中的对象数据
+			while (iterator2.hasNext()) {//内部遍历的是listStudent
+				Student i = iterator2.next();
+				String id1 = i.getStudentId();
+				if (id2.equals(id1)) {
+					iterator.remove();
+					continue;
+				}
 			}
 			JSONObject ob=new JSONObject();
 			ob.put("id", integer.getStudentId());
@@ -422,8 +452,8 @@ public class TurnClassController {
 			e1.printStackTrace();
 		}
 	}
-	
-	
+
+
 	@RequestMapping(value="statusCheckoutModify")
 	public void statusCheckoutModify(HttpServletRequest request,HttpServletResponse response,@RequestParam("taskId")String taskId,@RequestParam("teamId")String teamId) throws Exception {
 		List<TurnClassAfterModify> list = new ArrayList<>();
@@ -484,23 +514,28 @@ public class TurnClassController {
 		}
 	}
 
-	
+
 	@RequestMapping(value="addTaskTeam",method= {RequestMethod.GET})
 	public ModelAndView addTaskTeam(HttpServletRequest request,@RequestParam("projectIntro")String projectIntro,@RequestParam("projectName")String projectName,@RequestParam("taskId")String taskId,@RequestParam("compere")String compere,@RequestParam("compereId")String compereId,@RequestParam("selectStudentId")String selectStudentId) throws Exception {
 		ModelAndView mv = new ModelAndView();
 		TurnClassTeam tt =  new TurnClassTeam();
-		tt.setAcceptTime(new Timestamp(System.currentTimeMillis()));
-		tt.setProjectName(projectName);
-		tt.setLeaderId(compereId);
-		tt.setLeaderName(compere);
-		tt.setMemberId(selectStudentId);
-		tt.setMemberName(null);
-		tt.setTaskId(taskId);
-		tt.setProjectIntro(projectIntro);
-		tt.setTeamId(Common.uuid());
-		tt.setVirtualClassId(null);
-		tt.setStatus("正在进行");
-		turnClassService.insertTaskTeam(tt);
+		try {
+			tt.setAcceptTime(new Timestamp(System.currentTimeMillis()));
+			tt.setProjectName(projectName);
+			tt.setLeaderId(compereId);
+			tt.setLeaderName(compere);
+			tt.setMemberId(selectStudentId);
+			tt.setMemberName(null);
+			tt.setTaskId(taskId);
+			tt.setProjectIntro(projectIntro);
+			tt.setTeamId(Common.uuid());
+			tt.setVirtualClassId(null);
+			tt.setStatus("正在进行");
+			turnClassService.insertTaskTeam(tt);
+		} catch (Exception e) {
+			// TODO: handle exception
+			mv = toTurnClassTeam(request,taskId);
+		}
 		mv = toTurnClassTeam(request,taskId);
 		return mv;
 	}
@@ -629,8 +664,8 @@ public class TurnClassController {
 		mv = toDesignBeforeClass(request,taskId,teamId);
 		return mv;
 	}
-	
-	
+
+
 	@RequestMapping(value="insertEndAchievement/{stage}",method= {RequestMethod.GET})
 	public ModelAndView insertEndAchievement(@PathVariable String stage,HttpServletRequest request,@RequestParam("taskId")String taskId,@RequestParam("teamId")String teamId,@RequestParam("detail")String detail,@RequestParam("authorId")String authorId) throws Exception {
 		ModelAndView mv = new ModelAndView();
@@ -690,8 +725,8 @@ public class TurnClassController {
 		mv = toEndAchievement(request,taskId,teamId);
 		return mv;
 	}
-	
-	
+
+
 
 	@RequestMapping(value="insertClassAfterModify/{stage}",method= {RequestMethod.GET})
 	public ModelAndView insertClassAfterModify(@PathVariable String stage,HttpServletRequest request,@RequestParam("taskId")String taskId,@RequestParam("teamId")String teamId,@RequestParam("detail")String detail,@RequestParam("authorId")String authorId) throws Exception {

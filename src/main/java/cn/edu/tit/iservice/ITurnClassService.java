@@ -48,4 +48,8 @@ public interface ITurnClassService {
 
 	void insertEndAchievement(TurnClassAchievement tp)throws Exception;
 
+	TurnClassFeedback queryFeedBack(String taskId) throws Exception;
+
+	TurnClassAccessory queryTurnAccessory(String taskId, String teamId)throws Exception;
+
 }

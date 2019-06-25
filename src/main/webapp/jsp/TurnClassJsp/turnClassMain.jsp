@@ -43,37 +43,65 @@ a:hover {
 	text-decoration: none;
 }
 </style>
+<script type="text/javascript">
+	function attention() {
+		//alert('${course.courseId}');
+		$
+				.ajax({
+					async : false,
+					cache : false,
+					url : "${pageContext.request.contextPath}/teacher/ajaxAttentionCourse",
+					data : {
+						'courseId' : '${course.courseId}'
+					},
+					type : "POST",
+					dataType : "text",
+					success : function(result) {
+						alert(eval(result));
+						if (eval(result) == "关注成功！") {
+							$("#attention").html("已关注");
+						} else {
+							$("#attention").html("关注");
+						}
+					}
+				});
+	}
+</script>
 </head>
 <body>
-	<div class="col-md-12" style="width: 80%; margin-left: 10%">
-		<div class="col-md-12">
+	<jsp:include page="/jsp/top.jsp" flush="true" />
+	<main>
+	<div style="width: 80%; margin-left: 10%">
+		<div class="col-md-12" style="margin-top:1%;background-color: white;">
 			<h3>课堂翻转</h3>
 		</div>
-		<div class="col-md-4" style="background-color: white;">
+		<div class="col-md-12" style="margin-top:1%">
 			<c:forEach items="${taskList }" var="item">
-				<a
-					href="${pageContext.request.contextPath}/turnClass/toTurnClassTeam?taskId=${item.taskId }">
-					<div clas="col-md-12">
-						<h3 class="text-center">
-							<b>${item.taskTitle }</b>
-						</h3>
-						<p class="text-center">
-							<c:forEach items="${item.classList }" var="i">
+				<div style="background-color: white;width: 32%;float:left;margin-left:1%;margin-top:1%;">
+					<a
+						href="${pageContext.request.contextPath}/turnClass/toTurnClassTeam?taskId=${item.taskId }">
+						<div clas="col-md-12">
+							<h3 class="text-center">
+								<b>${item.taskTitle }</b>
+							</h3>
+							<p class="text-center">
+								<c:forEach items="${item.classList }" var="i">
 							${i.realClassNum }
 						</c:forEach>
-						</p>
-						<p class="description">
-							<b>${item.taskDetail }</b>
-						</p>
-						<div class="col-md-12" style="padding: 0px">
-							<p class="pull-left">发布人：${item.publisherId }</p>
-							<p class="pull-right">
-								<fmt:formatDate value="${item.publishTime }"
-									pattern="yyyy年MM月dd日" />
 							</p>
+							<p class="description">
+								<b>${item.taskDetail }</b>
+							</p>
+							<div class="col-md-12" style="padding: 0px">
+								<p class="pull-left">发布人：${item.publisherId }</p>
+								<p class="pull-right">
+									<fmt:formatDate value="${item.publishTime }"
+										pattern="yyyy年MM月dd日" />
+								</p>
+							</div>
 						</div>
-					</div>
-				</a>
+					</a>
+				</div>
 			</c:forEach>
 		</div>
 	</div>

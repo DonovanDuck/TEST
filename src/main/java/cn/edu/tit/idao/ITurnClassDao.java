@@ -48,5 +48,9 @@ public interface ITurnClassDao {
 
 	void insertFeedBack(TurnClassFeedback fb)throws Exception;
 
+	TurnClassFeedback queryFeedBack(@Param("taskId")String taskId)throws Exception;
+
+	TurnClassAccessory queryTurnAccessory(@Param("taskId")String taskId, @Param("teamId")String teamId);
+
 
 }

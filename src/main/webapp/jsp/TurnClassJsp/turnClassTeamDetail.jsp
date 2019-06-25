@@ -107,14 +107,14 @@
 				</p>
 			</div>
 			<div class="detailContent col-md-12">${task.taskDetail }</div>
-			<div class="fileContent col-md-12" style="margin-top: 1%">
-				<h5>几个附件</h5>
-				<div>
-					<input type="file" id="file_excel" name="file_excel"
-						style="float: left"> <input type="file" id="file_excel"
-						name="file_excel" style="float: left">
-				</div>
-			</div>
+			<br> <br> <br> <br> <br> <span>附件</span>
+			<ul class="more">
+				<c:forEach items="${task.accessoryList }" var="accessory">
+					<li class="left"><img src="img/头像.png" /> <a
+						href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">${accessory.accessoryName }</a>
+					</li>
+				</c:forEach>
+			</ul>
 			<p class="pull-right" style="margin-right: 6%">
 				发布时间：
 				<fmt:formatDate value="${task.publishTime }" pattern="yyyy年MM月dd日" />
@@ -125,7 +125,7 @@
 		style="width: 82%; margin-left: 9%; margin-top: 1%; padding: 0px">
 		<div class="col-md-12" style="background-color: white;">
 			<h3>项目名称：${taskTeam.projectName }</h3>
-			<h3>项目名称：${taskTeam.projectIntro }</h3>
+			<h3>项目简介：${taskTeam.projectIntro }</h3>
 		</div>
 		<div class="col-md-12" style="padding: 0px">
 			<ul class="nav nav-pills nav-justified"

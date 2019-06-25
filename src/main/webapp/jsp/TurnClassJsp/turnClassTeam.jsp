@@ -92,11 +92,13 @@
 					});
 		}
 		function ajaxStudent() {
+			var taskId = $("#taskId").val();
 			$
 					.ajax({
 						async : false,
 						cache : false,
-						url : "${pageContext.request.contextPath}/turnClass/getRealClassAllStudent",
+						url : "${pageContext.request.contextPath}/turnClass/getRealClassAllStudent/"
+								+ taskId,
 						type : "POST",
 						dataType : "text",
 						success : function(result) {
@@ -196,6 +198,11 @@
 				alert("项目名称未填写");
 				judge = false;
 			}
+			var intro = $("#projectIntro").val();
+			if (intro == "") {
+				alert("项目简介未填写");
+				judge = false;
+			}
 			if (id == "") {
 				alert("成员未填写");
 				judge = false;
@@ -245,11 +252,15 @@
 	<div class="main_b_top row">
 		<h3 class="col-md-12">任务描述</h3>
 		<div class="details col-md-12">${task.taskDetail }</div>
-		<div class="enclosure col-md-12">
-			<img src="../images/word.png" alt="">&nbsp;&nbsp; <img
-				src="../images/word.png" alt=""> &nbsp;&nbsp;<img
-				src="../images/word.png" alt="">
-		</div>
+		<br> <br> <br> <br> <br> 
+		<span>附件</span>
+		<ul class="more">
+			<c:forEach items="${task.accessoryList }" var="accessory">
+				<li class="left"><img src="img/头像.png" /> <a
+					href="${pageContext.request.contextPath}/teacher/resourceDownload?fileName=${accessory.accessoryName }&id=${task.taskId }">${accessory.accessoryName }</a>
+				</li>
+			</c:forEach>
+		</ul>
 		<div class="time col-md-4">
 			<p>
 				发布时间：
@@ -269,9 +280,6 @@
 						</div>
 						<div class="group_name col-md-6">
 							<h4>${item.projectName }</h4>
-						</div>
-						<div class="group_status col-md-2">
-							<button type="button" class="btn btn-default">课前准备</button>
 						</div>
 					</div>
 					<div class="group_m">

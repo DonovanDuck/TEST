@@ -50,10 +50,30 @@
 			}
 		})
 	};
+
+	function buttonSubmit() {
+		var judge = true;
+		var pptFile = $("#pptFile").val();
+		if (pptFile == "" && judge) {
+			alert("上传文件为空，请上传");
+			judge = false;
+		}
+		if (judge) {
+			$("#formContent").submit();
+		}
+	}
+
+	function filesize(ele) {
+		var size = (ele.files[0].size / 1024).toFixed(2);
+		if (size >= 1024) {
+			$(ele).val("");
+			alert("文件大小超过1MB，重新编辑后上传");
+		}
+	}
 </script>
 </head>
 <body style="background-color: white;">
-	<form id="formContent"  method="post"
+	<form id="formContent" method="post"
 		action="${pageContext.request.contextPath}/turnClass/insertFeedBack"
 		enctype="multipart/form-data">
 		<div class="col-md-12" id="content" style="margin-top: 2%">
@@ -64,7 +84,7 @@
 		<div class="col-md-12" style="margin-top: 2%">
 			<label for="inputEmail3" class="col-sm-1 control-label">上传视频</label>
 			<input type="file" id="pptFile" name="pptFile" class="col-md-3"
-				style="padding: 0px">
+				style="padding: 0px" onchange="filesize(this)">
 			<div class="col-sm-3" style="padding-left: 0px;">
 				<select class="form-control" id="authorId" name="authorId">
 					<option value="${team.leaderId }">${team.leaderName }</option>
@@ -77,9 +97,8 @@
 				<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
 				<div class="col-md-4 pull-right" style="margin-top: -1%">
 					<div class="btn-group" role="group" aria-label="...">
-						<button type="button" class="btn btn-default">上一步</button>
-						<button type="submit" class="btn btn-default">保存</button>
-						<button type="button" class="btn btn-success">下一步</button>
+						<button type="button" onclick="buttonSubmit()"
+							class="btn btn-default">保存</button>
 					</div>
 				</div>
 			</div>
