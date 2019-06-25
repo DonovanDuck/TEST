@@ -134,12 +134,12 @@ public class TeacherController {
 					mv.addObject("teacher",teacher);
 				}
 				else {
-					request.getSession().setAttribute("readResult", "密码错误");//返回信息
+					request.getSession().setAttribute("readResult", "密码错误！");//返回信息
 
 					mv.setViewName("/jsp/Teacher/index");//设置返回页面
 				}
 			} catch (Exception e) {
-				request.getSession().setAttribute("readResult", "登录异常，请刷新本页后重新登录");//返回信息
+				request.getSession().setAttribute("readResult", "用户名错误！");//返回信息
 					mv.setViewName("/jsp/Teacher/index");//设置返回页面
 
 				e.printStackTrace();
@@ -149,6 +149,7 @@ public class TeacherController {
 		 */
 		return mv;	
 	}
+
 
 	/**
 	 * @author LiMing

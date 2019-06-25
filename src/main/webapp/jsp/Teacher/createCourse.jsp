@@ -173,7 +173,7 @@
 				type : "POST",
 				dataType:"text",
 				success:function(result) {
-					if(eval(result)!="null")
+					if(eval(result)!="null" && eval(result)!=null)
 						alert(eval(result));
 					if(eval(result) == "此课程已存在，不能重复发布，请修改课程名！"){
 						flag = false;
