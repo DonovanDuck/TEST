@@ -583,5 +583,6 @@ public interface ITeacherDao {
 	public void addTeamMember(@Param("employeeNum")String employeeNum,@Param("id")String id,@Param("manager")int manager);
 	
 	public Integer getMaxManager(String employeeNum);
+	public String searchTaskMapVir(@Param("taskId")String taskId);
 
 }

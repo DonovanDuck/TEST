@@ -5,6 +5,7 @@
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -35,43 +36,100 @@
 		})
 	};
 </script>
+<script type="text/javascript">
+	function filesize(ele) {
+		var size = (ele.files[0].size / 1024).toFixed(2);
+		if (size >= 1024) {
+			$(ele).val("");
+			alert("文件大小超过1MB，重新编辑后上传");
+		}
+	}
+
+	function submitBUtton() {
+		var ppt = $("#pptFile").val();
+		var tech = $("#techFile").val();
+		var code = $("#codeFile").val();
+		var judge = true;
+		if (ppt = "" && judge) {
+			alert("PPT资源为空，请上传");
+			judge = false;
+		}
+		if (tech = "" && judge) {
+			alert("工程技术资源为空，请上传");
+			judge = false;
+		}
+		if (code = "" && judge) {
+			alert("项目代码资源为空，请上传");
+			judge = false;
+		}
+		if (judge) {
+			$("#formContent").submit();
+		}
+	}
+</script>
 </head>
 <body style="background-color: white;">
 	<div class="col-md-12" style="margin-top: 2%">
-		<form class="form-horizontal">
+		<form id="formContent" method="post"
+			action="${pageContext.request.contextPath}/turnClass/insetPrepareForCourse"
+			enctype="multipart/form-data">
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">上传课程PPT资源</label>
 				<div class="col-sm-10">
 					<input type="file" id="pptFile" name="pptFile" class="col-md-3"
-						style="padding: 0px" placeholder="课程PPT资源"><input
-						type="text" class="col-md-3" class="form-control"
-						style="width: 15%" placeholder="步骤设计者">
+						style="padding: 0px" placeholder="课程PPT资源"
+						onchange="filesize(this)">
+					<div class="col-sm-3" style="padding-left: 0px;">
+						<select class="form-control" id="pptAuthor" name="pptAuthor">
+							<option value="${team.leaderId }">${team.leaderName }</option>
+							<c:forEach items="${team.listStu }" var="l">
+								<option value="${l.studentId }">${l.studentName}</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 			</div>
+			<input name="taskId" value="${task.taskId }" style="display: none">
+			<input name="teamId" value="${team.teamId }" style="display: none">
 			<div class="form-group">
 				<label for="inputEmail3" class="col-sm-2 control-label">上传工程技术资源</label>
 				<div class="col-sm-10">
 					<input type="file" id="techFile" name="techFile" class="col-md-3"
-						style="padding: 0px" placeholder="工程技术资源"><input
-						type="text" class="col-md-3" class="form-control"
-						style="width: 15%" placeholder="步骤设计者">
+						style="padding: 0px" placeholder="工程技术资源"
+						onchange="filesize(this)">
+					<div class="col-sm-3" style="padding-left: 0px;">
+						<select class="form-control" id="techAuthor" name="techAuthor">
+							<option value="${team.leaderId }">${team.leaderName }</option>
+							<c:forEach items="${team.listStu }" var="l">
+								<option value="${l.studentId }">${l.studentName}</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 			</div>
 			<div class="form-group">
 				<label for="codeFile" class="col-sm-2 control-label">上传项目代码资源</label>
 				<div class="col-sm-10">
 					<input type="file" id="codeFile" name="codeFile" class="col-md-3"
-						style="padding: 0px" placeholder="项目代码资源"><input
-						type="text" class="col-md-3" class="form-control"
-						style="width: 15%" placeholder="步骤设计者">
+						style="padding: 0px" placeholder="项目代码资源"
+						onchange="filesize(this)">
+					<div class="col-sm-3" style="padding-left: 0px;">
+						<select class="form-control" id="codeAuthor" name="codeAuthor">
+							<option value="${team.leaderId }">${team.leaderName }</option>
+							<c:forEach items="${team.listStu }" var="l">
+								<option value="${l.studentId }">${l.studentName}</option>
+							</c:forEach>
+						</select>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-12" style="padding: 0px; margin-top: 2%;">
-				<p class="pull-left">最后修改时间：2011-05-99 12:00:00</p>
+				<p class="pull-left">最后修改时间：</p>
 				<div class="col-md-4 pull-right" style="margin-top: -1%">
 					<div class="btn-group" role="group" aria-label="...">
 						<button type="button" class="btn btn-default">上一步</button>
-						<button type="button" class="btn btn-default">保存</button>
+						<button type="button" onclick="submitBUtton()"
+							class="btn btn-default">保存</button>
 						<button type="button" class="btn btn-success">下一步</button>
 					</div>
 				</div>

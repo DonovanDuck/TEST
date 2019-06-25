@@ -855,6 +855,7 @@ public interface ITeacherService {
 	public void addTeamMember(String employeeNum,String id,int manager);
 	
 	public Integer getMaxManager(String employeeNum);
+	public String searchTaskMapVir(String taskId);
 	
 	public String deleteTaskAccByTid(String resourceId);
 	

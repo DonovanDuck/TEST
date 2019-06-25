@@ -7,6 +7,8 @@ import java.sql.Timestamp;
 public class TurnClassAchievement {
 	private String id;
 	private String taskId;//翻转任务ID
+	private String teamId;//小组id
+	private String stage;
 	private Integer planStage;
 	private Integer demandStage;
 	private Integer designStage;
@@ -29,6 +31,18 @@ public class TurnClassAchievement {
 	}
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
+	}
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
+	public String getStage() {
+		return stage;
+	}
+	public void setStage(String stage) {
+		this.stage = stage;
 	}
 	public Integer getPlanStage() {
 		return planStage;
@@ -98,18 +112,20 @@ public class TurnClassAchievement {
 	}
 	@Override
 	public String toString() {
-		return "TurnClassAchievement [id=" + id + ", taskId=" + taskId + ", planStage=" + planStage + ", demandStage="
-				+ demandStage + ", designStage=" + designStage + ", arithmeticStage=" + arithmeticStage + ", testStage="
-				+ testStage + ", authorId=" + authorId + ", authorName=" + authorName + ", authorPicture="
-				+ authorPicture + ", accessoryPath=" + accessoryPath + ", uploadTime=" + uploadTime + ", content="
-				+ content + "]";
+		return "TurnClassAchievement [id=" + id + ", taskId=" + taskId + ", teamId=" + teamId + ", stage=" + stage
+				+ ", planStage=" + planStage + ", demandStage=" + demandStage + ", designStage=" + designStage
+				+ ", arithmeticStage=" + arithmeticStage + ", testStage=" + testStage + ", authorId=" + authorId
+				+ ", authorName=" + authorName + ", authorPicture=" + authorPicture + ", accessoryPath=" + accessoryPath
+				+ ", uploadTime=" + uploadTime + ", content=" + content + "]";
 	}
-	public TurnClassAchievement(String id, String taskId, Integer planStage, Integer demandStage, Integer designStage,
-			Integer arithmeticStage, Integer testStage, String authorId, String authorName, String authorPicture,
-			String accessoryPath, Timestamp uploadTime, String content) {
+	public TurnClassAchievement(String id, String taskId, String teamId, String stage, Integer planStage,
+			Integer demandStage, Integer designStage, Integer arithmeticStage, Integer testStage, String authorId,
+			String authorName, String authorPicture, String accessoryPath, Timestamp uploadTime, String content) {
 		super();
 		this.id = id;
 		this.taskId = taskId;
+		this.teamId = teamId;
+		this.stage = stage;
 		this.planStage = planStage;
 		this.demandStage = demandStage;
 		this.designStage = designStage;
@@ -127,5 +143,5 @@ public class TurnClassAchievement {
 		// TODO Auto-generated constructor stub
 	}
 	
-
+	
 }

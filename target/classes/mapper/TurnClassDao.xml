@@ -9,11 +9,32 @@
 		<result column="task_id" property="taskId" />
 		<result column="author_id" property="authorId" />
 		<result column="upload_time" property="uploadTime" />
+		<result column="accessory_path" property="accessoryPath" />
+		<result column="team_id" property="teamId" />
+		<result column="stage" property="stage" />
+		<result column="only_one" property="unique" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.Student" id="studentMap">
+		<id column="student_id" property="studentId" />
+		<result column="student_name" property="studentName" />
+		<result column="student_nickname" property="studentNickName" />
+		<result column="student_gender" property="studentGender" />
+		<result column="student_password" property="studentPassword" />
+		<result column="real_class_num" property="classNum" />
+		<result column="professional" property="professional" />
+		<result column="telephone" property="telephone" />
+		<result column="email" property="email" />
+		<result column="face_img" property="faceImg" />
+		<result column="status" property="status" />
+		<result column="student_note" property="studentNote" />
+		<result column="student_category" property="studentCategory" />
 	</resultMap>
 	<resultMap type="cn.edu.tit.bean.TurnClassAchievement" id="turnClassAchievementMap">
 		<id column="id" property="id" />
 		<result column="task_id" property="taskId" />
 		<result column="plan_stage" property="planStage" />
+		<result column="stage" property="stage" />
+		<result column="team_id" property="teamId" />
 		<result column="demand_stage" property="demandStage" />
 		<result column="design_stage" property="designStage" />
 		<result column="arithmetic_stage" property="arithmeticStage" />
@@ -25,6 +46,19 @@
 		<result column="upload_time" property="uploadTime" />
 		<result column="content" property="content" />
 	</resultMap>
+	<resultMap type="cn.edu.tit.bean.TurnClassTask" id="turnClassTaskMap">
+		<id column="id" property="taskId" />
+		<result column="task_name" property="taskName" />
+		<result column="virtual_class_nun" property="virtualClassNun" />
+		<result column="task_introduction" property="taskIntroduction" />
+		<result column="task_detail" property="taskDetail" />
+		<result column="category" property="category" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="start_time" property="startTime" />
+		<result column="end_time" property="endTime" />
+		<result column="course_id" property="courseId" />
+		<result column="accessory_path" property="accessoryPath" />
+	</resultMap>
 	<resultMap type="cn.edu.tit.bean.TurnClassAfterModify" id="turnClassAfterModifyMap">
 		<id column="id" property="id" />
 		<result column="task_id" property="taskId" />
@@ -34,6 +68,8 @@
 		<result column="arithmetic_stage" property="arithmeticStage" />
 		<result column="test_stage" property="testStage" />
 		<result column="author_id" property="authorId" />
+		<result column="stage" property="stage" />
+		<result column="team_id" property="teamId" />
 		<result column="author_name" property="authorName" />
 		<result column="author_picture" property="authorPicture" />
 		<result column="accessory_path" property="accessoryPath" />
@@ -49,6 +85,20 @@
 		<result column="conent" property="conent" />
 		<result column="comment_time" property="commentTime" />
 		<result column="task_id" property="taskId" />
+	</resultMap>
+	<resultMap type="cn.edu.tit.bean.Task" id="taskMap">
+		<id column="task_id" property="taskId" />
+		<result column="task_title" property="taskTitle" />
+		<result column="task_detail" property="taskDetail" />
+		<result column="publish_time" property="publishTime" />
+		<result column="publisher_id" property="publisherId" />
+		<result column="task_end_time" property="taskEndTime" />
+		<result column="course_id" property="courseId" />
+		<result column="status" property="status" />
+		<result column="task_category" property="taskType" />
+		<result column="use_num" property="useNum" />
+		<result column="watch_num" property="watchNum" />
+		<result column="knowledge_points" property="knowledgePoints" />
 	</resultMap>
 	<resultMap type="cn.edu.tit.bean.TurnClassCommentFromTeacher"
 		id="turnClassCommentFromTeacherMap">
@@ -69,12 +119,14 @@
 		<result column="accessory_id" property="accessoryId" />
 		<result column="task_id" property="taskId" />
 		<result column="upload_time" property="uploadTime" />
+		<result column="team_id" property="teamId" />
 	</resultMap>
 	<resultMap type="cn.edu.tit.bean.TurnClassPlanForClass" id="turnClassPlanForClassMap">
 		<id column="id" property="id" />
 		<result column="task_id" property="taskId" />
 		<result column="plan_stage" property="planStage" />
 		<result column="demand_stage" property="demandStage" />
+		<result column="team_id" property="teamId" />
 		<result column="design_stage" property="designStage" />
 		<result column="arithmetic_stage" property="arithmeticStage" />
 		<result column="test_stage" property="testStage" />
@@ -84,6 +136,7 @@
 		<result column="accessory_path" property="accessoryPath" />
 		<result column="upload_time" property="uploadTime" />
 		<result column="content" property="content" />
+		<result column="stage" property="stage" />
 	</resultMap>
 	<resultMap type="cn.edu.tit.bean.TurnClassPlanForCourse" id="turnClassPlanForCourseMap">
 		<id column="id" property="id" />
@@ -91,29 +144,9 @@
 		<result column="author_id" property="authorId" />
 		<result column="author_name" property="authorName" />
 		<result column="author_picture" property="authorPicture" />
-		<result column="accessory_path" property="accessoryPath" />
 		<result column="task_id" property="taskId" />
 		<result column="upload_time" property="uploadTime" />
-	</resultMap>
-	<resultMap type="cn.edu.tit.bean.TurnClassTask" id="turnClassTaskMap">
-		<id column="id" property="taskId" />
-		<result column="task_name" property="taskName" />
-		<result column="virtual_class_nun" property="virtualClassNun" />
-		<result column="task_introduction" property="taskIntroduction" />
-		<result column="task_detail" property="taskDetail" />
-		<result column="category" property="category" />
-		<result column="publisher_id" property="publisherId" />
-		<result column="start_time" property="startTime" />
-		<result column="end_time" property="endTime" />
-		<result column="course_id" property="courseId" />
-		<result column="accessory_path" property="accessoryPath" />
-	</resultMap>
-	<resultMap type="cn.edu.tit.bean.TurnClassTaskToTeam" id="turnClassTaskToTeamMap">
-		<id column="id" property="id" />
 		<result column="team_id" property="teamId" />
-		<result column="accept_time" property="acceptTaskTime" />
-		<result column="status" property="status" />
-		<result column="task_id" property="taskId" />
 	</resultMap>
 	<resultMap type="cn.edu.tit.bean.TurnClassTeam" id="turnClassTeamMap">
 		<id column="team_id" property="teamId" />
@@ -122,7 +155,258 @@
 		<result column="member_id" property="memberId" />
 		<result column="member_name" property="memberName" />
 		<result column="task_id" property="taskId" />
+		<result column="status" property="status" />
 		<result column="accept_time" property="acceptTime" />
 		<result column="virtual_class_id" property="virtualClassId" />
+		<result column="project_name" property="projectName" />
+		<result column="project_intro" property="projectIntro" />
 	</resultMap>
+
+	<select id="getAllTurnClass" resultMap="taskMap">
+		select * from
+		task where
+		task_category = "turn_class";
+	</select>
+
+	<select id="getAllStudentByRealClass" parameterType="java.lang.String"
+		resultMap="studentMap">
+		select * from
+		student where
+		real_class_num = #{realClassNum};
+	</select>
+
+	<select id="readAllTeamForTask" parameterType="java.lang.String"
+		resultMap="turnClassTeamMap">
+		select * from
+		turn_class_team where
+		task_id =
+		#{taskId};
+	</select>
+
+	<select id="getTaskById" parameterType="java.lang.String"
+		resultMap="taskMap">
+		select * from
+		task where
+		task_id =
+		#{taskId};
+	</select>
+
+	<select id="getTeamById" parameterType="java.lang.String"
+		resultMap="turnClassTeamMap">
+		select * from
+		turn_class_team where
+		team_id =
+		#{teamId};
+	</select>
+
+	<select id="statusCheckout" parameterType="java.lang.String"
+		resultMap="turnClassPlanForClassMap">
+		select * from
+		turn_class_plan_for_class where
+		team_id =
+		#{teamId} and task_id = #{taskId} order by stage;
+	</select>
+
+	<select id="statusCheckoutEnd" parameterType="java.lang.String"
+		resultMap="turnClassAchievementMap">
+		select * from
+		turn_class_achievement where
+		team_id =
+		#{teamId}
+		and task_id = #{taskId} order by stage;
+	</select>
+
+	<select id="statusCheckoutModify" parameterType="java.lang.String"
+		resultMap="turnClassAfterModifyMap">
+		select * from
+		turn_class_after_modify where
+		team_id =
+		#{teamId} and task_id = #{taskId} order by stage;
+	</select>
+
+	<select id="queryFeedBack" parameterType="java.lang.String"
+		resultMap="turnClassFeedbackMap">
+		select * from
+		turn_class_feedback where task_id = #{taskId};
+	</select>
+
+	<select id="queryTurnAccessory" parameterType="java.lang.String"
+		resultMap="turnClassAccessoryMap">
+		select * from
+		turn_class_accessory where task_id = #{taskId}
+		and team_id = #{teamId};
+	</select>
+
+	<insert id="insertTaskTeam" parameterType="cn.edu.tit.bean.TurnClassTeam">
+		INSERT INTO
+		turn_class_team
+		(team_id,
+		leader_id,
+		leader_name,
+		member_id,
+		member_name,
+		task_id,
+		accept_time,
+		virtual_class_id,
+		status,
+		project_name,
+		project_intro)
+		VALUES
+		(#{teamId},#{leaderId},#{leaderName},#{memberId},#{memberName},#{taskId},#{acceptTime},#{virtualClassId},#{status},#{projectName},#{projectIntro});
+	</insert>
+
+	<insert id="insertTurnClassPlanForCourse" parameterType="cn.edu.tit.bean.TurnClassPlanForCourse">
+		replace
+		into turn_class_plan_for_course
+		(id,
+		content,
+		author_id,
+		author_name,
+		author_picture,
+		task_id,
+		upload_time,
+		team_id
+		)
+		VALUES
+		(#{id},#{content},#{authorId},#{authorName},#{authorPicture},#{taskId},#{uploadTime},#{teamId});
+	</insert>
+
+	<insert id="insertTurnClassAccessory" parameterType="cn.edu.tit.bean.TurnClassAccessory">
+		INSERT INTO
+		turn_class_accessory
+		(accessory_id,
+		accessory_name,
+		accessory_category,
+		task_id,
+		upload_time,
+		author_id,
+		accessory_path,
+		team_id,stage,only_one)VALUES(#{accessoryId},#{accessoryName},#{accessoryCategory},#{taskId},#{uploadTime},#{authorId},#{accessoryPath},#{teamId},#{stage},#{unique});
+	</insert>
+
+	<insert id="insertPrepareForClass" parameterType="cn.edu.tit.bean.TurnClassPlanForClass">
+		INSERT INTO
+		turn_class_plan_for_class
+		(id,
+		task_id,
+		plan_stage,
+		demand_stage,
+		design_stage,
+		arithmetic_stage,
+		test_stage,
+		author_id,
+		author_name,
+		author_picture,
+		accessory_path,
+		upload_time,
+		content,
+		team_id,
+		stage
+		)
+		VALUES
+		(#{id},
+		#{taskId},
+		#{planStage},
+		#{demandStage},
+		#{designStage},
+		#{arithmeticStage},
+		#{testStage},
+		#{authorId},
+		#{authorName},
+		#{authorPicture},
+		#{accessoryPath},
+		#{uploadTime},
+		#{content},
+		#{teamId},
+		#{stage}
+		);
+	</insert>
+	<insert id="insertEndAchievement" parameterType="cn.edu.tit.bean.TurnClassAchievement">
+		INSERT INTO
+		turn_class_achievement
+		(id,
+		task_id,
+		plan_stage,
+		demand_stage,
+		design_stage,
+		arithmetic_stage,
+		test_stage,
+		author_id,
+		author_name,
+		author_picture,
+		accessory_path,
+		upload_time,
+		content,
+		team_id,
+		stage
+		)
+		VALUES
+		(#{id},
+		#{taskId},
+		#{planStage},
+		#{demandStage},
+		#{designStage},
+		#{arithmeticStage},
+		#{testStage},
+		#{authorId},
+		#{authorName},
+		#{authorPicture},
+		#{accessoryPath},
+		#{uploadTime},
+		#{content},
+		#{teamId},
+		#{stage}
+		);
+	</insert>
+	<insert id="insertClassAfterModify" parameterType="cn.edu.tit.bean.TurnClassAfterModify">
+		INSERT INTO
+		turn_class_after_modify
+		(id,
+		task_id,
+		plan_stage,
+		demand_stage,
+		design_stage,
+		arithmetic_stage,
+		test_stage,
+		author_id,
+		author_name,
+		author_picture,
+		accessory_path,
+		upload_time,
+		content,
+		team_id,
+		stage
+		)
+		VALUES
+		(#{id},
+		#{taskId},
+		#{planStage},
+		#{demandStage},
+		#{designStage},
+		#{arithmeticStage},
+		#{testStage},
+		#{authorId},
+		#{authorName},
+		#{authorPicture},
+		#{accessoryPath},
+		#{uploadTime},
+		#{content},
+		#{teamId},
+		#{stage}
+		);
+	</insert>
+	<insert id="insertFeedBack" parameterType="cn.edu.tit.bean.TurnClassFeedback">
+		INSERT INTO
+		turn_class_feedback
+		(id,
+		content,
+		author_id,
+		accessory_id,
+		task_id,
+		upload_time,
+		team_id
+		)
+		VALUES
+		(#{id},#{content},#{authorId},#{accessoryId},#{taskId},#{uploadTime},#{teamId});
+	</insert>
 </mapper>

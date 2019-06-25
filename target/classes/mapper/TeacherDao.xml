@@ -54,7 +54,8 @@
 	</select>
 
 	<select id="getLeaveStudentIdList" resultType="java.lang.String">
-		select student_id from att_leave where attendance_id=#{attendanceId}
+		select student_id
+		from att_leave where attendance_id=#{attendanceId}
 	</select>
 	<select id="getTruancyStudentIdList" resultType="java.lang.String">
 		select
@@ -381,7 +382,7 @@
 		<result column="watch_num" property="watchNum" />
 		<result column="knowledge_points" property="knowledgePoints" />
 	</resultMap>
-	
+
 	<resultMap type="cn.edu.tit.bean.TeacherTeam" id="teamkMap">
 		<id column="publish_id" property="publishId" />
 		<result column="member_id" property="memberId" />
@@ -454,6 +455,11 @@
 		resultType="java.lang.String">
 		select task_id from class_task where virtual_class_num =
 		#{virtualClassNum} ;
+	</select>
+	<select id="searchTaskMapVir" parameterType="java.lang.String"
+		resultType="java.lang.String">
+		select virtual_class_num from class_task where task_id =
+		#{taskId} ;
 	</select>
 	<select id="searchTaskIdByCategory" resultType="java.lang.String">
 		select task_id from task where task_category =
@@ -668,9 +674,8 @@
 		select * from real_class where real_class_num =
 		#{realClassNum};
 	</select>
-	
-	<select id="searchCourse" resultMap="courseMap"
-		parameterType="java.lang.String">
+
+	<select id="searchCourse" resultMap="courseMap" parameterType="java.lang.String">
 		select * from course
 		<where>
 			course_name
@@ -696,7 +701,7 @@
 		select * from course
 		order by publish_time DESC limit 0,8;
 	</select>
-	
+
 	<!-- 根据时间获取前十二个课程信息到首页 -->
 	<select id="getAllCourse" resultMap="courseMap">
 		select * from course;
@@ -948,64 +953,71 @@
 
 	<!-- 获取虚拟班级学生数 -->
 	<select id="getTaskUserNum" parameterType="String" resultType="int">
-		select sum(real_person_num) from real_class where real_class_num in 
-			(select real_class_num from real_virtual_class where virtual_class_num = #{virtualClassNum});
+		select sum(real_person_num) from real_class where real_class_num in
+		(select real_class_num from real_virtual_class where virtual_class_num
+		= #{virtualClassNum});
 	</select>
-	
+
 	<!-- 获得已打卡的学生 -->
 	<select id="getStuAttended" parameterType="String" resultMap="studentMap">
 		select * from student where student_id in
-			(select student_id from attence where  attendance_id = #{attendanceId});
+		(select student_id from attence where attendance_id = #{attendanceId});
 	</select>
-	
-	<!--  获取某个班最近一次打卡是第几次 -->
+
+	<!-- 获取某个班最近一次打卡是第几次 -->
 	<select id="getLastAttIndex" parameterType="String" resultType="Integer">
-		select max(att_index) from attendance where virtual_class_num = #{virtualClassNum}
+		select max(att_index) from attendance where virtual_class_num =
+		#{virtualClassNum}
 	</select>
-	
+
 	<!-- 添加打卡 -->
 	<insert id="addAttendance" parameterType="cn.edu.tit.bean.Attendance">
 		insert into attendance
 		(attendance_id,
-		 virtual_class_num,
-		 att_index,
-		 attendance_time,
-		 attendance_num,
-		 total_num,
-		 leave_num,
-		 truancy_num,
-		 is_process,
-		 publish_id) values
-		 (#{attendanceId},
-		  #{virtualClassNum},
-		  #{attIndex},
-		  #{attendanceTime},
-		  #{attendanceNum},
-		  #{totalNum},
-		  #{leaveNum},
-		  #{truancyNum},
-		  1,
-		  #{publishId});
+		virtual_class_num,
+		att_index,
+		attendance_time,
+		attendance_num,
+		total_num,
+		leave_num,
+		truancy_num,
+		is_process,
+		publish_id) values
+		(#{attendanceId},
+		#{virtualClassNum},
+		#{attIndex},
+		#{attendanceTime},
+		#{attendanceNum},
+		#{totalNum},
+		#{leaveNum},
+		#{truancyNum},
+		1,
+		#{publishId});
 	</insert>
-	
+
 	<select id="getTaskById" resultMap="taskMap">
-		select * from task where task_id = #{taskId};
+		select * from task where
+		task_id = #{taskId};
 	</select>
-	
+
 	<update id="updateTask" parameterType="cn.edu.tit.bean.Task">
-		update task set task_detail = #{taskDetail},task_title=#{taskTitle}
-			where task_id =#{taskId};
+		update task set
+		task_detail = #{taskDetail},task_title=#{taskTitle}
+		where task_id =#{taskId};
 	</update>
-	
+
 	<delete id="deleteTaskAcc" parameterType="String">
-		delete from pub_accessory where task_id = #{taskId};
+		delete from
+		pub_accessory where task_id = #{taskId};
 	</delete>
-	
-	<select id="verifyLimitComment" parameterType="String" resultType="java.lang.Integer">
-		select count(*) from teacher_course where employee_num= #{userId} and
+
+	<select id="verifyLimitComment" parameterType="String"
+		resultType="java.lang.Integer">
+		select count(*) from teacher_course where employee_num=
+		#{userId} and
 		course_id = #{id};
 	</select>
-	
+
 	<select id="queryCourseByPartName" resultMap="courseMap"
 		parameterType="java.lang.String">
 		SELECT * FROM course
@@ -1015,68 +1027,82 @@
 		</where>
 		;
 	</select>
-	
+
 	<update id="updateCourseStudentNum">
-		update course set course_student_num = course_student_num + #{count}
-			where course_id =#{courseId}; 
+		update course set course_student_num =
+		course_student_num + #{count}
+		where course_id =#{courseId};
 	</update>
-	
+
 	<!-- 学生打卡 -->
 	<insert id="attend">
-		insert into attence(student_id,attendance_id,att_time) values (#{studentId},#{attendanceId},#{atttime});
+		insert into
+		attence(student_id,attendance_id,att_time) values
+		(#{studentId},#{attendanceId},#{atttime});
 	</insert>
-	
+
 	<!-- 获得所有考勤 -->
 	<select id="getALLAtt" resultMap="attendanceMap">
 		select * from attendance;
 	</select>
-	
+
 	<select id="getAttRecordById" resultType="String">
-		select student_id from attence where attendance_id = #{attendanceId} and student_id = #{studentId};
+		select student_id from
+		attence where attendance_id = #{attendanceId} and student_id =
+		#{studentId};
 	</select>
-	
+
 	<insert id="setTruancy">
-		insert into truancy(attendance_id,student_id) values (#{attendanceId},#{studentId});
+		insert into truancy(attendance_id,student_id) values
+		(#{attendanceId},#{studentId});
 	</insert>
-	
+
 	<insert id="setLeave">
-		insert into att_leave(attendance_id,student_id) values (#{attendanceId},#{studentId});
+		insert into att_leave(attendance_id,student_id)
+		values (#{attendanceId},#{studentId});
 	</insert>
-	
+
 	<select id="getAttTime" resultType="String">
-		select att_time from attence where attendance_id = #{attendanceId} and student_id = #{studentId};
+		select att_time from attence
+		where attendance_id = #{attendanceId} and student_id = #{studentId};
 	</select>
-	
+
 	<select id="getIsAttend" resultType="Integer">
-		select is_process from attendance where virtual_class_num =#{virtualClassNum} and is_process = 1;
+		select is_process from
+		attendance where virtual_class_num =#{virtualClassNum} and is_process
+		= 1;
 	</select>
-	
+
 	<select id="getCurrentAttend" resultType="String">
-		select attendance_id from attendance where virtual_class_num =#{virtualClassNum} and is_process = 1;
+		select attendance_id
+		from attendance where virtual_class_num =#{virtualClassNum} and
+		is_process = 1;
 	</select>
-	
+
 	<!-- 关闭打卡 -->
 	<update id="endAttendance">
 		update attendance set is_process = 0
-			where attendance_id =#{attendanceId};  
+		where attendance_id =#{attendanceId};
 	</update>
-	
+
 	<update id="stuSetTruancy">
 		update student set status = -1;
 	</update>
-	
-	 <select id="getStuLeaveList">
-		select studentId from att_leave where attendance_id = #{attendanceId};
-	</select> 
-	
+
+	<select id="getStuLeaveList">
+		select studentId from att_leave where attendance_id =
+		#{attendanceId};
+	</select>
+
 	<insert id="addTeamMember">
-	insert into teacher_team(publish_id,member_id,manager) values(
+		insert into teacher_team(publish_id,member_id,manager) values(
 		#{employeeNum},
 		#{id},
 		#{manager}
-	);
+		);
 	</insert>
 	<select id="getMaxManager" resultType="Integer">
-		select max(manager) from teacher_team where publish_id = #{employeeNum};
+		select max(manager) from
+		teacher_team where publish_id = #{employeeNum};
 	</select>
 </mapper>

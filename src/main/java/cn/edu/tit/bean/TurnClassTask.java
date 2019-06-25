@@ -108,8 +108,4 @@ public class TurnClassTask {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	
-	
-	
-
 }

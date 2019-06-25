@@ -1,6 +1,7 @@
 package cn.edu.tit.bean;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 /**
  * 课堂准备
@@ -11,9 +12,10 @@ public class TurnClassPlanForCourse {
 	private String authorId;//作者id
 	private String authorName;//作者名
 	private String authorPicture;//作者头像
-	private String accessoryPath;//作者附件路径
+	private List<TurnClassAccessory> accessoryPath;//作者附件路径
 	private String taskId;//任务ID
 	private Timestamp uploadTime;//上传时间
+	private String teamId;
 	public String getId() {
 		return id;
 	}
@@ -44,10 +46,10 @@ public class TurnClassPlanForCourse {
 	public void setAuthorPicture(String authorPicture) {
 		this.authorPicture = authorPicture;
 	}
-	public String getaccessoryPath() {
+	public List<TurnClassAccessory> getAccessoryPath() {
 		return accessoryPath;
 	}
-	public void setaccessoryPath(String accessoryPath) {
+	public void setAccessoryPath(List<TurnClassAccessory> accessoryPath) {
 		this.accessoryPath = accessoryPath;
 	}
 	public String getTaskId() {
@@ -62,14 +64,20 @@ public class TurnClassPlanForCourse {
 	public void setUploadTime(Timestamp uploadTime) {
 		this.uploadTime = uploadTime;
 	}
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
+	}
 	@Override
 	public String toString() {
 		return "TurnClassPlanForCourse [id=" + id + ", content=" + content + ", authorId=" + authorId + ", authorName="
 				+ authorName + ", authorPicture=" + authorPicture + ", accessoryPath=" + accessoryPath + ", taskId="
-				+ taskId + ", uploadTime=" + uploadTime + "]";
+				+ taskId + ", uploadTime=" + uploadTime + ", teamId=" + teamId + "]";
 	}
 	public TurnClassPlanForCourse(String id, String content, String authorId, String authorName, String authorPicture,
-			String accessoryPath, String taskId, Timestamp uploadTime) {
+			List<TurnClassAccessory> accessoryPath, String taskId, Timestamp uploadTime, String teamId) {
 		super();
 		this.id = id;
 		this.content = content;
@@ -79,6 +87,7 @@ public class TurnClassPlanForCourse {
 		this.accessoryPath = accessoryPath;
 		this.taskId = taskId;
 		this.uploadTime = uploadTime;
+		this.teamId = teamId;
 	}
 	public TurnClassPlanForCourse() {
 		super();
@@ -86,5 +95,4 @@ public class TurnClassPlanForCourse {
 	}
 	
 	
-
 }

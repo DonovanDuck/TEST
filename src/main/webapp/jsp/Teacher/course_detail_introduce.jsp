@@ -23,10 +23,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	src="${pageContext.request.contextPath}/js/Admin/jquery-1.10.2.js"></script>
 </head>
 <body style="background: #fff;">
-
-
-
-				<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;${courseDetail }</p>
-				
+	<p>&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;${courseDetail }</p>
 </body>
 </html>

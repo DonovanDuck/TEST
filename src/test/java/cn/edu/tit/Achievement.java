@@ -13,13 +13,18 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import cn.edu.tit.bean.AchievementAccessory;
 import cn.edu.tit.bean.AchievementScore;
 import cn.edu.tit.bean.IURP;
+import cn.edu.tit.bean.TurnClassAccessory;
 import cn.edu.tit.iservice.IAchievementService;
+import cn.edu.tit.iservice.ITurnClassService;
 
 @RunWith(SpringJUnit4ClassRunner.class) // 表示继承了SpringJUnit4ClassRunner类
 @ContextConfiguration(locations = { "classpath:applicationContext.xml" })
 public class Achievement {
 	@Resource
 	private IAchievementService iAchievementService;
+	@Resource
+	private ITurnClassService turnClassService;
+	private TurnClassAccessory eca;
 	@Test
 	public void Test() throws Exception {
 		//		AchievementAccessory aa = new AchievementAccessory();
@@ -49,6 +54,20 @@ public class Achievement {
 		//			// TODO: handle exception
 		//			e.printStackTrace();
 		//		}
-
+		//		
+		//		TurnClassAccessory eca = new TurnClassAccessory();
+		//		eca.setAccessoryCategory("category");
+		//		eca.setAccessoryId("id");
+		//		eca.setAccessoryName("name");
+		//		eca.setAccessoryPath("path");
+		//		eca.setAuthorId("AUID");
+		//		eca.setStage("stage");
+		//		eca.setTaskId("taskId");
+		//		eca.setTeamId("teamId");
+		//		eca.setUnique("unique");
+		//		eca.setUploadTime(null);
+		//		turnClassService.insertTurnClassAccessory(eca);
+		
+		//TurnClassAchievement a = turnClassService.statusCheckoutEnd("", "");
 	}
 }

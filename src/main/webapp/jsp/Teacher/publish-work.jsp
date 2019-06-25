@@ -56,12 +56,6 @@
 	src="${pageContext.request.contextPath}/My97DatePicker/WdatePicker.js" charset="utf-8"></script>
 	<script type="text/javascript"
 	src="${pageContext.request.contextPath}/My97DatePicker/calendar.js" charset="utf-8"></script>
-	<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.config.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/ueditor.all.js"></script>
-<script type="text/javascript"
-	src="${pageContext.request.contextPath}/ueditor/zh-cn.js"></script>
 
 <script type="text/javascript">
 	
@@ -94,10 +88,6 @@
 				$("#preSelectTime").css("display","block");
 				
 			}
-			if(text=="翻转"){
-				$("#typeNameSelect").html("翻转");
-				$("#taskCategorySelect").val("turnClass");
-			}
 		
 			$tasktype=$("#taskCategorySelect").val();
 			$('#taskListTable').bootstrapTable(
@@ -127,10 +117,6 @@
 				$("#taskCategoryEdit").val("turn_class");
 				$("#preEditTime").css("display","block");
 				
-			}
-			if(text=="翻转"){
-				$("#typeNameEdit").html("翻转");
-				$("#taskCategoryEdit").val("turnClass");
 			}
 			
 			
@@ -530,7 +516,7 @@
 			 $("#taskTitleEdit").focus();
 			 return false;	 
 		 }
-		 if(!UE.getEditor('taskDetail').hasContents()&&!$('#accessory').get(0).files[0]){
+		 if($("#taskDetail").val()==""&&!$('#accessory').get(0).files[0]){
 			 alert("请输入作业描述或者选择上传的任务附件");
 			 return false;	
 		 }
@@ -652,7 +638,7 @@
 							<h3 class="panel-title">编辑任务</h3>
 						</div>
 
-						<textarea id="taskDetail" name="taskDetail" 
+						<textarea id="taskDetail" name="taskDetail" class="form-control"
 							style="width: 100%; height: 100px; resize: none;"
 							placeholder="编辑任务"></textarea>
 
@@ -805,20 +791,5 @@
 	<script type="text/javascript">
 		var app = angular.module('app', [ "wui.date" ]);
 	</script>
-	<script type="text/javascript">
-
-var ue = UE.getEditor('taskDetail',{
-
-    initialFrameWidth :798,//设置编辑器宽度
-
-    initialFrameHeight:100,//设置编辑器高度
-    initialFrameMargin:0,
-
-    scaleEnabled:true
-    
-
- });
-
-</script>
 </body>
 </html>

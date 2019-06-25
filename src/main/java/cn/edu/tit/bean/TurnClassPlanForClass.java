@@ -9,11 +9,13 @@ import java.sql.Timestamp;
 public class TurnClassPlanForClass {
 	private String id;
 	private String taskId;//翻转任务ID
+	private String teamId;//小组id
 	private Integer planStage;//计划阶段
 	private Integer demandStage;//需求阶段
 	private Integer designStage;//设计阶段
 	private Integer arithmeticStage;//关键算法技术阶段
 	private Integer testStage;//测试阶段
+	private String stage;
 	private String authorId;
 	private String authorName;
 	private String authorPicture;
@@ -31,6 +33,12 @@ public class TurnClassPlanForClass {
 	}
 	public void setTaskId(String taskId) {
 		this.taskId = taskId;
+	}
+	public String getTeamId() {
+		return teamId;
+	}
+	public void setTeamId(String teamId) {
+		this.teamId = teamId;
 	}
 	public Integer getPlanStage() {
 		return planStage;
@@ -61,6 +69,12 @@ public class TurnClassPlanForClass {
 	}
 	public void setTestStage(Integer testStage) {
 		this.testStage = testStage;
+	}
+	public String getStage() {
+		return stage;
+	}
+	public void setStage(String stage) {
+		this.stage = stage;
 	}
 	public String getAuthorId() {
 		return authorId;
@@ -98,25 +112,19 @@ public class TurnClassPlanForClass {
 	public void setContent(String content) {
 		this.content = content;
 	}
-	@Override
-	public String toString() {
-		return "TurnClassPlanForClass [id=" + id + ", taskId=" + taskId + ", planStage=" + planStage + ", demandStage="
-				+ demandStage + ", designStage=" + designStage + ", arithmeticStage=" + arithmeticStage + ", testStage="
-				+ testStage + ", authorId=" + authorId + ", authorName=" + authorName + ", authorPicture="
-				+ authorPicture + ", accessoryPath=" + accessoryPath + ", uploadTime=" + uploadTime + ", content="
-				+ content + "]";
-	}
-	public TurnClassPlanForClass(String id, String taskId, Integer planStage, Integer demandStage, Integer designStage,
-			Integer arithmeticStage, Integer testStage, String authorId, String authorName, String authorPicture,
-			String accessoryPath, Timestamp uploadTime, String content) {
+	public TurnClassPlanForClass(String id, String taskId, String teamId, Integer planStage, Integer demandStage,
+			Integer designStage, Integer arithmeticStage, Integer testStage, String stage, String authorId,
+			String authorName, String authorPicture, String accessoryPath, Timestamp uploadTime, String content) {
 		super();
 		this.id = id;
 		this.taskId = taskId;
+		this.teamId = teamId;
 		this.planStage = planStage;
 		this.demandStage = demandStage;
 		this.designStage = designStage;
 		this.arithmeticStage = arithmeticStage;
 		this.testStage = testStage;
+		this.stage = stage;
 		this.authorId = authorId;
 		this.authorName = authorName;
 		this.authorPicture = authorPicture;
