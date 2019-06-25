@@ -4,6 +4,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -1048,11 +1049,20 @@ public class TeacherServiceImpl implements ITeacherService{
 			for (Student studentUped : studentUpedList) {
 				System.out.println("查看已经提交的学生"+studentUped.getStudentName() );
 			}
-			HashSet h1 = new HashSet(studentAllList);
-			HashSet h2 = new HashSet(studentUpedList);
-			h1.removeAll(h2);
-			studentAllList.clear();
-			studentAllList.addAll(h1);
+			Iterator<Student> itlist = studentAllList.iterator();
+			while(itlist.hasNext()){
+				Student next = itlist.next();
+				for (String studentId : studentIdList) {
+					if(studentId.equals(next.getStudentId())) {
+						itlist.remove();
+					}
+				}
+			}
+			/*
+			 * HashSet h1 = new HashSet(studentAllList); HashSet h2 = new
+			 * HashSet(studentUpedList); h1.removeAll(h2); System.out.println(h1);
+			 * studentAllList.clear(); studentAllList.addAll(h1);
+			 */
 			System.out.println("-----------------------------------------------");
 			for (Student student : studentAllList) {
 				System.out.println("查看未提交的学生"+student.getStudentName() );
