@@ -263,6 +263,7 @@ var ue = UE.getEditor('courseDetail',{
 				</div>
 			</div>
 			<br> <br> <br> <br> <br>
+			<div style="clear: both;"></div>
 			<div class="form-group">
 				<label class="col-sm-2 control-label text-right"
 					style="margin-top: 1%">课程介绍：</label>
