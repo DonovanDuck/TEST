@@ -224,6 +224,19 @@
 		#{teamId} and task_id = #{taskId} order by stage;
 	</select>
 
+	<select id="queryFeedBack" parameterType="java.lang.String"
+		resultMap="turnClassFeedbackMap">
+		select * from
+		turn_class_feedback where task_id = #{taskId};
+	</select>
+
+	<select id="queryTurnAccessory" parameterType="java.lang.String"
+		resultMap="turnClassAccessoryMap">
+		select * from
+		turn_class_accessory where task_id = #{taskId}
+		and team_id = #{teamId};
+	</select>
+
 	<insert id="insertTaskTeam" parameterType="cn.edu.tit.bean.TurnClassTeam">
 		INSERT INTO
 		turn_class_team

@@ -57,17 +57,22 @@ public class TurnClassController {
 	@RequestMapping(value="toTurnClassMainPage",method= {RequestMethod.GET})
 	public ModelAndView toCourseSecond(HttpServletRequest request) throws Exception {
 		ModelAndView mv = new ModelAndView();
-		List<Task> list = new ArrayList<>();
+		List<Task> list = new ArrayList<>();//初步的list集合，其中的任何一个task可能对应多个虚拟班级
+		List<Task> endList = new ArrayList<>();//最终返回到前台的list集合
 		list = turnClassService.getAllTurnClass();
+		List<String> virList = new ArrayList<>();//一个任务可能对应多个班级
 		for (Task task : list) {
 			String taskId = task.getTaskId();
-			String virId = teacherService.searchTaskMapVir(taskId);
-			List<RealClass> listReal = teacherService.getRealClassList(virId);
-			task.setClassList(listReal);
-			Teacher tea = teacherService.teacherLoginByEmployeeNum(task.getPublisherId());
-			task.setPublisherId(tea.getTeacherName());
+			virList = teacherService.searchTurnTaskMapVir(taskId);//返回的是virtualClass集合
+			for (String string : virList) {
+				List<RealClass> listReal = teacherService.getRealClassList(string);
+				task.setClassList(listReal);
+				Teacher tea = teacherService.teacherLoginByEmployeeNum(task.getPublisherId());
+				task.setPublisherId(tea.getTeacherName());
+				endList.add(task);
+			}
 		}
-		mv.addObject("taskList",list);
+		mv.addObject("taskList",endList);
 		mv.setViewName("/jsp/TurnClassJsp/turnClassMain");
 		return mv;
 	}
