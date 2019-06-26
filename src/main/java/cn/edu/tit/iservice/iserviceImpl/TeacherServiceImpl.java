@@ -1514,4 +1514,9 @@ public class TeacherServiceImpl implements ITeacherService{
 		}
 	}
 
+	@Override
+	public List<String> searchTurnTaskMapVir(String taskId) {
+		return teacherDao.searchTurnTaskMapVir(taskId);
+	}
+
 }

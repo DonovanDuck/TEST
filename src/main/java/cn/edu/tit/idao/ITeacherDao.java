@@ -584,5 +584,6 @@ public interface ITeacherDao {
 	
 	public Integer getMaxManager(String employeeNum);
 	public String searchTaskMapVir(@Param("taskId")String taskId);
+	public List<String> searchTurnTaskMapVir(@Param("taskId")String taskId);
 
 }
