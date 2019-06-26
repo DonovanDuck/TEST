@@ -521,6 +521,7 @@
 			 return false;	
 		 }
 		 if($("#taskEndTimeEdit").val()==""){
+			 debugger;
 			 alert("请选择任务截至时间");
 			 $("#taskEndTimeEdit").focus();
 			 return false;	
@@ -532,9 +533,9 @@
 			 return false;	 
 		 }
 	
-		 if($("#taskEndTimeSelect").val()==""){
+		 if($("#taskEndTimeEdit").val()==""){
 			 alert("请选择任务截至时间");
-			 $("#taskEndTimeSelect").focus();
+			 $("#taskEndTimeEdit").focus();
 			 return false;	
 		 }
 	}
