@@ -27,7 +27,7 @@
 		<commons-io.version>2.5</commons-io.version>
 		<commons-codec.version>1.10</commons-codec.version>
 		<aspectjweaver.version>1.8.10</aspectjweaver.version>
-		<commons-beanutils.version>1.8.3</commons-beanutils.version>
+		<commons-beanutils.version>1.9.2</commons-beanutils.version>
 	</properties>
 
 	<dependencies>
